@@ -1,0 +1,33 @@
+.round_corners {
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px; }
+
+.clearboth {
+  font-size: 0;
+  line-height: 0;
+  height: 0;
+  display: block;
+  clear: both; }
+
+a:hover {
+  background-color: #FFFFE0;
+  color: black; }
+
+#fancybox-close:hover {
+  background-color: transparent; }
+
+/* layout: */
+
+body {
+  margin: auto;
+  /* center in viewport */
+  width: 960px; }
+
+#header, #footer {
+  margin: 10px;
+  height: 150px; }
+
+#auth_controls {
+  font-size: 85%;
+  text-align: right; }

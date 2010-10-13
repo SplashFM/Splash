@@ -1,0 +1,7 @@
+log/*
+test/*
+config/*yml
+public/system/*
+public/stylesheets/*.css
+tmp/
+*#
