@@ -16,6 +16,8 @@ set :notify_email, "dev@mojotech.com"
 role :app, "monorail.mojotech.com"
 role :web, "monorail.mojotech.com"
 role :db,  "monorail.mojotech.com", :primary => true
+set :db_user, "root"
+set :db_type, :mysql # or :postgresql
 
 #Custom Tasks
 
@@ -26,12 +28,16 @@ task :after_update_code, :roles => [:app] do
   run "cd #{release_path} && jammit"
 end
 
-#How to backup the DB
+# How to backup the DB
 desc "Backup production database"
 task :backup, :roles => :db, :only => { :primary => true } do
   db_name = "#{application}_production"
   run "mkdir -p #{shared_path}/dumps/"
-  run "mysqldump #{db_name} --single-transaction -u root | gzip  > #{shared_path}/dumps/#{db_name}_`date +%Y%m%d%H%M%S`.sql.gz"
+  dump_cmd = case db_type
+             when :mysql then "mysqldump --single-transaction -u #{db_user}"
+             when :postgresql then "pg_dump --clean --no-owner --no-privileges"
+             end
+  run "#{dump_cmd} #{db_name} | gzip  > #{shared_path}/dumps/#{db_name}_`date +%Y%m%d%H%M%S`.sql.gz"
 end
 
 desc "Send deploy notifications"
