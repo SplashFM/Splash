@@ -1,5 +1,6 @@
 #Required variables
 set :application, "scaphandrier"
+require 'bundler/capistrano'
 set :scm, "git"
 set :scm_verbose, true
 set :git_enable_submodules, 1
