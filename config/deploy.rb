@@ -2,26 +2,28 @@
 set :application, "scaphandrier"
 set :scm, "git"
 set :scm_verbose, true
+set :git_enable_submodules, 1
 set :repository,  "git@mojotech.unfuddle.com:mojotech/#{application}.git"
 set :branch, "master"
 
-#Optional variables
+# Optional variables
 set :user, "app"
 set :deploy_to, "/home/#{user}/#{application}"
 set :use_sudo, false
 set :deploy_via, :remote_cache
 set :notify_email, "dev@mojotech.com"
 
-#Roles
-role :app, "monorail.mojotech.com"
-role :web, "monorail.mojotech.com"
-role :db,  "monorail.mojotech.com", :primary => true
+# Roles
+set :host, "monorail.mojotech.com"
+role :app, "#{host}"
+role :web, "#{host}"
+role :db,  "#{host}", :primary => true
 set :db_user, "root"
 set :db_type, :mysql # or :postgresql
 
-#Custom Tasks
+# Custom Tasks
 
-#Copy config files and link upload
+# Copy config files and link upload
 task :after_update_code, :roles => [:app] do
   run "for f in #{shared_path}/config/*.yml; do [ -e $f ] && cp $f #{release_path}/config/; done || true"
   run "cd #{release_path} && rake sass:compile"
