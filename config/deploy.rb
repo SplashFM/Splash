@@ -2,7 +2,7 @@
 set :application, "scaphandrier"
 set :scm, "git"
 set :scm_verbose, true
-set :repository,  "git@mojotech.unfuddle.com:mojotech/scaphandrier.git"
+set :repository,  "git@mojotech.unfuddle.com:mojotech/#{application}.git"
 set :branch, "master"
 
 #Optional variables
