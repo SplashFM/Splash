@@ -28,7 +28,7 @@ set :db_type, :mysql # or :postgresql
 task :after_update_code, :roles => [:app] do
   run "for f in #{shared_path}/config/*.yml; do [ -e $f ] && cp $f #{release_path}/config/; done || true"
   run "cd #{release_path} && rake sass:compile"
-  run "cd #{release_path} && jammit"
+  run "cd #{release_path} && bundle exec jammit"
 end
 
 # How to backup the DB
