@@ -1,0 +1,23 @@
+embed_assets: on
+
+javascripts:
+  base:
+    - public/javascripts/jquery-1.4.2.js
+    - public/javascripts/jquery-ui-1.8.5.custom.min.js
+    - public/javascripts/jquery-ui-timepicker-addon.js
+    - public/javascripts/jquery.fancybox.js
+    - public/javascripts/rails_jquery.js
+    - public/javascripts/application.js
+
+stylesheets:
+  base:
+    - public/stylesheets/yui.css
+    - public/stylesheets/core.css
+    - public/stylesheets/jquery.fancybox.css
+    - public/stylesheets/ui-lightness/jquery-ui-1.8.5.custom.css
+    - public/stylesheets/navigation.css
+    - public/stylesheets/inline_labels.css
+    - public/stylesheets/formtastic.css
+    - public/stylesheets/formtastic_changes.css
+    - public/stylesheets/flash_messages.css
+    - public/stylesheets/style.css
