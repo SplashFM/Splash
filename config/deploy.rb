@@ -49,17 +49,22 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{current_path}/tmp/restart.txt"
   end
- 
+
   [:start, :stop].each do |t|
     desc "#{t} task is a no-op with mod_rails"
     task t, :roles => :app do ; end
   end
 end
 
-#Make sure we backup before migrations
+# Make sure we backup before migrations
 before "deploy:migrate", "backup"
 
-#Clean things up
+# Clean things up
 after "deploy", "deploy:cleanup"
 after "deploy", "notify"
 after "deploy:migrations", "notify"
+
+# For initial setup
+after "deploy:setup" do
+  run "mkdir -p #{shared_path}/config && chmod g+w #{shared_path}/config"
+end
