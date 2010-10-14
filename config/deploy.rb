@@ -21,7 +21,7 @@ role :db,  "monorail.mojotech.com", :primary => true
 
 #Copy config files and link upload
 task :after_update_code, :roles => [:app] do
-  run "cp #{shared_path}/config/*.yml #{release_path}/config/"
+  run "for f in #{shared_path}/config/*.yml; do [ -e $f ] && cp $f #{release_path}/config/; done || true"
   run "cd #{release_path} && rake sass:compile"
   run "cd #{release_path} && jammit"
 end
