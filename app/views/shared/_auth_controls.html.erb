@@ -1,7 +1,7 @@
 <% devise_mapping = Devise.mappings[:user] %>
 <div id="auth_controls">
   <% if !signed_in?(:user) && controller_name != 'sessions' %>
-    <% form_for :user, :as => :user,  :url => session_path(:user) do |form| %>
+    <%= form_for :user, :as => :user,  :url => session_path(:user) do |form| %>
       <div class='row'>
         <%= form.label :email, 'Email', :class => 'inlined' %>
         <%= form.text_field :email, :size => 20, :class => 'input-text' %>
