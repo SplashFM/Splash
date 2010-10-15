@@ -1,7 +1,4 @@
-class Admin::UsersController < ApplicationController
-
-  filter_access_to :all
-  before_filter :custom_flash_display
+class Admin::UsersController < Admin::AdminController
 
   active_scaffold :users do |config|
     actions.exclude :show
