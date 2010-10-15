@@ -28,6 +28,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # group :development, :test do
 #   gem 'webrat'
 # end
+gem "paperclip"
 gem "will_paginate", "~> 3.0.pre2"
 gem "simple-navigation", "3.0.0.beta2"
 gem "formtastic", "~> 1.1.0"
