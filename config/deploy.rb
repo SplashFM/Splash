@@ -1,37 +1,46 @@
 #Required variables
 set :application, "scaphandrier"
+require 'bundler/capistrano'
 set :scm, "git"
 set :scm_verbose, true
-set :repository,  "git@mojotech.unfuddle.com:mojotech/scaphandrier.git"
+set :git_enable_submodules, 1
+set :repository,  "git@mojotech.unfuddle.com:mojotech/#{application}.git"
 set :branch, "master"
 
-#Optional variables
+# Optional variables
 set :user, "app"
 set :deploy_to, "/home/#{user}/#{application}"
 set :use_sudo, false
 set :deploy_via, :remote_cache
 set :notify_email, "dev@mojotech.com"
 
-#Roles
-role :app, "monorail.mojotech.com"
-role :web, "monorail.mojotech.com"
-role :db,  "monorail.mojotech.com", :primary => true
+# Roles
+set :host, "monorail.mojotech.com"
+role :app, "#{host}"
+role :web, "#{host}"
+role :db,  "#{host}", :primary => true
+set :db_user, "root"
+set :db_type, :mysql # or :postgresql
 
-#Custom Tasks
+# Custom Tasks
 
-#Copy config files and link upload
+# Copy config files and link upload
 task :after_update_code, :roles => [:app] do
-  run "cp #{shared_path}/config/*.yml #{release_path}/config/"
+  run "for f in #{shared_path}/config/*.yml; do [ -e $f ] && cp $f #{release_path}/config/; done || true"
   run "cd #{release_path} && rake sass:compile"
-  run "cd #{release_path} && jammit"
+  run "cd #{release_path} && bundle exec jammit"
 end
 
-#How to backup the DB
+# How to backup the DB
 desc "Backup production database"
 task :backup, :roles => :db, :only => { :primary => true } do
   db_name = "#{application}_production"
   run "mkdir -p #{shared_path}/dumps/"
-  run "mysqldump #{db_name} --single-transaction -u root | gzip  > #{shared_path}/dumps/#{db_name}_`date +%Y%m%d%H%M%S`.sql.gz"
+  dump_cmd = case db_type
+             when :mysql then "mysqldump --single-transaction -u #{db_user}"
+             when :postgresql then "pg_dump --clean --no-owner --no-privileges"
+             end
+  run "#{dump_cmd} #{db_name} | gzip  > #{shared_path}/dumps/#{db_name}_`date +%Y%m%d%H%M%S`.sql.gz"
 end
 
 desc "Send deploy notifications"
@@ -49,17 +58,22 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{current_path}/tmp/restart.txt"
   end
- 
+
   [:start, :stop].each do |t|
     desc "#{t} task is a no-op with mod_rails"
     task t, :roles => :app do ; end
   end
 end
 
-#Make sure we backup before migrations
+# Make sure we backup before migrations
 before "deploy:migrate", "backup"
 
-#Clean things up
+# Clean things up
 after "deploy", "deploy:cleanup"
 after "deploy", "notify"
 after "deploy:migrations", "notify"
+
+# For initial setup
+after "deploy:setup" do
+  run "mkdir -p #{shared_path}/config && chmod g+w #{shared_path}/config"
+end
