@@ -1,6 +1,6 @@
 log/*
 test/*
-config/*yml
+config/database.yml
 public/system/*
 public/stylesheets/*.css
 tmp/
