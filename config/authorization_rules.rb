@@ -17,5 +17,5 @@ privileges do
   privilege :create, :includes => :new
   privilege :update, :includes => :edit
   privilege :delete, :includes => :destroy
-  privilege :active_scaffold, :includes => [:manage, :impersonate, :deimpersonate, :update_column, :row]
+  privilege :active_scaffold, :includes => [:manage, :impersonate, :deimpersonate, :update_column, :row, :show_search]
 end
