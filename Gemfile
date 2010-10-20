@@ -5,7 +5,10 @@ gem 'rails', '3.0.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+# Databases
 gem 'sqlite3-ruby', :require => 'sqlite3'
+gem "mysql"
+# gem "pg"
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -13,36 +16,29 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # Deploy with Capistrano
 gem 'capistrano'
 
-# To use debugger
-# gem 'ruby-debug'
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
-# gem 'aws-s3', :require => 'aws/s3'
+# Gem used by scap:
+# To minimize merge conflicts, keep this list sorted alphabetically
+gem "declarative_authorization", ">= 0.5.1"
+gem "devise", ">=1.1.0"
+gem "formtastic", "~> 1.1.0"
+gem "haml", ">= 3.0.18"
+gem "hoptoad_notifier"
+gem "jammit", ">=0.5.0"
+gem "paperclip"
+gem "simple-navigation", "3.0.0.beta2"
+gem "will_paginate", "~> 3.0.pre2"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
-group :test, :development do
+group :development, :test do
+  # gem 'webrat'
   gem "rspec-rails", ">= 2.0.0.beta.22"
+  gem "ruby-debug"
 end
-gem "paperclip"
-gem "will_paginate", "~> 3.0.pre2"
-gem "simple-navigation", "3.0.0.beta2"
-gem "formtastic", "~> 1.1.0"
-gem "devise", ">=1.1.0"
-gem "hoptoad_notifier"
-gem "jammit", ">=0.5.0"
-gem "ruby-debug"
-gem "mysql"
-gem "declarative_authorization", ">= 0.5.1"
-gem "haml", ">= 3.0.18"
 
 group :development do
   gem "ruby_parser" # soft dependency of declarative_authorization browser
 end
+
+# Put Gems used by your application, but not by scap, here:
