@@ -14,7 +14,7 @@ stylesheets:
     - public/stylesheets/yui-reset.css
     - public/stylesheets/yui-base.css
     - public/stylesheets/yui-fonts.css
-    - public/stylesheets/yui-grid.css
+    - public/stylesheets/yui-grids.css
     - public/stylesheets/core.css
     - public/stylesheets/jquery.fancybox.css
     - public/stylesheets/ui-lightness/jquery-ui-1.8.5.custom.css
