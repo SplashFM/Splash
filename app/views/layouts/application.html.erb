@@ -14,20 +14,11 @@
     <div class="yui3-g">
       <div id="header"">
         <h1><%= Rails.application.name %> - <%= controller.controller_name.titleize -%></h1>
-        <%= render :partial => 'shared/auth_controls'%>
+        <%= render :partial => 'shared/auth_controls' %>
         <div id="main_nav"><%= render_navigation %></div>
       </div>
       <div id="main">
-        <% unless @custom_flash_display %>
-          <% unless flash_ok_messages.blank? %>
-            <div id="flash_notice" style="display:none" class="round_corners"><%= flash_ok_messages -%></div>
-            <%= javascript_tag visual_effect(:toggle_appear, :flash_notice) %>
-          <% end %>
-          <% unless flash_error_messages.blank? %>
-            <div id="flash_error" style="display:none" class="round_corners"><%= flash_error_messages -%></div>
-            <%= javascript_tag visual_effect(:toggle_appear, :flash_error) %>
-          <% end %>
-        <% end %>
+        <%= render :partial => 'shared/flash_messages' %>
         <%= yield -%>
       </div>
       <div id="footer">

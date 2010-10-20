@@ -1,0 +1,11 @@
+<% unless @custom_flash_display %>
+  <% unless flash_ok_messages.blank? %>
+    <div id="flash_notice" style="display:none" class="round_corners"><%= flash_ok_messages -%></div>
+    <%= javascript_tag visual_effect(:toggle_appear, :flash_notice) %>
+  <% end %>
+
+  <% unless flash_error_messages.blank? %>
+    <div id="flash_error" style="display:none" class="round_corners"><%= flash_error_messages -%></div>
+    <%= javascript_tag visual_effect(:toggle_appear, :flash_error) %>
+  <% end %>
+<% end %>
