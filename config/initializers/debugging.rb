@@ -6,7 +6,7 @@ if Rails.env != 'production'
 
   debug_file = File.join(Rails.root, 'tmp', 'debug.txt')
   if File.exists? debug_file
-    RAILS_DEFAULT_LOGGER.warn "debug.txt detected!  Start remote debugger!"
+    ::Rails.logger.warn "debug.txt detected!  Start remote debugger!"
     Debugger.wait_connection = true
     Debugger.start_remote
     File.delete debug_file
