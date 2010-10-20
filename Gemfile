@@ -42,3 +42,7 @@ gem "ruby-debug"
 gem "mysql"
 gem "declarative_authorization", ">= 0.5.1"
 gem "haml", ">= 3.0.18"
+
+group :development do
+  gem "ruby_parser" # soft dependency of declarative_authorization browser
+end
