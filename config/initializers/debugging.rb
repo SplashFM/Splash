@@ -1,8 +1,4 @@
-EXCEPTION_RECIPIENTS = %w(dev@mojotech.com)
-if Rails.env == 'production'
-  ExceptionNotifier.sender_address = %("#{APP_NAME} Bug" <bugs@mojotech.com>)
-  ExceptionNotifier.exception_recipients = EXCEPTION_RECIPIENTS
-else
+if Rails.env != 'production'
   require 'ruby-debug'
   Debugger.settings[:autolist] = 1
   Debugger.settings[:autoeval] = 1
