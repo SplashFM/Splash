@@ -2,7 +2,7 @@
           "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <title><%= APP_NAME %></title>
+    <title><%= Rails.application.name %></title>
     <%= include_javascripts :base %>
     <% if active_scaffold? %>
       <%= active_scaffold_includes %>
@@ -13,7 +13,7 @@
   <body>
     <div class="yui3-g">
       <div id="header"">
-        <h1><%= APP_NAME %> - <%= controller.controller_name.titleize -%></h1>
+        <h1><%= Rails.application.name %> - <%= controller.controller_name.titleize -%></h1>
         <%= render :partial => 'shared/auth_controls'%>
         <div id="main_nav"><%= render_navigation %></div>
       </div>
