@@ -17,7 +17,7 @@
         <%= render :partial => 'shared/auth_controls'%>
         <div id="main_nav"><%= render_navigation %></div>
       </div>
-      <div id="main"">
+      <div id="main">
         <% unless @custom_flash_display %>
           <% unless flash_ok_messages.blank? %>
             <div id="flash_notice" style="display:none" class="round_corners"><%= flash_ok_messages -%></div>
