@@ -1,3 +1,6 @@
+require 'config/boot'
+require 'hoptoad_notifier/capistrano'
+
 #Required variables
 set :application, "scaphandrier"
 require 'bundler/capistrano'
@@ -77,3 +80,4 @@ after "deploy:migrations", "notify"
 after "deploy:setup" do
   run "mkdir -p #{shared_path}/config && chmod g+w #{shared_path}/config"
 end
+
