@@ -1,3 +1,5 @@
+/* UNIVERSAL */
+
 .round_corners {
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -10,12 +12,23 @@
   display: block;
   clear: both; }
 
-a:hover {
-  background-color: #FFFFE0;
-  color: black; }
-
 #fancybox-close:hover {
   background-color: transparent; }
+
+a, a:visited {
+  text-decoration:none;
+  color:#2C84DB;
+}
+
+a:hover {
+  text-decoration:underline;
+}
+
+#by_line {
+  color: gray;
+  font-size: 75%;
+  text-align: center;
+}
 
 /* layout: */
 
