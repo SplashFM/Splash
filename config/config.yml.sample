@@ -1,0 +1,14 @@
+common: &common
+  sendgrid:
+    username: foo
+    password: bar
+
+development:
+  <<: *common
+
+test:
+  <<: *common
+
+production:
+  <<: *common
+
