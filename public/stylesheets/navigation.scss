@@ -33,7 +33,7 @@
       span {
         background: url(/images/tab-round.png) left 30px;
         display: block; } } }
-  &.selected a:link {
+  .selected a:link {
     background: url(/images/tab-round.png) right 0 no-repeat; }
   .selected a {
     &:visited, &:hover {
