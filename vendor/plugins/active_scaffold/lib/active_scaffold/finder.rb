@@ -296,21 +296,6 @@ module ActiveScaffold
       end
     end
 
-    def append_to_query(query, options)
-      options.assert_valid_keys :where, :select, :group, :order, :limit, :offset, :joins, :includes, :lock, :readonly, :from
-      used_options = options.reject{|k, v| v.blank?}
-      if used_options[:offset].present?
-        used_options.reject!{|k, v| [:limit, :offset].include?(k)}
-      end
-      used_options.inject(query) do |query, (k, v)|
-        query.send((k.to_sym), v)
-      end
-      if options[:offset].present?
-        query.limit(options[:limit]).offset(options[:offset])
-      else
-        query
-      end
-    end
     def joins_for_finder
       case joins_for_collection
         when String

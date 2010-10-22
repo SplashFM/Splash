@@ -12,7 +12,7 @@ if (!Element.Methods.highlight) Element.addMethods({highlight: Prototype.emptyFu
 
 
 document.observe("dom:loaded", function() {
-  document.on('ajax:loading', 'form.as_form', function(event) {
+  document.on('ajax:create', 'form.as_form', function(event) {
     var source = event.findElement();
     var as_form = event.findElement('form');
     if (source.nodeName.toUpperCase() == 'INPUT' && source.readAttribute('type') == 'button') {
@@ -65,10 +65,10 @@ document.observe("dom:loaded", function() {
     var action_link = ActiveScaffold.ActionLink.get(event.findElement());
     if (action_link && event.memo && event.memo.request) {
       if (action_link.position) {
-        action_link.insert(event.memo.request.responseText);
+        action_link.insert(event.memo.request.transport.responseText);
         if (action_link.hide_target) action_link.target.hide();
       } else {
-        event.memo.request.evalResponse();
+        //event.memo.request.evalResponse(); // (clyfe) prototype evals the response by itself checking headers, this would eval twice
         action_link.enable();
       }
       event.stop();
@@ -299,8 +299,8 @@ var ActiveScaffold = {
   },
   hide_empty_message: function(tbody) {
     if (this.records_for(tbody).length != 0) {
-      var empty_message_node = $(tbody).up().down('tbody.messages p.empty-message')
-      if (empty_message_node) empty_message_node.hide();
+      var empty_message_nodes = $(tbody).up().select('tbody.messages p.empty-message')
+      empty_message_nodes.invoke('hide');
     }
   },
   reload_if_empty: function(tbody, url) {
@@ -517,8 +517,19 @@ var ActiveScaffold = {
     } else {
       this.replace_html(element, content);
     }
+  },
+
+  record_select_onselect: function(edit_associated_url, active_scaffold_id, id){
+    new Ajax.Request(
+      edit_associated_url.sub('--ID--', id), {
+        asynchronous: true,
+        evalScripts: true,
+        onFailure: function(){
+          ActiveScaffold.report_500_response(active_scaffold_id.to_json)
+        }
+      }
+    );
   }
-  
 }
 
 /*
@@ -717,7 +728,7 @@ ActiveScaffold.ActionLink.Abstract = Class.create({
     this.adapter = element;
     this.adapter.addClassName('as_adapter');
     this.adapter.store('action_link', this);
-  },
+  }
 });
 
 /**
@@ -793,6 +804,16 @@ ActiveScaffold.ActionLink.Record = Class.create(ActiveScaffold.ActionLink.Abstra
       if (item.url != this.url) return;
       item.tag.addClassName('disabled');
     }.bind(this));
+  },
+
+  set_opened: function() {
+    if (this.position == 'after') {
+      this.set_adapter(this.target.next());
+    }
+    else if (this.position == 'before') {
+      this.set_adapter(this.target.previous());
+    }
+    this.disable();
   }
 });
 
