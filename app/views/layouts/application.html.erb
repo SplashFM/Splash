@@ -4,9 +4,7 @@
   <head>
     <title><%= Rails.application.name %></title>
     <%= include_javascripts :base %>
-    <% if active_scaffold? %>
-      <%= active_scaffold_includes %>
-    <% end %>
+    <%= active_scaffold_includes if active_scaffold? %>
     <%= include_stylesheets :base, :media => 'all' %>
     <%= csrf_meta_tag %>
   </head>
