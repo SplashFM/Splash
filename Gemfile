@@ -26,6 +26,7 @@ gem "hoptoad_notifier"
 gem "jammit", ">=0.5.0"
 gem "newrelic_rpm"
 gem "paperclip"
+gem "seed-fu", ">=1.2.3"
 gem "simple-navigation", "3.0.0.beta2"
 gem "will_paginate", "~> 3.0.pre2"
 

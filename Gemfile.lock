@@ -122,6 +122,8 @@ GEM
       linecache (>= 0.3)
     ruby_parser (2.0.5)
       sexp_processor (~> 3.0)
+    seed-fu (1.2.3)
+      rails (>= 2.1)
     sexp_processor (3.0.5)
     simple-navigation (3.0.0.beta2)
       activesupport (>= 2.3.2)
@@ -153,6 +155,7 @@ DEPENDENCIES
   rspec-rails (>= 2.0.0.beta.22)
   ruby-debug
   ruby_parser
+  seed-fu (>= 1.2.3)
   simple-navigation (= 3.0.0.beta2)
   sqlite3-ruby
   will_paginate (~> 3.0.pre2)
