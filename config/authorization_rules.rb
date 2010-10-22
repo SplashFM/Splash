@@ -2,10 +2,12 @@ authorization do
   role :guest do
     # add permissions for guests here, e.g.
     #has_permission_on :conferences, :to => :read
+    has_permission_on :admin_users, :to => :deimpersonate
   end
 
   role :superuser do
     has_permission_on :admin_users, :to => [:active_scaffold]
+    has_permission_on :admin_users, :to => :impersonate
     includes :guest
   end
 end
@@ -17,5 +19,5 @@ privileges do
   privilege :create, :includes => :new
   privilege :update, :includes => :edit
   privilege :delete, :includes => :destroy
-  privilege :active_scaffold, :includes => [:manage, :impersonate, :deimpersonate, :update_column, :row, :show_search, :nested, :table, :edit_associated]
+  privilege :active_scaffold, :includes => [:manage, :update_column, :row, :show_search, :nested, :table, :edit_associated]
 end
