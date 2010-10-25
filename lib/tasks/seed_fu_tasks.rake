@@ -30,10 +30,10 @@ namespace :db do
     fixture_path = ENV["FIXTURE_PATH"] ? ENV["FIXTURE_PATH"] : "db/fixtures"
 
     seed_files = (
-      ( Dir[File.join(RAILS_ROOT, fixture_path, '*.rb')] +
-        Dir[File.join(RAILS_ROOT, fixture_path, '*.rb.gz')] ).sort +
-      ( Dir[File.join(RAILS_ROOT, fixture_path, RAILS_ENV, '*.rb')] +
-        Dir[File.join(RAILS_ROOT, fixture_path, RAILS_ENV, '*.rb.gz')] ).sort
+      ( Dir[File.join(Rails.root, fixture_path, '*.rb')] +
+        Dir[File.join(Rails.root, fixture_path, '*.rb.gz')] ).sort +
+      ( Dir[File.join(Rails.root, fixture_path, Rails.env, '*.rb')] +
+        Dir[File.join(Rails.root, fixture_path, Rails.env, '*.rb.gz')] ).sort
     ).uniq
     
     if ENV["SEED"]
@@ -43,7 +43,7 @@ namespace :db do
     end
 
     seed_files.each do |file|
-      pretty_name = file.sub("#{RAILS_ROOT}/", "")
+      pretty_name = file.sub("#{Rails.root}/", "")
       puts "\n== Seed from #{pretty_name} " + ("=" * (60 - (17 + File.split(file).last.length)))
 
       old_level = ActiveRecord::Base.logger.level
