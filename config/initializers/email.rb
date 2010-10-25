@@ -1,5 +1,5 @@
 ActionMailer::Base.delivery_method = :smtp
-ActionMailer::Base.default_charset = "utf-8"
+ActionMailer::Base.default :charset => "UTF-8"
 ActionMailer::Base.smtp_settings = {
   :address => "smtp.sendgrid.net",
   :domain => "mojotech.com",
