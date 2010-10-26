@@ -21,6 +21,7 @@ gem 'capistrano'
 gem "declarative_authorization", ">= 0.5.1"
 gem "devise", ">=1.1.0"
 gem "formtastic", "~> 1.1.0"
+gem "geokit-rails3"
 gem "haml", ">= 3.0.18"
 gem "hipchat"
 gem "hoptoad_notifier"
