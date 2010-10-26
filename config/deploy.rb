@@ -1,5 +1,6 @@
 require 'config/boot'
 require 'hoptoad_notifier/capistrano'
+require 'hipchat/capistrano'
 
 #Required variables
 set :application, "scaphandrier"
@@ -16,6 +17,12 @@ set :deploy_to, "/home/#{user}/#{application}"
 set :use_sudo, false
 set :deploy_via, :remote_cache
 set :notify_email, "dev@mojotech.com"
+
+# HipChat integration
+set :hipchat_token, "569df1ebf359b6e09bece9bcacf469"
+set :hipchat_user, "Deploy"
+set :hipchat_room_name, "Mojo Tech"
+set :hipchat_announce, false
 
 # Roles
 set :host, "#{application}.mojotech.com"

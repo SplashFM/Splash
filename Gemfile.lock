@@ -45,6 +45,7 @@ GEM
     closure-compiler (0.2.2)
       POpen4 (>= 0.1.4)
     columnize (0.1)
+    crack (0.1.7)
     declarative_authorization (0.5.1)
     devise (1.1.2)
       bcrypt-ruby (~> 2.1.2)
@@ -58,8 +59,12 @@ GEM
       i18n (>= 0.4.0)
     haml (3.0.18)
     highline (1.5.2)
+    hipchat (0.0.1)
+      httparty
     hoptoad_notifier (2.3.6)
       activesupport
+    httparty (0.6.0)
+      crack (= 0.1.7)
     i18n (0.4.1)
     jammit (0.5.1)
       closure-compiler (>= 0.1.0)
@@ -146,6 +151,7 @@ DEPENDENCIES
   devise (>= 1.1.0)
   formtastic (~> 1.1.0)
   haml (>= 3.0.18)
+  hipchat
   hoptoad_notifier
   jammit (>= 0.5.0)
   mysql
