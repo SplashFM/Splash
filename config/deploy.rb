@@ -18,7 +18,7 @@ set :deploy_via, :remote_cache
 set :notify_email, "dev@mojotech.com"
 
 # Roles
-set :host, "monorail.mojotech.com"
+set :host, "#{application}.mojotech.com"
 role :app, "#{host}"
 role :web, "#{host}"
 role :db,  "#{host}", :primary => true
