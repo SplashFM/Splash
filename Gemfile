@@ -37,8 +37,9 @@ gem "will_paginate", ">=3.0.pre"
 # and rake tasks are available in development mode:
 group :development, :test do
   # gem 'webrat'
-  gem "rspec-rails", ">= 2.0.0.beta.22"
+  gem "rspec-rails", ">= 2.0.0"
   gem "ruby-debug"
+  gem "factory_girl_rails"
 end
 
 group :development do
