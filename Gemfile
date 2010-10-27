@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.1'
+gem 'rails', '>=3.0.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -29,8 +29,8 @@ gem "jammit", ">=0.5.0"
 gem "newrelic_rpm"
 gem "paperclip"
 gem "seed-fu", ">=1.2.3"
-gem "simple-navigation", "3.0.0.beta2"
-gem "will_paginate", "~> 3.0.pre2"
+gem "simple-navigation", ">=3.0.0"
+gem "will_paginate", ">=3.0.pre"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
