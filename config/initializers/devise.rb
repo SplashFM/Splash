@@ -27,6 +27,9 @@ Devise.setup do |config|
 
   # Tell if authentication through HTTP Basic Auth is enabled. True by default.
   # config.http_authenticatable = true
+  # This doesn't work well with nginx-level Basic Auth.
+  # see http://github.com/plataformatec/devise/issues/issue/178
+  config.http_authenticatable = false
 
   # Set this to true to use Basic Auth for AJAX requests.  True by default.
   # config.http_authenticatable_on_xhr = true
