@@ -1,5 +1,22 @@
-This file contains an audit of the licenses of the various libraries
-used.
+NOTE: This repository contains some code under open-source licenses.
+That code is listed below.  Besides the exceptions listed below, all
+other code is an Original Work, Copyright 2009-2010 Mojo Tech, LLC,
+and not a derivative work of any other program.
+
+vendor/plugins/active_scaffold - MIT
+vendor/plugins/render_component - MIT
+vendor/plugins/verification - MIT
+public/javascripts/jquery-1.4.2.js - MIT/BSD/GPL
+public/javascripts/jquery.fancybox.js - MIT/GPL
+public/javascripts/jquery-ui-1.8.5*.js - MIT/GPL2
+public/javascripts/jquery-ui-timepicker-addon.js - MIT/GPL
+public/stylesheets/jquery.fancybox.scss - MIT/GPL
+public/stylesheets/inline_labels.scss - MIT
+public/stylesheets/yui*.scss - BSD
+
+
+GEMS: These gems are not incorporated into this project, but are used
+by this project.  This list of licenses is included for reference.
 
 abstract, Ruby
 bcrypt, 4-clause BSD
