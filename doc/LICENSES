@@ -1,0 +1,51 @@
+This file contains an audit of the licenses of the various libraries
+used.
+
+abstract, Ruby
+bcrypt, 4-clause BSD
+builder, MIT
+bundler, MIT
+capistrano, MIT
+closure-compiler, Apache 2.0
+columnize, GPL 2
+crack, MIT
+declarative_authorization, MIT
+devise, MIT
+diff-lcs, tri-license (GPL 2+, Perl Artistic, or Ruby)
+erubis, MIT
+factory_girl, factory_girl_rails, MIT
+formtastic, MIT
+geokit, geokit-rails, MIT
+haml, MIT
+hipchat, MIT
+highline, dual (GPL 2 or Ruby)
+hoptoad_notifier, MIT
+i18n, MIT
+jammit, MIT
+linecache, GPL 2
+mime-types, tri-license (GPL 2+, Perl Artistic, or Ruby)
+mysql, GPL (with alternatives),
+net-ssh, MIT
+net-scp, MIT
+net-sftp, MIT
+newrelic_rpm, proprietary
+paperclip, MIT
+pg, GPL (with alternatives)
+polyglot, MIT
+rack, rack-mount, rack-test, MIT
+rails, MIT
+rake, MIT
+rspec, rspec-core, rspec-expectations, rspec-mocks, rspec-rails, MIT
+ruby-debug, 2-clause BSD
+ruby-parser, MIT
+seed-fu, MIT
+sexp_processor, MIT
+simple-navigation, MIT
+sqlite3-ruby, 3-clause BSD
+thor, MIT
+treetop, MIT
+tzinfo, MIT
+warden, MIT
+will_paginate, MIT
+yui-compressor, BSD
+
