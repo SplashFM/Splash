@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    aaronh-chronic (0.3.9)
     abstract (1.0.0)
     actionmailer (3.0.1)
       actionpack (= 3.0.1)
@@ -143,6 +144,9 @@ GEM
     tzinfo (0.3.23)
     warden (0.10.7)
       rack (>= 1.0.0)
+    whenever (0.6.2)
+      aaronh-chronic (>= 0.3.9)
+      activesupport (>= 2.3.4)
     will_paginate (3.0.pre2)
     yui-compressor (0.9.1)
 
@@ -170,4 +174,5 @@ DEPENDENCIES
   seed-fu (>= 1.2.3)
   simple-navigation (>= 3.0.0)
   sqlite3-ruby
+  whenever
   will_paginate (>= 3.0.pre)

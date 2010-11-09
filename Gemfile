@@ -30,6 +30,7 @@ gem "newrelic_rpm"
 gem "paperclip"
 gem "seed-fu", ">=1.2.3"
 gem "simple-navigation", ">=3.0.0"
+gem 'whenever', :require => false
 gem "will_paginate", ">=3.0.pre"
 
 # Bundle gems for the local environment. Make sure to
