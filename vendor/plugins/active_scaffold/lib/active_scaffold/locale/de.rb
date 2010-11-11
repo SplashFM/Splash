@@ -8,6 +8,8 @@
       :cancel => 'Abbrechen',
       :click_to_edit => 'Zum Editieren anklicken',
       :close => 'Schliessen',
+      :config_list => 'Konfigurieren',
+      :config_list_model => 'Konfiguriere Spalten für %{model}',
       :create => 'Anlegen',
       :create_model => 'Lege %{model} an',
       :create_another => 'Weitere anlegen',
@@ -73,18 +75,21 @@
       :past => 'Letzten', 
       :future => 'Nächsten',
       :range => 'Spanne',
+      :seconds => 'Sekunden',
+      :minutes => 'Minuten',
+      :hours => 'Stunden',
       :days => 'Tage',
       :weeks => 'Wochen',
       :months => 'Monate',
       :years => 'Jahre',
       :optional_attributes => 'Weitere',
-      :null => 'Definiert',
-      :not_null => 'Undefiniert',
+      :null => 'Undefiniert',
+      :not_null => 'Definiert',
       :date_picker_options => {
         :weekHeader => 'Wo',
 				:firstDay => 1,
 		    :isRTL => false,
-		    :showMonthAfterYear => false,
+		    :showMonthAfterYear => false
       },
       :datetime_picker_options => {
         :timeText => 'Uhrzeit'
