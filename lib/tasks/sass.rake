@@ -7,4 +7,9 @@ namespace :sass do
       `#{cmd}`
     end
   end
+  task :watch do
+    cmd = "sass --watch #{Rails.root}/public/stylesheets #{Rails.root}/public/stylesheets"
+    puts cmd
+    `#{cmd}`
+  end
 end
