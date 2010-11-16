@@ -19,5 +19,5 @@ privileges do
   privilege :create, :includes => :new
   privilege :update, :includes => :edit
   privilege :delete, :includes => :destroy
-  privilege :active_scaffold, :includes => [:manage, :update_column, :row, :show_search, :nested, :table, :edit_associated]
+  privilege :active_scaffold, :includes => [:export, :show_export, :manage, :update_column, :row, :show_search, :nested, :table, :edit_associated]
 end
