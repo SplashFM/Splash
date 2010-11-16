@@ -42,7 +42,11 @@ GEM
     closure-compiler (0.3.3)
     columnize (0.3.2)
     crack (0.1.8)
+    daemons (1.1.0)
     declarative_authorization (0.5.1)
+    delayed_job (2.1.1)
+      activesupport (~> 3.0)
+      daemons
     devise (1.1.3)
       bcrypt-ruby (~> 2.1.2)
       warden (~> 0.10.7)
@@ -154,6 +158,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   declarative_authorization (>= 0.5.1)
+  delayed_job
   devise (>= 1.1.0)
   factory_girl_rails
   formtastic (~> 1.1.0)
