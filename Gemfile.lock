@@ -21,6 +21,9 @@ GEM
       activerecord (~> 3.0.0)
       render_component
       verification
+    active_scaffold_export (0.9.4)
+      active_scaffold
+      fastercsv
     activemodel (3.0.1)
       activesupport (= 3.0.1)
       builder (~> 2.1.2)
@@ -62,6 +65,7 @@ GEM
     factory_girl_rails (1.0)
       factory_girl (~> 1.3)
       rails (>= 3.0.0.beta4)
+    fastercsv (1.5.3)
     formtastic (1.1.0)
       actionpack (>= 2.3.0)
       activesupport (>= 2.3.0)
@@ -167,6 +171,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_scaffold
+  active_scaffold_export
   capistrano
   daemons (= 1.0.10)
   declarative_authorization (>= 0.5.1)

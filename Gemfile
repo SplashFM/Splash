@@ -19,6 +19,7 @@ gem 'capistrano'
 # Gem used by scap:
 # To minimize merge conflicts, keep this list sorted alphabetically
 gem "active_scaffold"
+gem "active_scaffold_export"
 gem "daemons", "1.0.10"
 gem "declarative_authorization", ">= 0.5.1"
 gem "delayed_job"
