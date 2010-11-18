@@ -42,7 +42,7 @@ GEM
     closure-compiler (0.3.3)
     columnize (0.3.2)
     crack (0.1.8)
-    daemons (1.1.0)
+    daemons (1.0.10)
     declarative_authorization (0.5.1)
     delayed_job (2.1.1)
       activesupport (~> 3.0)
@@ -157,6 +157,7 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano
+  daemons (= 1.0.10)
   declarative_authorization (>= 0.5.1)
   delayed_job
   devise (>= 1.1.0)
