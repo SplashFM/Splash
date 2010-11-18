@@ -32,6 +32,10 @@ role :db,  "#{host}", :primary => true
 set :db_user, "root"
 set :db_type, :mysql # or :postgresql
 
+# Hooks for 'whenever' gem
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
+
 # Custom Tasks
 
 # Copy config files and link upload
