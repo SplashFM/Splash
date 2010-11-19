@@ -45,6 +45,7 @@ group :development, :test do
   gem "rspec-rails", ">= 2.0.0"
   gem "ruby-debug"
   gem "factory_girl_rails"
+  gem "watchr"
 end
 
 group :development do

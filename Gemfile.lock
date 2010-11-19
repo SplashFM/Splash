@@ -160,6 +160,7 @@ GEM
       activesupport (~> 3.0.0)
     warden (0.10.7)
       rack (>= 1.0.0)
+    watchr (0.7)
     whenever (0.6.2)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
@@ -194,5 +195,6 @@ DEPENDENCIES
   seed-fu (>= 1.2.3)
   simple-navigation (>= 3.0.0)
   sqlite3-ruby
+  watchr
   whenever
   will_paginate (>= 3.0.pre)
