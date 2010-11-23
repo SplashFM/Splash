@@ -16,13 +16,13 @@ GEM
       rack-mount (~> 0.6.12)
       rack-test (~> 0.5.4)
       tzinfo (~> 0.3.23)
-    active_scaffold (3.0.3)
+    active_scaffold (3.0.5)
       actionpack (~> 3.0.0)
       activerecord (~> 3.0.0)
       render_component
       verification
-    active_scaffold_export (0.9.4)
-      active_scaffold
+    active_scaffold_export (0.9.5)
+      active_scaffold (>= 3.0.5)
       fastercsv
     activemodel (3.0.1)
       activesupport (= 3.0.1)
