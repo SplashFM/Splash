@@ -11,16 +11,16 @@ javascripts:
 
 stylesheets:
   base:
-    - public/stylesheets/yui-reset.css
-    - public/stylesheets/yui-base.css
-    - public/stylesheets/yui-fonts.css
-    - public/stylesheets/yui-grids.css
+    - public/stylesheets/vendor/yui-reset.css
+    - public/stylesheets/vendor/yui-base.css
+    - public/stylesheets/vendor/yui-fonts.css
+    - public/stylesheets/vendor/yui-grids.css
     - public/stylesheets/core.css
-    - public/stylesheets/jquery.fancybox.css
-    - public/stylesheets/ui-lightness/jquery-ui-1.8.5.custom.css
+    - public/stylesheets/vendor/jquery.fancybox.css
+    - public/stylesheets/vendor/ui-lightness/jquery-ui-1.8.5.custom.css
     - public/stylesheets/navigation.css
     - public/stylesheets/inline_labels.css
-    - public/stylesheets/formtastic.css
-    - public/stylesheets/formtastic_changes.css
+    - public/stylesheets/vendor/formtastic.css
+    - public/stylesheets/vendor/formtastic_changes.css
     - public/stylesheets/flash_messages.css
     - public/stylesheets/style.css
