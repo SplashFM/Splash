@@ -49,6 +49,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "thin" # webrick is SO slow.
   gem "ruby_parser" # soft dependency of declarative_authorization browser
 end
 
