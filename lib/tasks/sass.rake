@@ -7,8 +7,18 @@ namespace :sass do
       `#{cmd}`
     end
   end
+
   task :watch do
-    cmd = "sass --watch #{Rails.root}/public/stylesheets #{Rails.root}/public/stylesheets"
+    execute_sass_task 'watch'
+  end
+
+  task :update do
+    execute_sass_task 'update'
+  end
+
+
+  def execute_sass_task(task)
+    cmd = "sass --#{task} #{Rails.root}/public/stylesheets #{Rails.root}/public/stylesheets"
     puts cmd
     `#{cmd}`
   end
