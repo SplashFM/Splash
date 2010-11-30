@@ -95,6 +95,8 @@ after "deploy:migrations", "notify"
 
 # For initial setup
 after "deploy:setup" do
-  run "mkdir -p #{shared_path}/config && chmod g+w #{shared_path}/config"
+  ['config', 'dumps'].each do |dir|
+    run "mkdir -p #{shared_path}/#{dir} && chmod g+w #{shared_path}/#{dir}"
+  end
 end
 
