@@ -38,12 +38,18 @@ require "whenever/capistrano"
 
 # Custom Tasks
 
-# Copy config files and link upload
-task :after_update_code, :roles => [:app] do
+desc "Copy config files"
+task :copy_config, :roles => [:app] do
   run "for f in #{shared_path}/config/*.yml; do [ -e $f ] && cp $f #{release_path}/config/; done || true"
+end
+
+desc "Compile SASS and jam assets"
+task :prep_assets, :roles => [:web, :app] do
   run "cd #{release_path} && rake sass:compile"
   run "cd #{release_path} && bundle exec jammit"
 end
+
+after "deploy:update_code", "copy_config", "prep_assets"
 
 # How to backup the DB
 desc "Backup production database"
