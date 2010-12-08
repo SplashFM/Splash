@@ -2,6 +2,7 @@ common: &common
   sendgrid:
     username: foo
     password: bar
+  google: google_api_key
 
 development:
   <<: *common
