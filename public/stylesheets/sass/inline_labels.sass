@@ -1,0 +1,34 @@
+/*
+ * inline form labels
+ * http://www.zurb.com/playground/inline-form-labels
+ * Copyright ZURB, freely available for distrubition under the MIT license.
+
+input.input-text
+  position: relative
+  z-index: 1
+
+label
+  &.inlined
+    position: relative
+    z-index: 2
+    padding-left: 6px
+    opacity: 0.6
+    -webkit-transition: opacity 0.15s linear
+    + input.input-text
+      margin-top: -22px
+  &.focus
+    opacity: 0.35
+  &.has-text
+    opacity: 0.0
+    -webkit-transition-duration: 0s
+
+#auth_controls form div.row
+  display: inline
+  position: relative
+  label.inlined
+    position: absolute
+    top: 0
+    left: 0
+  input.input-text
+    border: 1px solid #ddd
+    padding: 2px
