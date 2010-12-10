@@ -2,11 +2,12 @@ namespace :sass do
   desc "convert all sass to css"
   task :compile do
     for file in Dir.glob("#{Rails.root}/public/stylesheets/sass/*s*ss")
-       parent = File.new(file).parent
-       cmd = "sass #{file} #{file.gsub(/s.ss$/, 'css')}"
-       puts cmd
-       `#{cmd}`
-     end
+      output_directory = File.dirname(File.dirname(file))
+      output_file = File.basename(file).gsub(/s.ss$/, 'css')
+      cmd = "sass #{file} #{output_directory}/#{output_file}"
+      puts cmd
+      `#{cmd}`
+    end
   end
   
   task :watch do
