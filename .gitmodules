@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/fitter_happier"]
+	path = vendor/plugins/fitter_happier
+	url = https://github.com/atmos/fitter_happier.git
