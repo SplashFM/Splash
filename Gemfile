@@ -51,6 +51,8 @@ end
 group :development do
   gem "thin" # webrick is SO slow.
   gem "ruby_parser" # soft dependency of declarative_authorization browser
+  gem "awesome_print", :require => "ap"  # pretty print objects in console via `ap my_object`
+  gem "wirble"
 end
 
 # Put Gems used by your application, but not by scap, here:
