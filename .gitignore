@@ -4,6 +4,7 @@ config/database.yml
 config/config.yml
 public/system/*
 public/stylesheets/*.css
+public/assets/
 tmp/
 *#
 .sass-cache/
