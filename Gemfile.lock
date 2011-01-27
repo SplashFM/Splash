@@ -79,7 +79,7 @@ GEM
     highline (1.6.1)
     hipchat (0.2.0)
       httparty
-    hoptoad_notifier (2.3.12)
+    hoptoad_notifier (2.4.2)
       activesupport
       builder
     httparty (0.6.1)
