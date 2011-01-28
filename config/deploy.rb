@@ -45,7 +45,7 @@ end
 
 desc "Compile SASS and jam assets"
 task :prep_assets, :roles => [:web, :app] do
-  run "cd #{release_path} && rake sass:compile"
+  run "cd #{release_path} && rake RAILS_ENV=#{rails_env} sass:compile"
   run "cd #{release_path} && bundle exec jammit"
 end
 
