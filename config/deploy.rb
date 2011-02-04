@@ -17,6 +17,7 @@ set :deploy_to, "/home/#{user}/#{application}"
 set :use_sudo, false
 set :deploy_via, :remote_cache
 set :notify_email, "dev@mojotech.com"
+set :rails_env, "production"
 
 # HipChat integration
 set :hipchat_token, "569df1ebf359b6e09bece9bcacf469"
@@ -46,7 +47,7 @@ end
 desc "Compile SASS and jam assets"
 task :prep_assets, :roles => [:web, :app] do
   run "cd #{release_path} && rake RAILS_ENV=#{rails_env} sass:compile"
-  run "cd #{release_path} && bundle exec jammit"
+  run "cd #{release_path} && RAILS_ENV=#{rails_env} bundle exec jammit"
 end
 
 after "deploy:update_code", "copy_config", "prep_assets"
