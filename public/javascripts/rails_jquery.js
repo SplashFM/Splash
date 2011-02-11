@@ -1,6 +1,25 @@
 jQuery(function ($) {
     var csrf_token = $('meta[name=csrf-token]').attr('content'),
         csrf_param = $('meta[name=csrf-param]').attr('content');
+    // Make sure that every Ajax request sends the CSRF token
+    function CSRFProtection(fn) {
+        var token = $('meta[name="csrf-token"]').attr('content');
+        if (token) fn(function(xhr) { xhr.setRequestHeader('X-CSRF-Token', token) });
+    }
+    if ($().jquery == '1.5') { // gruesome hack
+        var factory = $.ajaxSettings.xhr;
+        $.ajaxSettings.xhr = function() {
+            var xhr = factory();
+            CSRFProtection(function(setHeader) {
+                var open = xhr.open;
+                xhr.open = function() { open.apply(this, arguments); setHeader(this) };
+            });
+            return xhr;
+        };
+    }
+    else $(document).ajaxSend(function(e, xhr) {
+        CSRFProtection(function(setHeader) { setHeader(xhr) });
+    });
 
     $.fn.extend({
         /**
