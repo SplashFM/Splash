@@ -40,7 +40,7 @@ GEM
     arel (2.0.8)
     awesome_print (0.3.2)
     bcrypt-ruby (2.1.4)
-    braintree (2.7.0)
+    braintree (2.8.0)
       builder
     builder (2.1.2)
     capistrano (2.5.19)
@@ -74,17 +74,17 @@ GEM
       activesupport (>= 2.3.0)
       i18n (>= 0.4.0)
     geokit (1.5.0)
-    geokit-rails3 (0.1.2)
+    geokit-rails3 (0.1.3)
       geokit (~> 1.5.0)
-      rails (~> 3.0.0)
+      rails (~> 3.0.4)
     haml (3.0.25)
     highline (1.6.1)
     hipchat (0.2.0)
       httparty
-    hoptoad_notifier (2.4.5)
+    hoptoad_notifier (2.4.6)
       activesupport
       builder
-    httparty (0.7.3)
+    httparty (0.7.4)
       crack (= 0.1.8)
     i18n (0.5.0)
     jammit (0.6.0)
@@ -149,7 +149,7 @@ GEM
       ruby-debug-base (~> 0.10.4.0)
     ruby-debug-base (0.10.4)
       linecache (>= 0.3)
-    ruby_parser (2.0.5)
+    ruby_parser (2.0.6)
       sexp_processor (~> 3.0)
     seed-fu (2.0.1)
       activerecord (~> 3.0.0)
@@ -178,7 +178,7 @@ GEM
       activesupport (>= 2.3.4)
     will_paginate (3.0.pre2)
     wirble (0.1.3)
-    yui-compressor (0.9.3)
+    yui-compressor (0.9.4)
 
 PLATFORMS
   ruby
