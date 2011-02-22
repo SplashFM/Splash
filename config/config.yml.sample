@@ -8,6 +8,7 @@ common: &common
     username: foo
     password: bar
   google: google_api_key
+  google_analytics: UA-XXXXX-X
 
 development:
   <<: *common
