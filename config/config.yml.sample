@@ -12,6 +12,7 @@ common: &common
   sendgrid:
     username: foo
     password: bar
+  ssl_required: false
 
 development:
   <<: *common

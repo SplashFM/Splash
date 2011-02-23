@@ -58,6 +58,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  before_filter :check_protocol
+  def check_protocol
+    if AppConfig.ssl_required && !request.ssl?
+      redirect_to request.url.sub("http://", "https://")
+    end
+  end
+
   before_filter :check_host
   def check_host
     host_wanted = AppConfig.preferred_host
