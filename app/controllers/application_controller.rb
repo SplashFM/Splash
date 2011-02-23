@@ -58,4 +58,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  before_filter :check_host
+  def check_host
+    host_wanted = AppConfig.preferred_host
+    if host_wanted.present? && request.host != host_wanted
+      redirect_to request.url.sub(request.host, host_wanted)
+    end
+  end
+
 end

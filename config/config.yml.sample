@@ -8,6 +8,7 @@ common: &common
   http_auth:
     username: u
     password: p
+  preferred_host: localhost
   sendgrid:
     username: foo
     password: bar
