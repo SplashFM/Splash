@@ -41,4 +41,36 @@ class ApplicationController < ActionController::Base
   def active_scaffold?
     !! active_scaffold_config
   end
+
+
+  before_filter :check_http_auth
+  def check_http_auth
+    auth = AppConfig.http_auth
+    if auth
+      authenticate_or_request_with_http_basic do |username, password|
+        username == auth['username'] && password == auth['password']
+      end
+      # tell Devise/warden that it's OK, we'll take it from here if
+      # the user isn't authorized via simple auth.
+      warden.custom_failure! if performed?
+    else
+      true
+    end
+  end
+
+  before_filter :check_protocol
+  def check_protocol
+    if AppConfig.ssl_required && !request.ssl?
+      redirect_to request.url.sub("http://", "https://")
+    end
+  end
+
+  before_filter :check_host
+  def check_host
+    host_wanted = AppConfig.preferred_host
+    if host_wanted.present? && request.host != host_wanted
+      redirect_to request.url.sub(request.host, host_wanted)
+    end
+  end
+
 end
