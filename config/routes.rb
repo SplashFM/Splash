@@ -11,8 +11,11 @@ Scaphandrier::Application.routes.draw do
     end
   end
 
-
+  # Uncomment to turn on the landing page with email collect for the private release.
+  #root :to => 'visitors#new'
   root :to => 'home#index'
+
+  resource :visitor
 
   match 'home' => 'home#index', :as =>'home'
 
