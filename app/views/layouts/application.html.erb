@@ -25,8 +25,10 @@
     <div class="yui3-g">
       <div id="header"">
         <h1><%= Rails.application.name %> - <%= controller.controller_name.titleize -%></h1>
-        <%= render :partial => 'shared/auth_controls' %>
-        <div id="main_nav"><%= render_navigation %></div>
+        <%= render :partial => 'shared/auth_controls' unless hidden?(:auth_controls) %>
+        <% unless hidden?(:navigation) %>
+          <div id="main_nav"><%= render_navigation %></div>
+        <% end %>
       </div>
       <div id="main">
         <%= render :partial => 'shared/flash_messages' %>
