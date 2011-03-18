@@ -5,8 +5,7 @@ var Scaphandrier = Scaphandrier || {};
 
 Scaphandrier.Fancybox = {
   init: function() {
-    $('a.lb').fancybox();
-    $('a.donation').fancybox({width: 600, height: 400, autoDimensions: false});
+    $(".fancybox").fancybox();
   }
 };
 
