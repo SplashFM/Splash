@@ -73,4 +73,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Mark layout elements as hidden. Usage:
+  #  hide :navigation, :auth_controls
+  def self.hide(*elements)
+    before_filter do |c|
+      hidden = c.instance_variable_get(:'@hidden_elements') || Array.new
+      c.instance_variable_set(:'@hidden_elements', hidden | elements)
+    end
+  end
+
+  def hidden?(element)
+    @hidden_elements && @hidden_elements.include?(element)
+  end
+
+  helper_method :hidden?
 end
