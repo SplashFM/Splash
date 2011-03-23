@@ -1,7 +1,10 @@
 Scaphandrier::Application.routes.draw do
   namespace :admin do
+    basic_admin_scaffolds = [:users]
+    basic_admin_scaffolds.each { |a|
+      resources(a) { as_routes }
+    }
     resources :users do
-      as_routes
       member do
         post :impersonate
       end
