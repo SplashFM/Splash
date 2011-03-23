@@ -6,7 +6,11 @@ authorization do
   end
 
   role :superuser do
-    has_permission_on :admin_users, :to => [:active_scaffold]
+    basic_admin = [:users]
+    basic_admin.each { |a|
+      has_permission_on "admin_#{a}".to_sym, :to => [:active_scaffold]
+    }
+
     has_permission_on :admin_users, :to => :impersonate
     includes :guest
   end
