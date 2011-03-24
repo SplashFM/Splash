@@ -168,6 +168,7 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.25)
+    uuidtools (2.1.2)
     verification (1.0.1)
       actionpack (~> 3.0.0)
       activesupport (~> 3.0.0)
@@ -213,6 +214,7 @@ DEPENDENCIES
   sqlite3-ruby
   state_machine
   thin
+  uuidtools
   watchr
   whenever
   will_paginate (>= 3.0.pre)
