@@ -4,3 +4,8 @@ development:
   database: scaphandrier_development
   username: root
   password:
+test:
+  adapter: sqlite3
+  encoding: utf8
+  database: scaphandrier_test
+
