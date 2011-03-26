@@ -7,7 +7,7 @@ gem 'rails', '>=3.0.1'
 
 # Databases
 gem 'sqlite3-ruby', :require => 'sqlite3'
-gem "mysql"
+gem "mysql2"
 # gem "pg"
 
 # Use unicorn as the web server

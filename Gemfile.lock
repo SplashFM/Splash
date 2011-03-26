@@ -97,7 +97,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    mysql (2.8.1)
+    mysql2 (0.2.6)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -202,7 +202,7 @@ DEPENDENCIES
   hipchat
   hoptoad_notifier
   jammit (>= 0.5.0)
-  mysql
+  mysql2
   newrelic_rpm
   paperclip
   rails (>= 3.0.1)
