@@ -44,7 +44,11 @@ gem "will_paginate", ">=3.0.pre"
 group :development, :test do
   # gem 'webrat'
   gem "rspec-rails", ">= 2.0.0"
-  gem "ruby-debug"
+  if RUBY_VERSION < "1.9"
+    gem "ruby-debug"
+  else
+    gem "ruby-debug19"
+  end
   gem "factory_girl_rails"
   gem "watchr"
 end
