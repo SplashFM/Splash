@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
 
   has_attached_file :avatar, :styles => { :thumb => ["64x64>", :png] }
+  before_save :possibly_delete_avatar
+  attr_accessor :delete_avatar
+  attr_accessible :delete_avatar
 
   # Declarative Authorization user roles
   DEFAULT_ROLES = [:guest, :user].freeze
@@ -20,5 +23,10 @@ class User < ActiveRecord::Base
   # to_label for ActiveScaffold
   def to_label
     email
+  end
+
+  private
+  def possibly_delete_avatar
+    self.avatar = nil if self.delete_avatar == "1" && !self.avatar.dirty?
   end
 end
