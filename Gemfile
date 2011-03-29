@@ -35,6 +35,8 @@ gem "newrelic_rpm"
 gem "paperclip"
 gem "seed-fu", ">=1.2.3"
 gem "simple-navigation", ">=3.0.0"
+gem "state_machine"
+gem "uuidtools"
 gem 'whenever', :require => false
 gem "will_paginate", ">=3.0.pre"
 
@@ -61,5 +63,3 @@ group :development do
 end
 
 # Put Gems used by your application, but not by scap, here:
-gem "state_machine"
-gem "uuidtools"
