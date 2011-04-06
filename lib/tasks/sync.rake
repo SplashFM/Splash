@@ -28,7 +28,7 @@ namespace :sync do
     dbsw = " -D #{db}"
 
     case ActiveRecord::Base.connection.adapter_name
-    when "MySQL"
+    when %r{MySQL}i
       sh "mysql#{usw}#{psw}#{dbsw} < #{dump_sql}"
     when "PostgreSQL"
       sh "psql #{usw}#{psw} #{db} < #{dump_sql}"
