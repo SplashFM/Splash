@@ -319,10 +319,10 @@
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/fancybox/fancy_title_right.png', sizingMethod='scale'); }
 .fancybox-ie #fancybox-left-ico {
   background: transparent;
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_nav_left.png', sizingMethod='scale'); }
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/fancybox/fancy_nav_left.png', sizingMethod='scale'); }
 .fancybox-ie #fancybox-right-ico {
   background: transparent;
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fancybox/fancy_nav_right.png', sizingMethod='scale'); }
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/fancybox/fancy_nav_right.png', sizingMethod='scale'); }
 .fancybox-ie .fancy-bg {
   background: transparent !important; }
 .fancybox-ie #fancy-bg-n {
