@@ -63,3 +63,4 @@ group :development do
 end
 
 # Put Gems used by your application, but not by scap, here:
+gem "soundcloud"
