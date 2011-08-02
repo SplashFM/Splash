@@ -45,7 +45,7 @@ module Scaphandrier
     config.filter_parameters += [:password]
 
     def name
-      "Scaphandrier"
+      "SplashFM"
     end
   end
 end
