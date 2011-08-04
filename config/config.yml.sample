@@ -19,6 +19,7 @@ common: &common
     client_secret: client_secret
     username: username
     password: password
+  dev_mailto: dev@mojotech.com
 
 development:
   <<: *common

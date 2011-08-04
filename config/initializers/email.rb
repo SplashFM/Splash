@@ -8,6 +8,6 @@ unless Rails.env.test?
     :authentication => :login,
     :user_name => AppConfig.sendgrid['username'],
     :password => AppConfig.sendgrid['password'],
-    :dev_mailto => "dev@mojotech.com"
+    :dev_mailto => AppConfig.dev_mailto
   }
 end
