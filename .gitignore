@@ -10,3 +10,4 @@ tmp/
 .sass-cache/
 public/*/active_scaffold/
 public/blank.html
+/.bundle/config
