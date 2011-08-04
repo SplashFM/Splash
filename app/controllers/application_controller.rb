@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  protected
+
   def custom_flash_display
     @custom_flash_display = true
   end
