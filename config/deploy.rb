@@ -1,14 +1,20 @@
-require 'config/boot'
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
+
+#require 'config/boot'
 require 'hoptoad_notifier/capistrano'
 require 'hipchat/capistrano'
 
 #Required variables
-set :application, "scaphandrier"
+require 'rvm/capistrano'
+set :rvm_ruby_string, '1.9.2'
+set :rvm_type, :user
+
+set :application, "splash"
 require 'bundler/capistrano'
 set :scm, "git"
 set :scm_verbose, true
-set :git_enable_submodules, 1
-set :repository,  "git@mojotech.unfuddle.com:mojotech/#{application}.git"
+#set :git_enable_submodules, 1
+set :repository,  "git@git.mojotech.com:splash/#{application}.git"
 set :branch, "master"
 
 # Optional variables
@@ -46,8 +52,8 @@ end
 
 desc "Compile SASS and jam assets"
 task :prep_assets, :roles => [:web, :app] do
-  run "cd #{release_path} && rake RAILS_ENV=#{rails_env} sass:compile"
-  run "cd #{release_path} && RAILS_ENV=#{rails_env} bundle exec jammit"
+  run "cd #{release_path} && #{rake} RAILS_ENV=#{rails_env} sass:compile"
+  run "cd #{release_path} && RAILS_ENV=#{rails_env} bundle exec jammit  --base-url http://#{host}"
 end
 
 after "deploy:update_code", "copy_config", "prep_assets"
@@ -77,7 +83,8 @@ end
 namespace :deploy do
   desc "Restarting mod_rails with restart.txt"
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "touch #{current_path}/tmp/restart.txt"
+    #run "touch #{current_path}/tmp/restart.txt"
+    sudo "monit restart passenger3splashfm"
   end
 
   [:start, :stop].each do |t|
