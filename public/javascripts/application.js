@@ -62,10 +62,21 @@ Scaphandrier.Browser = {
   IE8 : ($.browser.msie && parseInt($.browser.version) == 8)
 }
 
+var Splash = Splash || {};
+
+Splash.Widget = {
+  init: function() {
+    $("td[data-track_url]").each(function(i, e) {
+      SC.oEmbed($(e).attr("data-track_url"), {}, e);
+    });
+  }
+}
+
 // onLoad
 jQuery(document).ready(function() {
   Scaphandrier.Fancybox.init();
   Scaphandrier.InlineLabels.init();
   Scaphandrier.Console.init();
   Scaphandrier.Flash.init();
+  Splash.Widget.init();
 });

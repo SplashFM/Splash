@@ -1,3 +1,6 @@
+- content_for :head do
+  = include_javascripts :soundcloud
+
 - form_tag tracks_path, {:method => :get} do
   = text_field_tag :f, params[:f]
   = submit_tag 'Search'
@@ -11,8 +14,10 @@
         %th Title
         %th Plays
         %th Favorites
-      - @results.each do |r|
+        %th Stream URL
+      - @results.each_with_index do |r, i|
         %tr
           %td= r.title
           %td= r.playback_count
           %td= r.favoritings_count
+          %td{:data => {:track_url => r.uri}}
