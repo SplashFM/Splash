@@ -14,6 +14,11 @@ common: &common
     password: bar
   ssl_required: false
   google_analytics: UA-XXXXX-X
+  soundcloud:
+    client_id: client_id
+    client_secret: client_secret
+    username: username
+    password: password
 
 development:
   <<: *common

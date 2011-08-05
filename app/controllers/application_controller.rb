@@ -75,6 +75,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def soundcloud
+    @soundcloud ||= SoundCloudClient.
+      new(:client_id     => AppConfig.soundcloud['client_id'],
+          :client_secret => AppConfig.soundcloud['client_secret'],
+          :username      => AppConfig.soundcloud['username'],
+          :password      => AppConfig.soundcloud['password'])
+  end
+
   # Mark layout elements as hidden. Usage:
   #  hide :navigation, :auth_controls
   def self.hide(*elements)
