@@ -64,3 +64,11 @@ end
 
 # Put Gems used by your application, but not by scap, here:
 gem "soundcloud"
+
+group :test do
+  gem "capybara", "~> 1.0.0"
+  gem "capybara-webkit", "~> 1.0.0.beta"
+  gem "database_cleaner", "~> 0.6.0"
+  gem "bricks"
+  gem "spork", "~> 0.9.0.rc"
+end
