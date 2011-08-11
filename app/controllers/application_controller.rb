@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   before_filter :check_http_auth
   def check_http_auth
     auth = AppConfig.http_auth
-    if auth
+    if auth && ! Rails.env.test?
       authenticate_or_request_with_http_basic do |username, password|
         username == auth['username'] && password == auth['password']
       end
