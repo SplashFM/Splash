@@ -13,3 +13,5 @@ class Track
     fields.each { |f, v| send "#{f}=", v }
   end
 end
+
+load 'config/initializers/searching.rb' if Rails.env.development?
