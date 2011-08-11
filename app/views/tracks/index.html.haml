@@ -18,6 +18,6 @@
       - @results.each_with_index do |r, i|
         %tr
           %td= r.title
-          %td= r.playback_count
-          %td= r.favoritings_count
+          %td= r.plays
+          %td= r.favorites
           %td{:data => {:track_url => r.uri}}
