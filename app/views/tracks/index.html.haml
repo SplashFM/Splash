@@ -1,7 +1,7 @@
 - content_for :head do
   = include_javascripts :soundcloud
 
-- form_tag tracks_path, {:method => :get} do
+= form_tag tracks_path, {:method => :get} do
   = text_field_tag :f, params[:f]
   = submit_tag 'Search'
 
