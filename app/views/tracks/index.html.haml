@@ -10,14 +10,16 @@
     = t '.empty'
   - else
     %table
-      %tr
-        %th Title
-        %th Plays
-        %th Favorites
-        %th Stream URL
-      - @results.each_with_index do |r, i|
+      %thead
         %tr
-          %td= r.title
-          %td= r.plays
-          %td= r.favorites
-          %td{:data => {:track_url => r.uri}}
+          %th Title
+          %th Plays
+          %th Favorites
+          %th Stream URL
+      %tbody
+        - @results.each_with_index do |r, i|
+          %tr{:data => {:source => r.source}}
+            %td= r.title
+            %td= r.plays
+            %td= r.favorites
+            %td{:data => {:track_url => r.uri}}
