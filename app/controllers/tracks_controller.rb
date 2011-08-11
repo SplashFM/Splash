@@ -1,5 +1,9 @@
 class TracksController < ApplicationController
+  MAX_RESULTS = 3
+
   def index
-    @results = soundcloud.search(params[:f]) if params[:f].present?
+    if params[:f].present?
+      @results = soundcloud.search(params[:f], :limit => MAX_RESULTS)
+    end
   end
 end
