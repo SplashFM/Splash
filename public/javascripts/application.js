@@ -73,7 +73,7 @@ Splash.Widget = {
     $("tr[data-source=\"itunessearch\"] td[data-track_url]").each(function(i, e) {
       jwplayer($(e).attr("id")).setup({
         flashplayer: "/player.swf",
-        file: "http://a2.mzstatic.com/us/r1000/054/Music/6f/58/0c/mzi.fybgbauv.aac.p.m4a",
+        file: $(e).attr("data-track_url"),
         'controlbar': 'bottom',
         'width': '470',
         'height': '24'
