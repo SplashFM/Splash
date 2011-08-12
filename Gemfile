@@ -72,3 +72,5 @@ group :test do
   gem "bricks"
   gem "spork", "~> 0.9.0.rc"
 end
+
+gem "itunes-search-api"

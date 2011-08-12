@@ -109,6 +109,8 @@ GEM
     httparty (0.7.8)
       crack (= 0.1.8)
     i18n (0.5.0)
+    itunes-search-api (0.1.0)
+      httparty
     jammit (0.6.3)
       yui-compressor (>= 0.9.3)
     json_pure (1.5.3)
@@ -254,6 +256,7 @@ DEPENDENCIES
   haml (>= 3.0.18)
   hipchat
   hoptoad_notifier
+  itunes-search-api
   jammit (>= 0.5.0)
   mysql2 (~> 0.2.0)
   newrelic_rpm
