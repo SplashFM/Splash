@@ -9,6 +9,7 @@
   - if @results.empty?
     = t '.empty'
   - else
+    #mediaplayer
     %table
       %thead
         %tr
@@ -22,4 +23,4 @@
             %td= r.title
             %td= r.plays
             %td= r.favorites
-            %td{:data => {:track_url => r.uri}}
+            %td{:data => {:track_url => r.uri}, :id => "track#{i}"}

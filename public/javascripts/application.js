@@ -66,9 +66,19 @@ var Splash = Splash || {};
 
 Splash.Widget = {
   init: function() {
-    $("td[data-track_url]").each(function(i, e) {
+    $("tr[data-source=\"soundcloud\"] td[data-track_url]").each(function(i, e) {
       SC.oEmbed($(e).attr("data-track_url"), {}, e);
     });
+    
+    $("tr[data-source=\"itunessearch\"] td[data-track_url]").each(function(i, e) {
+      jwplayer($(e).attr("id")).setup({
+        flashplayer: "/player.swf",
+        file: $(e).attr("data-track_url"),
+        'controlbar': 'bottom',
+        'width': '470',
+        'height': '24'
+      });
+    })
   }
 }
 

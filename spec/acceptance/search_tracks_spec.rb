@@ -3,7 +3,12 @@ require 'acceptance/acceptance_helper'
 feature "Search tracks" do
   subject { SearchPage.new(page) }
 
-  scenario "iTunes results only"
+  scenario "iTunes results only" do
+    search_for "beatles"
+
+    should have(3).items
+    should have(3).itunes_search_items
+  end
 
   scenario "mixed results"
 
@@ -33,6 +38,10 @@ feature "Search tracks" do
 
     def sound_cloud_items
       @page.all('tr[data-source = "soundcloud"]')
+    end
+
+    def itunes_search_items
+      @page.all('tr[data-source = "itunessearch"]')
     end
   end
 end
