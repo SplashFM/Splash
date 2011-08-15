@@ -5,7 +5,7 @@ class Track
     attr_accessor :max_results, :sources
 
     def search(filter)
-      sources.first.search(filter, :limit => max_results)
+      sources.inject([]) { |a, s| a + s.search(filter, :limit => max_results) }
     end
   end
 
