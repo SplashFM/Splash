@@ -1,6 +1,6 @@
 class SoundCloudClient
   def search(query, opts)
-    @sc.get('/tracks', :q => query, :order => 'hotness').
+    @sc.get('/tracks', :q => query).
       select { |e|
         query.split(/(\s+|,)/).all? { |w| e.title.downcase =~ /#{w}/ } }.
       sort { |a, b| a.favoritings_count.to_i <=> b.favoritings_count.to_i }.
