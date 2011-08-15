@@ -3,7 +3,7 @@ class SoundCloudClient
     @sc.get('/tracks', :q => query).
       select { |e|
         query.split(/(\s+|,)/).all? { |w| e.title.downcase =~ /#{w}/ } }.
-      sort { |a, b| a.favoritings_count.to_i <=> b.favoritings_count.to_i }.
+      sort { |a, b| a.playback_count.to_i <=> b.playback_count.to_i }.
       reverse.
       first(opts[:limit]).
       map { |e|
