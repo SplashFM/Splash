@@ -1,0 +1,28 @@
+body
+{
+	background-color:#071a3d;
+	
+}
+
+#wrapper
+{
+	width:1005px;
+	height:746px;
+	margin:0px auto;
+	background:url('../assests/waterBg.png') no-repeat center center transparent;
+	position:relative;
+}
+
+#logo
+{
+	background: url('../assests/logo.png') no-repeat scroll top left;
+	width: 355px;
+	height: 204px;
+	margin:0px auto;
+	position:relative;	
+}
+
+#logo h1
+{
+	margin-left:-50000px;
+}
