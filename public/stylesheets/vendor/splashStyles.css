@@ -4,8 +4,16 @@ body
 	overflow:hidden;
 }
 
+#floater
+{
+	float:left;
+	height:50%;
+	position:relative;
+	background-color:#CCC;
+}
 #wrapper
 {
+	clear:both;
 	width:1005px;
 	height:746px;
 	margin:0px auto;
