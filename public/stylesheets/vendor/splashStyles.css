@@ -13,14 +13,6 @@ body
 	position:relative;
 }
 
-#logo
-{
-	background: url('../../images/logo.png') no-repeat scroll top left;
-	width: 355px;
-	height: 204px;
-	margin:0px auto;
-	position:relative;	
-}
 
 #logo h1
 {
