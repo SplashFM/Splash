@@ -44,8 +44,6 @@ GEM
     arel (2.0.10)
     awesome_print (0.4.0)
     bcrypt-ruby (2.1.4)
-    braintree (2.10.1)
-      builder (>= 2.0.0)
     bricks (0.5.0)
     builder (2.1.2)
     capistrano (2.6.0)
@@ -233,7 +231,6 @@ DEPENDENCIES
   active_scaffold
   active_scaffold_export (>= 3.0.6)
   awesome_print
-  braintree
   bricks
   capistrano
   capybara (~> 1.0.0)
