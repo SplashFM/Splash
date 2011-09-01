@@ -1,7 +1,6 @@
 development:
-  adapter: mysql2
-  encoding: utf8
-  database: scaphandrier_development
+  adapter: postgresql
+  database: splash_development
   username: root
   password:
 test:
