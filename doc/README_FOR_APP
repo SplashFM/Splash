@@ -1,13 +1,2 @@
 Installation
 ============
-
-* Register a new app at http://soundcloud.com/you/apps/new. Set the callback URL
-  to http://<host>/auth/soundcloud.
-* Copy the values for 'Client ID' and 'Client Secret' to the appropriate keys in
-  config/config.yml (check config.yml.sample).
-* Create a user at soundcloud. All interaction with soundcloud will happen
-  through this user.
-* Copy the user's email and password to the appropriate keys in
-  config/config.yml (check config.yml.sample).
-* ???
-* Profit!

@@ -12,13 +12,6 @@ feature "Search tracks" do
 
   scenario "mixed results"
 
-  scenario "SoundCloud results only" do
-    search_for "beatles"
-
-    should have(3).items
-    should have(3).sound_cloud_items
-  end
-
   scenario "No results"
 
   def search_for(filter)
@@ -34,10 +27,6 @@ feature "Search tracks" do
 
     def items
       @page.all('tbody tr')
-    end
-
-    def sound_cloud_items
-      @page.all('tr[data-source = "soundcloud"]')
     end
 
     def itunes_search_items
