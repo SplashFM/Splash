@@ -64,7 +64,7 @@ group :development do
 end
 
 # Put Gems used by your application, but not by scap, here:
-gem "soundcloud"
+gem "texticle", "~> 2.0", :require => "texticle/rails"
 
 group :test do
   gem "capybara", "~> 1.0.0"
