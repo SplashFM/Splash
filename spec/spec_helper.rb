@@ -33,5 +33,19 @@ Spork.each_run do
     # examples within a transaction, remove the following line or assign false
     # instead of true.
     config.use_transactional_fixtures = true
+
+    config.before :all, :adapter => :postgresql do
+      unless ActiveRecord::Base.connection.class.name.include?('PostgreSQL')
+        test_pg = ActiveRecord::Base.configurations['test_pg']
+        ActiveRecord::Base.establish_connection(test_pg)
+      end
+    end
+
+    config.before :all, :adapter => nil do
+      unless ActiveRecord::Base.connection.class.name.include?('SQLite')
+        test = ActiveRecord::Base.configurations['test']
+        ActiveRecord::Base.establish_connection(test)
+      end
+    end
   end
 end

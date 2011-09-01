@@ -7,4 +7,8 @@ test:
   adapter: sqlite3
   encoding: utf8
   database: scaphandrier_test
-
+test_pg:
+  adapter: postgresql
+  database: splash_test
+  username: root
+  password:

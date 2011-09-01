@@ -1,6 +1,6 @@
 ActionMailer::Base.default :charset => "UTF-8"
 
-unless Rails.env.test?
+unless Rails.env.test? || Rails.env.test_pg?
   ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
     :address => "smtp.sendgrid.net",
