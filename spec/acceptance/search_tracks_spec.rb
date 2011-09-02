@@ -20,7 +20,7 @@ feature "Search tracks", :adapter => :postgresql do
   end
 
   def search_for(filter)
-    visit tracks_path
+    visit dashboard_path
     fill_in "f", :with => filter
     click_button "Search"
   end
