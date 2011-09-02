@@ -3,6 +3,8 @@ require 'acceptance/acceptance_helper'
 feature "Search tracks", :adapter => :postgresql do
   subject { SearchResults.new(page) }
 
+  background { visit dashboard_path }
+
   scenario "Empty query"
 
   scenario "No results"  do
@@ -20,7 +22,6 @@ feature "Search tracks", :adapter => :postgresql do
   end
 
   def search_for(filter)
-    visit dashboard_path
     fill_in "f", :with => filter
     click_button "Search"
   end
