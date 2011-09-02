@@ -11,3 +11,4 @@ tmp/
 public/*/active_scaffold/
 public/blank.html
 /.bundle/config
+/TAGS
