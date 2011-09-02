@@ -21,13 +21,9 @@ feature "Search tracks", :adapter => :postgresql do
     click_button "Search"
   end
 
-  class SearchPage
-    def initialize(page)
-      @page = page
-    end
-
+  class SearchPage < PageWrapper
     def tracks
-      @page.all('ul.tracks li')
+      page.all('ul.tracks li')
     end
   end
 end
