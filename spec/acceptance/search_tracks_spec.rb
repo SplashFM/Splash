@@ -1,18 +1,19 @@
 require 'acceptance/acceptance_helper'
 
-feature "Search tracks" do
+feature "Search tracks", :adapter => :postgresql do
   subject { SearchPage.new(page) }
 
-  scenario "iTunes results only" do
-    search_for "beatles"
-
-    should have(3).items
-    should have(3).itunes_search_items
-  end
-
-  scenario "mixed results"
+  scenario "Empty query"
 
   scenario "No results"
+
+  scenario "Song found" do
+    track = create!(Track)
+
+    search_for track.title
+
+    subject.should have(1).track
+  end
 
   def search_for(filter)
     visit tracks_path
@@ -25,12 +26,8 @@ feature "Search tracks" do
       @page = page
     end
 
-    def items
-      @page.all('tbody tr')
-    end
-
-    def itunes_search_items
-      @page.all('tr[data-source = "itunessearch"]')
+    def tracks
+      @page.all('ul.tracks li')
     end
   end
 end
