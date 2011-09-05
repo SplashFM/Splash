@@ -5,3 +5,6 @@ en:
   tracks:
     index:
       empty: No results found.
+    widget:
+      splashed: Splashed
+      splash: Splash

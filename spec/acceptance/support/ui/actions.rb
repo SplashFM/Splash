@@ -16,5 +16,9 @@ module UI
       fill_in "f", :with => filter
       click_button "Search"
     end
+
+    def splash(track)
+      find(splash_track_css(track)).click
+    end
   end
 end

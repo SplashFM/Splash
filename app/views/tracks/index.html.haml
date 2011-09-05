@@ -8,4 +8,6 @@
   - else
     %ul.tracks
       - @results.each do |r|
-        %li= r.title
+        %li.track{:data => {:track_id => r.id}}
+          = r.title
+          = splash_widget(r)

@@ -10,6 +10,7 @@ javascripts:
     - public/javascripts/jwplayer.js
     - public/javascripts/application.js
     - public/javascripts/locales.js
+    - public/javascripts/widgets.js
 
 stylesheets:
   base:
