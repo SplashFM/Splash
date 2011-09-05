@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature "Search tracks", :adapter => :postgresql do
-  subject { SearchResults.new(page) }
+  subject { page }
 
   background { visit dashboard_path }
 
@@ -10,7 +10,8 @@ feature "Search tracks", :adapter => :postgresql do
   scenario "No results"  do
     search_for "Nothing"
 
-    subject.should be_empty
+    should have(0).tracks
+    should have_content(t('tracks.index.empty'))
   end
 
   scenario "Song found" do
@@ -18,18 +19,7 @@ feature "Search tracks", :adapter => :postgresql do
 
     search_for track.title
 
-    subject.should have(1).track
-  end
-
-  class SearchResults < PageWrapper
-    def empty?
-      tracks.empty? &&
-        page.has_content?(t('tracks.index.empty'))
-    end
-
-    def tracks
-      page.all('ul.tracks li')
-    end
+    should have(1).track
   end
 end
 
