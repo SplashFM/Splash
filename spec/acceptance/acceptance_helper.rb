@@ -10,5 +10,9 @@ Spork.each_run do
     config.include UI::Actions
     config.include UI::Queries
     config.include Helpers
+
+    config.before :type => :request do
+      login
+    end
   end
 end
