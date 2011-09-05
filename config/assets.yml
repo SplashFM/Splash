@@ -9,6 +9,7 @@ javascripts:
     - public/javascripts/jquery.fancybox-1.3.4.js
     - public/javascripts/jwplayer.js
     - public/javascripts/application.js
+    - public/javascripts/locales.js
 
 stylesheets:
   base:

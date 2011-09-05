@@ -66,6 +66,7 @@ end
 # Put Gems used by your application, but not by scap, here:
 gem "texticle", "~> 2.0", :require => "texticle/rails"
 gem "jquery-rails"
+gem "babilu"
 
 group :test do
   gem "capybara", "~> 1.0.0"
