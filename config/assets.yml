@@ -10,9 +10,6 @@ javascripts:
     - public/javascripts/jwplayer.js
     - public/javascripts/application.js
 
-  soundcloud:
-    - public/javascripts/soundcloud.min.js
-
 stylesheets:
   base:
     - public/stylesheets/vendor/yui-reset.css
