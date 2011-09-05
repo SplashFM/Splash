@@ -14,4 +14,10 @@ describe Splash do
     lambda { Splash.create!(:track => track, :user => user) }.
       should raise_error(ActiveRecord::RecordInvalid)
   end
+
+  it "finds the splash for the given track and user" do
+    s = Splash.create!(:track => track, :user => user)
+
+    Splash.for(track, user).should == s
+  end
 end

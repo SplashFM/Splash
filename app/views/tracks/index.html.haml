@@ -10,4 +10,4 @@
       - @results.each do |r|
         %li.track{:data => {:track_id => r.id}}
           = r.title
-          = splash_widget(r)
+          = splash_widget(r, current_user)
