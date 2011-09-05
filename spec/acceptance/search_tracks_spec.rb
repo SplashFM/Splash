@@ -21,11 +21,6 @@ feature "Search tracks", :adapter => :postgresql do
     subject.should have(1).track
   end
 
-  def search_for(filter)
-    fill_in "f", :with => filter
-    click_button "Search"
-  end
-
   class SearchResults < PageWrapper
     def empty?
       tracks.empty? &&

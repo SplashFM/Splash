@@ -7,5 +7,6 @@ Spork.each_run do
     Capybara.javascript_driver = :webkit
 
     config.include Capybara::DSL
+    config.include UI::Actions
   end
 end
