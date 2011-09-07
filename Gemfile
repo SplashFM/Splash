@@ -40,6 +40,7 @@ gem "state_machine"
 gem "uuidtools"
 gem 'whenever', :require => false
 gem "will_paginate", ">=3.0.pre"
+gem "js-routes", :require => 'js_routes'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
