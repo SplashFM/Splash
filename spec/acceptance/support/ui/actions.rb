@@ -8,8 +8,9 @@ module UI
       visit new_user_session_path
 
       fill_in "user_email", :with => user.email
+      wait_until{ page.has_content?('Password') }
       fill_in "user_password", :with => user.password
-      click_button 'Sign in'
+      click_button t('devise.buttons.login')
     end
 
     def search_for(filter)

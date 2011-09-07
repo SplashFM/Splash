@@ -29,7 +29,9 @@ Scaphandrier::Application.routes.draw do
 
   get "home/index"
 
-  devise_for :users
+  devise_for :users do
+    get '/users/exists' => 'users#exists'
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
