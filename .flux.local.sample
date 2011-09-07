@@ -1,0 +1,4 @@
+# Copy this to .flux.local
+trackers:
+  token: Your token from https://www.pivotaltracker.com/profile
+  email: your.email@mojotech.com
