@@ -11,6 +11,7 @@ javascripts:
     - public/javascripts/application.js
     - public/javascripts/locales.js
     - public/javascripts/widgets.js
+    - public/javascripts/jquery.typing-0.2.0.min.js
 
 stylesheets:
   base:
