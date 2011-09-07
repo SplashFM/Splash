@@ -13,3 +13,4 @@ public/blank.html
 /.bundle/config
 /TAGS
 /public/javascripts/locales.js
+/.flux.local
