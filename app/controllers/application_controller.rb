@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :require_user
 
   protected
 
@@ -18,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    deny_access("Please login or create an account to access that feature.") unless signed_in?(:user)
+    deny_access("Please login or create an account to access that feature.") unless signed_in?(:user) || params[:controller].include?('devise')
   end
 
   def require_superuser
