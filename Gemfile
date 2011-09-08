@@ -41,6 +41,7 @@ gem "uuidtools"
 gem 'whenever', :require => false
 gem "will_paginate", ">=3.0.pre"
 gem "js-routes", :require => 'js_routes'
+gem "inherited_resources"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
