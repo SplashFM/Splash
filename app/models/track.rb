@@ -5,6 +5,8 @@ class Track < ActiveRecord::Base
 
   validates_presence_of :title, :artist
 
+  has_attached_file :data
+
   MAX_RESULTS = 3
 
   # Search for tracks matching the given query.

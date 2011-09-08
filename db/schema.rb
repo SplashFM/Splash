@@ -35,11 +35,15 @@ ActiveRecord::Schema.define(:version => 20110908173950) do
   end
 
   create_table "tracks", :force => true do |t|
-    t.string   "title",      :null => false
+    t.string   "title",             :null => false
     t.string   "album"
-    t.string   "artist",     :null => false
+    t.string   "artist",            :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "data_file_name"
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.datetime "data_updated_at"
   end
 
   add_index "tracks", ["title", "artist"], :name => "index_tracks_on_title_and_artist", :unique => true
