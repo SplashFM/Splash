@@ -10,6 +10,7 @@ javascripts:
     - public/javascripts/jwplayer.js
     - public/javascripts/application.js
     - public/javascripts/locales.js
+    - public/javascripts/jquery.mojotech.js
     - public/javascripts/widgets.js
     - public/javascripts/jquery.typing-0.2.0.min.js
     - public/javascripts/routes.js
