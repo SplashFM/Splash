@@ -5,7 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :confirmable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name
+
+  validates :name, :presence => true, :on => :update
 
   has_attached_file :avatar, :styles => { :thumb => ["64x64>", :png] }
   before_save :possibly_delete_avatar

@@ -12,7 +12,7 @@ Spork.each_run do
     config.include Helpers
 
     config.before :type => :request do
-      login unless example.metadata[:logout]
+      login(user) unless example.metadata[:logout]
     end
   end
 end

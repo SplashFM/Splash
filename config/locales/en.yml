@@ -8,3 +8,15 @@ en:
     widget:
       splashed: Splashed
       splash: Splash
+
+  users:
+    show:
+      title: 'User profile'
+    edit: 
+      title: 'User profile'
+
+  errors:
+    user:
+      attributes:
+        name:
+          blank: 'You need set an user name to use site'

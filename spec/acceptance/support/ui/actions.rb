@@ -4,7 +4,7 @@ module UI
       base.let(:user) { create!(User) }
     end
 
-    def login
+    def login(user)
       visit new_user_session_path
 
       fill_in "user_email", :with => user.email

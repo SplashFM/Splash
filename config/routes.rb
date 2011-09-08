@@ -33,6 +33,8 @@ Scaphandrier::Application.routes.draw do
     get '/users/exists' => 'users#exists'
   end
 
+  resources :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
