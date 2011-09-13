@@ -13,6 +13,7 @@ javascripts:
     - public/javascripts/widgets.js
     - public/javascripts/jquery.typing-0.2.0.min.js
     - public/javascripts/routes.js
+    - public/javascripts/jquery.liveSearch.js
 
 stylesheets:
   base:
@@ -29,3 +30,4 @@ stylesheets:
     - public/stylesheets/vendor/formtastic_changes.css
     - public/stylesheets/flash_messages.css
     - public/stylesheets/style.css
+    - public/stylesheets/vendor/jquery.liveSearch.css
