@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Track widget" do
+feature "Track widget", :js => true do
   subject { page }
 
   background { visit dashboard_path }
