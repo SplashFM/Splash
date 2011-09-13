@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Search tracks", :adapter => :postgresql, :js => true do
+feature "Track search box", :adapter => :postgresql, :js => true do
   subject { page }
 
   background { visit dashboard_path }
