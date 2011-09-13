@@ -15,7 +15,6 @@ module UI
 
     def search_for(filter)
       fill_in "f", :with => filter
-      click_button "Search"
     end
 
     def splash(track)

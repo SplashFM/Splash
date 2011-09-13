@@ -10,6 +10,15 @@ Widgets.Track = {
   }
 }
 
+Widgets.Search = {
+  init: function() {
+    console.log($('[data-widget = "track-search"] :text'));
+    $('[data-widget = "track-search"] :text').
+      liveSearch({url: Routes.tracks_path({f: ''})});
+  }
+}
+
+
 Widgets.TypingStop ={
   init: function(){
     $('#user_email').typing({
@@ -36,6 +45,7 @@ Widgets.TypingStop ={
 }
 
 $(document).ready(function() {
+  Widgets.Search.init();
   Widgets.Track.init();
   Widgets.TypingStop.init();
 });

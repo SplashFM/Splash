@@ -1,7 +1,7 @@
 module UI
   module Collections
     def tracks
-      all(track_css)
+      wait_until { all(track_css).presence }
     end
 
     Capybara::Session.send(:include, self)

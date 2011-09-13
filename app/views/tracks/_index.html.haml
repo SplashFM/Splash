@@ -1,0 +1,8 @@
+- if tracks.empty?
+  = t '.empty'
+- else
+  %ul.tracks
+    - tracks.each do |t|
+      %li.track{:data => {:track_id => t.id}}
+        = t.title
+        = splash_widget(t, current_user)

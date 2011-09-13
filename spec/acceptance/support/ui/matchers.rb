@@ -10,6 +10,10 @@ module UI
            "[value = '#{I18n.t("tracks.widget.splash")}']")
     end
 
+    def has_tracks?
+      has_css?(track_css)
+    end
+
     Capybara::Session.send(:include, self)
   end
 end

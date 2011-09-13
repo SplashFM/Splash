@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Search tracks", :adapter => :postgresql do
+feature "Search tracks", :adapter => :postgresql, :js => true do
   subject { page }
 
   background { visit dashboard_path }
@@ -10,8 +10,8 @@ feature "Search tracks", :adapter => :postgresql do
   scenario "No results"  do
     search_for "Nothing"
 
-    should have(0).tracks
-    should have_content(t('tracks.index.empty'))
+    should_not have_tracks
+    should     have_content(t('tracks.index.empty'))
   end
 
   scenario "Song found" do
