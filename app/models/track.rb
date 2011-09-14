@@ -1,11 +1,11 @@
+require 'testable_search'
+
 class Track < ActiveRecord::Base
+  extend TestableSearch
+
   validates_presence_of :title, :artist
 
   MAX_RESULTS = 3
-
-  def self.using_postgres?
-    connection.class.name =~ /PostgreSQL/
-  end
 
   # Search for tracks matching the given query.
   #
@@ -15,9 +15,10 @@ class Track < ActiveRecord::Base
   #
   # @return a (possibly empty) list of tracks
   def self.filtered(query)
-    if Rails.env.test? && ! using_postgres?
+    if use_slow_search?
       # We want to use memory-based sqlite3 for most tests.
-      # This is ugly, but tests run faster
+      # This is ugly, but tests run faster.
+      # Also see User.filtered.
 
       fields = content_columns.select { |c| c.type == :string }.map(&:name)
       q      = fields.map { |f| "#{f} = :query" }.join(' or ')
