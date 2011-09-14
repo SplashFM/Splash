@@ -13,8 +13,10 @@ module UI
       click_button t('devise.buttons.login')
     end
 
-    def search_for(filter)
-      fill_in "f", :with => filter
+    def search_for(filter, search_type, &block)
+      within(search_form(search_type)) { fill_in "f", :with => filter }
+
+      within(search_results(search_type), &block) if block_given?
     end
 
     def splash(track)

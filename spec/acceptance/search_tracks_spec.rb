@@ -8,18 +8,18 @@ feature "Search tracks", :adapter => :postgresql, :js => true do
   scenario "Empty query"
 
   scenario "No results"  do
-    search_for "Nothing"
-
-    should_not have_tracks
-    should     have_content(t('tracks.index.empty'))
+    search_for "Nothing", :track do
+      should_not have_tracks
+      should     have_content(t('tracks.index.empty'))
+    end
   end
 
   scenario "Song found" do
     track = create!(Track)
 
-    search_for track.title
-
-    should have(1).track
+    search_for track.title, :track do
+      should have(1).track
+    end
   end
 end
 

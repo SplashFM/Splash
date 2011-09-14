@@ -8,8 +8,9 @@ feature "Splash tracks", :js => true do
   scenario "Splash existing track" do
     track = create!(Track)
 
-    search_for track.title
-    splash track
+    search_for track.title, :track do
+      splash track
+    end
 
     should have_splashed(track)
   end

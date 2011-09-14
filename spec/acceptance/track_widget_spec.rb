@@ -8,21 +8,22 @@ feature "Track widget", :js => true do
   scenario "Splashable song" do
     track = create!(Track)
 
-    search_for track.title
-
-    should have_splashable(track)
+    search_for track.title, :track do
+      should have_splashable(track)
+    end
   end
 
   scenario "Splashed song" do
     track = create!(Track)
 
-    search_for track.title
-    splash track
+    search_for track.title, :track do
+      splash track
+    end
 
     visit dashboard_path
-    search_for track.title
-
-    should have_splashed(track)
+    search_for track.title, :track do
+      should have_splashed(track)
+    end
   end
 end
 
