@@ -1,6 +1,7 @@
 module UI
   module Queries
-    SEARCH_TYPES = {:track  => 'track-search'}
+    SEARCH_TYPES = {:track  => 'track-search',
+                    :global => 'global-search'}
 
     def search_form(type)
       ensure_valid_search_type(type)
