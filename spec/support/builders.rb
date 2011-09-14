@@ -9,5 +9,10 @@ Bricks do
     email        'user@mojotech.com'
     password     'testing'
     confirmed_at 1.day.ago
+
+    trait :with_name do |n|
+      email n.strip.downcase.gsub(/\s+/, '.') + "@userfactories.com"
+      name  n
+    end
   end
 end

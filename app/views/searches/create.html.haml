@@ -1,8 +1,21 @@
-- if @tracks.empty?
-  = t '.empty'
+- if @tracks.empty? && @users.empty?
+  = t('.empty')
 - else
-  %ul.tracks
-    - @tracks.each do |t|
-      %li.track{:data => {:track_id => t.id}}
-        = t.title
-        = splash_widget(t, current_user)
+  %dl
+    - unless @tracks.empty?
+      %dt= Track.model_name.human.pluralize
+      %dl
+        %ul.tracks
+          - @tracks.each do |t|
+            %li.track{:data => {:track_id => t.id}}
+              = t.title
+              = splash_widget(t, current_user)
+
+    - unless @users.empty?
+      %dt= User.model_name.human.pluralize
+      %dl
+        %ul.users
+          - @users.each do |u|
+            %li.user{:data => {:user_id => u.id}}
+              = u.name
+

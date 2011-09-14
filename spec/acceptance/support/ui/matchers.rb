@@ -14,6 +14,10 @@ module UI
       has_css?(track_css)
     end
 
+    def has_users?
+      has_css?(user_query)
+    end
+
     Capybara::Session.send(:include, self)
   end
 end

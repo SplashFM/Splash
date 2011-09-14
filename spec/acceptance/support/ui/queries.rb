@@ -19,6 +19,10 @@ module UI
       'li[data-track_id' + (track ? " = '#{track.id}'" : '') + ']'
     end
 
+    def user_query(user = nil)
+      'li[data-user_id' + (user ? " = '#{user.id}'" : '') + ']'
+    end
+
     def splash_track_css(track)
       track_css(track) + " .splash input[type = 'submit']"
     end

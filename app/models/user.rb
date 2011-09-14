@@ -1,4 +1,8 @@
+require 'testable_search'
+
 class User < ActiveRecord::Base
+  extend TestableSearch
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,
@@ -13,6 +17,23 @@ class User < ActiveRecord::Base
   before_save :possibly_delete_avatar
   attr_accessor :delete_avatar
   attr_accessible :delete_avatar
+
+  # Search for users matching the given name.
+  #
+  # @param [String] name the user name to search for
+  #
+  # @return a (possibly empty) list of users
+  def self.filtered(name)
+    if use_slow_search?
+      # We want to use memory-based sqlite3 for most tests.
+      # This is ugly, but tests run faster.
+      # Also see Track.filtered.
+
+      where(:name => name)
+    else
+      search(:name => name)
+    end
+  end
 
   # Declarative Authorization user roles
   DEFAULT_ROLES = [:guest, :user].freeze

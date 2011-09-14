@@ -21,5 +21,13 @@ feature "Track search box", :adapter => :postgresql, :js => true do
       should have(1).track
     end
   end
+
+  scenario "Does not return results for users" do
+    user = create(User).with_name!('Jack Johnson')
+
+    search_for user.name, :track do
+      should have_content(t('searches.create.empty'))
+    end
+  end
 end
 
