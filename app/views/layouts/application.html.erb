@@ -29,7 +29,7 @@
         <% unless hidden?(:navigation) %>
           <div id="main_nav"><%= render_navigation %></div>
           <%= render :partial => 'shared/admin_nav' if signed_in_as_superuser? %>
-          <%= render 'shared/search', :type => 'global' %>
+          <%= render 'shared/search', :type => 'global' if logged_in? %>
         <% end %>
       </div>
       <div id="main">
