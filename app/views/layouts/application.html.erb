@@ -27,9 +27,9 @@
         <h1><%= Rails.application.name %> - <%= controller.controller_name.titleize -%></h1>
         <%= render :partial => 'shared/auth_controls' unless hidden?(:auth_controls) %>
         <% unless hidden?(:navigation) %>
-          <%= render 'shared/search', :type => 'global' %>
           <div id="main_nav"><%= render_navigation %></div>
           <%= render :partial => 'shared/admin_nav' if signed_in_as_superuser? %>
+          <%= render 'shared/search', :type => 'global' %>
         <% end %>
       </div>
       <div id="main">

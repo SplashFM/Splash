@@ -31,3 +31,4 @@ stylesheets:
     - public/stylesheets/flash_messages.css
     - public/stylesheets/style.css
     - public/stylesheets/vendor/jquery.liveSearch.css
+    - public/stylesheets/header.css
