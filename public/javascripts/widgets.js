@@ -12,7 +12,6 @@ Widgets.Track = {
 
 Widgets.Search = {
   init: function() {
-    console.log($('[data-widget = "track-search"] :text'));
     $('[data-widget = "track-search"] :text').
       liveSearch({url: Routes.tracks_path({f: ''}),
                   id:  'track-search'});
