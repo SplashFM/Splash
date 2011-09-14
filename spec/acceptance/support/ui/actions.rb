@@ -1,7 +1,7 @@
 module UI
   module Actions
     def self.included(base)
-      base.let(:user) { create!(User) }
+      base.let(:user) { create(User).with_required_info! }
     end
 
     def login(user)
