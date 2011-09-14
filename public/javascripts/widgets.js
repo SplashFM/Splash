@@ -13,8 +13,7 @@ Widgets.Track = {
 Widgets.Search = {
   init: function() {
     $('[data-widget = "track-search"] :text').
-      liveSearch({url: Routes.tracks_path({f: ''}),
-                  id:  'track-search'});
+      liveSearch({url: Routes.search_path({f: ''}), id: 'track-search'});
   }
 }
 

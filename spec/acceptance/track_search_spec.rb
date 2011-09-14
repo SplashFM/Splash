@@ -10,7 +10,7 @@ feature "Track search box", :adapter => :postgresql, :js => true do
   scenario "No results"  do
     search_for "Nothing", :track do
       should_not have_tracks
-      should     have_content(t('tracks.index.empty'))
+      should     have_content(t('searches.create.empty'))
     end
   end
 

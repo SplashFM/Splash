@@ -1,4 +1,1 @@
-= form_tag tracks_path, :method => :get,
-                        :'data-widget' => 'track-search' do
-  = text_field_tag :f, params[:f]
-
+= render 'shared/search', :type => 'track'
