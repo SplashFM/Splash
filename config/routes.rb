@@ -25,7 +25,7 @@ Scaphandrier::Application.routes.draw do
   resource :visitor
 
   match 'home' => 'home#index', :as =>'home'
-  match 'dashboard' => 'tracks#index', :as => 'dashboard'
+  match 'dashboard' => 'home#index', :as => 'dashboard'
 
   get "home/index"
 
