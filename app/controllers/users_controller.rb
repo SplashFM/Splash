@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   inherit_resources
   respond_to :html
 
+  skip_before_filter :require_user, :only => 'exists'
+
   def exists
     if User.exists?(params.slice(:email))
       head(:ok)
