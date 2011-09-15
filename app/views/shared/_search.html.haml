@@ -1,6 +1,10 @@
-= form_tag search_path, :method => :get, :'data-widget' => "#{type}-search" do
+= form_tag search_path(:type => type),
+           :method => :get,
+           :'data-widget' => "search",
+           :'data-search-results' => "#{type}-results" do
   = text_field_tag :f,
                    params[:f],
                    :id => "#{type}-f",
                    :placeholder => type == 'global' ? t('.global') : t('.track')
 
+%div{:id => "#{type}-results", :data => {:widget => 'results'}}

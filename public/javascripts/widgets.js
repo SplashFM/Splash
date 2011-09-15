@@ -12,15 +12,24 @@ Widgets.Track = {
 
 Widgets.Search = {
   init: function() {
-    $('[data-widget = "track-search"] :text').
-      liveSearch({url: Routes.search_path() + "?type=track&f=",
-                  id: 'track-search'});
-    $('[data-widget = "global-search"] :text').
-      liveSearch({url: Routes.search_path() + "?type=global&f=",
-                  id: 'global-search'});
-  }
-}
+    $('[data-widget = "search"]').each(function(_, e) {
+      var form    = $(e);
+      var input   = form.find(':text');
+      var results = $('#' + form.data('search-results'));
 
+      input.searchbox({
+        url: form.attr('action'),
+        dom_id: '#' + results.attr('id'),
+        param: input.attr('name'),
+        delay: 500
+      });
+
+      input.bind('after.searchbox', function() {
+        results.show();
+      });
+    });
+  }
+};
 
 Widgets.TypingStop ={
   init: function(){

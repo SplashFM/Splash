@@ -20,7 +20,7 @@ module UI
     end
 
     def splash(track)
-      find(splash_track_css(track)).click
+      within(track_css(track)) { find(splash_css).click }
     end
   end
 end

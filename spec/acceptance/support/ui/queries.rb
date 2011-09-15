@@ -1,18 +1,17 @@
 module UI
   module Queries
-    SEARCH_TYPES = {:track  => 'track-search',
-                    :global => 'global-search'}
+    SEARCH_TYPES = [:track, :global]
 
     def search_form(type)
       ensure_valid_search_type(type)
 
-      "[data-widget = '#{type}-search']"
+      "[data-widget = 'search'][action *= '#{type}']"
     end
 
     def search_results(type)
       ensure_valid_search_type(type)
 
-      "##{SEARCH_TYPES[type]}"
+      "##{type}-results[data-widget = 'results']"
     end
 
     def track_css(track = nil)
@@ -23,16 +22,16 @@ module UI
       'li[data-user_id' + (user ? " = '#{user.id}'" : '') + ']'
     end
 
-    def splash_track_css(track)
-      track_css(track) + " .splash input[type = 'submit']"
+    def splash_css
+      ".splash input[type = 'submit']"
     end
 
     private
 
     def ensure_valid_search_type(type)
-      unless SEARCH_TYPES[type]
+      unless SEARCH_TYPES.include?(type)
         raise "Unknown search box: #{type}. " <<
-              "Allowed: #{SEARCH_TYPES.keys.join(', ')}"
+              "Allowed: #{SEARCH_TYPES.inspect}"
       end
     end
 
