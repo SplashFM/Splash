@@ -22,5 +22,17 @@ module UI
     def splash(track)
       within(track_css(track)) { find(splash_css).click }
     end
+
+    def upload(path)
+      t = build!(Track)
+
+      click_link t('formtastic.actions.upload')
+
+      wait_until { page.has_css?(upload_css, :visible => true) }
+
+      fill_in Track.human_attribute_name(:title), :with => t.title
+      fill_in Track.human_attribute_name(:artist), :with => t.artist
+      attach_file Track.human_attribute_name(:data), path
+    end
   end
 end

@@ -25,6 +25,8 @@ Widgets.Search = {
       });
 
       input.bind('after.searchbox', function() {
+        Widgets.Upload.init(results.find('[data-widget = "upload"]'));
+
         results.show();
       });
     });
@@ -56,8 +58,24 @@ Widgets.TypingStop ={
   }
 }
 
+Widgets.Upload = {
+  init: function(upload) {
+    var form = upload.find('form');
+
+    upload.linkToggle();
+
+    form.fileupload({
+      // this will be removed soon, so no i18n needed
+      fail:  function()        { upload.text('Upload failed.') },
+      start: function()        { form.hide(); upload.text('Uploading.'); },
+      stop:  function(e, data) { upload.text('Uploaded.'); }
+    });
+  }
+}
+
 $(document).ready(function() {
   Widgets.Search.init();
   Widgets.Track.init();
   Widgets.TypingStop.init();
 });
+

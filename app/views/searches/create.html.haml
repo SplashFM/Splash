@@ -19,3 +19,15 @@
             %li.user{:data => {:user_id => u.id}}
               = u.name
 
+%p= link_to t('.upload'), "##{params[:type]}-upload"
+
+%div{:id   => "#{params[:type]}-upload",
+     :data => {:widget => 'upload'}}
+  = semantic_form_for Track.new, :html => {:multipart => true} do |t|
+    = t.input :title
+    = t.input :artist
+    = t.input :album
+    = t.input :data, :label => Track.human_attribute_name(:data), :as => :file
+    /
+      = t.buttons do
+        = t.commit_button :upload

@@ -26,6 +26,10 @@ module UI
       "[data-widget = 'splash'] input[type = 'submit']"
     end
 
+    def upload_css
+      "[data-widget = 'upload']"
+    end
+
     private
 
     def ensure_valid_search_type(type)

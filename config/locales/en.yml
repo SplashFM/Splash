@@ -2,12 +2,19 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  activerecord:
+    attributes:
+      track:
+        data: File
+
   shared:
     search:
       global: Search for songs or users
       track: Enter a song to splash
+
   searches:
     create:
+      upload: Upload
       empty: No results found.
 
   tracks:
