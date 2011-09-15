@@ -17,5 +17,6 @@ unless Rails.env.production?
     user.encrypted_password = '$2a$10$HgMJqHP9ddNv.BEbWntYleKdVzJijjmnlyUBTkmUIYdj4AzwM9Iha' # password
     user.superuser = false
     user.confirmed_at = Time.now
+    user.name = 'Mojo User'
   end
 end
