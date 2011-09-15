@@ -6,6 +6,8 @@ class Track < ActiveRecord::Base
   validates_presence_of :title, :artist
 
   has_attached_file :data
+  validates_attachment_content_type :data,
+                                    :content_type => %w(audio/mpeg audio/mp4)
 
   MAX_RESULTS = 3
 
