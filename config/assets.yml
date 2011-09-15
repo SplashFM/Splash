@@ -15,6 +15,8 @@ javascripts:
     - public/javascripts/jquery.typing-0.2.0.min.js
     - public/javascripts/routes.js
     - public/javascripts/searchbox.js
+    - public/javascripts/jquery.fileupload.js
+    - public/javascripts/jquery.iframe-transport.js
 
 stylesheets:
   base:
