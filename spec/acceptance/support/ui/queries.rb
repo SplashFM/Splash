@@ -23,7 +23,7 @@ module UI
     end
 
     def splash_css
-      ".splash input[type = 'submit']"
+      "[data-widget = 'splash'] input[type = 'submit']"
     end
 
     private

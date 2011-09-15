@@ -5,7 +5,7 @@ module WidgetsHelper
     form_for :splash,
              :url    => track_splashes_path(track),
              :remote => true,
-             :html   => {:class  => 'splash'} do |f|
+             :html   => {'data-widget' => 'splash'} do |f|
       f.submit t('tracks.widget.splash' + (splash ? 'ed' : '')),
                :disabled => splash
     end
