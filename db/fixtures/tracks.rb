@@ -16,4 +16,12 @@ unless Rails.env.production?
     s.album  = 'Close to the edge'
     s.artist = 'Yes'
   end
+
+  1.upto(30) { |i|
+    Track.seed :title, :album, :artist do |s|
+      s.title  = "Track #{i}"
+      s.album  = "Album"
+      s.artist = 'Artist'
+    end
+  }
 end
