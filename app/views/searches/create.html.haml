@@ -4,9 +4,7 @@
   %dl
     - unless @tracks.empty?
       %dt= Track.model_name.human.pluralize
-      %dl
-        %ul.tracks= render @tracks
-
+      %dl= render 'searches/page', :collection => @tracks
     - unless @users.empty?
       %dt= User.model_name.human.pluralize
       %dl
