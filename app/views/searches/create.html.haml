@@ -9,10 +9,7 @@
     - unless @users.empty?
       %dt= User.model_name.human.pluralize
       %dl
-        %ul.users
-          - @users.each do |u|
-            %li.user{:data => {:user_id => u.id}}
-              = u.name
+        %ul.users= render @users
 
 %p= link_to t('.upload'), "##{params[:type]}-upload"
 
