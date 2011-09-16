@@ -4,12 +4,11 @@
   %dl
     - unless @tracks.blank?
       %dt= Track.model_name.human.pluralize
-      %dl= render 'searches/page', page_params(@tracks)
+      %dl= render 'searches/page', page_params(@tracks, 'track')
 
     - unless @users.blank?
       %dt= User.model_name.human.pluralize
-      %dl
-        %ul.users= render @users
+      %dl= render 'searches/page', page_params(@users, 'user')
 
 %p= link_to t('.upload'), "##{params[:type]}-upload"
 

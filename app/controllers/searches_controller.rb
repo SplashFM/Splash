@@ -8,9 +8,13 @@ class SearchesController < ApplicationController
   end
 
   def expand
-    tracks, _ = search
+    %w(track user).include?(params[:type]) or
+      raise "Forbidden type for `expand': #{params[:type]}"
 
-    render :partial => 'searches/page', :locals => page_params(tracks)
+    tracks, users = search
+
+    render :partial => 'searches/page',
+           :locals => page_params(tracks || users, params[:type])
   end
 
   private
@@ -18,15 +22,22 @@ class SearchesController < ApplicationController
   def search
     opts = {:page => params[:page], :per_page => PER_PAGE}
 
-    [Track.filtered(params[:f]).paginate(opts),
-     params[:type] == 'global' ? User.filtered(params[:f]) : []]
+    tracks = if %w(global track).include?(params[:type])
+              Track.filtered(params[:f]).paginate(opts)
+            end
+
+    users = if %w(global user).include?(params[:type])
+              User.filtered(params[:f]).paginate(opts)
+            end
+
+    [tracks, users]
   end
 
   helper_method :page_params
-  def page_params(collection)
+  def page_params(collection, type)
     {:f          => params[:f],
      :page       => (params[:page] || 1).to_i + 1,
-     :type       => params[:type],
+     :type       => type,
      :collection => collection}
   end
 end
