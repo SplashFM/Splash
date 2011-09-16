@@ -11,8 +11,6 @@ class Track < ActiveRecord::Base
                                                         audio/mp4
                                                         audio/x-m4a)
 
-  MAX_RESULTS = 3
-
   # Search for tracks matching the given query.
   #
   # Searches all "string" fields on the Track model.
