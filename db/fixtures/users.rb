@@ -19,4 +19,14 @@ unless Rails.env.production?
     user.confirmed_at = Time.now
     user.name = 'Mojo User'
   end
+
+  1.upto(30) { |i|
+    User.seed(:email) do |user|
+      user.email = "user#{i}@mojotech.com"
+      user.encrypted_password = '$2a$10$HgMJqHP9ddNv.BEbWntYleKdVzJijjmnlyUBTkmUIYdj4AzwM9Iha' # password
+      user.superuser = false
+      user.confirmed_at = Time.now
+      user.name = "Mojo User #{i}"
+    end
+  }
 end
