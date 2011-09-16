@@ -1,12 +1,12 @@
-- if @tracks.empty? && @users.empty?
+- if @tracks.blank? && @users.blank?
   = t('.empty')
 - else
   %dl
-    - unless @tracks.empty?
+    - unless @tracks.blank?
       %dt= Track.model_name.human.pluralize
       %dl= render 'searches/page', page_params(@tracks)
 
-    - unless @users.empty?
+    - unless @users.blank?
       %dt= User.model_name.human.pluralize
       %dl
         %ul.users= render @users
