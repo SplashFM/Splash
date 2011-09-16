@@ -19,6 +19,10 @@ module UI
       within(search_results(search_type), &block) if block_given?
     end
 
+    def see_more_results
+      click_link(t('searches.page.see_more'))
+    end
+
     def splash(track)
       within(track_css(track)) { find(splash_css).click }
     end

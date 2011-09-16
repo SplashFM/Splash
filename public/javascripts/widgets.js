@@ -12,6 +12,8 @@ Widgets.Track = {
 
 Widgets.Search = {
   init: function() {
+    Widgets.SeeMore.init();
+
     $('[data-widget = "search"]').each(function(_, e) {
       var form    = $(e);
       var input   = form.find(':text');
@@ -34,6 +36,14 @@ Widgets.Search = {
     });
   }
 };
+
+Widgets.SeeMore = {
+  init: function() {
+    $('[data-widget = "see-more"]').live('ajax:success', function(_, data) {
+      $(this).replaceWith(data);
+    });
+  }
+}
 
 Widgets.TypingStop ={
   init: function(){

@@ -1,3 +1,10 @@
 - klass = collection.first.class.name.underscore.pluralize
 
 %ul{:class => klass}= render collection
+
+- if page <= collection.total_pages
+  %p= link_to t('.see_more'),
+              expand_search_path(:page => page, :f => f, :type => type),
+              :remote => true,
+              :'data-type' => 'html',
+              :'data-widget' => 'see-more'

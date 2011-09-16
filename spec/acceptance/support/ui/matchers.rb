@@ -20,6 +20,14 @@ module UI
       has_css?(user_query)
     end
 
+    def has_more_results?
+      has_css?("a", :text => I18n.t('searches.page.see_more'))
+    end
+
+    def has_track?(title)
+      has_content?(title)
+    end
+
     Capybara::Session.send(:include, self)
   end
 end

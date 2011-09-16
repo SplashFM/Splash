@@ -16,6 +16,8 @@ en:
     create:
       upload: Upload
       empty: No results found.
+    page:
+      see_more: See more
 
   tracks:
     widget:
