@@ -5,11 +5,7 @@
     - unless @tracks.empty?
       %dt= Track.model_name.human.pluralize
       %dl
-        %ul.tracks
-          - @tracks.each do |t|
-            %li.track{:data => {:track_id => t.id}}
-              = t.title
-              = splash_widget(t, current_user)
+        %ul.tracks= render @tracks
 
     - unless @users.empty?
       %dt= User.model_name.human.pluralize
