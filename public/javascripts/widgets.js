@@ -17,6 +17,8 @@ Widgets.Search = {
       var input   = form.find(':text');
       var results = $('#' + form.data('search-results'));
 
+      form.submit(function() { return false; });
+
       input.searchbox({
         url: form.attr('action'),
         dom_id: '#' + results.attr('id'),
