@@ -1,5 +1,5 @@
 HoptoadNotifier.configure do |config|
-  config.api_key = 'aeb5d2beda9a712e48eb46223f800e80'
+  config.api_key = '21728d75750810814e841cde5d8480fd'
   # leave commented out until hoptoad fixes IE issue
   #   config.js_notifier = true
 end
