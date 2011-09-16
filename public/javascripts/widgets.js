@@ -68,7 +68,7 @@ Widgets.Upload = {
       // this will be removed soon, so no i18n needed
       fail:  function()        { upload.text('Upload failed.') },
       start: function()        { form.hide(); upload.text('Uploading.'); },
-      stop:  function(e, data) { upload.text('Uploaded.'); }
+      done:  function(e, data) { upload.text('Uploaded.'); }
     });
   }
 }
