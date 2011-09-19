@@ -18,6 +18,9 @@ common: &common
   facebook:
     key:
     secret:
+  twitter:
+    key:
+    secret:
 
 development:
   <<: *common

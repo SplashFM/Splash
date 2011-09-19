@@ -4,6 +4,10 @@
 = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
   = devise_error_messages!
 
+  = f.hidden_field 'name'
+  = f.hidden_field 'uid'
+  = f.hidden_field 'provider'
+
   %p
     = f.label :email
     = f.text_field :email
@@ -19,6 +23,5 @@
 
   %p
     = f.submit "Sign up"
-
 
 = render :partial => "devise/shared/links"
