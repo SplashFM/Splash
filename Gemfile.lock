@@ -264,6 +264,7 @@ DEPENDENCIES
   jquery-rails
   js-routes
   newrelic_rpm
+  nokogiri
   paperclip
   pg
   rails (>= 3.0.1)

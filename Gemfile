@@ -79,3 +79,4 @@ group :test do
 end
 
 gem "itunes-search-api"
+gem "nokogiri"
