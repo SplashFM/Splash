@@ -15,7 +15,10 @@ class User < ActiveRecord::Base
 
   validates :name, :presence => true, :on => :update
 
-  has_attached_file :avatar, :styles => { :thumb => ["64x64>", :png] }
+  has_attached_file :avatar,
+                    :styles => { :thumb => ["64x64>", :png] },
+                    :default_url => "/images/dummy_user.png"
+
   before_save :possibly_delete_avatar
   attr_accessor :delete_avatar
   attr_accessible :delete_avatar
