@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
   def deny_access(message = "You're not allowed to use that page.")
     flash[:error] = message
-    redirect_to home_url
+    redirect_to home_url, :status => 403
   end
 
   helper_method :active_scaffold?

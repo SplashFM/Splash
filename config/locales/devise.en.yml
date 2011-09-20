@@ -14,6 +14,7 @@ en:
       invalid_token: 'Invalid authentication token.'
       timeout: 'Your session expired, please sign in again to continue.'
       inactive: 'Your account was not activated yet.'
+      send_instructions: 'There was an error sending the password reset email'
     sessions:
       signed_in: 'Signed in successfully.'
       signed_out: 'Signed out successfully.'
@@ -39,3 +40,6 @@ en:
         subject: 'Unlock Instructions'
     buttons:
       login: 'Login'
+      password_reset: 'Send me reset password instructions'
+    labels:
+      sign_in: 'Sign in'

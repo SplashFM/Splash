@@ -53,22 +53,76 @@ Widgets.TypingStop ={
         stop: function (event, $elem) {
           $.ajax({
             type: 'get',
+            dataType: 'js',
             url: Routes.users_exists_path(),
             data: "email=" + $elem.val(),
-            success: function(data){
-              $('#password').show();
-              $('p.form-button').show();
+
+            complete: function(data){
+              if(data.status == 200){
+                $('#password').show();
+                $('p.form-button').show();
+              } else if(data.status == 404) {
+                $('#password').hide();
+                $('p.form-button').hide();
+              }
             },
-            error: function(data){
-              $('#password').hide();
-              $('p.form-button').hide();
-            }
           });
         },
         delay: 200
-    });
+   });
   }
 }
+
+Widgets.SignIn = (function(){
+  var self = {};
+
+  self.init = function() {
+    manageResponse();
+    ajaxifyForgotPasswordButton();
+  };
+
+  function showFlash(type, value){
+    $("#flash_notice, #flash_error").remove();
+
+    if(type=='error'){
+      $( "#flashTemplate" ).tmpl( {flash_error_messages: value} ).prependTo( "#main" );
+    } else{
+      $( "#flashTemplate" ).tmpl( {flash_ok_messages: value} ).prependTo( "#main" );
+    }
+
+    $('#flash_error, #flash_notice').fadeIn();
+  };
+
+  function manageResponse() {
+    $("form#user_new")
+      .bind('ajax:success', function(evt, data, status, xhr){
+        window.location.href = Routes.home_path();
+      })
+      .bind('ajax:error', function(evt, xhr, status, error){
+        showFlash(status, $.parseJSON(xhr.responseText).error)
+        $("#forgot_password").show();
+      });
+  };
+
+  function ajaxifyForgotPasswordButton() {
+    $('#forgot_password').live("click", function() {
+      email = $("#user_email").val();
+      $.ajax({
+        type: 'post',
+        url: Routes.user_password_path(),
+        data: "user[email]=" + email,
+        success: function(data){
+          showFlash('success', I18n.t('devise.passwords.send_instructions'));
+        },
+        error: function(data){
+          showFlash('error', I18n.t('devise.failure.send_instructions'));
+        }
+      });
+    });
+  };
+
+  return self;
+})();
 
 Widgets.Upload = {
   init: function(upload) {
@@ -89,5 +143,6 @@ $(document).ready(function() {
   Widgets.Search.init();
   Widgets.Track.init();
   Widgets.TypingStop.init();
+  Widgets.SignIn.init();
 });
 

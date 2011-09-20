@@ -1,7 +1,6 @@
-%h2
-  Sign in
+%h2=t('devise.labels.sign_in')
 
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+= form_for(resource, :as => resource_name, :url => session_path(resource_name), :remote => true, :html => {:'data-type' => 'json'}) do |f|
   %p
     = f.label :email
     %br
@@ -21,5 +20,7 @@
     %p.form-button
       = f.submit t('devise.buttons.login')
 
-= render :partial => "devise/shared/links"
+= render :partial => 'devise/shared/links'
+%p#forgot_password.hide
+  = submit_tag t("devise.buttons.password_reset")
 
