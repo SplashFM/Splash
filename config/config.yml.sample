@@ -15,6 +15,9 @@ common: &common
   ssl_required: false
   google_analytics: UA-XXXXX-X
   dev_mailto: dev@mojotech.com
+  apple_epf:
+    username: user
+    password: pass
 
 development:
   <<: *common
