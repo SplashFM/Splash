@@ -42,6 +42,7 @@ gem 'whenever', :require => false
 gem "will_paginate", ">=3.0.pre"
 gem "js-routes", :require => 'js_routes'
 gem "inherited_resources"
+gem 'omniauth', "~> 0.3.0.rc3"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

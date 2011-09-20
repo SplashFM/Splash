@@ -18,6 +18,12 @@ common: &common
   apple_epf:
     username: user
     password: pass
+  facebook:
+    key:
+    secret:
+  twitter:
+    key:
+    secret:
 
 development:
   <<: *common
