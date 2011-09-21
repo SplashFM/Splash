@@ -18,6 +18,7 @@ javascripts:
     - public/javascripts/jquery.iframe-transport.js
     - public/javascripts/jquery.tmpl.min.js
     - public/javascripts/jquery.jplayer.min.js
+    - public/javascripts/jquery.jeditable.js
 
 stylesheets:
   base:
