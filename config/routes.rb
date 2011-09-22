@@ -35,7 +35,9 @@ Scaphandrier::Application.routes.draw do
   end
 
   match '/profile' => 'users#show'
-  resources :users
+  resources :users do
+    get 'avatar'
+  end
 
   match 'search'        => 'searches#create', :as => 'search'
   match 'search/expand' => 'searches#expand', :as => 'expand_search'

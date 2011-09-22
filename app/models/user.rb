@@ -1,4 +1,5 @@
 require 'testable_search'
+require 'open-uri'
 
 class User < ActiveRecord::Base
   extend TestableSearch
@@ -11,7 +12,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :name, :uid, :provider, :tagline
+                  :name, :uid, :provider, :tagline, :avatar
 
   validates :name, :presence => true, :on => :update
   validates :tagline, :length => { :maximum => 60 }
@@ -21,8 +22,20 @@ class User < ActiveRecord::Base
                     :default_url => "/images/dummy_user.png"
 
   before_save :possibly_delete_avatar
-  attr_accessor :delete_avatar
-  attr_accessible :delete_avatar
+
+  attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
+
+  after_update :reprocess_avatar, :if => :cropping?
+  def cropping?
+    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+  end
+
+  def avatar_geometry(style = :original)
+    @geometry ||= {}
+    self.fetch_avatar unless self.avatar.exists?
+    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
+  end
 
   after_save 'confirm!', :if => :oauth_login?
   def oauth_login?
@@ -97,6 +110,33 @@ class User < ActiveRecord::Base
   # to_label for ActiveScaffold
   def to_label
     email
+  end
+
+
+  def avatar_url(style=:thumb)
+    if avatar.exists?
+      avatar.url(style)
+    else
+      provider_avatar_url
+    end
+  end
+
+  def fetch_avatar
+    begin
+      self.update_attribute(:avatar, open(URI.encode(provider_avatar_url)))
+    rescue OpenURI::HTTPError => e
+      logger.info "Exception raised: #{e}"
+    end
+  end
+
+  def provider_avatar_url
+    if provider == 'facebook'
+      url = "http://graph.facebook.com/#{self.uid}/picture"
+    elsif provider == 'twitter'
+      url = "http://api.twitter.com/1/users/profile_image/#{self.uid}.json"
+    else
+      url = ''
+    end
   end
 
   private
