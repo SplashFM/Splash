@@ -15,6 +15,7 @@ javascripts:
     - public/javascripts/routes.js
     - public/javascripts/searchbox.js
     - public/javascripts/jquery.fileupload.js
+    - public/javascripts/jquery.fileupload-ui.js
     - public/javascripts/jquery.iframe-transport.js
     - public/javascripts/jquery.tmpl.min.js
     - public/javascripts/jquery.jplayer.min.js
@@ -38,4 +39,5 @@ stylesheets:
     - public/stylesheets/header.css
     - public/stylesheets/widgets.css
     - public/stylesheets/vendor/jplayer.blue.monday.css
+    - public/stylesheets/jquery.fileupload-ui.css
 
