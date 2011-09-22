@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   validates :tagline, :length => { :maximum => 60 }
 
   has_attached_file :avatar,
-                    :styles => { :thumb => ["64x64>", :png] },
+                    :styles => { :thumb => ["100x120>", :png] },
                     :default_url => "/images/dummy_user.png"
 
   before_save :possibly_delete_avatar
@@ -111,7 +111,6 @@ class User < ActiveRecord::Base
   def to_label
     email
   end
-
 
   def avatar_url(style=:thumb)
     if avatar.exists?

@@ -218,6 +218,51 @@ Widgets.Editable = {
   }
 }
 
+Widgets.UserAvatar = {
+  init: function(){
+    $(".user-image").mouseover(function() {
+      $('.upload-avatar-link').show();
+    }).mouseout(function(){
+      $('.upload-avatar-link').hide();
+    });
+  }
+}
+
+Widgets.AvatarUpload = {
+  init: function(){
+    $('#fileupload').fileupload({
+      fail:  function() {  $.fancybox.close(); },
+      add: function(e, data){
+                var that = $(this).data('fileupload');
+                $('.files').empty();
+                data.context = that._renderUpload(data.files)
+                    .appendTo($(this).find('.files')).fadeIn(function () {
+                        // Fix for IE7 and lower:
+                        $(this).show();
+                    }).data('data', data);
+                if ((that.options.autoUpload || data.autoUpload) &&
+                        data.isValidated) {
+                    data.jqXHR = data.submit();
+                }
+      },
+      done:  function(e, data) {
+                  $('.fancybox_avatar').attr('src', data.result.user.avatar_url).fadeIn();
+                  $('#avatar').attr('src', data.result.user.avatar_url).fadeIn();
+                  $('table.files').empty();
+              }
+    });
+
+    // Open download dialogs via iframes, to prevent aborting current uploads:
+    $('#fileupload .files a:not([target^=_blank])').live('click', function (e) {
+        e.preventDefault();
+        $('<iframe style="display:none;"></iframe>')
+            .prop('src', this.href)
+            .appendTo('body');
+    });
+  }
+}
+
+
 $(document).ready(function() {
   Widgets.Player.init();
   Widgets.Search.init();
@@ -227,5 +272,6 @@ $(document).ready(function() {
   Widgets.UploadToggle.init();
   Widgets.TrackInfo.init();
   Widgets.Editable.init();
+  Widgets.UserAvatar.init();
 });
 

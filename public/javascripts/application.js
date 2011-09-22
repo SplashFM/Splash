@@ -4,8 +4,28 @@
 var Scaphandrier = Scaphandrier || {};
 
 Scaphandrier.Fancybox = {
+  params: {
+    customizations: {
+      'type' : 'ajax',
+      'autoScale' : false,
+      'autoDimensions' : false,
+      'titleShow' : false,
+      'overlayShow' : true,
+      'overlayColor' : '#000',
+      'overlayOpacity' : 0.5,
+      'transitionIn' : 'none',
+      'transitionOut' : 'none',
+      'padding' : 0,
+      'margin' : 0,
+      'scrolling' : 'no',
+      'onComplete' : function() {
+        Widgets.AvatarUpload.init();
+      }
+    }
+  },
+
   init: function() {
-    $(".fancybox").fancybox();
+    $(".fancybox").fancybox(this.params.customizations);
   }
 };
 
