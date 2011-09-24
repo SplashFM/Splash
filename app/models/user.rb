@@ -18,8 +18,9 @@ class User < ActiveRecord::Base
   validates :tagline, :length => { :maximum => 60 }
 
   has_attached_file :avatar,
-                    :styles => { :thumb => ["100x120>", :png] },
-                    :default_url => "/images/dummy_user.png"
+                    :styles  => { :thumb => "100x100#", :large => "240x300>" },
+                    :default_url => "/images/dummy_user.png",
+                    :processors => [:cropper]
 
   before_save :possibly_delete_avatar
 
@@ -141,5 +142,9 @@ class User < ActiveRecord::Base
   private
   def possibly_delete_avatar
     self.avatar = nil if self.delete_avatar == "1" && !self.avatar.dirty?
+  end
+
+  def reprocess_avatar
+    avatar.reprocess!
   end
 end

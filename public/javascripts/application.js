@@ -7,6 +7,8 @@ Scaphandrier.Fancybox = {
   params: {
     customizations: {
       'type' : 'ajax',
+      'width' : 460,
+      'height': 480,
       'autoScale' : false,
       'autoDimensions' : false,
       'titleShow' : false,
@@ -20,6 +22,8 @@ Scaphandrier.Fancybox = {
       'scrolling' : 'no',
       'onComplete' : function() {
         Widgets.AvatarUpload.init();
+        Widgets.AvatarCrop.init();
+        Widgets.Avatar.init();
       }
     }
   },

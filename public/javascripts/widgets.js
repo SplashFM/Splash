@@ -228,6 +228,18 @@ Widgets.UserAvatar = {
   }
 }
 
+Widgets.Avatar = {
+  init: function(){
+    $("form.edit_user")
+      .bind('ajax:complete', function(evt, data, status, xhr){
+          user = $.parseJSON(data.responseText).user;
+          d = new Date();
+          $('#avatar').attr('src', user.avatar_url+d.getTime());
+          $.fancybox.close();
+      });
+  }
+}
+
 Widgets.AvatarUpload = {
   init: function(){
     $('#fileupload').fileupload({
@@ -246,7 +258,7 @@ Widgets.AvatarUpload = {
                 }
       },
       done:  function(e, data) {
-                  $('.fancybox_avatar').attr('src', data.result.user.avatar_url).fadeIn();
+                  $('.jcrop-holder img').attr('src', data.result.user.avatar_url);
                   $('#avatar').attr('src', data.result.user.avatar_url).fadeIn();
                   $('table.files').empty();
               }
@@ -262,6 +274,31 @@ Widgets.AvatarUpload = {
   }
 }
 
+Widgets.AvatarCrop = {
+  init: function(){
+      $('#cropbox').Jcrop({
+        onChange: update_crop,
+        onSelect: update_crop,
+        setSelect: [0, 0, 240, 300],
+        aspectRatio: 1,
+        minSize: [40, 60]
+      });
+
+      function update_crop(coords) {
+        $attrs = $("#image-attrs");
+
+        var largeWidth = $attrs.attr("data-large-width");
+        var largeHeight = $attrs.attr("data-large-height");
+        var originalWidth = $attrs.attr("data-original-width");
+
+        var ratio = originalWidth / largeWidth;
+        $("#crop_x").val(Math.round(coords.x * ratio));
+        $("#crop_y").val(Math.round(coords.y * ratio));
+        $("#crop_w").val(Math.round(coords.w * ratio));
+        $("#crop_h").val(Math.round(coords.h * ratio));
+      }
+  }
+}
 
 $(document).ready(function() {
   Widgets.Player.init();
