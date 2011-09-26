@@ -7,6 +7,33 @@ Widgets.Track = {
         attr('disabled', true).
         val(I18n.t('tracks.widget.splashed'));
     });
+
+    $('[data-widget = "play"]').live('click', function(e) {
+      e.preventDefault();
+
+      Widgets.Player.play($(this).attr('href'), $(this).data('track-type'));
+    });
+  }
+}
+
+Widgets.Player = {
+  init: function() {
+    $('#player-template').template("player-template");
+  },
+
+  play: function(url, type) {
+    media       = {}
+    media[type] = url
+
+    $('#player-area').html($.tmpl('player-template'));
+
+    $('[data-widget = "player"]').
+      jPlayer({cssSelectorAncestor: '#player-container',
+               swfPath:             'Jplayer.swf',
+               supplied:            type,
+               ready: function() {
+                 $(this).jPlayer('setMedia', media).jPlayer('play');
+               }});
   }
 }
 
@@ -140,6 +167,7 @@ Widgets.Upload = {
 }
 
 $(document).ready(function() {
+  Widgets.Player.init();
   Widgets.Search.init();
   Widgets.Track.init();
   Widgets.TypingStop.init();

@@ -23,6 +23,8 @@ en:
     widget:
       splashed: Splashed
       splash: Splash
+    track:
+      play: Play
 
   users:
     show:
