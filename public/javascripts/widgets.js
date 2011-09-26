@@ -126,25 +126,13 @@ Widgets.SignIn = (function(){
     ajaxifyForgotPasswordButton();
   };
 
-  function showFlash(type, value){
-    $("#flash_notice, #flash_error").remove();
-
-    if(type=='error'){
-      $( "#flashTemplate" ).tmpl( {flash_error_messages: value} ).prependTo( "#main" );
-    } else{
-      $( "#flashTemplate" ).tmpl( {flash_ok_messages: value} ).prependTo( "#main" );
-    }
-
-    $('#flash_error, #flash_notice').fadeIn();
-  };
-
   function manageResponse() {
     $("form#user_new")
       .bind('ajax:success', function(evt, data, status, xhr){
         window.location.href = Routes.home_path();
       })
       .bind('ajax:error', function(evt, xhr, status, error){
-        showFlash(status, $.parseJSON(xhr.responseText).error)
+        Widgets.FlashTemplate.error($.parseJSON(xhr.responseText).error);
         $("#forgot_password").show();
       });
   };
@@ -157,10 +145,10 @@ Widgets.SignIn = (function(){
         url: Routes.user_password_path(),
         data: "user[email]=" + email,
         success: function(data){
-          showFlash('success', I18n.t('devise.passwords.send_instructions'));
+          Widgets.FlashTemplate.success(I18n.t('devise.passwords.send_instructions'));
         },
         error: function(data){
-          showFlash('error', I18n.t('devise.failure.send_instructions'));
+          Widgets.FlashTemplate.error(I18n.t('devise.failure.send_instructions'));
         }
       });
     });
@@ -187,6 +175,20 @@ Widgets.UploadToggle = {
     $('[data-widget = "upload-toggle"]').live('click', function() {
       $($(this).attr('href')).toggle();
     });
+  }
+}
+
+Widgets.FlashTemplate = {
+  success: function(value){
+    $("#flash_notice, #flash_error").remove();
+    $( "#flashTemplate" ).tmpl( {flash_ok_messages: value} ).prependTo( "#main" );
+    $('#flash_error, #flash_notice').fadeIn();
+  },
+
+  error: function(value){
+    $("#flash_notice, #flash_error").remove();
+    $( "#flashTemplate" ).tmpl( {flash_error_messages: value} ).prependTo( "#main" );
+    $('#flash_error, #flash_notice').fadeIn();
   }
 }
 
