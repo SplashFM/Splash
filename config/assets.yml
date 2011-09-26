@@ -19,6 +19,7 @@ javascripts:
     - public/javascripts/jquery.iframe-transport.js
     - public/javascripts/jquery.liveSearch.js
     - public/javascripts/jquery.tmpl.min.js
+    - public/javascripts/jquery.jplayer.min.js
 
 stylesheets:
   base:
@@ -37,4 +38,5 @@ stylesheets:
     - public/stylesheets/style.css
     - public/stylesheets/header.css
     - public/stylesheets/widgets.css
+    - public/stylesheets/vendor/jplayer.blue.monday.css
 
