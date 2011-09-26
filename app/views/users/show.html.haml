@@ -1,0 +1,33 @@
+.profile
+  .box-user-info
+    .user-image
+      = image_tag current_user.avatar(:thumb)
+    .top-number
+      3
+    .user-name
+      = current_user.name
+
+    .follow-button
+      = link_to "Follow", :action => "index"
+    .rating
+      55
+    .tag-line
+      Ipsun lorem ... Velit cupidatat cliche odio incididunt irony deserunt four
+      loko. Ut odio wes anderson quis et, brunch do culpa cillum vice lomo mixtape.
+
+    .ripples
+      .label
+        RIPPLES
+      .number
+        777
+    .splashes
+      .label
+        SPLASHES
+      .number
+        777
+
+    .influence
+      top 5% influencer this week
+    .last-seem
+      last seem 8 min ago
+

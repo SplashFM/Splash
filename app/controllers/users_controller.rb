@@ -4,6 +4,9 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_user, :only => 'exists'
 
+  def show
+  end
+
   def exists
     if User.exists?(params.slice(:email))
       head(:ok)

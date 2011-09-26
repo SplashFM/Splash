@@ -93,3 +93,75 @@ form.visitor li#visitor_email_input, form.visitor .inline-errors
 form.visitor .inline-errors
   color: #d12f19
 
+/* profile:
+@mixin basic-element-style($border)
+  border: #d7d7d7 #{$border}px solid
+  padding: 2px
+
+@mixin basic-left-style()
+  float: left
+  width: 125px
+  display: block
+  margin-left: 20px
+  margin-right: 10px
+
+.profile
+  width: 830px
+  float: left
+  .box-user-info
+    float: left
+    width: 300px
+    margin: 10px
+    .user-image
+      @include basic-element-style(1)
+      @include basic-left-style()
+      height: 134px
+    .follow-button
+      @include basic-element-style(1)
+      @include basic-left-style()
+      width: 125px
+      margin-top: 7px
+      text-align: center
+      height: 18px
+    .ripples
+      @include basic-element-style(0)
+      @include basic-left-style()
+      width: 126px
+      margin-top: 7px
+      font-size: 12px
+      .label
+        float: left
+      .number
+        float: right
+    .influence
+      @include basic-left-style()
+      clear: both
+      font-size: 8px
+
+    .top-number
+      height: 16px
+    .user-name
+      font:
+        size: 18px
+        weight: bold
+      height: 40px
+    .rating
+      font:
+        size: 32px
+        weight: bold
+      height: 48px
+    .tag-line
+      font-size: 10px
+      height: 60px
+      text-align: justify
+    .splashes
+      padding: 2px
+      margin-top: 14px
+      font-size: 12px
+      .label
+        float: left
+      .number
+        float: right
+    .last-seem
+      float: right
+      font-size: 8px
