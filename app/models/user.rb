@@ -11,9 +11,10 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :name, :uid, :provider
+                  :name, :uid, :provider, :tagline
 
   validates :name, :presence => true, :on => :update
+  validates :tagline, :length => { :maximum => 60 }
 
   has_attached_file :avatar,
                     :styles => { :thumb => ["64x64>", :png] },

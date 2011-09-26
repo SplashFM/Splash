@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   inherit_resources
-  respond_to :html
+  respond_to :html, :json
 
   skip_before_filter :require_user, :only => 'exists'
 

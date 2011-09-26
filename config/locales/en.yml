@@ -42,3 +42,8 @@ en:
     menus:
       home: Home
       profile: Profile
+  jeditable:
+    labels:
+      submit: 'Change'
+      cancel: 'Cancel'
+      tooltip: 'Click to edit...'

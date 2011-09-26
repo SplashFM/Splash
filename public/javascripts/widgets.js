@@ -192,6 +192,32 @@ Widgets.FlashTemplate = {
   }
 }
 
+Widgets.Editable = {
+  init: function(){
+    $('[data-widget = "editable"]').editable(submitEdit, {type    : 'textarea',
+                                     cancel  : I18n.t('jeditable.labels.cancel'),
+                                     submit  : I18n.t('jeditable.labels.submit'),
+                                     tooltip : I18n.t('jeditable.labels.tooltip')});
+
+    function submitEdit(value){
+      var returned = $.ajax({
+         url: $(this).attr('data-action'),
+         type: "PUT",
+         data : "user[tagline]=" + value,
+         dataType : "json",
+          success: function(evt, data, status, xhr){
+            Widgets.FlashTemplate.success(I18n.t('flash.actions.update.notice', {resource_name: "User"}));
+          },
+          error: function(xhr, status, extra){
+            Widgets.FlashTemplate.error('Tagline ' + $.parseJSON(xhr.responseText).tagline);
+          }
+      });
+
+      return(value);
+    }
+  }
+}
+
 $(document).ready(function() {
   Widgets.Player.init();
   Widgets.Search.init();
@@ -200,5 +226,6 @@ $(document).ready(function() {
   Widgets.SignIn.init();
   Widgets.UploadToggle.init();
   Widgets.TrackInfo.init();
+  Widgets.Editable.init();
 });
 

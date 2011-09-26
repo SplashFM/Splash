@@ -11,10 +11,8 @@
       = link_to "Follow", :action => "index"
     .rating
       55
-    .tag-line
-      Ipsun lorem ... Velit cupidatat cliche odio incididunt irony deserunt four
-      loko. Ut odio wes anderson quis et, brunch do culpa cillum vice lomo mixtape.
-
+    .tag-line.edit{:'data-action' => "#{user_path(current_user)}", :'data-widget' => 'editable'}
+      = current_user.tagline
     .ripples
       .label
         RIPPLES
@@ -30,4 +28,3 @@
       top 5% influencer this week
     .last-seem
       last seem 8 min ago
-
