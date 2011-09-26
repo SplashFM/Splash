@@ -37,3 +37,7 @@ en:
       attributes:
         name:
           blank: 'You need set an user name to use site'
+
+  simple_navigation:
+    menus:
+      home: Home
