@@ -4,4 +4,8 @@ class TracksController < ApplicationController
 
     head :ok
   end
+
+  def show
+    render :partial => 'track_info'
+  end
 end

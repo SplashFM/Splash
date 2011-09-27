@@ -2,3 +2,10 @@
   = track.title
   = play_widget(track)
   = splash_widget(track, current_user)
+
+  - if track_expandable?(role)
+    = link_to t(".expand"),
+              track_path(track),
+              :remote => true,
+              :'data-type' => 'html',
+              :'data-widget' => 'track-info-toggle'

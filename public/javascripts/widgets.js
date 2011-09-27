@@ -16,6 +16,24 @@ Widgets.Track = {
   }
 }
 
+Widgets.TrackInfo = {
+  init: function() {
+    $('[data-widget = "track-info-toggle"]').
+      live('ajax:before', function(e) {
+        var ti = $(this).siblings('[data-widget = "track-info"]');
+
+        if (ti.length > 0) {
+          ti.toggle();
+
+          return false
+        }
+      }).
+      live('ajax:success', function(_, data) {
+        $(this).parent().append(data);
+      });
+  }
+}
+
 Widgets.Player = {
   init: function() {
     $('#player-template').template("player-template");
@@ -179,5 +197,6 @@ $(document).ready(function() {
   Widgets.TypingStop.init();
   Widgets.SignIn.init();
   Widgets.UploadToggle.init();
+  Widgets.TrackInfo.init();
 });
 
