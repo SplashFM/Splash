@@ -4,7 +4,6 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_user, :only => 'exists'
 
-
   def show
   end
 
@@ -25,6 +24,7 @@ class UsersController < ApplicationController
     params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
 
     update! do |success, failure|
+      sign_in(@user, :bypass => true) if @user.errors.empty?
       success.html { redirect_to home_path}
       success.json { render :json => @user.to_json(:methods => 'avatar_url') }
       success.js { render :json => @user.to_json(:methods => 'avatar_url') }
