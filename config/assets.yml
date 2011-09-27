@@ -16,7 +16,6 @@ javascripts:
     - public/javascripts/searchbox.js
     - public/javascripts/jquery.fileupload.js
     - public/javascripts/jquery.iframe-transport.js
-    - public/javascripts/jquery.liveSearch.js
     - public/javascripts/jquery.tmpl.min.js
     - public/javascripts/jquery.jplayer.min.js
 
