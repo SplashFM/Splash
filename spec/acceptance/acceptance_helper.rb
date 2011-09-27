@@ -9,7 +9,6 @@ Spork.each_run do
     config.include Capybara::DSL
     config.include UI::Actions
     config.include UI::Queries
-    config.include Helpers
 
     config.before :type => :request do
       fast_login(user) unless example.metadata[:logout]
