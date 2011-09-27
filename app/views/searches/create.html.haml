@@ -10,7 +10,9 @@
       %dt= User.model_name.human.pluralize
       %dl= render 'searches/page', page_params(@users, 'user')
 
-%p= link_to t('.upload'), "##{params[:type]}-upload"
+%p= link_to t('.upload'),
+            "##{params[:type]}-upload",
+            :'data-widget' => 'upload-toggle'
 
 %div{:id   => "#{params[:type]}-upload",
      :data => {:widget => 'upload'}}

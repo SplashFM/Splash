@@ -155,13 +155,19 @@ Widgets.Upload = {
   init: function(upload) {
     var form = upload.find('form');
 
-    upload.linkToggle();
-
     form.fileupload({
       // this will be removed soon, so no i18n needed
       fail:  function()        { upload.text('Upload failed.') },
       start: function()        { form.hide(); upload.text('Uploading.'); },
       done:  function(e, data) { upload.text('Uploaded.'); }
+    });
+  }
+}
+
+Widgets.UploadToggle = {
+  init: function() {
+    $('[data-widget = "upload-toggle"]').live('click', function() {
+      $($(this).attr('href')).toggle();
     });
   }
 }
@@ -172,5 +178,6 @@ $(document).ready(function() {
   Widgets.Track.init();
   Widgets.TypingStop.init();
   Widgets.SignIn.init();
+  Widgets.UploadToggle.init();
 });
 
