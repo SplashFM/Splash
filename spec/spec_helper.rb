@@ -24,7 +24,7 @@ Spork.each_run do
     # config.mock_with :mocha
     # config.mock_with :flexmock
     # config.mock_with :rr
-    config.mock_with :rspec
+    config.mock_with :rr
 
     config.include Bricks::DSL
     config.include Helpers

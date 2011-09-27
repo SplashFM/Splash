@@ -72,6 +72,7 @@ gem "jquery-rails"
 gem "babilu"
 
 group :test do
+  gem "rr", "~> 1.0"
   gem "capybara", "~> 1.0.0"
   gem "capybara-webkit", ">= 0.6.1"
   gem "database_cleaner", "~> 0.6.0"

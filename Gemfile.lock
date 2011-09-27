@@ -225,6 +225,7 @@ GEM
     responders (0.6.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rr (1.0.3)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -335,6 +336,7 @@ DEPENDENCIES
   paperclip
   pg
   rails (>= 3.0.1)
+  rr (~> 1.0)
   rspec-rails (>= 2.0.0)
   ruby-debug19
   ruby_parser
