@@ -41,4 +41,7 @@
 
 = render 'shared/search', :type => 'track'
 
+%div{:data => {:widget => 'feed'}}
+  %ul= render @feed
+
 #player-area

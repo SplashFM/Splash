@@ -4,6 +4,8 @@ class HomeController < ApplicationController
 
   def index
     if logged_in?
+      @feed = Splash.all
+      
       render
     else
       redirect_to new_user_session_path
