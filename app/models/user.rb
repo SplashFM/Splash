@@ -6,6 +6,14 @@ class User < ActiveRecord::Base
 
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
 
+  has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
+  has_many :following, :through => :relationships, :source => :followed
+
+  has_many :reverse_relationships, :foreign_key => 'followed_id',
+                                   :class_name => 'Relationship',
+                                   :dependent => :destroy
+  has_many :followers, :through => :reverse_relationships
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable,
@@ -36,6 +44,22 @@ class User < ActiveRecord::Base
   def avatar_geometry(style = :original)
     @geometry ||= {}
     @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style)) unless avatar.path.blank?
+  end
+
+  def followed(followed)
+    relationships.find_by_followed_id(followed)
+  end
+
+  def following?(followed)
+    !!followed(followed)
+  end
+
+  def follow(followed)
+    relationships.create(:followed => followed)
+  end
+
+  def unfollow(user)
+    followed(user).try(:destroy)
   end
 
   after_save 'confirm!', :if => :oauth_login?
