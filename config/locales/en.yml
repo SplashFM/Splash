@@ -25,6 +25,7 @@ en:
       splash: Splash
     track:
       play: Play
+      expand: Expand
 
   users:
     show:
