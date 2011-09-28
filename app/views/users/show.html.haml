@@ -1,0 +1,30 @@
+.profile
+  .box-user-info
+    .user-image
+      = image_tag current_user.avatar_url(:thumb), :id => 'avatar'
+      .upload-avatar-link.hide
+        = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
+    .top-number
+      3
+    .user-name
+      = current_user.name
+    .follow-button
+      = link_to "Follow", :action => "index"
+    .rating
+      55
+    .tag-line.edit{:'data-action' => "#{user_path(current_user)}", :'data-widget' => 'editable'}
+      = current_user.tagline
+    .ripples
+      .label
+        RIPPLES
+      .number
+        777
+    .splashes
+      .label
+        SPLASHES
+      .number
+        777
+    .influence
+      top 5% influencer this week
+    .last-seem
+      last seem 8 min ago

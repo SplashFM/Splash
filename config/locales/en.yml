@@ -29,11 +29,24 @@ en:
   users:
     show:
       title: 'User profile'
+      edit_avatar: Change image
     edit: 
       title: 'User profile'
+    avatar: 
+      title: Update Avatar Picture
 
   errors:
     user:
       attributes:
         name:
           blank: 'You need set an user name to use site'
+
+  simple_navigation:
+    menus:
+      home: Home
+      profile: Profile
+  jeditable:
+    labels:
+      submit: 'Change'
+      cancel: 'Cancel'
+      tooltip: 'Click to edit...'

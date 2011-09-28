@@ -4,6 +4,14 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_user, :only => 'exists'
 
+
+  def show
+  end
+
+  def avatar
+    render 'avatar', :layout => false
+  end
+
   def exists
     if User.exists?(params.slice(:email))
       head(:ok)
@@ -18,6 +26,8 @@ class UsersController < ApplicationController
 
     update! do |success, failure|
       success.html { redirect_to home_path}
+      success.json { render :json => @user.to_json(:methods => 'avatar_url') }
+      success.js { render :json => @user.to_json(:methods => 'avatar_url') }
       failure.html { render :action => 'edit'}
     end
   end

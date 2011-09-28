@@ -126,25 +126,13 @@ Widgets.SignIn = (function(){
     ajaxifyForgotPasswordButton();
   };
 
-  function showFlash(type, value){
-    $("#flash_notice, #flash_error").remove();
-
-    if(type=='error'){
-      $( "#flashTemplate" ).tmpl( {flash_error_messages: value} ).prependTo( "#main" );
-    } else{
-      $( "#flashTemplate" ).tmpl( {flash_ok_messages: value} ).prependTo( "#main" );
-    }
-
-    $('#flash_error, #flash_notice').fadeIn();
-  };
-
   function manageResponse() {
     $("form#user_new")
       .bind('ajax:success', function(evt, data, status, xhr){
         window.location.href = Routes.home_path();
       })
       .bind('ajax:error', function(evt, xhr, status, error){
-        showFlash(status, $.parseJSON(xhr.responseText).error)
+        Widgets.FlashTemplate.error($.parseJSON(xhr.responseText).error);
         $("#forgot_password").show();
       });
   };
@@ -157,10 +145,10 @@ Widgets.SignIn = (function(){
         url: Routes.user_password_path(),
         data: "user[email]=" + email,
         success: function(data){
-          showFlash('success', I18n.t('devise.passwords.send_instructions'));
+          Widgets.FlashTemplate.success(I18n.t('devise.passwords.send_instructions'));
         },
         error: function(data){
-          showFlash('error', I18n.t('devise.failure.send_instructions'));
+          Widgets.FlashTemplate.error(I18n.t('devise.failure.send_instructions'));
         }
       });
     });
@@ -190,6 +178,128 @@ Widgets.UploadToggle = {
   }
 }
 
+Widgets.FlashTemplate = {
+  success: function(value){
+    $("#flash_notice, #flash_error").remove();
+    $( "#flashTemplate" ).tmpl( {flash_ok_messages: value} ).prependTo( "#main" );
+    $('#flash_error, #flash_notice').fadeIn();
+  },
+
+  error: function(value){
+    $("#flash_notice, #flash_error").remove();
+    $( "#flashTemplate" ).tmpl( {flash_error_messages: value} ).prependTo( "#main" );
+    $('#flash_error, #flash_notice').fadeIn();
+  }
+}
+
+Widgets.Editable = {
+  init: function(){
+    $('[data-widget = "editable"]').editable(submitEdit, {type    : 'textarea',
+                                     cancel  : I18n.t('jeditable.labels.cancel'),
+                                     submit  : I18n.t('jeditable.labels.submit'),
+                                     tooltip : I18n.t('jeditable.labels.tooltip')});
+
+    function submitEdit(value){
+      var returned = $.ajax({
+         url: $(this).attr('data-action'),
+         type: "PUT",
+         data : "user[tagline]=" + value,
+         dataType : "json",
+          success: function(evt, data, status, xhr){
+            Widgets.FlashTemplate.success(I18n.t('flash.actions.update.notice', {resource_name: "User"}));
+          },
+          error: function(xhr, status, extra){
+            Widgets.FlashTemplate.error('Tagline ' + $.parseJSON(xhr.responseText).tagline);
+          }
+      });
+
+      return(value);
+    }
+  }
+}
+
+Widgets.UserAvatar = {
+  init: function(){
+    $(".user-image").mouseover(function() {
+      $('.upload-avatar-link').show();
+    }).mouseout(function(){
+      $('.upload-avatar-link').hide();
+    });
+  }
+}
+
+Widgets.Avatar = {
+  init: function(){
+    $("form.edit_user")
+      .bind('ajax:complete', function(evt, data, status, xhr){
+          user = $.parseJSON(data.responseText).user;
+          d = new Date();
+          $('#avatar').attr('src', user.avatar_url+d.getTime());
+          $.fancybox.close();
+      });
+  }
+}
+
+Widgets.AvatarUpload = {
+  init: function(){
+    $('#fileupload').fileupload({
+      fail:  function() {  $.fancybox.close(); },
+      add: function(e, data){
+                var that = $(this).data('fileupload');
+                $('.files').empty();
+                data.context = that._renderUpload(data.files)
+                    .appendTo($(this).find('.files')).fadeIn(function () {
+                        // Fix for IE7 and lower:
+                        $(this).show();
+                    }).data('data', data);
+                if ((that.options.autoUpload || data.autoUpload) &&
+                        data.isValidated) {
+                    data.jqXHR = data.submit();
+                }
+      },
+      done:  function(e, data) {
+                  $('.jcrop-holder img').attr('src', data.result.user.avatar_url);
+                  $('#avatar').attr('src', data.result.user.avatar_url).fadeIn();
+                  $('table.files').empty();
+              }
+    });
+
+    // Open download dialogs via iframes, to prevent aborting current uploads:
+    $('#fileupload .files a:not([target^=_blank])').live('click', function (e) {
+        e.preventDefault();
+        $('<iframe style="display:none;"></iframe>')
+            .prop('src', this.href)
+            .appendTo('body');
+    });
+  }
+}
+
+Widgets.AvatarCrop = {
+  init: function(){
+      $('#cropbox').Jcrop({
+        onChange: update_crop,
+        onSelect: update_crop,
+        setSelect: [0, 0, 240, 300],
+        aspectRatio: 1,
+        minSize: [40, 60]
+      });
+
+      function update_crop(coords) {
+        $attrs = $("#image-attrs");
+
+        var largeWidth = $attrs.attr("data-large-width");
+        var largeHeight = $attrs.attr("data-large-height");
+        var originalWidth = $attrs.attr("data-original-width");
+
+        var ratio = originalWidth / largeWidth;
+        $("#crop_x").val(Math.round(coords.x * ratio));
+        $("#crop_y").val(Math.round(coords.y * ratio));
+        $("#crop_w").val(Math.round(coords.w * ratio));
+        $("#crop_h").val(Math.round(coords.h * ratio));
+      }
+  }
+}
+
 $(document).ready(function() {
   Widgets.Player.init();
   Widgets.Search.init();
@@ -198,5 +308,7 @@ $(document).ready(function() {
   Widgets.SignIn.init();
   Widgets.UploadToggle.init();
   Widgets.TrackInfo.init();
+  Widgets.Editable.init();
+  Widgets.UserAvatar.init();
 });
 
