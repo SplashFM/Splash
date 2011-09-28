@@ -8,6 +8,7 @@ class Track < ActiveRecord::Base
   has_attached_file :data
   validates_attachment_content_type :data,
                                     :content_type => %w(audio/mpeg
+                                                        audio/mp3
                                                         audio/mp4
                                                         audio/x-m4a)
 
