@@ -1,23 +1,23 @@
 unless Rails.env.production?
-  Track.seed :title, :album, :artist do |s|
+  UndiscoveredTrack.seed :title, :album, :artist do |s|
     s.title  = 'Close to the edge'
     s.album  = 'Close to the edge'
     s.artist = 'Yes'
   end
 
-  Track.seed :title, :album, :artist do |s|
+  UndiscoveredTrack.seed :title, :album, :artist do |s|
     s.title  = 'And you and I'
     s.album  = 'Close to the edge'
     s.artist = 'Yes'
   end
 
-  Track.seed :title, :album, :artist do |s|
+  UndiscoveredTrack.seed :title, :album, :artist do |s|
     s.title  = 'Siberian Kathru'
     s.album  = 'Close to the edge'
     s.artist = 'Yes'
   end
 
-  Track.seed :title, :album, :artist do |s|
+  DiscoveredTrack.seed :title, :album, :artist do |s|
     s.title  = 'Smells like Teen Spirit'
     s.album  = 'Nevermind'
     s.artist = 'Nirvana'
@@ -26,7 +26,7 @@ unless Rails.env.production?
   end
 
   1.upto(30) { |i|
-    Track.seed :title, :album, :artist do |s|
+    UndiscoveredTrack.seed :title, :album, :artist do |s|
       s.title  = "Track #{i}"
       s.album  = "Album"
       s.artist = 'Artist'

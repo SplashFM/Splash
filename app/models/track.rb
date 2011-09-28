@@ -33,20 +33,15 @@ class Track < ActiveRecord::Base
     end
   end
 
-  def download_path
-    data.path
-  end
-
   def downloadable?
-    data.file?
-  end
-
-  def purchase_url
-    purchase_url_raw
+    false
   end
 
   def purchasable?
-    purchase_url.present?
+    false
   end
 end
+
+require_dependency 'undiscovered_track'
+require_dependency 'discovered_track'
 
