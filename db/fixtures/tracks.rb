@@ -1,4 +1,4 @@
-unless Rails.env.production?
+if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
   UndiscoveredTrack.seed :title, :album, :artist do |s|
     s.title  = 'Close to the edge'
     s.album  = 'Close to the edge'
