@@ -4,6 +4,7 @@ require 'open-uri'
 class User < ActiveRecord::Base
   extend TestableSearch
 
+  DEFAULT_AVATAR_URL = '/images/dummy_user.png'
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -19,7 +20,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
                     :styles  => { :thumb => "100x100#", :large => "240x300>" },
-                    :default_url => "/images/dummy_user.png",
+                    :default_url => DEFAULT_AVATAR_URL,
                     :processors => [:cropper]
 
   before_save :possibly_delete_avatar
@@ -34,8 +35,7 @@ class User < ActiveRecord::Base
 
   def avatar_geometry(style = :original)
     @geometry ||= {}
-    self.fetch_avatar unless self.avatar.exists?
-    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))
+    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style)) unless avatar.path.blank?
   end
 
   after_save 'confirm!', :if => :oauth_login?
@@ -116,26 +116,36 @@ class User < ActiveRecord::Base
   def avatar_url(style=:thumb)
     if avatar.exists?
       avatar.url(style)
-    else
+    elsif !provider.blank?
       provider_avatar_url
+    else
+      DEFAULT_AVATAR_URL
     end
   end
 
   def fetch_avatar
     begin
-      self.update_attribute(:avatar, open(URI.encode(provider_avatar_url)))
+      self.update_attribute(:avatar, open(URI.encode(provider_avatar_url))) if fetch_avatar_needed?
     rescue OpenURI::HTTPError => e
-      logger.info "Exception raised: #{e}"
+      notify_hoptoad(e)
     end
+  end
+
+  def fetch_avatar_needed?
+    !self.avatar.exists? && !self.provider.blank?
+  end
+
+  def avatar_exists_or_able_to_download?
+    !(self.avatar_url == DEFAULT_AVATAR_URL)
   end
 
   def provider_avatar_url
     if provider == 'facebook'
-      url = "http://graph.facebook.com/#{self.uid}/picture"
+      "http://graph.facebook.com/#{self.uid}/picture"
     elsif provider == 'twitter'
-      url = "http://api.twitter.com/1/users/profile_image/#{self.uid}.json"
+      "http://api.twitter.com/1/users/profile_image/#{self.uid}.json"
     else
-      url = ''
+      nil
     end
   end
 

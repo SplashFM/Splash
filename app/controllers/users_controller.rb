@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   inherit_resources
-  respond_to :html
+  respond_to :html, :json
 
   skip_before_filter :require_user, :only => 'exists'
 
@@ -9,6 +9,12 @@ class UsersController < ApplicationController
 
   def avatar
     render 'avatar', :layout => false
+  end
+
+  def crop
+    current_user.fetch_avatar
+
+    respond_with(current_user)
   end
 
   def exists

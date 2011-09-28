@@ -94,39 +94,43 @@ form.visitor .inline-errors
   color: #d12f19
 
 /* profile:
+.upload-avatar-link
+  margin-top: -18px
+
 @mixin basic-element-style($border)
   border: #d7d7d7 #{$border}px solid
   padding: 2px
 
 @mixin basic-left-style()
   float: left
-  width: 125px
+  width: 100px
   display: block
   margin-left: 20px
-  margin-right: 10px
+  margin-right: 8px
 
 .profile
   width: 830px
   float: left
   .box-user-info
     float: left
-    width: 300px
+    width: 266px
     margin: 10px
     .user-image
       @include basic-element-style(1)
       @include basic-left-style()
+      position: relative
       height: 134px
     .follow-button
       @include basic-element-style(1)
       @include basic-left-style()
-      width: 125px
-      margin-top: 7px
+      clear: bottom
+      margin-top: 3px
       text-align: center
       height: 18px
     .ripples
       @include basic-element-style(0)
       @include basic-left-style()
-      width: 126px
+      clear: both
       margin-top: 7px
       font-size: 12px
       .label
@@ -151,20 +155,13 @@ form.visitor .inline-errors
         weight: bold
       height: 48px
     .tag-line
-      margin-left: 156px
-      width: 150
+      margin-left: 135px
       font-size: 10px
       height: 60px
       text-align: justify
-      form
-        float: right
-        width: 140
-        margin-left: 156px
-        margin-top: -70px
-
     .splashes
       padding: 2px
-      margin-top: 14px
+      margin-top: 11px
       font-size: 12px
       .label
         float: left

@@ -1,7 +1,7 @@
 .profile
   .box-user-info
     .user-image
-      = image_tag current_user.avatar_url(:thumb), :id => 'avatar'
+      = image_tag current_user.avatar_url(:thumb), :size => '100x112', :id => 'avatar'
       .upload-avatar-link.hide
         = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
     .top-number
