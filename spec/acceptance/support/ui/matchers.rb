@@ -16,6 +16,10 @@ module UI
       has_link?(I18n.t("tracks.track_info.download"))
     end
 
+    def has_purchase_link?
+      has_link?(I18n.t("tracks.track_info.purchase"))
+    end
+
     def has_tracks?
       has_css?(track_css)
     end
