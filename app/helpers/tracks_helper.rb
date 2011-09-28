@@ -1,4 +1,12 @@
 module TracksHelper
+  def expand_widget(track)
+    link_to(t(".expand"),
+            track_path(track),
+            :remote        => true,
+            :'data-type'   => 'html',
+            :'data-widget' => 'track-info-toggle')
+  end
+
   def play_widget(track)
     if track.data.file?
       file_name = track.data.path

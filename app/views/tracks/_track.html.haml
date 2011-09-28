@@ -6,4 +6,4 @@
     %li= splash_widget(track, current_user)
 
     - if track_expandable?(role)
-      %li= link_to(t(".expand"), track_path(track), :remote => true, :'data-type' => 'html', :'data-widget' => 'track-info-toggle')
+      %li= expand_widget(track)
