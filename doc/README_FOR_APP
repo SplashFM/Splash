@@ -1,2 +1,27 @@
 Installation
 ============
+
+
+
+EPF Import
+==========
+
+# Download the importer code.
+$ git clone git://github.com/mojotech/EPFImporter.git
+
+# Relational EPF
+# FULL
+$ wget -N -nH --cut-dirs=4 --user $EPF_USER --password $EPF_PASSWD http://feeds.itunes.apple.com/feeds/epf/v3/full/20110914/itunes20110914.tbz -P /mnt/backups
+
+# INCREMENTAL
+$ wget -N -nH --cut-dirs=4 --user $EPF_USER --password $EPF_PASSWD http://feeds.itunes.apple.com/feeds/epf/v3/full/20110914/incremental/20110915/itunes20110915.tbz -P /mnt/backups
+
+
+# Flat EPF
+$ wget -N -nH --cut-dirs=4 $EPF_USER --password $EPF_PASSWD http://feeds.itunes.apple.com/feeds/epf-flat/v1/full/usa/20110922/song-usa-20110922.tbz -P /mnt/backups
+
+# Relational Import
+$ ./EPFImporter.py --tableprefix itunes -D postgresql -d ec2-107-20-221-189.compute-1.amazonaws.com -u deploy -p $DB_PASSWD -n splash -w "^artist$" -w "^collection$" -w "^song$" -w "^genre$" -w "^artist_song$" -w "^collection_song$" -w "^genre_collection$" /mnt/backups/itunes20110914
+
+# Flat Import
+$ ./EPFImporter.py -f --tableprefix itunesflat -D postgresql -d ec2-107-20-221-189.compute-1.amazonaws.com -u deploy -p $DB_PASSWD -n splash /mnt/backups/itunes20110914
