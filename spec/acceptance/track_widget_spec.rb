@@ -14,11 +14,8 @@ feature "Track widget", :js => true do
   end
 
   scenario "Splashed song" do
-    track = create!(Track)
-
-    search_for track.title, :track do
-      splash track
-    end
+    track  = create!(Track)
+    splash = create(Splash).user(user).track!(track)
 
     visit dashboard_path
     search_for track.title, :track do
