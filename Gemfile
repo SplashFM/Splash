@@ -76,7 +76,7 @@ group :test do
   gem "capybara", "~> 1.0.0"
   gem "capybara-webkit", ">= 0.6.1"
   gem "database_cleaner", "~> 0.6.0"
-  gem "bricks"
+  gem "bricks", :require => 'bricks/adapters/active_record'
   gem "spork", "~> 0.9.0.rc"
 end
 
