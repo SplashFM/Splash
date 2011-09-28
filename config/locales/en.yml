@@ -25,6 +25,10 @@ en:
       splash: Splash
     track:
       play: Play
+      expand: Expand
+    track_info:
+      download: Download
+      purchase: Purchase on iTunes
 
   users:
     show:

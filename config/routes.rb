@@ -20,6 +20,10 @@ Scaphandrier::Application.routes.draw do
 
   resources :tracks do
     resources :splashes
+
+    member do
+      get :download
+    end
   end
 
   resource :visitor

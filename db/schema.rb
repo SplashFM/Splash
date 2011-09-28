@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110921004627) do
+ActiveRecord::Schema.define(:version => 20110928155446) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -35,15 +35,17 @@ ActiveRecord::Schema.define(:version => 20110921004627) do
   end
 
   create_table "tracks", :force => true do |t|
-    t.string   "title",             :null => false
+    t.string   "title",                             :null => false
     t.string   "album"
-    t.string   "artist",            :null => false
+    t.string   "artist",                            :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "data_file_name"
     t.string   "data_content_type"
     t.integer  "data_file_size"
     t.datetime "data_updated_at"
+    t.string   "purchase_url_raw",  :limit => 1024
+    t.string   "type"
   end
 
   add_index "tracks", ["title", "artist"], :name => "index_tracks_on_title_and_artist", :unique => true

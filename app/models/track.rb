@@ -8,6 +8,7 @@ class Track < ActiveRecord::Base
   has_attached_file :data
   validates_attachment_content_type :data,
                                     :content_type => %w(audio/mpeg
+                                                        audio/mp3
                                                         audio/mp4
                                                         audio/x-m4a)
 
@@ -32,4 +33,16 @@ class Track < ActiveRecord::Base
       search(query)
     end
   end
+
+  def downloadable?
+    false
+  end
+
+  def purchasable?
+    false
+  end
 end
+
+require_dependency 'undiscovered_track'
+require_dependency 'discovered_track'
+
