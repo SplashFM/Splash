@@ -76,6 +76,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def custom_send_file(*args)
+    send_file *args
+  end
+
   # Mark layout elements as hidden. Usage:
   #  hide :navigation, :auth_controls
   def self.hide(*elements)

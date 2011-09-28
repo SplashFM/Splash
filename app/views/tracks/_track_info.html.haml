@@ -1,2 +1,5 @@
 %div{:data => {:widget => 'track-info'}}
   Expanded!
+
+  - if track.downloadable?
+    = link_to t('.download'), download_track_path(track)

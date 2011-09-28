@@ -26,6 +26,8 @@ en:
     track:
       play: Play
       expand: Expand
+    track_info:
+      download: Download
 
   users:
     show:

@@ -4,6 +4,10 @@ module UI
       base.let(:user) { create(User).with_required_info! }
     end
 
+    def expand_track
+      click_link t("tracks.track.expand")
+    end
+
     def login(user)
       visit new_user_session_path
 
@@ -51,6 +55,10 @@ module UI
       fill_in Track.human_attribute_name(:title), :with => t.title
       fill_in Track.human_attribute_name(:artist), :with => t.artist
       attach_file Track.human_attribute_name(:data), path
+    end
+
+    def with_splash(splash, &block)
+      within(track_css(splash.track), &block)
     end
   end
 end

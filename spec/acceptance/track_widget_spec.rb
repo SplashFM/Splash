@@ -22,5 +22,20 @@ feature "Track widget", :js => true do
       should have_splashed(track)
     end
   end
+
+  scenario "Downloadable song" do
+    f      = Rack::Test::UploadedFile.new(file("the_vines_get_free.mp3"),
+                                          'audio/mpeg')
+    track  = create(Track).data!(f)
+    splash = create(Splash).user(create!(User)).track!(track)
+
+    visit dashboard_path
+
+    with_splash splash do
+      expand_track
+
+      should have_download_link
+    end
+  end
 end
 
