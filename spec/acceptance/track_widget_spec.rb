@@ -51,5 +51,30 @@ feature "Track widget", :js => true do
       should have_purchase_link
     end
   end
+
+  describe "Album art" do
+    scenario "On user feed" do
+      track  = create(Track).
+        album_art_url!("http://somewhere.over.the/rainbow.png")
+      splash = create(Splash).user(create!(User)).track!(track)
+
+      visit dashboard_path
+
+      with_splash splash do
+        should have_album_art("http://somewhere.over.the/rainbow.png")
+      end
+    end
+
+    scenario "As search result" do
+      track = create(Track).
+        album_art_url!("http://somewhere.over.the/rainbow.png")
+
+      visit dashboard_path
+
+      search_for track.title, :track do
+        should have_no_album_art
+      end
+    end
+  end
 end
 

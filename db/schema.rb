@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110928155446) do
+ActiveRecord::Schema.define(:version => 20110928215648) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20110928155446) do
     t.datetime "data_updated_at"
     t.string   "purchase_url_raw",  :limit => 1024
     t.string   "type"
+    t.string   "album_art_url"
   end
 
   add_index "tracks", ["title", "artist"], :name => "index_tracks_on_title_and_artist", :unique => true

@@ -19,6 +19,10 @@ module TracksHelper
     end
   end
 
+  def show_album?(role)
+    role == :splash
+  end
+
   def splash_widget(track, user)
     splash = Splash.for(track, user)
 

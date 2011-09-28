@@ -1,4 +1,7 @@
 %li.track{:data => {:track_id => track.id}}
+  - if show_album?(role)
+    - if track.album_art_url?
+      = image_tag track.album_art_url
   %span.title= track.title
   %span.artist= track.artist
   %ul.actions

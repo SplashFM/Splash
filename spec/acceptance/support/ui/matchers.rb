@@ -1,5 +1,13 @@
 module UI
   module Matchers
+    def has_no_album_art?
+      has_no_css?("img")
+    end
+
+    def has_album_art?(location)
+      has_css?(%Q{img[src = "#{location}"]})
+    end
+
     def has_splashed?(track)
       within(track_css(track)) {
         has_css?(splash_css + "[value = '#{I18n.t("tracks.widget.splashed")}']")
