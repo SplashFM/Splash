@@ -1,18 +1,18 @@
 require 'testable_search'
 
 class Track < ActiveRecord::Base
+  ALLOWED_ATTACHMENT_EXTS = %w(.mp3 .m4a)
+  ALLOWED_ATTACHMENTS = ALLOWED_ATTACHMENT_EXTS.
+    to_sentence(:two_words_connector => ', ', :last_word_connector => ', ')
   DEFAULT_ALBUM_ART_URL = "no_album_art.png"
+  INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
 
   extend TestableSearch
 
   validates_presence_of :title, :artist
 
   has_attached_file :data
-  validates_attachment_content_type :data,
-                                    :content_type => %w(audio/mpeg
-                                                        audio/mp3
-                                                        audio/mp4
-                                                        audio/x-m4a)
+  validate :validate_attachment_type
 
   # Search for tracks matching the given query.
   #
@@ -46,6 +46,17 @@ class Track < ActiveRecord::Base
 
   def purchasable?
     false
+  end
+
+  private
+
+  def validate_attachment_type
+    if data.file?
+      unless ALLOWED_ATTACHMENT_EXTS.include?(File.extname(data.path))
+        errors.add(:data_content_type,
+                   I18n.t(INVALID_ATTACHMENT, :allowed => ALLOWED_ATTACHMENTS))
+      end
+    end
   end
 end
 

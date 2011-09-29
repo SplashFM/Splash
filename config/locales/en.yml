@@ -6,6 +6,9 @@ en:
     attributes:
       track:
         data: File
+    errors:
+      messages:
+        invalid_attachment: is invalid. Use one of %{allowed}
 
   shared:
     search:
