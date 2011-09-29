@@ -37,9 +37,9 @@ en:
     show:
       title: 'User profile'
       edit_avatar: Change image
-    edit: 
+    edit:
       title: 'User profile'
-    avatar: 
+    avatar:
       title: Update Avatar Picture
 
   errors:
