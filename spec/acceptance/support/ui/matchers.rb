@@ -8,6 +8,10 @@ module UI
       has_css?(%Q{img[src = "#{location}"]})
     end
 
+    def has_splash?(track)
+      has_css?("[data-widget = 'splash'][data-track_id = '#{track.id}']")
+    end
+
     def has_splashed?(track)
       within(track_css(track)) {
         has_css?(splash_css + "[value = '#{I18n.t("tracks.widget.splashed")}']")

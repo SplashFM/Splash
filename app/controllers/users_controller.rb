@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   skip_before_filter :require_user, :only => 'exists'
 
   def show
+    @feed = Splash.for(current_user)
   end
 
   def avatar
