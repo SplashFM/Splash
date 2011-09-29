@@ -6,11 +6,10 @@ feature "Upload track", :js => true do
   background { visit dashboard_path }
 
   scenario "Upload track"  do
-    pending do
-      search_for "Nothing", :track do
-        upload file('pipershut_lo.mp3')
-        should have_content('Uploaded.')
-      end
+    search_for "Nothing", :track do
+      upload file('pipershut_lo.mp3')
+
+      should have_content('Uploaded.')
     end
   end
 end

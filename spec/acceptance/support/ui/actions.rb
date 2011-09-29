@@ -48,7 +48,7 @@ module UI
     def upload(path)
       t = build!(Track)
 
-      click_link t('formtastic.actions.upload')
+      click_link t('searches.create.upload')
 
       wait_until { page.has_css?(upload_css, :visible => true) }
 
