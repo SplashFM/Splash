@@ -18,6 +18,6 @@ describe Splash do
   it "finds the splash for the given track and user" do
     s = Splash.create!(:track => track, :user => user)
 
-    Splash.for(track, user).should == s
+    Splash.should be_for(track, user)
   end
 end

@@ -24,7 +24,7 @@ module TracksHelper
   end
 
   def splash_action_widget(track, user)
-    splash = Splash.for(track, user)
+    splash = Splash.for?(track, user)
 
     form_for :splash,
              :url    => track_splashes_path(track),
