@@ -2,12 +2,6 @@ var Widgets = Widgets || {};
 
 Widgets.Track = {
   init: function() {
-    $('[data-widget = "splash-action"]').live('ajax:success', function() {
-      $(':submit', this).
-        attr('disabled', true).
-        val(I18n.t('tracks.widget.splashed'));
-    });
-
     $('[data-widget = "play"]').live('click', function(e) {
       e.preventDefault();
 
@@ -178,6 +172,16 @@ Widgets.UploadToggle = {
   }
 }
 
+Widgets.SplashAction = {
+  init: function() {
+    $('[data-widget = "splash-action"]').live('ajax:success', function() {
+      $(':submit', this).
+        attr('disabled', true).
+        val(I18n.t('tracks.widget.splashed'));
+    });
+  }
+}
+
 Widgets.FlashTemplate = {
   success: function(value){
     $("#flash_notice, #flash_error").remove();
@@ -310,5 +314,6 @@ $(document).ready(function() {
   Widgets.TrackInfo.init();
   Widgets.Editable.init();
   Widgets.UserAvatar.init();
+  Widgets.SplashAction.init();
 });
 
