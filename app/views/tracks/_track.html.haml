@@ -1,11 +1,11 @@
-%li.track{:data => {:track_id => track.id}}
+%li.track{:data => {:track_id => track.id, :widget => role}}
   - if show_album?(role)
     = image_tag track.album_art_url
   %span.title= track.title
   %span.artist= track.artist
   %ul.actions
     %li= play_widget(track)
-    %li= splash_widget(track, current_user)
+    %li= splash_action_widget(track, current_user)
 
     - if track_expandable?(role)
       %li= expand_widget(track)

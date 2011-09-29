@@ -2,7 +2,7 @@ var Widgets = Widgets || {};
 
 Widgets.Track = {
   init: function() {
-    $('[data-widget = "splash"]').live('ajax:success', function() {
+    $('[data-widget = "splash-action"]').live('ajax:success', function() {
       $(':submit', this).
         attr('disabled', true).
         val(I18n.t('tracks.widget.splashed'));
