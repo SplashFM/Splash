@@ -1,6 +1,8 @@
 require 'testable_search'
 
 class Track < ActiveRecord::Base
+  DEFAULT_ALBUM_ART_URL = "no_album_art.png"
+
   extend TestableSearch
 
   validates_presence_of :title, :artist
@@ -32,6 +34,10 @@ class Track < ActiveRecord::Base
     else
       search(query)
     end
+  end
+
+  def album_art_url
+    read_attribute(:album_art_url) || DEFAULT_ALBUM_ART_URL
   end
 
   def downloadable?
