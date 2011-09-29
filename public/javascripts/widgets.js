@@ -243,32 +243,10 @@ Widgets.Avatar = {
 Widgets.AvatarUpload = {
   init: function(){
     $('#fileupload').fileupload({
-      fail:  function() {  $.fancybox.close(); },
-      add: function(e, data){
-                var that = $(this).data('fileupload');
-                $('.files').empty();
-                data.context = that._renderUpload(data.files)
-                    .appendTo($(this).find('.files')).fadeIn(function () {
-                        // Fix for IE7 and lower:
-                        $(this).show();
-                    }).data('data', data);
-                if ((that.options.autoUpload || data.autoUpload) &&
-                        data.isValidated) {
-                    data.jqXHR = data.submit();
-                }
-      },
       done:  function(e, data) {
                   $('#avatar').attr('src', data.result.user.avatar_url).fadeIn();
                   $.fancybox.close();
               }
-    });
-
-    // Open download dialogs via iframes, to prevent aborting current uploads:
-    $('#fileupload .files a:not([target^=_blank])').live('click', function (e) {
-        e.preventDefault();
-        $('<iframe style="display:none;"></iframe>')
-            .prop('src', this.href)
-            .appendTo('body');
     });
   }
 }
