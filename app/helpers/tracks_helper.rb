@@ -23,8 +23,8 @@ module TracksHelper
     role == :splash
   end
 
-  def splash_action_widget(track, user)
-    splash = Splash.for?(track, user)
+  def splash_action_widget(user, track)
+    splash = Splash.for?(user, track)
 
     form_for :splash,
              :url    => track_splashes_path(track),
