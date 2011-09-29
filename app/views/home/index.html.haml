@@ -39,9 +39,7 @@
           = succeed "." do
             %a{:href => "http://get.adobe.com/flashplayer/", :target => "_blank"} Flash plugin
 
-= render 'shared/search', :type => 'track'
-
-%div{:data => {:widget => 'feed'}}
-  %ul= render @feed
+= render :partial => 'shared/search', :locals => {:type => 'track'}
+= render :partial => 'shared/feed', :object => @feed
 
 #player-area
