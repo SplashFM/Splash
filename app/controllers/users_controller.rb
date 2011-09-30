@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   skip_before_filter :require_user, :only => 'exists'
+  skip_before_filter :require_name, :only => ['edit', 'update']
 
   def show
     @events = Event.for(current_user)
