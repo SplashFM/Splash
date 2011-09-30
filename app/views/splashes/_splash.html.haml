@@ -1,2 +1,8 @@
-= render splash.track, :role => :splash
+%li.splash{:data => {:track_id => splash.track.id, :widget => 'splash'}}
+  = image_tag splash.track.album_art_url
+  = render "tracks/track_summary", :track => splash.track
+
+  %ul.actions
+    %li= play_widget(splash.track)
+    %li= expand_widget(splash.track)
 
