@@ -43,8 +43,7 @@ describe Track, :adapter => :postgresql do
                                        'audio/mpeg')
     no  = Rack::Test::UploadedFile.new(__FILE__, "text/plain")
 
-    (t = build(Track).data!(no)).should_not be_valid
-    puts t.errors.inspect
+    build(Track).data!(no).should_not be_valid
     build(Track).data!(yes).should be_valid
   end
 end
