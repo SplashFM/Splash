@@ -183,6 +183,10 @@ Widgets.SplashAction = {
         attr('disabled', true).
         val(I18n.t('tracks.widget.splashed'));
     });
+
+    $('[data-widget = "splash-toggle"]').live('click', function() {
+      $($(this).attr('href')).toggle();
+    });
   }
 }
 

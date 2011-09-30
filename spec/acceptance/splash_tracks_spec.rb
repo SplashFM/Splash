@@ -14,5 +14,21 @@ feature "Splash tracks", :js => true do
 
     should have_splashed(track)
   end
+
+  scenario "Splash song with comment" do
+    track = create!(Track)
+
+    search_for track.title, :track do
+      splash track, "This is my comment!"
+    end
+
+    visit profile_path
+
+    with_splash Splash.first do
+      expand_track
+    end
+
+    should have_content("This is my comment!")
+  end
 end
 

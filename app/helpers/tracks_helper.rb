@@ -24,14 +24,22 @@ module TracksHelper
   end
 
   def splash_action_widget(user, track)
-    splash = Splash.for?(user, track)
+    splashed = Splash.for?(user, track)
+    id       = dom_id(track, :splash_comment)
 
-    form_for :splash,
-             :url    => track_splashes_path(track),
-             :remote => true,
-             :html   => {'data-widget' => 'splash-action'} do |f|
-      f.submit t('tracks.widget.splash' + (splash ? 'ed' : '')),
-               :disabled => splash
+    unless splashed
+      l = link_to(t('tracks.widget.splash'),
+                  "##{id}",
+                  :'data-widget' => 'splash-toggle')
+      f = form_for :splash,
+                   :url    => track_splashes_path(track),
+                   :remote => true,
+                   :html   => {:id => id, :'data-widget' => 'splash-action'} do |f|
+
+        f.text_area(:comment) + f.submit(t('tracks.widget.splash'))
+      end
+
+      l + f
     end
   end
 

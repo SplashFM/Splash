@@ -18,6 +18,12 @@ module UI
       }
     end
 
+    def has_splash_action?(track)
+      within(track_css(track)) {
+        has_link?(I18n.t("tracks.widget.splash"))
+      }
+    end
+
     def has_splashable?(track)
       within(track_css(track)) {
         has_css?(splash_css + "[value = '#{I18n.t("tracks.widget.splash")}']")

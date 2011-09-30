@@ -1,5 +1,7 @@
 module UI
   module Actions
+    include ActionController::RecordIdentifier
+
     def self.included(base)
       base.let(:user) { create(User).with_required_info! }
     end
@@ -41,8 +43,18 @@ module UI
       click_link(t('searches.page.see_more'))
     end
 
-    def splash(track)
-      within(track_css(track)) { find(splash_css).click }
+    def splash(track, comment = nil)
+      within(track_css(track)) {
+        click_link I18n.t('tracks.widget.splash')
+
+        if comment
+          within("##{dom_id(track, :splash_comment)}") {
+            fill_in "splash[comment]", :with => comment
+          }
+        end
+
+        click_button I18n.t('tracks.widget.splash')
+      }
     end
 
     def upload(path)
