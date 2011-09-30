@@ -1,0 +1,15 @@
+- case item
+- when Track
+  %li.search_result{:data => {:track_id => item.id}}
+    = render "tracks/track_summary", :track => item
+
+    %ul.actions
+      %li= play_widget(item)
+      %li= splash_action_widget(current_user, item)
+
+- when User
+  %li.search_result{:data => {:user_id => item.id}}
+  = item.name
+
+- else
+  - raise "Unknown search result type: #{item}"

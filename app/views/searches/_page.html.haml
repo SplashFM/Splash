@@ -1,6 +1,6 @@
 - klass = collection.first.class.name.underscore.pluralize
 
-%ul{:class => klass}= render collection, :role => :search_result
+%ul{:class => klass}= render_search_results(collection)
 
 - if page <= collection.total_pages
   %p= link_to t('.see_more'),
