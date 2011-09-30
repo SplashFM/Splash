@@ -22,16 +22,16 @@ en:
     page:
       see_more: See more
 
+  splashes:
+    splash:
+      play: Play
+      expand: Expand
+      download: Download
+      purchase: Purchase on iTunes
   tracks:
     widget:
       splashed: Splashed
       splash: Splash
-    track:
-      play: Play
-      expand: Expand
-    track_info:
-      download: Download
-      purchase: Purchase on iTunes
 
   users:
     show:

@@ -7,4 +7,14 @@ class SplashesController < ApplicationController
   rescue ActiveRecord::RecordInvalid
     head :forbidden
   end
+
+  def show
+    render :partial => current_splash, :locals => {:expand => true}
+  end
+
+  protected
+
+  def current_splash
+    @splash ||= Splash.find(params[:id])
+  end
 end

@@ -25,11 +25,11 @@ module UI
     end
 
     def has_download_link?
-      has_link?(I18n.t("tracks.track_info.download"))
+      has_link?(I18n.t("splashes.splash.download"))
     end
 
     def has_purchase_link?
-      has_link?(I18n.t("tracks.track_info.purchase"))
+      has_link?(I18n.t("splashes.splash.purchase"))
     end
 
     def has_tracks?

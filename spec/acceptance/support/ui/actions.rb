@@ -5,7 +5,7 @@ module UI
     end
 
     def expand_track
-      click_link t("tracks.track.expand")
+      click_link t("splashes.splash.expand")
     end
 
     def login(user)
@@ -58,7 +58,11 @@ module UI
     end
 
     def with_splash(splash, &block)
-      within(track_css(splash.track), &block)
+      within(track_css(splash.track) + "[data-widget = 'splash']", &block)
+    end
+
+    def with_splash_info(&block)
+      within("[data-widget = 'splash-info']", &block)
     end
   end
 end

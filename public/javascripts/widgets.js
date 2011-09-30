@@ -12,9 +12,13 @@ Widgets.Track = {
 
 Widgets.TrackInfo = {
   init: function() {
-    $('[data-widget = "track-info-toggle"]').
+    function splashWidget(anchor) {
+      return anchor.parents('[data-widget = "splash"]');
+    }
+
+    $('[data-widget = "splash-info-toggle"]').
       live('ajax:before', function(e) {
-        var ti = $(this).siblings('[data-widget = "track-info"]');
+        var ti = splashWidget($(this)).find('[data-widget = "splash-info"]');
 
         if (ti.length > 0) {
           ti.toggle();
@@ -23,7 +27,7 @@ Widgets.TrackInfo = {
         }
       }).
       live('ajax:success', function(_, data) {
-        $(this).parent().append(data);
+        splashWidget($(this)).replaceWith(data);
       });
   }
 }

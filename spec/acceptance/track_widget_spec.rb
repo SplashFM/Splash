@@ -18,8 +18,9 @@ feature "Track widget", :js => true do
     splash = create(Splash).user(user).track!(track)
 
     visit dashboard_path
+
     search_for track.title, :track do
-      should have_splashed(track)
+      should_not have_splash_action(track)
     end
   end
 
@@ -33,7 +34,9 @@ feature "Track widget", :js => true do
 
     with_splash splash do
       expand_track
+    end
 
+    with_splash_info do
       should have_download_link
     end
   end
@@ -47,7 +50,9 @@ feature "Track widget", :js => true do
 
     with_splash splash do
       expand_track
+    end
 
+    with_splash_info do
       should have_purchase_link
     end
   end
