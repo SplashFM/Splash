@@ -39,6 +39,7 @@ en:
       edit_avatar: Change image
       follow: Follow
       unfollow: Unfollow
+      following: Following
     edit:
       title: 'User profile'
     avatar:

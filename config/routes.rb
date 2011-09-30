@@ -47,7 +47,11 @@ Scaphandrier::Application.routes.draw do
     get 'avatar'
     get 'crop'
   end
-  resources :relationships, :only => [:create, :destroy]
+  resources :relationships, :only => [:create, :destroy] do
+    collection do
+      get 'following'
+    end
+  end
 
   match 'search'        => 'searches#create', :as => 'search'
   match 'search/expand' => 'searches#expand', :as => 'expand_search'

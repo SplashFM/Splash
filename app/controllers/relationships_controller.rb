@@ -1,6 +1,11 @@
 class RelationshipsController < ApplicationController
   respond_to :js
 
+  def following
+    @following = current_user.following
+    render 'follow', :locals => {:users => @following}
+  end
+
   def create
     @user = User.find_by_slug(params[:id])
     relationship = current_user.follow @user

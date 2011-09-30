@@ -65,6 +65,13 @@ class User < ActiveRecord::Base
     followed(user).try(:destroy)
   end
 
+  def following_sample(count=0)
+    max_offset = [0, following.count - count+1].max
+    following.find :all,
+                  :offset => max_offset,
+                  :limit => count
+  end
+
   after_save 'confirm!', :if => :oauth_login?
   def oauth_login?
     !(provider.blank? || uid.blank?) && !self.confirmed?
