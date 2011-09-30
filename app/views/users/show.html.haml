@@ -10,7 +10,10 @@
     .user-name
       = @user.name
     .follow-button
-      = link_to "Follow", :action => "index"
+      - if current_user.following? @user
+        = render 'unfollow'
+      - else
+        = render 'follow'
     .rating
       55
       .tag-line-wrapper
