@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110929142444) do
+ActiveRecord::Schema.define(:version => 20110930130921) do
+
+  create_table "artists", :force => true do |t|
+    t.string   "name",        :limit => 1000
+    t.integer  "external_id"
+    t.string   "source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -33,6 +41,11 @@ ActiveRecord::Schema.define(:version => 20110929142444) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "comment"
+  end
+
+  create_table "track_performers", :id => false, :force => true do |t|
+    t.integer "track_id"
+    t.integer "artist_id"
   end
 
   create_table "tracks", :force => true do |t|
