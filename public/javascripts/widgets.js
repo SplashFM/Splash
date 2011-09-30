@@ -255,33 +255,10 @@ Widgets.Avatar = {
 Widgets.AvatarUpload = {
   init: function(){
     $('#fileupload').fileupload({
-      fail:  function() {  $.fancybox.close(); },
-      add: function(e, data){
-                var that = $(this).data('fileupload');
-                $('.files').empty();
-                data.context = that._renderUpload(data.files)
-                    .appendTo($(this).find('.files')).fadeIn(function () {
-                        // Fix for IE7 and lower:
-                        $(this).show();
-                    }).data('data', data);
-                if ((that.options.autoUpload || data.autoUpload) &&
-                        data.isValidated) {
-                    data.jqXHR = data.submit();
-                }
-      },
       done:  function(e, data) {
-                  $('.jcrop-holder img').attr('src', data.result.user.avatar_url);
                   $('#avatar').attr('src', data.result.user.avatar_url).fadeIn();
-                  $('table.files').empty();
+                  $.fancybox.close();
               }
-    });
-
-    // Open download dialogs via iframes, to prevent aborting current uploads:
-    $('#fileupload .files a:not([target^=_blank])').live('click', function (e) {
-        e.preventDefault();
-        $('<iframe style="display:none;"></iframe>')
-            .prop('src', this.href)
-            .appendTo('body');
     });
   }
 }
@@ -309,6 +286,38 @@ Widgets.AvatarCrop = {
         $("#crop_w").val(Math.round(coords.w * ratio));
         $("#crop_h").val(Math.round(coords.h * ratio));
       }
+  }
+}
+
+Widgets.AvatarEdition = {
+  init: function(){
+    $('[data-widget = "edit_avatar"]').click(function(){
+      $.ajax({
+        url: $(this).attr('data-action'),
+        type: "GET",
+        dataType : "json",
+        beforeSend: function(){
+          $("#spinner").show();
+        },
+        complete: function() {
+          $("#spinner").hide();
+        },
+        success: function(evt, data, status, xhr){
+          $('#crop').show();
+          $('[data-widget = "edit_avatar"]').hide();
+          Widgets.AvatarCrop.init();
+          $('[data-widget = "crop-cancel"]').click(function(){
+            $.fancybox.close();
+            return false;
+          })
+        },
+        error: function(xhr, status, extra){
+          alert(I18n.t('users.crop.fetch_error'));
+        }
+      });
+
+      return false;
+    });
   }
 }
 

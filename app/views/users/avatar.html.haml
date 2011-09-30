@@ -6,19 +6,15 @@
     %p
       = image_tag current_user.avatar_url(:large), :id => 'cropbox', :class => 'fancybox_avatar'
 
-    #image-attrs{:"data-large-width" => current_user.avatar_geometry(:large).width, :"data-large-height" => current_user.avatar_geometry(:large).height, :"data-original-width" => current_user.avatar_geometry(:original).width, :style => 'display:none;' }
+    - if current_user.avatar_exists_or_able_to_download?
+      = link_to t('.edit'), user_crop_path(current_user), |
+                                :'data-widget' => 'edit_avatar', |
+                                :'data-action' => "#{user_crop_path(current_user)}"
+      = image_tag 'spin.gif', :class => 'hide', :id => 'spinner'
 
-    = form_for current_user, :remote => true, :id => 'crop_form' do |form|
-      - for attribute in [:crop_x, :crop_y, :crop_w, :crop_h]
-        = form.hidden_field attribute, :id => attribute
-
-      %p
-        = form.submit 'Crop'
+    #crop.hide
+      = render 'crop'
 
     #fileupload
-      = form_for current_user, :html => { :multipart => true } do |f|
+      = form_for current_user, :format => :json, :html => { :multipart => true } do |f|
         = f.file_field :avatar
-      .fileupload-content
-        %table.files
-
-    = render 'template_upload'
