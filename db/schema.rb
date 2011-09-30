@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110930130236) do
+ActiveRecord::Schema.define(:version => 20110930130921) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -49,12 +49,25 @@ ActiveRecord::Schema.define(:version => 20110930130236) do
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
+  create_table "genres", :force => true do |t|
+    t.string   "name",        :limit => 1000
+    t.integer  "external_id"
+    t.string   "source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "splashes", :force => true do |t|
     t.integer  "track_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "comment"
+  end
+
+  create_table "track_genres", :id => false, :force => true do |t|
+    t.integer "track_id"
+    t.integer "genre_id"
   end
 
   create_table "track_performers", :id => false, :force => true do |t|
