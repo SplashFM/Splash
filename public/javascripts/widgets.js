@@ -1,8 +1,16 @@
 var Widgets = Widgets || {};
 
+function $ws(name) {
+  return "[data-widget = '" + name + "']";
+}
+
+function $w(name) {
+  return $($ws(name));
+}
+
 Widgets.Track = {
   init: function() {
-    $('[data-widget = "play"]').live('click', function(e) {
+    $w("play").live('click', function(e) {
       e.preventDefault();
 
       Widgets.Player.play($(this).attr('href'), $(this).data('track-type'));
@@ -13,12 +21,12 @@ Widgets.Track = {
 Widgets.TrackInfo = {
   init: function() {
     function splashWidget(anchor) {
-      return anchor.parents('[data-widget = "splash"]');
+      return anchor.parents($ws("splash"));
     }
 
-    $('[data-widget = "splash-info-toggle"]').
+    $w("splash-info-toggle").
       live('ajax:before', function(e) {
-        var ti = splashWidget($(this)).find('[data-widget = "splash-info"]');
+        var ti = splashWidget($(this)).find($ws("splash-info"));
 
         if (ti.length > 0) {
           ti.toggle();
@@ -43,7 +51,7 @@ Widgets.Player = {
 
     $('#player-area').html($.tmpl('player-template'));
 
-    $('[data-widget = "player"]').
+    $w("player").
       jPlayer({cssSelectorAncestor: '#player-container',
                swfPath:             'Jplayer.swf',
                supplied:            type,
@@ -57,7 +65,7 @@ Widgets.Search = {
   init: function() {
     Widgets.SeeMore.init();
 
-    $('[data-widget = "search"]').each(function(_, e) {
+    $w("search").each(function(_, e) {
       var form    = $(e);
       var input   = form.find(':text');
       var results = $('#' + form.data('search-results'));
@@ -72,7 +80,7 @@ Widgets.Search = {
       });
 
       input.bind('after.searchbox', function() {
-        Widgets.Upload.init(results.find('[data-widget = "upload"]'));
+        Widgets.Upload.init(results.find($ws("upload")));
 
         results.show();
       });
@@ -82,7 +90,7 @@ Widgets.Search = {
 
 Widgets.SeeMore = {
   init: function() {
-    $('[data-widget = "see-more"]').live('ajax:success', function(_, data) {
+    $w("see-more").live('ajax:success', function(_, data) {
       $(this).replaceWith(data);
     });
   }
@@ -170,7 +178,7 @@ Widgets.Upload = {
 
 Widgets.UploadToggle = {
   init: function() {
-    $('[data-widget = "upload-toggle"]').live('click', function() {
+    $w("upload-toggle").live('click', function() {
       $($(this).attr('href')).toggle();
     });
   }
@@ -178,13 +186,13 @@ Widgets.UploadToggle = {
 
 Widgets.SplashAction = {
   init: function() {
-    $('[data-widget = "splash-action"]').live('ajax:success', function() {
+    $w("splash-action").live('ajax:success', function() {
       $(':submit', this).
         attr('disabled', true).
         val(I18n.t('tracks.widget.splashed'));
     });
 
-    $('[data-widget = "splash-toggle"]').live('click', function() {
+    $w("splash-toggle").live('click', function() {
       $($(this).attr('href')).toggle();
     });
   }
@@ -206,7 +214,7 @@ Widgets.FlashTemplate = {
 
 Widgets.Editable = {
   init: function(){
-    $('[data-widget = "editable"]').editable(submitEdit, {type    : 'textarea',
+    $w("editable").editable(submitEdit, {type    : 'textarea',
                                      cancel  : I18n.t('jeditable.labels.cancel'),
                                      submit  : I18n.t('jeditable.labels.submit'),
                                      tooltip : I18n.t('jeditable.labels.tooltip')});
@@ -291,7 +299,7 @@ Widgets.AvatarCrop = {
 
 Widgets.AvatarEdition = {
   init: function(){
-    $('[data-widget = "edit_avatar"]').click(function(){
+    $w("edit_avatar").click(function(){
       $.ajax({
         url: $(this).attr('data-action'),
         type: "GET",
@@ -304,9 +312,9 @@ Widgets.AvatarEdition = {
         },
         success: function(evt, data, status, xhr){
           $('#crop').show();
-          $('[data-widget = "edit_avatar"]').hide();
+          $w("edit_avatar").hide();
           Widgets.AvatarCrop.init();
-          $('[data-widget = "crop-cancel"]').click(function(){
+          $w("crop-cancel").click(function(){
             $.fancybox.close();
             return false;
           })
