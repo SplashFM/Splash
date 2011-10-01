@@ -72,6 +72,13 @@ class User < ActiveRecord::Base
                   :limit => count
   end
 
+  def followers_sample(count=0)
+    max_offset = [0, followers.count - count+1].max
+    followers.find :all,
+                  :offset => max_offset,
+                  :limit => count
+  end
+
   after_save 'confirm!', :if => :oauth_login?
   def oauth_login?
     !(provider.blank? || uid.blank?) && !self.confirmed?

@@ -40,6 +40,7 @@ en:
       follow: Follow
       unfollow: Unfollow
       following: Following
+      followers: Followers
     edit:
       title: 'User profile'
     avatar:

@@ -50,6 +50,7 @@ Scaphandrier::Application.routes.draw do
   resources :relationships, :only => [:create, :destroy] do
     collection do
       get 'following'
+      get 'followers'
     end
   end
 
