@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110930130921) do
+ActiveRecord::Schema.define(:version => 20111001153349) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(:version => 20110930130921) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "genres", ["name"], :name => "index_genres_on_name", :unique => true
 
   create_table "splashes", :force => true do |t|
     t.integer  "track_id"
