@@ -21,11 +21,11 @@ class Track < ActiveRecord::Base
   # @param [String] query the query used to filter tracks
   #
   # @return a (possibly empty) list of tracks
-  def self.filtered(query)
+  def self.with_text(query)
     if use_slow_search?
       # We want to use memory-based sqlite3 for most tests.
       # This is ugly, but tests run faster.
-      # Also see User.filtered.
+      # Also see User.with_text.
 
       fields = content_columns.select { |c| c.type == :string }.map(&:name)
       q      = fields.map { |f| "#{f} = :query" }.join(' or ')

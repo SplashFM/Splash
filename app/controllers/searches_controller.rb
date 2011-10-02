@@ -23,11 +23,11 @@ class SearchesController < ApplicationController
     opts = {:page => params[:page], :per_page => PER_PAGE}
 
     tracks = if %w(global track).include?(params[:type])
-              Track.filtered(params[:f]).paginate(opts)
+              Track.with_text(params[:f]).paginate(opts)
             end
 
     users = if %w(global user).include?(params[:type])
-              User.filtered(params[:f]).paginate(opts)
+              User.with_text(params[:f]).paginate(opts)
             end
 
     [tracks, users]

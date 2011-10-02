@@ -48,11 +48,11 @@ class User < ActiveRecord::Base
   # @param [String] name the user name to search for
   #
   # @return a (possibly empty) list of users
-  def self.filtered(name)
+  def self.with_text(name)
     if use_slow_search?
       # We want to use memory-based sqlite3 for most tests.
       # This is ugly, but tests run faster.
-      # Also see Track.filtered.
+      # Also see Track.with_text.
 
       where(:name => name)
     else
