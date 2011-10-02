@@ -252,7 +252,7 @@ Widgets.Avatar = {
   init: function(){
     $("form.edit_user")
       .bind('ajax:complete', function(evt, data, status, xhr){
-          user = $.parseJSON(data.responseText).user;
+          user = $.parseJSON(data.responseText);
           d = new Date();
           $('#avatar').attr('src', user.avatar_url+d.getTime());
           $.fancybox.close();
