@@ -6,4 +6,8 @@ module TestableSearch
   def use_slow_search?
     Rails.env.test? && ! using_postgres?
   end
+
+  def ilike
+    using_postgres? ? "ilike" : "like"
+  end
 end
