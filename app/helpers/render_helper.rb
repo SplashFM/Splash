@@ -1,5 +1,7 @@
 module RenderHelper
   def render_events(events)
-    render :partial => "shared/feed", :collection => events
+    render :partial => "events/index",
+           :object  => events,
+           :as      => :events
   end
 end
