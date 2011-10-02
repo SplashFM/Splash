@@ -40,6 +40,6 @@
             %a{:href => "http://get.adobe.com/flashplayer/", :target => "_blank"} Flash plugin
 
 = render :partial => 'shared/search', :locals => {:type => 'track'}
-= render :partial => 'shared/feed', :object => @feed
+= render_events(@feed)
 
 #player-area
