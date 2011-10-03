@@ -303,7 +303,7 @@ Widgets.AvatarUpload = {
   init: function(){
     $('#fileupload').fileupload({
       done:  function(e, data) {
-                  $('#avatar').attr('src', data.result.user.avatar_url).fadeIn();
+                  $('#avatar').attr('src', data.result.avatar_url).fadeIn();
                   $.fancybox.close();
               }
     });
