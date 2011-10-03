@@ -1,6 +1,10 @@
 user_seq = 0
 
 Bricks do
+  builder Artist do
+    name 'Yes'
+  end
+
   builder Track do
     title  'Turn of the century'
     album  'Going for the one'

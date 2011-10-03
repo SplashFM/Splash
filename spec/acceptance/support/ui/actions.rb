@@ -63,8 +63,11 @@ module UI
       }
     end
 
-    def upload(path)
-      t = build!(Track)
+    def upload(path, track = nil)
+      t = track || begin
+                     a = build?(Artist)
+                     t = build(Track).performers!([a])
+                   end
 
       click_link t('searches.create.upload')
 
