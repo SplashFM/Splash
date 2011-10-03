@@ -78,7 +78,7 @@ class Track < ActiveRecord::Base
   def performer; end
 
   def performer=(name)
-    performers.find_or_initialize_by_name(name)
+    self.performers = [Artist.find_or_create_by_name(name)]
   end
   # /FIXME
 
