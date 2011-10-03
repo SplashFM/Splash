@@ -1,13 +1,14 @@
 .profile
   .box-user-info
     .user-image
-      = image_tag current_user.avatar_url(:thumb), :size => '100x112', :id => 'avatar'
-      .upload-avatar-link.hide
-        = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
+      = image_tag @user.avatar_url(:thumb), :size => '100x110', :id => 'avatar'
+      - if avatar_editable?
+        .upload-avatar-link.hide
+          = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
     .top-number
       3
     .user-name
-      = current_user.name
+      = @user.name
     .follow-button
       = link_to "Follow", :action => "index"
     .rating
@@ -15,8 +16,9 @@
       .tag-line-wrapper
         %span.tag-line-label
           tagline
-        .tag-line.edit{:'data-action' => "#{user_path(current_user)}", :'data-widget' => 'editable'}
-          = current_user.tagline
+        .tag-line.edit{:'data-action' => "#{user_path(current_user)}", 
+                      :'data-widget' => "#{ 'editable' if tagline_editable?}"}
+          = @user.tagline
     .ripples
       .label
         RIPPLES

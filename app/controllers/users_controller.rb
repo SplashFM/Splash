@@ -31,12 +31,16 @@ class UsersController < ApplicationController
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
 
-    update! do |success, failure|
-      sign_in(@user, :bypass => true) if @user.errors.empty?
-      success.html { redirect_to home_path}
-      success.json { render :json => @user.to_json(:methods => 'avatar_url') }
-      success.js { render :json => @user.to_json(:methods => 'avatar_url') }
-      failure.html { render :action => 'edit'}
+    @user = current_user
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        sign_in(@user, :bypass => true) if current_user.errors.empty?
+        format.html { redirect_to home_path }
+        format.json { render :json => @user.to_json(:methods => 'avatar_url') }
+        format.js { render :json => @user.to_json(:methods => 'avatar_url') }
+      else
+        format.html { render :action => 'edit' }
+      end
     end
   end
 end
