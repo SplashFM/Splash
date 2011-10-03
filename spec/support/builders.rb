@@ -9,6 +9,10 @@ Bricks do
     trait :with_genre do |name|
       genres.name(name)
     end
+
+    trait :with_performer do |name|
+      performers.name(name)
+    end
   end
 
   builder User do

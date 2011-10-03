@@ -1,7 +1,7 @@
 require 'testable_search'
 
 class Track < ActiveRecord::Base
-  ALLOWED_FILTERS = [:genre]
+  ALLOWED_FILTERS = [:genre, :artist]
   ALLOWED_ATTACHMENT_EXTS = %w(.mp3 .m4a)
   ALLOWED_ATTACHMENTS = ALLOWED_ATTACHMENT_EXTS.
     to_sentence(:two_words_connector => ', ', :last_word_connector => ', ')
@@ -11,7 +11,7 @@ class Track < ActiveRecord::Base
   extend TestableSearch
 
   has_and_belongs_to_many :genres, :join_table => :track_genres
-  has_and_belongs_to_many :performers, :join_table => :track_genres,
+  has_and_belongs_to_many :performers, :join_table => :track_performers,
                                        :class_name => 'Artist'
 
   validates_presence_of :title, :artist
@@ -52,6 +52,11 @@ class Track < ActiveRecord::Base
     if filters[:genre]
       ro = ro.joins(:track => :genres).
         where(:genres => {:id => filters[:genre]})
+    end
+
+    if filters[:artist]
+      ro = ro.joins(:track => :performers).
+        where(:artists => {:id => filters[:artist]})
     end
 
     ro

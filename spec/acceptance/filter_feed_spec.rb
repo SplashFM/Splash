@@ -3,6 +3,19 @@ require 'acceptance/acceptance_helper'
 feature "Filter feed", :js => true, :driver => :selenium do
   subject { page }
 
+  scenario "Filter by performer" do
+    track1  = create(Track).title("Track 1").with_performer!("Yes")
+    splash1 = create(Splash).user(user).track!(track1)
+    track2  = create(Track).title("Track 2").with_performer!("Nirvana")
+    splash2 = create(Splash).user(user).track!(track2)
+
+    visit profile_path
+    filter_feed "Yes"
+
+    should     have_splash(track1)
+    should_not have_splash(track2)
+  end
+
   scenario "Filter by genre" do
     track1  = create(Track).title("Track 1").with_genre!("Rock")
     splash1 = create(Splash).user(user).track!(track1)

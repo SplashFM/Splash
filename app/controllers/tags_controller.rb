@@ -1,8 +1,9 @@
 class TagsController < ApplicationController
   def index
     genres  = Genre.filter(params[:q])
-    hashes  = genres.map { |g|
-      g.as_json(:only => [:id, :name]).merge!(:type => 'genre')
+    artists = Artist.filter(params[:q])
+    hashes  = (artists + genres).map { |t|
+      t.as_json(:only => [:id, :name]).merge!(:type => t.class.name.underscore)
     }
 
     render :json => hashes
