@@ -1,6 +1,7 @@
 require 'testable_search'
 
 class Track < ActiveRecord::Base
+  ALLOWED_FILTERS = [:genre]
   ALLOWED_ATTACHMENT_EXTS = %w(.mp3 .m4a)
   ALLOWED_ATTACHMENTS = ALLOWED_ATTACHMENT_EXTS.
     to_sentence(:two_words_connector => ', ', :last_word_connector => ', ')
@@ -8,6 +9,10 @@ class Track < ActiveRecord::Base
   INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
 
   extend TestableSearch
+
+  has_and_belongs_to_many :genres, :join_table => :track_genres
+  has_and_belongs_to_many :performers, :join_table => :track_genres,
+                                       :class_name => 'Artist'
 
   validates_presence_of :title, :artist
 
@@ -34,6 +39,22 @@ class Track < ActiveRecord::Base
     else
       search(query)
     end
+  end
+
+  # Narrow a Relation to include Track's filters
+  def self.narrow(r, filters)
+    ro = r
+
+    unless (filters.symbolize_keys.keys - ALLOWED_FILTERS).empty?
+      raise "Unknown filters: #{filters.inspect}"
+    end
+
+    if filters[:genre]
+      ro = ro.joins(:track => :genres).
+        where(:genres => {:id => filters[:genre]})
+    end
+
+    ro
   end
 
   def album_art_url

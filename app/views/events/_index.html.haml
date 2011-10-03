@@ -1,2 +1,3 @@
 %div{:data => {:widget => 'events'}}
-  %ul= render events
+  = text_field_tag :q, '', :'data-widget' => 'events-filter'
+  = render "events/list", :events => events

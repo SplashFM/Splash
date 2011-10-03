@@ -8,6 +8,45 @@ function $w(name) {
   return $($ws(name));
 }
 
+Widgets.Feed = {
+  init: function() {
+    var filters = {};
+
+    $w('events-filter').tokenInput(Routes.tags_path(), {
+      theme: "facebook",
+      onAdd: function(e) {
+        if (filters[e.type] == null) filters[e.type] = [];
+
+        filters[e.type].push(e);
+
+        refresh(filters);
+      },
+      onDelete: function(e) {
+        var filter = filters[e.type];
+
+        filter.splice(filter.indexOf(e), 1);
+
+        refresh(filters);
+      }
+    });
+
+    function refresh(filters) {
+      var data = [];
+
+      for (var f in filters) {
+        for (var i = 0; i < filters[f].length; i++) {
+          data.push("filters[" + filters[f][i].type + "][]=" + filters[f][i].id);
+        }
+      }
+
+      $.get(Routes.events_path(),
+            data.join("&"), function(data) {
+              $w("event-list").replaceWith(data);
+            });
+    }
+  }
+}
+
 Widgets.Track = {
   init: function() {
     $w("play").live('click', function(e) {
@@ -340,5 +379,6 @@ $(document).ready(function() {
   Widgets.Editable.init();
   Widgets.UserAvatar.init();
   Widgets.SplashAction.init();
+  Widgets.Feed.init();
 });
 

@@ -5,6 +5,10 @@ Bricks do
     title  'Turn of the century'
     album  'Going for the one'
     artist 'Yes'
+
+    trait :with_genre do |name|
+      genres.name(name)
+    end
   end
 
   builder User do
