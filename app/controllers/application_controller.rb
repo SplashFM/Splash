@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :require_user
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
   protected
+  def render_404
+    redirect_to home_url
+  end
 
   def custom_flash_display
     @custom_flash_display = true

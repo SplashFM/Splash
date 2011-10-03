@@ -51,6 +51,8 @@ Scaphandrier::Application.routes.draw do
   match 'search'        => 'searches#create', :as => 'search'
   match 'search/expand' => 'searches#expand', :as => 'expand_search'
 
+  match '/:id' => 'users#show'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

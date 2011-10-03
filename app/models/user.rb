@@ -33,6 +33,9 @@ class User < ActiveRecord::Base
 
   before_save :possibly_delete_avatar
 
+  extend FriendlyId
+  friendly_id :name, :use => :slugged
+
   attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
@@ -139,6 +142,10 @@ class User < ActiveRecord::Base
   # to_label for ActiveScaffold
   def to_label
     email
+  end
+
+  def to_params
+    slug || super
   end
 
   def avatar_url(style=:thumb)

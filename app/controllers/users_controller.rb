@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def show
     @events = Event.for(current_user)
+    @user = params[:id].blank? ? current_user : User.find_by_slug(params[:id])
   end
 
   def avatar
