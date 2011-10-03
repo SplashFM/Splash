@@ -10,8 +10,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111004000944) do
 
+ActiveRecord::Schema.define(:version => 20111004000944) do
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
     t.integer "track_id"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20111004000944) do
     t.string   "provider"
     t.string   "uid"
     t.string   "tagline",              :limit => 60
+    t.string   "slug"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
