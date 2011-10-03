@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111003094547) do
+ActiveRecord::Schema.define(:version => 20111003223956) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20111003094547) do
     t.string   "purchase_url_raw",  :limit => 1024
     t.string   "type"
     t.string   "album_art_url"
+    t.integer  "external_id"
   end
 
   add_index "tracks", ["title"], :name => "index_tracks_on_title"
