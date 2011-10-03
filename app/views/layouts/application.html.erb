@@ -24,7 +24,9 @@
 <!--[if lt IE 7]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;'> <a href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http://www.theie6countdown.com/images/upgrade.jpg" border="0" height="42" width="820" alt="" /></a></div> <![endif]-->
     <div class="yui3-g">
       <div id="header"">
-        <h1><%= Rails.application.name %> - <%= controller.controller_name.titleize -%></h1>
+        <h1><%= Rails.application.name %></h1>
+ 		<span id="breadcrumb"><%= controller.controller_name.titleize -%></span>
+		<div class="clear"></div>
         <%= render :partial => 'shared/auth_controls' unless hidden?(:auth_controls) %>
         <% unless hidden?(:navigation) %>
           <div id="main_nav"><%= render_navigation %></div>

@@ -1,3 +1,9 @@
-%div{:data => {:widget => 'events'}}
-  = text_field_tag :q, '', :'data-widget' => 'events-filter'
+
+%div.events_wrapper{:data => {:widget => 'events'}}
+  .filter_wrapper
+    %span.label
+      filter feed
+    .search_wrapper
+      = text_field_tag :q, '', :'data-widget' => 'events-filter'
+    .clear
   = render "events/list", :events => events

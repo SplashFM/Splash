@@ -5,6 +5,7 @@
   = text_field_tag :f,
                    params[:f],
                    :id => "#{type}-f",
+				   :class => "searchField",
                    :placeholder => type == 'global' ? t('.global') : t('.track')
 
 %div{:id => "#{type}-results", :data => {:widget => 'results'}}

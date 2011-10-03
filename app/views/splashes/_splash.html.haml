@@ -1,17 +1,19 @@
 %li.splash{:data => {:track_id => splash.track.id, :widget => 'splash'}}
   = image_tag splash.track.album_art_url
-  = render "tracks/track_summary", :track => splash.track
+  .splash_text_info
+    = render "tracks/track_summary", :track => splash.track
 
-  %ul.actions
-    %li= play_widget(splash.track)
-    %li= expand_splash(splash)
+    %ul.actions
+      %li= play_widget(splash.track)
+      %li= expand_splash(splash)
 
-  - if defined?(expand)
-    %div{:data => {:widget => 'splash-info'}}
-      = splash.comment
+    - if defined?(expand)
+      %div{:data => {:widget => 'splash-info'}}
+        = splash.comment
 
-      - if splash.track.downloadable?
-        = link_to t('.download'), download_track_path(splash.track)
+        - if splash.track.downloadable?
+          = link_to t('.download'), download_track_path(splash.track)
 
-      - elsif splash.track.purchasable?
-        = link_to t(".purchase"), splash.track.purchase_url
+        - elsif splash.track.purchasable?
+          = link_to t(".purchase"), splash.track.purchase_url
+  .clear

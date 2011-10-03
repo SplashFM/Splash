@@ -12,8 +12,11 @@
       = link_to "Follow", :action => "index"
     .rating
       55
-    .tag-line.edit{:'data-action' => "#{user_path(current_user)}", :'data-widget' => 'editable'}
-      = current_user.tagline
+      .tag-line-wrapper
+        %span.tag-line-label
+          tagline
+        .tag-line.edit{:'data-action' => "#{user_path(current_user)}", :'data-widget' => 'editable'}
+          = current_user.tagline
     .ripples
       .label
         RIPPLES
@@ -28,5 +31,5 @@
       top 5% influencer this week
     .last-seem
       last seem 8 min ago
-
-  = render_events(@events)
+.clear
+= render_events(@events)
