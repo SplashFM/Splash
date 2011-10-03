@@ -37,6 +37,7 @@ en:
     show:
       title: 'User profile'
       edit_avatar: Change image
+      edit: Edit
       follow: Follow
       unfollow: Unfollow
       following: Following

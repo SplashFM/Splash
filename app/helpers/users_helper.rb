@@ -18,4 +18,14 @@ module UsersHelper
     end
     link_to label, url
   end
+
+  def follow_label
+    if @user == current_user
+      link_to t('.edit'), edit_user_path(current_user)
+    elsif current_user.following? @user
+      render 'unfollow'
+    else
+      render 'follow'
+    end
+  end
 end

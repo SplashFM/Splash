@@ -10,10 +10,8 @@
     .user-name
       = @user.name
     .follow-button
-      - if current_user.following? @user
-        = render 'unfollow'
-      - else
-        = render 'follow'
+      = follow_label
+
     .rating
       55
       .tag-line-wrapper
