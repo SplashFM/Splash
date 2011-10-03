@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     !(provider.blank? || uid.blank?) && !self.confirmed?
   end
 
+  def search_result_type
+    :user
+  end
+
   # Search for users matching the given name.
   #
   # @param [String] name the user name to search for

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111001153349) do
+ActiveRecord::Schema.define(:version => 20111003084900) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -80,7 +80,6 @@ ActiveRecord::Schema.define(:version => 20111001153349) do
   create_table "tracks", :force => true do |t|
     t.string   "title",                             :null => false
     t.string   "album"
-    t.string   "artist",                            :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "data_file_name"
@@ -92,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20111001153349) do
     t.string   "album_art_url"
   end
 
-  add_index "tracks", ["title", "artist"], :name => "index_tracks_on_title_and_artist", :unique => true
+  add_index "tracks", ["title"], :name => "index_tracks_on_title"
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "",     :null => false

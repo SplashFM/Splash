@@ -8,8 +8,8 @@ describe Track, :adapter => :postgresql do
       Track.with_text('Close to the edge').should have(1).result
     end
 
-    it "is found by artist" do
-      create(Track).artist!('Yes')
+    it "is found by performer" do
+      create(Track).with_performer!('Yes')
 
       Track.with_text('Yes').should have(1).result
     end
@@ -24,7 +24,7 @@ describe Track, :adapter => :postgresql do
       create(Track).
         title('And you and I').
         album('Close to the edge').
-        artist!('Yes')
+        with_performer!('Yes')
 
       Track.with_text('Fragile').should be_empty
     end

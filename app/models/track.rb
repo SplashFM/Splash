@@ -14,7 +14,7 @@ class Track < ActiveRecord::Base
   has_and_belongs_to_many :performers, :join_table => :track_performers,
                                        :class_name => 'Artist'
 
-  validates_presence_of :title, :artist
+  validates_presence_of :title
 
   has_attached_file :data
   validate :validate_attachment_type
@@ -64,6 +64,18 @@ class Track < ActiveRecord::Base
 
   def album_art_url
     read_attribute(:album_art_url) || DEFAULT_ALBUM_ART_URL
+  end
+
+  # FIXME: Remove when the upload form supports multiple performers
+  def performer; end
+
+  def performer=(name)
+    performers.find_or_initialize_by_name(name)
+  end
+  # /FIXME
+
+  def performer_names
+    performers.map(&:name)
   end
 
   def downloadable?

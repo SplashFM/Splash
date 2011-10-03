@@ -1,2 +1,4 @@
 %span.title= track.title
-%span.artist= track.artist
+%ul.artist
+  - track.performer_names.each do |n|
+    %li= n

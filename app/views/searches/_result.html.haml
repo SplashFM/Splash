@@ -1,5 +1,5 @@
-- case item
-- when Track
+- case item.search_result_type
+- when :track
   %li.search_result{:data => {:track_id => item.id}}
     = render "tracks/track_summary", :track => item
 
@@ -7,7 +7,7 @@
       %li= play_widget(item)
       %li= splash_action_widget(current_user, item)
 
-- when User
+- when :user
   %li.search_result{:data => {:user_id => item.id}}
   = item.name
 

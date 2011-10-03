@@ -54,7 +54,7 @@ module UI
         click_link I18n.t('tracks.widget.splash')
 
         if comment
-          within("##{dom_id(track, :splash_comment)}") {
+          within("##{TracksHelper.dom_id(track)}") {
             fill_in "splash[comment]", :with => comment
           }
         end
@@ -71,7 +71,7 @@ module UI
       wait_until { page.has_css?(upload_css, :visible => true) }
 
       fill_in Track.human_attribute_name(:title), :with => t.title
-      fill_in Track.human_attribute_name(:artist), :with => t.artist
+      fill_in Track.human_attribute_name(:performer), :with => t.performer_names.first
       attach_file Track.human_attribute_name(:data), path
     end
 

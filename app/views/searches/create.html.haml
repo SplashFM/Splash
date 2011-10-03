@@ -18,7 +18,7 @@
      :data => {:widget => 'upload'}}
   = semantic_form_for Track.new, :html => {:multipart => true} do |t|
     = t.input :title
-    = t.input :artist
+    = t.input :performer
     = t.input :album
     = t.input :data, :label => Track.human_attribute_name(:data), :as => :file
     /

@@ -1,4 +1,8 @@
 module TracksHelper
+  def self.dom_id(track)
+    "splash_comment_track_#{track.id}"
+  end
+
   def expand_widget(track)
     link_to(t(".expand"),
             track_path(track),
@@ -25,7 +29,7 @@ module TracksHelper
 
   def splash_action_widget(user, track)
     splashed = Splash.for?(user, track)
-    id       = dom_id(track, :splash_comment)
+    id       = TracksHelper.dom_id(track)
 
     unless splashed
       l = link_to(t('tracks.widget.splash'),
