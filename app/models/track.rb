@@ -1,6 +1,12 @@
 require 'testable_search'
 
 class Track < ActiveRecord::Base
+  module HasData
+    def self.included(target)
+      target.has_attached_file :data
+    end
+  end
+
   ALLOWED_FILTERS = [:genre, :artist]
   ALLOWED_ATTACHMENT_EXTS = %w(.mp3 .m4a)
   ALLOWED_ATTACHMENTS = ALLOWED_ATTACHMENT_EXTS.
@@ -10,13 +16,14 @@ class Track < ActiveRecord::Base
 
   extend TestableSearch
 
+  include HasData
+
   has_and_belongs_to_many :genres, :join_table => :track_genres
   has_and_belongs_to_many :performers, :join_table => :track_performers,
                                        :class_name => 'Artist'
 
   validates_presence_of :title
 
-  has_attached_file :data
   validate :validate_attachment_type
 
   # Search for tracks matching the given query.
@@ -31,13 +38,14 @@ class Track < ActiveRecord::Base
       # We want to use memory-based sqlite3 for most tests.
       # This is ugly, but tests run faster.
       # Also see User.with_text.
+      # WARNING: only works for title search
 
       fields = content_columns.select { |c| c.type == :string }.map(&:name)
       q      = fields.map { |f| "#{f} = :query" }.join(' or ')
 
       where([q, {:query => query}])
     else
-      search(query)
+      FlatTrack.with_text(query)
     end
   end
 
