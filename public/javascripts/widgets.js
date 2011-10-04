@@ -124,6 +124,10 @@ Widgets.Search = {
         results.show();
       });
     });
+
+    $w('results').live('splash:splash', function() {
+      $(this).hide();
+    });
   }
 };
 
@@ -229,6 +233,8 @@ Widgets.SplashAction = {
       $(':submit', this).
         attr('disabled', true).
         val(I18n.t('tracks.widget.splashed'));
+
+      $(this).trigger('splash:splash');
     });
 
     $w("splash-toggle").live('click', function() {
