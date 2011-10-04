@@ -7,8 +7,12 @@ feature "Upload track", :js => true do
 
   scenario "Upload track" do
     search_for "Nothing", :track do
-      a = build?(Artist)
-      t = build(Track).title('Steady as she goes').performers!([a])
+      ar = build?(Artist)
+      al = build?(Album)
+      t  = build(Track).
+        title('Steady as she goes').
+        albums([al]).
+        performers!([ar])
       upload file('sky_sailing_steady_as_she_goes.m4a'), t
 
       should have_content('Uploaded.')

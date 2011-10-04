@@ -18,6 +18,7 @@ class Track < ActiveRecord::Base
 
   include HasData
 
+  has_and_belongs_to_many :albums, :join_table => :album_tracks
   has_and_belongs_to_many :genres, :join_table => :track_genres
   has_and_belongs_to_many :performers, :join_table => :track_performers,
                                        :class_name => 'Artist'
@@ -35,12 +36,15 @@ class Track < ActiveRecord::Base
   # @return a (possibly empty) list of tracks
   def self.with_text(query)
     joins('
+       left join album_tracks on album_tracks.track_id = tracks.id
+       left join albums on album_tracks.album_id = albums.id
        left join track_genres on track_genres.track_id = tracks.id
        left join genres on track_genres.genre_id = genres.id
        left join track_performers on track_performers.track_id = tracks.id
        left join artists on track_performers.artist_id = artists.id').
       where([
         "to_tsvector('english', title) @@ to_tsquery('english', :query) or
+         to_tsvector('english', albums.name) @@ to_tsquery('english', :query) or
          to_tsvector('english', artists.name) @@ to_tsquery('english', :query) or
          to_tsvector('english', genres.name) @@ to_tsquery('english', :query)",
          {:query => query.gsub(/\s+/, ' | ')}
@@ -72,7 +76,13 @@ class Track < ActiveRecord::Base
     read_attribute(:album_art_url) || DEFAULT_ALBUM_ART_URL
   end
 
-  # FIXME: Remove when the upload form supports multiple performers
+  # FIXME: Remove when the upload form supports multiple albums, performers
+  def album; end
+
+  def album=(name)
+    self.albums = [Album.find_or_create_by_name(name)]
+  end
+
   def performer; end
 
   def performer=(name)

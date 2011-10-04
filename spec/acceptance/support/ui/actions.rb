@@ -65,8 +65,9 @@ module UI
 
     def upload(path, track = nil)
       t = track || begin
-                     a = build?(Artist)
-                     t = build(Track).performers!([a])
+                     al = build?(Artist)
+                     ar = build?(Album)
+                     t  = build(Track).albums([al]).performers!([ar])
                    end
 
       click_link t('searches.create.upload')
@@ -75,6 +76,7 @@ module UI
 
       fill_in Track.human_attribute_name(:title), :with => t.title
       fill_in Track.human_attribute_name(:performer), :with => t.performer_names.first
+      fill_in Track.human_attribute_name(:album), :with => t.albums.first
       attach_file Track.human_attribute_name(:data), path
     end
 

@@ -5,9 +5,13 @@ Bricks do
     name 'Yes'
   end
 
+  builder Album do
+    name 'Going for the one'
+  end
+
   builder Track do
     title  'Turn of the century'
-    album  'Going for the one'
+    ~albums.name('Going for the one')
     ~performers.name('Yes')
 
     trait :with_genre do |name|
