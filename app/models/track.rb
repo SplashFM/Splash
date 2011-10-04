@@ -34,18 +34,17 @@ class Track < ActiveRecord::Base
   #
   # @return a (possibly empty) list of tracks
   def self.with_text(query)
-    if use_slow_search?
-      # We don't want to use the tsvector-based search field in development
-      # because that breaks db:schema:dump.
-      # Also see User.with_text
-
-      q = "%#{query}%"
-
-      where(['title ilike ?', query]) +
-        joins(:performers).where(['artists.name ilike ?', q])
-    else
-      FlatTrack.with_text(query)
-    end
+    joins('
+       left join track_genres on track_genres.track_id = tracks.id
+       left join genres on track_genres.genre_id = genres.id
+       left join track_performers on track_performers.track_id = tracks.id
+       left join artists on track_performers.artist_id = artists.id').
+      where([
+        "to_tsvector('english', title) @@ to_tsquery('english', :query) or
+         to_tsvector('english', artists.name) @@ to_tsquery('english', :query) or
+         to_tsvector('english', genres.name) @@ to_tsquery('english', :query)",
+         {:query => query.gsub(/\s+/, ' | ')}
+      ])
   end
 
   # Narrow a Relation to include Track's filters
@@ -83,6 +82,10 @@ class Track < ActiveRecord::Base
 
   def performer_names
     performers.map(&:name)
+  end
+
+  def search_result_type
+    :track
   end
 
   def downloadable?
