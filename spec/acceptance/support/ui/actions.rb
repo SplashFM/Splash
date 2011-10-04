@@ -63,7 +63,7 @@ module UI
       }
     end
 
-    def upload(path, track = nil)
+    def upload(path, track = nil, comment = nil)
       t = track || begin
                      al = build?(Artist)
                      ar = build?(Album)
@@ -77,6 +77,9 @@ module UI
       fill_in Track.human_attribute_name(:title), :with => t.title
       fill_in Track.human_attribute_name(:performer), :with => t.performer_names.first
       fill_in Track.human_attribute_name(:album), :with => t.albums.first
+      if comment
+        fill_in Splash.human_attribute_name(:comment), :with => comment
+      end
       attach_file Track.human_attribute_name(:data), path
     end
 

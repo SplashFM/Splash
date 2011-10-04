@@ -125,7 +125,7 @@ Widgets.Search = {
       });
     });
 
-    $w('results').live('splash:splash', function() {
+    $w('results').live('splash:splash splash:uploaded', function() {
       $(this).hide();
     });
   }
@@ -214,7 +214,7 @@ Widgets.Upload = {
       // this will be removed soon, so no i18n needed
       fail:  function()        { upload.text('Upload failed.') },
       start: function()        { form.hide(); upload.text('Uploading.'); },
-      done:  function(e, data) { upload.text('Uploaded.'); }
+      done:  function(e, data) { upload.trigger('splash:uploaded', data); }
     });
   }
 }

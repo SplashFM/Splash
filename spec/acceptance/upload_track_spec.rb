@@ -13,10 +13,13 @@ feature "Upload track", :js => true do
         title('Steady as she goes').
         albums([al]).
         performers!([ar])
-      upload file('sky_sailing_steady_as_she_goes.m4a'), t
 
-      should have_content('Uploaded.')
+      upload file('sky_sailing_steady_as_she_goes.m4a'),
+             t,
+             'This is my comment!'
     end
+
+    should have_hidden_search_results(:track)
 
     search_for "steady", :track do
       should have(1).track
