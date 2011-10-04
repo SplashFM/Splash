@@ -2,7 +2,7 @@ class AllowBlankTitle < ActiveRecord::Migration
   def self.up
     execute "drop view flat_tracks"
 
-    change_column :tracks, :title, :string, :limit => 1000
+    change_column :tracks, :title, :string, :null => true, :limit => 1000
 
     execute <<-SQL
       create view flat_tracks
@@ -32,7 +32,7 @@ class AllowBlankTitle < ActiveRecord::Migration
   def self.down
     execute "drop view flat_tracks"
 
-    change_column :tracks, :title, :string, :unique => true, :limit => 1000
+    change_column :tracks, :title, :string, :null => false, :limit => 1000
 
     execute <<-SQL
       create view flat_tracks
