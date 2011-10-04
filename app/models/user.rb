@@ -95,8 +95,8 @@ class User < ActiveRecord::Base
   # @return a (possibly empty) list of users
   def self.with_text(name)
     if use_slow_search?
-      # We want to use memory-based sqlite3 for most tests.
-      # This is ugly, but tests run faster.
+      # We don't want to use the tsvector-based search field in development
+      # because that breaks db:schema:dump.
       # Also see Track.with_text.
 
       where(:name => name)

@@ -35,15 +35,14 @@ class Track < ActiveRecord::Base
   # @return a (possibly empty) list of tracks
   def self.with_text(query)
     if use_slow_search?
-      # We want to use memory-based sqlite3 for most tests.
-      # This is ugly, but tests run faster.
-      # Also see User.with_text.
-      # WARNING: only works for title search
+      # We don't want to use the tsvector-based search field in development
+      # because that breaks db:schema:dump.
+      # Also see User.with_text
 
-      fields = content_columns.select { |c| c.type == :string }.map(&:name)
-      q      = fields.map { |f| "#{f} = :query" }.join(' or ')
+      q = "%#{query}%"
 
-      where([q, {:query => query}])
+      where(['title ilike ?', query]) +
+        joins(:performers).where(['artists.name ilike ?', q])
     else
       FlatTrack.with_text(query)
     end
