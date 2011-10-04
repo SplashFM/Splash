@@ -2,8 +2,8 @@
   .notifications
     .count{:data => {:widget => 'notification-count'}}
       %span
-        33
+        = new_notifications.count
     .content
       %ul
-        %li
-          X new followers
+        - notifications.each do |n|
+          %li= n.title
