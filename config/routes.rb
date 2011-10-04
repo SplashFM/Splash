@@ -47,9 +47,17 @@ Scaphandrier::Application.routes.draw do
     get 'avatar'
     get 'crop'
   end
+  resources :relationships, :only => [:create, :destroy] do
+    collection do
+      get 'following'
+      get 'followers'
+    end
+  end
 
   match 'search'        => 'searches#create', :as => 'search'
   match 'search/expand' => 'searches#expand', :as => 'expand_search'
+
+  match '/:id' => 'users#show'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -43,6 +43,7 @@ gem "will_paginate", ">=3.0.pre"
 gem "js-routes", :require => 'js_routes'
 gem "inherited_resources"
 gem 'omniauth', "~> 0.3.0"
+gem "friendly_id", "~> 4.0.0.beta8"
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

@@ -38,6 +38,11 @@ en:
     show:
       title: 'User profile'
       edit_avatar: Change image
+      edit: Edit
+      follow: Follow
+      unfollow: Unfollow
+      following: Following
+      followers: Followers
     edit:
       title: 'User profile'
     avatar:
@@ -62,3 +67,6 @@ en:
       submit: 'Change'
       cancel: 'Cancel'
       tooltip: 'Click to edit...'
+  emails:
+    subjects:
+      following: "%{follower} is following you"

@@ -6,6 +6,14 @@ class User < ActiveRecord::Base
 
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
 
+  has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
+  has_many :following, :through => :relationships, :source => :followed
+
+  has_many :reverse_relationships, :foreign_key => 'followed_id',
+                                   :class_name => 'Relationship',
+                                   :dependent => :destroy
+  has_many :followers, :through => :reverse_relationships
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable,
@@ -25,6 +33,9 @@ class User < ActiveRecord::Base
 
   before_save :possibly_delete_avatar
 
+  extend FriendlyId
+  friendly_id :name, :use => :slugged
+
   attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
@@ -36,6 +47,36 @@ class User < ActiveRecord::Base
   def avatar_geometry(style = :original)
     @geometry ||= {}
     @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style)) unless avatar.path.blank?
+  end
+
+  def followed(followed)
+    relationships.find_by_followed_id(followed)
+  end
+
+  def following?(followed)
+    !!followed(followed)
+  end
+
+  def follow(followed)
+    relationships.create(:followed => followed)
+  end
+
+  def unfollow(user)
+    followed(user).try(:destroy)
+  end
+
+  def following_sample(count=0)
+    max_offset = [0, following.count - count+1].max
+    following.find :all,
+                  :offset => max_offset,
+                  :limit => count
+  end
+
+  def followers_sample(count=0)
+    max_offset = [0, followers.count - count+1].max
+    followers.find :all,
+                  :offset => max_offset,
+                  :limit => count
   end
 
   after_save 'confirm!', :if => :oauth_login?
@@ -115,6 +156,10 @@ class User < ActiveRecord::Base
   # to_label for ActiveScaffold
   def to_label
     email
+  end
+
+  def to_params
+    slug || super
   end
 
   def avatar_url(style=:thumb)

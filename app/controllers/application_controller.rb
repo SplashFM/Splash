@@ -1,8 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :require_user
+  before_filter :require_name, :if => 'logged_in?'
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
   protected
+  def render_404
+    redirect_to home_url
+  end
 
   def custom_flash_display
     @custom_flash_display = true
@@ -16,6 +22,12 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
   def logged_in?
     user_signed_in?
+  end
+
+  def require_name
+    if current_user.name.blank?
+      redirect_to edit_user_path(current_user), :alert => t('errors.user.attributes.name.blank')
+    end
   end
 
   def require_user

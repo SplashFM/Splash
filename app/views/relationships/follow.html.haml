@@ -1,0 +1,7 @@
+.following-container
+  - users.each do |user|
+    .followed-box
+      .avatar
+        = link_to (image_tag user.avatar(:thumb), :size => "32x32"), root_url() + user.slug
+      .link
+        = link_to user.name, user.slug

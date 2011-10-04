@@ -21,6 +21,7 @@ javascripts:
     - public/javascripts/jquery.jeditable.js
     - public/javascripts/jquery.Jcrop.min.js
     - public/javascripts/jquery.tokeninput.js
+    - public/javascripts/jquery.jcarousel.js
 
 stylesheets:
   base:
