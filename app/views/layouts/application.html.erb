@@ -18,6 +18,7 @@
       })();
     </script>
     <%= yield :head %>
+    <% if logged_in? %><%= render "shared/player" %><% end %>
   </head>
 
   <body>
@@ -37,6 +38,8 @@
       <div id="main">
         <%= render :partial => 'shared/flash_messages' %>
         <%= yield -%>
+
+        <% if logged_in? %><div id="player-area"></div><% end %>
       </div>
       <div id="footer">
         <div id="by_line">
