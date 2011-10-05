@@ -1,6 +1,6 @@
 .avatars
   - @user.send("#{type}_sample", 3).each do |user|
-    = link_to (image_tag user.avatar(:thumb), :size => "32x32"), root_url() + user.slug
+    = link_to (image_tag user.avatar(:thumb), :size => "32x32"), user_path(user)
 .text
   = link_to_relationship(@user.send(type).count, type)
 
