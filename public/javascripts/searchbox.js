@@ -33,6 +33,8 @@
         query = [self.settings.param, '=', terms].join(''),
         base = path[0], params = path[1], query_string = query
 
+      if ($.trim(terms) === '') return;
+
       if (params)
         query_string = [params.replace('&amp;', '&'), query].join('&');
 
