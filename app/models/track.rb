@@ -1,22 +1,10 @@
 require 'testable_search'
 
 class Track < ActiveRecord::Base
-  module HasData
-    def self.included(target)
-      target.has_attached_file :data
-    end
-  end
-
   ALLOWED_FILTERS = [:genre, :artist]
-  ALLOWED_ATTACHMENT_EXTS = %w(.mp3 .m4a)
-  ALLOWED_ATTACHMENTS = ALLOWED_ATTACHMENT_EXTS.
-    to_sentence(:two_words_connector => ', ', :last_word_connector => ', ')
   DEFAULT_ALBUM_ART_URL = "no_album_art.png"
-  INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
 
   extend TestableSearch
-
-  include HasData
 
   has_and_belongs_to_many :albums, :join_table => :album_tracks
   has_and_belongs_to_many :genres, :join_table => :track_genres
@@ -25,7 +13,6 @@ class Track < ActiveRecord::Base
 
   validates_presence_of :title
 
-  validate :validate_attachment_type
   validate :validate_performer_presence
   validate :validate_track_uniqueness
 
@@ -114,15 +101,6 @@ class Track < ActiveRecord::Base
   end
 
   private
-
-  def validate_attachment_type
-    if data.file?
-      unless ALLOWED_ATTACHMENT_EXTS.include?(File.extname(data.path))
-        errors.add(:data_content_type,
-                   I18n.t(INVALID_ATTACHMENT, :allowed => ALLOWED_ATTACHMENTS))
-      end
-    end
-  end
 
   def validate_performer_presence
     if performers.length.zero?

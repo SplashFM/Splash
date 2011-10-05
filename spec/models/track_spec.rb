@@ -38,15 +38,6 @@ describe Track, :adapter => :postgresql do
     Track.new(:album_art_url => "url").album_art_url.should == "url"
   end
 
-  it "validates music file types" do
-    yes = Rack::Test::UploadedFile.new(file("the_vines_get_free.mp3"),
-                                       'audio/mpeg')
-    no  = Rack::Test::UploadedFile.new(__FILE__, "text/plain")
-
-    build(Track).data!(no).should_not be_valid
-    build(Track).data!(yes).should be_valid
-  end
-
   it "fails if no performer is present" do
     t = build!(Track)
     t.performers = []
