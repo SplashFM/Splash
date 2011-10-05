@@ -43,10 +43,14 @@ class Track < ActiveRecord::Base
        left join track_performers on track_performers.track_id = tracks.id
        left join artists on track_performers.artist_id = artists.id').
       where([
-        "to_tsvector('english', title) @@ to_tsquery('english', :query) or
-         to_tsvector('english', albums.name) @@ to_tsquery('english', :query) or
-         to_tsvector('english', artists.name) @@ to_tsquery('english', :query) or
-         to_tsvector('english', genres.name) @@ to_tsquery('english', :query)",
+        "to_tsvector('english', coalesce(title, '')) @@
+           to_tsquery('english', :query) or
+         to_tsvector('english', coalesce(albums.name, '')) @@
+           to_tsquery('english', :query) or
+         to_tsvector('english', coalesce(artists.name, '')) @@
+           to_tsquery('english', :query) or
+         to_tsvector('english', coalesce(genres.name, '')) @@
+           to_tsquery('english', :query)",
          {:query => query.gsub(/\s+/, ' | ')}
       ])
   end
