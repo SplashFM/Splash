@@ -15,6 +15,7 @@ common: &common
   ssl_required: false
   google_analytics: UA-XXXXX-X
   dev_mailto: dev@mojotech.com
+  noreply_address: donotreply@splashfm.com
   apple_epf:
     username: user
     password: pass
