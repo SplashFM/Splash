@@ -35,24 +35,11 @@ class Track < ActiveRecord::Base
   #
   # @return a (possibly empty) list of tracks
   def self.with_text(query)
-    joins('
-       left join album_tracks on album_tracks.track_id = tracks.id
-       left join albums on album_tracks.album_id = albums.id
-       left join track_genres on track_genres.track_id = tracks.id
-       left join genres on track_genres.genre_id = genres.id
-       left join track_performers on track_performers.track_id = tracks.id
-       left join artists on track_performers.artist_id = artists.id').
-      where([
-        "to_tsvector('english', coalesce(title, '')) @@
-           to_tsquery('english', :query) or
-         to_tsvector('english', coalesce(albums.name, '')) @@
-           to_tsquery('english', :query) or
-         to_tsvector('english', coalesce(artists.name, '')) @@
-           to_tsquery('english', :query) or
-         to_tsvector('english', coalesce(genres.name, '')) @@
-           to_tsquery('english', :query)",
-         {:query => query.gsub(/\s+/, ' | ')}
-      ])
+    where([
+      "to_tsvector('english', title) @@
+         to_tsquery('english', :query)",
+       {:query => query.gsub(/\s+/, ' & ')}
+    ])
   end
 
   # Narrow a Relation to include Track's filters
