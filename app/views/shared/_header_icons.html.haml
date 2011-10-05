@@ -4,6 +4,5 @@
       %span
         = new_notifications.count
     .content
-      %ul
-        - notifications.each do |n|
-          %li= n.title
+      %ul.notification-list
+        = render :partial => 'shared/notification', :collection => notifications

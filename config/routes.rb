@@ -48,6 +48,9 @@ Scaphandrier::Application.routes.draw do
     get '/users/exists' => 'users#exists'
   end
 
+  resources :notifications do
+    put 'reset_read', :on => :collection
+  end
   match '/profile' => 'users#show'
   resources :users do
     get 'avatar'

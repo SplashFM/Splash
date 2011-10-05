@@ -427,12 +427,30 @@ Widgets.Notification = {
   init: function(){
     $w("notification-count").live('click', function() {
       if ($('.content').is(':visible')) {
-        $('.content').hide();
+        $.ajax({
+          type: 'GET',
+          url: Routes.notifications_path(),
+          success: function(data, status, xhr){
+            $(".notification-list").html(data);
+            $('.content').hide();
+          }
+        });
       }
       else {
-        $('.content').show();
+        $.ajax({
+          type: 'PUT',
+          url: Routes.reset_read_notifications_path(),
+          success: function(_){
+            resetNotificationCounter();
+            $('.content').show();
+          }
+        });
       }
     });
+
+    function resetNotificationCounter() { 
+      $(".count").html("<span> 0 </span>");
+    };
   }
 }
 

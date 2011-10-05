@@ -12,4 +12,12 @@ class Notification < ActiveRecord::Base
   def self.for(user)
     where(:notified_id => user)
   end
+
+  def unread?
+    read_at == nil
+  end
+
+  def self.mark_as_read(user)
+    self.for(user).update_all :read_at => Time.now
+  end
 end
