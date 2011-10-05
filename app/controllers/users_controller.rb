@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include RenderHelper
+
   inherit_resources
   respond_to :html, :json
 
@@ -18,6 +20,10 @@ class UsersController < ApplicationController
     current_user.fetch_avatar
 
     respond_with(current_user)
+  end
+
+  def events
+    render_events(Event.for(@user, params[:filters]))
   end
 
   def exists

@@ -39,7 +39,7 @@ Widgets.Feed = {
         }
       }
 
-      $.get(Routes.events_path(),
+      $.get($w('events').data('refresh_url'),
             data.join("&"), function(data) {
               $w("event-list").replaceWith(data);
             });

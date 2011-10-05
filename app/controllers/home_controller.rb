@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  include RenderHelper
+
   skip_before_filter :require_user
 
   def index
@@ -11,4 +13,7 @@ class HomeController < ApplicationController
     end
   end
 
+  def events
+    render_events(Event.all)
+  end
 end

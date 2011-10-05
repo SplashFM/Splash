@@ -34,6 +34,7 @@ Scaphandrier::Application.routes.draw do
 
   match 'home' => 'home#index', :as =>'home'
   match 'dashboard' => 'home#index', :as => 'dashboard'
+  match 'dashboard/events' => 'home#events', :as => 'events_dashboard'
 
   get "home/index"
 
@@ -46,6 +47,10 @@ Scaphandrier::Application.routes.draw do
   resources :users do
     get 'avatar'
     get 'crop'
+
+    member do
+      get :events
+    end
   end
   resources :relationships, :only => [:create, :destroy] do
     collection do

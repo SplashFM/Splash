@@ -17,7 +17,7 @@
       .tag-line-wrapper
         %span.tag-line-label
           tagline
-        .tag-line.edit{:'data-action' => "#{user_path(current_user)}", 
+        .tag-line.edit{:'data-action' => "#{user_path(current_user)}",
                       :'data-widget' => "#{ 'editable' if tagline_editable?}"}
           = @user.tagline
     .ripples
@@ -37,4 +37,4 @@
 
   = render 'follow_box'
 .clear
-= render_events(@events)
+= render_events(@events, events_user_path(@user))
