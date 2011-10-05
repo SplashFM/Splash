@@ -41,20 +41,11 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     1.upto(total_tracks) { |i| create(Track).title!("Track #{i}") }
 
     search_for "Track", :track do
-      1.upto(pages) { |p|
-        first = (per_page * (p - 1)) + 1
-        last  = first + per_page - 1
+      1.upto(pages) { |p| see_more_results }
 
-        first.upto(last) { |i| should have_track("Track #{i}") }
+      1.upto(30) { |i| should have_track("Track #{i}") }
 
-        should_not have_track("Track #{last + 1}")
-
-        if p != pages
-          see_more_results
-        else
-          should_not have_more_results
-        end
-      }
+      should_not have_more_results
     end
   end
 end

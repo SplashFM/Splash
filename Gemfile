@@ -39,7 +39,7 @@ gem "simple-navigation", ">=3.0.0"
 gem "state_machine"
 gem "uuidtools"
 gem 'whenever', :require => false
-gem "will_paginate", ">=3.0.pre"
+#gem "will_paginate", ">=3.0.pre"
 gem "js-routes", :require => 'js_routes'
 gem "inherited_resources"
 gem 'omniauth', "~> 0.3.0"

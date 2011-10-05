@@ -2,7 +2,7 @@
 
 %ul{:class => klass}= render_search_results(collection)
 
-- if page <= collection.total_pages
+- unless collection.empty? || collection.length < per_page
   %p= link_to t('.see_more'),
               expand_search_path(:page => page, :f => f, :type => type),
               :remote => true,
