@@ -6,6 +6,10 @@ class UndiscoveredTrack < Track
                Splash.create(:track   => track,
                              :user    => current_user,
                              :comment => comment)
+             elsif track.taken?
+               Splash.create(:track   => track.canonical_version,
+                             :user    => current_user,
+                             :comment => comment)
              else
                # track has errors that prevent it from being splashed
                nil
