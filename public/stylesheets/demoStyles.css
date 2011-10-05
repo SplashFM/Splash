@@ -1,3 +1,20 @@
+#header dt,#main  dt {
+font-weight: bold;
+font-size: 15px;
+text-transform: uppercase;
+margin-bottom: 5px;
+}
+
+
+.discovered_tracks {
+width: 300px;
+}
+
+.discovered_tracks .search_result {
+margin-bottom: 15px;
+}
+
+
 body
 {
 	width:100%;
@@ -33,7 +50,9 @@ body .profile .box-user-info .rating
 
 .events_wrapper .splash
 {
-	margin-top:10px;
+	margin-top: 10px;
+	width: 300px;
+	float: left;
 }
 
 #main .profile
@@ -135,7 +154,21 @@ body #header,body #footer
 	top: 55px;
 }
 
+#header #global-results form
+{
+	padding:0px;
+	float:none;
+}
 
+#header #splash_comment_track_2
+{
+	
+}
+
+#header #splash_comment
+{
+	height:80px;
+}
 #header #global-results
 {
 	right: 0px;
