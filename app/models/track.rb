@@ -71,13 +71,13 @@ class Track < ActiveRecord::Base
   def album; end
 
   def album=(name)
-    self.albums = [Album.find_or_create_by_name(name)]
+    self.albums = [Album.find_or_create_by_name(name)] unless name.blank?
   end
 
   def performer; end
 
   def performer=(name)
-    self.performers = [Artist.find_or_create_by_name(name)]
+    self.performers = [Artist.find_or_create_by_name(name)] unless name.blank?
   end
   # /FIXME
 
