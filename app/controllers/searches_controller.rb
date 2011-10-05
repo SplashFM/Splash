@@ -20,14 +20,15 @@ class SearchesController < ApplicationController
   private
 
   def search
-    opts = {:page => params[:page], :per_page => PER_PAGE}
+    opts   = {:page => params[:page], :per_page => PER_PAGE}
+    offset = (current_page - 1) * PER_PAGE
 
     tracks = if %w(global track).include?(params[:type])
-              Track.with_text(params[:f]).paginate(opts)
+              Track.with_text(params[:f]).limit(PER_PAGE).offset(offset)
             end
 
     users = if %w(global user).include?(params[:type])
-              User.with_text(params[:f]).paginate(opts)
+              User.with_text(params[:f]).limit(PER_PAGE).offset(offset)
             end
 
     [tracks, users]
@@ -38,6 +39,11 @@ class SearchesController < ApplicationController
     {:f          => params[:f],
      :page       => (params[:page] || 1).to_i + 1,
      :type       => type,
+     :per_page   => PER_PAGE,
      :collection => collection}
+  end
+
+  def current_page
+    params[:page].blank? ? 1 : params[:page].to_i
   end
 end
