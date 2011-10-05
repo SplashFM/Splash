@@ -1,5 +1,5 @@
 if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
-  UndiscoveredTrack.seed :title, :album do |s|
+  UndiscoveredTrack.seed :title do |s|
     s.title         = 'Close to the edge'
     s.albums        = [Album.find_by_name('Close to the edge')]
     s.performers    = [Artist.find_by_name('Yes')]
@@ -7,7 +7,7 @@ if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
     s.genres        = [Genre.find_by_name("Progressive rock")]
   end
 
-  UndiscoveredTrack.seed :title, :album do |s|
+  UndiscoveredTrack.seed :title do |s|
     s.title         = 'And you and I'
     s.albums        = [Album.find_by_name('Close to the edge')]
     s.performers    = [Artist.find_by_name('Yes')]
@@ -15,7 +15,7 @@ if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
     s.genres        = [Genre.find_by_name("Progressive rock")]
   end
 
-  UndiscoveredTrack.seed :title, :album do |s|
+  UndiscoveredTrack.seed :title do |s|
     s.title         = 'Siberian Kathru'
     s.albums        = [Album.find_by_name('Close to the edge')]
     s.performers    = [Artist.find_by_name('Yes')]
@@ -23,7 +23,7 @@ if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
     s.genres        = [Genre.find_by_name("Progressive rock")]
   end
 
-  DiscoveredTrack.seed :title, :album do |s|
+  DiscoveredTrack.seed :title do |s|
     s.title            = 'Smells like Teen Spirit'
     s.albums           = [Album.find_by_name('Nevermind')]
     s.performers       = [Artist.find_by_name('Nirvana')]
