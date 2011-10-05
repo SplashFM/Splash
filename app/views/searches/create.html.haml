@@ -20,6 +20,8 @@
     = t.input :title
     = t.input :performer
     = t.input :album
+    = semantic_fields_for Splash.new do |s|
+      = s.input :comment, :as => :text
     = t.input :data, :label => Track.human_attribute_name(:data), :as => :file
     /
       = t.buttons do

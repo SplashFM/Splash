@@ -65,10 +65,12 @@ module UI
 
     def upload(path, track = nil, comment = nil)
       t = track || begin
-                     al = build?(Artist)
-                     ar = build?(Album)
+                     ar = build?(Artist)
+                     al = build?(Album)
                      t  = build(Track).albums([al]).performers!([ar])
                    end
+
+      wait_until(10) { page.has_link?(t('searches.create.upload')) }
 
       click_link t('searches.create.upload')
 

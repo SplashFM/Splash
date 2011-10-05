@@ -1,8 +1,15 @@
 class TracksController < ApplicationController
   def create
-    UndiscoveredTrack.create!(params[:track])
+    track, splash = UndiscoveredTrack.
+      create_and_splash(params[:track],
+                        current_user,
+                        params[:splash][:comment])
 
-    head :ok
+    if splash
+      head :created
+    else
+      head :unprocessable_entity
+    end
   end
 
   def download

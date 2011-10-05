@@ -30,5 +30,26 @@ feature "Splash tracks", :js => true do
 
     should have_content("This is my comment!")
   end
+
+  scenario "Splash uploaded", :driver => :selenium do
+    track = create(Track).
+      title("Steady As She Goes").
+      album("An Airplane Carried Me to Bed").
+      with_performer!("Sky Sailing")
+
+    search_for "Nothing", :track do
+      upload file('sky_sailing_steady_as_she_goes.m4a'),
+             track,
+             'This is my comment!'
+    end
+
+    visit profile_path
+
+    with_splash Splash.first do
+      expand_track
+    end
+
+    should have_content("This is my comment!")
+  end
 end
 
