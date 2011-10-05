@@ -64,6 +64,10 @@ feature "Splash tracks", :js => true do
              'This is my comment!'
     end
 
+    search_for "Steady As She Goes", :track do
+      should have(1).track
+    end
+
     visit profile_path
 
     with_splash Splash.first do
