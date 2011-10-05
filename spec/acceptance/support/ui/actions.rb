@@ -29,7 +29,7 @@ module UI
            async: false,
            cache: false,
            data:  {"user[email]": "#{user.email}",
-                   "user[password": "#{user.password}"}});
+                   "user[password]": "#{user.password}"}});
       JS
     end
 
