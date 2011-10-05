@@ -27,6 +27,7 @@ class Track < ActiveRecord::Base
 
   validate :validate_attachment_type
   validate :validate_performer_presence
+  validate :validate_track_uniqueness
 
   # Search for tracks matching the given query.
   #
@@ -90,12 +91,26 @@ class Track < ActiveRecord::Base
     :track
   end
 
+  def taken?
+    ! performers.length.zero? && new_record? && canonical_version
+  end
+
   def downloadable?
     false
   end
 
   def purchasable?
     false
+  end
+
+  def canonical_version
+    if new_record?
+      Track.
+        joins(:performers).
+        where(:title => title, :artists => {:id => performer_ids}).first
+    else
+      self
+    end
   end
 
   private
@@ -114,6 +129,10 @@ class Track < ActiveRecord::Base
       errors.add(:performer,
                  I18n.t('activerecord.errors.messages.invalid'))
     end
+  end
+
+  def validate_track_uniqueness
+    errors.add(:base, I18n.t('activerecord.errors.messages.taken')) if taken?
   end
 end
 
