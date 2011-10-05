@@ -76,8 +76,8 @@ namespace :tracks do
         c = ActiveRecord::Base.connection
 
         c.execute <<-TRACKS
-          INSERT INTO tracks (type, created_at, updated_at, title, album, purchase_url_raw, album_art_url, external_id)
-          SELECT 'DiscoveredTrack', now(), NULL, s.name, NULL, s.view_url, NULL, s.song_id
+          INSERT INTO tracks (type, created_at, updated_at, title, album, purchase_url_raw, album_art_url, external_id, preview_url)
+          SELECT 'DiscoveredTrack', now(), NULL, s.name, NULL, s.view_url, NULL, s.song_id, s.preview_url
           FROM itunes_song s;
         TRACKS
       end
