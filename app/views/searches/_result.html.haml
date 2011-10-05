@@ -9,7 +9,7 @@
 
 - when :user
   %li.search_result{:data => {:user_id => item.id}}
-  = item.name
+  = link_to item.name, user_path(item)
 
 - else
   - raise "Unknown search result type: #{item}"
