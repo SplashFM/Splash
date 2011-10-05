@@ -29,7 +29,7 @@ module UI
            async: false,
            cache: false,
            data:  {"user[email]": "#{user.email}",
-                   "user[password": "#{user.password}"}});
+                   "user[password]": "#{user.password}"}});
       JS
     end
 
@@ -50,6 +50,8 @@ module UI
     end
 
     def splash(track, comment = nil)
+      wait_until(10) { page.has_css?(track_css(track)) }
+
       within(track_css(track)) {
         click_link I18n.t('tracks.widget.splash')
 
@@ -65,10 +67,12 @@ module UI
 
     def upload(path, track = nil, comment = nil)
       t = track || begin
-                     al = build?(Artist)
-                     ar = build?(Album)
+                     ar = build?(Artist)
+                     al = build?(Album)
                      t  = build(Track).albums([al]).performers!([ar])
                    end
+
+      wait_until(10) { page.has_link?(t('searches.create.upload')) }
 
       click_link t('searches.create.upload')
 

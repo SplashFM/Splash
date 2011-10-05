@@ -8,6 +8,10 @@ module UI
       has_css?(%Q{img[src = "#{location}"]})
     end
 
+    def has_hidden_search_results?(type)
+      has_css?("##{type}-results", :hidden => true)
+    end
+
     def has_splash?(track)
       has_css?("[data-widget = 'splash'][data-track_id = '#{track.id}']")
     end
