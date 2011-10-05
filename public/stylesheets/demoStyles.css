@@ -1,3 +1,20 @@
+#header dt,#main  dt {
+font-weight: bold;
+font-size: 15px;
+text-transform: uppercase;
+margin-bottom: 5px;
+}
+
+
+.discovered_tracks {
+width: 300px;
+}
+
+.discovered_tracks .search_result {
+margin-bottom: 15px;
+}
+
+
 body
 {
 	width:100%;
