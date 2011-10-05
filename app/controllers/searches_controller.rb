@@ -24,11 +24,11 @@ class SearchesController < ApplicationController
     offset = (current_page - 1) * PER_PAGE
 
     tracks = if %w(global track).include?(params[:type])
-              Track.with_text(params[:f]).limit(PER_PAGE).offset(offset)
+              Track.with_text(params[:f]).limit(PER_PAGE).offset(offset).to_a
             end
 
     users = if %w(global user).include?(params[:type])
-              User.with_text(params[:f]).limit(PER_PAGE).offset(offset)
+              User.with_text(params[:f]).limit(PER_PAGE).offset(offset).to_a
             end
 
     [tracks, users]
