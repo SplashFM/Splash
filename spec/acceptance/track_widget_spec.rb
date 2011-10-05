@@ -28,7 +28,7 @@ feature "Track widget", :js => true do
     f      = Rack::Test::UploadedFile.new(file("the_vines_get_free.mp3"),
                                           'audio/mpeg')
     track  = create(UndiscoveredTrack).data!(f)
-    splash = create(Splash).user(create!(User)).track!(track)
+    splash = create(Splash).user(user).track!(track)
 
     visit dashboard_path
 
@@ -44,7 +44,7 @@ feature "Track widget", :js => true do
   scenario "Purchasable song" do
     track  = create(DiscoveredTrack).
       purchase_url_raw!("http://somewhere.over.the/rainbow")
-    splash = create(Splash).user(create!(User)).track!(track)
+    splash = create(Splash).user(user).track!(track)
 
     visit dashboard_path
 
@@ -61,7 +61,7 @@ feature "Track widget", :js => true do
     scenario "On user feed" do
       track  = create(Track).
         album_art_url!("http://somewhere.over.the/rainbow.png")
-      splash = create(Splash).user(create!(User)).track!(track)
+      splash = create(Splash).user(user).track!(track)
 
       visit dashboard_path
 

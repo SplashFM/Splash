@@ -5,7 +5,7 @@ class HomeController < ApplicationController
 
   def index
     if logged_in?
-      @events = Event.all
+      @events = dashboard_events
 
       render
     else
@@ -14,6 +14,12 @@ class HomeController < ApplicationController
   end
 
   def events
-    render_events(Event.all)
+    render_events(dashboard_events)
+  end
+
+  private
+
+  def dashboard_events
+    Event.for(current_user.following + [current_user], params[:filters])
   end
 end

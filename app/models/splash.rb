@@ -7,14 +7,16 @@ class Splash < ActiveRecord::Base
 
   # Return the Splashes for a given user.
   #
-  # @param user the owner of the Splashes
+  # @param user the owner or owners of the Splashes
   # @param filters a Hash of filters or a (possibly splashed) track
   #
   # @return A (possibly empty) list of splashes, if only the user is passed in
   #   or the second argument is a Hash. Otherwise return a single Splash, or
   #   nil if no splash is found for the given user and track.
-  def self.for(user, filters = nil)
-    r = where(:user_id => user.id)
+  def self.for(users, filters = nil)
+    users = users.respond_to?(:each) ? users : [users]
+
+    r = where(:user_id => users.map(&:id))
 
     case filters
     when Track

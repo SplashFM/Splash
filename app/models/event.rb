@@ -3,7 +3,7 @@ module Event
     Splash.all
   end
 
-  def self.for(user, filters = {})
-    Splash.for(user, filters)
+  def self.for(users, filters = {})
+    Splash.for(users, filters)
   end
 end
