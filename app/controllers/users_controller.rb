@@ -4,10 +4,10 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_user, :only => 'exists'
   skip_before_filter :require_name, :only => ['edit', 'update']
+  before_filter      :load_user, :only => [:show, :events]
 
   def show
     @events = Event.for(current_user)
-    @user = params[:id].blank? ? current_user : User.find_by_slug(params[:id])
   end
 
   def avatar
@@ -43,5 +43,11 @@ class UsersController < ApplicationController
         format.html { render :action => 'edit' }
       end
     end
+  end
+
+  private
+
+  def load_user
+    @user = params[:id].blank? ? current_user : User.find_by_slug(params[:id])
   end
 end
