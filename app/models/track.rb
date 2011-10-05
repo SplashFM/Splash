@@ -26,6 +26,7 @@ class Track < ActiveRecord::Base
   validates_presence_of :title
 
   validate :validate_attachment_type
+  validate :validate_performer_presence
 
   # Search for tracks matching the given query.
   #
@@ -105,6 +106,13 @@ class Track < ActiveRecord::Base
         errors.add(:data_content_type,
                    I18n.t(INVALID_ATTACHMENT, :allowed => ALLOWED_ATTACHMENTS))
       end
+    end
+  end
+
+  def validate_performer_presence
+    if performers.length.zero?
+      errors.add(:performer,
+                 I18n.t('activerecord.errors.messages.invalid'))
     end
   end
 end
