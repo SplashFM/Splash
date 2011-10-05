@@ -115,7 +115,7 @@ Widgets.Search = {
         url: form.attr('action'),
         dom_id: '#' + results.attr('id'),
         param: input.attr('name'),
-        delay: 500
+        delay: 1000
       });
 
       input.bind('after.searchbox', function() {
