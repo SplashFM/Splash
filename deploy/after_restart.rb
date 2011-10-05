@@ -2,6 +2,7 @@ node[:applications].each do |app, data|
   sudo "monit -g dj_#{app} restart all"
 end
 
+require 'hipchat'
 on_app_master do
   #if @configuration[:environment] == 'production'
     config = YAML.load_file File.join(release_path, 'config', 'hipchat.yml')
