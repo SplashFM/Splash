@@ -14,6 +14,7 @@ Spork.each_run do
 
   RSpec.configure do |config|
     Capybara.javascript_driver = :webkit
+    Capybara.default_wait_time = 10
 
     config.include Capybara::DSL
     config.include UI::Actions
