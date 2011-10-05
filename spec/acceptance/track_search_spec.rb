@@ -33,7 +33,7 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     end
   end
 
-  scenario "Paginated results" do
+  scenario "Paginated results", :driver => :selenium do
     per_page     = SearchesController::PER_PAGE
     pages        = 3
     total_tracks = per_page * pages
@@ -41,6 +41,8 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     1.upto(total_tracks) { |i| create(Track).title!("Track #{i}") }
 
     search_for "Track", :track do
+      wait_until(10) { page.has_more_results? }
+
       1.upto(pages) { |p| see_more_results }
 
       1.upto(30) { |i| should have_track("Track #{i}") }
