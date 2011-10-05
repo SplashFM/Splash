@@ -18,6 +18,16 @@ class UndiscoveredTrack < Track
     [track, splash]
   end
 
+  def preview_type
+    File.extname(file_name).split('.').last
+  end
+
+  def preview_url
+    data.url
+  end
+
+  alias_method :preview_url?, :preview_url
+
   def download_path
     data.path
   end

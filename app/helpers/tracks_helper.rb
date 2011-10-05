@@ -12,14 +12,11 @@ module TracksHelper
   end
 
   def play_widget(track)
-    if track.data.file?
-      file_name = track.data.path
-      extension = File.extname(file_name).split('.').last
-
+    if track.preview_url?
       link_to(t('tracks.track.play'),
-                track.data.url,
+                track.preview_url,
                 :'data-widget'     => 'play',
-                :'data-track-type' => extension)
+                :'data-track-type' => track.preview_type)
     end
   end
 
