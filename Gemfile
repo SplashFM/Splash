@@ -72,6 +72,7 @@ gem "texticle", :git     => "git://github.com/tenderlove/texticle.git",
                 :require => "texticle/rails"
 gem "jquery-rails"
 gem "babilu"
+gem "aws-s3"
 
 group :test do
   gem "rr", "~> 1.0"

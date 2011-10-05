@@ -1,11 +1,6 @@
 require 'testable_search'
 
 class Track < ActiveRecord::Base
-  module HasData
-    def self.included(target)
-      target.has_attached_file :data
-    end
-  end
 
   ALLOWED_FILTERS = [:genre, :artist]
   ALLOWED_ATTACHMENT_EXTS = %w(.mp3 .m4a)
@@ -16,7 +11,15 @@ class Track < ActiveRecord::Base
 
   extend TestableSearch
 
-  include HasData
+  has_attached_file :data,
+    :storage => :s3,
+    :path => "/:class/:attachment/:id/:hash.:extension",
+    :hash_secret => ":class/:attachment/:id",
+    :s3_credentials => {
+      :access_key_id => AppConfig.aws['access_key_id'],
+      :secret_access_key => AppConfig.aws['secret_access_key'],
+      :bucket => AppConfig.aws['bucket']
+    }
 
   has_and_belongs_to_many :albums, :join_table => :album_tracks
   has_and_belongs_to_many :genres, :join_table => :track_genres
