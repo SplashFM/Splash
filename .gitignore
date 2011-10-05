@@ -16,3 +16,4 @@ public/blank.html
 /public/javascripts/routes.js
 /.flux.local
 /public/javascripts/routes.js
+.DS_Store
