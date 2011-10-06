@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable,
-         :recoverable, :rememberable, :confirmable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
@@ -77,11 +77,6 @@ class User < ActiveRecord::Base
     followers.find :all,
                   :offset => max_offset,
                   :limit => count
-  end
-
-  after_save 'confirm!', :if => :oauth_login?
-  def oauth_login?
-    !(provider.blank? || uid.blank?) && !self.confirmed?
   end
 
   def search_result_type
