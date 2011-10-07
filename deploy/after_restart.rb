@@ -2,19 +2,12 @@ node[:applications].each do |app, data|
   sudo "monit -g dj_#{app} restart all"
 end
 
-require 'hipchat'
 on_app_master do
-  #if @configuration[:environment] == 'production'
-    config = YAML.load_file File.join(release_path, 'config', 'hipchat.yml')
-    client = HipChat::Client.new config['token']
-    person = `whoami`
+  message  = "Deploying revision #{@configuration[:revision]}"
+  message += " to #{@configuration[:environment]}"
+  message += " (with migrations)" if migrate?
+  message += "."
 
-    message  = "#{person} is deploying"
-    message += " revision #{@configuration[:revision]}"
-    message += " to #{@configuration[:environment]}"
-    message += " (with migrations)" if migrate?
-    message += "."
-
-    client[config['room']].send(person, message, true)
-  #end
+  # Send a message via rake task assuming a hipchat.yml in your config like above
+  run "cd #{release_path} && rake hipchat:send MESSAGE=#{message}"
 end
