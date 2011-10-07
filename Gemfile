@@ -29,7 +29,7 @@ gem "formtastic", "~> 2.0.0.rc1"
 gem "geokit-rails3"
 gem "haml", ">= 3.0.18"
 gem "sass", ">= 3.1.7"
-gem "hipchat"
+gem "hipchat", '0.4.0'
 gem "hoptoad_notifier"
 gem "jammit", ">=0.5.0"
 gem "newrelic_rpm"
