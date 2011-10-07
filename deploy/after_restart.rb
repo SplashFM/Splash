@@ -9,5 +9,5 @@ on_app_master do
   message += "."
 
   # Send a message via rake task assuming a hipchat.yml in your config like above
-  run "cd #{release_path} && rake hipchat:send MESSAGE=#{message}"
+  run "cd #{release_path} && rake hipchat:send MESSAGE='#{message}'"
 end
