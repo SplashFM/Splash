@@ -22,6 +22,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, :event => :authentication
     else
       session["devise.provider_data"] = env["omniauth.auth"].except('extra')
+      flash[:notice] = I18n.t('devise.registrations.twitter') if @user.provider == 'twitter'
       redirect_to new_user_registration_url
     end
   end
