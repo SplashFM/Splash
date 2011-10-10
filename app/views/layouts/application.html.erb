@@ -26,8 +26,9 @@
     <div class="yui3-g">
       <div id="header"">
         <h1><%= Rails.application.name %></h1>
- 		<span id="breadcrumb"><%= controller.controller_name.titleize -%></span>
-		<div class="clear"></div>
+	      <span id="breadcrumb"><%= controller.controller_name.titleize -%></span>
+
+	      <div class="clear"></div>
         <%= render :partial => 'shared/auth_controls' unless hidden?(:auth_controls) %>
         <% unless hidden?(:navigation) %>
           <div id="main_nav"><%= render_navigation %></div>
@@ -35,6 +36,7 @@
           <%= render 'shared/search', :type => 'global' if logged_in? %>
         <% end %>
       </div>
+
       <div id="main">
         <%= render :partial => 'shared/flash_messages' %>
         <%= yield -%>
