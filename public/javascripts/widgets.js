@@ -423,6 +423,19 @@ Widgets.AvatarEdition = {
   }
 }
 
+Widgets.Notification = {
+  init: function(){
+    $w("notification-count").live('click', function() {
+      if ($('.content').is(':visible')) {
+        $('.content').hide();
+      }
+      else {
+        $('.content').show();
+      }
+    });
+  }
+}
+
 $(document).ready(function() {
   Widgets.Player.init();
   Widgets.Search.init();
@@ -435,5 +448,6 @@ $(document).ready(function() {
   Widgets.UserAvatar.init();
   Widgets.SplashAction.init();
   Widgets.Feed.init();
+  Widgets.Notification.init();
 });
 
