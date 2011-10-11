@@ -41,7 +41,7 @@ describe Track, :adapter => :postgresql do
     end
 
     it "is found by album" do
-      create(Track).album!('Relayer')
+      create(Track).albums!('Relayer')
 
       Track.with_text('Relayer').should have(1).result
     end
