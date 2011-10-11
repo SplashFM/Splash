@@ -43,9 +43,12 @@ class Track < ActiveRecord::Base
   # @return a (possibly empty) list of tracks
   def self.with_text(query)
     where([
-      "to_tsvector('english', title) @@
-         to_tsquery('english', :query)",
-       {:query => query.gsub(/\s+/, ' & ')}
+      "to_tsvector('english',
+                   coalesce(title, '') || ' ' ||
+                   coalesce(performers, '') || ' ' ||
+                   coalesce(albums, '')) @@
+         plainto_tsquery('english', ?)",
+       query
     ])
   end
 
