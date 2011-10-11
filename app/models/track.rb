@@ -63,8 +63,10 @@ class Track < ActiveRecord::Base
     end
 
     if filters[:artist]
-      ro = ro.joins(:track => :performers).
-        where(:artists => {:id => filters[:artist]})
+      # TODO this will probably be faster using a full text search
+      ro = ro.joins(:track).
+        where(['tracks.performers ilike ?',
+               value_to_string_list(filters[:artist])])
     end
 
     ro
