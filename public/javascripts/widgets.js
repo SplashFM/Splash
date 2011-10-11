@@ -367,9 +367,10 @@ Widgets.Editable = {
 
 Widgets.UserAvatar = {
   init: function(){
-    $(".user-image").mouseover(function() {
-      $('.upload-avatar-link').show();
-    }).mouseout(function(){
+    $(".user-image").live('mouseover', function() {
+        $('.upload-avatar-link').show();
+        Scaphandrier.Fancybox.init();
+    }).live('mouseout', function(){
       $('.upload-avatar-link').hide();
     });
   }
