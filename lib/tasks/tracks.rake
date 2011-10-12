@@ -112,6 +112,26 @@ namespace :tracks do
     end
   end
 
+  namespace :itunes do
+    namespace :indexes do
+      task :restore do
+        indexes = [[:itunes_artist_song, [:song_id, :artist_id]],
+                   [:itunes_collection_song, [:song_id, :collection_id]],
+                   [:itunes_song_popularity_per_genre, [:song_id]]]
+
+        indexes.each do |(t, cols)|
+          cols.each do |col|
+            time do |c|
+              puts "Creating index on #{t} (#{col})."
+
+              c.execute "CREATE INDEX index_#{t}_on_#{col} ON #{t} (#{col})"
+            end
+          end
+        end
+      end
+    end
+  end
+
   def time(&block)
     t = Time.now
 
