@@ -118,8 +118,8 @@ class Track < ActiveRecord::Base
 
   def canonical_version
     if new_record?
-      Track.
-        where(:title => title, :performers => performers_string).first
+      Track.where(['lower(title) = ? AND lower(performers) = ?',
+                   title.downcase, performers_string.downcase]).first
     else
       self
     end
