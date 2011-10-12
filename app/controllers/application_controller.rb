@@ -24,8 +24,12 @@ class ApplicationController < ActionController::Base
     user_signed_in?
   end
 
+  def logging_out?
+    params[:action] == 'destroy' && params[:controller] == 'devise/sessions'
+  end
+
   def require_name
-    if current_user.name.blank?
+    if current_user.name.blank? && ! logging_out?
       redirect_to edit_user_path(current_user), :alert => t('errors.user.attributes.name.blank')
     end
   end
