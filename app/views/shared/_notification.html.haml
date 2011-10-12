@@ -1,2 +1,2 @@
 %li{:class => "#{'unread' if notification.unread?}"}
-  = notification.title
+  = link_to notification.title, user_slug_path(notification.notifier)
