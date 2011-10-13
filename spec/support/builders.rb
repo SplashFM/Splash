@@ -1,4 +1,5 @@
-user_seq = 0
+user_seq  = 0
+track_seq = 0
 
 Bricks do
   builder Artist do
@@ -10,7 +11,7 @@ Bricks do
   end
 
   builder Track do
-    title  'Turn of the century'
+    title  { "Turn of the century #{track_seq}" }
     albums ["Going for the one"]
     performers ["Yes"]
 
@@ -20,6 +21,10 @@ Bricks do
 
     trait :with_performer do |name|
       performers [name]
+    end
+
+    after :clone do
+      track_seq  += 1
     end
   end
 
@@ -38,7 +43,7 @@ Bricks do
     end
 
     after :clone do
-      user_seq += 1
+      user_seq  += 1
     end
   end
 end
