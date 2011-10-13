@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def events
-    render_events(Event.for(@user, params[:filters]))
+    refresh_events Event.for(@user, params[:filters])
   end
 
   def exists

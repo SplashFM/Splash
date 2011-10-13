@@ -14,7 +14,7 @@ class HomeController < ApplicationController
   end
 
   def events
-    render_events(dashboard_events)
+    refresh_events dashboard_events
   end
 
   private
