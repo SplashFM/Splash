@@ -17,6 +17,11 @@ en:
       global: Search for songs or users
       track: Enter a song to splash
 
+  events:
+    updates:
+      one: 1 new update
+      other: %{count} new updates
+
   searches:
     create:
       upload: Upload

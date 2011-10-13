@@ -8,6 +8,14 @@ module UI
       has_css?(%Q{img[src = "#{location}"]})
     end
 
+    def has_event_updates?(count)
+      has_content?(I18n.t('events.updates', :count => count))
+    end
+
+    def has_no_event_updates?
+      has_no_css?('[data-widget = "event-update-counter"]', :visible => true)
+    end
+
     def has_hidden_search_results?(type)
       has_css?("##{type}-results", :hidden => true)
     end

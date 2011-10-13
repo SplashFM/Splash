@@ -35,6 +35,7 @@ Scaphandrier::Application.routes.draw do
   match 'home' => 'home#index', :as =>'home'
   match 'dashboard' => 'home#index', :as => 'dashboard'
   match 'home/events' => 'home#events'
+  match 'home/event_updates' => 'home#event_updates'
 
   get "home/index"
 
@@ -50,6 +51,7 @@ Scaphandrier::Application.routes.draw do
 
     member do
       get :events
+      get :event_updates
     end
   end
   resources :relationships, :only => [:create, :destroy] do

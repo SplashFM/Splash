@@ -1,11 +1,13 @@
+require 'event_generator'
+
 class HomeController < ApplicationController
-  include RenderHelper
+  include EventGenerator
 
   skip_before_filter :require_user
 
   def index
     if logged_in?
-      @events = dashboard_events
+      @events = dashboard_events(true)
 
       render
     else
@@ -14,12 +16,18 @@ class HomeController < ApplicationController
   end
 
   def events
-    refresh_events dashboard_events
+    refresh_events dashboard_events(true)
+  end
+
+  def event_updates
+    render_event_updates dashboard_events(false).count
   end
 
   private
 
-  def dashboard_events
-    Event.for(current_user.following + [current_user], params[:filters])
+  def dashboard_events(include_self)
+    users = current_user.following + (include_self ? [current_user] : [])
+
+    Event.for(users, params[:last_update], params[:filters])
   end
 end

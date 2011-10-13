@@ -9,7 +9,7 @@ describe Event do
     t = create(Track).genres!([g])
     s = Splash.create!(:track => t, :user => user)
 
-    Event.for(user, :genre => [g.id]).should == [s]
+    Event.for(user, nil, :genre => [g.id]).should == [s]
   end
 
   it "finds no splash filtered by track genre if one doesn't exist" do
@@ -18,7 +18,7 @@ describe Event do
     t  = create(Track).genres!([g1])
     s  = Splash.create!(:track => t, :user => user)
 
-    Event.for(user, :genre => [g2.id]).should be_empty
+    Event.for(user, nil, :genre => [g2.id]).should be_empty
   end
 
   it "finds a splash filtered by performer" do
@@ -26,14 +26,14 @@ describe Event do
 
     s = Splash.create!(:track => t, :user => user)
 
-    Event.for(user, :artist => ["Yes"]).should == [s]
+    Event.for(user, nil, :artist => ["Yes"]).should == [s]
   end
 
   it "finds no splash filtered by performer if one doesn't exist" do
     t  = create(Track).performers!(["Yes"])
     s  = Splash.create!(:track => t, :user => user)
 
-    Event.for(user, :artist => ["Emerson, Lake & Palmer"]).should be_empty
+    Event.for(user, nil, :artist => ["Emerson, Lake & Palmer"]).should be_empty
   end
 
   it "finds all events when passed no filters" do

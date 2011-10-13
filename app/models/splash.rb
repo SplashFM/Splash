@@ -33,4 +33,8 @@ class Splash < ActiveRecord::Base
   def self.for?(user, track)
     exists?(:track_id => track.id, :user_id => user.id)
   end
+
+  def self.since(time)
+    where(['created_at > ?', Time.parse(time).utc])
+  end
 end

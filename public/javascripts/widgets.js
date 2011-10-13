@@ -30,6 +30,14 @@ Widgets.Feed = {
       }
     });
 
+    $w('event-update-counter').live('ajax:success', function(_, data) {
+      updateEventData(data);
+
+      $w('event-update-counter').hide();
+    });
+
+    setInterval(this.fetchUpdateCount, 60000); // 1 minute
+
     function refresh(filters) {
       var data = [];
 
@@ -39,11 +47,29 @@ Widgets.Feed = {
         }
       }
 
-      $.get($w('events').data('refresh_url'),
-            data.join("&"), function(data) {
-              $w("event-list").replaceWith(data);
-            });
+      $.get($w('events').data('refresh_url'), data.join("&"), function(_, data) {
+        updateEventData(data);
+      });
     }
+
+    function updateEventData(data) {
+      $w("event-list").replaceWith(data);
+    }
+  },
+
+  fetchUpdateCount: function() {
+    var url = $w('event-list').data('update_url');
+
+    $.ajax(url, {
+      success: function(data) {
+        $w('event-update-counter').find('a').
+          text(I18n.t('events.updates', {count: data}));
+        $w('event-update-counter').show();
+      },
+      error: function() {
+        $w('event-update-counter').hide();
+      }
+    });
   }
 }
 

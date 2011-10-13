@@ -5,4 +5,7 @@
     .search_wrapper
       = text_field_tag :q, '', :'data-widget' => 'events-filter'
     .clear
-  = render "events/list", :events => events
+  %div{:data => {:widget => 'event-update-counter'}}
+    = link_to '', refresh_url, :remote => true, :'data-type' => 'html'
+
+  = render "events/list", :events => events, :update_url => update_url

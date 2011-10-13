@@ -33,10 +33,18 @@ module UI
       JS
     end
 
+    def fetch_event_updates
+      page.execute_script 'Widgets.Feed.fetchUpdateCount()'
+    end
+
     def filter_feed(filter)
       fill_in "token-input-q", :with => filter
 
      find(".token-input-dropdown-facebook ul li:first-child").click
+    end
+
+    def refresh_events
+      within('[data-widget = "event-update-counter"]') { find('a').click }
     end
 
     def search_for(filter, search_type, &block)

@@ -1,15 +1,17 @@
+require 'event_generator'
+
 class UsersController < ApplicationController
-  include RenderHelper
+  include EventGenerator
 
   inherit_resources
   respond_to :html, :json
 
   skip_before_filter :require_user, :only => 'exists'
   skip_before_filter :require_name, :only => ['edit', 'update']
-  before_filter      :load_user, :only => [:show, :events]
+  before_filter      :load_user, :only => [:show, :events, :event_updates]
 
   def show
-    @events = Event.for(current_user)
+    @events = profile_events
   end
 
   def avatar
@@ -23,7 +25,11 @@ class UsersController < ApplicationController
   end
 
   def events
-    refresh_events Event.for(@user, params[:filters])
+    refresh_events profile_events, @user
+  end
+
+  def event_updates
+    render_event_updates profile_events.count
   end
 
   def exists
@@ -55,5 +61,9 @@ class UsersController < ApplicationController
 
   def load_user
     @user = params[:id].blank? ? current_user : User.find_by_slug!(params[:id])
+  end
+
+  def profile_events
+    Event.for(@user, params[:last_update], params[:filters])
   end
 end
