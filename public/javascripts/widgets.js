@@ -145,7 +145,7 @@ Widgets.Search = {
       });
 
       input.bind('after.searchbox', function() {
-        Widgets.Upload.init(results.find($ws("upload")));
+        Widgets.Upload.init($w("upload", results));
 
         results.show();
       });
