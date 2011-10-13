@@ -34,7 +34,7 @@ feature "Splash tracks", :js => true do
   scenario "Splash uploaded", :driver => :selenium do
     track = build(Track).
       title("Steady As She Goes").
-      album("An Airplane Carried Me to Bed").
+      albums("An Airplane Carried Me to Bed").
       with_performer!("Sky Sailing")
 
     search_for "Nothing", :track do
@@ -55,7 +55,7 @@ feature "Splash tracks", :js => true do
   scenario "Splash uploaded that already exists", :driver => :selenium do
     track = create(Track).
       title("Steady As She Goes").
-      album("An Airplane Carried Me to Bed").
+      albums("An Airplane Carried Me to Bed").
       with_performer!("Sky Sailing")
 
     search_for "Nothing", :track do

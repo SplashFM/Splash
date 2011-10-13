@@ -6,15 +6,33 @@ class Track < ActiveRecord::Base
 
   extend TestableSearch
 
-  has_and_belongs_to_many :albums, :join_table => :album_tracks
   has_and_belongs_to_many :genres, :join_table => :track_genres
-  has_and_belongs_to_many :performers, :join_table => :track_performers,
-                                       :class_name => 'Artist'
 
   validates_presence_of :title
 
   validate :validate_performer_presence
   validate :validate_track_uniqueness
+
+  def self.string_list_to_array(str)
+    if str.present?
+      str.split(/\s*;;\s*/)
+    else
+      []
+    end
+  end
+
+  def self.value_to_string_list(value)
+    l = case value
+        when Array
+          value
+        when String
+          string_list_to_array(value)
+        else
+          raise "Don't know how to handle #{value.inspect}"
+        end
+
+    l.sort.map(&:strip).join(" ;; ")
+  end
 
   # Search for tracks matching the given query.
   #
@@ -56,22 +74,26 @@ class Track < ActiveRecord::Base
     read_attribute(:album_art_url) || DEFAULT_ALBUM_ART_URL
   end
 
-  # FIXME: Remove when the upload form supports multiple albums, performers
-  def album; end
-
-  def album=(name)
-    self.albums = [Album.find_or_create_by_name(name)] unless name.blank?
+  def albums
+    Track.string_list_to_array(read_attribute(:albums))
   end
 
-  def performer; end
-
-  def performer=(name)
-    self.performers = [Artist.find_or_create_by_name(name)] unless name.blank?
+  def albums=(value)
+    write_attribute(:albums, Track.value_to_string_list(value))
   end
-  # /FIXME
 
-  def performer_names
-    performers.map(&:name)
+  def performers
+    Track.string_list_to_array(performers_string)
+  end
+
+  alias_method :performer_names, :performers
+
+  def performers_string
+    read_attribute(:performers)
+  end
+
+  def performers=(value)
+    write_attribute(:performers, Track.value_to_string_list(value))
   end
 
   def search_result_type
@@ -79,7 +101,7 @@ class Track < ActiveRecord::Base
   end
 
   def taken?
-    ! performers.length.zero? && new_record? && canonical_version
+    performers.present? && new_record? && canonical_version
   end
 
   def downloadable?
@@ -93,8 +115,7 @@ class Track < ActiveRecord::Base
   def canonical_version
     if new_record?
       Track.
-        joins(:performers).
-        where(:title => title, :artists => {:id => performer_ids}).first
+        where(:title => title, :performers => performers_string).first
     else
       self
     end

@@ -6,7 +6,8 @@ en:
     attributes:
       track:
         data: File
-        performer: Artist
+        performers: Artist
+        albums: Album
     errors:
       messages:
         invalid_attachment: is invalid. Use one of %{allowed}

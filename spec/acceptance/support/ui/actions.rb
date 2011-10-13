@@ -66,11 +66,7 @@ module UI
     end
 
     def upload(path, track = nil, comment = nil)
-      t = track || begin
-                     ar = build?(Artist)
-                     al = build?(Album)
-                     t  = build(Track).albums([al]).performers!([ar])
-                   end
+      t = track || build!(Track)
 
       wait_until(10) { page.has_link?(t('searches.create.upload')) }
 
@@ -79,8 +75,9 @@ module UI
       wait_until { page.has_css?(upload_css, :visible => true) }
 
       fill_in Track.human_attribute_name(:title), :with => t.title
-      fill_in Track.human_attribute_name(:performer), :with => t.performer_names.first
-      fill_in Track.human_attribute_name(:album), :with => t.albums.first
+      fill_in Track.human_attribute_name(:performers),
+              :with => t.performer_names.first
+      fill_in Track.human_attribute_name(:albums), :with => t.albums.first
       if comment
         fill_in Splash.human_attribute_name(:comment), :with => comment
       end

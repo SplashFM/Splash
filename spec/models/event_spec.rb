@@ -22,8 +22,7 @@ describe Event do
   end
 
   it "finds a splash filtered by performer" do
-    a = create(Artist).name!("Yes")
-    t = create(Track).performers!([a])
+    t = create(Track).performers!("Yes")
 
     s = Splash.create!(:track => t, :user => user)
 
@@ -33,7 +32,7 @@ describe Event do
   it "finds no splash filtered by performer if one doesn't exist" do
     a1 = create(Artist).name!("Yes")
     a2 = create(Artist).name!("Emerson, Lake & Palmer")
-    t  = create(Track).performers!([a1])
+    t  = create(Track).performers!(["Yes"])
     s  = Splash.create!(:track => t, :user => user)
 
     Event.for(user, :artist => [a2.id]).should be_empty

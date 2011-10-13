@@ -11,17 +11,15 @@ Bricks do
 
   builder Track do
     title  'Turn of the century'
-    ~albums.name('Going for the one')
-    ~performers.name('Yes')
+    albums ["Going for the one"]
+    performers ["Yes"]
 
     trait :with_genre do |name|
       genres.name(name)
     end
 
     trait :with_performer do |name|
-      performers.clear
-
-      ~performers.name(name)
+      performers [name]
     end
   end
 
