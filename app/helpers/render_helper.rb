@@ -1,5 +1,9 @@
 module RenderHelper
-  def render_events(events, refresh_url)
+  def render_events(events, id = nil)
+    refresh_url = url_for(:controller => controller_name,
+                          :action     => 'events',
+                          :id         => id)
+
     render :partial => "events/index",
            :object  => events,
            :as      => :events,

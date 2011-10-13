@@ -34,7 +34,7 @@ Scaphandrier::Application.routes.draw do
 
   match 'home' => 'home#index', :as =>'home'
   match 'dashboard' => 'home#index', :as => 'dashboard'
-  match 'dashboard/events' => 'home#events', :as => 'events_dashboard'
+  match 'home/events' => 'home#events'
 
   get "home/index"
 
