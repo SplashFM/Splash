@@ -48,7 +48,7 @@ class Track < ActiveRecord::Base
                         coalesce(albums, '')) @@
               plainto_tsquery('english', ?)",
        query
-    ])
+    ]).order(:popularity_rank)
   end
 
   # Narrow a Relation to include Track's filters

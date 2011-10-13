@@ -29,10 +29,12 @@ namespace :tracks do
               INSERT INTO tracks (
                      type, created_at, updated_at, title,
                      purchase_url_raw, external_id, preview_url,
+                     popularity_rank,
                      performers,
                      albums )
               SELECT 'DiscoveredTrack', now(), NULL, s.name,
                      s.view_url, s.song_id, s.preview_url,
+                     10000,
                      array_to_string(array(SELECT distinct ai.name
                                            FROM   itunes_artist_song asi
                                            JOIN   itunes_artist ai ON
@@ -53,6 +55,19 @@ namespace :tracks do
             up = c.update(q)
 
             puts "Imported #{up} records."
+          end
+
+          puts "Updating popularity"
+
+          time do
+            up = c.update(<<-TRACKS)
+              UPDATE tracks
+              SET    popularity_rank = p.rank
+              FROM   (SELECT song_id, max(song_rank) rank
+                      FROM itunes_song_popularity_per_genre
+                      GROUP BY song_id) p
+              WHERE  p.song_id = tracks.id
+            TRACKS
           end
         end
       end
