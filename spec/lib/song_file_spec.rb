@@ -2,7 +2,21 @@ require 'spec_helper'
 require 'song_file'
 
 describe SongFile do
-  context "non-mp3" do
+  context "with mp3" do
+    subject { SongFile.new(file("the_vines_get_free.mp3")) }
+
+    it "skips transcoding when the default format is requested" do
+      dont_allow(subject).transcode
+
+      subject.path.should == file("the_vines_get_free.mp3")
+    end
+
+    it "raises an error when it can't determine the format" do
+      lambda { SongFile.new("blah") }.should raise_error(SongFile::UnknownFormat)
+    end
+  end
+
+  context "with m4a" do
     subject { SongFile.new(file("sky_sailing_steady_as_she_goes.m4a")) }
 
     it "transcodes to mp3" do
@@ -22,18 +36,5 @@ describe SongFile do
       lambda { subject.path(:mp3) }.
         should raise_error(SongFile::TranscodeError, "noes!")
     end
-  end
-
-  it "skips transcoding when the default format is requested" do
-    path = file("the_vines_get_free.mp3")
-    f    = SongFile.new(path)
-
-    dont_allow(f).transcode
-
-    f.path.should == path
-  end
-
-  it "raises an error when it can't determine the format" do
-    lambda { SongFile.new("blah") }.should raise_error(SongFile::UnknownFormat)
   end
 end
