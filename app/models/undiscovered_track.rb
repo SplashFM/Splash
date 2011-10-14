@@ -10,6 +10,7 @@ class UndiscoveredTrack < Track
 
   validate :validate_attachment_type
   validate :validate_performer_presence
+  validate :validate_track_uniqueness
 
   def self.create_and_splash(fields, user, comment)
     track = create(fields)
@@ -64,5 +65,9 @@ class UndiscoveredTrack < Track
       errors.add(:performer,
                  I18n.t('activerecord.errors.messages.invalid'))
     end
+  end
+
+  def validate_track_uniqueness
+    errors.add(:base, I18n.t('activerecord.errors.messages.taken')) if taken?
   end
 end

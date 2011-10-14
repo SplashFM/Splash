@@ -8,8 +8,6 @@ class Track < ActiveRecord::Base
 
   has_and_belongs_to_many :genres, :join_table => :track_genres
 
-  validate :validate_track_uniqueness
-
   def self.string_list_to_array(str)
     if str.present?
       str.split(/\s*;;\s*/)
@@ -120,12 +118,6 @@ class Track < ActiveRecord::Base
     else
       self
     end
-  end
-
-  private
-
-  def validate_track_uniqueness
-    errors.add(:base, I18n.t('activerecord.errors.messages.taken')) if taken?
   end
 end
 

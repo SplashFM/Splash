@@ -63,31 +63,4 @@ describe Track, :adapter => :postgresql do
   it "returns the album art url when it is set" do
     Track.new(:album_art_url => "url").album_art_url.should == "url"
   end
-
-  describe "fails if taken" do
-    it "disregards case"
-
-    it "with a single artist" do
-      title     = "Steady As She Goes"
-      performer = "Sky Sailing"
-      create(Track).title(title).with_performer!(performer)
-
-      t = Track.new(:title      => title,
-                    :performers => [performer])
-
-      t.should be_taken
-    end
-
-    it "with multiple artists" do
-      title = "Steady As She Goes"
-      p1    = "Sky Sailing"
-      p2    = "Sky Sailing 2"
-      create(Track).title(title).performers!([p2, p1])
-
-      t = Track.new(:title      => title,
-                    :performers => [p1, p2])
-
-      t.should be_taken
-    end
-  end
 end
