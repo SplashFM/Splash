@@ -33,13 +33,7 @@ feature "Upload track", :js => true do
              'This is my comment!'
     end
 
-    visit profile_path
-
-    with_splash Splash.first do
-      expand_track
-    end
-
-    should have_content("This is my comment!")
+    should_have_splash
   end
 
   scenario "Splash uploaded that already exists", :driver => :selenium do
@@ -58,6 +52,10 @@ feature "Upload track", :js => true do
       should have(1).track
     end
 
+    should_have_splash
+  end
+
+  def should_have_splash
     visit profile_path
 
     with_splash Splash.first do
