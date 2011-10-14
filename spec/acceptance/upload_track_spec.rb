@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Upload track", :js => true do
+feature "Upload track", :js => true, :driver => :selenium do
   subject { page }
 
   background { visit dashboard_path }
@@ -21,7 +21,7 @@ feature "Upload track", :js => true do
     end
   end
 
-  scenario "Splash uploaded", :driver => :selenium do
+  scenario "Splash uploaded" do
     track = build(Track).
       title("Steady As She Goes").
       albums("An Airplane Carried Me to Bed").
@@ -36,7 +36,7 @@ feature "Upload track", :js => true do
     should_have_splash
   end
 
-  scenario "Splash uploaded that already exists", :driver => :selenium do
+  scenario "Splash uploaded that already exists" do
     track = create(Track).
       title("Steady As She Goes").
       albums("An Airplane Carried Me to Bed").
