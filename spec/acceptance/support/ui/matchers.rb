@@ -78,6 +78,12 @@ module UI
       has_content?(title)
     end
 
+    def has_validation_error?(subject, *fields)
+      fields.each { |f|
+        has_css?('li.error #' + subject.class.name.underscore + "_#{f}")
+      }
+    end
+
     Capybara::Session.send(:include, self)
   end
 end

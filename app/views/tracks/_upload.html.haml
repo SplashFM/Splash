@@ -1,5 +1,9 @@
 = semantic_form_for track, :remote => true, |
-                           :html => {:'data-widget' => 'upload-metadata'} do |t|
+                           :html => {:'data-widget' => 'upload-metadata', |
+                                     :'data-type'   => 'html'} do |t|
+
+  = t.semantic_errors
+
   %ul
     = t.input :title
     = t.input :performers, :as => :string

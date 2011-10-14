@@ -38,6 +38,20 @@ feature "Upload track", :js => true, :driver => :selenium do
     should_have_splash
   end
 
+  scenario "Upload using bad data", :driver => :selenium do
+    track = build(Track).title("").with_performer!("")
+
+    search_for "Nothing", :track do
+      upload file('sky_sailing_steady_as_she_goes.m4a'),
+             track,
+             'This is my comment!'
+    end
+
+    wait_until { page.has_search_results_hidden? }
+
+    should have_validation_error(:title, :performers)
+  end
+
   scenario "Splash uploaded that already exists" do
     track = create(Track).
       title("Steady As She Goes").
