@@ -19,6 +19,8 @@ feature "Upload track", :js => true, :driver => :selenium do
     search_for "steady", :track do
       should have(1).track
     end
+
+    should_have_splash
   end
 
   scenario "Splash uploaded" do
