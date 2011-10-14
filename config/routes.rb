@@ -24,11 +24,15 @@ Scaphandrier::Application.routes.draw do
 
   resources :tracks do
     resources :splashes
+  end
 
+  resources :undiscovered_tracks do
     member do
       get :download
     end
   end
+  match 'undiscovered_tracks/:id/download' => 'undiscovered_tracks#download',
+        :as => :download_track
 
   resource :visitor
 

@@ -16,7 +16,7 @@
 
 %div{:id   => "#{params[:type]}-upload",
      :data => {:widget => 'upload'}}
-  = semantic_form_for Track.new, :html => {:multipart => true} do |t|
+  = semantic_form_for UndiscoveredTrack.new, :html => {:multipart => true} do |t|
     = t.input :title
     = t.input :performers
     = t.input :albums
