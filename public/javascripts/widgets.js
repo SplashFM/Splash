@@ -19,14 +19,14 @@ Widgets.Feed = {
 
         filters[e.type].push(e);
 
-        refresh(filters);
+        refreshWithFilters(filters);
       },
       onDelete: function(e) {
         var filter = filters[e.type];
 
         filter.splice(filter.indexOf(e), 1);
 
-        refresh(filters);
+        refreshWithFilters(filters);
       }
     });
 
@@ -38,7 +38,21 @@ Widgets.Feed = {
 
     setInterval(this.fetchUpdateCount, 60000); // 1 minute
 
-    function refresh(filters) {
+    function refresh(params) {
+      var paramStr;
+
+      if (params) paramStr = params.join("&");
+
+      $.get($w('events').data('refresh_url'), paramStr, function(data) {
+        updateEventData(data);
+      });
+    }
+
+    function updateEventData(data) {
+      $w("event-list").replaceWith(data);
+    }
+
+    function refreshWithFilters(filters) {
       var data = [];
 
       for (var f in filters) {
@@ -47,13 +61,7 @@ Widgets.Feed = {
         }
       }
 
-      $.get($w('events').data('refresh_url'), data.join("&"), function(_, data) {
-        updateEventData(data);
-      });
-    }
-
-    function updateEventData(data) {
-      $w("event-list").replaceWith(data);
+      refresh(data);
     }
   },
 
@@ -70,7 +78,7 @@ Widgets.Feed = {
         $w('event-update-counter').hide();
       }
     });
-  }
+  },
 }
 
 Widgets.Track = {
