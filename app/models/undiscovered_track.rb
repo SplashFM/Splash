@@ -63,7 +63,7 @@ class UndiscoveredTrack < Track
 
   def validate_performer_presence
     if performers.length.zero?
-      errors.add(:performer,
+      errors.add(:performers,
                  I18n.t('activerecord.errors.messages.invalid'))
     end
   end

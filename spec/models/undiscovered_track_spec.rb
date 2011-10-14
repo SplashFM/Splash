@@ -14,7 +14,7 @@ describe UndiscoveredTrack, :adapter => :postgresql do
     t = build(UndiscoveredTrack).performers!([])
 
     t.should be_invalid
-    t.errors[:performer].should \
+    t.errors[:performers].should \
       include(I18n.t('activerecord.errors.messages.invalid'))
   end
 
