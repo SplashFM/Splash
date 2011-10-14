@@ -30,8 +30,20 @@ class UndiscoveredTrack < Track
     data.file?
   end
 
+  def fill_metadata
+    self.title      = song_file.title
+    self.albums     = song_file.album
+    self.performers = song_file.artist
+
+    self
+  end
+
   def replace_with_canonical
     destroy and return canonical_version
+  end
+
+  def song_file
+    @song_file ||= SongFile.new(data.path)
   end
 
   private

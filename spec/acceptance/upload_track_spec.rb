@@ -57,6 +57,19 @@ feature "Upload track", :js => true, :driver => :selenium do
     should_have_splash
   end
 
+  scenario "Upload using metadata" do
+    search_for "Nothing", :track do
+      upload file('sky_sailing_steady_as_she_goes.m4a'),
+             nil,
+             'This is my comment!'
+    end
+
+    should_have_splash
+
+    should have_content("Steady As She Goes")
+    should have_content("Sky Sailing")
+  end
+
   def should_have_splash
     visit profile_path
 

@@ -1,8 +1,12 @@
+require 'song_file'
+
 class UndiscoveredTracksController < ApplicationController
   def create
     track = UndiscoveredTrack.new(params[:undiscovered_track])
 
     if track.save
+      track.fill_metadata
+
       render :partial => 'tracks/upload',
              :locals  => {:track => track, :splash => Splash.new(params[:splash])}
     else

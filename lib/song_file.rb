@@ -2,9 +2,13 @@ class SongFile
   class TranscodeError < StandardError; end
   class UnknownFormat  < StandardError; end
 
+  extend Forwardable
+
+  def_delegators :metadata, :title, :album, :artist
+
   def initialize(path)
     @default_format = extract_format(path) or
-      raise UnknownFormat, "Unknown format for path: #{path}" 
+      raise UnknownFormat, "Unknown format for path: #{path}"
 
     store_format @default_format, path
   end
@@ -35,6 +39,10 @@ class SongFile
     ext = File.extname(path).presence
 
     sane_format(ext[1..-1]) if ext
+  end
+
+  def metadata
+    @metadata ||= TagLib::File.new(path)
   end
 
   def have_format?(format)

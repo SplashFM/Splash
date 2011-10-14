@@ -74,8 +74,6 @@ module UI
     end
 
     def upload(path, track = nil, comment = nil)
-      t = track || build!(Track)
-
       wait_until(10) { page.has_link?(t('searches.create.upload')) }
 
       click_link t('searches.create.upload')
@@ -89,10 +87,12 @@ module UI
 
       wait_until { page.has_metadata_form? }
 
-      fill_in Track.human_attribute_name(:title), :with => t.title
-      fill_in Track.human_attribute_name(:performers),
-              :with => t.performer_names.first
-      fill_in Track.human_attribute_name(:albums), :with => t.albums.first
+      if track
+        fill_in Track.human_attribute_name(:title), :with => track.title
+        fill_in Track.human_attribute_name(:performers),
+                :with => track.performer_names.first
+        fill_in Track.human_attribute_name(:albums), :with => track.albums.first
+      end
 
       click_button t('tracks.actions.complete_upload')
     end

@@ -5,6 +5,12 @@ describe SongFile do
   context "with mp3" do
     subject { SongFile.new(file("the_vines_get_free.mp3")) }
 
+    it "reads the file metadata" do
+      subject.title.should  == "Get Free"
+      subject.album.should  == "Highly Evolved"
+      subject.artist.should == "The Vines"
+    end
+
     it "skips transcoding when the default format is requested" do
       dont_allow(subject).transcode
 
@@ -18,6 +24,12 @@ describe SongFile do
 
   context "with m4a" do
     subject { SongFile.new(file("sky_sailing_steady_as_she_goes.m4a")) }
+
+    it "reads the file metadata" do
+      subject.title.should  == "Steady As She Goes"
+      subject.album.should  == "An Airplane Carried Me to Bed"
+      subject.artist.should == "Sky Sailing"
+    end
 
     it "transcodes to mp3" do
       mp3 = subject.path(:mp3)
