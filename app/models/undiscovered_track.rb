@@ -6,11 +6,11 @@ class UndiscoveredTrack < Track
 
   has_attached_file :data
 
-  validates_presence_of :title
-
   validate :validate_attachment_type
-  validate :validate_performer_presence
-  validate :validate_track_uniqueness
+
+  validates_presence_of :title,          :if => :full_validation?
+  validate :validate_performer_presence, :if => :full_validation?
+  validate :validate_track_uniqueness,   :if => :full_validation?
 
   def self.create_and_splash(fields, user, comment)
     track = create(fields)
@@ -50,6 +50,10 @@ class UndiscoveredTrack < Track
   end
 
   private
+
+  def full_validation?
+    ! new_record? || title.present? || performers.present?
+  end
 
   def validate_attachment_type
     if data.file?
