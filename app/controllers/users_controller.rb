@@ -11,6 +11,8 @@ class UsersController < ApplicationController
   before_filter      :load_user, :only => [:show, :events, :event_updates]
 
   def show
+    is_owner if own_profile?
+
     @events = profile_events
   end
 

@@ -7,6 +7,8 @@ class HomeController < ApplicationController
 
   def index
     if logged_in?
+      is_owner
+
       @events = dashboard_events(true)
 
       render

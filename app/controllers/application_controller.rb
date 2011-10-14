@@ -110,4 +110,18 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :hidden?
+
+  def is_owner
+    @owner_page = true
+  end
+
+  helper_method :update_on_splash?
+  def update_on_splash?
+    @owner_page
+  end
+
+  helper_method :own_profile?
+  def own_profile?
+    @user == current_user
+  end
 end

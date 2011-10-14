@@ -1,4 +1,6 @@
-%div.events_wrapper{:data => {:widget => 'events', :refresh_url => refresh_url}}
+%div.events_wrapper{:data => {:widget           => 'events', |
+                              :update_on_splash => update_on_splash?.to_s, |
+                              :refresh_url      => refresh_url}}
   .filter_wrapper
     %span.label
       filter feed

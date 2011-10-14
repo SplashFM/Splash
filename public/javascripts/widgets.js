@@ -36,6 +36,12 @@ Widgets.Feed = {
       $w('event-update-counter').hide();
     });
 
+    if ($w('events').data('update_on_splash') === true) {
+      $w('results').live('splash:splash splash:uploaded', function() {
+        refresh();
+      });
+    }
+
     setInterval(this.fetchUpdateCount, 60000); // 1 minute
 
     function refresh(params) {
