@@ -29,6 +29,7 @@ describe UndiscoveredTrack, :adapter => :postgresql do
       t = UndiscoveredTrack.new(:title      => title,
                                 :performers => [performer])
 
+      t.should be_invalid
       t.should be_taken
     end
 
@@ -41,6 +42,7 @@ describe UndiscoveredTrack, :adapter => :postgresql do
       t = UndiscoveredTrack.new(:title      => title,
                                 :performers => [p1, p2])
 
+      t.should be_invalid
       t.should be_taken
     end
   end
