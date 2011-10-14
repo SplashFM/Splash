@@ -6,6 +6,8 @@ class UndiscoveredTrack < Track
 
   has_attached_file :data
 
+  validates_presence_of :title
+
   validate :validate_attachment_type
 
   def self.create_and_splash(fields, user, comment)

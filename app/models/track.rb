@@ -8,8 +8,6 @@ class Track < ActiveRecord::Base
 
   has_and_belongs_to_many :genres, :join_table => :track_genres
 
-  validates_presence_of :title
-
   validate :validate_performer_presence
   validate :validate_track_uniqueness
 
