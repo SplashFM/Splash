@@ -20,6 +20,10 @@ module UI
       has_css?("##{type}-results", :hidden => true)
     end
 
+    def has_metadata_form?
+      has_css?('[data-widget = "upload-metadata"]')
+    end
+
     def has_splash?(track)
       has_css?("[data-widget = 'splash'][data-track_id = '#{track.id}']")
     end

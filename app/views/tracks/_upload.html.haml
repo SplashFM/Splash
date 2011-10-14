@@ -1,0 +1,10 @@
+= semantic_form_for track, :remote => true, |
+                           :html => {:'data-widget' => 'upload-metadata'} do |t|
+  %ul
+    = t.input :title
+    = t.input :performers, :as => :string
+    = t.input :albums,     :as => :string
+    = semantic_fields_for splash do |s|
+      = s.input :comment, :as => :hidden
+    = t.buttons do
+      = t.commit_button t('tracks.actions.complete_upload')

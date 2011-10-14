@@ -240,7 +240,13 @@ Widgets.Upload = {
       // this will be removed soon, so no i18n needed
       fail:  function()        { upload.text('Upload failed.') },
       start: function()        { form.hide(); upload.text('Uploading.'); },
-      done:  function(e, data) { upload.trigger('splash:uploaded', data); }
+      done:  function(e, data) {
+        $w('upload-container').html(data.result);
+
+        $w('upload-container').find('form').bind('ajax:success', function() {
+          $w('upload-container').trigger('splash:uploaded');
+        });
+      }
     });
   }
 }

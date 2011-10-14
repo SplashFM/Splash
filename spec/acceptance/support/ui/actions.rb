@@ -82,14 +82,19 @@ module UI
 
       wait_until { page.has_css?(upload_css, :visible => true) }
 
-      fill_in Track.human_attribute_name(:title), :with => t.title
-      fill_in Track.human_attribute_name(:performers),
-              :with => t.performer_names.first
-      fill_in Track.human_attribute_name(:albums), :with => t.albums.first
       if comment
         fill_in Splash.human_attribute_name(:comment), :with => comment
       end
       attach_file Track.human_attribute_name(:data), path
+
+      wait_until { page.has_metadata_form? }
+
+      fill_in Track.human_attribute_name(:title), :with => t.title
+      fill_in Track.human_attribute_name(:performers),
+              :with => t.performer_names.first
+      fill_in Track.human_attribute_name(:albums), :with => t.albums.first
+
+      click_button t('tracks.actions.complete_upload')
     end
 
     def with_splash(splash, &block)

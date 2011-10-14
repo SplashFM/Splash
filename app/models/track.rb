@@ -100,7 +100,7 @@ class Track < ActiveRecord::Base
   end
 
   def taken?
-    performers.present? && new_record? && canonical_version
+    canonical_version.present? && canonical_version != self
   end
 
   def downloadable?
@@ -112,11 +112,12 @@ class Track < ActiveRecord::Base
   end
 
   def canonical_version
-    if new_record?
-      Track.where(['lower(title) = ? AND lower(performers) = ?',
-                   title.downcase, performers_string.downcase]).first
+    if title.present? && performers.present?
+      @canonical_version ||=
+        Track.where(['lower(title) = ? AND lower(performers) = ?',
+                    title.downcase, performers_string.downcase]).first
     else
-      self
+      nil
     end
   end
 end

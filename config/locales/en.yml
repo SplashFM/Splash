@@ -35,10 +35,13 @@ en:
       expand: Expand
       download: Download
       purchase: Purchase on iTunes
+
   tracks:
     widget:
       splashed: Splashed
       splash: Splash
+    actions:
+      complete_upload: Upload and Splash
 
   users:
     show:

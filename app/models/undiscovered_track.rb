@@ -12,25 +12,6 @@ class UndiscoveredTrack < Track
   validate :validate_performer_presence, :if => :full_validation?
   validate :validate_track_uniqueness,   :if => :full_validation?
 
-  def self.create_and_splash(fields, user, comment)
-    track = create(fields)
-
-    splash = if track.errors.empty?
-               Splash.create(:track   => track,
-                             :user    => current_user,
-                             :comment => comment)
-             elsif track.taken?
-               Splash.create(:track   => track.canonical_version,
-                             :user    => current_user,
-                             :comment => comment)
-             else
-               # track has errors that prevent it from being splashed
-               nil
-             end
-
-    [track, splash]
-  end
-
   def preview_type
     File.extname(data.path).split('.').last
   end
@@ -47,6 +28,10 @@ class UndiscoveredTrack < Track
 
   def downloadable?
     data.file?
+  end
+
+  def replace_with_canonical
+    destroy and return canonical_version
   end
 
   private
