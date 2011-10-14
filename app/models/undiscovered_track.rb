@@ -9,6 +9,7 @@ class UndiscoveredTrack < Track
   validates_presence_of :title
 
   validate :validate_attachment_type
+  validate :validate_performer_presence
 
   def self.create_and_splash(fields, user, comment)
     track = create(fields)
@@ -55,6 +56,13 @@ class UndiscoveredTrack < Track
         errors.add(:data_content_type,
                    I18n.t(INVALID_ATTACHMENT, :allowed => ALLOWED_ATTACHMENTS))
       end
+    end
+  end
+
+  def validate_performer_presence
+    if performers.length.zero?
+      errors.add(:performer,
+                 I18n.t('activerecord.errors.messages.invalid'))
     end
   end
 end

@@ -64,15 +64,6 @@ describe Track, :adapter => :postgresql do
     Track.new(:album_art_url => "url").album_art_url.should == "url"
   end
 
-  it "fails if no performer is present" do
-    t = build!(Track)
-    t.performers = []
-
-    t.should be_invalid
-    t.errors[:performer].should \
-      include(I18n.t('activerecord.errors.messages.invalid'))
-  end
-
   describe "fails if taken" do
     it "disregards case"
 

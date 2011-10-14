@@ -8,7 +8,6 @@ class Track < ActiveRecord::Base
 
   has_and_belongs_to_many :genres, :join_table => :track_genres
 
-  validate :validate_performer_presence
   validate :validate_track_uniqueness
 
   def self.string_list_to_array(str)
@@ -124,13 +123,6 @@ class Track < ActiveRecord::Base
   end
 
   private
-
-  def validate_performer_presence
-    if performers.length.zero?
-      errors.add(:performer,
-                 I18n.t('activerecord.errors.messages.invalid'))
-    end
-  end
 
   def validate_track_uniqueness
     errors.add(:base, I18n.t('activerecord.errors.messages.taken')) if taken?
