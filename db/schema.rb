@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20111012143457) do
     t.integer  "notified_id"
     t.string   "title"
     t.datetime "read_at"
+    t.integer  "notifier_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "notifier_id"
   end
 
   create_table "relationships", :force => true do |t|
@@ -108,10 +108,10 @@ ActiveRecord::Schema.define(:version => 20111012143457) do
     t.string   "album_art_url"
     t.integer  "external_id"
     t.string   "preview_url"
+    t.integer  "popularity_rank"
     t.text     "performers"
     t.text     "albums"
     t.string   "album_artwork_url"
-    t.integer  "popularity_rank"
   end
 
   create_table "users", :force => true do |t|
