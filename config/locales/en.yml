@@ -61,6 +61,7 @@ en:
       fetch_error: Sorry your image can not be downloaded for edition
 
   upload:
+    cancel: Cancel Upload
     upload: Upload
 
   errors:

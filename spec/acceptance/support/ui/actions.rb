@@ -6,6 +6,10 @@ module UI
       base.let(:user) { create(User).with_required_info! }
     end
 
+    def cancel_upload
+      click_link I18n.t("upload.cancel")
+    end
+
     def expand_track
       click_link t("splashes.splash.expand")
     end

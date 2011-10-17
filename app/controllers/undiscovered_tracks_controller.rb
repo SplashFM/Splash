@@ -15,6 +15,12 @@ class UndiscoveredTracksController < ApplicationController
     end
   end
 
+  def destroy
+    current_user.uploaded_tracks.find(params[:id]).destroy
+
+    render_upload_form :upload
+  end
+
   def download
     custom_send_file current_track.download_path
   end

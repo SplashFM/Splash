@@ -36,6 +36,10 @@ module UI
       has_no_css?("[data-widget = 'splash'][data-track_id = '#{track.id}']")
     end
 
+    def has_no_upload_form?
+      has_css?("[data-widget = 'upload']", :visible => false)
+    end
+
     def has_splashed?(track)
       within(track_css(track)) {
         has_css?(splash_css + "[value = '#{I18n.t("tracks.widget.splashed")}']")

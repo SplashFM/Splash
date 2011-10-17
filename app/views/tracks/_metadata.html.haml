@@ -12,3 +12,9 @@
       = s.input :comment, :as => :hidden
     = t.buttons do
       = t.commit_button t('tracks.actions.complete_upload')
+      = link_to t('upload.cancel'), |
+                undiscovered_track_path(track), |
+                :method        => :delete, |
+                :remote        => true, |
+                :'data-type'   => 'html', |
+                :'data-widget' => 'upload-cancel'

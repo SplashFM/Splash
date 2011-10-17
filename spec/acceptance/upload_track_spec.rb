@@ -81,6 +81,15 @@ feature "Upload track", :js => true, :driver => :selenium do
     should have_validation_error(UndiscoveredTrack, :data)
   end
 
+  scenario "Cancel upload" do
+    upload_track file('sky_sailing_steady_as_she_goes.m4a'),
+                 'This is my comment!'
+
+    cancel_upload
+
+    should have_no_upload_form
+  end
+
   def should_have_splash
     visit profile_path
 
