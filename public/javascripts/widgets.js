@@ -265,8 +265,12 @@ Widgets.Upload = {
     });
 
     $($ws('upload-container') + ' form').
-      live('ajax:success', function() {
+      live('ajax:success', function(_, data) {
+        $w('upload-container').html(data);
+
         $(this).trigger('splash:uploaded').hide();
+
+        configureUpload();
       }).live('ajax:error', function(_, data) {
         $w('upload-container').html(data.responseText);
       });

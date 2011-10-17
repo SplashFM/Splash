@@ -41,7 +41,7 @@ class UndiscoveredTracksController < ApplicationController
                      :user    => current_user,
                      :comment => params[:splash][:comment])
 
-      head :ok
+      render_upload_form :upload
     else
       render_upload_form :metadata, track, :unprocessable_entity
     end
