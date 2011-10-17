@@ -6,6 +6,8 @@ class UndiscoveredTrack < Track
 
   has_attached_file :data
 
+  belongs_to :uploader, :class_name => 'User'
+
   validate :validate_attachment_type
 
   validates_presence_of :title,          :if => :full_validation?

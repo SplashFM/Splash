@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
                                    :class_name => 'Relationship',
                                    :dependent => :destroy
   has_many :followers, :through => :reverse_relationships
+  has_many :uploaded_tracks,
+           :class_name  => 'UndiscoveredTrack',
+           :foreign_key => 'uploader_id'
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable

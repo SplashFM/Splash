@@ -4,7 +4,7 @@ class UndiscoveredTracksController < ApplicationController
   include RenderHelper
 
   def create
-    track = UndiscoveredTrack.new(params[:undiscovered_track])
+    track = current_user.uploaded_tracks.build(params[:undiscovered_track])
 
     if track.save
       track.fill_metadata
@@ -20,7 +20,7 @@ class UndiscoveredTracksController < ApplicationController
   end
 
   def update
-    track = UndiscoveredTrack.find(params[:id])
+    track = current_user.uploaded_tracks.find(params[:id])
 
     splashable = if track.update_attributes(params[:undiscovered_track])
                    track
