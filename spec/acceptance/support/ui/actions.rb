@@ -74,16 +74,7 @@ module UI
     end
 
     def upload(path, track = nil, comment = nil)
-      wait_until(10) { page.has_link?(t('upload.upload')) }
-
-      click_link t('upload.upload')
-
-      wait_until { page.has_css?(upload_css, :visible => true) }
-
-      if comment
-        fill_in Splash.human_attribute_name(:comment), :with => comment
-      end
-      attach_file Track.human_attribute_name(:data), path
+      upload_track(path, comment)
 
       wait_until { page.has_metadata_form? }
 
@@ -96,6 +87,20 @@ module UI
 
       click_button t('tracks.actions.complete_upload')
     end
+
+    def upload_track(path, comment = nil)
+      wait_until(10) { page.has_link?(t('upload.upload')) }
+
+      click_link t('upload.upload')
+
+      wait_until { page.has_css?(upload_css, :visible => true) }
+
+      if comment
+        fill_in Splash.human_attribute_name(:comment), :with => comment
+      end
+      attach_file Track.human_attribute_name(:data), path
+    end
+
 
     def with_splash(splash, &block)
       within(track_css(splash.track) + "[data-widget = 'splash']", &block)
