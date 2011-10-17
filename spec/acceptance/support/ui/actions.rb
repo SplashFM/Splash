@@ -74,9 +74,9 @@ module UI
     end
 
     def upload(path, track = nil, comment = nil)
-      wait_until(10) { page.has_link?(t('searches.create.upload')) }
+      wait_until(10) { page.has_link?(t('upload.upload')) }
 
-      click_link t('searches.create.upload')
+      click_link t('upload.upload')
 
       wait_until { page.has_css?(upload_css, :visible => true) }
 

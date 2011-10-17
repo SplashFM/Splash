@@ -37,7 +37,11 @@ Widgets.Feed = {
     });
 
     if ($w('events').data('update_on_splash') === true) {
-      $w('results').live('splash:splash splash:uploaded', function() {
+      $w('results').live('splash:splash', function() {
+        refresh();
+      });
+
+      $w('upload-container').live('splash:uploaded', function() {
         refresh();
       });
     }
@@ -159,14 +163,16 @@ Widgets.Search = {
       });
 
       input.bind('after.searchbox', function() {
-        Widgets.Upload.init($w("upload", results));
-
         results.show();
       });
     });
 
-    $w('results').live('splash:splash splash:uploaded', function() {
+    $w('results').live('splash:splash', function() {
       $(this).hide();
+    });
+
+    $w('upload-container').live('splash:uploaded', function() {
+      $w('results').hide();
     });
   }
 };
@@ -247,21 +253,27 @@ Widgets.SignIn = (function(){
 })();
 
 Widgets.Upload = {
-  init: function(upload) {
-    var form = upload.find('form');
+  init: function() {
+    var upload = $w('upload');
+
+    $w('upload-toggle').live('click', function() {
+      $($(this).attr('href')).toggle();
+    });
+
+    var form = $w('upload-container').find('form');
 
     form.fileupload({
       // this will be removed soon, so no i18n needed
       fail:  function()        { upload.text('Upload failed.') },
       start: function()        { form.hide(); upload.text('Uploading.'); },
       done:  function(e, data) {
-        $w('upload-container').html(data.result);
+        $w('upload').html(data.result);
       }
     });
 
     $($ws('upload-container') + ' form').
       live('ajax:success', function() {
-        $w('upload-container').trigger('splash:uploaded');
+        $(this).trigger('splash:uploaded').hide();
       }).live('ajax:error', function(_, data) {
         $w('upload-container').html(data.responseText);
       });
@@ -270,9 +282,6 @@ Widgets.Upload = {
 
 Widgets.UploadToggle = {
   init: function() {
-    $w("upload-toggle").live('click', function() {
-      $($(this).attr('href')).toggle();
-    });
   }
 }
 
@@ -448,7 +457,7 @@ Widgets.Notification = {
       }
     });
 
-    function resetNotificationCounter() { 
+    function resetNotificationCounter() {
       $(".count").html("<span> 0 </span>");
     };
   }
@@ -460,7 +469,7 @@ $(document).ready(function() {
   Widgets.Track.init();
   Widgets.TypingStop.init();
   Widgets.SignIn.init();
-  Widgets.UploadToggle.init();
+  Widgets.Upload.init();
   Widgets.TrackInfo.init();
   Widgets.Editable.init();
   Widgets.UserAvatar.init();

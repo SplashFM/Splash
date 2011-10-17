@@ -24,7 +24,6 @@ en:
 
   searches:
     create:
-      upload: Upload
       empty: No results found.
     page:
       see_more: See more
@@ -60,6 +59,9 @@ en:
       crop: Crop
       cancel: Cancel
       fetch_error: Sorry your image can not be downloaded for edition
+
+  upload:
+    upload: Upload
 
   errors:
     user:

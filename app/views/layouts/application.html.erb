@@ -34,6 +34,7 @@
           <div id="main_nav"><%= render_navigation %></div>
           <%= render :partial => 'shared/admin_nav' if signed_in_as_superuser? %>
           <% if logged_in? %>
+            <%= render_upload_form :upload %>
             <%= render 'shared/search', :type => 'global' %>
             <%= render 'shared/header_icons' %>
           <% end %>

@@ -9,16 +9,3 @@
     - unless @users.blank?
       %dt= User.model_name.human.pluralize
       %dd= render 'searches/page', page_params(@users, 'user')
-
-%div{:data => {:widget => 'upload-container'}}
-  %p= link_to t('.upload'),
-              "##{params[:type]}-upload",
-              :'data-widget' => 'upload-toggle'
-
-  %div{:id   => "#{params[:type]}-upload",
-       :data => {:widget => 'upload'}}
-    = semantic_form_for UndiscoveredTrack.new, :html => {:multipart => true} do |t|
-      = semantic_fields_for Splash.new do |s|
-        = s.input :comment, :as => :text
-      = t.input :data, :label => Track.human_attribute_name(:data), :as => :file
-  .clear

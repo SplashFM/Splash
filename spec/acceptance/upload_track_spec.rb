@@ -6,13 +6,11 @@ feature "Upload track", :js => true, :driver => :selenium do
   background { visit dashboard_path }
 
   scenario "Upload track" do
-    search_for "Nothing", :track do
-      t = build(Track).title!('Steady as she goes')
+    t = build(Track).title!('Steady as she goes')
 
-      upload file('sky_sailing_steady_as_she_goes.m4a'),
-             t,
-             'This is my comment!'
-    end
+    upload file('sky_sailing_steady_as_she_goes.m4a'),
+           t,
+           'This is my comment!'
 
     should have_hidden_search_results(:track)
 
@@ -29,11 +27,9 @@ feature "Upload track", :js => true, :driver => :selenium do
       albums("An Airplane Carried Me to Bed").
       with_performer!("Sky Sailing")
 
-    search_for "Nothing", :track do
-      upload file('sky_sailing_steady_as_she_goes.m4a'),
-             track,
-             'This is my comment!'
-    end
+    upload file('sky_sailing_steady_as_she_goes.m4a'),
+           track,
+           'This is my comment!'
 
     should_have_splash
   end
@@ -41,11 +37,9 @@ feature "Upload track", :js => true, :driver => :selenium do
   scenario "Upload using bad data", :driver => :selenium do
     track = build(Track).title("").with_performer!("")
 
-    search_for "Nothing", :track do
-      upload file('sky_sailing_steady_as_she_goes.m4a'),
-             track,
-             'This is my comment!'
-    end
+    upload file('sky_sailing_steady_as_she_goes.m4a'),
+           track,
+           'This is my comment!'
 
     wait_until { page.has_search_results_hidden? }
 
@@ -58,11 +52,9 @@ feature "Upload track", :js => true, :driver => :selenium do
       albums("An Airplane Carried Me to Bed").
       with_performer!("Sky Sailing")
 
-    search_for "Nothing", :track do
-      upload file('sky_sailing_steady_as_she_goes.m4a'),
-             track,
-             'This is my comment!'
-    end
+    upload file('sky_sailing_steady_as_she_goes.m4a'),
+           track,
+           'This is my comment!'
 
     search_for "Steady As She Goes", :track do
       should have(1).track
@@ -72,11 +64,9 @@ feature "Upload track", :js => true, :driver => :selenium do
   end
 
   scenario "Upload using metadata" do
-    search_for "Nothing", :track do
-      upload file('sky_sailing_steady_as_she_goes.m4a'),
-             nil,
-             'This is my comment!'
-    end
+    upload file('sky_sailing_steady_as_she_goes.m4a'),
+           nil,
+           'This is my comment!'
 
     should_have_splash
 
