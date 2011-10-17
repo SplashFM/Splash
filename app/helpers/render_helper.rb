@@ -11,6 +11,13 @@ module RenderHelper
                         :update_url  => url_for_event_updates(events, id)}
   end
 
+  def render_upload_form(stage, track = UndiscoveredTrack.new, status = :ok)
+    render :partial => "tracks/#{stage}",
+           :status  => status,
+           :locals  => {:track => track, :splash => Splash.new(params[:splash])}
+
+  end
+
   def refresh_events(events, id = nil)
     render :partial => "events/list",
            :object  => events,

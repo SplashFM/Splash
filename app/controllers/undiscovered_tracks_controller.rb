@@ -1,13 +1,15 @@
 require 'song_file'
 
 class UndiscoveredTracksController < ApplicationController
+  include RenderHelper
+
   def create
     track = UndiscoveredTrack.new(params[:undiscovered_track])
 
     if track.save
       track.fill_metadata
 
-      render_upload_form track
+      render_upload_form :metadata, track
     else
       head :unprocessable_entity
     end
@@ -35,7 +37,7 @@ class UndiscoveredTracksController < ApplicationController
 
       head :ok
     else
-      render_upload_form track, :unprocessable_entity
+      render_upload_form :metadata, track, :unprocessable_entity
     end
   end
 
@@ -43,11 +45,5 @@ class UndiscoveredTracksController < ApplicationController
 
   def current_track
     @track ||= Track.find(params[:id])
-  end
-
-  def render_upload_form(track, status = :ok)
-    render :partial => 'tracks/upload',
-           :status  => status,
-           :locals  => {:track => track, :splash => Splash.new(params[:splash])}
   end
 end
