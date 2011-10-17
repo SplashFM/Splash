@@ -63,6 +63,7 @@ en:
   upload:
     cancel: Cancel Upload
     upload: Upload
+    already_splashed: This track exists and you already splashed it.
 
   errors:
     user:

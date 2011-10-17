@@ -272,7 +272,13 @@ Widgets.Upload = {
 
         configureUpload();
       }).live('ajax:error', function(_, data) {
+        if (data.status === 409) {
+          Widgets.FlashTemplate.error(I18n.t("upload.already_splashed"));
+        }
+
         $w('upload-container').html(data.responseText);
+
+        configureUpload();
       });
 
     function configureUpload() {

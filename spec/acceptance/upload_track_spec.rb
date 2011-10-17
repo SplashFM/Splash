@@ -90,6 +90,18 @@ feature "Upload track", :js => true, :driver => :selenium do
     should have_no_upload_form
   end
 
+  scenario "Double splash" do
+    upload file('sky_sailing_steady_as_she_goes.m4a'),
+           nil,
+           'This is my comment!'
+
+    upload file('sky_sailing_steady_as_she_goes.m4a'),
+           nil,
+           'This is my comment!'
+
+    should have_content(t('upload.already_splashed'))
+  end
+
   def should_have_splash
     visit profile_path
 

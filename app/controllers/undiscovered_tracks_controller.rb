@@ -37,11 +37,15 @@ class UndiscoveredTracksController < ApplicationController
                  end
 
     if splashable
-      Splash.create!(:track   => splashable,
-                     :user    => current_user,
-                     :comment => params[:splash][:comment])
+      begin
+        Splash.create!(:track   => splashable,
+                       :user    => current_user,
+                       :comment => params[:splash][:comment])
 
-      render_upload_form :upload
+        render_upload_form :upload
+      rescue ActiveRecord::RecordInvalid
+        render_upload_form :upload, UndiscoveredTrack.new, :conflict
+      end
     else
       render_upload_form :metadata, track, :unprocessable_entity
     end
