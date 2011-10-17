@@ -74,6 +74,13 @@ feature "Upload track", :js => true, :driver => :selenium do
     should have_content("Sky Sailing")
   end
 
+  scenario "Upload invalid file" do
+    upload_track File.join(Rails.root, 'Rakefile'),
+                 'This is my comment!'
+
+    should have_validation_error(UndiscoveredTrack, :data)
+  end
+
   def should_have_splash
     visit profile_path
 

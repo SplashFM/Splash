@@ -5,8 +5,8 @@
 
   %div{:id   => "upload",
        :data => {:widget => 'upload'}}
-    = semantic_form_for UndiscoveredTrack.new, :html => {:multipart => true} do |t|
-      = semantic_fields_for Splash.new do |s|
+    = semantic_form_for track, :html => {:multipart => true} do |t|
+      = semantic_fields_for splash do |s|
         = s.input :comment, :as => :text
       = t.input :data, :label => Track.human_attribute_name(:data), :as => :file
   .clear

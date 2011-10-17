@@ -11,7 +11,7 @@ class UndiscoveredTracksController < ApplicationController
 
       render_upload_form :metadata, track
     else
-      head :unprocessable_entity
+      render_upload_form :upload, track, :unprocessable_entity
     end
   end
 

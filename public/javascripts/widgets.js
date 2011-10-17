@@ -254,22 +254,11 @@ Widgets.SignIn = (function(){
 
 Widgets.Upload = {
   init: function() {
-    var upload = $w('upload');
-
     $w('upload-toggle').live('click', function() {
       $($(this).attr('href')).toggle();
     });
 
-    var form = $w('upload-container').find('form');
-
-    form.fileupload({
-      // this will be removed soon, so no i18n needed
-      fail:  function()        { upload.text('Upload failed.') },
-      start: function()        { form.hide(); upload.text('Uploading.'); },
-      done:  function(e, data) {
-        $w('upload').html(data.result);
-      }
-    });
+    configureUpload();
 
     $($ws('upload-container') + ' form').
       live('ajax:success', function() {
@@ -277,6 +266,27 @@ Widgets.Upload = {
       }).live('ajax:error', function(_, data) {
         $w('upload-container').html(data.responseText);
       });
+
+    function configureUpload() {
+      var upload = $w('upload');
+      var form   = $w('upload-container').find('form');
+
+      form.fileupload({
+        // this will be removed soon, so no i18n needed
+        fail:  function(e, data, xhr) {
+          console.log("huh?");
+          $w('upload-container').html(data.jqXHR.responseText)
+          configureUpload();
+
+          $w('upload').show();
+        },
+        start: function()        { form.hide(); upload.text('Uploading.'); },
+        done:  function(e, data) {
+          $w('upload').html(data.result);
+        }
+      });
+    }
+
   }
 }
 
