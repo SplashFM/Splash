@@ -78,9 +78,9 @@ module UI
       has_content?(title)
     end
 
-    def has_validation_error?(subject, *fields)
-      fields.each { |f|
-        has_css?('li.error #' + subject.class.name.underscore + "_#{f}")
+    def has_validation_error?(subject_class, *fields)
+      fields.all? { |f|
+        has_css?('li.error #' + subject_class.name.underscore + "_#{f}")
       }
     end
 

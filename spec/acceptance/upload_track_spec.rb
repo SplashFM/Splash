@@ -43,7 +43,7 @@ feature "Upload track", :js => true, :driver => :selenium do
 
     wait_until { page.has_search_results_hidden? }
 
-    should have_validation_error(:title, :performers)
+    should have_validation_error(UndiscoveredTrack, :title, :performers)
   end
 
   scenario "Splash uploaded that already exists" do
