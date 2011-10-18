@@ -2,6 +2,7 @@
 - when :track
   %li.search_result{:data => {:track_id => item.id}}
     = render "tracks/track_summary", :track => item
+    = item.splash_count
 
     %ul.actions
       %li= play_widget(item)
