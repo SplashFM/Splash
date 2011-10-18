@@ -23,7 +23,7 @@ if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
     s.genres        = [Genre.find_by_name("Progressive rock")]
   end
 
-  DcoveredTrack.seed :title do |s|
+  DiscoveredTrack.seed :title do |s|
     s.title            = 'Smells like Teen Spirit'
     s.albums           = ['Nevermind']
     s.performers       = ['Nirvana']
