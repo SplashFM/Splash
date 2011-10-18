@@ -30,6 +30,7 @@ en:
 
   splashes:
     splash:
+      by: Splashed by %{user}
       play: Play
       expand: Expand
       download: Download

@@ -37,4 +37,8 @@ class Splash < ActiveRecord::Base
   def self.since(time)
     where(['created_at > ?', Time.parse(time).utc])
   end
+
+  def owned_by?(user)
+    self.user == user
+  end
 end
