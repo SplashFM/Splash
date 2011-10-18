@@ -1,10 +1,14 @@
+require 'redis_record'
 require 'testable_search'
 
 class Track < ActiveRecord::Base
   ALLOWED_FILTERS = [:genre, :artist]
   DEFAULT_ALBUM_ART_URL = "no_album_art.png"
 
+  include RedisRecord
   extend TestableSearch
+
+  redis_counter :splash_count
 
   has_and_belongs_to_many :genres, :join_table => :track_genres
 

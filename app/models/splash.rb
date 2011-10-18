@@ -5,6 +5,8 @@ class Splash < ActiveRecord::Base
   validates :user_id,  :presence => true
   validates :track_id, :presence => true, :uniqueness => {:scope => :user_id}
 
+  after_create :increment_counters
+
   # Return the Splashes for a given user.
   #
   # @param user the owner or owners of the Splashes
@@ -40,5 +42,11 @@ class Splash < ActiveRecord::Base
 
   def owned_by?(user)
     self.user == user
+  end
+
+  private
+
+  def increment_counters
+    track.increment_splash_count
   end
 end

@@ -20,4 +20,12 @@ describe Splash do
 
     Splash.should be_for(user, track)
   end
+
+  it "increments a track's splash count" do
+    t = create!(Track)
+
+    lambda {
+      create(Splash).track(t).user!(user)
+    }.should change(t, :splash_count).by(1)
+  end
 end
