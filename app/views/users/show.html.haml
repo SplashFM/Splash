@@ -20,11 +20,11 @@
         .tag-line.edit{:'data-action' => "#{user_path(current_user)}",
                       :'data-widget' => "#{ 'editable' if tagline_editable?}"}
           = @user.tagline
-    .ripples
+    .ripples{:data => {:widget => 'ripples'}}
       .label
         RIPPLES
       .number
-        777
+        = @user.ripple_count
     .splashes
       .label
         SPLASHES

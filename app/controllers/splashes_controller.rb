@@ -1,8 +1,9 @@
 class SplashesController < ApplicationController
   def create
-    Splash.create!(:track   => Track.find(params[:track_id]),
-                   :user    => current_user,
-                   :comment => params[:splash][:comment])
+    Splash.create!(:track     => Track.find(params[:track_id]),
+                   :user      => current_user,
+                   :comment   => params[:splash][:comment],
+                   :parent_id => params[:parent_id])
 
     head :created
   rescue ActiveRecord::RecordInvalid

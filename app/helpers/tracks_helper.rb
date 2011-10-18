@@ -30,11 +30,13 @@ module TracksHelper
       splashed = Splash.for?(user, target.track)
       label    = t('splashes.splash.resplash')
       id       = SplashesHelper.dom_id(target)
+      parent   = target
       track    = target.track
     when Track
       splashed = Splash.for?(user, target)
       label    = t('tracks.widget.splash')
       id       = TracksHelper.dom_id(target)
+      parent   = nil
       track    = target
     end
 
@@ -43,7 +45,7 @@ module TracksHelper
                   "##{id}",
                   :'data-widget' => 'splash-toggle')
       f = form_for :splash,
-                   :url    => track_splashes_path(track),
+                   :url    => track_splashes_path(track, :parent_id => parent),
                    :remote => true,
                    :html   => {:id => id, :'data-widget' => 'splash-action'} do |f|
 

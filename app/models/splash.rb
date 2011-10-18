@@ -1,10 +1,12 @@
 class Splash < ActiveRecord::Base
   belongs_to :track
   belongs_to :user
+  belongs_to :parent, :class_name => 'Splash'
 
   validates :user_id,  :presence => true
   validates :track_id, :presence => true, :uniqueness => {:scope => :user_id}
 
+  before_create :freeze_hierarchies, :if => :resplash?
   after_create :increment_counters
 
   # Return the Splashes for a given user.
@@ -44,9 +46,27 @@ class Splash < ActiveRecord::Base
     self.user == user
   end
 
+  def resplash?
+    parent_id? || parent.present?
+  end
+
+  def user_path
+    (read_attribute(:user_path) || '').split(',')
+  end
+
+  def user_path=(user_ids)
+    write_attribute(:user_path, user_ids.join(','))
+  end
+
   private
+
+  def freeze_hierarchies
+    self.user_path = parent.user_path + [parent.user.id]
+  end
 
   def increment_counters
     track.increment_splash_count
+
+    User.increment_ripple_counts(user_path)
   end
 end

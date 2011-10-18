@@ -1,10 +1,14 @@
+require 'redis_record'
 require 'testable_search'
 require 'open-uri'
 
 class User < ActiveRecord::Base
+  include RedisRecord
   extend TestableSearch
 
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
+
+  redis_counter :ripple_count
 
   has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed
