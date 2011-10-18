@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111018144121) do
+ActiveRecord::Schema.define(:version => 20111018215802) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20111018144121) do
     t.integer  "notified_id"
     t.string   "title"
     t.datetime "read_at"
-    t.integer  "notifier_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "notifier_id"
   end
 
   create_table "relationships", :force => true do |t|
@@ -76,6 +76,19 @@ ActiveRecord::Schema.define(:version => 20111018144121) do
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
   add_index "relationships", ["follower_id", "followed_id"], :name => "index_relationships_on_follower_id_and_followed_id", :unique => true
   add_index "relationships", ["follower_id"], :name => "index_relationships_on_follower_id"
+
+  create_table "social_connections", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "token"
+    t.string   "token_secret"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "social_connections", ["uid"], :name => "index_social_connections_on_uid", :unique => true
+  add_index "social_connections", ["user_id"], :name => "index_social_connections_on_user_id"
 
   create_table "splashes", :force => true do |t|
     t.integer  "track_id"
@@ -113,10 +126,10 @@ ActiveRecord::Schema.define(:version => 20111018144121) do
     t.string   "album_art_url"
     t.integer  "external_id"
     t.string   "preview_url"
-    t.integer  "popularity_rank"
     t.text     "performers"
     t.text     "albums"
     t.string   "album_artwork_url"
+    t.integer  "popularity_rank"
     t.integer  "uploader_id"
   end
 
@@ -143,8 +156,7 @@ ActiveRecord::Schema.define(:version => 20111018144121) do
     t.datetime "avatar_updated_at"
     t.string   "type",                                :default => "User", :null => false
     t.string   "name"
-    t.string   "provider"
-    t.string   "uid"
+    t.string   "initial_provider"
     t.string   "tagline",              :limit => 60
     t.string   "slug"
     t.date     "birthday"
