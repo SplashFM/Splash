@@ -195,7 +195,7 @@ Widgets.TypingStop ={
             type: 'get',
             dataType: 'js',
             url: Routes.users_exists_path(),
-            data: "email=" + $elem.val(),
+            data: "email=" + encodeURIComponent($elem.val()),
 
             complete: function(data){
               if(data.status == 200){
