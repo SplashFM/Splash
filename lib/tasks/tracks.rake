@@ -84,30 +84,46 @@ namespace :tracks do
     end
 
     task :restore => :environment do
-      time do |c|
-        puts "Creating FT index on tracks."
+      indexes = ActiveRecord::Base.connection.select_rows <<-IDX
+        SELECT i.relname AS index_name
+        FROM   pg_index ix
+        JOIN   pg_class t ON t.oid = ix.indrelid
+        JOIN   pg_class i ON i.oid = ix.indexrelid
+        WHERE  t.relname = 'tracks'
+      IDX
 
-        c.execute <<-FT
-          CREATE INDEX index_tracks_for_search ON tracks
-            USING gin(to_tsvector('english',
-                                  coalesce(title, '') || ' ' ||
-                                  coalesce(performers, '') || ' ' ||
-                                  coalesce(albums, '')))
-        FT
+      indexes.flatten!
+
+      unless indexes.include?('index_tracks_for_search')
+        time do |c|
+          puts "Creating FT index on tracks."
+
+          c.execute <<-FT
+            CREATE INDEX index_tracks_for_search ON tracks
+              USING gin(to_tsvector('english',
+                                    coalesce(title, '') || ' ' ||
+                                    coalesce(performers, '') || ' ' ||
+                                    coalesce(albums, '')))
+          FT
+        end
       end
 
-      time do |c|
-        puts "Creating title + performers index on tracks."
+      unless indexes.include?('index_tracks_on_lc_title')
+        time do |c|
+          puts "Creating title + performers index on tracks."
 
-        c.execute "CREATE INDEX index_tracks_on_lc_title
-                     ON tracks (lower(title), lower(performers))"
+          c.execute "CREATE INDEX index_tracks_on_lc_title
+                       ON tracks (lower(title), lower(performers))"
+        end
       end
 
-      time do |c|
-        puts "Creating popularity index on tracks."
+      unless indexes.include?('index_tracks_on_popularity_rank')
+        time do |c|
+          puts "Creating popularity index on tracks."
 
-        c.execute "CREATE INDEX index_tracks_on_popularity_rank
-                     ON tracks (popularity_rank)"
+          c.execute "CREATE INDEX index_tracks_on_popularity_rank
+                       ON tracks (popularity_rank)"
+        end
       end
     end
   end
