@@ -24,6 +24,10 @@ Scaphandrier::Application.routes.draw do
 
   resources :tracks do
     resources :splashes
+
+    collection do
+      get :top
+    end
   end
 
   resources :undiscovered_tracks do

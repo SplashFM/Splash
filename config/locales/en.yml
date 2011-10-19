@@ -83,6 +83,7 @@ en:
     menus:
       home: Home
       profile: Profile
+      splashboard: Splashboard
   jeditable:
     labels:
       submit: 'Change'
