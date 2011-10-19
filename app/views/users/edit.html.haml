@@ -2,12 +2,15 @@
   = t('.title')
 
   = semantic_form_for @user do |f|
-    = f.inputs do 
+    = f.inputs t('.basic_settings') do
       = f.input :name
       = f.input :email
       = f.input :password
       = f.input :password_confirmation
 
+    = f.inputs t('.social_connect') do
+      = link_to_social_site(:facebook)
+      = link_to_social_site(:twitter)
+
     = f.buttons do 
       = f.commit_button
-

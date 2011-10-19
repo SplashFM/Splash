@@ -55,6 +55,10 @@ en:
       followers: Followers
     edit:
       title: 'User profile'
+      site_connected: %{site} connected
+      social_connect: Social Connect
+      basic_settings: Basic settings
+
     avatar:
       title: Update Avatar Picture
     crop:

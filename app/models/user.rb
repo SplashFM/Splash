@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
            :class_name  => 'UndiscoveredTrack',
            :foreign_key => 'uploader_id'
 
+  has_many :social_connections, :dependent => :destroy
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable,
@@ -28,7 +30,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :name, :uid, :provider, :tagline, :avatar
+                  :name, :uid, :provider, :tagline, :avatar, :initial_provider
 
   validates :name, :presence => true, :on => :update
   validates :tagline, :length => { :maximum => 60 }
@@ -99,24 +101,35 @@ class User < ActiveRecord::Base
     search(:name => name)
   end
 
+  def self.with_social_connection(provider, uid)
+    joins(:social_connections)
+      .where(:social_connections => {:provider => provider, :uid => uid})
+      .readonly(false)
+      .first
+  end
+
   def self.find_for_oauth(access_token)
     name     = access_token['user_info']['name']
     provider = access_token['provider']
     uid      = access_token['uid']
     email    = access_token['extra'].try(:[], 'user_hash').try(:[], 'email')
+    token    = access_token['credentials']['token']
+    token_secret  = access_token['credentials'].try(:[], 'secret')
 
-    user = User.find_by_provider_and_uid(provider, uid)
+    user = User.with_social_connection(provider, uid)
     unless user
       user = User.new(:name => name, :email => email,
-                      :password => Devise.friendly_token[0,20],
-                      :provider => provider, :uid => uid)
+                      :initial_provider => provider,
+                      :password => Devise.friendly_token[0,20])
+      user.social_connections.build(:provider => provider, :uid => uid,
+                                    :token => token, :token_secret => token_secret)
+      user.save unless email.blank?
     end
-    user.save unless email.blank?
     user
   end
 
   def password_required?
-    self.provider.blank? && super
+    initial_provider.blank? && super
   end
 
   def self.new_with_session(params, session)
@@ -124,8 +137,12 @@ class User < ActiveRecord::Base
       if session['devise.provider_data']
         data = session['devise.provider_data']
 
-        user.provider = data['provider']
-        user.uid = data['uid']
+        token_secret = data['credentials'].try(:[], 'secret')
+        user.initial_provider = data['provider']
+        user.social_connections.build(:provider => data['provider'],
+                                      :uid => data['uid'],
+                                      :token => data['credentials']['token'],
+                                      :token_secret => token_secret)
 
         user_hash = data['extra']['user_hash'] if data['extra']
 
@@ -159,7 +176,7 @@ class User < ActiveRecord::Base
   def avatar_url(style=:thumb)
     if avatar.exists?
       avatar.url(style)
-    elsif !provider.blank?
+    elsif has_social_connections?
       provider_avatar_url
     else
       DEFAULT_AVATAR_URL
@@ -183,13 +200,25 @@ class User < ActiveRecord::Base
   end
 
   def provider_avatar_url
-    if provider == 'facebook'
-      "http://graph.facebook.com/#{self.uid}/picture"
-    elsif provider == 'twitter'
-      "http://api.twitter.com/1/users/profile_image/#{self.uid}.json"
+    if initial_provider == 'facebook' || (has_social_connection?('facebook') && initial_provider.blank?)
+      "http://graph.facebook.com/#{social_connection('facebook').uid}/picture"
+    elsif initial_provider == 'twitter' || has_social_connection?('twitter')
+      "http://api.twitter.com/1/users/profile_image/#{social_connection('twitter').uid}.json"
     else
       nil
     end
+  end
+
+  def has_social_connections?
+    !social_connections.length.zero?
+  end
+
+  def has_social_connection?(provider)
+    social_connection provider
+  end
+
+  def social_connection(provider)
+    social_connections.with_provider provider
   end
 
   private
