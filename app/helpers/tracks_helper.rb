@@ -49,10 +49,17 @@ module TracksHelper
                    :remote => true,
                    :html   => {:id => id, :'data-widget' => 'splash-action'} do |f|
 
-        f.text_area(:comment) + f.submit(label)
+        f.text_area(:comment) + post_to_site_widget('facebook', f) + f.submit(label)
       end
 
       l + f
+    end
+  end
+
+  def post_to_site_widget(site, form)
+    if current_user.has_social_connection? site
+      form.label(site.to_sym, I18n.t("splashes.splash.post_to_#{site}")) \
+        + form.check_box("#{site}_post")
     end
   end
 

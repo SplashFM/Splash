@@ -36,6 +36,7 @@ en:
       download: Download
       purchase: Purchase on iTunes
       resplash: Resplash
+      post_to_facebook: Post to Facebook?
 
   tracks:
     widget:

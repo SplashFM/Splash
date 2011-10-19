@@ -30,6 +30,24 @@ class ApplicationController < ActionController::Base
     user_signed_in?
   end
 
+  def splash_and_post(attrs, track, parent=nil)
+    splash = Splash.create!(:track => track,
+                            :user => current_user,
+                            :comment => attrs[:comment],
+                            :parent_id => parent)
+    facebook_post(splash) if attrs[:facebook_post] == '1'
+  end
+
+  def facebook_post(splash)
+    if current_user.has_social_connection? 'facebook'
+      host = Rails.env.development? ? 'splash.test' : AppConfig.preferred_host
+
+      fb_user = FbGraph::User.me(current_user.social_connection('facebook').token)
+      link = fb_user.link!(:link => splash_url(splash, :host => host),
+                          :message => "#{splash.user.name} splashed #{splash.track.title}. #{splash.comment}")
+    end
+  end
+
   def logging_out?
     params[:action] == 'destroy' && params[:controller] == 'devise/sessions'
   end

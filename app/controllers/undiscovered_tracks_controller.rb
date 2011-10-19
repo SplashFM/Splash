@@ -38,9 +38,7 @@ class UndiscoveredTracksController < ApplicationController
 
     if splashable
       begin
-        Splash.create!(:track   => splashable,
-                       :user    => current_user,
-                       :comment => params[:splash][:comment])
+        splash_and_post(params[:splash], splashable)
 
         render_upload_form :upload
       rescue ActiveRecord::RecordInvalid
