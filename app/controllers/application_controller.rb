@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
                             :comment => attrs[:comment],
                             :parent_id => parent)
     facebook_post(splash) if attrs[:facebook_post] == '1'
+    twitter_post(splash) if attrs[:twitter_post] == '1'
   end
 
   def facebook_post(splash)
@@ -45,6 +46,18 @@ class ApplicationController < ActionController::Base
       fb_user = FbGraph::User.me(current_user.social_connection('facebook').token)
       link = fb_user.link!(:link => splash_url(splash, :host => host),
                           :message => "#{splash.user.name} splashed #{splash.track.title}. #{splash.comment}")
+    end
+  end
+
+  def twitter_post(splash)
+    if current_user.has_social_connection? 'twitter'
+      twitter = current_user.social_connection('twitter')
+      Twitter.configure do |config|
+        config.oauth_token = twitter.token
+        config.oauth_token_secret = twitter.token_secret
+      end
+
+      Twitter.update("#{splash.user.name} splashed #{splash.track.title}. #{splash.comment}")
     end
   end
 
