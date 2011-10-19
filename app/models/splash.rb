@@ -65,8 +65,6 @@ class Splash < ActiveRecord::Base
   end
 
   def increment_counters
-    track.increment_splash_count
-
     User.increment_ripple_counts(user_path)
   end
 end
