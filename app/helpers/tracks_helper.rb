@@ -24,12 +24,22 @@ module TracksHelper
     role == :splash
   end
 
-  def splash_action_widget(user, track)
-    splashed = Splash.for?(user, track)
-    id       = TracksHelper.dom_id(track)
+  def splash_action_widget(user, target)
+    case target
+    when Splash
+      splashed = Splash.for?(user, target.track)
+      label    = t('splashes.splash.resplash')
+      id       = SplashesHelper.dom_id(target)
+      track    = target.track
+    when Track
+      splashed = Splash.for?(user, target)
+      label    = t('tracks.widget.splash')
+      id       = TracksHelper.dom_id(target)
+      track    = target
+    end
 
     unless splashed
-      l = link_to(t('tracks.widget.splash'),
+      l = link_to(label,
                   "##{id}",
                   :'data-widget' => 'splash-toggle')
       f = form_for :splash,
@@ -37,7 +47,7 @@ module TracksHelper
                    :remote => true,
                    :html   => {:id => id, :'data-widget' => 'splash-action'} do |f|
 
-        f.text_area(:comment) + f.submit(t('tracks.widget.splash'))
+        f.text_area(:comment) + f.submit(label)
       end
 
       l + f

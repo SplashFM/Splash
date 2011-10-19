@@ -51,6 +51,13 @@ module UI
       within('[data-widget = "event-update-counter"]') { find('a').click }
     end
 
+    def resplash(splash)
+      with_splash(splash) {
+        click_link t('splashes.splash.resplash')
+        click_button t('splashes.splash.resplash')
+      }
+    end
+
     def search_for(filter, search_type, &block)
       within(search_form(search_type)) { fill_in "f", :with => filter }
 

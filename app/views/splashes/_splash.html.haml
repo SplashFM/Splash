@@ -6,6 +6,7 @@
     %ul.actions
       %li= play_widget(splash.track)
       %li= expand_splash(splash)
+      %li= splash_action_widget(current_user, splash)
 
     - if defined?(expand)
       %div{:data => {:widget => 'splash-info'}}

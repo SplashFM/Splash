@@ -44,6 +44,10 @@ Widgets.Feed = {
       $w('upload-container').live('splash:uploaded', function() {
         refresh();
       });
+
+      $w('events').live('splash:splash', function() {
+        refresh();
+      });
     }
 
     setInterval(this.fetchUpdateCount, 60000); // 1 minute
@@ -316,7 +320,7 @@ Widgets.SplashAction = {
         attr('disabled', true).
         val(I18n.t('tracks.widget.splashed'));
 
-      $(this).trigger('splash:splash');
+      $(this).trigger('splash:splash').hide();
     });
 
     $w("splash-toggle").live('click', function() {
