@@ -25,6 +25,9 @@ common: &common
   twitter:
     key:
     secret:
+  redis:
+    host: localhost
+    port: 6379
 
 development:
   <<: *common

@@ -73,6 +73,7 @@ gem "texticle", :git     => "git://github.com/tenderlove/texticle.git",
 gem "jquery-rails"
 gem "babilu"
 gem "taglib2"
+gem "redis"
 
 group :test do
   gem "rr", "~> 1.0"
