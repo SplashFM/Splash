@@ -20,7 +20,11 @@ module RedisRecord
     def redis_counter(name)
       instance_eval <<-RUBYI
         def increment_#{name.to_s.pluralize}(ids)
-          ids.each { |id| redis.hincrby key(#{name.to_s.inspect}), id.to_s, 1 }
+          ids.each { |id| increment_#{name}(id) }
+        end
+
+        def increment_#{name}(id)
+          RedisRecord.redis.hincrby key(#{name.to_s.inspect}), id.to_s, 1
         end
 
         def reset_#{name.to_s.pluralize}
