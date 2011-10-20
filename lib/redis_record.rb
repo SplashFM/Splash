@@ -20,15 +20,31 @@ module RedisRecord
     def redis_counter(name)
       instance_eval <<-RUBYI
         def increment_#{name.to_s.pluralize}(ids)
-          ids.each { |id| increment_#{name}(id) }
+          ids.each { |id|
+            increment_#{name}(id)
+            increment_#{name}_sorted(id)
+          }
         end
 
         def increment_#{name}(id)
           RedisRecord.redis.hincrby key(#{name.to_s.inspect}), id.to_s, 1
         end
 
+        def increment_#{name}_sorted(id)
+          RedisRecord.redis.zincrby key("sorted_#{name}"), 1, id.to_s
+        end
+
         def reset_#{name.to_s.pluralize}
           RedisRecord.redis.del key(#{name.to_s.inspect})
+          RedisRecord.redis.del key("sorted_#{name}")
+        end
+
+        def sorted_#{name.to_s.pluralize}(page, num_records)
+          page  = page.to_i <= 1 ? 1 : page
+          start = (page - 1) * num_records
+          stop  = start + num_records
+
+          RedisRecord.redis.zrevrange(key("sorted_#{name}"), start, stop)
         end
 
         def #{name.to_s.pluralize}
