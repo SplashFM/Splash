@@ -8,6 +8,7 @@ class Track < ActiveRecord::Base
   include RedisRecord
   extend TestableSearch
 
+  redis_base_key :track
   redis_counter :splash_count
 
   has_and_belongs_to_many :genres, :join_table => :track_genres

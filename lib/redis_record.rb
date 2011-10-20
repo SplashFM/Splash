@@ -6,7 +6,15 @@ module RedisRecord
 
   module ClassMethods
     def key(field)
-      "#{Rails.env}/#{name.underscore}/#{field}"
+      "#{Rails.env}/#{redis_base_key}/#{field}"
+    end
+
+    def redis_base_key(key = nil)
+      if key
+        write_inheritable_attribute(:base_key, key)
+      else
+        read_inheritable_attribute(:base_key) || name.underscore
+      end
     end
 
     def redis_counter(name)
