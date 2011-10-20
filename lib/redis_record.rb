@@ -1,10 +1,10 @@
 module RedisRecord
-  module ClassMethods
-    def redis
-      @redis ||= Redis.new(:host => AppConfig.redis['host'],
-                       :port => AppConfig.redis['port'])
-    end
+  def self.redis
+    @redis ||= Redis.new(:host => AppConfig.redis['host'],
+                         :port => AppConfig.redis['port'])
+  end
 
+  module ClassMethods
     def key(field)
       "#{Rails.env}/#{name.underscore}/#{field}"
     end
@@ -16,11 +16,11 @@ module RedisRecord
         end
 
         def reset_#{name.to_s.pluralize}
-          redis.del key(#{name.to_s.inspect})
+          RedisRecord.redis.del key(#{name.to_s.inspect})
         end
 
         def #{name.to_s.pluralize}
-          redis.hgetall(key(#{name.to_s.inspect}))
+          RedisRecord.redis.hgetall(key(#{name.to_s.inspect}))
         end
       RUBYI
 
@@ -30,7 +30,7 @@ module RedisRecord
         end
 
         def #{name}
-          redis.hget(key(#{name.to_s.inspect}), id.to_s).to_i
+          RedisRecord.redis.hget(key(#{name.to_s.inspect}), id.to_s).to_i
         end
       RUBY
     end
@@ -45,6 +45,6 @@ module RedisRecord
   end
 
   def redis
-    self.class.redis
+    RedisRecord.redis
   end
 end
