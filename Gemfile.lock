@@ -141,6 +141,8 @@ GEM
       rails (>= 3.0)
     json (1.6.1)
     json_pure (1.6.1)
+    kaminari (0.12.4)
+      rails (>= 3.0.0)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     log4r (1.1.9)
@@ -363,6 +365,7 @@ DEPENDENCIES
   jammit (>= 0.5.0)
   jquery-rails
   js-routes
+  kaminari
   newrelic_rpm
   nokogiri
   omniauth (~> 0.3.0)

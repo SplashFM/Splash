@@ -76,6 +76,7 @@ gem "jquery-rails"
 gem "babilu"
 gem "taglib2"
 gem "redis"
+gem "kaminari"
 
 group :test do
   gem "rr", "~> 1.0"
