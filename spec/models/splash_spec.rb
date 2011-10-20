@@ -33,6 +33,14 @@ describe Splash do
     }.should change(t, :splash_count).by(1)
   end
 
+  it "increments the user's splash count" do
+    u = create!(User)
+
+    lambda {
+       create(Splash).track(create!(Track)).user!(u)
+    }.should change(u, :splash_count).by(1)
+  end
+
   describe "resplashing" do
     before do
       User.reset_ripple_counts

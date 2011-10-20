@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
 
   redis_counter :ripple_count
+  redis_counter :splash_count
 
   has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed
