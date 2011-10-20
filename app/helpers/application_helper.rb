@@ -25,4 +25,16 @@ module ApplicationHelper
     found.join "<br/>  "
   end
 
+  def link_to_next_page(results, text)
+    uri  = request.env['PATH_INFO']
+    path = ActionController::Routing::Routes.recognize_path(uri)
+
+    unless results.empty?
+      link_to(text,
+              path.merge!(:page => next_page),
+              :remote        => true,
+              :'data-widget' => 'next-page',
+              :'data-type'   => 'html')
+    end
+  end
 end

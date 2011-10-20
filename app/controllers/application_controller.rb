@@ -167,4 +167,9 @@ class ApplicationController < ActionController::Base
 
     page <= 1 ? 1 : page
   end
+
+  helper_method :next_page
+  def next_page
+    current_page + 1
+  end
 end

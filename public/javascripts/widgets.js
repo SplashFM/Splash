@@ -8,6 +8,14 @@ function $w(name) {
   return $($ws(name));
 }
 
+Widgets.Paginate = {
+  init: function() {
+    $w('next-page').live('ajax:success', function(_, data) {
+      $(this).replaceWith(data);
+    });
+  }
+}
+
 Widgets.Feed = {
   init: function() {
     var filters = {};
@@ -515,5 +523,6 @@ $(document).ready(function() {
   Widgets.SplashAction.init();
   Widgets.Feed.init();
   Widgets.Notification.init();
+  Widgets.Paginate.init();
 });
 

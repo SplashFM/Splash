@@ -3,3 +3,5 @@
     %li
       = render 'tracks/track_summary', :track => t
       = t.splash_count
+
+%p= link_to_next_page @tracks, t('pagination.more')
