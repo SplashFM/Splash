@@ -20,23 +20,7 @@ Widgets.Feed = {
   init: function() {
     var filters = {};
 
-    $w('events-filter').tokenInput(Routes.tags_path(), {
-      theme: "facebook",
-      onAdd: function(e) {
-        if (filters[e.type] == null) filters[e.type] = [];
-
-        filters[e.type].push(e);
-
-        refreshWithFilters(filters);
-      },
-      onDelete: function(e) {
-        var filter = filters[e.type];
-
-        filter.splice(filter.indexOf(e), 1);
-
-        refreshWithFilters(filters);
-      }
-    });
+    this.reload();
 
     $w('event-update-counter').live('ajax:success', function(_, data) {
       updateEventData(data);
@@ -101,6 +85,26 @@ Widgets.Feed = {
       }
     });
   },
+
+  reload: function() {
+    $w('events-filter').tokenInput(Routes.tags_path(), {
+      theme: "facebook",
+      onAdd: function(e) {
+        if (filters[e.type] == null) filters[e.type] = [];
+
+        filters[e.type].push(e);
+
+        refreshWithFilters(filters);
+      },
+      onDelete: function(e) {
+        var filter = filters[e.type];
+
+        filter.splice(filter.indexOf(e), 1);
+
+        refreshWithFilters(filters);
+      }
+    });
+  }
 }
 
 Widgets.Track = {
@@ -496,6 +500,10 @@ Widgets.Pjax = {
             .pjax('[data-pjax-container]', {timeout: 2500});
     $("#main a:not([data-remote]):not([data-skip-pjax]):not(.fancybox):not([data-widget = \"play\"]):not([href^=#])")
             .pjax('[data-pjax-container]', {timeout: 2500});
+
+    $('body').bind('pjax:end', function() {
+      Widgets.Feed.reload();
+    });
   }
 }
 
