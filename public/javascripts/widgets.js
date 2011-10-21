@@ -270,11 +270,13 @@ Widgets.SignIn = (function(){
 
 Widgets.Upload = {
   init: function() {
+    var self = this;
+
     $w('upload-toggle').live('click', function() {
       $($(this).attr('href')).toggle();
     });
 
-    configureUpload();
+    self.reload();
 
     $w('upload-cancel').live('ajax:success', function(_, data) {
       $w('upload-container').replaceWith(data);
@@ -286,7 +288,7 @@ Widgets.Upload = {
 
         $(this).trigger('splash:uploaded').hide();
 
-        configureUpload();
+        self.reload();
       }).live('ajax:error', function(_, data) {
         if (data.status === 409) {
           Widgets.FlashTemplate.error(I18n.t("upload.already_splashed"));
@@ -294,29 +296,28 @@ Widgets.Upload = {
 
         $w('upload-container').html(data.responseText);
 
-        configureUpload();
+        self.reload();
       });
+  },
 
-    function configureUpload() {
-      var upload = $w('upload');
-      var form   = $w('upload-container').find('form');
+  reload: function () {
+    var self   = this;
+    var upload = $w('upload');
+    var form   = $w('upload-container').find('form');
 
-      form.fileupload({
-        // this will be removed soon, so no i18n needed
-        fail:  function(e, data, xhr) {
-          console.log("huh?");
-          $w('upload-container').html(data.jqXHR.responseText)
-          configureUpload();
+    form.fileupload({
+      // this will be removed soon, so no i18n needed
+      fail:  function(e, data, xhr) {
+        $w('upload-container').html(data.jqXHR.responseText)
+        self.reload();
 
-          $w('upload').show();
-        },
-        start: function()        { form.hide(); upload.text('Uploading.'); },
-        done:  function(e, data) {
-          $w('upload').html(data.result);
-        }
-      });
-    }
-
+        $w('upload').show();
+      },
+      start: function()        { form.hide(); upload.text('Uploading.'); },
+      done:  function(e, data) {
+        $w('upload').html(data.result);
+      }
+    });
   }
 }
 
