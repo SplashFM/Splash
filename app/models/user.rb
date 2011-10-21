@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
 
   after_update :reprocess_avatar, :if => :cropping?
 
+  def self.top_splashers(page, num_records)
+    sorted_by_influence(page, num_records)
+  end
+
   def self.update_influence(ids)
     scs    = splash_counts(ids) || []
     rcs    = ripple_counts(ids) || []
