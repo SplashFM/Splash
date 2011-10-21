@@ -158,8 +158,6 @@ Widgets.Player = {
 
 Widgets.Search = {
   init: function() {
-    Widgets.SeeMore.init();
-
     $w("search").each(function(_, e) {
       var form    = $(e);
       var input   = form.find(':text');
@@ -188,14 +186,6 @@ Widgets.Search = {
     });
   }
 };
-
-Widgets.SeeMore = {
-  init: function() {
-    $w("see-more").live('ajax:success', function(_, data) {
-      $(this).replaceWith(data);
-    });
-  }
-}
 
 Widgets.TypingStop ={
   init: function(){
