@@ -64,6 +64,10 @@ Scaphandrier::Application.routes.draw do
       get :events
       get :event_updates
     end
+
+    collection do
+      get :top
+    end
   end
   resources :relationships, :only => [:create, :destroy] do
     collection do

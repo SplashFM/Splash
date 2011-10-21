@@ -100,6 +100,16 @@ class User < ActiveRecord::Base
                   :limit => count
   end
 
+  def influence_score
+    total_users = User.count
+
+    (((total_users - influence_rank) / total_users.to_f) ** 2).floor
+  end
+
+  def splash_score
+    influence_score + 10
+  end
+
   def search_result_type
     :user
   end

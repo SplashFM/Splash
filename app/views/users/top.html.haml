@@ -1,0 +1,7 @@
+%ul
+  - @users.each do |u|
+    %li
+      = u.name
+      = u.splash_score
+
+%p= link_to_next_page @users, t('pagination.more')

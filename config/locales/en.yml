@@ -84,6 +84,8 @@ en:
       home: Home
       profile: Profile
       splashboard: Splashboard
+      top_songs: Top Songs
+      top_users: Top Splashers
   jeditable:
     labels:
       submit: 'Change'

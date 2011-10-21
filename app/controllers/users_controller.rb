@@ -1,6 +1,8 @@
 require 'event_generator'
 
 class UsersController < ApplicationController
+  TOP_SPLASHERS_PER_PAGE = 30
+
   include EventGenerator
 
   inherit_resources
@@ -57,6 +59,12 @@ class UsersController < ApplicationController
         format.html { render :action => 'edit' }
       end
     end
+  end
+
+  def top
+    @users = User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
+
+    render :layout => ! request.xhr?
   end
 
   private
