@@ -3,6 +3,8 @@ class Splash < ActiveRecord::Base
   belongs_to :user
   belongs_to :parent, :class_name => 'Splash'
 
+  has_many :comments
+
   validates :user_id,  :presence => true
   validates :track_id, :presence => true, :uniqueness => {:scope => :user_id}
 

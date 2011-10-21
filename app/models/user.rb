@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
            :class_name  => 'UndiscoveredTrack',
            :foreign_key => 'uploader_id'
 
+  has_many :comments, :foreign_key => :author_id
   has_many :social_connections, :dependent => :destroy
 
   # Include default devise modules. Others available are:
