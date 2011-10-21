@@ -47,6 +47,13 @@ module RedisRecord
           RedisRecord.redis.zrevrange(key("sorted_#{name}"), start, stop)
         end
 
+        def sorted_by_#{name}(page, num_records)
+          ids   = sorted_#{name.to_s.pluralize}(page, num_records).map(&:to_i)
+          cache = Hash[*where(:id => ids).map { |t| [t.id, t] }.flatten]
+
+          ids.map { |id| cache[id] }
+        end
+
         def #{name.to_s.pluralize}
           RedisRecord.redis.hgetall(key(#{name.to_s.inspect}))
         end

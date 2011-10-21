@@ -34,6 +34,10 @@ class Track < ActiveRecord::Base
     l.sort.map(&:strip).join(" ;; ")
   end
 
+  def self.top_splashed(page, num_records)
+    sorted_by_splash_count(page, num_records)
+  end
+
   # Search for tracks matching the given query.
   #
   # Searches all "string" fields on the Track model.

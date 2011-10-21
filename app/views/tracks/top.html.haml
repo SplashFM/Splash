@@ -1,0 +1,5 @@
+%ul
+  - @tracks.each do |t|
+    %li
+      = render 'tracks/track_summary', :track => t
+      = t.splash_count

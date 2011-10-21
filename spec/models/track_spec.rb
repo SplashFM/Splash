@@ -63,4 +63,19 @@ describe Track, :adapter => :postgresql do
   it "returns the album art url when it is set" do
     Track.new(:album_art_url => "url").album_art_url.should == "url"
   end
+
+  it "sorts top splashed songs" do
+    Track.reset_splash_counts
+
+    tracks = []
+
+    1.upto(5) { |i|
+      tracks << [(t = create!(Track)).id, i]
+
+      i.times { create(Splash).track(t).user!(create!(User)) }
+    }
+
+    Track.top_splashed(1, 5).map { |t| [t.id, t.splash_count] }.
+      should == tracks.reverse
+  end
 end

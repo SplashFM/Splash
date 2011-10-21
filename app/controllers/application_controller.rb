@@ -161,4 +161,10 @@ class ApplicationController < ActionController::Base
   def own_profile?
     @user == current_user
   end
+
+  def current_page
+    page = params[:page].to_i
+
+    page <= 1 ? 1 : page
+  end
 end
