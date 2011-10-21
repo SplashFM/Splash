@@ -315,11 +315,6 @@ Widgets.Upload = {
   }
 }
 
-Widgets.UploadToggle = {
-  init: function() {
-  }
-}
-
 Widgets.SplashAction = {
   init: function() {
     $w("splash-action").live('ajax:success', function() {
