@@ -18,5 +18,5 @@
   = link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
   %br
 
-= link_to image_tag('facebook_64.png'), user_omniauth_authorize_path(:facebook)
-= link_to image_tag('twitter_64.png'), user_omniauth_authorize_path(:twitter)
+= link_to image_tag('facebook_64.png'), user_omniauth_authorize_path(:facebook), :'data-skip-pjax' => 'true'
+= link_to image_tag('twitter_64.png'), user_omniauth_authorize_path(:twitter), :'data-skip-pjax' => 'true'

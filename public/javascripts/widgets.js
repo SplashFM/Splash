@@ -371,9 +371,10 @@ Widgets.Editable = {
 
 Widgets.UserAvatar = {
   init: function(){
-    $(".user-image").mouseover(function() {
-      $('.upload-avatar-link').show();
-    }).mouseout(function(){
+    $(".user-image").live('mouseover', function() {
+        $('.upload-avatar-link').show();
+        Scaphandrier.Fancybox.init();
+    }).live('mouseout', function(){
       $('.upload-avatar-link').hide();
     });
   }
@@ -491,7 +492,17 @@ Widgets.Notification = {
   }
 }
 
+Widgets.Pjax = {
+  init: function() {
+    $("#header a:not([data-remote]):not([data-skip-pjax]):not(.fancybox):not([data-widget = \"play\"]):not([href^=#])")
+            .pjax('[data-pjax-container]', {timeout: 2500});
+    $("#main a:not([data-remote]):not([data-skip-pjax]):not(.fancybox):not([data-widget = \"play\"]):not([href^=#])")
+            .pjax('[data-pjax-container]', {timeout: 2500});
+  }
+}
+
 $(document).ready(function() {
+  Widgets.Pjax.init();
   Widgets.Player.init();
   Widgets.Search.init();
   Widgets.Track.init();

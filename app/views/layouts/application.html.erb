@@ -24,7 +24,7 @@
   <body>
 <!--[if lt IE 7]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;'> <a href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http://www.theie6countdown.com/images/upgrade.jpg" border="0" height="42" width="820" alt="" /></a></div> <![endif]-->
     <div class="yui3-g">
-      <div id="header"">
+      <div id="header">
         <h1><%= Rails.application.name %></h1>
 	      <span id="breadcrumb"><%= controller.controller_name.titleize -%></span>
 
@@ -40,12 +40,10 @@
           <% end %>
         <% end %>
       </div>
-
-      <div id="main">
+      <% if logged_in? %><div id="player-area"></div><% end %>
+      <div id="main" data-pjax-container>
         <%= render :partial => 'shared/flash_messages' %>
         <%= yield -%>
-
-        <% if logged_in? %><div id="player-area"></div><% end %>
       </div>
       <div id="footer">
         <div id="by_line">
