@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
 
+  redis_sorted_field :influence
   redis_counter :ripple_count
   redis_counter :splash_count
 
@@ -50,6 +51,16 @@ class User < ActiveRecord::Base
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
   after_update :reprocess_avatar, :if => :cropping?
+
+  def self.update_influence(ids)
+    scs    = splash_counts(ids) || []
+    rcs    = ripple_counts(ids) || []
+    scores = ids.zip(scs, rcs).map { |(id, s, r)|
+      [id, s.to_i + r.to_i] }
+
+    update_influence_scores scores
+  end
+
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end

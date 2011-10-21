@@ -41,7 +41,21 @@ module RedisRecord
         def reset_#{name}_sorted
           RedisRecord.redis.del key("sorted_#{name}")
         end
+
+        def update_#{name}_score(id, score)
+          RedisRecord.redis.zadd key("sorted_#{name}"), score, id
+        end
+
+        def update_#{name}_scores(data)
+          data.each { |(id, score)| update_#{name}_score(id, score) }
+        end
       RUBYI
+
+      class_eval <<-RUBY
+        def #{name}_rank
+          redis.zrevrank(key("sorted_#{name}"), id.to_s)
+        end
+      RUBY
     end
 
     def redis_counter(name)
@@ -68,8 +82,12 @@ module RedisRecord
           reset_#{name}_sorted
         end
 
-        def #{name.to_s.pluralize}
-          RedisRecord.redis.hgetall(key(#{name.to_s.inspect}))
+        def #{name.to_s.pluralize}(ids)
+          if ids.empty?
+            RedisRecord.redis.hgetall(key(#{name.to_s.inspect}))
+          else
+            RedisRecord.redis.hmget(key(#{name.to_s.inspect}), *ids)
+          end
         end
       RUBYI
 

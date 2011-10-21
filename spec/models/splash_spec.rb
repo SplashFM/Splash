@@ -6,6 +6,9 @@ describe Splash do
 
   before do
     Track.reset_splash_counts
+    User.reset_splash_counts
+    User.reset_ripple_counts
+    User.reset_influence_sorted
   end
 
   it "splashes a song that the user hasn't splashed yet" do
@@ -39,6 +42,18 @@ describe Splash do
     lambda {
        create(Splash).track(create!(Track)).user!(u)
     }.should change(u, :splash_count).by(1)
+  end
+
+  it "updates the user's influence rank" do
+    u1 = create!(User)
+    create(Splash).track(create!(Track)).user!(u1)
+
+    u2 = create!(User)
+    create(Splash).track(create!(Track)).user!(u2)
+    create(Splash).track(create!(Track)).user!(u2)
+
+    u2.influence_rank.should == 0
+    u1.influence_rank.should == 1
   end
 
   describe "resplashing" do
