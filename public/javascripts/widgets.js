@@ -162,23 +162,10 @@ Widgets.Player = {
 
 Widgets.Search = {
   init: function() {
+    var self = this;
+
     $w("search").each(function(_, e) {
-      var form    = $(e);
-      var input   = form.find(':text');
-      var results = $('#' + form.data('search-results'));
-
-      form.submit(function() { return false; });
-
-      input.searchbox({
-        url: form.attr('action'),
-        dom_id: '#' + results.attr('id'),
-        param: input.attr('name'),
-        delay: 1000
-      });
-
-      input.bind('after.searchbox', function() {
-        results.show();
-      });
+      self.setupSearchbox(e);
     });
 
     $w('results').live('splash:splash', function() {
@@ -187,6 +174,29 @@ Widgets.Search = {
 
     $w('upload-container').live('splash:uploaded', function() {
       $w('results').hide();
+    });
+  },
+
+  reload: function() {
+    this.setupSearchbox($('[data-pjax-container]').find($ws('search')));
+  },
+
+  setupSearchbox: function(search) {
+    var form    = $(search);
+    var input   = form.find(':text');
+    var results = $('#' + form.data('search-results'));
+
+    form.submit(function() { return false; });
+
+    input.searchbox({
+      url: form.attr('action'),
+      dom_id: '#' + results.attr('id'),
+      param: input.attr('name'),
+      delay: 1000
+    });
+
+    input.bind('after.searchbox', function() {
+      results.show();
     });
   }
 };
@@ -503,6 +513,7 @@ Widgets.Pjax = {
 
     $('body').bind('pjax:end', function() {
       Widgets.Feed.reload();
+      Widgets.Search.reload();
     });
   }
 }
