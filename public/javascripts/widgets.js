@@ -28,21 +28,15 @@ Widgets.Feed = {
       $w('event-update-counter').hide();
     });
 
-    if ($w('events').data('update_on_splash') === true) {
-      $w('results').live('splash:splash', function() {
-        refresh();
-      });
-
-      $w('upload-container').live('splash:uploaded', function() {
-        refresh();
-      });
-
-      $w('events').live('splash:splash', function() {
-        refresh();
-      });
-    }
+    $w('results').live('splash:splash', maybeRefresh);
+    $w('upload-container').live('splash:uploaded', maybeRefresh);
+    $w('events').live('splash:splash', maybeRefresh);
 
     setInterval(this.fetchUpdateCount, 60000); // 1 minute
+
+    function maybeRefresh() {
+      if ($w('events').data('update_on_splash') === true) refresh();
+    }
 
     function refresh(params) {
       var paramStr;
