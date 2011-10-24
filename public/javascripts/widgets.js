@@ -278,9 +278,10 @@ Widgets.Upload = {
 
     $($ws('upload-container') + ' form').
       live('ajax:success', function(_, data) {
-        $w('upload-container').html(data);
+        $w('upload-container').replaceWith(data);
 
-        $(this).trigger('splash:uploaded').hide();
+        $w('upload-container').trigger('splash:uploaded');
+        $w('upload').hide();
 
         self.reload();
       }).live('ajax:error', function(_, data) {
