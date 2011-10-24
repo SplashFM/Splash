@@ -1,7 +1,7 @@
 %h2
   = t('.title')
 
-  = semantic_form_for @user do |f|
+  = semantic_form_for @user, :remote => true, :html => {:'data-widget' => 'user-edit'} do |f|
     = f.inputs t('.basic_settings') do
       = f.input :name
       = f.input :email

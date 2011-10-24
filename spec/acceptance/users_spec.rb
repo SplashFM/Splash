@@ -1,6 +1,8 @@
 require 'acceptance/acceptance_helper'
 
 feature "Edit user", :js => true do
+  subject { page }
+
   background do
     go_to 'profile'
     click_link t('users.show.edit')
@@ -10,13 +12,13 @@ feature "Edit user", :js => true do
     fill_in 'user_name', :with => 'Mojo Test'
     click_button 'user_submit'
 
-    page.current_path.should == home_path
+    should have_content(t('flash.actions.update.notice', {resource_name: "User"}))
   end
 
   scenario "fill in name field with blank" do
     fill_in 'user_name', :with => ''
     click_button 'user_submit'
 
-    page.has_content?("can't be blank")
+    should have_content(t('errors.messages.blank'))
   end
 end

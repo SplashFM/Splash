@@ -2,7 +2,7 @@
                :"data-large-height" => current_user.avatar_geometry(:large).try('height'), |
                :"data-original-width" => current_user.avatar_geometry(:original).try('width') }
 
-= form_for current_user, :remote => true, :id => 'crop_form' do |form|
+= form_for current_user, :remote => true, :html => {:id => 'crop_form', :'data-type' => 'json'} do |form|
   - for attribute in [:crop_x, :crop_y, :crop_w, :crop_h]
     = form.hidden_field attribute, :id => attribute
 

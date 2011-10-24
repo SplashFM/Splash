@@ -452,6 +452,19 @@ Widgets.UserAvatar = {
   }
 }
 
+Widgets.UserProfile = {
+  init: function(){
+    $w("user-edit").live('ajax:success', function() {
+      Widgets.FlashTemplate.success(I18n.t('flash.actions.update.notice', {resource_name: "User"}));
+    })
+    .live('ajax:error', function(evt, xhr, status, error){
+      $.each($.parseJSON(xhr.responseText), function(key,value){
+        Widgets.FlashTemplate.error(key + ': ' + value);
+      })
+    });
+  }
+}
+
 Widgets.Avatar = {
   init: function(){
     $("form.edit_user")
@@ -574,6 +587,7 @@ $(document).ready(function() {
   Widgets.TrackInfo.init();
   Widgets.Editable.init();
   Widgets.UserAvatar.init();
+  Widgets.UserProfile.init();
   Widgets.SplashAction.init();
   Widgets.Feed.init();
   Widgets.Notification.init();
