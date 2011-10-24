@@ -35,4 +35,8 @@ describe User, :adapter => :postgresql do
     @ex_follower.unfollow(@followed)
     @ex_follower.should_not be_following(@followed)
   end
+
+  it "starts with a splash score of 10 on account creation" do
+    create!(User).splash_score.should == 10
+  end
 end

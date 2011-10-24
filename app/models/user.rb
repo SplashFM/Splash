@@ -107,7 +107,11 @@ class User < ActiveRecord::Base
   def influence_score
     total_users = User.count
 
-    (90 * (((total_users - influence_rank) / total_users.to_f) ** 2)).floor
+    if influence_rank
+      (90 * (((total_users - influence_rank) / total_users.to_f) ** 2)).floor
+    else
+      0
+    end
   end
 
   def splash_score
