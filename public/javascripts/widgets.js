@@ -413,6 +413,10 @@ Widgets.FlashTemplate = {
 
 Widgets.Editable = {
   init: function(){
+    this.reload();
+  },
+
+  reload: function(){
     $w("editable").editable(submitEdit, {type    : 'textarea',
                                      cancel  : I18n.t('jeditable.labels.cancel'),
                                      submit  : I18n.t('jeditable.labels.submit'),

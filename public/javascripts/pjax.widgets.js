@@ -9,6 +9,7 @@ Widgets.Pjax = {
       Widgets.Feed.reload();
       Widgets.Search.reload();
       Widgets.Upload.reload();
+      Widgets.Editable.reload();
     });
   }
 }

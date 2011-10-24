@@ -55,6 +55,7 @@ en:
       unfollow: Unfollow
       following: Following
       followers: Followers
+      tagline: TAGLINE
     edit:
       title: 'User profile'
       site_connected: %{site} connected

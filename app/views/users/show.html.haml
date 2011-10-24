@@ -16,7 +16,7 @@
       = @user.splash_score
       .tag-line-wrapper
         %span.tag-line-label
-          tagline
+          = t('.tagline')
         .tag-line.edit{:'data-action' => "#{user_path(current_user)}",
                       :'data-widget' => "#{ 'editable' if tagline_editable?}"}
           = @user.tagline
