@@ -35,6 +35,8 @@ module UI
            data:  {"user[email]": "#{user.email}",
                    "user[password]": "#{user.password}"}});
       JS
+
+      visit dashboard_path
     end
 
     def fetch_event_updates
@@ -45,6 +47,10 @@ module UI
       fill_in "token-input-q", :with => filter
 
      find(".token-input-dropdown-facebook ul li:first-child").click
+    end
+
+    def go_to(section)
+      click_link t("simple_navigation.menus.#{section}")
     end
 
     def refresh_events
@@ -66,6 +72,10 @@ module UI
 
     def see_more_results
       click_link(t('searches.page.see_more'))
+    end
+
+    def see_splasher_profile
+      find('[data-widget = "profile-link"]').click
     end
 
     def splash(track, comment = nil)
@@ -100,7 +110,7 @@ module UI
     end
 
     def upload_track(path, comment = nil)
-      wait_until(10) { page.has_link?(t('upload.upload')) }
+      wait_until(10) { page.has_link?(t('upload.upload'), :visible => true) }
 
       click_link t('upload.upload')
 

@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "Global search", :adapter => :postgresql, :js => true do
   subject { page }
 
-  background { visit dashboard_path }
+  background { go_to 'home' }
 
   scenario "Only tracks found" do
     track = create(Track).title!('Close to the Edge')

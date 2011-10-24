@@ -12,7 +12,7 @@ feature "Resplashing", :js => true do
   end
 
   scenario "Resplash", :driver => :selenium do
-    visit dashboard_path
+    go_to 'home'
 
     resplash Splash.first
 
@@ -24,7 +24,7 @@ feature "Resplashing", :js => true do
       track(Splash.first.track).
       user!(user)
 
-    visit dashboard_path
+    go_to 'home'
 
     should_not have_link(t('splashes.splash.resplash'))
   end
@@ -32,13 +32,13 @@ feature "Resplashing", :js => true do
   scenario "Assign a ripple to original splasher on resplash", :driver => :selenium do
     User.reset_ripple_counts
 
-    visit dashboard_path
+    go_to 'home'
 
     splash = Splash.first
 
     resplash splash
 
-    visit user_slug_path(splash.user)
+    with_splash(splash) { see_splasher_profile }
 
     should have_ripples(1)
   end

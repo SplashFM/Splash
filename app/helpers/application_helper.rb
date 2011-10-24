@@ -39,6 +39,6 @@ module ApplicationHelper
   end
 
   def link_to_user(user)
-    link_to(user.name, user_slug_path(user))
+    link_to(user.name, user_slug_path(user), :'data-widget' => 'profile-link')
   end
 end

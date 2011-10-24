@@ -1,7 +1,10 @@
 require 'acceptance/acceptance_helper'
 
 feature "Edit user", :js => true do
-  background { visit edit_user_path(user) }
+  background do
+    go_to 'profile'
+    click_link t('users.show.edit')
+  end
 
   scenario "fill in name field with Mojo Test" do
     fill_in 'user_name', :with => 'Mojo Test'

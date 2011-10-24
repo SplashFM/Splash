@@ -10,7 +10,7 @@ feature "Profile activity feed", :js => true do
     create(Splash).track(track1).user!(user)
     create(Splash).track(track2).user!(create!(User))
 
-    visit profile_path
+    go_to 'profile'
 
     should have_splash(track1)
     should_not have_splash(track2)

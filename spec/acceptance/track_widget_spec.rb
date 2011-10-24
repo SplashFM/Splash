@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "Track widget", :js => true do
   subject { page }
 
-  background { visit dashboard_path }
+  background { go_to 'home' }
 
   scenario "Splashable song" do
     track = create!(Track)
@@ -13,11 +13,11 @@ feature "Track widget", :js => true do
     end
   end
 
-  scenario "Splashed song" do
+  scenario "Splashed song", :driver => :selenium do
     track  = create!(Track)
     splash = create(Splash).user(user).track!(track)
 
-    visit dashboard_path
+    go_to 'home'
 
     search_for track.title, :track do
       should_not have_splash_action(track)
@@ -30,7 +30,7 @@ feature "Track widget", :js => true do
     track  = create(UndiscoveredTrack).data!(f)
     splash = create(Splash).user(user).track!(track)
 
-    visit dashboard_path
+    go_to 'home'
 
     with_splash splash do
       expand_track
@@ -46,7 +46,7 @@ feature "Track widget", :js => true do
       purchase_url_raw!("http://somewhere.over.the/rainbow")
     splash = create(Splash).user(user).track!(track)
 
-    visit dashboard_path
+    go_to 'home'
 
     with_splash splash do
       expand_track
@@ -63,7 +63,7 @@ feature "Track widget", :js => true do
         album_art_url!("http://somewhere.over.the/rainbow.png")
       splash = create(Splash).user(user).track!(track)
 
-      visit dashboard_path
+      go_to 'home'
 
       with_splash splash do
         should have_album_art("http://somewhere.over.the/rainbow.png")
@@ -74,7 +74,7 @@ feature "Track widget", :js => true do
       track = create(Track).
         album_art_url!("http://somewhere.over.the/rainbow.png")
 
-      visit dashboard_path
+      go_to 'home'
 
       search_for track.title, :track do
         should have_no_album_art

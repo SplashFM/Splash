@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "Upload track", :js => true, :driver => :selenium do
   subject { page }
 
-  background { visit dashboard_path }
+  background { go_to 'home' }
 
   scenario "Upload track" do
     t = build(Track).title!('Steady as she goes')

@@ -2,7 +2,7 @@ require 'acceptance/acceptance_helper'
 
 shared_examples_for "Live updates" do
   background do
-    visit current_path
+    go_to current_page
   end
 
   scenario "Update counter after splash", :js => false do
@@ -25,7 +25,7 @@ shared_examples_for "Live updates" do
     user_splash
 
     sleep 2
-    visit current_path
+    go_to current_page
     fetch_event_updates
 
     page.should have_no_event_updates
@@ -56,8 +56,8 @@ feature "Live updates (Dashboard)", :js => true, :driver => :selenium do
 
   it_should_behave_like "Live updates"
 
-  def current_path
-    dashboard_path
+  def current_page
+    'home'
   end
 
   def user_splash
@@ -71,8 +71,8 @@ feature "Live updates (User profile)", :js => true, :driver => :selenium do
 
   it_should_behave_like "Live updates"
 
-  def current_path
-    user_path(user)
+  def current_page
+    'profile'
   end
 
   def user_splash

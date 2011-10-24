@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature "Splash tracks", :js => true do
   subject { page }
 
-  background { visit dashboard_path }
+  background { go_to 'home' }
 
   scenario "Splash existing track" do
     track = create!(Track)
@@ -48,7 +48,7 @@ feature "Splash tracks", :js => true do
   end
 
   scenario "Splashing at own profile", :driver => :selenium do
-    visit profile_path
+    go_to 'profile'
 
     track = create!(Track)
 
