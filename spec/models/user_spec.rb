@@ -7,6 +7,13 @@ describe User, :adapter => :postgresql do
     User.with_text('Jack Johnson').should have(1).result
   end
 
+  it "searched by name, accepts special characters" do
+    create(User).email('jack@mojotech.com').
+                 name!('Jack Johnson (parenthesis)')
+
+    User.with_text('Jack Johnson (parenthesis)').should have(1).result
+  end
+
   it "may not be found" do
     create(User).with_name!('Sigmund Freud')
 

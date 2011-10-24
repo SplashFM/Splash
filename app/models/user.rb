@@ -124,7 +124,12 @@ class User < ActiveRecord::Base
   #
   # @return a (possibly empty) list of users
   def self.with_text(name)
-    search(:name => name)
+    q = connection.quote_string(name)
+    select("users.*, ts_rank(to_tsvector('english', users.name),
+            plainto_tsquery('english', '#{q}')) name_rank").
+    where(["to_tsvector('english', users.name) @@
+            plainto_tsquery('english', ?)", name]).
+    order('name_rank desc')
   end
 
   def self.with_social_connection(provider, uid)
