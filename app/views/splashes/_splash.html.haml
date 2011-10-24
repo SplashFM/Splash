@@ -3,7 +3,7 @@
   .splash_text_info
     = render "tracks/track_summary", :track => splash.track
     = splash.track.splash_count
-    = t('.by', :user => splash.user.name) unless splash.owned_by?(current_user)
+    = attribute_splash(splash)
     %ul.actions
       %li= play_widget(splash.track)
       %li= expand_splash(splash)

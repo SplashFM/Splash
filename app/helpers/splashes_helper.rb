@@ -10,4 +10,8 @@ module SplashesHelper
             :'data-type'   => 'html',
             :'data-widget' => 'splash-info-toggle')
   end
+
+  def attribute_splash(splash)
+    t('.by', :user => splash.user.name) unless splash.owned_by?(current_user)
+  end
 end
