@@ -12,6 +12,7 @@ module SplashesHelper
   end
 
   def attribute_splash(splash)
-    t('.by', :user => splash.user.name) unless splash.owned_by?(current_user)
+    t('.by', :user => link_to_user(splash.user)).html_safe unless
+      splash.owned_by?(current_user)
   end
 end
