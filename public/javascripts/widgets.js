@@ -266,7 +266,9 @@ Widgets.Upload = {
   init: function() {
     var self = this;
 
-    $w('upload-toggle').live('click', function() {
+    $w('upload-toggle').live('click', function(e) {
+      e.preventDefault();
+
       $($(this).attr('href')).toggle();
     });
 
@@ -326,7 +328,9 @@ Widgets.SplashAction = {
       $(this).trigger('splash:splash').hide();
     });
 
-    $w("splash-toggle").live('click', function() {
+    $w("splash-toggle").live('click', function(e) {
+      e.preventDefault();
+
       $($(this).attr('href')).toggle();
     });
   }
