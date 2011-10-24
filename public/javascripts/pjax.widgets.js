@@ -8,6 +8,7 @@ Widgets.Pjax = {
     $('body').bind('success.pjax', function() {
       Widgets.Feed.reload();
       Widgets.Search.reload();
+      Widgets.Upload.reload();
     });
   }
 }

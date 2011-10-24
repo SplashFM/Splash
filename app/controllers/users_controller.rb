@@ -63,8 +63,6 @@ class UsersController < ApplicationController
 
   def top
     @users = User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
-
-    render :layout => ! request.xhr?
   end
 
   private

@@ -25,27 +25,11 @@
   <body>
 <!--[if lt IE 7]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;'> <a href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http://www.theie6countdown.com/images/upgrade.jpg" border="0" height="42" width="820" alt="" /></a></div> <![endif]-->
     <div class="yui3-g">
-      <div id="header">
-        <h1><%= Rails.application.name %></h1>
-	      <span id="breadcrumb"><%= controller.controller_name.titleize -%></span>
-
-	      <div class="clear"></div>
-        <%= render :partial => 'shared/auth_controls' unless hidden?(:auth_controls) %>
-        <% unless hidden?(:navigation) %>
-          <div id="main_nav"><%= render_navigation %></div>
-          <%= render :partial => 'shared/admin_nav' if signed_in_as_superuser? %>
-          <% if logged_in? %>
-            <%= render_upload_form :upload %>
-            <%= render 'shared/search', :type => 'global' %>
-            <%= render 'shared/header_icons' %>
-          <% end %>
-        <% end %>
+      <div data-pjax-container>
+        <%= render :template => 'layouts/pjax' %>
       </div>
       <% if logged_in? %><div id="player-area"></div><% end %>
-      <div id="main" data-pjax-container>
-        <%= render :partial => 'shared/flash_messages' %>
-        <%= yield -%>
-      </div>
+
       <div id="footer">
         <div id="by_line">
           Developed by <%= link_to 'Mojo Tech', 'http://www.mojotech.com' %>

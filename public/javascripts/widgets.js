@@ -172,7 +172,9 @@ Widgets.Search = {
   },
 
   reload: function() {
-    this.setupSearchbox($('[data-pjax-container]').find($ws('search')));
+    $('[data-pjax-container]').find($ws('search')).each(function(index, form) {
+      Widgets.Search.setupSearchbox(form)
+    });
   },
 
   setupSearchbox: function(search) {
