@@ -4,6 +4,8 @@ feature "Filter feed", :js => true, :driver => :selenium do
   subject { page }
 
   scenario "Filter by performer" do
+    pending
+
     track1  = create(Track).title("Track 1").with_performer!("Yes")
     splash1 = create(Splash).user(user).track!(track1)
     track2  = create(Track).title("Track 2").with_performer!("Nirvana")
@@ -17,6 +19,8 @@ feature "Filter feed", :js => true, :driver => :selenium do
   end
 
   scenario "Filter by genre" do
+    pending
+
     track1  = create(Track).title("Track 1").with_genre!("Rock")
     splash1 = create(Splash).user(user).track!(track1)
     track2  = create(Track).title("Track 2").with_genre!("Folk")
