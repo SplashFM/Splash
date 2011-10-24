@@ -114,7 +114,7 @@ module UI
 
 
     def with_splash(splash, &block)
-      within(track_css(splash.track) + "[data-widget = 'splash']", &block)
+      within("[data-splash_id = '#{splash.id}'][data-widget = 'splash']", &block)
     end
 
     def with_splash_info(&block)
