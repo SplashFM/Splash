@@ -2,7 +2,7 @@
 // http://rpheath.com
 
 (function($) {
-  const SETTINGS = {
+  var SETTINGS = {
     url: '/search',
     param: 'query',
     dom_id: '#results',
@@ -10,7 +10,7 @@
     loading_css: '#loading'
   };
 
-  const SearchBox = function(settings) {
+  var SearchBox = function(settings) {
     var self = this;
 
     this.settings = settings;
