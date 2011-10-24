@@ -1,0 +1,18 @@
+Widgets.Pjax = {
+  init: function() {
+    $("#header a:not([data-remote]):not([data-skip-pjax]):not(.fancybox):not([data-widget = \"play\"]):not([href^=#])")
+            .pjax('[data-pjax-container]', {timeout: 2500});
+    $("#main a:not([data-remote]):not([data-skip-pjax]):not(.fancybox):not([data-widget = \"play\"]):not([href^=#])")
+            .pjax('[data-pjax-container]', {timeout: 2500});
+
+    $('body').bind('pjax:end', function() {
+      Widgets.Feed.reload();
+      Widgets.Search.reload();
+    });
+  }
+}
+
+
+$(document).ready(function() {
+  Widgets.Pjax.init();
+});

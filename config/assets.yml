@@ -22,7 +22,10 @@ javascripts:
     - public/javascripts/jquery.Jcrop.min.js
     - public/javascripts/jquery.tokeninput.js
     - public/javascripts/jquery.jcarousel.js
+
+  pjax:
     - public/javascripts/jquery.pjax.js
+    - public/javascripts/pjax.widgets.js
 
 stylesheets:
   base:

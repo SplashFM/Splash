@@ -3,6 +3,7 @@
   <head>
     <title><%= Rails.application.name %></title>
     <%= include_javascripts :base %>
+    <%= include_javascripts :pjax if logged_in? %>
     <%= active_scaffold_includes if active_scaffold? %>
     <%= include_stylesheets :base, :media => 'all' %>
     <%= csrf_meta_tag %>
