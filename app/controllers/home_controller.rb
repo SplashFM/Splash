@@ -3,7 +3,7 @@ require 'event_generator'
 class HomeController < ApplicationController
   include EventGenerator
 
-  skip_before_filter :require_user
+  skip_before_filter :require_user, :only => :index
 
   def index
     if logged_in?
