@@ -103,8 +103,6 @@ feature "Upload track", :js => true, :driver => :selenium do
   end
 
   def should_have_splash
-    visit profile_path
-
     with_splash Splash.first do
       expand_track
     end
