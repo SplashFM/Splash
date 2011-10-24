@@ -1,8 +1,10 @@
 <% devise_mapping = Devise.mappings[:user] %>
 <div id="auth_controls">
   <% if logged_in? %>
-    <%= current_user.email %> <%= link_to '[Sign out]',
-    destroy_session_path(:user) %>
+    <%= current_user.email %> 
+    <%= link_to t('devise.labels.sign_out'), 
+                destroy_session_path(:user), 
+                :'data-skip-pjax' => true %>
     <% if session[:impersonated_by] %>
       <%= link_to '[Deimpersonate]', deimpersonate_admin_users_path, :method => :post %>
     <% end %>

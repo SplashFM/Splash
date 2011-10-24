@@ -45,5 +45,6 @@ en:
       password_reset: 'Send me reset password instructions'
     labels:
       sign_in: 'Sign in'
+      sign_out: '[Sign out]'
     omniauth:
       site_link: '%{site} linked successfully'
