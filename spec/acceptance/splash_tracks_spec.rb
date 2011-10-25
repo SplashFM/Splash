@@ -12,7 +12,6 @@ feature "Splash tracks", :js => true do
       splash track
     end
 
-    should have_splashed(track)
     should have_splash(track)
   end
 
@@ -47,7 +46,7 @@ feature "Splash tracks", :js => true do
     should_not have_splash(track)
   end
 
-  scenario "Splashing at own profile", :driver => :selenium do
+  scenario "Splashing at own profile" do
     go_to 'profile'
 
     track = create!(Track)

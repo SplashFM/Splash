@@ -33,7 +33,7 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     end
   end
 
-  scenario "Paginated results", :driver => :selenium do
+  scenario "Paginated results" do
     per_page     = SearchesController::PER_PAGE
     pages        = 3
     total_tracks = per_page * pages

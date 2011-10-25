@@ -5,7 +5,7 @@ shared_examples_for "Live updates" do
     go_to current_page
   end
 
-  scenario "Update counter after splash", :js => false do
+  scenario "Update counter after splash" do
     sleep 2
     splash_and_fetch
 
@@ -47,7 +47,7 @@ shared_examples_for "Live updates" do
   end
 end
 
-feature "Live updates (Dashboard)", :js => true, :driver => :selenium do
+feature "Live updates (Dashboard)", :js => true do
   subject { page }
 
   background do
@@ -66,7 +66,7 @@ feature "Live updates (Dashboard)", :js => true, :driver => :selenium do
 end
 
 
-feature "Live updates (User profile)", :js => true, :driver => :selenium do
+feature "Live updates (User profile)", :js => true do
   subject { page }
 
   it_should_behave_like "Live updates"

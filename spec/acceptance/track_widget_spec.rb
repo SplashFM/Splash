@@ -13,7 +13,7 @@ feature "Track widget", :js => true do
     end
   end
 
-  scenario "Splashed song", :driver => :selenium do
+  scenario "Splashed song" do
     track  = create!(Track)
     splash = create(Splash).user(user).track!(track)
 

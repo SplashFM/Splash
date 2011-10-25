@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Upload track", :js => true, :driver => :selenium do
+feature "Upload track", :js => true do
   subject { page }
 
   background { go_to 'home' }
@@ -34,7 +34,7 @@ feature "Upload track", :js => true, :driver => :selenium do
     should_have_splash
   end
 
-  scenario "Upload using bad data", :driver => :selenium do
+  scenario "Upload using bad data" do
     track = build(Track).title("").with_performer!("")
 
     upload file('sky_sailing_steady_as_she_goes.m4a'),
