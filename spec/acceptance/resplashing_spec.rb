@@ -4,11 +4,7 @@ feature "Resplashing", :js => true do
   subject { page }
 
   background do
-    splash = create(Splash).
-      track(create!(Track)).
-      user!(create(User).with_required_info!)
-
-    user.following << splash.user
+    user.following << create_splash.user
   end
 
   scenario "Resplash" do
@@ -41,6 +37,12 @@ feature "Resplashing", :js => true do
     with_splash(splash) { see_splasher_profile }
 
     should have_ripples(1)
+  end
+
+  def create_splash
+    create(Splash).
+      track(create!(Track)).
+      user!(create(User).with_required_info!)
   end
 end
 
