@@ -4,6 +4,10 @@ module RedisRecord
                          :port => AppConfig.redis['port'])
   end
 
+  def self.reset_all
+    redis.keys('*').each { |k| redis.del(k) }
+  end
+
   module ClassMethods
     def key(field)
       "#{Rails.env}/#{redis_base_key}/#{field}"
