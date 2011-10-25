@@ -1,4 +1,6 @@
 class UserMailer < ActionMailer::Base
+  default :from => "notifications@splash.fm"
+
   def following(follower, followed)
     @user = follower
     mail(:to => followed.email,
