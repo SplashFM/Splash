@@ -3,11 +3,9 @@ require 'acceptance/acceptance_helper'
 feature "Resplashing", :js => true do
   subject { page }
 
-  background do
-    user.following << create_splash.user
-  end
-
   scenario "Resplash" do
+    user.following << create_splash.user
+
     go_to 'home'
 
     resplash Splash.first
@@ -16,9 +14,11 @@ feature "Resplashing", :js => true do
   end
 
   scenario "Only resplash once" do
-    create(Splash).
-      track(Splash.first.track).
-      user!(user)
+    splash = create_splash
+
+    user.following << splash.user
+
+    create(Splash).track(splash.track).user!(user)
 
     go_to 'home'
 
