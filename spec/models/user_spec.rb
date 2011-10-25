@@ -41,4 +41,8 @@ describe User, :adapter => :postgresql do
 
     create!(User).splash_score.should == 10
   end
+
+  it "should start with no ripples" do
+    create!(User).ripple_count.should == 0
+  end
 end
