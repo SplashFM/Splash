@@ -37,6 +37,8 @@ describe User, :adapter => :postgresql do
   end
 
   it "starts with a splash score of 10 on account creation" do
+    RedisRecord.reset_all
+
     create!(User).splash_score.should == 10
   end
 end
