@@ -10,8 +10,25 @@ module UI
       click_link I18n.t("upload.cancel")
     end
 
+    def change_tagline(text)
+      find('[data-widget = "editable"]').click
+
+      within(".tag-line") do
+        fill_in 'value', :with => text
+      end
+
+      click_button "Change"
+    end
+
     def expand_track
       click_link t("splashes.splash.expand")
+    end
+
+    def follow(user)
+      search_for user.name, :global
+      click_link user.name
+
+      click_link t('follow', :scope => 'users.show')
     end
 
     def login(user)
