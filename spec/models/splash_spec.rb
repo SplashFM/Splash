@@ -44,6 +44,14 @@ describe Splash do
     }.should change(u, :splash_count).by(1)
   end
 
+  it "freezes the splash hierarchy" do
+    t  = create!(Track)
+    s1 = create(Splash).track(t).user!(create!(User))
+    s2 = create(Splash).track(t).user(create!(User)).parent!(s1)
+
+    Splash.find(s2.id).user_path.should == [s1.id.to_s]
+  end
+
   it "updates the user's influence rank" do
     u1 = create!(User)
     create(Splash).track(create!(Track)).user!(u1)

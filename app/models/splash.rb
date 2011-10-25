@@ -50,11 +50,11 @@ class Splash < ActiveRecord::Base
   end
 
   def user_path
-    (read_attribute(:user_path) || '').split(',')
+    (user_list || '').split(',')
   end
 
   def user_path=(user_ids)
-    write_attribute(:user_path, user_ids.join(','))
+    self.user_list = user_ids.join(',')
   end
 
   private
