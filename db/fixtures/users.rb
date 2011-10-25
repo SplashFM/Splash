@@ -30,6 +30,15 @@ unless Rails.env.production?
     user.slug = 'jack-close'
   end
 
+  User.seed(:email) do |user|
+    user.email = 'jack.johnson@mojotech.com'
+    user.encrypted_password = '$2a$10$HgMJqHP9ddNv.BEbWntYleKdVzJijjmnlyUBTkmUIYdj4AzwM9Iha' # password
+    user.superuser = false
+    user.confirmed_at = Time.now
+    user.name = 'Jack Johnson'
+    user.slug = 'jack-johnson'
+  end
+
   1.upto(30) { |i|
     User.seed(:email) do |user|
       user.email = "user#{i}@mojotech.com"
