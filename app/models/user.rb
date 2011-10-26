@@ -227,7 +227,7 @@ class User < ActiveRecord::Base
   end
 
   def fetch_avatar_needed?
-    !self.avatar.exists? && !self.provider.blank?
+    !self.avatar.exists? && !self.initial_provider.blank?
   end
 
   def avatar_exists_or_able_to_download?
