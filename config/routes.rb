@@ -20,7 +20,9 @@ Scaphandrier::Application.routes.draw do
 
   resources :events, :only => :index
   resources :tags
-  resources :splashes
+  resources :splashes do
+    resources :comments
+  end
 
   resources :tracks do
     resources :splashes

@@ -21,3 +21,5 @@
         - elsif splash.track.purchasable?
           = link_to t(".purchase"), splash.track.purchase_url, :'data-widget' => 'purchase'
   .clear
+  = render :partial => 'comments/index', :locals => {:splash => splash}
+.clear

@@ -132,6 +132,15 @@ module UI
       }
     end
 
+    def add_comment
+      click_link t("comments.index.add_comment")
+
+      within("[data-widget = comment-form]") do
+        fill_in 'comment_body', :with => "Splash's comment"
+        click_button 'comment_submit'
+      end
+    end
+
     def upload(path, track = nil, comment = nil)
       upload_track(path, comment)
 

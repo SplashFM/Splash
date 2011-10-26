@@ -39,6 +39,10 @@ en:
       post_to_facebook: Post to Facebook?
       post_to_twitter: Post to Twitter?
 
+  comments:
+    index:
+      add_comment: Add comment
+
   tracks:
     widget:
       splashed: Splashed

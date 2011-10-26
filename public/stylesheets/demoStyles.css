@@ -48,13 +48,6 @@ body .profile .box-user-info .rating
 	margin-top: 10px;
 }
 
-.events_wrapper .splash
-{
-	margin-top: 10px;
-	width: 300px;
-	float: left;
-}
-
 #main .profile
 {
 	width: 830px;
@@ -250,12 +243,6 @@ body #main_nav a:hover
 	color:#303030;
 }
 
-
-.splash .splash_text_info
-{
-	position: relative;
-	top: 5px;
-}
 .splash img
 {
 	border:1px solid #000;

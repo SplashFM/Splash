@@ -12,6 +12,10 @@ module UI
       has_content?(I18n.t('events.updates', :count => count))
     end
 
+    def has_comments?(count)
+      has_css?(".comments li", :count => count)
+    end
+
     def has_no_event_updates?
       has_no_css?('[data-widget = "event-update-counter"]', :visible => true)
     end

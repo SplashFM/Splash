@@ -15,4 +15,17 @@ module SplashesHelper
     t('.by', :user => link_to_user(splash.user)).html_safe unless
       splash.owned_by?(current_user)
   end
+
+  def splash_comment_form(splash)
+    form = form_for [splash, splash.comments.build],
+                :remote => true,
+                :html => { :'data-widget'  => 'comment',
+                           :'data-type'    => 'html',
+                           :'data-result' => "#comments-#{splash.id}"} do |f|
+
+      f.text_area(:body, :size => '20x3') + f.submit
+    end
+
+    form
+  end
 end

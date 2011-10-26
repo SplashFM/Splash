@@ -103,6 +103,28 @@ Widgets.CommentBox = {
   }
 }
 
+Widgets.Comment = {
+  init: function(){
+    $w("add-comment-toggle").live('click', function(e) {
+      e.preventDefault();
+
+      $($(this).attr('href')).toggle();
+    });
+
+    $w("comment").live('ajax:error', function(evt, xhr, status, error) {
+      $.each($.parseJSON(xhr.responseText), function(key,value){
+        Widgets.FlashTemplate.error(key + ': ' + value);
+      })
+    })
+    .live('ajax:success', function(evt, xhr, status, error) {
+      var form = $(this);
+      $(form.attr('data-result')).html(xhr);
+      form.find('textarea').val("");
+      form.parent().toggle();
+    })
+  }
+}
+
 Widgets.Feed = {
   filters: {},
 
@@ -618,6 +640,7 @@ Widgets.Notification = {
 }
 
 $(document).ready(function() {
+  Widgets.Comment.init();
   Widgets.Player.init();
   Widgets.Search.init();
   Widgets.Track.init();

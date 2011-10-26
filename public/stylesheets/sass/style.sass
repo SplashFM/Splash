@@ -245,8 +245,35 @@ form.visitor .inline-errors
         position: relative
         top: 10px
 
+
 /* comment
 .comment-box
   height: 3em
   width: 20em
   border: 1px solid #06C
+
+@mixin comment-button($side)
+  float: #{$side}
+  padding-left: 20px
+  padding-right: 20px
+  margin-left: 10px
+  border: 1px solid #06C
+
+.splash
+  position: relative
+  width: 600px
+  border: 1px solid #06C
+  margin-top: 10px
+  padding: 5px
+
+  .comment
+    float: right
+    border: 1px solid #06C
+    width: 280px
+    padding: 0px 5px 10px 0px
+    .comments-button
+      @include comment-button(left)
+    .add-comment-button
+      @include comment-button(right)
+    .comments
+      color: red
