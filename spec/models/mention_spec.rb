@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe Mention do
+  it "creates no mentions if field is blank" do
+    create(Splash).
+      track(create!(Track)).
+      user!(create!(User))
+
+    Mention.all.should be_empty
+  end
+
   it "creates a mention from a splash's comment field" do
     recipient = create(User).with_required_info!
     author    = create!(User)

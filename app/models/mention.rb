@@ -10,6 +10,8 @@ class Mention < Notification
   end
 
   def self.extract_recipients(text)
-    User.find(*text.scan(/@{(\d+)}/))
+    mentions = text.try(:scan, /@{(\d+)}/)
+
+    mentions.present? ? User.find(*mentions) : []
   end
 end
