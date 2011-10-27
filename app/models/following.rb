@@ -1,8 +1,11 @@
 class Following < Notification
   def self.notify(relationship)
     create! :notified => relationship.followed,
-            :notifier => relationship.follower,
-            :title    => I18n.t('notifications.following',
-                                :follower => relationship.follower.name)
+            :notifier => relationship.follower
+  end
+
+  def title
+    I18n.t('notifications.following',
+           :follower => notifier.name)
   end
 end
