@@ -10,6 +10,8 @@ feature "Comment on splash tracks", :js => true do
       splash track
     end
 
+    expand_splash
+
     add_comment
 
     should have_comments(1)

@@ -20,6 +20,10 @@ module UI
       click_button "Change"
     end
 
+    def expand_splash
+      within('[data-widget = "event-list"]') { find('li:first-child').click }      
+    end
+
     def expand_track
       click_link t("splashes.splash.expand")
     end

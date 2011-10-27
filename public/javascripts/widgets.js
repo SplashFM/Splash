@@ -111,6 +111,14 @@ Widgets.Comment = {
       $($(this).attr('href')).toggle();
     });
 
+    $w("comment-container").live('click', function(e) {
+      e.stopPropagation();
+    })
+
+    $w("splash").live('click', function(e){
+      $(this).find("[data-widget=\"comment-container\"]").toggle();
+    })
+
     $w("comment").live('ajax:error', function(evt, xhr, status, error) {
       $.each($.parseJSON(xhr.responseText), function(key,value){
         Widgets.FlashTemplate.error(key + ': ' + value);
