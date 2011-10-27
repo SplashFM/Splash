@@ -13,16 +13,24 @@ feature "Mentioning", :js => true do
       splash t, "This is a comment @{#{u.id}}."
     }
 
-    logout
-
-    fast_login u
-
-    should have_notifications(1)
-
-    with_notifications { should have_mention(user) }
+    check_mention u
   end
 
-  scenario "Resplashing"
+  scenario "While resplashing" do
+    u      = create(User).with_required_info.following!([user])
+    pu     = create(User).with_required_info!
+    parent = create(Splash).track(create!(Track)).user!(pu)
+
+    user.following << pu
+
+    Notification.delete_all
+
+    go_to 'home'
+
+    resplash parent, "This is a comment @{#{u.id}}."
+
+    check_mention(u)
+  end
 
   scenario "Commenting"
 
@@ -35,5 +43,15 @@ feature "Mentioning", :js => true do
   scenario "Cursor is over user name"
 
   scenario "Delete mention"
+
+  def check_mention(u)
+    logout
+
+    fast_login u
+
+    should have_notifications(1)
+
+    with_notifications { should have_mention(user) }
+  end
 end
 

@@ -75,9 +75,12 @@ module UI
       within('[data-widget = "event-update-counter"]') { find('a').click }
     end
 
-    def resplash(splash)
+    def resplash(splash, comment = nil)
       with_splash(splash) {
         click_link t('splashes.splash.resplash')
+        if comment
+          find('[data-widget = "comment-box"]').set(comment)
+        end
         click_button t('splashes.splash.resplash')
       }
     end
