@@ -95,6 +95,10 @@ module UI
     def splash(track, comment = nil)
       set_splash_comment track, comment
 
+      submit_splash track
+    end
+
+    def submit_splash(track)
       with_found_track(track) {
         click_button I18n.t('tracks.widget.splash')
       }
