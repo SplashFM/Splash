@@ -8,8 +8,6 @@ class NotificationsObserver < ActiveRecord::Observer
   private
 
   def notify_relationship(relationship)
-    Notification.create(:notified => relationship.followed,
-                        :notifier => relationship.follower,
-                        :title => I18n.t(:following, :scope => 'emails.subjects', :follower => relationship.follower.name))
+    Following.notify relationship
   end
 end
