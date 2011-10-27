@@ -49,10 +49,13 @@ module TracksHelper
                    :remote => true,
                    :html   => {:id => id, :'data-widget' => 'splash-action'} do |f|
 
-        f.text_area(:comment) \
-        + post_to_site_widget('facebook', f) \
-        + post_to_site_widget('twitter', f) \
-        + f.submit(label)
+        f.hidden_field(:comment, :'data-widget' => 'comment-field') +
+          content_tag('div', '', :contenteditable => true,
+                                 :'data-widget' => 'comment-box',
+                                 :class => 'comment-box') +
+          post_to_site_widget('facebook', f) +
+          post_to_site_widget('twitter', f) +
+          f.submit(label)
       end
 
       l + f

@@ -16,6 +16,50 @@ Widgets.Paginate = {
   }
 }
 
+Widgets.CommentBox = {
+  init: function() {
+    $w('comment-box').autocomplete({
+      focus: function() { return false },
+
+      source: function(req, resp) {
+        var term    = req.term;
+        var at      = term.lastIndexOf('@');
+        var mention = term.substr(at + 1);
+
+        $.ajax({
+          url: Routes.users_path({filter: mention}),
+          dataType: 'json',
+          success: function(data) {
+            resp($.map(data, function(e) {
+              return {value: e.id, label: e.name};
+            }));
+          }
+        });
+      },
+
+      search: function() {
+        return $(this).text().match(/@\w+$/) != null;
+      },
+
+      select: function(_, ui) {
+        var l    = ui.item.label;
+        var v    = ui.item.value;
+        var link = '<a href="#" data-id="' + v + '">@' + l + '</a>';
+
+        $(this).replaceText(/@.+$/, '').append(link);
+
+        var range = rangy.createRange();
+        range.selectNodeContents(this);
+        range.collapse();
+
+        var sel = rangy.getSelection().setSingleRange(range);
+
+        return false;
+      }
+    });
+  }
+}
+
 Widgets.Feed = {
   init: function() {
     var filters = {};
@@ -27,6 +71,8 @@ Widgets.Feed = {
 
       $w('event-update-counter').hide();
     });
+
+    Widgets.CommentBox.init();
 
     $w('results').live('splash:splash', maybeRefresh);
     $w('upload-container').live('splash:uploaded', maybeRefresh);
@@ -50,6 +96,8 @@ Widgets.Feed = {
 
     function updateEventData(data) {
       $w("event-list").replaceWith(data);
+
+      Widgets.CommentBox.init();
     }
 
     function refreshWithFilters(filters) {
@@ -192,6 +240,8 @@ Widgets.Search = {
     });
 
     input.bind('after.searchbox', function() {
+      Widgets.CommentBox.init();
+
       results.show();
     });
   }
@@ -322,7 +372,16 @@ Widgets.Upload = {
 
 Widgets.SplashAction = {
   init: function() {
-    $w("splash-action").live('ajax:success', function() {
+    $w("splash-action").live('ajax:before', function() {
+      var html     = $w('comment-box', this).clone();
+      var mentions = html.find('a[data-id]');
+
+      mentions.each(function(_, m) {
+        $(m).replaceWith('@{' + $(m).data('id') + '}');
+      });
+
+      $w('comment-field', this).val(html.text());
+    }).live('ajax:success', function() {
       $(':submit', this).
         attr('disabled', true).
         val(I18n.t('tracks.widget.splashed'));

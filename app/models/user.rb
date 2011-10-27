@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
 
   after_update :reprocess_avatar, :if => :cropping?
 
+  def self.filter_by_name(name)
+    where(['name ilike ?', "#{name}%"])
+  end
+
   def self.named(name_or_names)
     where(:name => name_or_names)
   end

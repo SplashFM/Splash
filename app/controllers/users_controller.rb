@@ -12,6 +12,12 @@ class UsersController < ApplicationController
   skip_before_filter :require_name, :only => ['edit', 'update']
   before_filter      :load_user, :only => [:show, :events, :event_updates]
 
+  def index
+    matches = User.filter_by_name(params[:filter])
+
+    render :json => matches.to_json(:includes => [:id, :name])
+  end
+
   def show
     is_owner if own_profile?
 
