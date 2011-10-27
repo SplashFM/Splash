@@ -236,9 +236,9 @@ class User < ActiveRecord::Base
 
   def provider_avatar_url
     if initial_provider == 'facebook' || (has_social_connection?('facebook') && initial_provider.blank?)
-      "http://graph.facebook.com/#{social_connection('facebook').uid}/picture"
+      "http://graph.facebook.com/#{social_connection('facebook').uid}/picture?type=large"
     elsif initial_provider == 'twitter' || has_social_connection?('twitter')
-      "http://api.twitter.com/1/users/profile_image/#{social_connection('twitter').uid}.json"
+      "http://api.twitter.com/1/users/profile_image/#{social_connection('twitter').uid}.json?size=bigger"
     else
       nil
     end
