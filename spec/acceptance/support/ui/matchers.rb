@@ -40,6 +40,16 @@ module UI
       has_css?("[data-widget = 'upload']", :visible => false)
     end
 
+    def has_notifications?(count)
+      has_css?("[data-widget = 'notification-count']", :content => count.to_s)
+    end
+
+    def has_mention?(user)
+      within('li') {
+        has_content?(I18n.t('notifications.mention', :user => user.name))
+      }
+    end
+
     def has_ripples?(count)
       within("[data-widget = 'ripples']") { has_content?(count.to_s) }
     end

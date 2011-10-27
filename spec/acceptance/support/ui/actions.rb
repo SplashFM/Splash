@@ -53,6 +53,10 @@ module UI
       click_link t("simple_navigation.menus.#{section}")
     end
 
+    def logout
+      click_link t('devise.labels.sign_out')
+    end
+
     def set_splash_comment(track, comment = nil)
       wait_until(10) { page.has_css?(track_css(track)) }
 
@@ -134,6 +138,14 @@ module UI
 
     def with_found_track(t, &block)
       within(track_css(t), &block)
+    end
+
+    def with_notifications(&block)
+      find('[data-widget = "notification-count"]').click
+
+      wait_until { page.has_css?('.notifications .content', :visible => true) }
+
+      within '.notifications .content', &block
     end
 
     def with_splash(splash, &block)
