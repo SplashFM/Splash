@@ -41,6 +41,26 @@ class Splash < ActiveRecord::Base
     where(['created_at > ?', Time.parse(time).utc])
   end
 
+  def comment_with_mentions
+    if comment.present?
+      mentions = comment.scan(/@{(\d+)}/).flatten
+
+      if mentions.present?
+        users = User.find(mentions)
+
+        comment.gsub(/@{(\d+)}/) { |m|
+          u = users.detect { |u| u.id == $1.to_i }
+
+          "@#{u.name}"
+        }
+      else
+        comment
+      end
+    else
+      comment
+    end
+  end
+
   def owned_by?(user)
     self.user == user
   end

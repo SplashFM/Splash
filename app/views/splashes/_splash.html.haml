@@ -13,7 +13,7 @@
 
     - if defined?(expand)
       %div{:data => {:widget => 'splash-info'}}
-        = splash.comment
+        = splash.comment_with_mentions
 
         - if splash.track.downloadable?
           = link_to t('.download'), download_track_path(splash.track)
