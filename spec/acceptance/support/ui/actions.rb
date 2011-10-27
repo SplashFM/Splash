@@ -53,6 +53,20 @@ module UI
       click_link t("simple_navigation.menus.#{section}")
     end
 
+    def set_splash_comment(track, comment = nil)
+      wait_until(10) { page.has_css?(track_css(track)) }
+
+      within(track_css(track)) {
+        click_link I18n.t('tracks.widget.splash')
+
+        if comment
+          within("##{TracksHelper.dom_id(track)}") {
+            find("[data-widget = 'comment-box']").set(comment)
+          }
+        end
+      }
+    end
+
     def refresh_events
       within('[data-widget = "event-update-counter"]') { find('a').click }
     end
@@ -79,17 +93,9 @@ module UI
     end
 
     def splash(track, comment = nil)
-      wait_until(10) { page.has_css?(track_css(track)) }
+      set_splash_comment track, comment
 
       within(track_css(track)) {
-        click_link I18n.t('tracks.widget.splash')
-
-        if comment
-          within("##{TracksHelper.dom_id(track)}") {
-            find("[data-widget = 'comment-box']").set(comment)
-          }
-        end
-
         click_button I18n.t('tracks.widget.splash')
       }
     end
