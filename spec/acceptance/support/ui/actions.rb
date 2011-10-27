@@ -56,7 +56,7 @@ module UI
     def set_splash_comment(track, comment = nil)
       wait_until(10) { page.has_css?(track_css(track)) }
 
-      within(track_css(track)) {
+      with_found_track(track) {
         click_link I18n.t('tracks.widget.splash')
 
         if comment
@@ -95,7 +95,7 @@ module UI
     def splash(track, comment = nil)
       set_splash_comment track, comment
 
-      within(track_css(track)) {
+      with_found_track(track) {
         click_button I18n.t('tracks.widget.splash')
       }
     end
@@ -128,6 +128,9 @@ module UI
       attach_file Track.human_attribute_name(:data), path
     end
 
+    def with_found_track(t, &block)
+      within(track_css(t), &block)
+    end
 
     def with_splash(splash, &block)
       within("[data-splash_id = '#{splash.id}'][data-widget = 'splash']", &block)
