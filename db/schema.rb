@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111018215802) do
+ActiveRecord::Schema.define(:version => 20111027120139) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20111018215802) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "notifier_id"
+    t.string   "type"
   end
 
   create_table "relationships", :force => true do |t|
