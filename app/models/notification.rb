@@ -5,10 +5,7 @@ class Notification < ActiveRecord::Base
 
   scope :unread, where(:read_at => nil)
 
-  after_create :send_following_notification
-  def send_following_notification
-    UserMailer.following(notifier, notified).deliver
-  end
+  after_create :email_notification
 
   def self.for(user)
     where(:notified_id => user)
@@ -20,5 +17,11 @@ class Notification < ActiveRecord::Base
 
   def self.mark_as_read(user)
     self.for(user).update_all :read_at => Time.now
+  end
+
+  private
+
+  def email_notification
+    UserMailer.notification(self).deliver
   end
 end

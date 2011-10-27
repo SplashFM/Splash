@@ -1,9 +1,11 @@
-User 
+- follower = notification.notifier
+
+User
 
 %b
-  ="#{@user.name} - (#{@user.email})" 
+  ="#{follower.name} - (#{follower.email})"
 
-is following you, to follow him please click 
+is following you, to follow him please click
 
 = link_to "here", relationship_path(:followed_id => follower), :method => :post
 
