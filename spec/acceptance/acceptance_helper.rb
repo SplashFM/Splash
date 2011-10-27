@@ -21,6 +21,8 @@ Spork.each_run do
     config.include UI::Queries
 
     config.before :type => :request do
+      page.driver.options[:resynchronize] = true
+
       fast_login(user) unless example.metadata[:logout]
     end
   end
