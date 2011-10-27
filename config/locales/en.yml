@@ -91,6 +91,6 @@ en:
       submit: 'Change'
       cancel: 'Cancel'
       tooltip: 'Click to edit...'
-  emails:
-    subjects:
-      following: "%{follower} is following you"
+
+  notifications:
+    following: "%{follower} is following you"
