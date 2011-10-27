@@ -77,6 +77,7 @@ gem "babilu"
 gem "taglib2"
 gem "redis"
 gem "kaminari"
+gem "sanitize"
 
 group :test do
   gem "rr", "~> 1.0"

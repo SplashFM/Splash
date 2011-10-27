@@ -286,6 +286,8 @@ GEM
       sexp_processor (~> 3.0)
     rubyntlm (0.1.1)
     rubyzip (0.9.4)
+    sanitize (2.0.3)
+      nokogiri (>= 1.4.4, < 1.6)
     sass (3.1.7)
     seed-fu (2.0.1)
       activerecord (~> 3.0.0)
@@ -379,6 +381,7 @@ DEPENDENCIES
   rspec-rails (>= 2.0.0)
   ruby-debug19
   ruby_parser
+  sanitize
   sass (>= 3.1.7)
   seed-fu (>= 1.2.3)
   simple-navigation (>= 3.0.0)
