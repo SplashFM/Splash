@@ -52,8 +52,8 @@ class User < ActiveRecord::Base
 
   after_update :reprocess_avatar, :if => :cropping?
 
-  def self.named(name)
-    find_by_name(name)
+  def self.named(name_or_names)
+    where(:name => name_or_names)
   end
 
   def self.top_splashers(page, num_records)

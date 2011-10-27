@@ -1,15 +1,15 @@
 class Mention < Notification
   def self.notify(target)
-    recipient = extract_recipient(target.comment)
+    recipients = extract_recipients(target.comment)
 
-    if recipient
+    recipients.each { |recipient|
       create!(:target   => target,
               :notifier => target.user,
               :notified => recipient)
-    end
+    }
   end
 
-  def self.extract_recipient(text)
-    text.match(/@{(\d+)}/) { |m| User.find(m[1]) }
+  def self.extract_recipients(text)
+    User.find(*text.scan(/@{(\d+)}/))
   end
 end
