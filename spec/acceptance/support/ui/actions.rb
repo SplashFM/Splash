@@ -86,7 +86,7 @@ module UI
 
         if comment
           within("##{TracksHelper.dom_id(track)}") {
-            fill_in "splash[comment]", :with => comment
+            find("[data-widget = 'comment-box']").set(comment)
           }
         end
 
