@@ -19,7 +19,7 @@ feature "Splash tracks", :js => true do
     track = create!(Track)
 
     search_for track.title, :track do
-      splash track, "This is my comment!"
+      splash track, "This is my comment"
     end
 
     wait_until { page.has_search_results_hidden? }
@@ -28,7 +28,7 @@ feature "Splash tracks", :js => true do
       expand_track
     end
 
-    should have_content("This is my comment!")
+    should have_content("This is my comment")
   end
 
   scenario "Splashing at another user's profile" do
