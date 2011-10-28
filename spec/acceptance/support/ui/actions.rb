@@ -20,8 +20,8 @@ module UI
       click_button "Change"
     end
 
-    def expand_splash
-      within('[data-widget = "event-list"]') { find('li:first-child').click }      
+    def expand_splash(track)
+      find("[data-widget='splash'][data-track_id='#{track.id}']").click
     end
 
     def expand_track
@@ -136,12 +136,20 @@ module UI
       }
     end
 
-    def add_comment
+    def add_comment(text)
       click_link t("comments.index.add_comment")
 
       within("[data-widget = comment-form]") do
-        fill_in 'comment_body', :with => "Splash's comment"
+        fill_in 'comment_body', :with => text
         click_button 'comment_submit'
+      end
+    end
+
+    def remove_comment(track, comment)
+      within("[data-widget='splash'][data-track_id='#{track.id}']") do
+        within(".comments") do
+          find('li', :text => comment).click_link('x')
+        end
       end
     end
 

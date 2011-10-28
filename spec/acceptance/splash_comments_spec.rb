@@ -10,10 +10,27 @@ feature "Comment on splash tracks", :js => true do
       splash track
     end
 
-    expand_splash
-
-    add_comment
+    expand_splash(track)
+    add_comment("Comment #1")
 
     should have_comments(1)
+  end
+
+  scenario "Remove comment" do
+    track = create!(Track)
+
+    search_for track.title, :global do
+      splash track
+    end
+
+    expand_splash(track)
+
+    add_comment("Comment #1")
+    add_comment("Comment #2")
+    add_comment("Comment #3")
+
+    remove_comment(track, "Comment #2")
+
+    should have_comments(2)
   end
 end

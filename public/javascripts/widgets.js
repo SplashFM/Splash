@@ -130,6 +130,10 @@ Widgets.Comment = {
       form.find('textarea').val("");
       form.parent().toggle();
     })
+
+    $w('delete-comment').live('ajax:success', function(evt, xhr, status, error) {
+      $(this).parent().remove();
+    })
   }
 }
 

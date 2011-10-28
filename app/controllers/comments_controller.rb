@@ -12,4 +12,15 @@ class CommentsController < ApplicationController
       end
     end
   end
+
+  def destroy
+    comment = current_user.comments.find(params[:id])
+    if comment
+      comment.destroy
+
+      head :ok
+    else
+      render :json => comment.to_json, :status => :unprocessable_entity
+    end
+  end
 end
