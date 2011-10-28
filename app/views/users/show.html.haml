@@ -1,7 +1,7 @@
 .profile
   .box-user-info
     .user-image
-      = image_tag @user.avatar_url(:thumb), :size => '100x110', :id => 'avatar'
+      = image_tag @user.avatar_url(:thumb), :size => '100x100', :id => 'avatar'
       - if avatar_editable?
         .upload-avatar-link.hide
           = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
