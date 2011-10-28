@@ -8,7 +8,7 @@ class Notification < ActiveRecord::Base
   after_create :email_notification
 
   def self.for(user)
-    where(:notified_id => user)
+    where(:notified_id => user).order('created_at desc')
   end
 
   def unread?
