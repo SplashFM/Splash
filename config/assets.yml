@@ -22,6 +22,7 @@ javascripts:
     - public/javascripts/jquery.Jcrop.min.js
     - public/javascripts/jquery.tokeninput.js
     - public/javascripts/jquery.jcarousel.js
+    - public/javascripts/jquery.rangyinputs.js
     - public/javascripts/rangy-core.js
     - public/javascripts/jquery.ba-replacetext.js
 
