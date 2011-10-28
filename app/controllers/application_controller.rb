@@ -57,8 +57,20 @@ class ApplicationController < ActionController::Base
         config.oauth_token_secret = twitter.token_secret
       end
 
-      Twitter.update("#{splash.user.name} splashed #{splash.track.title}. #{splash.comment}")
+      begin
+        Twitter.update(truncate([splash_url(splash),
+                        splash.user.name,
+                        'splashed',
+                        splash.track.title,
+                        splash.comment].join(' ')))
+      rescue Twitter::NotFound => e
+        notify_hoptoad(e)
+      end
     end
+  end
+
+  def truncate(text, length = 136, end_string = '...')
+    text[0..(length-1)] + end_string
   end
 
   def logging_out?
