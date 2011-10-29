@@ -78,6 +78,7 @@ gem "taglib2"
 gem "redis"
 gem "kaminari"
 gem "sanitize"
+gem "parallel_tests", :group => :development
 
 group :test do
   gem "rr", "~> 1.0"
