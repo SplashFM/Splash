@@ -89,7 +89,7 @@ namespace :tracks do
     namespace :clobber do
       INDEXES.each { |(i, _)|
         task i => :environment do
-          time { |c| c.execute "DROP INDEX #{i}" }
+          time { |c| c.execute "DROP INDEX #{i}" if indexes.include?(i) }
         end
       }
     end
