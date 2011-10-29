@@ -23,7 +23,6 @@ javascripts:
     - public/javascripts/jquery.tokeninput.js
     - public/javascripts/jquery.jcarousel.js
     - public/javascripts/jquery.rangyinputs.js
-    - public/javascripts/jquery.ba-replacetext.js
 
   pjax:
     - public/javascripts/jquery.pjax.js
