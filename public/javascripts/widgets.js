@@ -22,6 +22,8 @@ Widgets.CommentBox = {
       var isMenuVisible = false;
 
       $(e).autocomplete({
+        close: function() { isMenuVisible = false },
+
         focus: function() { return false },
 
         source: function(req, resp) {
