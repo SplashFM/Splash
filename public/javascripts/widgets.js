@@ -38,7 +38,7 @@ Widgets.CommentBox = {
       },
 
       search: function() {
-        return $(this).text().match(/@\w+$/) != null;
+        return $(this).val().match(/@\w+$/) != null;
       },
 
       select: function(_, ui) {
