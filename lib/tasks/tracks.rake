@@ -99,24 +99,27 @@ namespace :tracks do
       INDEXES.each { |(i, as)|
         task i => :environment do
           time { |c|
-            @indexes ||= begin
-                           indexes = c.select_rows <<-IDX
-                             SELECT i.relname AS index_name
-                             FROM   pg_index ix
-                             JOIN   pg_class t ON t.oid = ix.indrelid
-                             JOIN   pg_class i ON i.oid = ix.indexrelid
-                             WHERE  t.relname = 'tracks'
-                           IDX
-
-                           indexes.flatten
-                         end
-
-            unless @indexes.include?(i)
+            unless indexes.include?(i)
               c.execute "CREATE INDEX #{i} ON tracks #{as}"
             end
           }
         end
       }
+    end
+
+    def indexes
+      @indexes ||= begin
+                     c       = ActiveRecord::Base.connection
+                     indexes = c.select_rows <<-IDX
+                       SELECT i.relname AS index_name
+                       FROM   pg_index ix
+                       JOIN   pg_class t ON t.oid = ix.indrelid
+                       JOIN   pg_class i ON i.oid = ix.indexrelid
+                       WHERE  t.relname = 'tracks'
+                     IDX
+
+                     indexes.flatten
+                   end
     end
   end
 
