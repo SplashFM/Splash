@@ -81,7 +81,7 @@ gem "sanitize"
 
 group :test do
   gem "rr", "~> 1.0"
-  gem "capybara", :git => "git://github.com/david/capybara.git"
+  gem "capybara", "~> 1.0"
   gem "database_cleaner", "~> 0.6.0"
   gem "bricks", :require => 'bricks/adapters/active_record'
   gem "spork", "~> 0.9.0.rc"
