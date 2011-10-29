@@ -50,7 +50,7 @@ module TracksHelper
                    :html   => {:id => id, :'data-widget' => 'splash-action'} do |f|
 
         f.text_area(:comment, :'data-widget' => 'comment-box') +
-          hidden_field_tag(:comment_with_mentions) +
+          hidden_field_tag(:comment_with_mentions, '', :'data-widget' => 'comment-field') +
           post_to_site_widget('facebook', f) +
           post_to_site_widget('twitter', f) +
           f.submit(label)

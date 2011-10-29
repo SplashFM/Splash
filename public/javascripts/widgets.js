@@ -23,6 +23,16 @@ Widgets.CommentBox = {
       var mentions      = [];
 
       $(e).autocomplete({
+        change: function() {
+          var text = $(this).val();
+
+          $.each(mentions, function(_, e) {
+            text = text.replace(e[0], "{" + e[1] + "}");
+          });
+
+          $w('comment-field').val(text);
+        },
+
         close: function() { isMenuVisible = false },
 
         delay: 0,
@@ -387,16 +397,7 @@ Widgets.Upload = {
 
 Widgets.SplashAction = {
   init: function() {
-    $w("splash-action").live('ajax:before', function() {
-      var html     = $w('comment-box', this).clone();
-      var mentions = html.find('a[data-id]');
-
-      mentions.each(function(_, m) {
-        $(m).replaceWith('@{' + $(m).data('id') + '}');
-      });
-
-      $w('comment-field', this).val(html.text());
-    }).live('ajax:success', function() {
+    $w("splash-action").live('ajax:success', function() {
       $(':submit', this).
         attr('disabled', true).
         val(I18n.t('tracks.widget.splashed'));
