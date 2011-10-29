@@ -18,44 +18,47 @@ Widgets.Paginate = {
 
 Widgets.CommentBox = {
   init: function() {
-    $w('comment-box').autocomplete({
-      focus: function() { return false },
+    $w('comment-box').each(function(_, e) {
+      $(e).autocomplete({
+        focus: function() { return false },
 
-      source: function(req, resp) {
-        var term    = req.term;
-        var at      = term.lastIndexOf('@');
-        var mention = term.substr(at + 1);
+        source: function(req, resp) {
+          var term    = req.term;
+          var at      = term.lastIndexOf('@');
+          var mention = term.substr(at + 1);
 
-        $.ajax({
-          url: Routes.users_path({filter: mention}),
-          dataType: 'json',
-          success: function(data) {
-            resp($.map(data, function(e) {
-              return {value: e.id, label: e.name};
-            }));
-          }
-        });
-      },
+          $.ajax({
+            url: Routes.users_path({filter: mention}),
+            dataType: 'json',
+            success: function(data) {
+              resp($.map(data, function(e) {
+                return {value: e.id, label: e.name};
+              }));
+            }
+          });
+        },
 
-      search: function() {
-        return $(this).val().match(/@\w+$/) != null;
-      },
+        search: function() {
+          return $(this).val().match(/@\w+$/) != null;
+        },
 
-      select: function(_, ui) {
-        var l    = ui.item.label;
-        var v    = ui.item.value;
-        var link = '<a href="#" data-id="' + v + '">@' + l + '</a>';
+        select: function(_, ui) {
+          var l      = ui.item.label;
+          var v      = ui.item.value;
+          var link   = '<a href="#" data-id="' + v + '">@' + l + '</a>';
+          var cursor = $(this).getSelection().start;
 
-        $(this).replaceText(/@.+$/, '').append(link);
+          $(this).replaceText(/@.+$/, '').append(link);
 
-        var range = rangy.createRange();
-        range.selectNodeContents(this);
-        range.collapse();
+          var range = rangy.createRange();
+          range.selectNodeContents(this);
+          range.collapse();
 
-        var sel = rangy.getSelection().setSingleRange(range);
+          var sel = rangy.getSelection().setSingleRange(range);
 
-        return false;
-      }
+          return false;
+        }
+      });
     });
   }
 }
