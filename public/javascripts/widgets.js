@@ -70,8 +70,14 @@ Widgets.CommentBox = {
 
           mentions.push([l, v]);
 
+          $(this).setSelection(0, $(this).val().length);
+          $(this).collapseSelection(false);
+
           return false;
         }
+      }).keydown(function(e) {
+        if (e.which === $.ui.keyCode.TAB)
+          e.preventDefault();
       });
 
       function isMention() {
