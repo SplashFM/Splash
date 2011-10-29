@@ -24,6 +24,8 @@ Widgets.CommentBox = {
       $(e).autocomplete({
         close: function() { isMenuVisible = false },
 
+        delay: 0,
+
         focus: function() { return false },
 
         source: function(req, resp) {
