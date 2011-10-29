@@ -19,6 +19,8 @@ Widgets.Paginate = {
 Widgets.CommentBox = {
   init: function() {
     $w('comment-box').each(function(_, e) {
+      var isMenuVisible = false;
+
       $(e).autocomplete({
         focus: function() { return false },
 
@@ -39,7 +41,7 @@ Widgets.CommentBox = {
         },
 
         search: function() {
-          return $(this).val().match(/@\w+$/) != null;
+          return (isMenuVisible || (isMenuVisible = isMention()));
         },
 
         select: function(_, ui) {
@@ -59,6 +61,14 @@ Widgets.CommentBox = {
           return false;
         }
       });
+
+      function isMention() {
+        var cursor    = $(e).getSelection().start;
+        var text      = $(e).val();
+
+        return text.substr(0, cursor).match(/@\w$/) != null;
+      }
+
     });
   }
 }
