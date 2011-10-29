@@ -75,7 +75,7 @@ module UI
     end
 
     def set_splash_comment(track, comment = nil)
-      wait_until(10) { page.has_css?(track_css(track)) }
+      wait_until { page.has_css?(track_css(track)) }
 
       with_found_track(track) {
         click_link I18n.t('tracks.widget.splash')
@@ -144,7 +144,7 @@ module UI
     end
 
     def upload_track(path, comment = nil)
-      wait_until(10) { page.has_link?(t('upload.upload'), :visible => true) }
+      wait_until { page.has_link?(t('upload.upload'), :visible => true) }
 
       click_link t('upload.upload')
 
