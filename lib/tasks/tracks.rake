@@ -85,6 +85,7 @@ namespace :tracks do
                ["index_tracks_on_popularity_rank",
                 "(popularity_rank)"]]
 
+    task :clobber => INDEXES.map { |(i, _)| "clobber:#{i}" }
     namespace :clobber do
       INDEXES.each { |(i, _)|
         task i => :environment do
@@ -93,6 +94,7 @@ namespace :tracks do
       }
     end
 
+    task :restore => INDEXES.map { |(i, _)| "restore:#{i}" }
     namespace :restore do
       INDEXES.each { |(i, as)|
         task i => :environment do
