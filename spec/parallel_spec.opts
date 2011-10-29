@@ -1,0 +1,4 @@
+--drb
+--drb-port <%= 8989 + ENV['TEST_ENV_NUMBER'].to_i %>
+-f p
+-f ParallelSpecs::SpecRuntimeLogger --out tmp/parallel_profile.log

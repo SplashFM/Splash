@@ -15,6 +15,7 @@ Spork.each_run do
   RSpec.configure do |config|
     Capybara.javascript_driver = :selenium
     Capybara.default_wait_time = 3
+    Capybara.server_port = 8888 + ENV['TEST_ENV_NUMBER'].to_i
 
     config.include Capybara::DSL
     config.include UI::Actions

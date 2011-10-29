@@ -6,7 +6,7 @@ development:
 test:
   adapter: sqlite3
   encoding: utf8
-  database: scaphandrier_test
+  database: scaphandrier_test<%= ENV['TEST_ENV_NUMBER'] ? '_' + ENV['TEST_ENV_NUMBER'] : '' %>
 test_pg:
   adapter: postgresql
   database: splash_test
