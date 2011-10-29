@@ -51,16 +51,11 @@ Widgets.CommentBox = {
         select: function(_, ui) {
           var l      = ui.item.label;
           var v      = ui.item.value;
-          var link   = '<a href="#" data-id="' + v + '">@' + l + '</a>';
-          var cursor = $(this).getSelection().start;
+          var text   = $(this).val();
+          var before = text.substr(0, text.lastIndexOf('@'));
+          var after  = text.substr(text.lastIndexOf('@'));
 
-          $(this).replaceText(/@.+$/, '').append(link);
-
-          var range = rangy.createRange();
-          range.selectNodeContents(this);
-          range.collapse();
-
-          var sel = rangy.getSelection().setSingleRange(range);
+          $(this).val(before + '@' + l);
 
           return false;
         }
