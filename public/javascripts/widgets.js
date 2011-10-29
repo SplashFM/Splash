@@ -23,6 +23,8 @@ Widgets.CommentBox = {
       var mentions      = [];
 
       $(e).autocomplete({
+        autoFocus: true,
+
         change: function() {
           var text = $(this).val();
 
