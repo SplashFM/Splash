@@ -6,4 +6,8 @@ module CommentsHelper
                                               :'data-widget' => 'delete-comment'
     end
   end
+
+  def user_comment_avatar(comment)
+    image_tag comment.author.avatar_url(), :size => '46x48' if comment.persisted?
+  end
 end
