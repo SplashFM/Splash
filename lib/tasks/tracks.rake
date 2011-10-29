@@ -75,56 +75,46 @@ namespace :tracks do
   end
 
   namespace :indexes do
-    task :clobber do
-      time do |c|
-        puts "Dropping FT index on tracks."
+    INDEXES = [['index_tracks_for_search',
+                "USING gin(to_tsvector('english',
+                                       coalesce(title, '') || ' ' ||
+                                       coalesce(performers, '') || ' ' ||
+                                       coalesce(albums, '')))"],
+               ["index_tracks_on_lc_title",
+                "(lower(title), lower(performers))"],
+               ["index_tracks_on_popularity_rank",
+                "(popularity_rank)"]]
 
-        c.execute "DROP INDEX index_tracks_for_search"
-      end
+    namespace :clobber do
+      INDEXES.each { |(i, _)|
+        task i => :environment do
+          time { |c| c.execute "DROP INDEX #{i}" }
+        end
+      }
     end
 
-    task :restore => :environment do
-      indexes = ActiveRecord::Base.connection.select_rows <<-IDX
-        SELECT i.relname AS index_name
-        FROM   pg_index ix
-        JOIN   pg_class t ON t.oid = ix.indrelid
-        JOIN   pg_class i ON i.oid = ix.indexrelid
-        WHERE  t.relname = 'tracks'
-      IDX
+    namespace :restore do
+      INDEXES.each { |(i, as)|
+        task i => :environment do
+          time { |c|
+            @indexes ||= begin
+                           indexes = c.select_rows <<-IDX
+                             SELECT i.relname AS index_name
+                             FROM   pg_index ix
+                             JOIN   pg_class t ON t.oid = ix.indrelid
+                             JOIN   pg_class i ON i.oid = ix.indexrelid
+                             WHERE  t.relname = 'tracks'
+                           IDX
 
-      indexes.flatten!
+                           indexes.flatten
+                         end
 
-      unless indexes.include?('index_tracks_for_search')
-        time do |c|
-          puts "Creating FT index on tracks."
-
-          c.execute <<-FT
-            CREATE INDEX index_tracks_for_search ON tracks
-              USING gin(to_tsvector('english',
-                                    coalesce(title, '') || ' ' ||
-                                    coalesce(performers, '') || ' ' ||
-                                    coalesce(albums, '')))
-          FT
+            unless @indexes.include?(i)
+              c.execute "CREATE INDEX #{i} ON tracks #{as}"
+            end
+          }
         end
-      end
-
-      unless indexes.include?('index_tracks_on_lc_title')
-        time do |c|
-          puts "Creating title + performers index on tracks."
-
-          c.execute "CREATE INDEX index_tracks_on_lc_title
-                       ON tracks (lower(title), lower(performers))"
-        end
-      end
-
-      unless indexes.include?('index_tracks_on_popularity_rank')
-        time do |c|
-          puts "Creating popularity index on tracks."
-
-          c.execute "CREATE INDEX index_tracks_on_popularity_rank
-                       ON tracks (popularity_rank)"
-        end
-      end
+      }
     end
   end
 
