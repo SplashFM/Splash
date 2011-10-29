@@ -20,6 +20,7 @@ Widgets.CommentBox = {
   init: function() {
     $w('comment-box').each(function(_, e) {
       var isMenuVisible = false;
+      var mentions      = [];
 
       $(e).autocomplete({
         close: function() { isMenuVisible = false },
@@ -56,6 +57,8 @@ Widgets.CommentBox = {
           var after  = text.substr(text.lastIndexOf('@'));
 
           $(this).val(before + '@' + l);
+
+          mentions.push([l, v]);
 
           return false;
         }
