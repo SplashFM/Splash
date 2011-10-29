@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111027120711) do
+ActiveRecord::Schema.define(:version => 20111029212927) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -126,12 +126,11 @@ ActiveRecord::Schema.define(:version => 20111027120711) do
     t.datetime "data_updated_at"
     t.string   "purchase_url_raw",  :limit => 1024
     t.string   "type"
-    t.string   "album_art_url"
     t.integer  "external_id"
     t.string   "preview_url"
     t.text     "performers"
     t.text     "albums"
-    t.string   "album_artwork_url"
+    t.string   "artwork_url"
     t.integer  "popularity_rank"
     t.integer  "uploader_id"
   end

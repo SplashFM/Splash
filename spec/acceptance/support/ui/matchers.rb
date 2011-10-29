@@ -1,10 +1,10 @@
 module UI
   module Matchers
-    def has_no_album_art?
+    def has_no_artwork?
       has_no_css?("img")
     end
 
-    def has_album_art?(location)
+    def has_artwork?(location)
       has_css?(%Q{img[src = "#{location}"]})
     end
 

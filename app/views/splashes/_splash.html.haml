@@ -1,7 +1,7 @@
 %li.splash{:data => {:track_id  => splash.track.id, |
                      :splash_id => splash.id, |
                      :widget    => 'splash'}}
-  = image_tag splash.track.album_art_url
+  = image_tag splash.track.artwork_url
   .splash_text_info
     = render "tracks/track_summary", :track => splash.track
     = splash.track.splash_count

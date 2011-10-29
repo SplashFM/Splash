@@ -60,24 +60,24 @@ feature "Track widget", :js => true do
   describe "Album art" do
     scenario "On user feed" do
       track  = create(Track).
-        album_art_url!("http://somewhere.over.the/rainbow.png")
+        artwork_url!("http://somewhere.over.the/rainbow.png")
       splash = create(Splash).user(user).track!(track)
 
       go_to 'home'
 
       with_splash splash do
-        should have_album_art("http://somewhere.over.the/rainbow.png")
+        should have_artwork("http://somewhere.over.the/rainbow.png")
       end
     end
 
     scenario "As search result" do
       track = create(Track).
-        album_art_url!("http://somewhere.over.the/rainbow.png")
+        artwork_url!("http://somewhere.over.the/rainbow.png")
 
       go_to 'home'
 
       search_for track.title, :track do
-        should have_no_album_art
+        should have_no_artwork
       end
     end
   end

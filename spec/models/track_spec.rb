@@ -56,12 +56,12 @@ describe Track, :adapter => :postgresql do
     end
   end
 
-  it "always has an album art url" do
-    subject.album_art_url.should == Track::DEFAULT_ALBUM_ART_URL
+  it "always has an artwork url" do
+    subject.artwork_url.should == Track::DEFAULT_ARTWORK_URL
   end
 
-  it "returns the album art url when it is set" do
-    Track.new(:album_art_url => "url").album_art_url.should == "url"
+  it "returns the artwork url when it is set" do
+    Track.new(:artwork_url => "url").artwork_url.should == "url"
   end
 
   it "sorts top splashed songs" do

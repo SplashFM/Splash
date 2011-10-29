@@ -3,7 +3,7 @@ require 'testable_search'
 
 class Track < ActiveRecord::Base
   ALLOWED_FILTERS = [:genre, :artist]
-  DEFAULT_ALBUM_ART_URL = "no_album_art.png"
+  DEFAULT_ARTWORK_URL = "no_album_art.png"
 
   include RedisRecord
   extend TestableSearch
@@ -78,8 +78,8 @@ class Track < ActiveRecord::Base
     ro
   end
 
-  def album_art_url
-    read_attribute(:album_art_url) || DEFAULT_ALBUM_ART_URL
+  def artwork_url
+    read_attribute(:artwork_url) || DEFAULT_ARTWORK_URL
   end
 
   def albums

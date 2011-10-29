@@ -1,6 +1,6 @@
 %li.track{:data => {:track_id => track.id, :widget => role}}
   - if show_album?(role)
-    = image_tag track.album_art_url
+    = image_tag track.artwork_url
   %span.title= track.title
   %span.artist= track.artist
   %ul.actions
