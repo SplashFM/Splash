@@ -8,6 +8,10 @@ if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
   end
 
   Genre.seed :name do |g|
+    g.name = 'Pop'
+  end
+
+  Genre.seed :name do |g|
     g.name = 'Rock'
   end
 

@@ -1,5 +1,12 @@
 if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
   DiscoveredTrack.seed :title do |s|
+    s.title         = 'Yesterday'
+    s.albums        = ['Help!']
+    s.performers    = ['The Beatles']
+    s.genres        = [Genre.find_by_name("Pop")]
+  end
+
+  DiscoveredTrack.seed :title do |s|
     s.title         = 'Close to the edge'
     s.albums        = ['Close to the edge']
     s.performers    = ['Yes']
