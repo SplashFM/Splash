@@ -23,4 +23,7 @@
           = link_to t(".purchase"), splash.track.purchase_url, :'data-widget' => 'purchase'
   .clear
   = render :partial => 'comments/index', :locals => {:splash => splash}
+  .time_ago
+    = time_ago_in_words(splash.created_at)
+  .clear
 .clear
