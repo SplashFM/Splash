@@ -17,3 +17,4 @@ public/blank.html
 /.flux.local
 /public/javascripts/routes.js
 .DS_Store
+/config/initializers/developer.rb
