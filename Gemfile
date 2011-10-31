@@ -88,6 +88,7 @@ group :test do
   gem "database_cleaner", "~> 0.6.0"
   gem "bricks", :require => 'bricks/adapters/active_record'
   gem "spork", "~> 0.9.0.rc"
+  gem "rspec-instafail"
 end
 
 gem "itunes-search-api"

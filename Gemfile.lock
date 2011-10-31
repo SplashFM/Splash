@@ -263,6 +263,7 @@ GEM
     rspec-core (2.6.4)
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
+    rspec-instafail (0.1.8)
     rspec-mocks (2.6.0)
     rspec-rails (2.6.1)
       actionpack (~> 3.0)
@@ -381,6 +382,7 @@ DEPENDENCIES
   rails (>= 3.0.1)
   redis
   rr (~> 1.0)
+  rspec-instafail
   rspec-rails (>= 2.0.0)
   ruby-debug19
   ruby_parser
