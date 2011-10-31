@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111029212927) do
+ActiveRecord::Schema.define(:version => 20111031113926) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -105,6 +105,20 @@ ActiveRecord::Schema.define(:version => 20111029212927) do
   end
 
   add_index "splashes", ["parent_id"], :name => "index_splashes_on_parent_id"
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context"
+    t.datetime "created_at"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
 
   create_table "track_genres", :id => false, :force => true do |t|
     t.integer "track_id"
