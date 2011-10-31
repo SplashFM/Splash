@@ -19,5 +19,5 @@
           = link_to t('.download'), download_track_path(splash.track)
 
         - elsif splash.track.purchasable?
-          = link_to t(".purchase"), splash.track.purchase_url
+          = link_to t(".purchase"), splash.track.purchase_url, :'data-widget' => 'purchase'
   .clear
