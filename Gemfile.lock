@@ -297,6 +297,7 @@ GEM
       json_pure
       rubyzip
     sexp_processor (3.0.5)
+    silent-postgres (0.1.1)
     simple-navigation (3.3.0)
       activesupport (>= 2.3.2)
     simple_oauth (0.1.5)
@@ -386,6 +387,7 @@ DEPENDENCIES
   sanitize
   sass (>= 3.1.7)
   seed-fu (>= 1.2.3)
+  silent-postgres
   simple-navigation (>= 3.0.0)
   spork (~> 0.9.0.rc)
   sqlite3-ruby
