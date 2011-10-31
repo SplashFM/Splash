@@ -89,6 +89,10 @@ module UI
     end
 
     def refresh_events
+      wait_until {
+        page.has_css?('[data-widget = "event-update-counter"]', :visible => true)
+      }
+
       within('[data-widget = "event-update-counter"]') { find('a').click }
     end
 
