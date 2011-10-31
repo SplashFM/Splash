@@ -25,7 +25,7 @@ class Splash < ActiveRecord::Base
 
     case filters
     when Track
-      r.where(:track_id => track.id).first
+      r.where(:track_id => filters.id).first
     when Hash
       r = Track.narrow(r, filters)
     when nil
