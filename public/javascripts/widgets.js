@@ -104,13 +104,15 @@ Widgets.CommentBox = {
 }
 
 Widgets.Feed = {
+  filters: {},
+
   init: function() {
-    var filters = {};
+    var self = this;
 
     this.reload();
 
     $w('event-update-counter').live('ajax:success', function(_, data) {
-      updateEventData(data);
+      self.updateEventData(data);
 
       $w('event-update-counter').hide();
     });
@@ -124,35 +126,7 @@ Widgets.Feed = {
     setInterval(this.fetchUpdateCount, 60000); // 1 minute
 
     function maybeRefresh() {
-      if ($w('events').data('update_on_splash') === true) refresh();
-    }
-
-    function refresh(params) {
-      var paramStr;
-
-      if (params) paramStr = params.join("&");
-
-      $.get($w('events').data('refresh_url'), paramStr, function(data) {
-        updateEventData(data);
-      });
-    }
-
-    function updateEventData(data) {
-      $w("event-list").replaceWith(data);
-
-      Widgets.CommentBox.init();
-    }
-
-    function refreshWithFilters(filters) {
-      var data = [];
-
-      for (var f in filters) {
-        for (var i = 0; i < filters[f].length; i++) {
-          data.push("filters[" + filters[f][i].type + "][]=" + filters[f][i].id);
-        }
-      }
-
-      refresh(data);
+      if ($w('events').data('update_on_splash') === true) self.refresh();
     }
   },
 
@@ -171,22 +145,54 @@ Widgets.Feed = {
     });
   },
 
+  refresh: function(params) {
+    var self = this;
+    var paramStr;
+
+    if (params) paramStr = params.join("&");
+
+    $.get($w('events').data('refresh_url'), paramStr, function(data) {
+      self.updateEventData(data);
+    });
+  },
+
+  updateEventData: function(data) {
+    $w("event-list").replaceWith(data);
+
+    Widgets.CommentBox.init();
+  },
+
+  refreshWithFilters: function() {
+    var data = [];
+
+    for (var f in this.filters) {
+      for (var i = 0; i < this.filters[f].length; i++) {
+        data.push("filters[" + this.filters[f][i].type +
+                    "][]=" + this.filters[f][i].id);
+      }
+    }
+
+    this.refresh(data);
+  },
+
   reload: function() {
+    var self = this;
+
     $w('events-filter').tokenInput(Routes.tags_path(), {
       theme: "facebook",
       onAdd: function(e) {
-        if (filters[e.type] == null) filters[e.type] = [];
+        if (self.filters[e.type] == null) self.filters[e.type] = [];
 
-        filters[e.type].push(e);
+        self.filters[e.type].push(e);
 
-        refreshWithFilters(filters);
+        self.refreshWithFilters();
       },
       onDelete: function(e) {
-        var filter = filters[e.type];
+        var filter = self.filters[e.type];
 
         filter.splice(filter.indexOf(e), 1);
 
-        refreshWithFilters(filters);
+        self.refreshWithFilters();
       }
     });
   }
