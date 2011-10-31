@@ -29,11 +29,18 @@ namespace :tracks do
               INSERT INTO tracks (
                      type, created_at, updated_at, title,
                      purchase_url_raw, external_id, preview_url,
+                     artwork_url,
                      popularity_rank,
                      performers,
                      albums )
               SELECT 'DiscoveredTrack', now(), NULL, s.name,
                      s.view_url, s.song_id, s.preview_url,
+                     (SELECT artwork_url
+                      FROM   itunes_collection_song csi
+                      JOIN   itunes_collection ci ON
+                               ci.collection_id = csi.collection_id
+                      WHERE  csi.song_id = s.song_id
+                      LIMIT  1),
                      10000,
                      array_to_string(array(SELECT distinct ai.name
                                            FROM   itunes_artist_song asi
