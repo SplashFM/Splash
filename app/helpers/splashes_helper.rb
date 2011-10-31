@@ -23,7 +23,7 @@ module SplashesHelper
                            :'data-type'    => 'html',
                            :'data-result' => "#comments-#{splash.id}"} do |f|
 
-      f.text_area(:body, :size => '20x3') + f.submit
+      f.text_area(:body, :size => '30x3') + f.submit
     end
 
     form
