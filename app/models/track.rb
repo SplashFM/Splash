@@ -2,7 +2,7 @@ require 'redis_record'
 require 'testable_search'
 
 class Track < ActiveRecord::Base
-  ALLOWED_FILTERS = [:genre, :artist]
+  ALLOWED_FILTERS = [:tag, :artist]
   DEFAULT_ARTWORK_URL = "no_album_art.png"
 
   include RedisRecord
@@ -10,6 +10,8 @@ class Track < ActiveRecord::Base
 
   redis_base_key :track
   redis_counter :splash_count
+
+  acts_as_taggable
 
   has_and_belongs_to_many :genres, :join_table => :track_genres
 
@@ -63,9 +65,9 @@ class Track < ActiveRecord::Base
       raise "Unknown filters: #{filters.inspect}"
     end
 
-    if filters[:genre]
-      ro = ro.joins(:track => :genres).
-        where(:genres => {:id => filters[:genre]})
+    if filters[:tag]
+      ro = ro.joins(:track => :tags).
+        where(:tags => {:id => filters[:tag]})
     end
 
     if filters[:artist]

@@ -15,10 +15,6 @@ Bricks do
     albums ["Going for the one"]
     performers ["Yes"]
 
-    trait :with_genre do |name|
-      genres.name(name)
-    end
-
     trait :with_performer do |name|
       performers [name]
     end

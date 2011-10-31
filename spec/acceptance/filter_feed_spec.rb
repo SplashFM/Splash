@@ -19,11 +19,9 @@ feature "Filter feed", :js => true do
   end
 
   scenario "Filter by genre" do
-    pending
-
-    track1  = create(Track).title("Track 1").with_genre!("Rock")
+    track1  = create(Track).title("Track 1").tag_list!(["Rock"])
     splash1 = create(Splash).user(user).track!(track1)
-    track2  = create(Track).title("Track 2").with_genre!("Folk")
+    track2  = create(Track).title("Track 2").tag_list!(["Folk"])
     splash2 = create(Splash).user(user).track!(track2)
 
     visit profile_path

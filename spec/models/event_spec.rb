@@ -4,21 +4,21 @@ describe Event do
   let(:user)  { create!(User) }
   let(:track) { create!(Track) }
 
-  it "finds a splash filtered by track genre" do
-    g = create(Genre).name!("Rock")
-    t = create(Track).genres!([g])
+  it "finds a splash filtered by track tag" do
+    g = create(ActsAsTaggableOn::Tag).name!("Rock")
+    t = create(Track).tag_list!(["Rock"])
     s = Splash.create!(:track => t, :user => user)
 
-    Event.for(user, nil, :genre => [g.id]).should == [s]
+    Event.for(user, nil, :tag => [g.id]).should == [s]
   end
 
-  it "finds no splash filtered by track genre if one doesn't exist" do
-    g1 = create(Genre).name!("Rock")
-    g2 = create(Genre).name!("Folk")
-    t  = create(Track).genres!([g1])
+  it "finds no splash filtered by track tag if one doesn't exist" do
+    t1 = create(ActsAsTaggableOn::Tag).name!("Rock")
+    t2 = create(ActsAsTaggableOn::Tag).name!("Folk")
+    t  = create(Track).tag_list!(["Rock"])
     s  = Splash.create!(:track => t, :user => user)
 
-    Event.for(user, nil, :genre => [g2.id]).should be_empty
+    Event.for(user, nil, :tag => [t2.id]).should be_empty
   end
 
   it "finds a splash filtered by performer" do
