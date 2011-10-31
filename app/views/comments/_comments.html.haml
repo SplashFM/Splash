@@ -1,0 +1,5 @@
+.number-of-comments
+  = number_of_comments(splash)
+
+%ul{:id => "splash-comments-#{splash.id}"}
+  = render splash.comments.last(Comment::NUMBER_OF_COMMENTS_TO_SHOW)

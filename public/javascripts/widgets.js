@@ -132,7 +132,13 @@ Widgets.Comment = {
     })
 
     $w('delete-comment').live('ajax:success', function(evt, xhr, status, error) {
-      $(this).parent().remove();
+      $($(this).attr('data-result')).html(xhr);
+    })
+
+    $w('more-comments').live('ajax:success',  function(evt, xhr, status, error) {
+      var resultId = $(this).attr("data-result");
+      $(resultId).html(xhr);
+      $(this).hide();
     })
   }
 }

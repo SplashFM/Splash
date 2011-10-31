@@ -96,6 +96,10 @@ module UI
       has_css?("a", :text => I18n.t('searches.page.see_more'))
     end
 
+    def has_more_comments_link?(count)
+      has_css?("a", :text => I18n.t('comments.comments.comment_number', :number => count))
+    end
+
     def has_track?(title)
       has_content?(title)
     end

@@ -42,6 +42,8 @@ en:
   comments:
     index:
       add_comment: Add comment
+    comments:
+      comment_number: View all %{number} comments
 
   tracks:
     widget:

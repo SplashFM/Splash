@@ -5,13 +5,12 @@
     = link_to t('.add_comment'), "#add-comment-#{splash.id}", :'data-widget' => 'add-comment-toggle'
   .clear
 
-  %div{:id => "add-comment-#{splash.id}", :'data-widget' => "comment-form"}
-    = splash_comment_form(splash)
+  .comments{:id => "comments-#{splash.id}"}
+    = comments_box(splash)
   .clear
 
-  .comments{:id => "comments-#{splash.id}"}
-    %ul
-      = render splash.comments
+  %div{:id => "add-comment-#{splash.id}", :'data-widget' => "comment-form"}
+    = splash_comment_form(splash)
   .clear
 
 .clear

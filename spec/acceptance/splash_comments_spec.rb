@@ -33,4 +33,20 @@ feature "Comment on splash tracks", :js => true do
 
     should have_comments(2)
   end
+
+  scenario "see view more comments link" do
+    track = create!(Track)
+
+    search_for track.title, :global do
+      splash track
+    end
+
+    expand_splash(track)
+
+    add_comment("Comment #1")
+    add_comment("Comment #2")
+    add_comment("Comment #3")
+
+    should have_more_comments_link(3)
+  end
 end
