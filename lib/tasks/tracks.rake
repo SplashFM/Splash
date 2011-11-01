@@ -161,17 +161,36 @@ namespace :tracks do
 
   namespace :itunes do
     namespace :indexes do
-      task :restore do
-        indexes = [[:itunes_artist_song, [:song_id, :artist_id]],
-                   [:itunes_collection_song, [:song_id, :collection_id]],
-                   [:itunes_song_popularity_per_genre, [:song_id]]]
+      INDEXES = [['index_ias_on_song_id', '(song_id)', 'itunes_artist_song'],
+                 ['index_ias_on_artist_id', '(artist_id)', 'itunes_artist_song'],
+                 ['index_ics_on_song_id', '(song_id)', 'itunes_collection_song'],
+                 ['index_ics_on_collection_id', '(collection_id)', 'itunes_collection_song'],
+                 ['index_isppg_on_song_id', '(song_id)', 'itunes_song_popularity_per_genre'],
+                 ['index_is_on_key', '(song_id)', 'itunes_song'],
+                 ['index_igc_on_collection_id', '(collection_id)', 'itunes_genre_collection'],
+                 ['index_igc_on_genre_id', '(genre_id)', 'itunes_genre_collection'],
+                 ['index_ig_on_key', '(genre_id)', 'itunes_genre']]
 
-        indexes.each do |(t, cols)|
-          cols.each do |col|
-            time do |c|
-              puts "Creating index on #{t} (#{col})."
+      task :restore => :environment do
+        c       = ActiveRecord::Base.connection
+        indexes = c.select_rows <<-IDX
+          SELECT t.relname AS table_name, i.relname AS index_name
+          FROM   pg_index ix
+          JOIN   pg_class t ON t.oid = ix.indrelid
+          JOIN   pg_class i ON i.oid = ix.indexrelid
+        IDX
 
-              c.execute "CREATE INDEX index_#{t}_on_#{col} ON #{t} (#{col})"
+        hash = indexes.inject(Hash.new { |h, k| h[k] = [] }) { |h, (t, i)|
+          h[t] << i
+          h
+        }
+
+        INDEXES.each do |(i, as, t)|
+          time do |c|
+            puts "Creating index on #{t} #{as}."
+
+            unless hash[t].include?(i)
+              c.execute "CREATE INDEX #{i} ON #{t} #{as}"
             end
           end
         end
