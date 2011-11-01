@@ -144,7 +144,7 @@ Widgets.Comment = {
 }
 
 Widgets.Feed = {
-  filters: {},
+  filters: [],
 
   init: function() {
     var self = this;
@@ -205,11 +205,8 @@ Widgets.Feed = {
   refreshWithFilters: function() {
     var data = [];
 
-    for (var f in this.filters) {
-      for (var i = 0; i < this.filters[f].length; i++) {
-        data.push("filters[" + this.filters[f][i].type +
-                    "][]=" + this.filters[f][i].id);
-      }
+    for (var i = 0; i < this.filters.length; i++) {
+      data.push("filters[]=" + this.filters[i]);
     }
 
     this.refresh(data);
@@ -221,16 +218,12 @@ Widgets.Feed = {
     $w('events-filter').tokenInput(Routes.tags_path(), {
       theme: "facebook",
       onAdd: function(e) {
-        if (self.filters[e.type] == null) self.filters[e.type] = [];
-
-        self.filters[e.type].push(e);
+        self.filters.push(e.name);
 
         self.refreshWithFilters();
       },
       onDelete: function(e) {
-        var filter = self.filters[e.type];
-
-        filter.splice(filter.indexOf(e), 1);
+        self.filters.splice(self.filters.indexOf(e.name), 1);
 
         self.refreshWithFilters();
       }

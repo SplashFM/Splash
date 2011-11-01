@@ -2,7 +2,6 @@ require 'redis_record'
 require 'testable_search'
 
 class Track < ActiveRecord::Base
-  ALLOWED_FILTERS = [:tag, :artist]
   DEFAULT_ARTWORK_URL = "no_album_art.png"
 
   include RedisRecord
@@ -59,25 +58,11 @@ class Track < ActiveRecord::Base
 
   # Narrow a Relation to include Track's filters
   def self.narrow(r, filters)
-    ro = r
+    tags   = ActsAsTaggableOn::Tag.arel_table
+    tracks = arel_table
 
-    unless (filters.symbolize_keys.keys - ALLOWED_FILTERS).empty?
-      raise "Unknown filters: #{filters.inspect}"
-    end
-
-    if filters[:tag]
-      ro = ro.joins(:track => :tags).
-        where(:tags => {:id => filters[:tag]})
-    end
-
-    if filters[:artist]
-      # TODO this will probably be faster using a full text search
-      ro = ro.joins(:track).
-        where(['tracks.performers ilike ?',
-               value_to_string_list(filters[:artist])])
-    end
-
-    ro
+    r.includes(:track => :tags).
+      where(tags[:name].in(filters).or(tracks[:performers].in(filters)))
   end
 
   def artwork_url

@@ -13,7 +13,7 @@ class Splash < ActiveRecord::Base
   # Return the Splashes for a given user.
   #
   # @param user the owner or owners of the Splashes
-  # @param filters a Hash of filters or a (possibly splashed) track
+  # @param filters a list of strings or a (possibly splashed) track
   #
   # @return A (possibly empty) list of splashes, if only the user is passed in
   #   or the second argument is a Hash. Otherwise return a single Splash, or
@@ -26,7 +26,7 @@ class Splash < ActiveRecord::Base
     case filters
     when Track
       r.where(:track_id => track.id).first
-    when Hash
+    when Array
       r = Track.narrow(r, filters)
     when nil
       r

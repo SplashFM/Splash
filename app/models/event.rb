@@ -4,7 +4,7 @@ module Event
   end
 
   def self.for(users, since = nil, filters = {})
-    q = Splash.for(users, filters).order('created_at desc')
+    q = Splash.for(users, filters).order('splashes.created_at desc')
 
     since.present? ? q.since(since) : q
   end

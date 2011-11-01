@@ -6,8 +6,7 @@ class TagsController < ApplicationController
     tags    = ActsAsTaggableOn::Tag.named_like(params[:q]).limit(MAX_TAGS)
     artists = Artist.filter(params[:q]).limit(MAX_TAGS)
     hashes  = (artists + tags).sort_by(&:name).map { |t|
-      t.as_json(:only => [:id, :name]).
-        merge!(:type => t.class.name.demodulize.underscore)
+      {:name => t.name}
     }.first(MAX_TAGS)
 
     render :json => hashes
