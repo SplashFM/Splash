@@ -215,19 +215,27 @@ Widgets.Feed = {
   reload: function() {
     var self = this;
 
-    $w('events-filter').tokenInput(Routes.tags_path(), {
-      theme: "facebook",
-      onAdd: function(e) {
-        self.filters.push(e.name);
+    $w('events-filter').autoSuggest(Routes.tags_path(), {
+      selectionAdded: function(elem) {
+        self.filters.push(textFrom(elem));
 
         self.refreshWithFilters();
       },
-      onDelete: function(e) {
-        self.filters.splice(self.filters.indexOf(e.name), 1);
+      selectionRemoved: function(elem) {
+        self.filters.splice(self.filters.indexOf(textFrom(elem)), 1);
+
+        elem.remove();
 
         self.refreshWithFilters();
       }
     });
+
+    function textFrom(elem) {
+      return elem.contents().filter(function() {
+        return this.nodeType == 3;
+      }).text().trim();
+    }
+
   }
 }
 

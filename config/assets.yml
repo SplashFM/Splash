@@ -20,7 +20,7 @@ javascripts:
     - public/javascripts/jquery.jplayer.min.js
     - public/javascripts/jquery.jeditable.js
     - public/javascripts/jquery.Jcrop.min.js
-    - public/javascripts/jquery.tokeninput.js
+    - public/javascripts/jquery.autoSuggest.js
     - public/javascripts/jquery.jcarousel.js
     - public/javascripts/jquery.rangyinputs.js
 
@@ -48,4 +48,4 @@ stylesheets:
     - public/stylesheets/widgets.css
     - public/stylesheets/vendor/jplayer.blue.monday.css
     - public/stylesheets/jquery.Jcrop.css
-    - public/stylesheets/vendor/jquery.tokeninput.css
+    - public/stylesheets/vendor/autoSuggest.css
