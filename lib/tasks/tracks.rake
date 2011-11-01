@@ -78,6 +78,30 @@ namespace :tracks do
           end
         end
       end
+
+      task :tags => :environment do
+        time do |c|
+          c.execute <<-TAGS
+            INSERT INTO tags (name, external_id)
+            SELECT DISTINCT g.name, g.genre_id
+            FROM   itunes_genre_collection gc
+            JOIN   itunes_genre g ON gc.genre_id = g.genre_id
+          TAGS
+        end
+
+        Rake::Task['tracks:indexes:restore:index_tags_on_external_id'].invoke
+
+        time do |c|
+          c.execute <<-TAGGINGS
+            INSERT INTO taggings (tag_id, taggable_id, taggable_type, context)
+            SELECT DISTINCT tg.id, t.id, 'Track', 'tags'
+            FROM   itunes_genre_collection gc
+            JOIN   tags tg ON tg.external_id = gc.genre_id
+            JOIN   itunes_collection_song cs ON cs.collection_id = gc.collection_id
+            JOIN   tracks t ON t.external_id = cs.song_id
+          TAGGINGS
+        end
+      end
     end
   end
 
@@ -86,28 +110,31 @@ namespace :tracks do
                 "USING gin(to_tsvector('english',
                                        coalesce(title, '') || ' ' ||
                                        coalesce(performers, '') || ' ' ||
-                                       coalesce(albums, '')))"],
+                                       coalesce(albums, '')))", 'tracks'],
                ["index_tracks_on_lc_title",
-                "(lower(title), lower(performers))"],
-               ["index_tracks_on_popularity_rank",
-                "(popularity_rank)"]]
+                "(lower(title), lower(performers))", 'tracks'],
+               ["index_tracks_on_popularity_rank", "(popularity_rank)", 'tracks'],
+               ["index_taggings_on_tag_id", "(tag_id)", 'taggings'],
+               ["index_taggings_on_scopes", "(taggable_id, taggable_type, context)", 'taggings'],
+               ["index_tags_on_name", "(name)", 'tags'],
+               ["index_tags_on_external_id", "(external_id)", 'tags']]
 
     task :clobber => INDEXES.map { |(i, _)| "clobber:#{i}" }
     namespace :clobber do
-      INDEXES.each { |(i, _)|
+      INDEXES.each { |(i, _, table)|
         task i => :environment do
-          time { |c| c.execute "DROP INDEX #{i}" if indexes.include?(i) }
+          time { |c| c.execute "DROP INDEX #{i}" if indexes[table].include?(i) }
         end
       }
     end
 
     task :restore => INDEXES.map { |(i, _)| "restore:#{i}" }
     namespace :restore do
-      INDEXES.each { |(i, as)|
+      INDEXES.each { |(i, as, t)|
         task i => :environment do
           time { |c|
-            unless indexes.include?(i)
-              c.execute "CREATE INDEX #{i} ON tracks #{as}"
+            unless indexes[t].include?(i)
+              c.execute "CREATE INDEX #{i} ON #{t} #{as}"
             end
           }
         end
@@ -118,14 +145,16 @@ namespace :tracks do
       @indexes ||= begin
                      c       = ActiveRecord::Base.connection
                      indexes = c.select_rows <<-IDX
-                       SELECT i.relname AS index_name
+                       SELECT t.relname AS table_name, i.relname AS index_name
                        FROM   pg_index ix
                        JOIN   pg_class t ON t.oid = ix.indrelid
                        JOIN   pg_class i ON i.oid = ix.indexrelid
-                       WHERE  t.relname = 'tracks'
                      IDX
 
-                     indexes.flatten
+                     indexes.inject(Hash.new { |h, k| h[k] = [] }) { |h, (t, i)|
+                       h[t] << i
+                       h
+                     }
                    end
     end
   end
