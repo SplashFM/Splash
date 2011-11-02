@@ -5,7 +5,8 @@ Widgets.Pjax = {
       ":not([data-skip-pjax])" +
       ":not(.fancybox)" +
       ":not([data-widget = \"play\"])" +
-      ":not([href^=#])";
+      ":not([href^=#])" +
+      ":not([data-widget = 'purchase'])";
 
     $("#header a" + skip + ", #main a" + skip).
       pjax('[data-pjax-container]', {timeout: 2500});

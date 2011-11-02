@@ -673,5 +673,6 @@ $(document).ready(function() {
   Widgets.Feed.init();
   Widgets.Notification.init();
   Widgets.Paginate.init();
+  Widgets.Purchase.init();
 });
 
