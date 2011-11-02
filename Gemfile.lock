@@ -365,6 +365,7 @@ DEPENDENCIES
   friendly_id (~> 4.0.0.beta8)
   geokit-rails3
   haml (>= 3.0.18)
+  has_scope
   hipchat (= 0.4.0)
   hoptoad_notifier
   inherited_resources

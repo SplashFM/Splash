@@ -81,6 +81,7 @@ gem "sanitize"
 gem "parallel_tests", :group => :development
 gem "acts-as-taggable-on", "~> 2.1.0"
 gem "silent-postgres"
+gem "has_scope"
 
 group :test do
   gem "rr", "~> 1.0"
