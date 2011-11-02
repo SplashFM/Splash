@@ -56,15 +56,6 @@ class Track < ActiveRecord::Base
     ]).order(:popularity_rank)
   end
 
-  # Narrow a Relation to include Track's filters
-  def self.narrow(r, filters)
-    tags   = ActsAsTaggableOn::Tag.arel_table
-    tracks = arel_table
-
-    r.includes(:track => :tags).
-      where(tags[:name].in(filters).or(tracks[:performers].in(filters)))
-  end
-
   def artwork_url
     read_attribute(:artwork_url) || DEFAULT_ARTWORK_URL
   end

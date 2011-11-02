@@ -144,7 +144,7 @@ Widgets.Comment = {
 }
 
 Widgets.Feed = {
-  filters: [],
+  tags: [],
 
   init: function() {
     var self = this;
@@ -166,32 +166,46 @@ Widgets.Feed = {
     setInterval(this.fetchUpdateCount, 60000); // 1 minute
 
     function maybeRefresh() {
-      if ($w('events').data('update_on_splash') === true) self.refresh();
+      var params = $.deparam.querystring($w('events').data('base_url'));
+
+      if (params.update_on_splash) self.refresh();
     }
   },
 
   fetchUpdateCount: function() {
-    var url = $w('event-list').data('update_url');
+    var baseUrl = $w('events').data('base_url');
+    var lastUpd = $w('event-list').data('last_update_at');
+    var url     = $.param.querystring(baseUrl,
+                                      {count: true, last_update_at: lastUpd});
 
     $.ajax(url, {
-      success: function(data) {
-        $w('event-update-counter').find('a').
-          text(I18n.t('events.updates', {count: data}));
-        $w('event-update-counter').show();
-      },
-      error: function() {
-        $w('event-update-counter').hide();
+      success: function(data, _, xhr) {
+        if (xhr.status === 204) {
+          $w('event-update-counter').hide();
+        } else {
+          $w('event-update-counter').find('a').
+            text(I18n.t('events.updates', {count: data}));
+          $w('event-update-counter').show();
+        }
       }
     });
   },
 
-  refresh: function(params) {
-    var self = this;
-    var paramStr;
+  refresh: function() {
+    var self     = this;
+    var baseUrl  = $w('events').data('base_url');
+    var url      = $.param.querystring(baseUrl, {list_only: true});
+    var tags     = [];
 
-    if (params) paramStr = params.join("&");
+    for (var i = 0; i < this.tags.length; i++) {
+      tags.push("tags[]=" + this.tags[i]);
+    }
 
-    $.get($w('events').data('refresh_url'), paramStr, function(data) {
+    url = $.param.querystring(url, tags.join("&"));
+
+    console.log(url);
+
+    $.get(url, function(data) {
       self.updateEventData(data);
     });
   },
@@ -203,11 +217,6 @@ Widgets.Feed = {
   },
 
   refreshWithFilters: function() {
-    var data = [];
-
-    for (var i = 0; i < this.filters.length; i++) {
-      data.push("filters[]=" + this.filters[i]);
-    }
 
     this.refresh(data);
   },
@@ -217,25 +226,30 @@ Widgets.Feed = {
 
     $w('events-filter').autoSuggest(Routes.tags_path(), {
       selectionAdded: function(elem) {
-        self.filters.push(textFrom(elem));
+        self.tags.push(textFrom(elem));
 
-        self.refreshWithFilters();
+        self.refresh();
       },
       selectionRemoved: function(elem) {
-        self.filters.splice(self.filters.indexOf(textFrom(elem)), 1);
+        self.tags.splice(self.tags.indexOf(textFrom(elem)), 1);
 
         elem.remove();
 
-        self.refreshWithFilters();
+        self.refresh();
       }
     });
+
+    if ($w('events').length > 0) {
+      $.get($w('events').data('base_url'), function(data) {
+        $w('event-list').replaceWith(data);
+      });
+    }
 
     function textFrom(elem) {
       return elem.contents().filter(function() {
         return this.nodeType == 3;
       }).text().trim();
     }
-
   }
 }
 

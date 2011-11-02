@@ -37,4 +37,5 @@
 
   = render 'follow_box'
 .clear
-= render_events(@events, @user)
+= render_events(:user             => @user.id,
+                :update_on_splash => own_profile?)

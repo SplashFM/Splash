@@ -65,9 +65,9 @@ module UI
     end
 
     def filter_feed(filter)
-      fill_in "token-input-q", :with => filter
+      fill_in "q", :with => filter
 
-     find(".token-input-dropdown-facebook ul li:first-child").click
+     find("ul li.as-result-item:first-child").click
     end
 
     def go_to(section)

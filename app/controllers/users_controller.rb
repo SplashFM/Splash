@@ -1,9 +1,5 @@
-require 'event_generator'
-
 class UsersController < ApplicationController
   TOP_SPLASHERS_PER_PAGE = 30
-
-  include EventGenerator
 
   inherit_resources
   respond_to :html, :json
@@ -18,12 +14,6 @@ class UsersController < ApplicationController
     render :json => matches.to_json(:includes => [:id, :name])
   end
 
-  def show
-    is_owner if own_profile?
-
-    @events = profile_events
-  end
-
   def avatar
     render 'avatar', :layout => false
   end
@@ -32,14 +22,6 @@ class UsersController < ApplicationController
     current_user.fetch_avatar
 
     respond_with(current_user)
-  end
-
-  def events
-    refresh_events profile_events, @user
-  end
-
-  def event_updates
-    render_event_updates profile_events.count
   end
 
   def exists
@@ -78,7 +60,8 @@ class UsersController < ApplicationController
     @user = params[:id].blank? ? current_user : User.find_by_slug!(params[:id])
   end
 
-  def profile_events
-    Event.for(@user, params[:last_update], params[:filters])
+  helper_method :own_profile?
+  def own_profile?
+    @user == current_user
   end
 end

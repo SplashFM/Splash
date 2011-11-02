@@ -1,14 +1,8 @@
 module RenderHelper
-  def render_events(events, id = nil)
-    refresh_url = url_for(:controller => controller_name,
-                          :action     => 'events',
-                          :id         => id)
-
+  def render_events(path_opts)
     render :partial => "events/index",
-           :object  => events,
            :as      => :events,
-           :locals  => {:refresh_url => refresh_url,
-                        :update_url  => url_for_event_updates(events, id)}
+           :locals  => {:base_url => events_path(path_opts)}
   end
 
   def render_upload_form(stage, track = UndiscoveredTrack.new, status = :ok)
@@ -18,11 +12,11 @@ module RenderHelper
 
   end
 
-  def refresh_events(events, id = nil)
+  def render_event_list(events = [])
     render :partial => "events/list",
            :object  => events,
            :as      => :events,
-           :locals => {:update_url => url_for_event_updates(events, id)}
+           :locals => {:last_update_at => Event.timestamp}
 
   end
 

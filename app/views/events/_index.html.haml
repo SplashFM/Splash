@@ -1,6 +1,4 @@
-%div.events_wrapper{:data => {:widget           => 'events', |
-                              :update_on_splash => update_on_splash?.to_s, |
-                              :refresh_url      => refresh_url}}
+%div.events_wrapper{:data => {:widget => 'events', :base_url => base_url}}
   .filter_wrapper
     %span.label
       filter feed
@@ -8,6 +6,6 @@
       = text_field_tag :q, '', :'data-widget' => 'events-filter'
     .clear
   %div{:data => {:widget => 'event-update-counter'}}
-    = link_to '', refresh_url, :remote => true, :'data-type' => 'html'
+    = link_to '', base_url, :remote => true, :'data-type' => 'html'
 
-  = render "events/list", :events => events, :update_url => update_url
+  = render_event_list

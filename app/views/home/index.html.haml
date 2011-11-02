@@ -1,2 +1,4 @@
 = render :partial => 'shared/search', :locals => {:type => 'track'}
-= render_events(@events)
+= render_events(:user             => current_user.id, |
+                :follower         => current_user.id, |
+                :update_on_splash => true)
