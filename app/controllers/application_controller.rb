@@ -111,7 +111,7 @@ class ApplicationController < ActionController::Base
   end
 
 
-  before_filter :check_http_auth
+  before_filter :check_http_auth, :unless => :preview?
   def check_http_auth
     auth = AppConfig.http_auth
     if auth && ! Rails.env.test?
@@ -183,5 +183,9 @@ class ApplicationController < ActionController::Base
   helper_method :next_page
   def next_page
     current_page + 1
+  end
+
+  def preview?
+    AppConfig.preview_host && request.host =~ /#{AppConfig.preview_host}$/
   end
 end

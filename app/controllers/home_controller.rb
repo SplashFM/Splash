@@ -12,6 +12,8 @@ class HomeController < ApplicationController
       @events = dashboard_events(true)
 
       render
+    elsif preview?
+      render 'preview', :layout => false
     else
       redirect_to new_user_session_path
     end

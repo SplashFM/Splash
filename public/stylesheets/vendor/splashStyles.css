@@ -11,14 +11,16 @@ body
 	position:relative;
 	background-color:#CCC;
 }
-#wrapper
+
+.dlrbg {display:none;}
+#wrapper[style]
 {
-	clear:both;
 	width:1005px;
 	height:746px;
 	margin:0px auto;
-	background:url('../../images/waterBg.png') no-repeat center center transparent;
+	background:url('/images/waterBg.png') no-repeat center center transparent !important;
 	position:relative;
+	top:0px !important;
 }
 
 

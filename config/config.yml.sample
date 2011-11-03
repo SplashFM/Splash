@@ -9,6 +9,7 @@ common: &common
     username: u
     password: p
   preferred_host: localhost
+  preview_host: splash.fm
   sendgrid:
     username: foo
     password: bar
