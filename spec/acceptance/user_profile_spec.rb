@@ -22,6 +22,16 @@ feature "User Profile", :js => true do
     should have_notifications(1)
   end
 
+  scenario "See following feed update" do
+    followed = create(User).with_required_info!
+    follow(followed)
+
+    logout
+    fast_login(followed)
+
+    should have_following(user.name, t('you'))
+  end
+
   scenario "Edit tagline" do
     go_to 'profile'
     change_tagline("hi cruel world")

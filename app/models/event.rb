@@ -1,7 +1,13 @@
 module Event
   class Builder
     def build
-      splashes
+      result = splashes + user_followed
+
+      if result.respond_to?(:sort_by)
+        result.sort_by(&:created_at).reverse
+      else
+        result
+      end
     end
 
     def count
@@ -35,6 +41,20 @@ module Event
     end
 
     private
+
+    def user_followed
+      scope = User.find(@user_id).reverse_relationships
+
+      if @last_update_at
+        scope = scope.where(['created_at > ?', @last_update_at])
+      end
+
+      if @count
+        scope.count
+      else
+        scope
+      end
+    end
 
     def splashes
       scope = Splash

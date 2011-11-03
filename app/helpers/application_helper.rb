@@ -41,4 +41,14 @@ module ApplicationHelper
   def link_to_user(user)
     link_to(user.name, user_slug_path(user), :'data-widget' => 'profile-link')
   end
+
+  def personalize(user, use_caps)
+    if user == current_user
+      you = t('you')
+
+      use_caps ? you.capitalize : you
+    else
+      user.name
+    end
+  end
 end

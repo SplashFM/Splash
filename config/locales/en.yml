@@ -18,6 +18,7 @@ en:
       track: Enter a song to splash
 
   events:
+    following: %{follower} is now following %{followed}
     updates:
       one: 1 new update
       other: %{count} new updates
@@ -102,3 +103,5 @@ en:
   notifications:
     following: "%{follower} is following you"
     mention: "%{user} is has mentioned you"
+
+  you: you

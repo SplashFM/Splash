@@ -1,0 +1,4 @@
+%li.relationship{:data => {:widget => 'following'}}
+  = t('events.following', |
+      :follower => personalize(relationship.follower, true), |
+      :followed => personalize(relationship.followed, false))

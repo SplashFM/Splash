@@ -16,6 +16,14 @@ module UI
       has_css?(".comments li", :count => count)
     end
 
+    def has_following?(follower, following)
+      within('[data-widget = "following"]') {
+        has_content?(I18n.t('events.following',
+                            :follower => follower,
+                            :followed => following))
+      }
+    end
+
     def has_no_event_updates?
       has_no_css?('[data-widget = "event-update-counter"]', :visible => true)
     end
