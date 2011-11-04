@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
   class Builder
+    PER_PAGE = 10
+
     def build
       if @count
         splashes.count + user_followed.count
@@ -9,6 +11,10 @@ class Event < ActiveRecord::Base
           " UNION ALL " <<
           user_followed.to_sql <<
           " ORDER BY created_at DESC"
+
+        if @page
+          q << " LIMIT #{PER_PAGE} OFFSET #{offset}"
+        end
 
         events = Event.find_by_sql(q);
 
@@ -34,6 +40,12 @@ class Event < ActiveRecord::Base
       self
     end
 
+    def page(num)
+      @page = num.to_i < 1 ? 1 : num.to_i
+
+      self
+    end
+
     def tags(tags)
       @tags = tags
 
@@ -47,6 +59,10 @@ class Event < ActiveRecord::Base
     end
 
     private
+
+    def offset
+      (@page - 1) * PER_PAGE
+    end
 
     def user_followed
       scope = User.find(@user_id).

@@ -146,9 +146,9 @@ Widgets.Comment = {
 Widgets.Feed = {
   tags: [],
 
-  buildRequestUrl: function() {
+  buildRequestUrl: function(page) {
     var baseUrl  = $w('events').data('base_url');
-    var url      = $.param.querystring(baseUrl, {list_only: true});
+    var url      = $.param.querystring(baseUrl, {list_only: true, page: page});
     var tags     = [];
 
     for (var i = 0; i < this.tags.length; i++) {
@@ -176,6 +176,8 @@ Widgets.Feed = {
     $w('events').live('splash:splash', maybeRefresh);
 
     setInterval(this.fetchUpdateCount, 60000); // 1 minute
+
+    this.setupEndlessScrolling();
 
     function maybeRefresh() {
       var params = $.deparam.querystring($w('events').data('base_url'));
@@ -206,8 +208,42 @@ Widgets.Feed = {
   refresh: function() {
     var self = this;
 
+    this.resetScrollCounter(true);
+
     $.get(this.buildRequestUrl(), function(data) {
       self.updateEventData(data);
+    });
+  },
+
+  resetScrollCounter: (function() {
+    var flip = true;
+
+    return function(val) {
+      if (val != null) {
+        flip = val;
+      } else {
+        return flip;
+      }
+    }
+  })(),
+
+  setupEndlessScrolling: function() {
+    var self = this;
+
+    $(document).endlessScroll({
+      callback: function(page) {
+        $.get(self.buildRequestUrl(page + 1), function(data) {
+          $w('event-list').append($(data).html());
+        });
+      },
+
+      resetCounter: function() {
+        var reset = self.resetScrollCounter();
+
+        if (reset) self.resetScrollCounter(false);
+
+        return reset;
+      }
     });
   },
 
@@ -245,6 +281,8 @@ Widgets.Feed = {
         $w('event-list').replaceWith(data);
       });
     }
+
+    this.resetScrollCounter(true);
 
     function textFrom(elem) {
       return elem.contents().filter(function() {

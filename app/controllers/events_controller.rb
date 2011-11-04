@@ -8,16 +8,24 @@ class EventsController < ApplicationController
   has_scope :tags, :type => :array
 
   def index
-    events = apply_scopes(Event.scope_builder).build
+    events = apply_scopes(Event.scope_builder)
 
     if params[:count]
-      if events > 0
-        render :json => events
+      result = events.build
+
+      if result > 0
+        render :json => result
       else
         head :no_content
       end
     else
-      render_event_list events
+      results = events.page(params[:page]).build
+
+      if results.empty?
+        head :no_content
+      else
+        render_event_list results
+      end
     end
   end
 end
