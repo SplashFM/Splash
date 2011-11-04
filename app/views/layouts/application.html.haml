@@ -1,7 +1,9 @@
 !!!
-%html
+%html{:dir => "ltr", :lang => "en-US", :xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %title= Rails.application.name
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-type"}/
+    %link{:href => "css/images/favicon.ico", :rel => "shortcut icon"}/
     = include_javascripts :base
     = include_javascripts :pjax if logged_in?
     = active_scaffold_includes if active_scaffold?
