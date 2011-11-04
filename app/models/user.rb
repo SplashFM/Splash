@@ -75,7 +75,9 @@ class User < ActiveRecord::Base
   end
 
   def suggested_users
-    User.limit(3)    #TODO
+    suggested_users = followers.includes(:following).map(&:following)
+
+    (suggested_users.flatten.uniq - following - [self]).first(3)
   end
 
   def as_json(opts = {})
