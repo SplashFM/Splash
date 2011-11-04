@@ -39,4 +39,12 @@ if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
     s.artwork_url      = "http://a5.mzstatic.com/us/r1000/032/Features/4b/c4/cb/dj.mjhyndcl.100x100-75.jpg"
     s.tag_list         = ["Grunge"]
   end
+
+  1.upto(20) { |i|
+    DiscoveredTrack.seed :title do |s|
+      s.title       = "Track #{i}"
+      s.albums      = ['Album']
+      s.performers  = ['Artist']
+    end
+  }
 end
