@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
     update_influence_scores scores
   end
 
+  def ignore_suggested_users
+    read_attribute(:ignore_suggested_users) || []
+  end
+
   def suggested_users
     suggested_users = followers.includes(:following).map(&:following)
 

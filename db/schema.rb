@@ -153,22 +153,23 @@ ActiveRecord::Schema.define(:version => 20111108112545) do
     t.datetime "data_updated_at"
     t.string   "purchase_url_raw",  :limit => 1024
     t.string   "type"
+    t.string   "artwork_url"
     t.integer  "external_id"
     t.string   "preview_url"
     t.text     "performers"
     t.text     "albums"
-    t.string   "artwork_url"
+    t.string   "album_artwork_url"
     t.integer  "popularity_rank"
     t.integer  "uploader_id"
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "",     :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "",     :null => false
+    t.string   "email",                                 :default => "",     :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",     :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count",                         :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -178,17 +179,18 @@ ActiveRecord::Schema.define(:version => 20111108112545) do
     t.datetime "confirmation_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "superuser",                           :default => false
+    t.boolean  "superuser",                             :default => false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.string   "type",                                :default => "User", :null => false
+    t.string   "type",                                  :default => "User", :null => false
     t.string   "name"
     t.string   "initial_provider"
-    t.string   "tagline",              :limit => 60
+    t.string   "tagline",                :limit => 60
     t.string   "slug"
     t.date     "birthday"
+    t.text     "ignore_suggested_users"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
