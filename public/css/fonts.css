@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'ITCAvantGardeGothicBookRg';
+    src: url('fonts/avantgarde-book-webfont.eot');
+    src: url('fonts/avantgarde-book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/avantgarde-book-webfont.woff') format('woff'),
+         url('fonts/avantgarde-book-webfont.ttf') format('truetype'),
+         url('fonts/avantgarde-book-webfont.svg#ITCAvantGardeGothicBookRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ITCAvantGardeGothicDemiRg';
+    src: url('fonts/avantgarde-demi-webfont.eot');
+    src: url('fonts/avantgarde-demi-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/avantgarde-demi-webfont.woff') format('woff'),
+         url('fonts/avantgarde-demi-webfont.ttf') format('truetype'),
+         url('fonts/avantgarde-demi-webfont.svg#ITCAvantGardeGothicDemiRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'ITCAvantGardeGothicBold';
+    src: url('fonts/avantgarde-bold-webfont.eot');
+    src: url('fonts/avantgarde-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/avantgarde-bold-webfont.woff') format('woff'),
+         url('fonts/avantgarde-bold-webfont.ttf') format('truetype'),
+         url('fonts/avantgarde-bold-webfont.svg#ITCAvantGardeGothicBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

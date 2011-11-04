@@ -51,3 +51,5 @@ stylesheets:
     - public/stylesheets/vendor/jplayer.blue.monday.css
     - public/stylesheets/jquery.Jcrop.css
     - public/stylesheets/vendor/autoSuggest.css
+    - public/css/style.css
+    - public/css/fonts.css
