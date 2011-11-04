@@ -175,7 +175,7 @@ Widgets.Feed = {
     $w('upload-container').live('splash:uploaded', maybeRefresh);
     $w('events').live('splash:splash', maybeRefresh);
 
-    setInterval(this.fetchUpdateCount, 60000); // 1 minute
+    setInterval(function() { self.fetchUpdateCount(); }, 60000); // 1 minute
 
     this.setupEndlessScrolling();
 
@@ -187,9 +187,8 @@ Widgets.Feed = {
   },
 
   fetchUpdateCount: function() {
-    var baseUrl = $w('events').data('base_url');
     var lastUpd = $w('event-list').data('last_update_at');
-    var url     = $.param.querystring(baseUrl,
+    var url     = $.param.querystring(this.buildRequestUrl(),
                                       {count: true, last_update_at: lastUpd});
 
     $.ajax(url, {
