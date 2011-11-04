@@ -49,7 +49,7 @@ module Event
         scope = scope.where(['created_at > ?', @last_update_at])
       end
 
-      scope
+      scope.order('created_at desc')
     end
 
     def splashes
