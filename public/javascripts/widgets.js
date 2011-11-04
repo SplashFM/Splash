@@ -146,6 +146,18 @@ Widgets.Comment = {
 Widgets.Feed = {
   tags: [],
 
+  buildRequestUrl: function() {
+    var baseUrl  = $w('events').data('base_url');
+    var url      = $.param.querystring(baseUrl, {list_only: true});
+    var tags     = [];
+
+    for (var i = 0; i < this.tags.length; i++) {
+      tags.push("tags[]=" + this.tags[i]);
+    }
+
+    return $.param.querystring(url, tags.join("&"));
+  },
+
   init: function() {
     var self = this;
 
@@ -192,18 +204,9 @@ Widgets.Feed = {
   },
 
   refresh: function() {
-    var self     = this;
-    var baseUrl  = $w('events').data('base_url');
-    var url      = $.param.querystring(baseUrl, {list_only: true});
-    var tags     = [];
+    var self = this;
 
-    for (var i = 0; i < this.tags.length; i++) {
-      tags.push("tags[]=" + this.tags[i]);
-    }
-
-    url = $.param.querystring(url, tags.join("&"));
-
-    $.get(url, function(data) {
+    $.get(this.buildRequestUrl(), function(data) {
       self.updateEventData(data);
     });
   },
