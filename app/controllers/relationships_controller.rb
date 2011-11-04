@@ -5,6 +5,7 @@ class RelationshipsController < ApplicationController
     @following = current_user.following
 
     respond_to { |f|
+      f.html { render 'follow', :locals => {:users => @following} }
       f.js   { render 'follow', :locals => {:users => @following} }
       f.json { render :json => @following.to_json(:includes => [:id, :name]) }
     }
