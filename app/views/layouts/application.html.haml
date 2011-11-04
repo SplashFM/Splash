@@ -15,13 +15,8 @@
       = render "shared/player"
   %body
     = render "shared/ie6_banner"
-    .yui3-g
-      %div{"data-pjax-container" => ""}
-        =# render :template => 'layouts/pjax'
-      / /- if logged_in?
-      / /  #player-area
-    #wrapper
-      = render "shared/header"
-      #main
-        = yield
-      = render "shared/player"
+    #wrapper{'data-pjax-container' => ''}
+      = render :template => 'layouts/pjax'
+    / /- if logged_in?
+    / /  #player-area
+    = render "shared/player"
