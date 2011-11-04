@@ -247,7 +247,10 @@ Widgets.Feed = {
   },
 
   updateEventData: function(data) {
-    $w("event-list").replaceWith(data);
+    var $d = $(data);
+
+    $w("event-list").data('last_update_at', $d.data('last_update_at'));
+    $w("event-list").html($d.html());
 
     Widgets.CommentBox.init();
   },
