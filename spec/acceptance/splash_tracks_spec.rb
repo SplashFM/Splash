@@ -59,5 +59,18 @@ feature "Splash tracks", :js => true do
 
     should have_splash(track)
   end
-end
 
+  scenario "show time since it was splashed" do
+    track = create!(Track)
+
+    search_for track.title, :track do
+      splash track
+    end
+
+    splash = Splash.for(user, track)
+
+    within("[data-widget = 'splash'][data-track_id = '#{track.id}']") do
+       has_content?(time_ago_in_words(splash.created_at))
+    end
+  end
+end
