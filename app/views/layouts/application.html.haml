@@ -17,9 +17,11 @@
     = render "shared/ie6_banner"
     .yui3-g
       %div{"data-pjax-container" => ""}
-        = render :template => 'layouts/pjax'
-      - if logged_in?
-        #player-area
-      #footer
-        #by_line
-          Developed by #{link_to 'Mojo Tech', 'http://www.mojotech.com'}
+        =# render :template => 'layouts/pjax'
+      / /- if logged_in?
+      / /  #player-area
+    #wrapper
+      = render "shared/header"
+      #main
+        = yield
+      = render "shared/player"

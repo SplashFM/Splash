@@ -1,0 +1,22 @@
+%form.main-search{:action => "#", :method => "post"}
+  %label
+    %em Search for a song to Splash
+  .wrap
+    %input.field{:type => "text"}/
+    .dd
+      %ul
+        = render "search_item"
+        = render "search_item"
+        = render "search_item"
+        / / #TODO need to add "last" class to search_item list
+        %li.last
+          .holder
+            %a.art.left{:href => "#"}
+              %img{:alt => "", :height => "42", :src => "css/images/album-art-42x42.png", :width => "42"}/
+            .info.left
+              %a.songname.avan-bold{:href => "#"} The Road Gets Harder All The...
+              %span.songauthor Chemical Brothers
+            %a.icon.right{:href => "#"}
+      %a.load-more{:href => "#"} Load More Results
+  %a.upload.right{:href => "#"} Upload
+  .cl &nbsp;

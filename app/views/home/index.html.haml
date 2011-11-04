@@ -1,4 +1,45 @@
-= render :partial => 'shared/search', :locals => {:type => 'track'}
-= render_events(:user             => current_user.id, |
-                :follower         => current_user.id, |
-                :update_on_splash => true)
+= render "sidebar"
+#stream-wrap.left
+  #stream-feed
+    .streamfeed-top
+      .container
+        = render "search"
+        .feed-settings
+          .types.avan-bold
+            %ul
+              %li
+                %a.active{:href => "#"} Following
+              %li
+                %a{:href => "#"} Everyone
+            .line
+              %span
+          %span.count.left 15 new Splashes
+          .toggle.toggle-splashes.right
+            %span.state.avan-bold.off
+              %span Off
+            %span.state.avan-bold.on
+              %span On
+            %span.handle Splashes
+          .toggle.toggle-activity.right
+            %span.state.avan-bold.off
+              %span Off
+            %span.state.avan-bold.on
+              %span On
+            %span.handle{:style => "left: auto; right: 0;"} Activity
+          .cl &nbsp;
+    .feed-filter
+      .container
+        %span.tag
+          %a{:href => "#"} pop
+          %a.delete
+        %span.tag
+          %a{:href => "#"} east coast rap
+          %a.delete
+        %input.field{:type => "text"}/
+        = render "filter_popup"
+      %a.trigger.close{:href => "#"} Filter Splashes
+    = render "live_feed"
+    .loading-spinner
+.cl &nbsp;
+
+= render "user_list"

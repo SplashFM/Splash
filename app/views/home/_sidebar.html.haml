@@ -1,0 +1,65 @@
+#user-bar-wrap.right
+  #user-bar
+    .user-vcard
+      .container
+        .picture.left
+          %img{:alt => "", :height => "185", :src => "css/images/user-picture.png", :width => "125"}/
+        .info.left
+          %h2.avan-bold John Tim Bobby
+          .score
+            %img{:alt => "", :height => "73", :src => "css/images/spscore-4.png", :width => "50"}/
+            %img{:alt => "", :height => "73", :src => "css/images/spscore-6.png", :width => "50"}/
+            .cl &nbsp;
+            %span.badge
+            %a.expand{:href => "#"}
+          .blurb
+            %p
+              Hit me up with any new East Coast rap!
+              %a{:href => "#"} #ILoveScratchpads
+            %form{:action => "#", :method => "post"}
+              %input{:type => "text"}/
+        .cl &nbsp;
+    / /user vcard
+    .user-follows-count
+      %span.shadow
+      %span.count
+        %strong.avan-demi 3,222
+        Followers
+      %span.count
+        %strong.avan-demi 167
+        Following
+      %span.corner
+    / /user follows
+    .splashers-widgets
+      .suggested-splashers
+        %a.see-all.right{:href => "#"}
+          %span &bull;
+          See All
+        %h3 Suggested Splashers
+        .cl &nbsp;
+        %ul
+          = render "suggested_splasher"
+          = render "suggested_splasher"
+          = render "suggested_splasher"
+        %a.viewmore-btn{:href => "#"} View More
+      .top-splashes
+        .tabs
+          %ul
+            %li
+              %a.active{:href => "#"} Top Splashes
+            %li
+              %a{:href => "#"} Top Splashers
+          .line
+            %span
+          %a.toggle{:href => "#"}
+        %ul#splashes.tab
+          = render "top_splash"
+          = render "top_splash"
+          = render "top_splash"
+          = render "top_splash"
+          = render "top_splash"
+          = render "top_splash"
+          = render "top_splash"
+          = render "top_splash"
+        %a.viewmore-btn{:href => "#"} View Splashboard
+    = render "invites"

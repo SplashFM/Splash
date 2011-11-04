@@ -33,11 +33,11 @@ javascripts:
 stylesheets:
   base:
     - public/stylesheets/vendor/yui-reset.css
-    - public/stylesheets/demoStyles.css
+    #- public/stylesheets/demoStyles.css
     - public/stylesheets/vendor/yui-base.css
     - public/stylesheets/vendor/yui-fonts.css
     - public/stylesheets/vendor/yui-grids.css
-    - public/stylesheets/core.css
+    # - public/stylesheets/core.css
     - public/stylesheets/vendor/jquery.fancybox-1.3.4.css
     - public/stylesheets/vendor/ui-lightness/jquery-ui-1.8.16.custom.css
     - public/stylesheets/navigation.css
@@ -45,8 +45,8 @@ stylesheets:
     - public/stylesheets/vendor/formtastic.css
     - public/stylesheets/vendor/formtastic_changes.css
     - public/stylesheets/flash_messages.css
-    - public/stylesheets/style.css
-    - public/stylesheets/header.css
+    # - public/stylesheets/style.css
+    # - public/stylesheets/header.css
     - public/stylesheets/widgets.css
     - public/stylesheets/vendor/jplayer.blue.monday.css
     - public/stylesheets/jquery.Jcrop.css
