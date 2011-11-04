@@ -278,7 +278,7 @@ Widgets.Feed = {
 
     if ($w('events').length > 0) {
       $.get($w('events').data('base_url'), function(data) {
-        $w('event-list').replaceWith(data);
+        self.updateEventData(data);
       });
     }
 
