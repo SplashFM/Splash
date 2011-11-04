@@ -6,6 +6,9 @@ class Relationship < ActiveRecord::Base
   validates :follower, :presence => true
   validates_uniqueness_of :follower_id, :scope => [:followed_id]
 
+  scope :ignore, lambda { |users| where("followed_id not in (?)", users) }
+  scope :with_followers, lambda { |users| where(:follower_id => users) }
+
   def as_json(opts = {})
     {:type     => 'relationship',
      :follower => follower.as_json,

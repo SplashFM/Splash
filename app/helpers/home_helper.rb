@@ -7,4 +7,12 @@ module HomeHelper
                                                 :'data-type' => 'html',
                                                 :class => 'follow avan-demi'
   end
+
+  def ignore_user(user)
+    link_to '', suggested_splasher_path(user), :method => :delete,
+                                              :remote => true,
+                                              :'data-widget' => 'delete-suggested-user',
+                                              :'data-type' => 'html',
+                                              :class => 'delete'
+  end
 end

@@ -431,6 +431,10 @@ Widgets.SuggestedUsers = {
           }
         });
     });
+
+    $w('delete-suggested-user').live('ajax:success', function(_, data) {
+      $w("suggested-users").html(data);
+    });
   }
 }
 

@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   redis_sorted_field :influence
   redis_counter :ripple_count
   redis_counter :splash_count
+  serialize :ignore_suggested_users, Array
 
   has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed
@@ -79,9 +80,14 @@ class User < ActiveRecord::Base
   end
 
   def suggested_users
-    suggested_users = followers.includes(:following).map(&:following)
+    relationships = Relationship.select('DISTINCT relationships.followed_id')
+                                .with_followers(followers.map(&:id))
+                                .ignore(ignore_suggested_users + 
+                                                (following + [self]).map(&:id))
+                                .limit(3)
+                                .includes(:followed)
 
-    (suggested_users.flatten.uniq - following - [self]).first(3)
+    relationships.map(&:followed)
   end
 
   def as_json(opts = {})
@@ -140,6 +146,11 @@ class User < ActiveRecord::Base
     followers.find :all,
                   :offset => max_offset,
                   :limit => count
+  end
+
+  def ignore_suggested(user)
+    write_attribute(:ignore_suggested_users, ignore_suggested_users << user.id)
+    save
   end
 
   def influence_score

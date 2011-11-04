@@ -41,6 +41,14 @@ module UI
       click_link t('follow', :scope => 'users.show')
     end
 
+    def ignore(user)
+      page.execute_script <<-JS
+        $("[data-widget = 'suggested-users'] li:first .wrap a.delete").show();
+      JS
+
+      find("[data-widget = 'suggested-users'] li:first .wrap a.delete").click
+    end
+
     def login(user)
       visit new_user_session_path
 

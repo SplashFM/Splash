@@ -7,5 +7,7 @@
         = link_to user.name, user_slug_path(user), :class => 'avan-bold'
         %small= user.name
       %p.scores.avan-bold= user.splash_score
-    %a.delete{:href => "#"}
+
+    = ignore_user(user)
+
     = follow_suggested_user(user)
