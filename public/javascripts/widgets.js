@@ -203,8 +203,6 @@ Widgets.Feed = {
 
     url = $.param.querystring(url, tags.join("&"));
 
-    console.log(url);
-
     $.get(url, function(data) {
       self.updateEventData(data);
     });
