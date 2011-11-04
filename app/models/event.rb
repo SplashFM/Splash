@@ -4,7 +4,8 @@ module Event
       if @count
         splashes.count + user_followed.count
       else
-        result = splashes + user_followed
+        result = splashes.order('splashes.created_at desc') +
+                 user_followed.order('relationships.created_at desc')
 
         result.sort_by(&:created_at).reverse
       end
@@ -49,7 +50,7 @@ module Event
         scope = scope.where(['created_at > ?', @last_update_at])
       end
 
-      scope.order('created_at desc')
+      scope
     end
 
     def splashes
@@ -68,7 +69,7 @@ module Event
           where(:tags => {:name => @tags})
       end
 
-      scope.order('created_at desc')
+      scope
     end
 
     def user_ids
