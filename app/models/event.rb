@@ -1,12 +1,12 @@
 module Event
   class Builder
     def build
-      result = splashes + user_followed
-
-      if result.respond_to?(:sort_by)
-        result.sort_by(&:created_at).reverse
+      if @count
+        splashes.count + user_followed.count
       else
-        result
+        result = splashes + user_followed
+
+        result.sort_by(&:created_at).reverse
       end
     end
 
@@ -49,11 +49,7 @@ module Event
         scope = scope.where(['created_at > ?', @last_update_at])
       end
 
-      if @count
-        scope.count
-      else
-        scope
-      end
+      scope
     end
 
     def splashes
@@ -72,11 +68,7 @@ module Event
           where(:tags => {:name => @tags})
       end
 
-      if @count
-        scope.count
-      else
-        scope.order('created_at desc').all
-      end
+      scope.order('created_at desc')
     end
 
     def user_ids
