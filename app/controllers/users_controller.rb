@@ -8,10 +8,12 @@ class UsersController < ApplicationController
   skip_before_filter :require_name, :only => ['edit', 'update']
   before_filter      :load_user, :only => [:show, :events, :event_updates]
 
-  def index
-    matches = User.filter_by_name(params[:filter])
+  has_scope :with_text
 
-    render :json => matches.to_json(:includes => [:id, :name])
+  def index
+    render :json => apply_scopes(User).map { |u|
+      u.as_json.merge!(:path => user_slug_path(u))
+    }
   end
 
   def avatar

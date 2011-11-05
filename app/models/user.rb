@@ -74,6 +74,13 @@ class User < ActiveRecord::Base
     update_influence_scores scores
   end
 
+  def as_json(opts = {})
+    {:id            => id,
+     :name          => name,
+     :avatar_search => avatar.url(:thumb),
+     :score         => splash_score}
+  end
+
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end

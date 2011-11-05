@@ -1,8 +1,16 @@
 $(function() {
   window.BaseApp = Backbone.View.extend({
     initialize: function() {
+      this.userSearch  = new BaseApp.UserSearch;
       this.trackSearch = new BaseApp.TrackSearch;
     }
+  });
+
+  window.BaseApp.UserSearch = Search.extend({
+    collection: new UserList,
+    el: '[data-widget = "global-search"]',
+    menuContainer: '[data-widget = "users"] ul',
+    template: '#tmpl-global-search-user',
   });
 
   window.BaseApp.TrackSearch = Search.extend({
