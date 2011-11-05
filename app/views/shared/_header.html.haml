@@ -35,10 +35,12 @@
                 %strong.avan-bold The Road Gets Harder All Th... –
                 %span Chemical Brothers
     / /quick splash
-    %form.head-search.opened.right{:action => "#", :method => "post"}
+    %form.head-search.opened.right{:action => "#", |
+                                   :method => "post", |
+                                   :data   => {:widget => 'global-search'}}
       %input.field{:type => "text"}/
       %input.submit{:type => "submit", :value => "Search"}/
-      .dd
+      .dd{:data => {:widget => 'results'}}
         %span.arrow
         .container
           .col.left
@@ -89,67 +91,11 @@
                     %small Tina Mariee
                     %span.avan-bold 10
           / /colum
-          .col.right
+          .col.right{:data => {:widget => 'tracks'}}
             %h4
               %span Tracks
             .scroll-area
               %ul.tracks
-                %li
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li.even
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li.even
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li.even
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li.even
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li.even
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li.even
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
-                %li.even
-                  %a{:href => "#"}
-                    Elliie -
-                    %span Elvis Presley
           / /colum
     / /head search
     = render_navigation
