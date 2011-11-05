@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   TOP_SPLASHERS_PER_PAGE = 30
+  PER_SEARCH = 10
 
   inherit_resources
   respond_to :html, :json
@@ -11,9 +12,9 @@ class UsersController < ApplicationController
   has_scope :with_text
 
   def index
-    render :json => apply_scopes(User).map { |u|
-      u.as_json.merge!(:path => user_slug_path(u))
-    }
+    render :json => apply_scopes(User).
+      page(params[:page].to_i).per(PER_SEARCH).
+      map { |u| u.as_json.merge!(:path => user_slug_path(u)) }
   end
 
   def avatar
