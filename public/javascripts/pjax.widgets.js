@@ -13,6 +13,7 @@ Widgets.Pjax = {
 
     $('body').bind('success.pjax', function() {
       window.HomeApp = new Home;
+      window.App     = new BaseApp;
 
       Widgets.Feed.reload();
       Widgets.Upload.reload();
