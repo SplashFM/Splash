@@ -3,6 +3,29 @@ $(function() {
     initialize: function() {
       this.userSearch  = new BaseApp.UserSearch;
       this.trackSearch = new BaseApp.TrackSearch;
+      this.quickSplash = new BaseApp.QuickSplash;
+    }
+  });
+
+  window.BaseApp.QuickSplash = Search.extend({
+    collection: new TrackList,
+    el: '[data-widget = "quick-splash"]',
+    events: _.extend({
+      'click [data-widget = "toggle"]' : 'toggle',
+    }, Search.prototype.events),
+    template: '#tmpl-quick-splash-track',
+
+    hideResults: function() {
+      this.menu.hide();
+    },
+
+    toggle: function() {
+      this.hideResults();
+      this.toggleInput();
+    },
+
+    toggleInput: function() {
+      this.$('[data-widget = "box"]').toggle();
     }
   });
 

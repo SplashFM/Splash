@@ -5,35 +5,15 @@
     %a.nav-username.right{:href => "#"} John Tim Bobby
     .nav-notifications.right
       %a.avan-demi{:href => "#"} 14
-    .quick-splash.right
-      %a.trigger{:href => "#"}
-      %form{:action => "#", :method => "post"}
+    .quick-splash.right{:data => {:widget => 'quick-splash'}}
+      %a.trigger{:href => "#", :data => {:widget => 'toggle'}}}
+      %form{:action => "#", :method => "post", :data => {:widget => 'box'}}
         %span.arrow
         %label.avan-bold Quick Splash
         .wrap
           %input.submit{:type => "submit", :value => "Search"}/
           %input.field{:type => "text"}/
-          %ul
-            %li
-              %a{:href => "#"}
-                %strong.avan-bold The Road Gets Harder All Th... –
-                %span Chemical Brothers
-            %li
-              %a{:href => "#"}
-                %strong.avan-bold The Road Gets Harder All Th... –
-                %span Chemical Brothers
-            %li
-              %a{:href => "#"}
-                %strong.avan-bold The Road Gets Harder All Th... –
-                %span Chemical Brothers
-            %li
-              %a{:href => "#"}
-                %strong.avan-bold The Road Gets Harder All Th... –
-                %span Chemical Brothers
-            %li
-              %a{:href => "#"}
-                %strong.avan-bold The Road Gets Harder All Th... –
-                %span Chemical Brothers
+          %ul{:data => {:widget => 'results'}}
     / /quick splash
     %form.head-search.opened.right{:action => "#", |
                                    :method => "post", |
