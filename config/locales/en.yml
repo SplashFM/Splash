@@ -12,6 +12,12 @@ en:
       messages:
         invalid_attachment: is invalid. Use one of %{allowed}
 
+  home:
+    search:
+      search_for_song: Search for a song to Splash
+      load_more: Load More Results
+      upload: Upload
+
   shared:
     search:
       global: Search for songs or users

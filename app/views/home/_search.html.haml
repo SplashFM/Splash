@@ -1,10 +1,11 @@
 %form.main-search{:action => "#", :method => "post", :data => {:widget => 'track-search'}}
   %label
-    %em Search for a song to Splash
+    %em= t('.search_for_song')
   .wrap
     %input.field{:type => "text"}/
     .dd{:data => {:widget => 'results'}}
       %ul
-      %a.load-more{:href => "#", :data => {:widget => 'load-more'}} Load More Results
-  %a.upload.right{:href => "#"} Upload
+      %a.load-more{:href => "#", :data => {:widget => 'load-more'}}
+        = t('.load_more')
+  %a.upload.right{:href => "#"}= t('.upload')
   .cl &nbsp;
