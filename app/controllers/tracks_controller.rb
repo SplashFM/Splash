@@ -7,7 +7,9 @@ class TracksController < ApplicationController
   has_scope :with_text
 
   def index
-    respond_with apply_scopes(Track)
+    respond_with apply_scopes(Track).
+      page(params[:page].to_i).
+      per(TRACKS_PER_TRACK_SEARCH);
   end
 
   def top
