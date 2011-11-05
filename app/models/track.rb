@@ -56,6 +56,13 @@ class Track < ActiveRecord::Base
     ]).order(:popularity_rank)
   end
 
+  def as_json(options = {})
+    {:id          => id,
+     :title       => title,
+     :artwork_url => artwork_url,
+     :performers  => performers.to_sentence}
+  end
+
   def artwork_url
     read_attribute(:artwork_url) || DEFAULT_ARTWORK_URL
   end

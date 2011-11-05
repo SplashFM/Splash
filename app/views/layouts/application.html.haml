@@ -13,6 +13,7 @@
     = yield :head
     - if logged_in?
       = render "shared/player"
+    = render "home/track"
   %body
     = render "shared/ie6_banner"
     #wrapper{'data-pjax-container' => ''}
