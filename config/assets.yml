@@ -61,4 +61,3 @@ stylesheets:
     # - public/stylesheets/vendor/autoSuggest.css
     # - public/css/style.css
     - public/css/fonts.css
-    - public/stylesheets/style-overrides.css
