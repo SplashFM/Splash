@@ -35,9 +35,7 @@
         %h3 Suggested Splashers
         .cl &nbsp;
         %ul
-          = render "suggested_splasher"
-          = render "suggested_splasher"
-          = render "suggested_splasher"
+          = render :partial => "suggested_splasher", :collection => current_user.suggested_users, :as => :user
         %a.viewmore-btn{:href => "#"} View More
       .top-splashes
         .tabs

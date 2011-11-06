@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
     update_influence_scores scores
   end
 
+  def suggested_users
+    User.limit(3)    #TODO
+  end
+
   def as_json(opts = {})
     {:id            => id,
      :name          => name,
