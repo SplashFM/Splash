@@ -15,6 +15,4 @@ $(function() {
       this.menu.find('li:last').addClass('last');
     }
   });
-
-  window.HomeApp = new Home;
 });

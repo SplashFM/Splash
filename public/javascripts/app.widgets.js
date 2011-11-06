@@ -56,6 +56,4 @@ $(function() {
       this.cycle(Search.prototype.renderItem.call(this, i), 'even', 'odd');
     }
   });
-
-  window.App = new BaseApp
 });

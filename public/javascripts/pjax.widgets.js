@@ -12,9 +12,6 @@ Widgets.Pjax = {
       pjax('[data-pjax-container]', {timeout: 2500});
 
     $('body').bind('success.pjax', function() {
-      window.HomeApp = new Home;
-      window.App     = new BaseApp;
-
       Widgets.Feed.reload();
       Widgets.Upload.reload();
       Widgets.Editable.reload();
