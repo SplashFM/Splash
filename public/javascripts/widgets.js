@@ -459,6 +459,14 @@ Widgets.SignIn = (function(){
   return self;
 })();
 
+Widgets.Toggle = {
+  init: function() {
+    $('.toggle .iphone-checkbox').each(function(_, e) {
+      $(e).iphoneStyle($(e).data());
+    });
+  }
+}
+
 Widgets.Upload = {
   init: function() {
     var self = this;
@@ -721,6 +729,7 @@ $(document).ready(function() {
   Widgets.TypingStop.init();
   Widgets.SignIn.init();
   Widgets.Upload.init();
+  Widgets.Toggle.init();
   Widgets.TrackInfo.init();
   Widgets.Editable.init();
   Widgets.UserAvatar.init();

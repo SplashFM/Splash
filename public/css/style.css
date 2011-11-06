@@ -248,7 +248,7 @@ textarea { overflow: auto; resize: none; }
 .feed-settings .toggle .off span { padding-right: 8px; color: #a8a7a7; }
 .feed-settings .toggle .on { background-image: url(images/toggle-onstate.png); left: 0; border-radius: 7px 0 0 7px; }
 .feed-settings .toggle .on span { padding-left: 8px; color: #fff; text-shadow: 0 1px 0 rgba(0,0,0, 0.12); }
-.feed-settings .toggle .handle { position: absolute; height: 26px; width: 60%; text-align: center; background: url(images/toggle-handlebg.png) repeat-x 0 0; line-height: 26px; color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0, 0.12); border-radius: 5px; top: 0; left: 0; cursor: pointer; box-shadow: 0 0 2px rgba(0,0,0, 0.3); }
+.feed-settings .toggle .handle { position: absolute; height: 26px; width: 60%; text-align: center; background: url(images/toggle-handlebg.png) repeat-x 0 0; line-height: 26px; color: #fff; text-shadow: 0 -1px 0 rgba(0,0,0, 0.12); border-radius: 5px; top: 0; left: 0; cursor: pointer; box-shadow: 0 0 2px rgba(0,0,0, 0.3); padding: 0 0; }
 
 .feed-settings .toggle-splashes { width: 110px; margin: 9px 20px 0 0; }
 .feed-settings .toggle-activity { width: 95px; margin: 9px 8px 0 0; }
