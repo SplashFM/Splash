@@ -5,7 +5,7 @@
         .picture.left
           %img{:alt => "", :height => "185", :src => "/css/images/user-picture.png", :width => "125"}/
         .info.left
-          %h2.avan-bold John Tim Bobby
+          %h2.avan-bold= current_user.try(:name)
           .score
             %img{:alt => "", :height => "73", :src => "/css/images/spscore-4.png", :width => "50"}/
             %img{:alt => "", :height => "73", :src => "/css/images/spscore-6.png", :width => "50"}/
@@ -13,9 +13,7 @@
             %span.badge
             %a.expand{:href => "#"}
           .blurb
-            %p
-              Hit me up with any new East Coast rap!
-              %a{:href => "#"} #ILoveScratchpads
+            %p= current_user.try(:tagline)
             %form{:action => "#", :method => "post"}
               %input{:type => "text"}/
         .cl &nbsp;
@@ -23,13 +21,12 @@
     .user-follows-count
       %span.shadow
       %span.count
-        %strong.avan-demi 3,222
+        %strong.avan-demi= current_user.followers.count
         Followers
       %span.count
-        %strong.avan-demi 167
+        %strong.avan-demi= current_user.following.count
         Following
       %span.corner
-    / /user follows
     .splashers-widgets
       .suggested-splashers
         %a.see-all.right{:href => "#"}

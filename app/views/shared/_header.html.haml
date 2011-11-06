@@ -2,7 +2,7 @@
 #header
   .shell
     %a.nav-user-settings.right{:href => "#"}
-    %a.nav-username.right{:href => "#"} John Tim Bobby
+    %a.nav-username.right{:href => "#"}= current_user.try(:name)
     .nav-notifications.right
       %a.avan-demi{:href => "#"} 14
     .quick-splash.right{:data => {:widget => 'quick-splash'}}
