@@ -43,9 +43,41 @@ $(function() {
     },
 
     initialize: function() {
-      this.filter = this.$('[data-widget = "filter"]');
+      this.filter      = this.$('[data-widget = "filter"]');
+      this.suggestions = this.$('[data-widget = "suggestions"]');
 
-      _.bindAll(this, 'toggleFilter');
+      _.bindAll(this, 'toggleFilter', 'hideSuggestions', 'onSuggestions');
+
+      this.setupAutoSuggest();
+    },
+
+    hideSuggestions: function() {
+      this.suggestions.hide();
+    },
+
+    onSuggestions: function() {
+      this.$('.as-results').prepend('<h4><span>Results</span></h4>');
+
+      this.positionSuggestions();
+
+      this.suggestions.show();
+    },
+
+    positionSuggestions: function() {
+      var os = this.$(':text').position();
+      var l  = os.left + (this.$(':text').width() / 2);
+
+      this.suggestions.css('left', l + 'px');
+    },
+
+    setupAutoSuggest: function() {
+      this.$(':text').autoSuggest(Routes.tags_path(), {
+        selectionAdded: this.hideSuggestions,
+        resultsHighlight: false,
+        resultsComplete: this.onSuggestions
+      });
+
+      $('.as-results').addClass('scroll-area').prependTo(this.$('.wrap'));
     },
 
     toggleFilter: function() {

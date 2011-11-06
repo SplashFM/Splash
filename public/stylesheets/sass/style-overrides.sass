@@ -8,3 +8,15 @@
 
   [data-widget = 'filter'], [data-widget = 'suggestions']
     display: none
+
+.feed-filter
+  ul
+    .as-result-item
+      @extend a
+
+  .as-selection-item
+    @extend .tag
+    .as-close
+      @extend .delete
+      float: right
+      text-indent: -1000px
