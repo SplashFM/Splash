@@ -53,12 +53,12 @@ stylesheets:
     - public/stylesheets/vendor/formtastic.css
     - public/stylesheets/vendor/formtastic_changes.css
     - public/stylesheets/flash_messages.css
-    # - public/stylesheets/style.css
+    - public/stylesheets/style.css
     # - public/stylesheets/header.css
     - public/stylesheets/widgets.css
     - public/stylesheets/vendor/jplayer.blue.monday.css
     - public/stylesheets/jquery.Jcrop.css
-    - public/stylesheets/vendor/autoSuggest.css
-    - public/css/style.css
+    # - public/stylesheets/vendor/autoSuggest.css
+    # - public/css/style.css
     - public/css/fonts.css
     - public/stylesheets/style-overrides.css
