@@ -38,6 +38,10 @@ class Splash < ActiveRecord::Base
     where(['created_at > ?', Time.parse(time).utc])
   end
 
+  def as_json(opts = {})
+    super(opts).merge!(:type => 'splash').merge!(track.as_json)
+  end
+
   def comment_with_mentions
     if comment.present?
       mentions = comment.scan(/@{(\d+)}/).flatten

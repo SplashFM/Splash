@@ -31,6 +31,7 @@ javascripts:
     - public/javascripts/models.js
     - public/javascripts/search.widgets.js
     - public/javascripts/app.widgets.js
+    - public/javascripts/events.widgets.js
     - public/javascripts/home.widgets.js
     - public/javascripts/iphone-style-checkboxes.js
 

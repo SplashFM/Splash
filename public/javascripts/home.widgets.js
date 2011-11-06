@@ -1,7 +1,8 @@
 $(function() {
   window.Home = Backbone.View.extend({
-    initialize: function() {
+    initialize: function(opts) {
       this.trackSearch = new Home.TrackSearch()
+      this.feed        = new Events(opts);
     }
   });
 

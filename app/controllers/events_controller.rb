@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  include RenderHelper
+  respond_to :json
 
   has_scope :user
   has_scope :follower
@@ -8,24 +8,26 @@ class EventsController < ApplicationController
   has_scope :tags, :type => :array
 
   def index
-    events = apply_scopes(Event.scope_builder)
+    events = apply_scopes(Event.scope_builder).page(params[:page])
 
-    if params[:count]
-      result = events.build
+    respond_with events.build
 
-      if result > 0
-        render :json => result
-      else
-        head :no_content
-      end
-    else
-      results = events.page(params[:page]).build
+    # if params[:count]
+    #   result = events.build
 
-      if results.empty?
-        head :no_content
-      else
-        render_event_list results
-      end
-    end
+    #   if result > 0
+    #     render :json => result
+    #   else
+    #     head :no_content
+    #   end
+    # else
+    #   results = events.page(params[:page]).build
+
+    #   if results.empty?
+    #     head :no_content
+    #   else
+    #     render_event_list results
+    #   end
+    # end
   end
 end

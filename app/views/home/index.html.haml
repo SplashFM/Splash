@@ -1,5 +1,7 @@
 :javascript
-  $(function () { window.App.Page = new Home; });
+  $(function () {
+    window.App.Page = new Home({currentUserId: #{current_user.id}});
+  });
 
 = render "sidebar"
 #stream-wrap.left

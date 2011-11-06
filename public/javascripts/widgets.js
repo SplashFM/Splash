@@ -735,7 +735,6 @@ $(document).ready(function() {
   Widgets.UserAvatar.init();
   Widgets.UserProfile.init();
   Widgets.SplashAction.init();
-  Widgets.Feed.init();
   Widgets.Notification.init();
   Widgets.Paginate.init();
   Widgets.Purchase.init();

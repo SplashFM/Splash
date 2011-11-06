@@ -12,7 +12,6 @@ Widgets.Pjax = {
       pjax('[data-pjax-container]', {timeout: 2500});
 
     $('body').bind('success.pjax', function() {
-      Widgets.Feed.reload();
       Widgets.Upload.reload();
       Widgets.Editable.reload();
     });

@@ -10,4 +10,10 @@ $(function() {
     model: User,
     url: '/users'
   });
+
+  window.Event     = Backbone.Model.extend();
+  window.EventList = Backbone.Collection.extend({
+    model: Event,
+    url: '/events'
+  });
 });
