@@ -32,7 +32,7 @@
       this.offSpan = this.offLabel.children('span');
       this.onLabel = $("<label class='" + this.labelOnClass + "'>\n  <span>" + this.checkedLabel + "</span>\n</label>").appendTo(this.container);
       this.onSpan = this.onLabel.children('span');
-      return this.handle = $("<div class='" + this.handleClass + "'>\n  <div class='" + this.handleRightClass + "'>\n    <div class='" + this.handleCenterClass + "' />\n  </div>\n</div>").appendTo(this.container);
+      return this.handle = $("<div class='" + this.handleClass + "'>\n  <div class='" + this.handleRightClass + "'>\n    <div class='" + this.handleCenterClass + "'>" + this.handleText + "</div>\n  </div>\n</div>").appendTo(this.container);
     };
     iOSCheckbox.prototype.disableTextSelection = function() {
       if ($.browser.msie) {
@@ -229,6 +229,7 @@
       labelOnClass: 'iPhoneCheckLabelOn',
       labelOffClass: 'iPhoneCheckLabelOff',
       handleClass: 'iPhoneCheckHandle',
+      handleText: '',
       handleCenterClass: 'iPhoneCheckHandleCenter',
       handleRightClass: 'iPhoneCheckHandleRight',
       dragThreshold: 5,
@@ -272,6 +273,7 @@
       labelOnClass: 'iOSCheckLabelOn',
       labelOffClass: 'iOSCheckLabelOff',
       handleClass: 'iOSCheckHandle',
+      handleText: '',
       handleCenterClass: 'iOSCheckHandleCenter',
       handleRightClass: 'iOSCheckHandleRight',
       dataName: 'iOSCheckbox'
