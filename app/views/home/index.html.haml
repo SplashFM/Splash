@@ -30,8 +30,8 @@
             'data-label-on-class' => 'state avan-bold on', 'data-label-off-class' => 'state avan-bold off',
             'data-resize-handle' => 'false', 'data-resize-container' => 'false', 'data-container-radius' => '0', 'data-handle-text' => 'Activity'}/
           .cl &nbsp;
-    .feed-filter
-      .container
+    .feed-filter{:data => {:widget => 'events-filter'}}
+      .container{:data => {:widget => 'filter'}}
         %span.tag
           %a{:href => "#"} pop
           %a.delete
@@ -40,7 +40,7 @@
           %a.delete
         %input.field{:type => "text"}/
         = render "filter_popup"
-      %a.trigger.close{:href => "#"} Filter Splashes
+      %a.trigger.close{:href => "#", :data => {:widget => 'toggle'}} Filter Splashes
     = render "live_feed"
     .loading-spinner
 .cl &nbsp;

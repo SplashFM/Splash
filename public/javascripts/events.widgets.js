@@ -28,7 +28,6 @@ $(function() {
     },
 
     renderEvent: function(e) {
-      console.log($.tmpl(this.templates[e.get('type')], e.toJSON()));
       $($.tmpl(this.templates[e.get('type')], e.toJSON())).appendTo(this.el);
     }
   });
