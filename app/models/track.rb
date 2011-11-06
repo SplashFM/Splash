@@ -2,7 +2,7 @@ require 'redis_record'
 require 'testable_search'
 
 class Track < ActiveRecord::Base
-  DEFAULT_ARTWORK_URL = "no_album_art.png"
+  DEFAULT_ARTWORK_URL = "/images/no_album_art.png"
 
   include RedisRecord
   extend TestableSearch
