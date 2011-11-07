@@ -2,6 +2,8 @@ require 'redis_record'
 require 'testable_search'
 
 class Track < ActiveRecord::Base
+  paginates_per 10
+
   DEFAULT_ARTWORK_URL = "/images/no_album_art.png"
 
   include RedisRecord
