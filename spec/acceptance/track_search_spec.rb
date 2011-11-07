@@ -10,7 +10,7 @@ feature "Track search box", :adapter => :postgresql, :js => true do
   scenario "No results"  do
     search_for "Nothing", :track do
       should_not have_tracks
-      should     have_content(t('searches.create.empty'))
+      should     have_content(t('searches.empty'))
       should_not have_more_results
     end
   end
@@ -28,7 +28,7 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     user = create(User).with_name!('Jack Johnson')
 
     search_for user.name, :track do
-      should have_content(t('searches.create.empty'))
+      should have_content(t('searches.empty'))
       should_not have_more_results
     end
   end

@@ -30,8 +30,7 @@ en:
       other: %{count} new updates
 
   searches:
-    create:
-      empty: No results found.
+    empty: No results found.
     page:
       see_more: See more
 

@@ -4,6 +4,7 @@
   .wrap
     %input.field{:type => "text", :name => 'f'}/
     .dd{:data => {:widget => 'results'}}
+      %span{:data => {:widget => 'empty'}}= t('searches.empty')
       %ul
       %a.load-more{:href => "#", :data => {:widget => 'load-more'}}
         = t('.load_more')
