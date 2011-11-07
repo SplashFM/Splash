@@ -1,6 +1,6 @@
 :javascript
   $(function () {
-    window.App.Page = new Home({currentUserId: #{current_user.id}});
+    window.App.Page = new Home({events: {currentUserId: #{current_user.id}}});
   });
 
 = render "sidebar"
