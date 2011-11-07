@@ -5,7 +5,8 @@ $(function() {
     delay: 500,
 
     events: {
-      'keyup :text': 'maybeSearch'
+      'keyup :text': 'maybeSearch',
+      'click [data-widget = "load-more"]': 'loadMoreResults'
     },
 
     initialize: function(opts) {
@@ -13,15 +14,30 @@ $(function() {
 
       this.container = this.$(this.container);
       this.menu      = this.$(this.menuContainer || this.container);
-      this.template  = $(this.template).template()
+      this.template  = $(this.template).template();
+      this.page      = 1;
 
-      _.bindAll(this, 'search', 'renderItem');
+      _.bindAll(this, 'search', 'loadMoreResults', 'renderItem',
+                      'renderLoadMoreResults');
 
       this.collection.bind('reset', this.render, this)
+      this.collection.bind('add', this.renderItem, this)
     },
 
     isSearchable: function() {
       return this.term().length > 0 && this.lastTerm !== this.term();
+    },
+
+    loadMoreResults: function(e) {
+      e.preventDefault();
+
+      this.page++;
+
+      this.$('[data-widget = "load-more"]').hide();
+
+      this.collection.fetch({data: {page: this.page, with_text: this.term()},
+                             add: true}).
+        done(this.renderLoadMoreResults);
     },
 
     maybeSearch: function() {
@@ -41,12 +57,6 @@ $(function() {
         this.$('[data-widget = "empty"]').show();
       }
 
-      if (this.collection.hasFullPages(this.perPage)) {
-        this.$('[data-widget = "load-more"]').show();
-      } else {
-        this.$('[data-widget = "load-more"]').hide();
-      }
-
       if (this.open) this.open.call(this);
 
       this.container.show();
@@ -54,6 +64,14 @@ $(function() {
 
     renderItem: function(i) {
       return $($.tmpl(this.template, i.toJSON())).appendTo(this.menu);
+    },
+
+    renderLoadMoreResults: function() {
+      if (this.collection.hasFullPages(this.perPage)) {
+        this.$('[data-widget = "load-more"]').show();
+      } else {
+        this.$('[data-widget = "load-more"]').hide();
+      }
     },
 
     search: function() {

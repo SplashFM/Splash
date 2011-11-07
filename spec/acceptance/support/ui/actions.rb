@@ -122,7 +122,7 @@ module UI
     end
 
     def see_more_results
-      click_link(t('searches.page.see_more'))
+      click_link(t('home.search.load_more'))
     end
 
     def see_splasher_profile

@@ -101,7 +101,7 @@ module UI
     end
 
     def has_more_results?
-      has_css?("a", :text => I18n.t('searches.page.see_more'))
+      has_css?("a", :text => I18n.t('home.search.load_more'))
     end
 
     def has_more_comments_link?(count)
