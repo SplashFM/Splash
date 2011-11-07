@@ -5,13 +5,11 @@ module UI
     def search_form(type)
       ensure_valid_search_type(type)
 
-      "[data-widget = 'search'][action *= '#{type}']"
+      "[data-widget = '#{type}-search']"
     end
 
-    def search_results(type)
-      ensure_valid_search_type(type)
-
-      "##{type}-results[data-widget = 'results']"
+    def search_results
+      "[data-widget = 'results']"
     end
 
     def track_css(track = nil)

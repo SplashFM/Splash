@@ -114,9 +114,11 @@ module UI
     end
 
     def search_for(filter, search_type, &block)
-      within(search_form(search_type)) { fill_in "f", :with => filter }
+      within(search_form(search_type)) {
+        fill_in "f", :with => filter
 
-      within(search_results(search_type), &block) if block_given?
+        within(search_results, &block) if block_given?
+      }
     end
 
     def see_more_results

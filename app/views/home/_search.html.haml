@@ -2,7 +2,7 @@
   %label
     %em= t('.search_for_song')
   .wrap
-    %input.field{:type => "text"}/
+    %input.field{:type => "text", :name => 'f'}/
     .dd{:data => {:widget => 'results'}}
       %ul
       %a.load-more{:href => "#", :data => {:widget => 'load-more'}}
