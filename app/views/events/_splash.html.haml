@@ -1,5 +1,7 @@
 %script#tmpl-event-splash{:type => 'text/x-jquery-tmpl'}
-  %li{:class => '{{if expanded}}expanded{{/if}}'}
+  %li{:class => '{{if expanded}}expanded{{/if}}', |
+      :data  => {:widget   => 'splash', |
+                 :track_id => '${id}'}}
     %a.art.left{:href => "#"}
       %img{:alt => "", :height => "71", :src => "${artwork_url}", :width => "71"}/
       %span

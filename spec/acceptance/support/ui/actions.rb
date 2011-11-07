@@ -65,9 +65,12 @@ module UI
     end
 
     def filter_feed(filter)
-      fill_in "q", :with => filter
+      within('[data-widget = "events-filter"]') {
+        find('[data-widget = "toggle"]').click
+        fill_in "q", :with => filter
 
-     find("ul li.as-result-item:first-child").click
+        find("ul li.as-result-item:first-child").click
+      }
     end
 
     def go_to(section)

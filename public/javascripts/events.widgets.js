@@ -8,15 +8,22 @@ $(function() {
     initialize: function(opts) {
       _.extend(this, opts);
 
-      _.bindAll(this, 'renderEvent');
+      _.bindAll(this, 'refresh', 'renderEvent');
+
+      this.dataFilters = {user: this.currentUserId,
+                          follower: this.currentUserId,
+                          update_on_splash: true}
 
       this.feed = new EventList;
       this.feed.bind('reset', this.render, this);
-      this.feed.fetch({data: {user: this.currentUserId,
-                              follower: this.currentUserId,
-                              update_on_splash: true}})
+      this.feed.fetch({data: this.dataFilters})
 
       this.filter = new Events.Filter;
+      this.filter.bind('change', this.refresh, this);
+    },
+
+    refresh: function(e) {
+      this.feed.fetch({data: _.extend(e, this.dataFilters)});
     },
 
     render: function() {
@@ -41,14 +48,27 @@ $(function() {
     initialize: function() {
       this.filter      = this.$('[data-widget = "filter"]');
       this.suggestions = this.$('[data-widget = "suggestions"]');
+      this.tags        = [];
 
-      _.bindAll(this, 'toggleFilter', 'hideSuggestions', 'onSuggestions');
+      _.bindAll(this, 'toggleFilter', 'onAdd', 'onRemove', 'onSuggestions');
 
       this.setupAutoSuggest();
     },
 
-    hideSuggestions: function() {
+    onAdd: function(e) {
       this.suggestions.hide();
+
+      this.tags.push(this.textFrom(e));
+
+      this.trigger('change', {tags: this.tags});
+    },
+
+    onRemove: function(e) {
+      this.tags = _.without(this.tags, this.textFrom(e));
+
+      e.remove();
+
+      this.trigger('change', {tags: this.tags});
     },
 
     onSuggestions: function() {
@@ -68,12 +88,19 @@ $(function() {
 
     setupAutoSuggest: function() {
       this.$(':text').autoSuggest(Routes.tags_path(), {
-        selectionAdded: this.hideSuggestions,
+        selectionRemoved: this.onRemove,
+        selectionAdded: this.onAdd,
         resultsHighlight: false,
         resultsComplete: this.onSuggestions
       });
 
       $('.as-results').addClass('scroll-area').prependTo(this.$('.wrap'));
+    },
+
+    textFrom: function(e) {
+      return $(e).contents().filter(function() {
+        return this.nodeType == 3;
+      }).text().trim();
     },
 
     toggleFilter: function() {
