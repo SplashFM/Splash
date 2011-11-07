@@ -1,6 +1,9 @@
 :javascript
   $(function () {
-    window.App.Page = new Home({events: {currentUserId: #{current_user.id}}});
+    window.App.Page = new Home({
+      events: {currentUserId: #{current_user.id}},
+      search: {perPage: #{Track.default_per_page}}
+    });
   });
 
 = render "sidebar"

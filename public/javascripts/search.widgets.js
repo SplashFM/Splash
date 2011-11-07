@@ -8,7 +8,9 @@ $(function() {
       'keyup :text': 'maybeSearch'
     },
 
-    initialize: function() {
+    initialize: function(opts) {
+      _.extend(this, opts);
+
       this.container = this.$(this.container);
       this.menu      = this.$(this.menuContainer || this.container);
       this.template  = $(this.template).template()
@@ -37,6 +39,12 @@ $(function() {
         this.collection.each(this.renderItem);
       } else {
         this.$('[data-widget = "empty"]').show();
+      }
+
+      if (this.collection.hasFullPages(this.perPage)) {
+        this.$('[data-widget = "load-more"]').show();
+      } else {
+        this.$('[data-widget = "load-more"]').hide();
       }
 
       if (this.open) this.open.call(this);
