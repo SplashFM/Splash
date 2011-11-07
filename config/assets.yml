@@ -23,6 +23,8 @@ javascripts:
     - public/javascripts/jquery.autoSuggest.js
     - public/javascripts/jquery.jcarousel.js
     - public/javascripts/jquery.rangyinputs.js
+    - public/javascripts/jquery.mousewheel-3.0.4.pack.js
+    - public/javascripts/jquery.jscrollpane.js
     - public/javascripts/jquery.ba-bbq.js
     - public/javascripts/jquery.endless-scroll.js
     - public/javascripts/jquery.timeago.js
@@ -59,6 +61,7 @@ stylesheets:
     - public/stylesheets/widgets.css
     - public/stylesheets/vendor/jplayer.blue.monday.css
     - public/stylesheets/jquery.Jcrop.css
+    - public/stylesheets/jquery.jscrollpane.css
     # - public/stylesheets/vendor/autoSuggest.css
     # - public/css/style.css
     - public/css/fonts.css
