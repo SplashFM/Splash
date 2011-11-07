@@ -2,7 +2,7 @@ require 'redis_record'
 require 'testable_search'
 
 class Track < ActiveRecord::Base
-  paginates_per 10
+  paginates_per 5
 
   DEFAULT_ARTWORK_URL = "/images/no_album_art.png"
 
