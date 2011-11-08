@@ -47,8 +47,11 @@ $(function() {
     },
 
     renderEvent: function(e) {
+      var commentStr = I18n.t('comments', {count: e.get('comments_count')});
+
       $($.tmpl(this.templates[e.get('type')],
-               _.extend({created_at_dist: $.timeago(e.get('created_at'))},
+               _.extend({created_at_dist: $.timeago(e.get('created_at')),
+                         comment_count:   commentStr},
                         e.toJSON()))).appendTo(this.el);
     },
 

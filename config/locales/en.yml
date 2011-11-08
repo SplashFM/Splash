@@ -46,6 +46,9 @@ en:
       post_to_twitter: Post to Twitter?
 
   comments:
+    one: 1 Comment
+    other: %{count} Comments
+
     index:
       add_comment: Add comment
     comments:

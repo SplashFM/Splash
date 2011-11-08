@@ -41,7 +41,7 @@ class Splash < ActiveRecord::Base
   end
 
   def as_json(opts = {})
-    super(:only => [:created_at]).
+    super(:only => [:comments_count, :created_at]).
       merge!(:type  => 'splash',
              :track => track.as_json,
              :user  => user.as_json)
