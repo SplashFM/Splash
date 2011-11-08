@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111031163330) do
+ActiveRecord::Schema.define(:version => 20111108112545) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20111031163330) do
     t.integer  "parent_id"
     t.string   "splash_list"
     t.string   "user_list"
+    t.integer  "comments_count"
   end
 
   add_index "splashes", ["parent_id"], :name => "index_splashes_on_parent_id"
