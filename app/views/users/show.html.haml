@@ -1,41 +1,16 @@
-.profile
-  .box-user-info
-    .user-image
-      = image_tag @user.avatar_url(:thumb), :size => '100x100', :id => 'avatar'
-      - if avatar_editable?
-        .upload-avatar-link.hide
-          = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
-    .top-number
-      3
-    .user-name
-      = @user.name
-    .follow-button
-      = follow_label
+.users-show
+  = render "sidebar"
+  #stream-wrap.right
+    #stream-feed
+      .streamfeed-top
+        .container
+          = render "shared/feed_search"
+          = render "shared/feed_settings"
+      = render "shared/feed_filter"
+      = render "shared/live_feed"
+      .loading-spinner
+  .cl &nbsp;
 
-    .rating
-      = @user.splash_score
-      .tag-line-wrapper
-        %span.tag-line-label
-          = t('.tagline')
-        .tag-line.edit{:'data-action' => "#{user_path(current_user)}",
-                      :'data-widget' => "#{ 'editable' if tagline_editable?}"}
-          = @user.tagline
-    .ripples{:data => {:widget => 'ripples'}}
-      .label
-        RIPPLES
-      .number
-        = @user.ripple_count
-    .splashes
-      .label
-        SPLASHES
-      .number
-        777
-    .influence
-      top 5% influencer this week
-    .last-seem
-      last seem 8 min ago
-
-  = render 'follow_box'
 .clear
 = render_events(:user             => @user.id,
                 :update_on_splash => own_profile?)
