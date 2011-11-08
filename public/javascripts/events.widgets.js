@@ -1,7 +1,7 @@
 $(function() {
   window.Events = Backbone.View.extend({
     el: '[data-widget = "events"]',
-    updateInterval: 6000, // 1 minute
+    updateInterval: 60000, // 1 minute
     templates: {
       splash: $('#tmpl-event-splash').template()
     },
