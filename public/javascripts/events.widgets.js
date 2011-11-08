@@ -1,6 +1,7 @@
 $(function() {
   window.Events = Backbone.View.extend({
     el: '[data-widget = "events"]',
+    updateInterval: 6000, // 1 minute
     templates: {
       splash: $('#tmpl-event-splash').template()
     },
@@ -8,7 +9,8 @@ $(function() {
     initialize: function(opts) {
       _.extend(this, opts);
 
-      _.bindAll(this, 'refresh', 'renderEvent', 'scroll');
+      _.bindAll(this, 'checkForUpdates', 'refresh', 'renderEvent',
+                      'renderUpdateCount', 'scroll');
 
       this.pageFilters = {user: this.currentUserId,
                           follower: this.currentUserId,
@@ -24,15 +26,22 @@ $(function() {
       this.filter.bind('change', this.refresh, this);
 
       this.page = 1;
+
+      this.currentInterval = setInterval(this.checkForUpdates,
+                                         this.updateInterval);
     },
 
     allFilters: function() {
       return _.extend({}, this.pageFilters, this.userFilters);
     },
 
+    checkForUpdates: function() {
+      this.feed.updateCount(this.allFilters(), this.renderUpdateCount);
+    },
+
     fetch: function(add) {
       this.feed.fetch({add:  add,
-                       data: _.extend({}, this.allFilters()));
+                       data: _.extend({}, this.allFilters())});
     },
 
     refresh: function(filters) {
@@ -55,6 +64,11 @@ $(function() {
                _.extend({created_at_dist: $.timeago(e.get('created_at')),
                          comment_count:   commentStr},
                         e.toJSON()))).appendTo(this.el);
+    },
+
+    renderUpdateCount: function(count) {
+      $('[data-widget = "update-count"]').
+        text(I18n.t('events.updates', {count: count}))
     },
 
     scroll: function() {

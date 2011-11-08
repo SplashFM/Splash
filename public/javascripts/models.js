@@ -20,6 +20,29 @@ $(function() {
   window.Event     = Backbone.Model.extend();
   window.EventList = Backbone.Collection.extend({
     model: Event,
-    url: '/events'
+    url: '/events',
+
+    parse: function(response) {
+      this.recordUpdate(response);
+
+      return response.results;
+    },
+
+    recordUpdate: function(resp) {
+      this.lastUpdate = resp.last_update_at;
+    },
+
+    updateCount: function(filters, resultFunc) {
+      var self = this;
+      var f    = _.extend({count: true,
+                           last_update_at: this.lastUpdate}, filters);
+
+      return $.get(this.url, f).
+        done(function(response) {
+          self.recordUpdate(response);
+
+          resultFunc.call(this, response.results);
+        });
+    },
   }).extend(Paginated);
 });
