@@ -38,7 +38,8 @@ $(function() {
 
     fetch: function(add) {
       this.feed.fetch({add:  add,
-                       data: _.extend({}, this.allFilters())});
+                       data: _.extend({page: this.page},
+                                      this.allFilters())});
     },
 
     refresh: function(filters) {
