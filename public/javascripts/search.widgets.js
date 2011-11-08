@@ -6,7 +6,8 @@ $(function() {
 
     events: {
       'keyup :text': 'maybeSearch',
-      'click [data-widget = "load-more"]': 'loadMoreResults'
+      'click [data-widget = "load-more"]': 'loadMoreResults',
+      'submit': 'dontSubmit'
     },
 
     initialize: function(opts) {
@@ -22,6 +23,10 @@ $(function() {
 
       this.collection.bind('reset', this.render, this)
       this.collection.bind('add', this.renderItem, this)
+    },
+
+    dontSubmit: function() {
+      return false;
     },
 
     isSearchable: function() {
