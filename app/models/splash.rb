@@ -41,7 +41,8 @@ class Splash < ActiveRecord::Base
   def as_json(opts = {})
     super(opts).
       merge!(:type  => 'splash',
-             :track => track.as_json)
+             :track => track.as_json,
+             :user  => user.as_json)
   end
 
   def comment_with_mentions
