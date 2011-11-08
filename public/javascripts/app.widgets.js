@@ -4,6 +4,16 @@ $(function() {
       this.userSearch  = new BaseApp.UserSearch;
       this.trackSearch = new BaseApp.TrackSearch;
       this.quickSplash = new BaseApp.QuickSplash;
+
+      _.bindAll(this, 'triggerScroll');
+
+      $(document).endlessScroll({
+        callback: this.triggerScroll
+      });
+    },
+
+    triggerScroll: function () {
+      this.trigger('endlessScroll');
     }
   });
 

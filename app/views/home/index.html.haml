@@ -1,6 +1,7 @@
 :javascript
   $(function () {
     window.App.Page = new Home({
+      app:    window.App,
       events: {currentUserId: #{current_user.id}},
       search: {perPage: #{Track.default_per_page}}
     });

@@ -8,7 +8,7 @@ $(function() {
     initialize: function(opts) {
       _.extend(this, opts);
 
-      _.bindAll(this, 'refresh', 'renderEvent');
+      _.bindAll(this, 'refresh', 'renderEvent', 'scroll');
 
       this.pageFilters = {user: this.currentUserId,
                           follower: this.currentUserId,
@@ -16,18 +16,25 @@ $(function() {
 
       this.feed = new EventList;
       this.feed.bind('reset', this.render, this);
+      this.feed.bind('add', this.renderEvent, this);
 
       this.fetch();
 
       this.filter = new Events.Filter;
       this.filter.bind('change', this.refresh, this);
+
+      this.page = 1;
     },
 
-    fetch: function() {
-      this.feed.fetch({data: _.extend({}, this.pageFilters, this.userFilters)});
+    fetch: function(add) {
+      this.feed.fetch({add:  add,
+                       data: _.extend({page: this.page},
+                                      this.pageFilters,
+                                      this.userFilters)});
     },
 
     refresh: function(filters) {
+      this.page        = 1;
       this.userFilters = filters;
 
       this.fetch();
@@ -41,6 +48,12 @@ $(function() {
 
     renderEvent: function(e) {
       $($.tmpl(this.templates[e.get('type')], e.toJSON())).appendTo(this.el);
+    },
+
+    scroll: function() {
+      this.page++;
+
+      this.fetch(true);
     },
   });
 
