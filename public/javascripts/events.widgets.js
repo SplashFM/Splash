@@ -2,9 +2,6 @@ $(function() {
   window.Events = Backbone.View.extend({
     el: '[data-widget = "events"]',
     updateInterval: 60000, // 1 minute
-    templates: {
-      splash: $('#tmpl-event-splash').template()
-    },
 
     initialize: function(opts) {
       _.extend(this, opts);
@@ -58,12 +55,11 @@ $(function() {
     },
 
     renderEvent: function(e) {
-      var commentStr = I18n.t('comments', {count: e.get('comments_count')});
-
-      $($.tmpl(this.templates[e.get('type')],
-               _.extend({created_at_dist: $.timeago(e.get('created_at')),
-                         comment_count:   commentStr},
-                        e.toJSON()))).appendTo(this.el);
+      switch (e.get('type')) {
+      case 'splash':
+        new Events.Splash({model: e}).render().el.appendTo(this.el);
+        break;
+      }
     },
 
     renderUpdateCount: function(count) {
@@ -79,6 +75,25 @@ $(function() {
   });
 
   var HEIGHT_WHEN_OPEN = 62;
+
+  window.Events.Splash = Backbone.View.extend({
+    events: {
+      'click [data-widget = "expand"]': 'render'
+    },
+    template: $('#tmpl-event-splash').template(),
+
+    render: function() {
+      var s          = this.model;
+      var commentStr = I18n.t('comments', {count: s.get('comments_count')});
+
+      this.el = $.tmpl(this.template,
+                       _.extend({created_at_dist: $.timeago(s.get('created_at')),
+                                 comment_count:   commentStr},
+                                s.toJSON()));
+
+      return this;
+    },
+  })
 
   window.Events.Filter = Backbone.View.extend({
     el: '[data-widget = "events-filter"]',
