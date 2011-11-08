@@ -1,15 +1,7 @@
 #side-bar-wrap.right
   #side-bar
     = render :partial => "users/vcard", :locals => {:user => current_user}
-    .user-follows-count
-      %span.shadow
-      %span.count
-        %strong.avan-demi= current_user.followers.count
-        Followers
-      %span.count
-        %strong.avan-demi= current_user.following.count
-        Following
-      %span.corner
+    = render :partial => "users/relationships", :locals => {:user => current_user}
     .splashers-widgets
       .suggested-splashers
         %a.see-all.right{:href => "#"}
