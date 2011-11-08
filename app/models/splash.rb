@@ -1,4 +1,6 @@
 class Splash < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
+
   belongs_to :track
   belongs_to :user
   belongs_to :parent, :class_name => 'Splash'
@@ -39,7 +41,7 @@ class Splash < ActiveRecord::Base
   end
 
   def as_json(opts = {})
-    super(opts).
+    super(:only => [:created_at]).
       merge!(:type  => 'splash',
              :track => track.as_json,
              :user  => user.as_json)

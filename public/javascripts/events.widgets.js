@@ -47,7 +47,9 @@ $(function() {
     },
 
     renderEvent: function(e) {
-      $($.tmpl(this.templates[e.get('type')], e.toJSON())).appendTo(this.el);
+      $($.tmpl(this.templates[e.get('type')],
+               _.extend({created_at_dist: $.timeago(e.get('created_at'))},
+                        e.toJSON()))).appendTo(this.el);
     },
 
     scroll: function() {
