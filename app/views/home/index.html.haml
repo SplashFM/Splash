@@ -13,32 +13,8 @@
     .streamfeed-top
       .container
         = render "search"
-        .feed-settings
-          .types.avan-bold
-            %ul
-              %li
-                %a.active{:href => "#"} Following
-              %li
-                %a{:href => "#"} Everyone
-            .line
-              %span
-          %span.count.left{:data => {:widget => 'update-count'}}
-          .toggle.toggle-splashes.right
-            %input.field.iphone-checkbox{:checked => "checked", :type => "checkbox", :value => "",
-            'data-handle-class' => 'handle', 'data-checked-label' => 'ON', 'data-unchecked-label' => 'OFF',
-            'data-label-on-class' => 'state avan-bold on', 'data-label-off-class' => 'state avan-bold off',
-            'data-resize-handle' => 'false', 'data-resize-container' => 'false', 'data-container-radius' => '0', 'data-handle-text' => 'Splashes'}/
-          .toggle.toggle-activity.right
-            %input.field.iphone-checkbox{:checked => "checked", :type => "checkbox", :value => "",
-            'data-handle-class' => 'handle', 'data-checked-label' => 'ON', 'data-unchecked-label' => 'OFF',
-            'data-label-on-class' => 'state avan-bold on', 'data-label-off-class' => 'state avan-bold off',
-            'data-resize-handle' => 'false', 'data-resize-container' => 'false', 'data-container-radius' => '0', 'data-handle-text' => 'Activity'}/
-          .cl &nbsp;
-    .feed-filter{:data => {:widget => 'events-filter'}}
-      .container{:data => {:widget => 'filter'}}
-        %input.field{:type => "text", :name => 'q'}/
-        = render "filter_popup"
-      %a.trigger.close{:href => "#", :data => {:widget => 'toggle'}} Filter Splashes
+        = render "feed_settings"
+    = render "feed_filter"
     = render "live_feed"
     .loading-spinner
 .cl &nbsp;
