@@ -372,15 +372,20 @@ textarea
   width: 300px
   position: relative
   overflow-x: hidden
-  padding: 8px 8px 8px 0
+  &.right
+    padding: 8px 8px 8px 0
+  &.left
+    padding: 8px 0 8px 8px
 
 #side-bar
   box-shadow: 0 0 8px rgba(0, 0, 0, 1)
+.right #side-bar
   border-radius: 0 7px 7px 0
+.left #side-bar
+  border-radius: 7px 0 0 7px
 
 .user-vcard
   background: #6384a4 url(/css/images/profile-vcard-bg.png) repeat-x 0 bottom
-  border-radius: 0 7px 0 0
   .container
     background: url(/css/images/noise2.png) repeat 0 0
     padding-bottom: 10px
@@ -434,6 +439,11 @@ textarea
       height: 15px
     form
       display: none
+
+.right .user-vcard
+  border-radius: 0 7px 0 0
+.left .user-vcard
+  border-radius: 7px 0 0 0
 
 .user-follows-count
   height: 31px
@@ -726,7 +736,6 @@ textarea
 .send-invite
   height: 70px
   background: url(/css/images/send-invite-bg.png) repeat-x 0 0
-  border-radius: 0 0 7px 0
   form
     height: 32px
     padding: 19px 0 0 8px
@@ -758,11 +767,19 @@ textarea
     padding-bottom: 2px
     border-radius: 0 7px 7px 0
 
+.right .send-invite
+  border-radius: 0 0 7px 0
+.left .send-invite
+  border-radius: 0 0 0 7px
+
 #stream-wrap
   width: 635px
   position: relative
   overflow-x: hidden
-  padding: 8px 0 8px 8px
+  &.left
+    padding: 8px 0 8px 8px
+  &.right
+    padding: 8px 8px 8px 0
 
 #stream-feed
   background: #fff
@@ -770,14 +787,24 @@ textarea
   border-radius: 7px 0 0 7px
   padding-bottom: 10px
 
+.left #stream-feed
+  border-radius: 7px 0 0 7px
+.right #stream-feed
+  border-radius: 0 7px 7px 0
+
 .streamfeed-top
   background: url(/css/images/streamfedd-topbg.png) repeat-x 0 0
-  border-radius: 7px 0 0 0
   box-shadow: 1px 1px 1px rgba(255, 255, 255, 1) inset
   .container
     background: url(/css/images/noise3.png) repeat 0 0
     height: 217px
     border-radius: 7px 0 0 0
+
+.left .streamfeed-top
+  border-radius: 7px 0 0 0
+
+.right .streamfeed-top
+  border-radius: 0 7px 0 0
 
 .main-search
   padding: 19px 20px 0
