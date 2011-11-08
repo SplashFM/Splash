@@ -57,7 +57,7 @@ $(function() {
     renderEvent: function(e) {
       switch (e.get('type')) {
       case 'splash':
-        new Events.Splash({model: e}).render().el.appendTo(this.el);
+        $(this.el).append(new Events.Splash({model: e}).render().el);
         break;
       }
     },
@@ -89,7 +89,7 @@ $(function() {
       this.el = $.tmpl(this.template,
                        _.extend({created_at_dist: $.timeago(s.get('created_at')),
                                  comment_count:   commentStr},
-                                s.toJSON()));
+                                s.toJSON())).get(0);
 
       return this;
     },
