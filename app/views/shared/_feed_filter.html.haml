@@ -1,5 +1,7 @@
 .feed-filter{:data => {:widget => 'events-filter'}}
   .container{:data => {:widget => 'filter'}}
     %input.field{:type => "text", :name => 'q'}/
-    = render "filter_popup"
+    .popup{:data => {:widget => 'suggestions'}}
+      .wrap
+      %span.arrow
   %a.trigger.close{:href => "#", :data => {:widget => 'toggle'}} Filter Splashes

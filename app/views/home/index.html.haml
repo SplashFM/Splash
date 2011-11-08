@@ -13,10 +13,10 @@
     #stream-feed
       .streamfeed-top
         .container
-          = render "search"
-          = render "feed_settings"
-      = render "feed_filter"
-      = render "live_feed"
+          = render "shared/feed_search"
+          = render "shared/feed_settings"
+      = render "shared/feed_filter"
+      = render "shared/live_feed"
       .loading-spinner
   .cl &nbsp;
 
