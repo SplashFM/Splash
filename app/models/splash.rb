@@ -51,6 +51,10 @@ class Splash < ActiveRecord::Base
              :user  => user.as_json)
   end
 
+  def comments_count
+    read_attribute(:comments_count).to_i
+  end
+
   def comment_with_mentions
     if comment.present?
       mentions = comment.scan(/@{(\d+)}/).flatten
