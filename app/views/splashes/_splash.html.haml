@@ -1,29 +1,66 @@
-%li.splash{:data => {:track_id  => splash.track.id, |
-                     :splash_id => splash.id, |
-                     :widget    => 'splash'}}
-  .cover-image
-    = image_tag splash.track.artwork_url
-  .splash_text_info
-    = render "tracks/track_summary", :track => splash.track
-    = splash.track.splash_count
-    = attribute_splash(splash)
-    %ul.actions
-      %li= play_widget(splash.track)
-      %li= expand_splash(splash)
-      %li= splash_action_widget(current_user, splash)
-
-    - if defined?(expand)
-      %div{:data => {:widget => 'splash-info'}}
-        = splash.comment_with_mentions
-
-        - if splash.track.downloadable?
-          = link_to t('.download'), download_track_path(splash.track)
-
-        - elsif splash.track.purchasable?
-          = link_to t(".purchase"), splash.track.purchase_url, :'data-widget' => 'purchase'
-  .clear
-  = render :partial => 'comments/index', :locals => {:splash => splash}
-  .time_ago
-    = time_ago_in_words(splash.created_at)
-  .clear
-.clear
+%script#tmpl-event-splash{:type => 'text/x-jquery-tmpl'}
+  %li{:class => '{{if expanded}}expanded{{/if}}', |
+      :data  => {:widget   => 'splash', |
+                 :track_id => '${track.id}'}}
+    %a.art.left{:href => "#"}
+      %img{:alt => "", :height => "71", :src => "${track.artwork_url}", :width => "71"}/
+      %span
+    .entry.left
+      %p.names
+        %a.avan-bold{:href => "#"} ${user.name}
+        %span ${user.name}
+      %p.songname.avan-demi
+        %a{:href => "#", :data => {:widget => 'expand'}} ${track.title}
+      %p.songauthor ${track.performers}
+      %ul.meta
+        %li.download
+          %a{:href => "#"} Download track
+        %li.comment-link
+          %span &bull;
+          %a{:href => "#"} ${comment_count}
+        %li.time ${created_at_dist}
+    .cl &nbsp;
+    %a.splash-btn{:href => "#"}
+    .numbers
+      %span
+        %img{:alt => "", :height => "53", :src => "/css/images/feed-number-2.png", :width => "32"}/
+      %span
+        %img{:alt => "", :height => "53", :src => "/css/images/feed-number-3.png", :width => "34"}/
+    {{if expanded}}
+    .container
+      .graph.left
+        %img{:alt => "", :height => "178", :src => "/css/images/graph.png", :width => "211"}/
+        %a.arrow.arrow-prev{:href => "#"}
+        %a.arrow.arrow-next{:href => "#"}
+        %span.overlay
+        %span.red-arrow
+        %span.date Wed, 10/05/11
+        %span.count.avan-demi Splashes = 1,623
+        %ul.labels.avan-demi
+          %li 2k
+          %li 1.5k
+          %li 1k
+          %li .5k
+          %li.last 0
+      / /graph
+      .aside.left
+        %a.share-btn.avan-bold.right{:href => "#"} Share
+        %a.report-song.right{:href => "#"} Report song
+        %p.author
+          %em Splashed by
+          %a.avan-bold{:href => "#"} NakeMinzer
+        .cl &nbsp;
+        %span.comments-module-t
+        .scroll-area
+          %ul
+            /= render "comment"
+            /= render "comment"
+            /= render "comment"
+            /= render "comment"
+      / /aside
+      .write-comment
+        %form{:action => "#", :method => "post"}
+          %input{:type => "text", :value => "Write a comment..."}/
+    {{/if}}
+    / /container
+  / /row
