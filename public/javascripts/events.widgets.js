@@ -10,20 +10,27 @@ $(function() {
 
       _.bindAll(this, 'refresh', 'renderEvent');
 
-      this.dataFilters = {user: this.currentUserId,
+      this.pageFilters = {user: this.currentUserId,
                           follower: this.currentUserId,
                           update_on_splash: true}
 
       this.feed = new EventList;
       this.feed.bind('reset', this.render, this);
-      this.feed.fetch({data: this.dataFilters})
+
+      this.fetch();
 
       this.filter = new Events.Filter;
       this.filter.bind('change', this.refresh, this);
     },
 
-    refresh: function(e) {
-      this.feed.fetch({data: _.extend(e, this.dataFilters)});
+    fetch: function() {
+      this.feed.fetch({data: _.extend({}, this.pageFilters, this.userFilters)});
+    },
+
+    refresh: function(filters) {
+      this.userFilters = filters;
+
+      this.fetch();
     },
 
     render: function() {
