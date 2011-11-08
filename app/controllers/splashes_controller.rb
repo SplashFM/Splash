@@ -1,4 +1,6 @@
 class SplashesController < ApplicationController
+  respond_to :json
+
   def create
     splash_and_post(params[:splash], Track.find(params[:track_id]), params[:parent_id])
 
@@ -8,7 +10,7 @@ class SplashesController < ApplicationController
   end
 
   def show
-    render :partial => current_splash, :locals => {:expand => true}
+    respond_with Splash.find(params[:id]).as_full_json
   end
 
   protected

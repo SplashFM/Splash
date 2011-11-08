@@ -40,8 +40,12 @@ class Splash < ActiveRecord::Base
     where(['created_at > ?', Time.parse(time).utc])
   end
 
+  def as_full_json
+    as_json.merge!(:expanded => true)
+  end
+
   def as_json(opts = {})
-    super(:only => [:comments_count, :created_at]).
+    super(:only => [:id, :comments_count, :created_at]).
       merge!(:type  => 'splash',
              :track => track.as_json,
              :user  => user.as_json)

@@ -18,6 +18,11 @@ $(function() {
   }).extend(Paginated);
 
   window.Event     = Backbone.Model.extend();
+  window.Splash    = Event.extend({
+    url: function() {
+      return "/splashes/" + this.get('id');
+    },
+  });
   window.EventList = Backbone.Collection.extend({
     model: Event,
     url: '/events',
@@ -25,7 +30,12 @@ $(function() {
     parse: function(response) {
       this.recordUpdate(response);
 
-      return response.results;
+      return _.map(response.results, function(e) {
+        switch (e.type) {
+        case "splash": return new Splash(e);
+        default:       return new Event(e);
+        }
+      });
     },
 
     recordUpdate: function(resp) {

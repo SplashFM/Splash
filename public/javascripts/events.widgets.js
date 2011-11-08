@@ -78,18 +78,34 @@ $(function() {
 
   window.Events.Splash = Backbone.View.extend({
     events: {
-      'click [data-widget = "expand"]': 'render'
+      'click [data-widget = "expand"]': 'expand'
     },
     template: $('#tmpl-event-splash').template(),
+
+    initialize: function() {
+      this.model.bind('change', this.render, this);
+    },
+
+    expand: function() {
+      this.model.fetch();
+    },
 
     render: function() {
       var s          = this.model;
       var commentStr = I18n.t('comments', {count: s.get('comments_count')});
+      var content    =
+        $.tmpl(this.template,
+               _.extend({created_at_dist: $.timeago(s.get('created_at')),
+                         comment_count:   commentStr},
+                        s.toJSON())).get(0);
 
-      this.el = $.tmpl(this.template,
-                       _.extend({created_at_dist: $.timeago(s.get('created_at')),
-                                 comment_count:   commentStr},
-                                s.toJSON())).get(0);
+      if (this.el.tagName !== 'LI') {
+        this.el = content;
+      } else {
+        $(this.el).replaceWith(content);
+      }
+
+      this.delegateEvents(this.events);
 
       return this;
     },
