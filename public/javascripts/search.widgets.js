@@ -20,6 +20,8 @@ $(function() {
       _.bindAll(this, 'search', 'loadMoreResults', 'renderItem',
                       'renderLoadMoreResults');
 
+      this.$(':text').attr('autocomplete', 'off');
+
       this.collection.bind('reset', this.render, this)
       this.collection.bind('add', this.renderItem, this)
     },
