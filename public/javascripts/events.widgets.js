@@ -26,11 +26,13 @@ $(function() {
       this.page = 1;
     },
 
+    allFilters: function() {
+      return _.extend({}, this.pageFilters, this.userFilters);
+    },
+
     fetch: function(add) {
       this.feed.fetch({add:  add,
-                       data: _.extend({page: this.page},
-                                      this.pageFilters,
-                                      this.userFilters)});
+                       data: _.extend({}, this.allFilters()));
     },
 
     refresh: function(filters) {
