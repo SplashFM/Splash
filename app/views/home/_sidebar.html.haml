@@ -1,6 +1,6 @@
 #side-bar-wrap.right
   #side-bar
-    = render "users/vcard"
+    = render :partial => "users/vcard", :locals => {:user => current_user}
     .user-follows-count
       %span.shadow
       %span.count

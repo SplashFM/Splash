@@ -3,7 +3,7 @@
     .picture.left
       %img{:alt => "", :height => "185", :src => "/css/images/user-picture.png", :width => "125"}/
     .info.left
-      %h2.avan-bold= current_user.try(:name)
+      %h2.avan-bold= user.try(:name)
       .score
         %img{:alt => "", :height => "73", :src => "/css/images/spscore-4.png", :width => "50"}/
         %img{:alt => "", :height => "73", :src => "/css/images/spscore-6.png", :width => "50"}/
@@ -11,7 +11,7 @@
         %span.badge
         %a.expand{:href => "#"}
       .blurb
-        %p= current_user.try(:tagline)
+        %p= user.try(:tagline)
         %form{:action => "#", :method => "post"}
           %input{:type => "text"}/
     .cl &nbsp;
