@@ -25,6 +25,7 @@ javascripts:
     - public/javascripts/jquery.rangyinputs.js
     - public/javascripts/jquery.ba-bbq.js
     - public/javascripts/jquery.endless-scroll.js
+    - public/javascripts/jquery.timeago.js
     - public/javascripts/json2.js
     - public/javascripts/underscore.js
     - public/javascripts/backbone.js
