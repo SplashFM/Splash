@@ -12,17 +12,17 @@
         %ul
           = render :partial => "suggested_splasher", :collection => current_user.suggested_users, :as => :user
         %a.viewmore-btn{:href => "#"} View More
-      .top-splashes
-        .tabs
+      .top-splashboards.tabs
+        .tab-nav
           %ul
             %li
-              %a.active{:href => "#"} Top Splashes
+              %a.active{:href => "#tab-top-splashes"} Top Splashes
             %li
-              %a{:href => "#"} Top Splashers
+              %a{:href => "#tab-top-splashers"} Top Splashers
           .line
             %span
           %a.toggle{:href => "#"}
-        %ul#splashes.tab
+        %ul.splashboard-list.tab#tab-top-splashes
           = render "splashes/top_splash"
           = render "splashes/top_splash"
           = render "splashes/top_splash"
