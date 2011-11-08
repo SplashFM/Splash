@@ -347,6 +347,12 @@ Widgets.Player = {
   }
 }
 
+Widgets.Scroll = {
+  init: function() {
+    $(".scroll-area").jScrollPane();
+  }
+}
+
 Widgets.Search = {
   init: function() {
     var self = this;
@@ -724,6 +730,7 @@ Widgets.Notification = {
 $(document).ready(function() {
   Widgets.Comment.init();
   Widgets.Player.init();
+  Widgets.Scroll.init();
   Widgets.Search.init();
   Widgets.Track.init();
   Widgets.TypingStop.init();
