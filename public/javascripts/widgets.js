@@ -398,6 +398,12 @@ Widgets.Search = {
   }
 };
 
+Widgets.Tabs = {
+  init: function(){
+    $('.tabs').tabs();
+  }
+}
+
 Widgets.TypingStop ={
   init: function(){
     $('#user_email').typing({
@@ -733,6 +739,7 @@ $(document).ready(function() {
   Widgets.Scroll.init();
   Widgets.Search.init();
   Widgets.Track.init();
+  Widgets.Tabs.init();
   Widgets.TypingStop.init();
   Widgets.SignIn.init();
   Widgets.Upload.init();
