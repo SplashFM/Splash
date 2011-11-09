@@ -22,6 +22,8 @@ $(function() {
       this.filter = new Events.Filter;
       this.filter.bind('change', this.refresh, this);
 
+      this.settings = new Events.Settings;
+
       this.page = 1;
 
       this.currentInterval = setInterval(this.checkForUpdates,
@@ -145,6 +147,15 @@ $(function() {
 
     renderComment: function(c) {
       $(this.el).append($.tmpl(this.template, c.toJSON()));
+    },
+  });
+
+  window.Events.Settings = Backbone.View.extend({
+    initialize: function() {
+      $('[data-widget = "filter-splash"],' +
+        '[data-widget = "filter-other"]').each(function(_, e) {
+          $(e).iphoneStyle($(e).data());
+        });
     },
   });
 
