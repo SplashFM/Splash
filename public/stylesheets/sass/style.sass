@@ -917,35 +917,33 @@ textarea
       font-size: 13px
 
 .feed-settings
-  .types
-    padding: 6px 0 0 0
-    ul
-      list-style: none outside none
-      height: 18px
-      padding: 0 0 6px 25px
-      li
+  ul
+    list-style: none outside none
+    height: 18px
+    padding: 0 0 6px 25px
+    li
+      float: left
+      margin-right: 25px
+      a
         float: left
-        margin-right: 25px
-        a
-          float: left
-          color: #c3c9cc
-          font-size: 14px
-          &:hover, &.active
-            text-decoration: none
-            color: #2d4c6a
-    .line
+        color: #c3c9cc
+        font-size: 14px
+        &:hover, &.active
+          text-decoration: none
+          color: #2d4c6a
+  .line
+    height: 5px
+    background: url(/css/images/types-line-bg.png) repeat-x 0 0
+    position: relative
+    border-top: 1px solid #cacfd1
+    border-bottom: 1px solid #b7b7b8
+    span
+      position: absolute
+      top: 0
+      left: 25px
       height: 5px
-      background: url(/css/images/types-line-bg.png) repeat-x 0 0
-      position: relative
-      border-top: 1px solid #cacfd1
-      border-bottom: 1px solid #b7b7b8
-      span
-        position: absolute
-        top: 0
-        left: 25px
-        height: 5px
-        background: url(/css/images/types-line-inner-bg.png) repeat-x 0 0
-        width: 68px
+      background: url(/css/images/types-line-inner-bg.png) repeat-x 0 0
+      width: 68px
   .count
     height: 28px
     background: url(/css/images/newfeed-items-countbg.png) repeat-x 0 0
