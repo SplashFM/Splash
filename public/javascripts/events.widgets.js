@@ -88,7 +88,9 @@ $(function() {
       this.model.bind('change', this.render, this);
     },
 
-    expand: function() {
+    expand: function(e) {
+      e.preventDefault();
+
       this.model.fetch();
     },
 
