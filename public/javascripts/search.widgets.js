@@ -22,8 +22,19 @@ $(function() {
 
       this.$(':text').attr('autocomplete', 'off');
 
-      this.collection.bind('reset', this.render, this)
-      this.collection.bind('add', this.renderItem, this)
+      this.collection.bind('reset', this.render, this);
+      this.collection.bind('add', this.renderItem, this);
+      var self = this;
+      $(this.el).focuslost(function() {
+        self.hide();
+      });
+
+    },
+
+    hide: function() {
+      this.$('[data-widget = "load-more"]').hide();
+      this.$('[data-widget = "empty"]').hide();
+      $(this.container).hide();
     },
 
     isSearchable: function() {
@@ -90,3 +101,4 @@ $(function() {
     }
   });
 });
+
