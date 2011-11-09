@@ -264,28 +264,6 @@ Widgets.Track = {
   }
 }
 
-Widgets.TrackInfo = {
-  init: function() {
-    function splashWidget(anchor) {
-      return anchor.parents($ws("splash"));
-    }
-
-    $w("splash-info-toggle").
-      live('ajax:before', function(e) {
-        var ti = splashWidget($(this)).find($ws("splash-info"));
-
-        if (ti.length > 0) {
-          ti.toggle();
-
-          return false
-        }
-      }).
-      live('ajax:success', function(_, data) {
-        splashWidget($(this)).replaceWith(data);
-      });
-  }
-}
-
 Widgets.Player = {
   init: function() {
     $('#player-template').template("player-template");
@@ -703,7 +681,6 @@ $(document).ready(function() {
   Widgets.SignIn.init();
   Widgets.Upload.init();
   Widgets.Toggle.init();
-  Widgets.TrackInfo.init();
   Widgets.Editable.init();
   Widgets.UserAvatar.init();
   Widgets.UserProfile.init();
