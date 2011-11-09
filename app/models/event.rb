@@ -4,13 +4,13 @@ class Event < ActiveRecord::Base
 
     def build
       if @count
-        splashes.count + user_followed.count
+        splashes.count + relationships.count
       else
         q = ""
 
         q << splashes.to_sql      unless @omit_splashes
         q << " UNION ALL "        unless @omit_other || @omit_splashes
-        q << user_followed.to_sql unless @omit_other
+        q << relationships.to_sql unless @omit_other
         q << " ORDER BY created_at DESC"
 
         if @page
@@ -77,10 +77,15 @@ class Event < ActiveRecord::Base
       (@page - 1) * PER_PAGE
     end
 
-    def user_followed
-      scope = User.find(@user_id).
-        reverse_relationships.
+    def relationships
+      scope = Relationship.
         select("created_at, id target_id, 'Relationship' target_type")
+
+      unless user_ids.empty?
+        scope = scope.
+          where('follower_id in (:user_ids) or followed_id in (:user_ids)',
+                :user_ids => user_ids)
+      end
 
       if @last_update_at
         scope = scope.where(['created_at > ?', @last_update_at])
