@@ -2,9 +2,11 @@ class EventsController < ApplicationController
   respond_to :json
 
   has_scope :user
+  has_scope :omit_splashes, :type => :boolean
+  has_scope :omit_other,    :type => :boolean
   has_scope :follower
   has_scope :last_update_at
-  has_scope :tags, :type => :array
+  has_scope :tags,          :type => :array
 
   def index
     events = apply_scopes(Event.scope_builder)

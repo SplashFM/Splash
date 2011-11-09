@@ -6,11 +6,12 @@ class Event < ActiveRecord::Base
       if @count
         splashes.count + user_followed.count
       else
-        q      =
-          splashes.to_sql <<
-          " UNION ALL " <<
-          user_followed.to_sql <<
-          " ORDER BY created_at DESC"
+        q = ""
+
+        q << splashes.to_sql      unless @omit_splashes
+        q << " UNION ALL "        unless @omit_other || @omit_splashes
+        q << user_followed.to_sql unless @omit_other
+        q << " ORDER BY created_at DESC"
 
         if @page
           q << " LIMIT #{PER_PAGE} OFFSET #{offset}"
@@ -36,6 +37,18 @@ class Event < ActiveRecord::Base
 
     def last_update_at(time)
       @last_update_at = Event.from_timestamp(time)
+
+      self
+    end
+
+    def omit_other
+      @omit_other = true
+
+      self
+    end
+
+    def omit_splashes
+      @omit_splashes = true
 
       self
     end

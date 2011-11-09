@@ -12,6 +12,7 @@ $(function() {
       this.pageFilters = {user: this.currentUserId,
                           follower: this.currentUserId,
                           update_on_splash: true}
+      this.userFilters = {};
 
       this.feed = new EventList;
       this.feed.bind('reset', this.render, this);
@@ -23,6 +24,7 @@ $(function() {
       this.filter.bind('change', this.refresh, this);
 
       this.settings = new Events.Settings;
+      this.settings.bind('change', this.refresh, this);
 
       this.page = 1;
 
@@ -46,7 +48,7 @@ $(function() {
 
     refresh: function(filters) {
       this.page        = 1;
-      this.userFilters = filters;
+      this.userFilters = _.extend(this.userFilters, filters);
 
       this.fetch();
     },
@@ -152,10 +154,24 @@ $(function() {
 
   window.Events.Settings = Backbone.View.extend({
     initialize: function() {
+      _.bindAll(this, 'onChange');
+
+      var self = this;
+
       $('[data-widget = "filter-splash"],' +
-        '[data-widget = "filter-other"]').each(function(_, e) {
-          $(e).iphoneStyle($(e).data());
+        '[data-widget = "filter-other"]').each(function(__, e) {
+          $(e).iphoneStyle(_.extend({onChange: self.onChange},
+                                    $(e).data()));
         });
+    },
+
+    onChange: function() {
+      var settings = {
+        omit_splashes: $('[data-widget = "filter-splash"]').is(":checked") ? '' : true,
+        omit_others:   $('[data-widget = "filter-other"]').is(":checked") ? '' : true
+      };
+
+      this.trigger('change', settings);
     },
   });
 
