@@ -84,7 +84,8 @@ $(function() {
   window.Events.Splash = Backbone.View.extend({
     events: {
       'click [data-widget = "expand"]': 'expand',
-      'submit [data-widget = "comment-box"]': 'addComment'
+      'submit [data-widget = "comment-box"]': 'addComment',
+      'click [data-widget = "play"]': 'play'
     },
     tagName: 'li',
     template: $('#tmpl-event-splash').template(),
@@ -105,6 +106,13 @@ $(function() {
       e.preventDefault();
 
       this.model.fetch();
+    },
+
+    play: function(e) {
+      e.preventDefault();
+
+      $(this.el).trigger('request:play',
+                         {track: this.model.get('track')});
     },
 
     render: function() {

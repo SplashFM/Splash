@@ -2,7 +2,7 @@
   %li{:class => '{{if expanded}}expanded{{/if}}', |
       :data  => {:widget   => 'splash', |
                  :track_id => '${track.id}'}}
-    %a.art.left{:href => "#"}
+    %a.art.left{:href => "${track.preview_url}", :data => {:widget => 'play'}}
       %img{:alt => "", :height => "71", :src => "${track.artwork_url}", :width => "71"}/
       %span
     .entry.left

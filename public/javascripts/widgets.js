@@ -254,37 +254,6 @@ Widgets.Feed = {
   }
 }
 
-Widgets.Track = {
-  init: function() {
-    $w("play").live('click', function(e) {
-      e.preventDefault();
-
-      Widgets.Player.play($(this).attr('href'), $(this).data('track-type'));
-    });
-  }
-}
-
-Widgets.Player = {
-  init: function() {
-    $('#player-template').template("player-template");
-  },
-
-  play: function(url, type) {
-    media       = {}
-    media[type] = url
-
-    $('#player-area').html($.tmpl('player-template'));
-
-    $w("player").
-      jPlayer({cssSelectorAncestor: '#player-container',
-               swfPath:             'Jplayer.swf',
-               supplied:            type,
-               ready: function() {
-                 $(this).jPlayer('setMedia', media).jPlayer('play');
-               }});
-  }
-}
-
 Widgets.Scroll = {
   init: function() {
     $(".scroll-area").jScrollPane();
@@ -664,10 +633,8 @@ Widgets.Notification = {
 }
 
 $(document).ready(function() {
-  Widgets.Player.init();
   Widgets.Scroll.init();
   Widgets.Search.init();
-  Widgets.Track.init();
   Widgets.Tabs.init();
   Widgets.TypingStop.init();
   Widgets.SignIn.init();

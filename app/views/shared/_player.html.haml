@@ -1,20 +1,6 @@
-#music-player-wrap
-  #music-player
-    .container
-      %a.prev.left{:href => "#"}
-      %a.play.left{:href => "#"}
-      %a.next.left{:href => "#"}
-      %span.songtitle.left
-        %marquee The Road Gets Harder All
-      .progress.left
-        %span.time.current 1:37
-        %span.time.total 2:10
-        %span.pin{:style => "left: 50px;"}
-      %a.splash-btn.left{:href => "#"}
-      %a.download-track.left{:href => "#"} Download track
-%script#player-template{:type => 'text/x-jquery-tmpl'}
+%script#tmpl-player{:type => 'text/x-jquery-tmpl'}
   #player.jp-jplayer{:data => {:widget => 'player'}}
-  #player-container.jp-audio
+  #player-container.jp-audio{:data => {:widget => 'player-ui'}}
     .jp-type-single
       .jp-gui.jp-interface
         %ul.jp-controls

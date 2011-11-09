@@ -66,4 +66,33 @@ $(function() {
       this.cycle(Search.prototype.renderItem.call(this, i), 'even', 'odd');
     }
   });
+
+  window.PlayerView = Backbone.View.extend({
+    template: $('#tmpl-player').template(),
+
+    initialize: function() {
+      _.bindAll(this, 'play');
+
+      $('#player-area').html($.tmpl(this.template));
+
+      $('body').bind('request:play', this.play);
+    },
+
+    play: function(_, data) {
+      var media = {};
+      media[data.track.preview_type] = data.track.preview_url;
+
+      $("[data-widget = 'player']").
+        jPlayer({cssSelectorAncestor: '[data-widget = "player-ui"]',
+                 swfPath:             'Jplayer.swf',
+                 supplied:            data.track.preview_type,
+                 ready: function() {
+                   $(this).
+                     jPlayer('setMedia', media).
+                     jPlayer('play');
+                 }});
+    },
+  });
+
+  window.Player = new PlayerView;
 });

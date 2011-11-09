@@ -69,10 +69,12 @@ class Track < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    {:id          => id,
-     :title       => title,
-     :artwork_url => artwork_url,
-     :performers  => performers.to_sentence}
+    {:id           => id,
+     :title        => title,
+     :artwork_url  => artwork_url,
+     :preview_url  => preview_url,
+     :preview_type => preview_type,
+     :performers   => performers.to_sentence}
   end
 
   def artwork_url
