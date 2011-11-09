@@ -23,7 +23,7 @@ $(function() {
       this.filter = new Events.Filter;
       this.filter.bind('change', this.refresh, this);
 
-      this.settings = new Events.Settings;
+      this.settings = new Events.Settings({currentUserId: this.currentUserId});
       this.settings.bind('change', this.refresh, this);
 
       this.page = 1;
@@ -153,8 +153,10 @@ $(function() {
   });
 
   window.Events.Settings = Backbone.View.extend({
-    initialize: function() {
-      _.bindAll(this, 'onChange');
+    initialize: function(opts) {
+      this.currentUserId = opts.currentUserId;
+
+      _.bindAll(this, 'onChange', 'onToggleFollowing');
 
       var self = this;
 
@@ -163,15 +165,37 @@ $(function() {
           $(e).iphoneStyle(_.extend({onChange: self.onChange},
                                     $(e).data()));
         });
+
+      $('[data-widget = "filter-following"] a').click(this.onToggleFollowing);
     },
 
     onChange: function() {
+      var active = $('[data-widget = "filter-following"] a.active');
+      var user   = active.attr('href') === '#following' ? this.currentUserId: '';
+
       var settings = {
         omit_splashes: $('[data-widget = "filter-splash"]').is(":checked") ? '' : true,
-        omit_others:   $('[data-widget = "filter-other"]').is(":checked") ? '' : true
+        omit_others:   $('[data-widget = "filter-other"]').is(":checked") ? '' : true,
+        user:          user,
+        follower:      user
       };
 
       this.trigger('change', settings);
+    },
+
+    onToggleFollowing: function(e) {
+      var active   = $('[data-widget = "filter-following"] a.active');
+      var inactive = $('[data-widget = "filter-following"] a:not(.active)');
+
+      if (active.attr('href') != $(e.target).attr('href')) {
+        active.removeClass('active');
+        active.parent().removeClass('ui-tabs-selected');
+
+        inactive.addClass('active');
+        inactive.parent().addClass('ui-tabs-selected');
+
+        this.onChange();
+      }
     },
   });
 
