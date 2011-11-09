@@ -161,6 +161,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :hidden?
 
+  helper_method :current_page
   def current_page
     page = params[:page].to_i
 
@@ -168,8 +169,8 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :next_page
-  def next_page
-    current_page + 1
+  def next_page(limit=1000)
+    (current_page + 1) % (limit + 1)
   end
 
   def preview?

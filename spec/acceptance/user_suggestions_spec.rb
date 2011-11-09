@@ -40,6 +40,14 @@ feature "Suggested Splashsers", :js => true do
     should have_no_content(user_to_ignore.name)
   end
 
+  scenario "see more" do
+    generate_suggested_users(4)
+    go_to 'home'
+
+    click_link t('home.suggested_splashers.view_more')
+    should have_suggested_users(1)
+  end
+
   def generate_suggested_users(count=4)
     u1 = create(User).with_required_info!
     u2 = create(User).with_required_info!

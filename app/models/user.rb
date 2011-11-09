@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   extend TestableSearch
 
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
+  SUGGESTED_USERS_PER_PAGE = 3
 
   redis_sorted_field :influence
   redis_counter :ripple_count
@@ -79,12 +80,12 @@ class User < ActiveRecord::Base
     read_attribute(:ignore_suggested_users) || []
   end
 
-  def suggested_users
+  def suggested_users(page=nil)
     relationships = Relationship.select('DISTINCT relationships.followed_id')
                                 .with_followers(followers.map(&:id))
-                                .ignore(ignore_suggested_users + 
+                                .ignore(ignore_suggested_users +
                                                 (following + [self]).map(&:id))
-                                .limit(3)
+                                .limited(page, SUGGESTED_USERS_PER_PAGE)
                                 .includes(:followed)
 
     relationships.map(&:followed)

@@ -1,0 +1,4 @@
+%ul
+  = render :partial => "users/suggested_splasher", :collection => current_user.suggested_users(current_page), :as => :user
+
+= view_more_suggested_users

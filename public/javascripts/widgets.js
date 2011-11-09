@@ -422,18 +422,22 @@ Widgets.Notification = {
 
 Widgets.SuggestedUsers = {
   init: function(){
-    $w('follow-suggested-user').live('ajax:success', function() {
-      $.ajax({
+    $w('next-suggested-users').live('ajax:success', function(_, data) {
+        $w("suggested-users").html(data);
+    });
+
+    suggested_widgets = [$w('delete-suggested-user'), $w('follow-suggested-user')]
+
+    $.each(suggested_widgets, function(i, e){
+      e.live('ajax:success', function() {
+        $.ajax({
           type: 'GET',
           url: Routes.suggested_splashers_path(),
           success: function(data){
             $w('suggested-users').html(data);
           }
         });
-    });
-
-    $w('delete-suggested-user').live('ajax:success', function(_, data) {
-      $w("suggested-users").html(data);
+      });
     });
   }
 }
