@@ -921,24 +921,29 @@ textarea
       margin-right: 25px
       a
         float: left
-        color: #c3c9cc
+        color: #2d4c6a
         font-size: 14px
-        &:hover, &.active
+        opacity: 0.5
+        filter: alpha(opacity = 50)
+        &:hover
+          opacity: 1
+          filter: alpha(opacity = 100)
           text-decoration: none
-          color: #2d4c6a
+      &.ui-tabs-selected
+        border-bottom: 5px solid #44bfe7
+        padding-bottom: 7px
+        position: relative
+        z-index: 10
+        a
+          opacity: 1
+          filter: alpha(opacity = 100)
+          text-decoration: none
   .line
     height: 5px
     background: url(/css/images/types-line-bg.png) repeat-x 0 0
     position: relative
     border-top: 1px solid #cacfd1
     border-bottom: 1px solid #b7b7b8
-    span
-      position: absolute
-      top: 0
-      left: 25px
-      height: 5px
-      background: url(/css/images/types-line-inner-bg.png) repeat-x 0 0
-      width: 68px
   .count
     height: 28px
     background: url(/css/images/newfeed-items-countbg.png) repeat-x 0 0
