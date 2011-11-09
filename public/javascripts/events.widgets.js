@@ -81,6 +81,7 @@ $(function() {
     events: {
       'click [data-widget = "expand"]': 'expand'
     },
+    tagName: 'li',
     template: $('#tmpl-event-splash').template(),
 
     initialize: function() {
@@ -102,16 +103,12 @@ $(function() {
         c.created_at_dist = $.timeago(c.created_at);
       });
 
-      var content    =
-        $.tmpl(this.template, json).get(0);
+      $(this.el).attr('data-widget', 'splash');
+      $(this.el).attr('data-track_id', this.model.get('track').id);
 
-      if (this.el.tagName !== 'LI') {
-        this.el = content;
-      } else {
-        $(this.el).replaceWith(content);
-      }
+      if (this.model.get('expanded')) $(this.el).addClass('expanded');
 
-      this.delegateEvents(this.events);
+      $(this.el).html($.tmpl(this.template, json).html());
 
       return this;
     },
