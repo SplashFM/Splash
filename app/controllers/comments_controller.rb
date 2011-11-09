@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  respond_to :json
 
   def index
     splash = Splash.find(params[:splash_id])
@@ -7,14 +8,10 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = current_user.comments.new(:splash_id => params[:splash_id],
-                                          :body => params[:comment][:body])
+    @comment = current_user.comments.create(:splash_id => params[:splash_id],
+                                            :body      => params[:body])
 
-    if @comment.save
-      render :partial => 'comments/comments', :locals => {:splash => @comment.splash.reload}
-    else
-      render :json => @comment.errors.to_json, :status => :unprocessable_entity
-    end
+    respond_with @comment
   end
 
   def destroy

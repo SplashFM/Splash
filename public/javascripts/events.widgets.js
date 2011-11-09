@@ -79,13 +79,22 @@ $(function() {
 
   window.Events.Splash = Backbone.View.extend({
     events: {
-      'click [data-widget = "expand"]': 'expand'
+      'click [data-widget = "expand"]': 'expand',
+      'submit [data-widget = "comment-box"]': 'addComment'
     },
     tagName: 'li',
     template: $('#tmpl-event-splash').template(),
 
     initialize: function() {
       this.model.bind('change', this.render, this);
+    },
+
+    addComment: function(e) {
+      e.preventDefault();
+
+      this.model.comments().create({body: this.$(':text').val()});
+
+      this.$(':text').val('');
     },
 
     expand: function(e) {
@@ -126,6 +135,8 @@ $(function() {
 
     initialize: function() {
       _.bindAll(this, 'renderComment');
+
+      this.collection.bind('add', this.renderComment, this);
     },
 
     render: function() {

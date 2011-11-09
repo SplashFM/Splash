@@ -17,14 +17,32 @@ $(function() {
     url: '/users'
   }).extend(Paginated);
 
-  window.Comment     = Backbone.Model.extend();
+  window.Comment     = Backbone.Model.extend({
+    url: "/comments"
+  });
   window.CommentList = Backbone.Collection.extend({
     model: Comment,
+
+    create: function(c, opts) {
+      c.splash_id = this.parent().get('id');
+
+      Backbone.Collection.prototype.create.call(this, c, opts);
+    },
+
+    parent: function(p) {
+      if (p) {
+        this._parent = p;
+
+        return this;
+      } else {
+        return this._parent;
+      }
+    },
   });
   window.Event       = Backbone.Model.extend();
   window.Splash      = Event.extend({
     initialize: function(attrs) {
-      this._comments = new CommentList;
+      this._comments = new CommentList().parent(this);
 
       this.bind('change', this.resetComments, this);
     },
@@ -34,6 +52,8 @@ $(function() {
     },
 
     resetComments: function() {
+      var self = this;
+
       this._comments.reset(this.get('comments'));
     },
 
