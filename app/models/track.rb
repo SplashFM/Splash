@@ -14,6 +14,16 @@ class Track < ActiveRecord::Base
 
   acts_as_taggable
 
+  has_attached_file :data,
+    :storage => :s3,
+    :path => "/:class/:attachment/:id/:hash.:extension",
+    :hash_secret => ":class/:attachment/:id",
+    :s3_credentials => {
+      :access_key_id => AppConfig.aws['access_key_id'],
+      :secret_access_key => AppConfig.aws['secret_access_key'],
+      :bucket => AppConfig.aws['bucket']
+    }
+
   has_and_belongs_to_many :genres, :join_table => :track_genres
 
   def self.string_list_to_array(str)

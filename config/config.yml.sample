@@ -1,4 +1,8 @@
 common: &common
+  aws:
+    access_key_id: xxx
+    secret_access_key: xxx
+    bucket: bucket-name
   braintree:
     environment: sandbox
     merchant_id: merchant_id

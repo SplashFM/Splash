@@ -82,6 +82,7 @@ gem "parallel_tests", :group => :development
 gem "acts-as-taggable-on", "~> 2.1.0"
 gem "silent-postgres"
 gem "has_scope"
+gem "aws-s3"
 
 group :test do
   gem "rr", "~> 1.0"
