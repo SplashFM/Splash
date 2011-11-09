@@ -347,6 +347,12 @@ Widgets.Player = {
   }
 }
 
+Widgets.Scroll = {
+  init: function() {
+    $(".scroll-area").jScrollPane();
+  }
+}
+
 Widgets.Search = {
   init: function() {
     var self = this;
@@ -391,6 +397,12 @@ Widgets.Search = {
     });
   }
 };
+
+Widgets.Tabs = {
+  init: function(){
+    $('.tabs').tabs();
+  }
+}
 
 Widgets.TypingStop ={
   init: function(){
@@ -724,8 +736,10 @@ Widgets.Notification = {
 $(document).ready(function() {
   Widgets.Comment.init();
   Widgets.Player.init();
+  Widgets.Scroll.init();
   Widgets.Search.init();
   Widgets.Track.init();
+  Widgets.Tabs.init();
   Widgets.TypingStop.init();
   Widgets.SignIn.init();
   Widgets.Upload.init();

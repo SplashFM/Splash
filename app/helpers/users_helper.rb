@@ -26,12 +26,13 @@ module UsersHelper
   end
 
   def follow_label
-    if @user == current_user
+    if @user.nil?
+    elsif @user == current_user
       link_to t('.edit'), edit_user_path(current_user)
     elsif current_user.following? @user
-      render 'unfollow'
+      render 'users/unfollow'
     else
-      render 'follow'
+      render 'users/follow'
     end
   end
 end

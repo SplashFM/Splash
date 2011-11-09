@@ -1,0 +1,21 @@
+.feed-settings
+  .avan-bold
+    %ul
+      %li.ui-tabs-selected
+        %a.active{:href => "#tab-following"} Following
+      %li
+        %a{:href => "#tab-everyone"} Everyone
+  .line
+    %span
+  %span.count.left{:data => {:widget => 'update-count'}}
+  .toggle.toggle-splashes.right
+    %input.field.iphone-checkbox{:checked => "checked", :type => "checkbox", :value => "",
+    'data-handle-class' => 'handle', 'data-checked-label' => 'ON', 'data-unchecked-label' => 'OFF',
+    'data-label-on-class' => 'state avan-bold on', 'data-label-off-class' => 'state avan-bold off',
+    'data-resize-handle' => 'false', 'data-resize-container' => 'false', 'data-container-radius' => '0', 'data-handle-text' => 'Splashes'}/
+  .toggle.toggle-activity.right
+    %input.field.iphone-checkbox{:checked => "checked", :type => "checkbox", :value => "",
+    'data-handle-class' => 'handle', 'data-checked-label' => 'ON', 'data-unchecked-label' => 'OFF',
+    'data-label-on-class' => 'state avan-bold on', 'data-label-off-class' => 'state avan-bold off',
+    'data-resize-handle' => 'false', 'data-resize-container' => 'false', 'data-container-radius' => '0', 'data-handle-text' => 'Activity'}/
+  .cl &nbsp;

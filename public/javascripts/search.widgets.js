@@ -62,6 +62,7 @@ $(function() {
       if (this.open) this.open.call(this);
 
       this.container.show();
+      Widgets.Scroll.init();
     },
 
     renderItem: function(i) {

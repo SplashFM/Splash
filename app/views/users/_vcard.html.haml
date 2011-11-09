@@ -1,0 +1,22 @@
+.user-vcard
+  .container
+    .picture.left
+      = image_tag user.avatar_url(:thumb), :size => '125x185'
+      - if avatar_editable?
+        .upload-avatar-link.hide
+          = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
+    .info.left
+      %h2.avan-bold= user.try(:name)
+      .score
+        .score-digits
+          %img{:alt => "", :title => user.splash_score, :height => "73", :src => "/css/images/spscore-4.png", :width => "50"}/
+          %img{:alt => "", :title => user.splash_score, :height => "73", :src => "/css/images/spscore-6.png", :width => "50"}/
+        .cl &nbsp;
+        %span.badge
+        %a.expand{:href => "#"}
+      .blurb
+        .tag-line.edit{:'data-action' => "#{user_path(current_user)}",
+                      :'data-widget' => "#{ 'editable' if tagline_editable?}"}
+          = user.tagline
+    .follow-button= follow_label
+    .cl &nbsp;

@@ -1,7 +1,30 @@
-%ul
-  - @tracks.each do |t|
-    %li
-      = render 'tracks/track_summary', :track => t
-      = t.splash_count
+.splashboard
+  = render "home/sidebar"
+  #stream-wrap.left.tabs
+    #stream-feed
+      .streamfeed-top
+        .main-panel
+          %label
+            Splashboard
+        .feed-settings
+          .avan-bold
+            %ul
+              %li
+                %a.active{:href => "#tab-splashes"} Splashes
+              %li
+                %a{:href => "#tab-splashers"} Splashers
+          .line
+            %span
+      = render "shared/feed_filter"
+      #tab-splashes
+        %ul.live-feed{:data => {:widget => 'events'}}
+          - @tracks.each do |t|
+            %li
+              = render 'tracks/track_summary', :track => t
+              = t.splash_count
+        %p= link_to_next_page @tracks, t('pagination.more')
+      #tab-splashers
+        %ul.live-feed{:data => {:widget => 'events'}}
+      .loading-spinner
+    .cl &nbsp;
 
-%p= link_to_next_page @tracks, t('pagination.more')

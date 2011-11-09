@@ -1,32 +1,7 @@
-#user-bar-wrap.right
-  #user-bar
-    .user-vcard
-      .container
-        .picture.left
-          %img{:alt => "", :height => "185", :src => "/css/images/user-picture.png", :width => "125"}/
-        .info.left
-          %h2.avan-bold= current_user.try(:name)
-          .score
-            %img{:alt => "", :height => "73", :src => "/css/images/spscore-4.png", :width => "50"}/
-            %img{:alt => "", :height => "73", :src => "/css/images/spscore-6.png", :width => "50"}/
-            .cl &nbsp;
-            %span.badge
-            %a.expand{:href => "#"}
-          .blurb
-            %p= current_user.try(:tagline)
-            %form{:action => "#", :method => "post"}
-              %input{:type => "text"}/
-        .cl &nbsp;
-    / /user vcard
-    .user-follows-count
-      %span.shadow
-      %span.count
-        %strong.avan-demi= current_user.followers.count
-        Followers
-      %span.count
-        %strong.avan-demi= current_user.following.count
-        Following
-      %span.corner
+#side-bar-wrap.right
+  #side-bar
+    = render :partial => "users/vcard", :locals => {:user => current_user}
+    = render :partial => "users/relationships", :locals => {:user => current_user}
     .splashers-widgets
       .suggested-splashers
         %a.see-all.right{:href => "#"}
@@ -35,26 +10,27 @@
         %h3 Suggested Splashers
         .cl &nbsp;
         %ul
-          = render :partial => "suggested_splasher", :collection => current_user.suggested_users, :as => :user
+          = render :partial => "home/suggested_splasher", :collection => current_user.suggested_users, :as => :user
         %a.viewmore-btn{:href => "#"} View More
-      .top-splashes
-        .tabs
+      .top-splashboards.tabs
+        .tab-nav
           %ul
             %li
-              %a.active{:href => "#"} Top Splashes
+              %a{:href => "#tab-top-splashes"} Top Splashes
             %li
-              %a{:href => "#"} Top Splashers
+              %a{:href => "#tab-top-splashers"} Top Splashers
           .line
-            %span
           %a.toggle{:href => "#"}
-        %ul#splashes.tab
-          = render "top_splash"
-          = render "top_splash"
-          = render "top_splash"
-          = render "top_splash"
-          = render "top_splash"
-          = render "top_splash"
-          = render "top_splash"
-          = render "top_splash"
+        %ul.splashboard-list.tab#tab-top-splashes
+          = render "splashes/top_splash"
+          = render "splashes/top_splash"
+          = render "splashes/top_splash"
+          = render "splashes/top_splash"
+          = render "splashes/top_splash"
+          = render "splashes/top_splash"
+          = render "splashes/top_splash"
+          = render "splashes/top_splash"
+        %ul.splashboard-list.tab#tab-top-splashers
+          = render "splashes/top_splash"
         %a.viewmore-btn{:href => "#"} View Splashboard
-    = render "invites"
+    = render "shared/invites"

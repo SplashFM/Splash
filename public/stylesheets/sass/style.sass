@@ -368,19 +368,24 @@ textarea
   z-index: 1
   padding: 22px 0 50px
 
-#user-bar-wrap
+#side-bar-wrap
   width: 300px
   position: relative
   overflow-x: hidden
-  padding: 8px 8px 8px 0
+  &.right
+    padding: 8px 8px 8px 0
+  &.left
+    padding: 8px 0 8px 8px
 
-#user-bar
+#side-bar
   box-shadow: 0 0 8px rgba(0, 0, 0, 1)
+.right #side-bar
   border-radius: 0 7px 7px 0
+.left #side-bar
+  border-radius: 7px 0 0 7px
 
 .user-vcard
   background: #6384a4 url(/css/images/profile-vcard-bg.png) repeat-x 0 bottom
-  border-radius: 0 7px 0 0
   .container
     background: url(/css/images/noise2.png) repeat 0 0
     padding-bottom: 10px
@@ -434,6 +439,11 @@ textarea
       height: 15px
     form
       display: none
+
+.right .user-vcard
+  border-radius: 0 7px 0 0
+.left .user-vcard
+  border-radius: 7px 0 0 0
 
 .user-follows-count
   height: 31px
@@ -551,9 +561,9 @@ textarea
     .delete, .follow
       display: block
 
-.top-splashes
+.top-splashboards
   padding: 25px 0 15px
-  .tabs
+  .tab-nav
     position: relative
     width: 100%
     ul
@@ -569,7 +579,16 @@ textarea
         color: #586d80
         opacity: 0.5
         filter: alpha(opacity = 50)
-        &:hover, &.active
+        &:hover
+          opacity: 1
+          filter: alpha(opacity = 100)
+          text-decoration: none
+      &.ui-tabs-selected
+        border-bottom: 5px solid #567392
+        padding-bottom: 7px
+        position: relative
+        z-index: 10
+        a
           opacity: 1
           filter: alpha(opacity = 100)
           text-decoration: none
@@ -599,7 +618,7 @@ textarea
         height: 12px
   .tab
     list-style: none outside none
-  #splashes
+  .splashboard-list
     padding: 8px 0 12px
     background: url(/css/images/suggested-splashers-divider.png) no-repeat center bottom
     margin-bottom: 8px
@@ -726,7 +745,6 @@ textarea
 .send-invite
   height: 70px
   background: url(/css/images/send-invite-bg.png) repeat-x 0 0
-  border-radius: 0 0 7px 0
   form
     height: 32px
     padding: 19px 0 0 8px
@@ -758,28 +776,41 @@ textarea
     padding-bottom: 2px
     border-radius: 0 7px 7px 0
 
+.right .send-invite
+  border-radius: 0 0 7px 0
+.left .send-invite
+  border-radius: 0 0 0 7px
+
 #stream-wrap
   width: 635px
   position: relative
   overflow-x: hidden
-  padding: 8px 0 8px 8px
+  &.left
+    padding: 8px 0 8px 8px
+  &.right
+    padding: 8px 8px 8px 0
 
 #stream-feed
   background: #fff
   box-shadow: 0 0 8px rgba(0, 0, 0, 1)
-  border-radius: 7px 0 0 7px
   padding-bottom: 10px
 
-.streamfeed-top
-  background: url(/css/images/streamfedd-topbg.png) repeat-x 0 0
-  border-radius: 7px 0 0 0
-  box-shadow: 1px 1px 1px rgba(255, 255, 255, 1) inset
-  .container
-    background: url(/css/images/noise3.png) repeat 0 0
-    height: 217px
-    border-radius: 7px 0 0 0
+.left #stream-feed
+  border-radius: 7px 0 0 7px
+.right #stream-feed
+  border-radius: 0 7px 7px 0
 
-.main-search
+.streamfeed-top
+  background: url(/css/images/streamfeed-topbg.png) repeat-x 0 0
+  box-shadow: 1px 1px 1px rgba(255, 255, 255, 1) inset
+
+.left .streamfeed-top
+  border-radius: 7px 0 0 0
+
+.right .streamfeed-top
+  border-radius: 0 7px 0 0
+
+.main-search, .main-panel
   padding: 19px 20px 0
   label
     font-size: 24px
@@ -881,35 +912,38 @@ textarea
       font-size: 13px
 
 .feed-settings
-  .types
-    padding: 6px 0 0 0
-    ul
-      list-style: none outside none
-      height: 18px
-      padding: 0 0 6px 25px
-      li
+  ul
+    list-style: none outside none
+    height: 18px
+    padding: 0 0 6px 25px
+    li
+      float: left
+      margin-right: 25px
+      a
         float: left
-        margin-right: 25px
+        color: #2d4c6a
+        font-size: 14px
+        opacity: 0.5
+        filter: alpha(opacity = 50)
+        &:hover
+          opacity: 1
+          filter: alpha(opacity = 100)
+          text-decoration: none
+      &.ui-tabs-selected
+        border-bottom: 5px solid #44bfe7
+        padding-bottom: 7px
+        position: relative
+        z-index: 10
         a
-          float: left
-          color: #c3c9cc
-          font-size: 14px
-          &:hover, &.active
-            text-decoration: none
-            color: #2d4c6a
-    .line
-      height: 5px
-      background: url(/css/images/types-line-bg.png) repeat-x 0 0
-      position: relative
-      border-top: 1px solid #cacfd1
-      border-bottom: 1px solid #b7b7b8
-      span
-        position: absolute
-        top: 0
-        left: 25px
-        height: 5px
-        background: url(/css/images/types-line-inner-bg.png) repeat-x 0 0
-        width: 68px
+          opacity: 1
+          filter: alpha(opacity = 100)
+          text-decoration: none
+  .line
+    height: 5px
+    background: url(/css/images/types-line-bg.png) repeat-x 0 0
+    position: relative
+    border-top: 1px solid #cacfd1
+    border-bottom: 1px solid #b7b7b8
   .count
     height: 28px
     background: url(/css/images/newfeed-items-countbg.png) repeat-x 0 0
@@ -976,10 +1010,10 @@ textarea
       padding: 0 0
   .toggle-splashes
     width: 110px
-    margin: 9px 20px 0 0
+    margin: 9px 20px 9px 0
   .toggle-activity
     width: 95px
-    margin: 9px 8px 0 0
+    margin: 9px 8px 9px 0
 
 .feed-filter
   height: 62px
@@ -1486,5 +1520,10 @@ textarea
     background: url(/css/images/ico-download-track-02.png) no-repeat 0 0
     padding-left: 16px
     margin: 19px 0 0 10px
+
+.ui-tabs
+  .ui-tabs-hide
+    display: none !important
+
 
 @import "style-overrides.sass"
