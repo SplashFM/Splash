@@ -496,17 +496,6 @@ Widgets.Editable = {
   }
 }
 
-Widgets.UserAvatar = {
-  init: function(){
-    $(".user-image").live('mouseover', function() {
-        $('.upload-avatar-link').show();
-        Scaphandrier.Fancybox.init();
-    }).live('mouseout', function(){
-      $('.upload-avatar-link').hide();
-    });
-  }
-}
-
 Widgets.UserProfile = {
   init: function(){
     $w("user-edit").live('ajax:success', function() {
@@ -654,7 +643,6 @@ $(document).ready(function() {
   Widgets.SignIn.init();
   Widgets.Upload.init();
   Widgets.Editable.init();
-  Widgets.UserAvatar.init();
   Widgets.UserProfile.init();
   Widgets.SplashAction.init();
   Widgets.Notification.init();

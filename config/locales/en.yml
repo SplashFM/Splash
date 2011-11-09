@@ -69,7 +69,6 @@ en:
   users:
     show:
       title: 'User profile'
-      edit_avatar: Change image
       edit: Edit
       follow: Follow
       unfollow: Unfollow
@@ -81,7 +80,8 @@ en:
       site_connected: %{site} connected
       social_connect: Social Connect
       basic_settings: Basic settings
-
+    vcard:
+      edit_avatar: Change image
     avatar:
       title: Update Avatar Picture
     crop:
