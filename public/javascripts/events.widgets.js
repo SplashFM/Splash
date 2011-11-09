@@ -94,11 +94,16 @@ $(function() {
     render: function() {
       var s          = this.model;
       var commentStr = I18n.t('comments', {count: s.get('comments_count')});
+      var json       = _.extend({created_at_dist: $.timeago(s.get('created_at')),
+                                 comment_count:   commentStr},
+                                s.toJSON());
+
+      _.each(json.comments, function(c) {
+        c.created_at_dist = $.timeago(c.created_at);
+      });
+
       var content    =
-        $.tmpl(this.template,
-               _.extend({created_at_dist: $.timeago(s.get('created_at')),
-                         comment_count:   commentStr},
-                        s.toJSON())).get(0);
+        $.tmpl(this.template, json).get(0);
 
       if (this.el.tagName !== 'LI') {
         this.el = content;

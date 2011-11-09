@@ -41,7 +41,8 @@ class Splash < ActiveRecord::Base
   end
 
   def as_full_json
-    as_json.merge!(:expanded => true)
+    as_json.merge!(:expanded => true,
+                   :comments => comments)
   end
 
   def as_json(opts = {})

@@ -5,4 +5,12 @@ class Comment < ActiveRecord::Base
   belongs_to :splash, :counter_cache => true
 
   validates :body, :presence => true
+
+  def as_json(opts = {})
+    super(:methods => :author_name)
+  end
+
+  def author_name
+    author.name
+  end
 end

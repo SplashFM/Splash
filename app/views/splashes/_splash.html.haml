@@ -53,10 +53,9 @@
         %span.comments-module-t
         .scroll-area
           %ul
+            {{each comments}}
             = render "comments/comment"
-            = render "comments/comment"
-            = render "comments/comment"
-            = render "comments/comment"
+            {{/each}}
       / /aside
       .write-comment
         %form{:action => "#", :method => "post"}
