@@ -103,46 +103,6 @@ Widgets.CommentBox = {
   }
 }
 
-Widgets.Comment = {
-  init: function(){
-    $w("add-comment-toggle").live('click', function(e) {
-      e.preventDefault();
-
-      $($(this).attr('href')).toggle();
-    });
-
-    $w("comment-container").live('click', function(e) {
-      e.stopPropagation();
-    })
-
-    $w("splash").live('click', function(e){
-      $(this).find("[data-widget=\"comment-container\"]").toggle();
-    })
-
-    $w("comment").live('ajax:error', function(evt, xhr, status, error) {
-      $.each($.parseJSON(xhr.responseText), function(key,value){
-        Widgets.FlashTemplate.error(key + ': ' + value);
-      })
-    })
-    .live('ajax:success', function(evt, xhr, status, error) {
-      var form = $(this);
-      $(form.attr('data-result')).html(xhr);
-      form.find('textarea').val("");
-      form.parent().toggle();
-    })
-
-    $w('delete-comment').live('ajax:success', function(evt, xhr, status, error) {
-      $($(this).attr('data-result')).html(xhr);
-    })
-
-    $w('more-comments').live('ajax:success',  function(evt, xhr, status, error) {
-      var resultId = $(this).attr("data-result");
-      $(resultId).html(xhr);
-      $(this).hide();
-    })
-  }
-}
-
 Widgets.Feed = {
   tags: [],
 
@@ -734,7 +694,6 @@ Widgets.Notification = {
 }
 
 $(document).ready(function() {
-  Widgets.Comment.init();
   Widgets.Player.init();
   Widgets.Scroll.init();
   Widgets.Search.init();
