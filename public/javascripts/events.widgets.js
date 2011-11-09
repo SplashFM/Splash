@@ -101,20 +101,41 @@ $(function() {
                                  comment_count:   commentStr},
                                 s.toJSON());
 
-      _.each(json.comments, function(c) {
-        c.created_at_dist = $.timeago(c.created_at);
-      });
-
       $(this.el).attr('data-widget', 'splash');
       $(this.el).attr('data-track_id', this.model.get('track').id);
 
-      if (this.model.get('expanded')) $(this.el).addClass('expanded');
-
       $(this.el).html($.tmpl(this.template, json).html());
+
+      if (this.model.get('expanded')) {
+        $(this.el).addClass('expanded');
+
+        this.comments = new Events.Splash.Comments({
+          el:         this.$('[data-widget = "comments"]').get(0),
+          collection: this.model.comments()
+        });
+
+        this.comments.render();
+      }
 
       return this;
     },
   })
+
+  window.Events.Splash.Comments = Backbone.View.extend({
+    template: $('#tmpl-event-splash-comment').template(),
+
+    initialize: function() {
+      _.bindAll(this, 'renderComment');
+    },
+
+    render: function() {
+      this.collection.each(this.renderComment);
+    },
+
+    renderComment: function(c) {
+      $(this.el).append($.tmpl(this.template, c.toJSON()));
+    },
+  });
 
   window.Events.Filter = Backbone.View.extend({
     el: '[data-widget = "events-filter"]',

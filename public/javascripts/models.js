@@ -17,8 +17,26 @@ $(function() {
     url: '/users'
   }).extend(Paginated);
 
-  window.Event     = Backbone.Model.extend();
-  window.Splash    = Event.extend({
+  window.Comment     = Backbone.Model.extend();
+  window.CommentList = Backbone.Collection.extend({
+    model: Comment,
+  });
+  window.Event       = Backbone.Model.extend();
+  window.Splash      = Event.extend({
+    initialize: function(attrs) {
+      this._comments = new CommentList;
+
+      this.bind('change', this.resetComments, this);
+    },
+
+    comments: function() {
+      return this._comments;
+    },
+
+    resetComments: function() {
+      this._comments.reset(this.get('comments'));
+    },
+
     url: function() {
       return "/splashes/" + this.get('id');
     },

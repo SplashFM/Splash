@@ -52,14 +52,11 @@
         .cl &nbsp;
         %span.comments-module-t
         .scroll-area
-          %ul
-            {{each comments}}
-            = render "comments/comment"
-            {{/each}}
+          %ul{:data => {:widget => 'comments'}}
       / /aside
       .write-comment
-        %form{:action => "#", :method => "post"}
-          %input{:type => "text", :value => "Write a comment..."}/
+        %form{:action => "#", :method => "post", :data => {:widget => 'comment-box'}}
+          %input{:type => "text", :placeholder => "Write a comment..."}/
     {{/if}}
     / /container
   / /row
