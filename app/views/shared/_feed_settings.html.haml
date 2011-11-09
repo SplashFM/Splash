@@ -1,10 +1,10 @@
 .feed-settings
   .avan-bold
-    %ul
+    %ul{:data => {:widget => 'filter-following'}}
       %li.ui-tabs-selected
-        %a.active{:href => "#tab-following"} Following
+        %a.active{:href => "#following"} Following
       %li
-        %a{:href => "#tab-everyone"} Everyone
+        %a{:href => "#everyone"} Everyone
   .line
     %span
   %span.count.left{:data => {:widget => 'update-count'}}
