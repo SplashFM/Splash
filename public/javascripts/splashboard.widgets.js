@@ -8,6 +8,7 @@ $(function() {
 
       _.bindAll(this, 'scroll', 'renderTrack');
 
+      this.app         = opts.app;
       this.pageFilters = {user: this.currentUserId,
                           follower: this.currentUserId,
                           update_on_splash: true}
@@ -20,7 +21,7 @@ $(function() {
       this.fetch();
 
       this.page = 1;
-      //this.app.bind('endlessScroll', this.feed.scroll, this)
+      this.app.bind('endlessScroll', this.scroll, this)
 
     },
     allFilters: function() {
