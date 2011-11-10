@@ -524,9 +524,9 @@ Widgets.Avatar = {
 Widgets.AvatarUpload = {
   init: function(){
     $('#fileupload').fileupload({
-      done:  function(e, data) {
-                  $('#avatar').attr('src', data.result.avatar_url).fadeIn();
-                  $.fancybox.close();
+              done:  function(e, data) {
+                $('#user-avatar').attr('src', data.result.avatar_search).fadeIn();
+                $.fancybox.close();
               }
     });
   }
