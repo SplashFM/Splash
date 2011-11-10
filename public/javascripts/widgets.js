@@ -511,13 +511,40 @@ Widgets.UserProfile = {
 
 Widgets.Avatar = {
   init: function(){
-    $("form.edit_user")
-      .bind('ajax:complete', function(evt, data, status, xhr){
+    $("form.edit_user").bind('ajax:complete', function(evt, data, status, xhr){
           user = $.parseJSON(data.responseText);
           d = new Date();
           $('#user-avatar').attr('src', user.avatar_search+d.getTime());
           $.fancybox.close();
       });
+
+    $w("edit_avatar").click(function(){
+      $.ajax({
+        url: $(this).attr('data-action'),
+        type: "GET",
+        dataType : "json",
+        beforeSend: function(){
+          $("#spinner").show();
+        },
+        complete: function() {
+          $("#spinner").hide();
+        },
+        success: function(evt, data, status, xhr){
+          $('#crop').show();
+          $w("edit_avatar").hide();
+          Widgets.AvatarCrop.init();
+          $w("crop-cancel").click(function(){
+            $.fancybox.close();
+            return false;
+          })
+        },
+        error: function(xhr, status, extra){
+          alert(I18n.t('users.crop.fetch_error'));
+        }
+      });
+
+      return false;
+    });
   }
 }
 
@@ -555,38 +582,6 @@ Widgets.AvatarCrop = {
         $("#crop_w").val(Math.round(coords.w * ratio));
         $("#crop_h").val(Math.round(coords.h * ratio));
       }
-  }
-}
-
-Widgets.AvatarEdition = {
-  init: function(){
-    $w("edit_avatar").click(function(){
-      $.ajax({
-        url: $(this).attr('data-action'),
-        type: "GET",
-        dataType : "json",
-        beforeSend: function(){
-          $("#spinner").show();
-        },
-        complete: function() {
-          $("#spinner").hide();
-        },
-        success: function(evt, data, status, xhr){
-          $('#crop').show();
-          $w("edit_avatar").hide();
-          Widgets.AvatarCrop.init();
-          $w("crop-cancel").click(function(){
-            $.fancybox.close();
-            return false;
-          })
-        },
-        error: function(xhr, status, extra){
-          alert(I18n.t('users.crop.fetch_error'));
-        }
-      });
-
-      return false;
-    });
   }
 }
 

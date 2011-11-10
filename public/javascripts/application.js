@@ -22,7 +22,6 @@ Scaphandrier.Fancybox = {
       'scrolling' : 'no',
       'onComplete' : function() {
         Widgets.AvatarUpload.init();
-        Widgets.AvatarEdition.init();
         Widgets.Avatar.init();
       }
     }
