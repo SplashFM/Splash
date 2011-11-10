@@ -7,10 +7,8 @@ class Comment < ActiveRecord::Base
   validates :body, :presence => true
 
   def as_json(opts = {})
-    super(:methods => :author_name)
-  end
-
-  def author_name
-    author.name
+    {:body       => body,
+     :created_at => created_at,
+     :author     => author.as_json}
   end
 end
