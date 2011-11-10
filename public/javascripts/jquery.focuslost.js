@@ -16,10 +16,10 @@
         currentFocusChain = newFocusChain;
     }
     // bind to the focus/blur event on all elements:
-    $("*").live('focus blur', function(e) { 
+    $("*").live('focus blur', function(e) {
         // wait until the next free loop to process focus change
         // when 'blur' is fired, focus will be unset
-        setTimeout(checkFocus, 0);
+        setTimeout(checkFocus, 100);
     });
 
     $.fn.focuslost = function(fn) {
