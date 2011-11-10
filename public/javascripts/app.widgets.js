@@ -73,14 +73,14 @@ $(function() {
     initialize: function() {
       _.bindAll(this, 'play');
 
-      $('#player-area').html($.tmpl(this.template));
-
       $('body').bind('request:play', this.play);
     },
 
     play: function(_, data) {
       var media = {};
       media[data.track.preview_type] = data.track.preview_url;
+
+      $('#player-area').html($.tmpl(this.template, data.track));
 
       $("[data-widget = 'player']").
         jPlayer({cssSelectorAncestor: '[data-widget = "player-ui"]',
