@@ -515,7 +515,7 @@ Widgets.Avatar = {
       .bind('ajax:complete', function(evt, data, status, xhr){
           user = $.parseJSON(data.responseText);
           d = new Date();
-          $('#avatar').attr('src', user.avatar_url+d.getTime());
+          $('#user-avatar').attr('src', user.avatar_search+d.getTime());
           $.fancybox.close();
       });
   }
