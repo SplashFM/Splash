@@ -112,6 +112,12 @@ module UI
       has_content?(title)
     end
 
+    def has_suggested_users?(count)
+      within("ul[data-widget = 'suggested-users']") do
+        has_css?("li", :count => count)
+      end
+    end
+
     def has_validation_error?(subject_class, *fields)
       fields.all? { |f|
         has_css?('li.error #' + subject_class.name.underscore + "_#{f}")
