@@ -4,7 +4,38 @@
     %a.nav-user-settings.right{:href => "#"}
     %a.nav-username.right{:href => "#"}= current_user.try(:name)
     .nav-notifications.right
-      %a.avan-demi{:href => "#"} 14
+      %a.avan-demi.count{:href => "#"} 14
+      .dropDown
+        .arrow
+        .label
+          .span.avan-demi Notifications
+        .item.newFriend
+          .left
+            %img{:src => 'http://placehold.it/50x50',:class => 'small-pic left'}
+            .message.left bob jones did something here blah blah blah blah blah blah
+          .right
+            .icon.right 
+            
+          .clear
+        .item.reSplash
+          .left
+            %img{:src => 'http://placehold.it/50x50',:class => 'small-pic left'}
+            .message.left bob jones did something here blah blah blah blah blah blah
+          .right
+            .icon.right   
+          .clear
+        .item.comment
+          .left
+            %img{:src => 'http://placehold.it/50x50',:class => 'small-pic left'}
+            .message.left bob jones did something here blah blah blah blah blah blah
+          .right
+            .icon.right
+              
+          .clear
+        .load_more
+          .text
+            %a{:href => '#', :class => 'avan-demi' } load more
+            
     .quick-splash.right{:data => {:widget => 'quick-splash'}}
       %a.trigger{:href => "#", :data => {:widget => 'toggle'}}
       %form{:action => "#", :method => "post", :data => {:widget => 'box'}}
