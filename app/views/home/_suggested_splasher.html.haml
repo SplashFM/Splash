@@ -8,4 +8,4 @@
         %small= user.name
       %p.scores.avan-bold= user.splash_score
     %a.delete{:href => "#"}
-    %a.follow.avan-demi{:href => "#"} Follow
+    = follow_suggested_user(user)

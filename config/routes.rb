@@ -24,7 +24,7 @@ Scaphandrier::Application.routes.draw do
   resources :splashes do
     resources :comments
   end
-
+  resources :suggested_splashers
   resources :tracks do
     resources :splashes
 
