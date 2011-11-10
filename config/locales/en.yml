@@ -11,6 +11,11 @@ en:
     errors:
       messages:
         invalid_attachment: is invalid. Use one of %{allowed}
+      models:
+        user:
+          attributes:
+            name:
+              blank: Please enter a username to sign up
 
   home:
     search:
