@@ -10,7 +10,7 @@
         %h3 Suggested Splashers
         .cl &nbsp;
         %ul{:data => {:widget => 'suggested-users'}}
-          = render :partial => "suggested_splasher", :collection => current_user.suggested_users, :as => :user
+          = render :partial => "users/suggested_splasher", :collection => current_user.suggested_users, :as => :user
         %a.viewmore-btn{:href => "#"} View More
       .top-splashboards.tabs
         .tab-nav
