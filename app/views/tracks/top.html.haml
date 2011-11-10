@@ -1,3 +1,11 @@
+:javascript
+  $(function () {
+    window.App.Page = new Splashboard({
+      app:    window.App
+    });
+    window.App.Page.fetch();
+  });
+
 .splashboard
   = render "home/sidebar"
   #stream-wrap.left.tabs
@@ -10,21 +18,17 @@
           .avan-bold
             %ul
               %li
-                %a.active{:href => "#tab-splashes"} Splashes
+                %a{:href => "#tab-most-splashed"} Most Splashed
               %li
                 %a{:href => "#tab-splashers"} Splashers
           .line
             %span
-      = render "shared/feed_filter"
-      #tab-splashes
-        %ul.live-feed{:data => {:widget => 'events'}}
-          - @tracks.each do |t|
-            %li
-              = render 'tracks/track_summary', :track => t
-              = t.splash_count
+      =# render "shared/feed_filter"
+      #tab-most-splashed
+        %ul.live-feed{:data => {:widget => 'top-tracks'}}
         %p= link_to_next_page @tracks, t('pagination.more')
       #tab-splashers
-        %ul.live-feed{:data => {:widget => 'events'}}
+        %ul.live-feed{:data => {:widget => 'top-users'}}
       .loading-spinner
     .cl &nbsp;
 
