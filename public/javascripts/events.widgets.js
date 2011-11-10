@@ -64,6 +64,10 @@ $(function() {
       case 'splash':
         $(this.el).append(new Events.Splash({model: e}).render().el);
         break;
+      case 'relationship':
+        $(this.el).append(new Events.Relationship({model: e}).render().el);
+        break;
+      default:
       }
     },
 
@@ -76,6 +80,18 @@ $(function() {
       this.page++;
 
       this.fetch(true);
+    },
+  });
+
+  window.Events.Relationship = Backbone.View.extend({
+    tagName: 'li',
+    template: $('#tmpl-event-relationship').template(),
+
+    render: function() {
+      $(this.el).addClass('feed-socials')
+      $(this.el).html($.tmpl(this.template, this.model.toJSON()).html());
+
+      return this;
     },
   });
 

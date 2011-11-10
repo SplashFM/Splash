@@ -1,4 +1,9 @@
-%li.relationship{:data => {:widget => 'following'}}
-  = t('events.following', |
-      :follower => personalize(relationship.follower, true), |
-      :followed => personalize(relationship.followed, false))
+%script#tmpl-event-relationship{:type => 'text/x-jquery-tmpl'}
+  %li.feed-socials
+    %ul
+      %li
+        %img{:alt => "", :height => "31", :src => "/css/images/ico-new-friend.png", :width => "36"}/
+        %p
+          %a{:href => "#"} ${follower.name}
+          is now following
+          %a{:href => "#"} ${followed.name}
