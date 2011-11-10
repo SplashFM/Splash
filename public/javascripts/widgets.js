@@ -663,6 +663,20 @@ Widgets.Notification = {
   }
 }
 
+Widgets.SuggestedUsers = {
+  init: function(){
+    $w('follow-suggested-user').live('ajax:success', function() {
+      $.ajax({
+          type: 'GET',
+          url: Routes.suggested_splashers_path(),
+          success: function(data){
+            $w('suggested-users').html(data);
+          }
+        });
+    });
+  }
+}
+
 $(document).ready(function() {
   Widgets.Player.init();
   Widgets.Scroll.init();
@@ -679,5 +693,6 @@ $(document).ready(function() {
   Widgets.Notification.init();
   Widgets.Paginate.init();
   Widgets.Purchase.init();
+  Widgets.SuggestedUsers.init();
 });
 

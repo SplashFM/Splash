@@ -28,9 +28,15 @@ module UI
       click_link t("splashes.splash.expand")
     end
 
-    def follow(user)
-      search_for user.name, :global
-      click_link user.name
+    def follow(user, from_user_profile=true)
+      if from_user_profile
+        search_for user.name, :global
+        click_link user.name
+      else
+        page.execute_script <<-JS
+          $("[data-widget = 'suggested-users'] li:first .wrap a.follow").show();
+        JS
+      end
 
       click_link t('follow', :scope => 'users.show')
     end

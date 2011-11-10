@@ -17,6 +17,17 @@ feature "Suggested Splashsers", :js => true do
     should have_suggested_users(2)
   end
 
+  scenario "can be followed" do
+    generate_suggested_users(4)
+    go_to 'home'
+
+    follow(user.suggested_users.first, false)
+
+    go_to 'profile'
+
+    should have_content("4 " + t('following', :scope => 'users.show'))
+  end
+
   def generate_suggested_users(count=4)
     u1 = create(User).with_required_info!
     u2 = create(User).with_required_info!
