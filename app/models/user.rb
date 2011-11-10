@@ -104,6 +104,15 @@ class User < ActiveRecord::Base
     !!followed(followed)
   end
 
+  def self.following_ids(follower_id)
+    if !follower_id.blank?
+      # FIXME: should get these ids without loading users
+      User.includes(:following).find(follower_id).following.map(&:id)
+    else
+      []
+    end
+  end
+
   def follow(followed)
     relationships.create(:followed => followed)
   end

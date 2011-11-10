@@ -1,141 +1,35 @@
 class Event < ActiveRecord::Base
-  class Builder
-    PER_PAGE = 10
+  PER_PAGE = 10
 
-    def build
-      if @count
-        splashes.count + relationships.count
-      else
-        q = ""
+  def self.scope_by(params)
+    last_update_at = params[:last_update_at]
+    user_ids = User.following_ids(params[:follower])
+    user_ids << params[:user] unless params[:user].blank?
+    tags = params[:tags] || []
+    page = params[:page].to_i
+    page = 1 if page < 1
+    omit_splashes = params[:omit_splashes] == 'true'
+    omit_other = params[:omit_other] == 'true'
 
-        q << splashes.to_sql      unless @omit_splashes
-        q << " UNION ALL "        unless @omit_other || @omit_splashes
-        q << relationships.to_sql unless @omit_other
-        q << " ORDER BY created_at DESC"
+    splashes = Splash.as_event.for_users(user_ids).since(last_update_at).
+      with_tags(tags)
+    relationships = Relationship.as_event.for_users(user_ids).since(last_update_at)
 
-        if @page
-          q << " LIMIT #{PER_PAGE} OFFSET #{offset}"
-        end
+    if params[:count]
+      # BUG?: doesn't respect omit_* ?
+      splashes.count + relationships.count
+    else
+      q = ""
 
-        events = Event.find_by_sql(q);
+      q << splashes.to_sql unless omit_splashes
+      q << " UNION ALL " unless omit_other || omit_splashes
+      q << relationships.to_sql unless omit_other
+      q << " ORDER BY created_at DESC"
+      q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
 
-        events.map(&:target)
-      end
-    end
+      events = Event.find_by_sql(q);
 
-    def count
-      @count = true
-
-      self
-    end
-
-    def follower(user_id)
-      @follower_id = user_id
-
-      self
-    end
-
-    def last_update_at(time)
-      @last_update_at = Event.from_timestamp(time)
-
-      self
-    end
-
-    def omit_other
-      @omit_other = true
-
-      self
-    end
-
-    def omit_splashes
-      @omit_splashes = true
-
-      self
-    end
-
-    def page(num)
-      @page = num.to_i < 1 ? 1 : num.to_i
-
-      self
-    end
-
-    def tags(tags)
-      @tags = tags
-
-      self
-    end
-
-    def user(id)
-      @user_id = id
-
-      self
-    end
-
-    private
-
-    def offset
-      (@page - 1) * PER_PAGE
-    end
-
-    def relationships
-      scope = Relationship.
-        select("created_at, id target_id, 'Relationship' target_type")
-
-      unless user_ids.empty?
-        scope = scope.
-          where('follower_id in (:user_ids) or followed_id in (:user_ids)',
-                :user_ids => user_ids)
-      end
-
-      if @last_update_at
-        scope = scope.where(['created_at > ?', @last_update_at])
-      end
-
-      scope
-    end
-
-    def splashes
-      scope = Splash.select("splashes.created_at,
-                             splashes.id target_id,
-                             'Splash' target_type")
-
-      if user_ids.present?
-        scope = scope.where(:user_id => user_ids)
-      end
-
-      if @last_update_at
-        scope = scope.where(['created_at > ?', @last_update_at])
-      end
-
-      if @tags
-        scope = scope.joins(:track => :tags).
-          where(:tags => {:name => @tags})
-      end
-
-      scope
-    end
-
-    def user_ids
-      @user_ids ||=
-        begin
-          user_ids = []
-
-          if @user_id
-            user_ids << @user_id
-          end
-
-          if @follower_id
-            followings = User.
-              includes(:following).
-              find(@follower_id).
-              following.
-              map(&:id)
-
-            user_ids.concat followings
-          end
-
-          user_ids
-        end
+      events.map(&:target)
     end
   end
 
@@ -157,15 +51,8 @@ class Event < ActiveRecord::Base
     Time.now.utc.iso8601
   end
 
-  def self.from_timestamp(time)
-    Time.parse(time).utc
-  end
-
   def self.all
     Splash.all
   end
 
-  def self.scope_builder
-    Builder.new
-  end
 end
