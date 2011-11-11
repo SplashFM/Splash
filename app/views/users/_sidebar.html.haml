@@ -4,14 +4,15 @@
 
     .points-container
       .ripples{:data => {:widget => 'ripples'}}
-        %span.label RIPPLES
+        %span.label Ripples
         %span.number= @user.ripple_count
 
       .splashes
-        %span.label SPLASHES
+        %span.label Splashes
         %span.number= @user.splash_count
       / .influence top 5% influencer this week
       / .last-seen last seen 8 min ago
+      .cl.border &nbsp;
 
     = render :partial => "users/relationships", :locals => {:user => @user}
 
