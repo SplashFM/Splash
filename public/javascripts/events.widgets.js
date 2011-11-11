@@ -6,8 +6,10 @@ $(function() {
     initialize: function(opts) {
       _.extend(this, opts);
 
-      _.bindAll(this, 'checkForUpdates', 'refresh', 'renderEvent',
+      _.bindAll(this, 'checkForUpdates', 'onSplash', 'refresh', 'renderEvent',
                       'renderUpdateCount', 'scroll');
+
+      $('body').bind('splash:splash', this.onSplash)
 
       this.pageFilters = {user: this.currentUserId,
                           follower: this.currentUserId,
@@ -44,6 +46,10 @@ $(function() {
       this.feed.fetch({add:  add,
                        data: _.extend({page: this.page},
                                       this.allFilters())});
+    },
+
+    onSplash: function() {
+      this.refresh();
     },
 
     refresh: function(filters) {
