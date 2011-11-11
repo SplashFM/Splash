@@ -84,6 +84,8 @@ class User < ActiveRecord::Base
     {:id            => id,
      :name          => name,
      :avatar_search => avatar.url(:thumb),
+     :ripple_count => ripple_count,
+     :splash_count => splash_count,
      :score         => splash_score}
   end
 

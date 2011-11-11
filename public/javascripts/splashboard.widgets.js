@@ -1,12 +1,26 @@
 $(function() {
   window.Splashboard = Backbone.View.extend({
-    el: '[data-widget = "top-tracks"]',
-    template: $('#tmpl-home-track').template(),
+    initialize: function(opts) {
+      this.topTracks = new Splashboard.Items(
+        _.extend(opts, {
+          el: '[data-widget = "top-tracks"]',
+          template: $('#tmpl-home-track').template(),
+          feed: new TrackList,
+        }));
+      this.topUsers = new Splashboard.Items(
+        _.extend(opts, {
+          el: '[data-widget = "top-users"]',
+          template: $('#tmpl-user').template(),
+          feed: new UserList,
+        }));
+    }
+  });
 
+  Splashboard.Items = Backbone.View.extend({
     initialize: function(opts) {
       _.extend(this, opts);
 
-      _.bindAll(this, 'scroll', 'renderTrack');
+      _.bindAll(this, 'scroll', 'renderItem');
 
       this.app         = opts.app;
       this.pageFilters = {user: this.currentUserId,
@@ -14,9 +28,9 @@ $(function() {
                           update_on_splash: true}
       this.userFilters = {};
 
-      this.feed = new TrackList;
+      //this.feed = new TrackList;
       this.feed.bind('reset', this.render, this);
-      this.feed.bind('add', this.renderTrack, this);
+      this.feed.bind('add', this.renderItem, this);
 
       this.fetch();
 
@@ -40,11 +54,11 @@ $(function() {
     },
     render: function() {
       $(this.el).empty();
-      this.feed.each(this.renderTrack);
+      this.feed.each(this.renderItem);
       return this;
     },
-    renderTrack: function(s) {
-      var json       = _.extend({}, s.toJSON());
+    renderItem: function(s) {
+      var json = s.toJSON();
       $($.tmpl(this.template, json)).appendTo(this.el);
     },
   });
