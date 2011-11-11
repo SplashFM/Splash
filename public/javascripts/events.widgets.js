@@ -92,7 +92,6 @@ $(function() {
     },
 
     render: function() {
-      console.log(this.templates[this.model.get('type')]);
       $(this.el).addClass('feed-socials');
       $(this.el).html($.tmpl(this.templates[this.model.get('type')],
                              this.model.toJSON()).html());
