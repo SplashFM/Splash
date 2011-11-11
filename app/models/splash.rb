@@ -12,6 +12,17 @@ class Splash < ActiveRecord::Base
 
   before_create :freeze_hierarchies, :if => :resplash?
 
+  scope :for_users, lambda { |user_ids|
+    user_ids.blank? ? scoped : where(:user_id => user_ids)
+  }
+  scope :since, lambda { |time|
+    time.blank? ? scoped : where(['created_at > ?', Time.parse(time).utc])
+  }
+  scope :with_tags, lambda { |tags|
+    tags.blank? ? scoped : joins(:track => :tags).where(:tags => {:name => tags})
+  }
+  scope :as_event, select("splashes.created_at, splashes.id target_id, 'Splash' target_type")
+
   # Return the Splashes for a given user.
   #
   # @param user the owner or owners of the Splashes
@@ -34,10 +45,6 @@ class Splash < ActiveRecord::Base
 
   def self.for?(user, track)
     exists?(:track_id => track.id, :user_id => user.id)
-  end
-
-  def self.since(time)
-    where(['created_at > ?', Time.parse(time).utc])
   end
 
   def as_full_json

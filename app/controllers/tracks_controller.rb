@@ -6,7 +6,12 @@ class TracksController < ApplicationController
   has_scope :with_text
 
   def index
-    respond_with apply_scopes(Track).page(params[:page].to_i)
+    if params[:top]
+      results = Track.top_splashed(current_page, TRACKS_PER_PAGE)
+    else
+      results = apply_scopes(Track).page(params[:page].to_i)
+    end
+    respond_with results
   end
 
   def top

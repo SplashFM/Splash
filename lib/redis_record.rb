@@ -24,7 +24,7 @@ module RedisRecord
     def redis_sorted_field(name)
       instance_eval <<-RUBYI
         def sorted_#{name.to_s.pluralize}(page, num_records)
-          page  = page.to_i <= 1 ? 1 : page
+          page  = page.to_i <= 1 ? 1 : page.to_i
           start = (page - 1) * num_records
           stop  = start + num_records
 

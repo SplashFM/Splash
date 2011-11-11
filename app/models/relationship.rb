@@ -11,4 +11,13 @@ class Relationship < ActiveRecord::Base
      :follower => follower.as_json,
      :followed => followed.as_json}
   end
+
+  scope :as_event, select("created_at, id target_id, 'Relationship' target_type")
+  scope :for_users, lambda {|user_ids|
+    user_ids.blank? ? scoped : where('follower_id in (:user_ids) or followed_id in (:user_ids)',
+                                    :user_ids => user_ids)
+  }
+  scope :since, lambda { |time|
+    time.blank? ? scoped : where(['created_at > ?', Time.parse(time).utc])
+  }
 end
