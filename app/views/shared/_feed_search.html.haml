@@ -5,8 +5,21 @@
     %input.field{:type => "text", :name => 'f'}/
     .dd{:data => {:widget => 'results'}}
       %span{:data => {:widget => 'empty'}}= t('searches.empty')
-      %ul
+      %ul{:class => 'top_search_results' }
       %a.load-more{:href => "#", :data => {:widget => 'load-more'}}
         = t('.load_more')
+      .uploadForm
+        .inner
+          .holder
+            %input{:class => 'customInputStyle', :type => 'text', :name => 'trackName', :placeholder => 'enter track name'}
+          .holder
+            %input{:class => 'customInputStyle', :type => 'text', :name => 'ArtistName', :placeholder => 'enter artists name'}
+      .commentForm
+        .inner
+          .avan-demi.label Add a Comment
+          %textarea{:class => 'commentArea customInputStyle'}
+          .right
+            %input{:class => 'submit buttonStyle2', :type => 'submit', :value => 'Comment and Splash'}
+          .clear
   %a.upload.right{:href => "#"}= t('.upload')
   .cl &nbsp;
