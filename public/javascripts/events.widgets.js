@@ -65,6 +65,7 @@ $(function() {
         $(this.el).append(new Events.Splash({model: e}).render().el);
         break;
       case 'relationship':
+      case 'comment':
         $(this.el).append(new Events.Social({model: e}).render().el);
         break;
       default:
@@ -87,9 +88,11 @@ $(function() {
     tagName: 'li',
     templates: {
       relationship: $('#tmpl-event-relationship').template(),
+      comment: $('#tmpl-event-comment').template(),
     },
 
     render: function() {
+      console.log(this.templates[this.model.get('type')]);
       $(this.el).addClass('feed-socials');
       $(this.el).html($.tmpl(this.templates[this.model.get('type')],
                              this.model.toJSON()).html());

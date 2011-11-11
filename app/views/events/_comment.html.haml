@@ -1,0 +1,10 @@
+%script#tmpl-event-comment{:type => 'text/x-jquery-tmpl'}
+  %li.feed-socials
+    %ul
+      %li
+        %img{:alt => "", :height => "27", :src => "/css/images/ico-new-comment.png", :width => "36"}/
+        %p
+          %a{:href => "#"} ${author.name}
+          commented on
+          %a{:href => "#"} ${splash.user.name}’s
+          splash “${splash.track.title}”: ${body}”

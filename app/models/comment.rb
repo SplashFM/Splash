@@ -6,9 +6,19 @@ class Comment < ActiveRecord::Base
 
   validates :body, :presence => true
 
+  scope :for_users, lambda { |user_ids|
+    user_ids.blank? ? scoped : where(:author_id => user_ids)
+  }
+  scope :since, lambda { |time|
+    time.blank? ? scoped : where(['created_at > ?', Time.parse(time).utc])
+  }
+  scope :as_event, select("comments.created_at, comments.id target_id, 'Comment' target_type")
+
   def as_json(opts = {})
     {:body       => body,
      :created_at => created_at,
-     :author     => author.as_json}
+     :type       => 'comment',
+     :author     => author.as_json,
+     :splash     => splash.as_json}
   end
 end
