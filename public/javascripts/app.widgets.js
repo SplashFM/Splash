@@ -46,6 +46,12 @@ $(function() {
     }, Search.prototype.events),
     template: '#tmpl-quick-splash-track',
 
+    hide: function() {
+      Search.prototype.hide.call(this);
+
+      this.$('[data-widget = "box"]').hide();
+    },
+
     hideResults: function() {
       this.menu.hide();
     },
