@@ -1,9 +1,9 @@
 .user-follows-count
   %span.shadow
   %span.count
-    %strong.avan-demi= user.followers.count
-    Followers
+    %strong.avan-demi
+      = link_to_relationship(user.followers.count, 'followers')
   %span.count
-    %strong.avan-demi= user.following.count
-    Following
+    %strong.avan-demi
+      = link_to_relationship(user.following.count, 'following')
   %span.corner
