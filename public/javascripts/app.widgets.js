@@ -35,7 +35,7 @@ $(function() {
 
   window.BaseApp.QuickSplashAction = BaseApp.SplashAction.extend({
     initialize: function() {
-      SplashAction.prototype.initialize.call(this);
+      BaseApp.SplashAction.prototype.initialize.call(this);
 
       this.el = $('[data-widget = "quick-splash-action"]',
                   this.options.parent).get(0);
