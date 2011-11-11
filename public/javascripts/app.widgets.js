@@ -17,6 +17,27 @@ $(function() {
     }
   });
 
+  window.BaseApp.QuickSplashAction = Backbone.View.extend({
+    initialize: function() {
+      _.bindAll(this, 'broadcastSplash', 'splash');
+
+      this.el = $('[data-widget = "quick-splash-action"]',
+                  this.options.parent).get(0);
+
+      $(this.el).bind('click', this.splash);
+    },
+
+    broadcastSplash: function() {
+      $(this.el).trigger('splash:splash');
+    },
+
+    splash: function() {
+      new Splash().save({track_id: this.model.get('id')},
+                      {success: this.broadcastSplash});
+    },
+  });
+
+
   window.BaseApp.QuickSplash = Search.extend({
     collection: new TrackList,
     el: '[data-widget = "quick-splash"]',
@@ -27,6 +48,12 @@ $(function() {
 
     hideResults: function() {
       this.menu.hide();
+    },
+
+    renderItem: function(i) {
+      var trackView = Search.prototype.renderItem.call(this, i);
+
+      new BaseApp.QuickSplashAction({model: i, parent: trackView});
     },
 
     toggle: function() {
