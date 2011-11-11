@@ -57,9 +57,7 @@ $(function() {
       this._comments.reset(this.get('comments'));
     },
 
-    url: function() {
-      return "/splashes/" + this.get('id');
-    },
+    urlRoot: "/splashes"
   });
   window.EventList = Backbone.Collection.extend({
     model: Event,
