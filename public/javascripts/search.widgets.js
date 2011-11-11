@@ -26,6 +26,7 @@ $(function() {
       this.collection.bind('add', this.renderItem, this);
 
       $(this.el).focuslost(this.hide);
+      $(this.el).bind('splash:splash', this.hide);
     },
 
     hide: function() {
