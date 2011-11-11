@@ -19,5 +19,5 @@
           .tag-line.edit{:'data-action' => "#{user_path(current_user)}",
                         :'data-widget' => "#{ 'editable' if tagline_editable?}"}
             = user.tagline
-      .follow-button= follow_label if controller_path == 'users'
+      = follow_label
       .cl &nbsp;
