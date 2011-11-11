@@ -17,18 +17,15 @@ $(function() {
       this.template  = $(this.template).template();
       this.page      = 1;
 
-      _.bindAll(this, 'search', 'loadMoreResults', 'renderItem',
+      _.bindAll(this, 'hide', 'search', 'loadMoreResults', 'renderItem',
                       'renderLoadMoreResults');
 
       this.$(':text').attr('autocomplete', 'off');
 
       this.collection.bind('reset', this.render, this);
       this.collection.bind('add', this.renderItem, this);
-      var self = this;
-      $(this.el).focuslost(function() {
-        self.hide();
-      });
 
+      $(this.el).focuslost(this.hide);
     },
 
     hide: function() {
