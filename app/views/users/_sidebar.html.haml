@@ -2,17 +2,18 @@
   #side-bar
     = render :partial => "users/vcard", :locals => {:user => current_user}
 
-    = render 'users/follow_box'
+    .points-container
+      .ripples{:data => {:widget => 'ripples'}}
+        %span.label RIPPLES
+        %span.number= @user.ripple_count
 
-    .ripples{:data => {:widget => 'ripples'}}
-      %span.label RIPPLES
-      %span.number= @user.ripple_count
+      .splashes
+        %span.label SPLASHES
+        %span.number= @user.splash_count
+      / .influence top 5% influencer this week
+      / .last-seen last seen 8 min ago
 
-    .splashes
-      %span.label SPLASHES
-      %span.number= 777
-    / .influence top 5% influencer this week
-    / .last-seen last seen 8 min ago
+    = render :partial => "users/relationships", :locals => {:user => @user}
 
     .splashers-widgets
       = render "shared/splashboard"
