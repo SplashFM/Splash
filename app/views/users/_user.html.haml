@@ -1,10 +1,22 @@
 %script#tmpl-user{:type => 'text/x-jquery-tmpl'}
   %li{:data => {:user_id => '${id}'}}
     .holder
-      .splash-score ${score}
-      .avatar
-        %img{:alt => "", :height => "42", :src => "${avatar_search}", :width => "42"}/
-      .name ${name}
-      .ripples Ripples ${ripple_count}
-      .splashes Splashes ${splash_count}
-      .follow-links
+      .left
+        .splash-score.left ${score}
+        .user_wrap.left
+          .avatar.left
+            %img{:alt => "", :height => "42", :src => "${avatar_search}", :width => "42"}/
+          .left
+            .name.avan-demi ${name}
+            .ripples.left 
+              Ripples
+              .num.avan-demi ${ripple_count}
+            .splashes.left 
+              Splashes
+              .num.avan-demi ${splash_count}
+            .clear
+      .right
+        .follow-links
+          .buttonStyle2
+            Follow
+      .clear
