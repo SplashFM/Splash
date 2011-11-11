@@ -17,14 +17,9 @@ $(function() {
     }
   });
 
-  window.BaseApp.QuickSplashAction = Backbone.View.extend({
+  window.BaseApp.SplashAction = Backbone.View.extend({
     initialize: function() {
       _.bindAll(this, 'broadcastSplash', 'splash');
-
-      this.el = $('[data-widget = "quick-splash-action"]',
-                  this.options.parent).get(0);
-
-      $(this.el).bind('click', this.splash);
     },
 
     broadcastSplash: function() {
@@ -34,6 +29,18 @@ $(function() {
     splash: function() {
       new Splash().save({track_id: this.model.get('id')},
                       {success: this.broadcastSplash});
+    },
+  });
+
+
+  window.BaseApp.QuickSplashAction = BaseApp.SplashAction.extend({
+    initialize: function() {
+      SplashAction.prototype.initialize.call(this);
+
+      this.el = $('[data-widget = "quick-splash-action"]',
+                  this.options.parent).get(0);
+
+      $(this.el).bind('click', this.splash);
     },
   });
 
