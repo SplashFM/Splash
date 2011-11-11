@@ -1,0 +1,21 @@
+.top-splashboards.tabs
+  .tab-nav
+    %ul
+      %li
+        %a{:href => "#tab-top-splashes"} Top Splashes
+      %li
+        %a{:href => "#tab-top-splashers"} Top Splashers
+    .line
+    %a.toggle{:href => "#"}
+  %ul.splashboard-list.tab#tab-top-splashes
+    = render "splashes/top_splash"
+    = render "splashes/top_splash"
+    = render "splashes/top_splash"
+    = render "splashes/top_splash"
+    = render "splashes/top_splash"
+    = render "splashes/top_splash"
+    = render "splashes/top_splash"
+    = render "splashes/top_splash"
+  %ul.splashboard-list.tab#tab-top-splashers
+    = render "splashes/top_splash"
+  %a.viewmore-btn{:href => "#"} View Splashboard
