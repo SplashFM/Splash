@@ -14,6 +14,7 @@ Widgets.Pjax = {
     $('body').bind('success.pjax', function() {
       Widgets.Upload.reload();
       Widgets.Editable.reload();
+      Widgets.Tabs.init();
     });
   }
 }
