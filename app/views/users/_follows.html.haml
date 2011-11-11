@@ -1,0 +1,34 @@
+.user-follows
+  .tabs
+    %ul
+      %li.ui-tabs-selected
+        %strong.avan-demi
+          %a{:href => "#followers"}
+            .relationship-count
+              = user.followers.count
+            .relationship-label
+              = t('followers', :scope => 'users.show')
+
+      %li.border-left
+        %strong.avan-demi
+          %a{:href => "#following"}
+            .relationship-count
+              = user.following.count
+            .relationship-label
+              = t('following', :scope => 'users.show')
+    .line
+    .cl &nbsp;
+
+    #followers
+      = render :partial => 'follows_avatar_samples', :locals => {:type => 'followers'}
+      .cl.line &nbsp;
+      .viewmore-btn.vspace
+        = link_to "view more", followers_relationships_url()
+
+    #following
+      = render :partial => 'follows_avatar_samples', :locals => {:type => 'following'}
+      .cl.line &nbsp;
+      .viewmore-btn.vspace
+        = link_to "view more", following_relationships_url()
+
+    .cl.border.vspace &nbsp;

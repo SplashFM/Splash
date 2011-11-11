@@ -14,7 +14,7 @@
       / .last-seen last seen 8 min ago
       .cl.border &nbsp;
 
-    = render :partial => "users/relationships", :locals => {:user => @user}
+    = render :partial => "follows", :locals => {:user => @user}
 
     .splashers-widgets
       = render "shared/splashboard"
