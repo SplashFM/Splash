@@ -12,9 +12,14 @@ class UsersController < ApplicationController
   has_scope :with_text
 
   def index
-    render :json => apply_scopes(User).
+    if params[:top] == 'true'
+      results = User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
+    else
+      results = apply_scopes(User).
       page(params[:page].to_i).per(PER_SEARCH).
       map { |u| u.as_json.merge!(:path => user_slug_path(u)) }
+    end
+    render :json => results
   end
 
   def avatar
