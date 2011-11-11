@@ -2,6 +2,17 @@
   %label
     %em= t('.search_for_song')
   .wrap
+    .trackToSplash
+      .inner
+        .left
+          .art.left
+            %img{:height => '42px', :width => '42px', :src => '/images/no_album_art.png'}
+          .info.left
+            %span{:class => 'songname avan-bold'} Track 3
+            %span{:class => 'songauthor'} Artist            
+        .right
+          %a{:class => 'icon'}
+        .clear
     %input.field{:type => "text", :name => 'f'}/
     .dd{:data => {:widget => 'results'}}
       %span{:data => {:widget => 'empty'}}= t('searches.empty')
