@@ -2,11 +2,10 @@ class SplashesController < ApplicationController
   respond_to :json
 
   def create
-    splash_and_post(params[:splash], Track.find(params[:track_id]), params[:parent_id])
+    splash = splash_and_post(params.slice(:track_id, :comment),
+                             Track.find(params[:track_id]), params[:parent_id])
 
-    head :created
-  rescue ActiveRecord::RecordInvalid
-    head :forbidden
+    respond_with splash
   end
 
   def show

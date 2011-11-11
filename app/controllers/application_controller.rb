@@ -37,6 +37,7 @@ class ApplicationController < ActionController::Base
                             :parent_id => parent)
     facebook_post(splash) if attrs[:facebook_post] == '1'
     twitter_post(splash) if attrs[:twitter_post] == '1'
+    splash
   end
 
   def facebook_post(splash)
