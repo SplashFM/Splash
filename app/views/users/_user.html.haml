@@ -1,2 +1,10 @@
-%li.user{:data => {:user_id => user.id}}
-  = user.name
+%script#tmpl-user{:type => 'text/x-jquery-tmpl'}
+  %li{:data => {:user_id => '${id}'}}
+    .holder
+      .splash-score 46
+      .avatar
+        %img{:alt => "", :height => "42", :src => "${avatar_url}", :width => "42"}/
+      .name ${name}
+      .ripples 1200
+      .splashes 25000
+      .follow-links
