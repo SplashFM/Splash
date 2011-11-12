@@ -392,7 +392,11 @@ textarea
   .picture
     width: 125px
     height: 185px
-    margin: 13px 0 0 10px
+    .upload-avatar-link
+      margin-top: -18px
+  .picture:hover
+    .upload-avatar-link
+      display: block
   .info
     width: 145px
     padding: 6px 0 0 6px
@@ -437,7 +441,18 @@ textarea
       width: 130px
       padding: 3px 5px
       height: 15px
-    form
+
+.avatar
+  h2
+    padding: 2px
+    margin-top: 5px
+    margin-left: 10px
+  .image
+    padding: 2px
+    margin: 5px 15px 0px 15px
+    img#spinner
+      display: none
+    #crop
       display: none
 
 .right .user-vcard

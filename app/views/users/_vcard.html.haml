@@ -1,9 +1,9 @@
 .user-vcard
   .container
     .picture.left
-      = image_tag user.avatar_url(:thumb), :size => '125x185'
+      = image_tag user.avatar_url(:thumb), :size => '125x185', :id => "user-avatar"
       - if avatar_editable?
-        .upload-avatar-link.hide
+        .upload-avatar-link{:'data-widget' => 'edit-avatar-link'}
           = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
     .info.left
       %h2.avan-bold= user.try(:name)

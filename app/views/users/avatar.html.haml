@@ -1,7 +1,5 @@
 .avatar
-  %h2
-    = t('.title')
-
+  %h2= t('.title')
   .image
     %p
       = image_tag current_user.avatar_url(:large), :id => 'cropbox', :class => 'fancybox_avatar'
@@ -10,9 +8,9 @@
       = link_to t('.edit'), user_crop_path(current_user), |
                                 :'data-widget' => 'edit_avatar', |
                                 :'data-action' => "#{user_crop_path(current_user)}"
-      = image_tag 'spin.gif', :class => 'hide', :id => 'spinner'
+      = image_tag 'spin.gif', :id => 'spinner'
 
-    #crop.hide
+    #crop
       = render 'crop'
 
     #fileupload

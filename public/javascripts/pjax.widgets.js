@@ -15,6 +15,7 @@ Widgets.Pjax = {
       Widgets.Upload.reload();
       Widgets.Editable.reload();
       Widgets.Tabs.init();
+      Scaphandrier.Fancybox.init();
     });
   }
 }

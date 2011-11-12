@@ -496,17 +496,6 @@ Widgets.Editable = {
   }
 }
 
-Widgets.UserAvatar = {
-  init: function(){
-    $(".user-image").live('mouseover', function() {
-        $('.upload-avatar-link').show();
-        Scaphandrier.Fancybox.init();
-    }).live('mouseout', function(){
-      $('.upload-avatar-link').hide();
-    });
-  }
-}
-
 Widgets.UserProfile = {
   init: function(){
     $w("user-edit").live('ajax:success', function() {
@@ -535,9 +524,9 @@ Widgets.Avatar = {
 Widgets.AvatarUpload = {
   init: function(){
     $('#fileupload').fileupload({
-      done:  function(e, data) {
-                  $('#avatar').attr('src', data.result.avatar_url).fadeIn();
-                  $.fancybox.close();
+              done:  function(e, data) {
+                $('#user-avatar').attr('src', data.result.avatar_search).fadeIn();
+                $.fancybox.close();
               }
     });
   }
@@ -654,7 +643,6 @@ $(document).ready(function() {
   Widgets.SignIn.init();
   Widgets.Upload.init();
   Widgets.Editable.init();
-  Widgets.UserAvatar.init();
   Widgets.UserProfile.init();
   Widgets.SplashAction.init();
   Widgets.Notification.init();
