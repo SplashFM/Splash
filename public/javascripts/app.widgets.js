@@ -75,7 +75,11 @@ $(function() {
     },
 
     toggleInput: function() {
-      this.$('[data-widget = "box"]').toggle();
+      var box = this.$('[data-widget = "box"]');
+
+      box.toggle();
+
+      if (box.is(':visible')) $(':text', box).focus();
     }
   });
 
