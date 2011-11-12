@@ -1,5 +1,7 @@
 %script#tmpl-upload{:type => 'text/x-jquery-tmpl'}
-  .inner
+  %form{:action => undiscovered_tracks_path, :multipart => true}
+    .holder
+      %input{:type => 'file', :name => 'data'}
     .holder
       = render "shared/comment_area"
     .holder

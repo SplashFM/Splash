@@ -1,18 +1,14 @@
 require 'song_file'
 
 class UndiscoveredTracksController < ApplicationController
-  include RenderHelper
+  respond_to :json
 
   def create
-    track = current_user.uploaded_tracks.build(params[:undiscovered_track])
+    track = current_user.uploaded_tracks.build(params.slice(:data))
 
-    if track.save
-      track.fill_metadata
+    track.fill_metadata if track.save
 
-      render_upload_form :metadata, track
-    else
-      render_upload_form :upload, track, :unprocessable_entity
-    end
+    respond_with track
   end
 
   def destroy

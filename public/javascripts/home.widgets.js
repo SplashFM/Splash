@@ -90,6 +90,10 @@ $(function() {
     render: function() {
       $(this.el).append($.tmpl(this.template));
 
+      this.$('form').fileupload({
+        start: function() { console.log("Uploading."); },
+      });
+
       return this;
     },
 
