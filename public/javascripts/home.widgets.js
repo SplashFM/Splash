@@ -1,7 +1,7 @@
 $(function() {
   window.Home = Backbone.View.extend({
     initialize: function(opts) {
-      this.trackSearch = new Home.TrackSearch(opts.search)
+      this.trackSearch = new TrackSearch(opts.search)
       this.feed        = new Events(opts.events);
       this.app         = opts.app;
 
@@ -9,7 +9,7 @@ $(function() {
     },
   });
 
-  Home.TrackSearch = Search.extend({
+  TrackSearch = Search.extend({
     collection: new TrackList,
     el: '[data-widget = "track-search"]',
     events: _.extend({
@@ -31,7 +31,7 @@ $(function() {
     renderItem: function(i) {
       var opts = {model: i};
 
-      $(new Home.TrackSearch.Track(opts).render().el).appendTo(this.menu);
+      $(new TrackSearch.Track(opts).render().el).appendTo(this.menu);
     },
 
     showUpload: function() {
@@ -39,7 +39,7 @@ $(function() {
     },
   });
 
-  Home.TrackSearch.Track = Backbone.View.extend({
+  TrackSearch.Track = Backbone.View.extend({
     tagName: 'li',
     template: $('#tmpl-home-track').template(),
 
@@ -47,7 +47,7 @@ $(function() {
       $(this.el).attr('data-track_id', this.model.get('id'));
       $(this.el).html($.tmpl(this.template, this.model.toJSON()).html());
 
-      new Home.TrackSearch.Track.FullSplashAction({
+      new TrackSearch.Track.FullSplashAction({
         model: this.model,
         el: $('[data-widget = "full-splash-action"]', this.el),
       });
@@ -56,7 +56,7 @@ $(function() {
     },
   });
 
-  Home.TrackSearch.Track.FullSplashAction = BaseApp.SplashAction.extend({
+  TrackSearch.Track.FullSplashAction = BaseApp.SplashAction.extend({
     events: {
       'click a': 'toggle',
       'submit form': 'splash'
