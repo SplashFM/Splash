@@ -4,7 +4,15 @@ class UndiscoveredTrack < Track
     to_sentence(:two_words_connector => ', ', :last_word_connector => ', ')
   INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
 
-  has_attached_file :data
+  has_attached_file :data,
+    :storage => :s3,
+    :path => "/:class/:attachment/:id/:hash.:extension",
+    :hash_secret => ":class/:attachment/:id",
+    :s3_credentials => {
+      :access_key_id => AppConfig.aws['access_key_id'],
+      :secret_access_key => AppConfig.aws['secret_access_key'],
+      :bucket => AppConfig.aws['bucket']
+    }
 
   belongs_to :uploader, :class_name => 'User'
 
