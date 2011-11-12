@@ -3,14 +3,16 @@
     var topTracks = new Splashboard.Items({
       template: '#tmpl-home-track',
       feed: new TrackList,
-      app: window.App
+      app: window.App,
+      extraClass: 'live-feed'
     })
     $('#tab-top-tracks').html(topTracks.el)
 
     var topUsers = new Splashboard.Items({
       template: '#tmpl-user',
       feed: new UserList,
-      app: window.App
+      app: window.App,
+      extraClass: 'live-feed'
     })
     $('#tab-top-users').html(topUsers.el)
   });

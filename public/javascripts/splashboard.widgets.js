@@ -3,7 +3,7 @@ $(function() {
   window.Splashboard = {}
   Splashboard.Items = Backbone.View.extend({
     tagName: "ul",
-    className: "live-feed splashboard-items",
+    className: "splashboard-items",
 
     initialize: function(opts) {
       _.extend(this, opts);
@@ -25,6 +25,7 @@ $(function() {
       this.page = 1;
       this.app.bind('endlessScroll', this.scroll, this)
 
+      if (opts.extraClass) $(this.el).addClass(opts.extraClass)
     },
     allFilters: function() {
       return {top: true};
