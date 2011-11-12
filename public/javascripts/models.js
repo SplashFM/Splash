@@ -5,8 +5,11 @@ $(function() {
     }
   };
 
-  window.Track     = Backbone.Model.extend();
-  window.TrackList = Backbone.Collection.extend({
+  window.Track             = Backbone.Model.extend();
+  window.UndiscoveredTrack = Track.extend({
+    urlRoot: '/undiscovered_tracks'
+  });
+  window.TrackList         = Backbone.Collection.extend({
     model: Track,
     url: '/tracks'
   }).extend(Paginated);

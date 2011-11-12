@@ -92,7 +92,7 @@ $(function() {
     },
 
     onUpload: function(_, data) {
-      this.metadata.setModel(new Track(data.result));
+      this.metadata.setModel(new UndiscoveredTrack(data.result));
     },
 
     render: function() {
