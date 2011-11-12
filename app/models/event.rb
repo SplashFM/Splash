@@ -24,9 +24,7 @@ class Event < ActiveRecord::Base
 
       q << splashes.to_sql unless omit_splashes
       q << " UNION ALL " unless omit_other || omit_splashes
-      q << relationships.to_sql unless omit_other
-      q << " UNION ALL " unless omit_other || omit_splashes
-      q << comments.to_sql unless omit_other
+      q << relationships.to_sql + " UNION ALL " + comments.to_sql unless omit_other
       q << " ORDER BY created_at DESC"
       q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
 
