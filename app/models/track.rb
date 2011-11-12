@@ -62,6 +62,7 @@ class Track < ActiveRecord::Base
     {:id           => id,
      :title        => title,
      :artwork_url  => artwork_url,
+     :purchase_url => purchase_url_raw,
      :preview_url  => preview_url,
      :preview_type => preview_type,
      :splash_count => splash_count,
