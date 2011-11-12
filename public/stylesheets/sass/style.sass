@@ -1061,7 +1061,7 @@ textarea
     border-radius: 7px
     padding: 0 5px
     z-index: 2
-  .tag
+  .tag, .as-selection-item
     height: 21px
     background: url(/css/images/filter-tag-bg.png) repeat 0 0
     color: #8397a2
@@ -1070,6 +1070,10 @@ textarea
     padding: 0 8px
     margin: 4px 4px 0 0
     border-radius: 5px
+    .as-close
+      @extend .delete
+      float: right
+      text-indent: -1000px
     a
       float: left
       color: #8397a2
@@ -1132,7 +1136,7 @@ textarea
     ul
       list-style: none outside none
       margin-bottom: 1px
-      a
+      a, .as-result-item
         display: block
         color: #4b6482
         padding: 2px 6px
@@ -1789,4 +1793,13 @@ textarea
       position: relative
       right: 11px
 
-@import "style-overrides.sass"
+[data-widget = 'track-search'] [data-widget = 'results'],
+[data-widget = 'global-search'] [data-widget = 'results'],
+[data-widget = 'quick-splash'] [data-widget = 'box']
+  display: none
+
+[data-widget = "events-filter"]
+  height: auto
+
+  [data-widget = 'filter'], [data-widget = 'suggestions']
+    display: none
