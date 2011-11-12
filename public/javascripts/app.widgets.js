@@ -29,14 +29,7 @@ $(function() {
 
 
   window.BaseApp.QuickSplashAction = BaseApp.SplashAction.extend({
-    initialize: function() {
-      BaseApp.SplashAction.prototype.initialize.call(this);
-
-      this.el = $('[data-widget = "quick-splash-action"]',
-                  this.options.parent).get(0);
-
-      $(this.el).bind('click', this.splash);
-    },
+    events: {'click' : 'splash'},
 
     splash: function() {
       new Splash().save({track_id: this.model.get('id')},
@@ -66,7 +59,10 @@ $(function() {
     renderItem: function(i) {
       var trackEl = Search.prototype.renderItem.call(this, i);
 
-      new BaseApp.QuickSplashAction({model: i, parent: trackEl});
+      new BaseApp.QuickSplashAction({
+        model: i,
+        el: $('[data-widget = "quick-splash-action"]', trackEl)
+      });
     },
 
     toggle: function() {
