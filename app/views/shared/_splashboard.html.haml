@@ -1,21 +1,27 @@
+:javascript
+  $(function () {
+    var topTracks = new Splashboard.Items({
+      template: '#tmpl-track-summary',
+      feed: new TrackList,
+    })
+    $('#tab-top-tracks-sb').html(topTracks.el)
+
+    var topUsers = new Splashboard.Items({
+      template: '#tmpl-user-summary',
+      feed: new UserList,
+    })
+    $('#tab-top-users-sb').html(topUsers.el)
+  });
+
 .top-splashboards.tabs
   .tab-nav
     %ul
       %li
-        %a{:href => "#tab-top-splashes"} Most Splashed
+        %a{:href => "#tab-top-tracks-sb"} Most Splashed
       %li
-        %a{:href => "#tab-top-splashers"} Top Splashers
+        %a{:href => "#tab-top-users-sb"} Top Splashers
     .line
     %a.toggle{:href => "#"}
-  %ul.splashboard-list.tab#tab-top-splashes
-    = render "splashes/top_splash"
-    = render "splashes/top_splash"
-    = render "splashes/top_splash"
-    = render "splashes/top_splash"
-    = render "splashes/top_splash"
-    = render "splashes/top_splash"
-    = render "splashes/top_splash"
-    = render "splashes/top_splash"
-  %ul.splashboard-list.tab#tab-top-splashers
-    = render "splashes/top_splash"
+  #tab-top-tracks-sb.splashboard-list
+  #tab-top-users-sb.splashboard-list
   %a.viewmore-btn{:href => "#"} View Splashboard

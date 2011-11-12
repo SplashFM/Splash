@@ -23,9 +23,12 @@ $(function() {
       this.fetch();
 
       this.page = 1;
-      this.app.bind('endlessScroll', this.scroll, this)
-
-      if (opts.extraClass) $(this.el).addClass(opts.extraClass)
+      if (this.app) {
+        this.app.bind('endlessScroll', this.scroll, this)
+      }
+      if (opts.extraClass) {
+        $(this.el).addClass(opts.extraClass)
+      }
     },
     allFilters: function() {
       return {top: true};
