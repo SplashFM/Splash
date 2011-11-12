@@ -13,10 +13,27 @@ $(function() {
     collection: new TrackList,
     el: '[data-widget = "track-search"]',
     menuContainer: 'ul',
-    template: '#tmpl-home-track',
 
     open: function() {
       this.menu.find('li:last').addClass('last');
-    }
+    },
+
+    renderItem: function(i) {
+      var opts = {model: i};
+
+      $(new Home.TrackSearch.Track(opts).render().el).appendTo(this.menu);
+    },
+  });
+
+  Home.TrackSearch.Track = Backbone.View.extend({
+    tagName: 'li',
+    template: $('#tmpl-home-track').template(),
+
+    render: function() {
+      $(this.el).attr('data-track_id', this.model.get('id'));
+      $(this.el).html($.tmpl(this.template, this.model.toJSON()).html());
+
+      return this;
+    },
   });
 });
