@@ -1562,12 +1562,10 @@ textarea
     font-size: 10px
     margin: 10px 0px
   .commentArea
+    @extend .customInputStyle
     width: 538px
     height: 60px
 
-.uploadForm
-  .customInputStyle
-    width: 360px
 .customInputStyle
   border: solid 1px #CCC
   box-shadow: inset 0px 2px 1px #CCC
@@ -1575,6 +1573,11 @@ textarea
   color: #7d7d7d
   background: #FFF
   margin-bottom: 5px
+
+.uploadForm
+  input
+    @extend .customInputStyle
+    width: 360px
 
 .buttonStyle2
   border: solid 1px #6790a6
