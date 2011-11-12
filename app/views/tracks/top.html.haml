@@ -1,9 +1,18 @@
 :javascript
   $(function () {
-    window.App.Page = new Splashboard({
-      app:    window.App
-    });
-    //window.App.Page.fetch();
+    var topTracks = new Splashboard.Items({
+      template: '#tmpl-home-track',
+      feed: new TrackList,
+      app: window.App
+    })
+    $('#tab-top-tracks').html(topTracks.el)
+
+    var topUsers = new Splashboard.Items({
+      template: '#tmpl-user',
+      feed: new UserList,
+      app: window.App
+    })
+    $('#tab-top-users').html(topUsers.el)
   });
 
 .splashboard
@@ -18,17 +27,14 @@
           .avan-bold
             %ul
               %li
-                %a{:href => "#tab-most-splashed"} Most Splashed
+                %a{:href => "#tab-top-tracks"} Most Splashed
               %li
-                %a{:href => "#tab-splashers"} Top Splashers
+                %a{:href => "#tab-top-users"} Top Splashers
           .line
             %span
       =# render "shared/feed_filter"
-      #tab-most-splashed
-        %ul.live-feed{:data => {:widget => 'top-tracks'}}
-        %p= link_to_next_page @tracks, t('pagination.more')
-      #tab-splashers
-        %ul.live-feed{:data => {:widget => 'top-users'}}
+      #tab-top-tracks
+      #tab-top-users
       .loading-spinner
     .cl &nbsp;
 

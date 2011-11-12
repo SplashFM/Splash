@@ -1,22 +1,10 @@
 $(function() {
-  window.Splashboard = Backbone.View.extend({
-    initialize: function(opts) {
-      this.topTracks = new Splashboard.Items(
-        _.extend(opts, {
-          el: '[data-widget = "top-tracks"]',
-          template: $('#tmpl-home-track').template(),
-          feed: new TrackList,
-        }));
-      this.topUsers = new Splashboard.Items(
-        _.extend(opts, {
-          el: '[data-widget = "top-users"]',
-          template: $('#tmpl-user').template(),
-          feed: new UserList,
-        }));
-    }
-  });
 
+  window.Splashboard = {}
   Splashboard.Items = Backbone.View.extend({
+    tagName: "ul",
+    className: "live-feed splashboard-items",
+
     initialize: function(opts) {
       _.extend(this, opts);
 
@@ -28,7 +16,7 @@ $(function() {
                           update_on_splash: true}
       this.userFilters = {};
 
-      //this.feed = new TrackList;
+      this.template = $(this.template).template()
       this.feed.bind('reset', this.render, this);
       this.feed.bind('add', this.renderItem, this);
 
