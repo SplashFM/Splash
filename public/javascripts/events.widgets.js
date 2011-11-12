@@ -92,13 +92,13 @@ $(function() {
 
   window.Events.Social = Backbone.View.extend({
     tagName: 'li',
+    className: 'feed-socials',
     templates: {
       relationship: $('#tmpl-event-relationship').template(),
       comment: $('#tmpl-event-comment').template(),
     },
 
     render: function() {
-      $(this.el).addClass('feed-socials');
       $(this.el).html($.tmpl(this.templates[this.model.get('type')],
                              this.model.toJSON()).html());
 
