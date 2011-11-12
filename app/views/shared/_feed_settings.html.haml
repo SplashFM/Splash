@@ -1,4 +1,4 @@
-.feed-settings
+.feed-settings-tabs
   .avan-bold
     %ul{:data => {:widget => 'filter-following'}}
       %li.ui-tabs-selected
@@ -7,7 +7,8 @@
         %a{:href => "#everyone"} Everyone
   .line
     %span
-  %span.count.left{:data => {:widget => 'update-count'}}
+%span.feed-updates-count.left{:data => {:widget => 'update-count'}}
+.feed-settings-toggles
   .toggle.toggle-splashes.right
     %input.field.iphone-checkbox{:checked => "checked", :type => "checkbox", :value => "",
     'data-handle-class' => 'handle', 'data-checked-label' => 'ON', 'data-unchecked-label' => 'OFF',
