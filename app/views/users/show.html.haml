@@ -1,3 +1,12 @@
+:javascript
+  $(function () {
+    window.App.Page = new Home({
+      app:    window.App,
+      events: {currentUserId: #{@user.id}},
+      search: {perPage: #{Track.default_per_page}}
+    });
+  });
+
 .users-show
   = render "sidebar"
   #stream-wrap.right
