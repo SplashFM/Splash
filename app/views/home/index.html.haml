@@ -1,9 +1,7 @@
 :javascript
   $(function () {
-    window.App.Page = new Home({
-      events: {app: window.App, currentUserId: #{current_user.id}},
-      search: {perPage: #{Track.default_per_page}}
-    });
+    window.App.trackSearch = new TrackSearch({perPage: #{Track.default_per_page}})
+    window.App.eventFeed = new Events({app: window.App, currentUserId: #{current_user.id}});
   });
 
 .home

@@ -1,11 +1,4 @@
 $(function() {
-  window.Home = Backbone.View.extend({
-    initialize: function(opts) {
-      this.trackSearch = new TrackSearch(opts.search)
-      this.feed        = new Events(opts.events);
-    },
-  });
-
   TrackSearch = Search.extend({
     collection: new TrackList,
     el: '[data-widget = "track-search"]',
