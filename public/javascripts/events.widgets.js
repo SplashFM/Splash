@@ -206,13 +206,14 @@ $(function() {
 
     onChange: function() {
       var active = $('[data-widget = "filter-following"] a.active');
-      var user   = active.attr('href') === '#following' ? this.currentUserId: '';
+      var user   = active.attr('href') === '#everyone' ? '' : this.currentUserId;
+      var follower   = active.attr('href') === '#following' ? this.currentUserId : '';
 
       var settings = {
         omit_splashes: $('[data-widget = "filter-splash"]').is(":checked") ? '' : true,
         omit_others:   $('[data-widget = "filter-other"]').is(":checked") ? '' : true,
         user:          user,
-        follower:      user
+        follower:      follower
       };
 
       this.trigger('change', settings);
