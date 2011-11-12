@@ -4,7 +4,7 @@
       %li
         %img{:alt => "", :height => "27", :src => "/css/images/ico-new-comment.png", :width => "36"}/
         %p
-          %a{:href => "#"} ${author.name}
+          %a{:href => "${author.url}"} ${author.name}
           commented on
-          %a{:href => "#"} ${splash.user.name}’s
+          %a{:href => "${splash.user.url}"} ${splash.user.name}’s
           splash “${splash.track.title}”: ${body}”
