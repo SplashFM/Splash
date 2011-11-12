@@ -64,9 +64,9 @@ $(function() {
     },
 
     renderItem: function(i) {
-      var trackView = Search.prototype.renderItem.call(this, i);
+      var trackEl = Search.prototype.renderItem.call(this, i);
 
-      new BaseApp.QuickSplashAction({model: i, parent: trackView});
+      new BaseApp.QuickSplashAction({model: i, parent: trackEl});
     },
 
     toggle: function() {
