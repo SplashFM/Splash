@@ -5,7 +5,17 @@
       .streamfeed-top
         .container
           = render "shared/feed_search"
-          = render "shared/feed_settings"
+        .feed-settings-tabs
+          .avan-bold
+            %ul{:data => {:widget => 'filter-following'}}
+              %li.ui-tabs-selected
+                %a.active{:href => "#activity"} My Activity
+              %li
+                %a{:href => "#mentions"} @Mentions
+          .line
+            %span
+          %span.feed-updates-count.left{:data => {:widget => 'update-count'}}
+          = render "shared/feed_toggles"
       = render "shared/feed_filter"
       %ul.live-feed{:data => {:widget => 'events'}}
       .loading-spinner
