@@ -32,6 +32,9 @@ $(function() {
 
       this.currentInterval = setInterval(this.checkForUpdates,
                                          this.updateInterval);
+      if (this.app) {
+        this.app.bind('endlessScroll', this.scroll, this)
+      }
     },
 
     allFilters: function() {
