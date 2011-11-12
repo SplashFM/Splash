@@ -7,7 +7,7 @@
           = render "shared/feed_search"
           = render "shared/feed_settings"
       = render "shared/feed_filter"
-      = render "shared/live_feed"
+      %ul.live-feed{:data => {:widget => 'events'}}
       .loading-spinner
   .cl &nbsp;
 
