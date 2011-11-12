@@ -2,9 +2,3 @@
   %form{:action => undiscovered_tracks_path, :multipart => true}
     .holder
       %input{:type => 'file', :name => 'data'}
-    .holder
-      = render "shared/comment_area"
-    .holder
-      %input{:type => 'text', :name => 'trackName', :placeholder => 'enter track name'}
-    .holder
-      %input{:type => 'text', :name => 'ArtistName', :placeholder => 'enter artists name'}
