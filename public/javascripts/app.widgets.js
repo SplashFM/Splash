@@ -25,11 +25,6 @@ $(function() {
     broadcastSplash: function() {
       $(this.el).trigger('splash:splash');
     },
-
-    splash: function() {
-      new Splash().save({track_id: this.model.get('id')},
-                      {success: this.broadcastSplash});
-    },
   });
 
 
@@ -41,6 +36,11 @@ $(function() {
                   this.options.parent).get(0);
 
       $(this.el).bind('click', this.splash);
+    },
+
+    splash: function() {
+      new Splash().save({track_id: this.model.get('id')},
+                      {success: this.broadcastSplash});
     },
   });
 
