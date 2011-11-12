@@ -58,7 +58,6 @@ stylesheets:
     - public/stylesheets/vendor/formtastic_changes.css
     - public/stylesheets/flash_messages.css
     - public/stylesheets/style.css
-    - public/stylesheets/widgets.css
     - public/stylesheets/jquery.Jcrop.css
     - public/stylesheets/jquery.jscrollpane.css
     - public/css/fonts.css
