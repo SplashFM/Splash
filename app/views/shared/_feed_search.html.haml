@@ -2,11 +2,36 @@
   %label
     %em= t('.search_for_song')
   .wrap
+    / This is an example of the selected state of a track in the search form.
+    .trackToSplash{:style => "display:none"}
+      .inner
+        .left
+          .art.left
+            %img{:height => '42px', :width => '42px', :src => '/images/no_album_art.png'}
+          .info.left
+            %span.songname.avan-bold Track 3
+            %span.songauthor Artist
+        .right
+          %a.icon
+        .clear
     %input.field{:type => "text", :name => 'f'}/
     .dd{:data => {:widget => 'results'}}
       %span{:data => {:widget => 'empty'}}= t('searches.empty')
-      %ul
+      %ul.top_search_results
       %a.load-more{:href => "#", :data => {:widget => 'load-more'}}
         = t('.load_more')
+      .uploadForm
+        .inner
+          .holder
+            %input{:type => 'text', :name => 'trackName', :placeholder => 'enter track name'}
+          .holder
+            %input.customInputStyle{:type => 'text', :name => 'ArtistName', :placeholder => 'enter artists name'}
+      .commentForm
+        .inner
+          .avan-demi.label Add a Comment
+          %textarea.commentArea.customInputStyle
+          .right
+            %input.submit.buttonStyle2{:type => 'submit', :value => 'Comment and Splash'}
+          .clear
   %a.upload.right{:href => "#"}= t('.upload')
   .cl &nbsp;
