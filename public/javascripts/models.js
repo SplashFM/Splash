@@ -57,7 +57,15 @@ $(function() {
       this._comments.reset(this.get('comments'));
     },
 
-    urlRoot: "/splashes"
+    urlRoot: '/splashes',
+
+    url: function() {
+      if (this.isNew()) {
+        return this.urlRoot;
+      } else {
+        return this.urlRoot + "/" + this.get('id');
+      }
+    },
   });
   window.EventList = Backbone.Collection.extend({
     model: Event,
