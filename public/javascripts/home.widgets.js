@@ -33,7 +33,32 @@ $(function() {
       $(this.el).attr('data-track_id', this.model.get('id'));
       $(this.el).html($.tmpl(this.template, this.model.toJSON()).html());
 
+      new Home.TrackSearch.Track.FullSplashAction({
+        model: this.model,
+        el: $('[data-widget = "full-splash-action"]', this.el),
+      });
+
       return this;
+    },
+  });
+
+  Home.TrackSearch.Track.FullSplashAction = BaseApp.SplashAction.extend({
+    events: {
+      'click a': 'toggle',
+      'submit form': 'splash'
+    },
+
+    splash: function() {
+      new Splash().save({
+        comment:  this.$('form textarea').val(),
+        track_id: this.model.get('id')
+      }, {
+        success: this.broadcastSplash
+      });
+    },
+
+    toggle: function() {
+      this.$('form').toggle();
     },
   });
 });

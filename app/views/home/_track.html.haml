@@ -9,4 +9,12 @@
         %ul.meta
           %li.download
             %a{:href => '#'}Download Track
-      %a.icon.right.splash-btn{:href => "#"}
+      %div{:data => {:widget => 'full-splash-action'}}
+        %a.icon.right.splash-btn{:href => "#"}
+        %form.commentForm{:action => '#'}
+          .inner
+            .avan-demi.label Add a Comment
+            %textarea{:class => 'commentArea customInputStyle'}
+            .right
+              %input{:class => 'submit buttonStyle2', :type => 'submit', :value => 'Comment and Splash'}
+            .clear
