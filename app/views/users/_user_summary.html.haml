@@ -1,0 +1,7 @@
+%script#tmpl-user-summary{:type => 'text/x-jquery-tmpl'}
+  %li{:data => {:user_id => '${id}'}}
+    .wrap
+      %a.btn.right{:href => "#"}
+      %a{:href => '/users/${id}'}
+        %strong.count.avan-bold.left.splash-score ${score}
+        %p.name ${name}
