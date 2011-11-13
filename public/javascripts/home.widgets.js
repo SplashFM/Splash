@@ -12,7 +12,17 @@ $(function() {
   Home.TrackSearch = Search.extend({
     collection: new TrackList,
     el: '[data-widget = "track-search"]',
+    events: _.extend({
+      'click [data-widget = "toggle-upload"]': 'showUpload'
+    }, Search.prototype.events),
     menuContainer: 'ul',
+
+    initialize: function() {
+      Search.prototype.initialize.call(this);
+
+      this.upload = new Home.Upload().render();
+      this.$('.wrap').append(this.upload.hide().el);
+    },
 
     open: function() {
       this.menu.find('li:last').addClass('last');
@@ -22,6 +32,10 @@ $(function() {
       var opts = {model: i};
 
       $(new Home.TrackSearch.Track(opts).render().el).appendTo(this.menu);
+    },
+
+    showUpload: function() {
+      this.upload.show();
     },
   });
 
@@ -61,4 +75,29 @@ $(function() {
       this.$('form').toggle();
     },
   });
+
+  window.Home.Upload = Backbone.View.extend({
+    className: 'uploadForm',
+    tagName: 'div',
+    template: $('#tmpl-upload').template(),
+
+    hide: function() {
+      $(this.el).hide();
+
+      return this;
+    },
+
+    render: function() {
+      $(this.el).append($.tmpl(this.template));
+
+      return this;
+    },
+
+    show: function() {
+      $(this.el).show();
+
+      return this;
+    },
+  });
+
 });
