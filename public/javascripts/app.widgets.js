@@ -1,9 +1,12 @@
 $(function() {
   window.BaseApp = Backbone.View.extend({
     initialize: function() {
-      this.userSearch  = new BaseApp.UserSearch;
-      this.trackSearch = new BaseApp.TrackSearch;
-      this.quickSplash = new BaseApp.QuickSplash;
+      this.userSearch    = new BaseApp.UserSearch;
+      this.trackSearch   = new BaseApp.TrackSearch;
+      this.quickSplash   = new BaseApp.QuickSplash;
+      this.notifications = new BaseApp.Notifications({
+        el: $('[data-widget = "notifications"]')
+      });
 
       _.bindAll(this, 'triggerScroll');
 
@@ -37,6 +40,21 @@ $(function() {
     },
   });
 
+  window.BaseApp.Notifications = Backbone.View.extend({
+    events: {
+      'click [data-widget = "toggle-notifications"]': 'toggle'
+    },
+
+    initialize: function() {
+      this.list = this.$('[data-widget = "list-notifications"]');
+    },
+
+    toggle: function() {
+      this.list.toggle();
+
+      $(this.el).toggleClass('active');
+    },
+  });
 
   window.BaseApp.QuickSplash = Search.extend({
     collection: new TrackList,
