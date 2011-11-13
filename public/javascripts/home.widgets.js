@@ -118,8 +118,24 @@ $(function() {
   });
 
   window.Home.Upload.Metadata = Backbone.View.extend({
-    tagName: 'div',
+    events: {'submit': 'onSubmit'},
+    tagName: 'form',
     template: $('#tmpl-upload-metadata').template(),
+
+    initialize: function() {
+      _.bindAll(this, 'onSubmit');
+    },
+
+    onSubmit: function(e) {
+      e.preventDefault();
+
+      var attrs = {
+        title: this.$('[name = "title"]').val(),
+        performers: this.$('[name = "performers"]').val(),
+      }
+
+      this.model.save(attrs);
+    },
 
     render: function() {
       $(this.el).html($.tmpl(this.template));
