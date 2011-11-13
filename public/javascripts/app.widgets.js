@@ -46,6 +46,8 @@ $(function() {
     },
 
     initialize: function() {
+      _.bindAll(this, 'renderNotification');
+
       this.list       = this.$('[data-widget = "list-notifications"]');
 
       this.collection = new NotificationList;
@@ -53,9 +55,17 @@ $(function() {
       this.collection.fetch();
     },
 
+    renderNotification: function(model) {
+      $('.load_more', this.list).before(new BaseApp.Notifications.Notification({
+        model: model
+      }).render().el);
+    },
+
     reset: function() {
       this.$('[data-widget = "toggle-notifications"]').
         text(this.collection.length);
+
+      this.collection.each(this.renderNotification);
     },
 
     toggle: function() {
@@ -64,6 +74,21 @@ $(function() {
       $(this.el).toggleClass('active');
     },
   });
+
+  window.BaseApp.Notifications.Notification = Backbone.View.extend({
+    tagName: 'div',
+    className: 'item',
+    template: $('#tmpl-notification').template(),
+
+    render: function() {
+      $(this.el).addClass(this.model.get('type'));
+
+      $(this.el).html($.tmpl(this.template, this.model.toJSON()));
+
+      return this;
+    },
+  });
+
 
   window.BaseApp.QuickSplash = Search.extend({
     collection: new TrackList,

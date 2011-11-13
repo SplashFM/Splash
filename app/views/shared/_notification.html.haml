@@ -1,2 +1,8 @@
-%li{:class => "#{'unread' if notification.unread?}"}
-  = link_to notification.title, user_slug_path(notification.notifier)
+%script#tmpl-notification{:type => 'text/x-jquery-tmpl'}
+  .left
+    %img{:src => 'http://placehold.it/50x50',:class => 'small-pic left'}
+    .message.left ${title}
+  .right
+    .icon.right
+
+  .clear

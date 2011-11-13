@@ -11,6 +11,11 @@ class Notification < ActiveRecord::Base
     where(:notified_id => user).order('created_at desc')
   end
 
+  def as_json(opts = {})
+    super(:methods => [:title]).
+      merge!(:type => self.class.name.parameterize)
+  end
+
   def unread?
     read_at == nil
   end
