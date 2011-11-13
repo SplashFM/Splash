@@ -148,6 +148,7 @@ $(function() {
 
       this.$('[name = "title"]').val(model.get('title'));
       this.$('[name = "performers"]').val(model.get('performers'));
+      this.$('[name = "albums"]').val(model.get('albums'));
 
       this.$('[data-widget = "metadata"]').show();
     },

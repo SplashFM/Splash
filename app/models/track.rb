@@ -65,6 +65,7 @@ class Track < ActiveRecord::Base
      :preview_url  => preview_url,
      :preview_type => preview_type,
      :splash_count => splash_count,
+     :albums       => albums.to_sentence,
      :performers   => performers.to_sentence}
   end
 
