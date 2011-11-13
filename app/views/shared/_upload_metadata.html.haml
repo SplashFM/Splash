@@ -1,7 +1,8 @@
 %script#tmpl-upload-metadata{:type => 'text/x-jquery-tmpl'}
   .holder
     = render "shared/comment_area"
-  .holder
-    %input{:type => 'text', :name => 'trackName', :placeholder => 'enter track name'}
-  .holder
-    %input{:type => 'text', :name => 'ArtistName', :placeholder => 'enter artists name'}
+  %div{:data => {:widget => "metadata"}}
+    .holder
+      %input{:type => 'text', :name => 'title', :placeholder => 'enter track name'}
+    .holder
+      %input{:type => 'text', :name => 'performers', :placeholder => 'enter artists name'}

@@ -81,10 +81,18 @@ $(function() {
     tagName: 'div',
     template: $('#tmpl-upload').template(),
 
+    initialize: function() {
+      _.bindAll(this, 'onUpload');
+    },
+
     hide: function() {
       $(this.el).hide();
 
       return this;
+    },
+
+    onUpload: function(_, data) {
+      this.metadata.setModel(new Track(data.result));
     },
 
     render: function() {
@@ -92,7 +100,12 @@ $(function() {
 
       this.$('form').fileupload({
         start: function() { console.log("Uploading."); },
+        done: this.onUpload,
       });
+
+      this.metadata = new Home.Upload.Metadata({model: this.model});
+
+      $(this.el).append(this.metadata.render().el);
 
       return this;
     },
@@ -104,4 +117,23 @@ $(function() {
     },
   });
 
+  window.Home.Upload.Metadata = Backbone.View.extend({
+    tagName: 'div',
+    template: $('#tmpl-upload-metadata').template(),
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template));
+
+      return this;
+    },
+
+    setModel: function(model) {
+      this.model = model;
+
+      this.$('[name = "title"]').val(model.get('title'));
+      this.$('[name = "performers"]').val(model.get('performers'));
+
+      this.$('[data-widget = "metadata"]').show();
+    },
+  });
 });
