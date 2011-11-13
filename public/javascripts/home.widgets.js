@@ -78,11 +78,16 @@ $(function() {
 
   window.Home.Upload = Backbone.View.extend({
     className: 'uploadForm',
+    events: {'upload:complete': 'hide'},
     tagName: 'div',
     template: $('#tmpl-upload').template(),
 
     initialize: function() {
-      _.bindAll(this, 'onUpload');
+      _.bindAll(this, 'hide', 'onUpload');
+    },
+
+    hide: function() {
+      $(this.el).hide();
     },
 
     hide: function() {
@@ -123,9 +128,12 @@ $(function() {
     template: $('#tmpl-upload-metadata').template(),
 
     initialize: function() {
-      _.bindAll(this, 'onSubmit');
+      _.bindAll(this, 'onComplete', 'onSubmit');
     },
 
+    onComplete: function() {
+      $(this.el).trigger('upload:complete');
+    },
     onSubmit: function(e) {
       e.preventDefault();
 
@@ -134,7 +142,7 @@ $(function() {
         performers: this.$('[name = "performers"]').val(),
       }
 
-      this.model.save(attrs);
+      this.model.save(attrs, {success: this.onComplete});
     },
 
     render: function() {
