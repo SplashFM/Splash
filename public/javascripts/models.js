@@ -102,4 +102,9 @@ $(function() {
         });
     },
   }).extend(Paginated);
+
+  window.Notification     = Backbone.Model.extend({});
+  window.NotificationList = Backbone.Collection.extend({
+    url: '/notifications'
+  });
 });

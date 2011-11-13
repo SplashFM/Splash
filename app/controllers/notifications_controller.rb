@@ -1,4 +1,6 @@
 class NotificationsController < ApplicationController
+  respond_to :json
+
   def reset_read
     Notification.mark_as_read(current_user)
 
@@ -6,6 +8,6 @@ class NotificationsController < ApplicationController
   end
 
   def index
-    render :partial => 'shared/notification', :collection => Notification.for(current_user)
+    respond_with Notification.for(current_user)
   end
 end

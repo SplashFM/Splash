@@ -46,7 +46,16 @@ $(function() {
     },
 
     initialize: function() {
-      this.list = this.$('[data-widget = "list-notifications"]');
+      this.list       = this.$('[data-widget = "list-notifications"]');
+
+      this.collection = new NotificationList;
+      this.collection.bind('reset', this.reset, this);
+      this.collection.fetch();
+    },
+
+    reset: function() {
+      this.$('[data-widget = "toggle-notifications"]').
+        text(this.collection.length);
     },
 
     toggle: function() {
