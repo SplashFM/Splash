@@ -8,6 +8,6 @@ class NotificationsController < ApplicationController
   end
 
   def index
-    respond_with Notification.for(current_user)
+    respond_with Notification.for(current_user).unread
   end
 end
