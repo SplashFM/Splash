@@ -1,5 +1,5 @@
 class TracksController < ApplicationController
-  TRACKS_PER_PAGE         = 20
+  TRACKS_PER_PAGE         = 10
 
   respond_to :json
 
