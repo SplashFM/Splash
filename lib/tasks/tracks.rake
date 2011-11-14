@@ -46,7 +46,8 @@ namespace :tracks do
                                            FROM   itunes_artist_song asi
                                            JOIN   itunes_artist ai ON
                                                   ai.artist_id = asi.artist_id
-                                           WHERE  asi.song_id = s.song_id
+                                           WHERE  asi.song_id = s.song_id AND
+                                                  ai.is_actual_artist = 't'
                                            ORDER BY ai.name), ' ;; '),
                      array_to_string(array(SELECT distinct ci.name
                                            FROM   itunes_collection_song csi
