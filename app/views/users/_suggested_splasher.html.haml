@@ -4,7 +4,7 @@
       %img{:alt => "", :height => "45", :src => user.avatar.url, :width => "45"}/
     .info.left
       %p.names
-        %a.avan-bold{:href => user_path(user)}= user.name
+        = link_to user.name, user_slug_path(user), :class => 'avan-bold'
         %small= user.name
       %p.scores.avan-bold= user.splash_score
     %a.delete{:href => "#"}
