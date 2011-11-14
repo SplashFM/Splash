@@ -1,6 +1,6 @@
 #side-bar-wrap.left
   #side-bar
-    = render :partial => "users/vcard", :locals => {:user => current_user}
+    = render :partial => "users/vcard", :locals => {:user => @user}
 
     .points-container
       .ripples{:data => {:widget => 'ripples'}}
