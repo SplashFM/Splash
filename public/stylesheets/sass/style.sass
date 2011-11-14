@@ -115,6 +115,98 @@ textarea
   height: 31px
   position: relative
   margin: 11px 11px 0 0
+
+  .dropDown
+    display: none
+    width: 430px
+    margin-top: 10px
+    left: -214px
+    position: relative
+    .arrow
+      height: 18px
+      width: 31px
+      margin: 0px auto
+      background: transparent url("/images/notification_sprites.png")
+      background-position: 0px 32px
+      position: relative
+      z-index: 9999
+      top: -16px
+      left: 14px
+      margin-bottom: -17px
+    .label
+      background-color: #e0edf7
+      border-bottom: solid 1px #c0bfc0
+      height: 30px
+      .span
+        display: inline-block
+        margin-left: 10px
+        margin-top: 7px
+        color: #585858
+        font-size: 13px
+        text-shadow: 0px 1px 0px white
+    .item
+      background-color: #e2e1e5
+      color: #2f2f2f
+      text-shadow: 0px 1px 0px #FFF
+      padding: 10px
+      border: solid 1px transparent
+      border-bottom: solid 1px #c0bfc0
+      .small-pic
+        border: 1px solid #FFF
+      .message
+        max-width: 290px
+        margin-top: 5px
+        margin-left: 10px
+        font-size: 11px
+      .icon
+        height: 30px
+        width: 45px
+        background: transparent url("/images/notification_sprites.png")
+
+    .item:hover
+      background-color: #d1d5dc
+      border-top: solid 1px #FFF
+      box-shadow: inset 0px 0px 1px #CCC
+    .item:active
+      box-shadow: inset 0px 0px 2px #1d1d1d
+    .item.following
+      .icon
+        background-position: 44px -9px
+        position: relative
+        top: 13px
+
+    .item.reSplash
+      .icon
+        background-position: 119px 0px
+        width: 39px
+        position: relative
+        left: -4px
+        height: 40px
+        top: 5px
+    .item.comment
+      .icon
+        background-position: 79px
+        width: 39px
+        position: relative
+        left: -4px
+        top: 10px
+    .load_more
+      text-align: center
+      background-color: #e6e6e6
+      -webkit-border-bottom-right-radius: 10px
+      -webkit-border-bottom-left-radius: 10px
+      -moz-border-radius-bottomright: 10px
+      -moz-border-radius-bottomleft: 10px
+      border-bottom-right-radius: 10px
+      border-bottom-left-radius: 10px
+      height: 34px
+      a
+        font-size: 12px
+        color: #788d99
+        text-shadow: 0px 1px 0px #FFF
+        display: inline-block
+        margin-top: 9px
+
   > a
     display: block
     width: 37px
@@ -129,6 +221,13 @@ textarea
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
     &:hover
       text-decoration: none
+
+  &.active
+    > a
+      background-color: #FFF
+      color: #6a6a6a
+    .dropDown
+      display: block
 
 .quick-splash
   position: relative
@@ -1664,105 +1763,6 @@ textarea
     .follow-links
       .buttonStyle2
         min-width: 100px
-
-.nav-notifications
-  .dropDown
-    display: none
-    width: 430px
-    margin-top: 10px
-    left: -214px
-    position: relative
-    .arrow
-      height: 18px
-      width: 31px
-      margin: 0px auto
-      background: transparent url("/images/notification_sprites.png")
-      background-position: 0px 32px
-      position: relative
-      z-index: 9999
-      top: -16px
-      left: 14px
-      margin-bottom: -17px
-    .label
-      background-color: #e0edf7
-      border-bottom: solid 1px #c0bfc0
-      height: 30px
-      .span
-        display: inline-block
-        margin-left: 10px
-        margin-top: 7px
-        color: #585858
-        font-size: 13px
-        text-shadow: 0px 1px 0px white
-    .item
-      background-color: #e2e1e5
-      color: #2f2f2f
-      text-shadow: 0px 1px 0px #FFF
-      padding: 10px
-      border: solid 1px transparent
-      border-bottom: solid 1px #c0bfc0
-      .small-pic
-        border: 1px solid #FFF
-      .message
-        max-width: 290px
-        margin-top: 5px
-        margin-left: 10px
-        font-size: 11px
-      .icon
-        height: 30px
-        width: 45px
-        background: transparent url("/images/notification_sprites.png")
-
-    .item:hover
-      background-color: #d1d5dc
-      border-top: solid 1px #FFF
-      box-shadow: inset 0px 0px 1px #CCC
-    .item:active
-      box-shadow: inset 0px 0px 2px #1d1d1d
-    .item.following
-      .icon
-        background-position: 44px -9px
-        position: relative
-        top: 13px
-
-    .item.reSplash
-      .icon
-        background-position: 119px 0px
-        width: 39px
-        position: relative
-        left: -4px
-        height: 40px
-        top: 5px
-    .item.comment
-      .icon
-        background-position: 79px
-        width: 39px
-        position: relative
-        left: -4px
-        top: 10px
-    .load_more
-      text-align: center
-      background-color: #e6e6e6
-      -webkit-border-bottom-right-radius: 10px
-      -webkit-border-bottom-left-radius: 10px
-      -moz-border-radius-bottomright: 10px
-      -moz-border-radius-bottomleft: 10px
-      border-bottom-right-radius: 10px
-      border-bottom-left-radius: 10px
-      height: 34px
-      a
-        font-size: 12px
-        color: #788d99
-        text-shadow: 0px 1px 0px #FFF
-        display: inline-block
-        margin-top: 9px
-
-.nav-notifications.active
-  > a
-    background-color: #FFF
-    color: #6a6a6a
-  .dropDown
-    display: block
 
 .clear
   clear: both
