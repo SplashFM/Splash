@@ -107,11 +107,14 @@ namespace :tracks do
   end
 
   namespace :indexes do
-    INDEXES = [['index_tracks_for_search',
-                "USING gin(to_tsvector('english',
-                                       coalesce(title, '') || ' ' ||
-                                       coalesce(performers, '') || ' ' ||
-                                       coalesce(albums, '')))", 'tracks'],
+    fts = <<-FTS
+      USING gin((
+        setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
+        setweight(to_tsvector('english', coalesce(performers, '')), 'B') ||
+        setweight(to_tsvector('english', coalesce(albums, '')), 'C')
+      ))
+    FTS
+    INDEXES = [['index_tracks_for_search', fts, 'tracks'],
                ["index_tracks_on_lc_title",
                 "(lower(title), lower(performers))", 'tracks'],
                ["index_tracks_on_popularity_rank", "(popularity_rank)", 'tracks'],
