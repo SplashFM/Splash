@@ -17,15 +17,16 @@ $(function() {
       this.template  = $(this.template).template();
       this.page      = 1;
 
-      _.bindAll(this, 'hide', 'search', 'loadMoreResults', 'renderItem',
-                      'renderLoadMoreResults');
+      _.bindAll(this, 'hide', 'search', 'loadMoreResults', 'maybeHide',
+                      'renderItem', 'renderLoadMoreResults');
 
       this.$(':text').attr('autocomplete', 'off');
 
       this.collection.bind('reset', this.render, this);
       this.collection.bind('add', this.renderItem, this);
 
-      $(this.el).focuslost(this.hide);
+      $(window).click(this.maybeHide);
+
       $(this.el).bind('splash:splash', this.hide);
     },
 
@@ -49,6 +50,12 @@ $(function() {
       this.collection.fetch({data: {page: this.page, with_text: this.term()},
                              add: true}).
         done(this.renderLoadMoreResults);
+    },
+
+    maybeHide: function(e) {
+      if ($(e.target).closest(this.el).length == 0) {
+        this.hide();
+      }
     },
 
     maybeSearch: function() {
