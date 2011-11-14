@@ -1774,8 +1774,28 @@ textarea
       font-size: 10px
     .follow-links
       .buttonStyle2
-        min-width: 100px
-
+        min-width: 80px
+        position: relative
+        span
+          background: url(/css/images/following_icons.png) no-repeat 0px -1px
+          display: inline-block
+          width: 17px
+          height: 17px
+          float: left
+          margin-right: 5px
+    .buttonStyle2.unfollow
+      span
+        background-position: -34px -1px
+    .buttonStyle2.follow
+      span
+        background-position: 0px -1px
+    .buttonStyle2.following
+      span
+        background-position: -17px -1px
+    .buttonStyle2.following:hover
+      span
+        background-position: -34px -1px !important
+    
 .clear
   clear: both
 
