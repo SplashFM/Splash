@@ -39,6 +39,7 @@ javascripts:
     - public/javascripts/home.widgets.js
     - public/javascripts/splashboard.widgets.js
     - public/javascripts/iphone-style-checkboxes.js
+    - public/javascripts/SPLASH.Widgets.waterNums.js
 
   pjax:
     - public/javascripts/jquery.pjax.js

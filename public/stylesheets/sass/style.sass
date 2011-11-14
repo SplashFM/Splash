@@ -533,6 +533,7 @@ textarea
       width: 25px
       height: 24px
       background: url(/css/images/spscore-badge.png) no-repeat 0 0
+      z-index: 999
     .expand
       position: absolute
       top: 52px
@@ -1860,7 +1861,70 @@ textarea
       padding-left: 7px
     span
       text-shadow: 0px -1px 0px #000
-    
+
+
+.numHolder 
+  background: url('/css/images/water_nums.png') no-repeat
+  float: left
+  height: 71px
+  width: 45px
+  position: relative
+  z-index: 10
+
+.users .numHolder 
+  background-position: 0px 80px
+
+.users  
+  .waterNumHolder 
+    .noise-overlay
+      display: none
+      
+.nonBlank_false 
+  opacity: 0
+  filter: alpha(opacity = 0)
+
+.waterNum 
+  overflow: hidden
+  position: relative
+  height: 71px
+  display: inline-block
+
+.the_water 
+  position: absolute
+  height: 100%
+  width: 100%
+  background: url('/css/images/water_nums.png') no-repeat
+  background-position: -20px -280px
+  z-index: 1
+  top: 0px
+
+.water_bg_color 
+  position: absolute
+  height: 100%
+  width: 100%
+  z-index: 0
+  background-color: #374f6d
+  top: 0px
+
+.waterNumHolder
+  .noise-overlay
+    background: url(/css/images/noise2.png) repeat 0 0
+    position: absolute
+    height: 100%
+    width: 100%
+    z-index: 20
+    top: 0px
+.numFlipper.animating .inner_num
+  opacity: 1
+  filter: alpha(opacity = 100)
+
+.clear
+  clear:both
+  
+.score-digits
+  position: relative
+  left: 17px
+      
 [data-widget = 'track-search'] [data-widget = 'results'],
 [data-widget = 'global-search'] [data-widget = 'results'],
 [data-widget = 'quick-splash'] [data-widget = 'box'],

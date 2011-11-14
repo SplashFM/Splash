@@ -10,8 +10,8 @@
         %h2.avan-bold= user.try(:name)
         .score
           .score-digits
-            %img{:alt => "", :title => user.splash_score, :height => "73", :src => "/css/images/spscore-4.png", :width => "50"}/
-            %img{:alt => "", :title => user.splash_score, :height => "73", :src => "/css/images/spscore-6.png", :width => "50"}/
+            .waterNumHolder
+              .waterNum 98
           .cl &nbsp;
           %span.badge
           %a.expand{:href => "#"}

@@ -455,5 +455,7 @@ $(document).ready(function() {
   Widgets.Paginate.init();
   Widgets.Purchase.init();
   Widgets.SuggestedUsers.init();
+  new SPLASH.Widgets.waterNums('.waterNum');
+  
 });
 

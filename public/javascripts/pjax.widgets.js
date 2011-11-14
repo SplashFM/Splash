@@ -15,7 +15,9 @@ Widgets.Pjax = {
       Widgets.Upload.reload();
       Widgets.Editable.reload();
       Widgets.Tabs.init();
-      Scaphandrier.Fancybox.init();
+      Scaphandrier.Fancybox.init();   
+      new SPLASH.Widgets.waterNums('.waterNum');
+         
     });
   }
 }
