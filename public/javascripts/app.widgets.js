@@ -66,16 +66,20 @@ $(function() {
     },
 
     reset: function() {
-      this.$('[data-widget = "toggle-notifications"]').
-        text(this.collection.length);
+      this.setCount(this.collection.length);
 
-      if (this.collection.length > 0) {
+      this.collection.each(this.renderNotification);
+    },
+
+    setCount: function(count) {
+      this.$('[data-widget = "toggle-notifications"]').text(count);
+
+      if (count > 0) {
         $(this.el).addClass('new');
       } else {
         $(this.el).removeClass('new');
       }
 
-      this.collection.each(this.renderNotification);
     },
 
     toggle: function() {
