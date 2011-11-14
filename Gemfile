@@ -70,8 +70,6 @@ group :development do
 end
 
 # Put Gems used by your application, but not by scap, here:
-gem "texticle", :git     => "git://github.com/tenderlove/texticle.git",
-                :require => "texticle/rails"
 gem "jquery-rails"
 gem "babilu"
 gem "taglib2"
