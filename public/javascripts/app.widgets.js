@@ -89,6 +89,8 @@ $(function() {
 
       if (this.isActive()) {
         this.collection.markRead();
+
+        this.setCount(0);
       }
     },
   });
