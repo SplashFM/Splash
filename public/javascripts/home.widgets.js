@@ -10,7 +10,7 @@ $(function() {
     initialize: function() {
       Search.prototype.initialize.call(this);
 
-      this.upload = new Home.Upload().render();
+      this.upload = new Upload().render();
       this.$('.wrap').append(this.upload.hide().el);
     },
 
@@ -68,7 +68,7 @@ $(function() {
     },
   });
 
-  window.Home.Upload = Backbone.View.extend({
+  Upload = Backbone.View.extend({
     className: 'uploadForm',
     events: {'upload:complete': 'hide'},
     tagName: 'div',
@@ -100,7 +100,7 @@ $(function() {
         done: this.onUpload,
       });
 
-      this.metadata = new Home.Upload.Metadata({model: this.model});
+      this.metadata = new Upload.Metadata({model: this.model});
 
       $(this.el).append(this.metadata.render().el);
 
@@ -114,7 +114,7 @@ $(function() {
     },
   });
 
-  window.Home.Upload.Metadata = Backbone.View.extend({
+  Upload.Metadata = Backbone.View.extend({
     events: {'submit': 'onSubmit'},
     tagName: 'form',
     template: $('#tmpl-upload-metadata').template(),
