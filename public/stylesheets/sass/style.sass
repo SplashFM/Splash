@@ -60,6 +60,7 @@ textarea
 
 .avan-bold
   font-family: 'ITCAvantGardeGothicBold', arial, sans-serif
+  letter-spacing: 1px
 
 #wrapper
   min-height: 100%
@@ -499,18 +500,20 @@ textarea
   background: #6384a4 url(/css/images/profile-vcard-bg.png) repeat-x 0 bottom
   .container
     background: url(/css/images/noise2.png) repeat 0 0
-    padding-bottom: 10px
+    padding: 10px
   .picture
     width: 125px
     height: 185px
+    border: solid 1px #6b7d91
     .upload-avatar-link
       margin-top: -18px
   .picture:hover
     .upload-avatar-link
       display: block
   .info
-    width: 145px
-    padding: 6px 0 0 6px
+    width: 140px
+    padding: 0px 0 0 10px
+    margin-top: -6px
     h2
       font-size: 24px
       font-weight: normal
@@ -568,6 +571,7 @@ textarea
 
 .right .user-vcard
   border-radius: 0 7px 0 0
+  box-shadow: inset 0px 1px 1px rgba(255,255,255,0.2)
 .left .user-vcard
   border-radius: 7px 0 0 0
 
@@ -1540,7 +1544,7 @@ textarea
 
 .loading-spinner
   height: 56px
-  background: url(/css/images/loading-spinner.png) no-repeat center center
+  background: url(/css/images/loading-spinner.gif) no-repeat center center
   margin-top: 10px
 
 .small-tip
@@ -1777,8 +1781,28 @@ textarea
       font-size: 10px
     .follow-links
       .buttonStyle2
-        min-width: 100px
-
+        min-width: 80px
+        position: relative
+        span
+          background: url(/css/images/following_icons.png) no-repeat 0px -1px
+          display: inline-block
+          width: 17px
+          height: 17px
+          float: left
+          margin-right: 5px
+    .buttonStyle2.unfollow
+      span
+        background-position: -34px -1px
+    .buttonStyle2.follow
+      span
+        background-position: 0px -1px
+    .buttonStyle2.following
+      span
+        background-position: -17px -1px
+    .buttonStyle2.following:hover
+      span
+        background-position: -34px -1px !important
+    
 .clear
   clear: both
 
@@ -1813,6 +1837,30 @@ textarea
       position: relative
       right: 11px
 
+.users 
+  #side-bar
+    background: #efeeed
+  .user-vcard 
+    background: #efeeed
+    .info
+      h2
+        color: #666666
+        text-shadow: 0px 0px 0px
+    .container
+      padding: 10px
+      background-image: none
+    .blurb
+      color: #a5a4a5
+      font-size: 14px
+
+#side-bar
+  .count
+    a
+      font-size: 13px
+      padding-left: 7px
+    span
+      text-shadow: 0px -1px 0px #000
+    
 [data-widget = 'track-search'] [data-widget = 'results'],
 [data-widget = 'global-search'] [data-widget = 'results'],
 [data-widget = 'quick-splash'] [data-widget = 'box'],

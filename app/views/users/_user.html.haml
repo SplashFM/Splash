@@ -1,3 +1,4 @@
+/ ADD .following .follow .unfollow to .buttonStyle2 with an inner span to display the icon
 %script#tmpl-user{:type => 'text/x-jquery-tmpl'}
   %li{:data => {:user_id => '${id}'}}
     .holder
@@ -17,6 +18,7 @@
             .clear
       .right
         .follow-links
-          .buttonStyle2
-            Follow
+          .buttonStyle2.following
+            %span
+            Following
       .clear
