@@ -41,7 +41,7 @@ namespace :tracks do
                                ci.collection_id = csi.collection_id
                       WHERE  csi.song_id = s.song_id
                       LIMIT  1),
-                     10000,
+                     1000,
                      array_to_string(array(SELECT distinct ai.name
                                            FROM   itunes_artist_song asi
                                            JOIN   itunes_artist ai ON
@@ -70,10 +70,10 @@ namespace :tracks do
             up = c.update(<<-TRACKS)
               UPDATE tracks
               SET    popularity_rank = p.rank
-              FROM   (SELECT song_id, max(song_rank) rank
+              FROM   (SELECT song_id, min(song_rank) rank
                       FROM itunes_song_popularity_per_genre
                       GROUP BY song_id) p
-              WHERE  p.song_id = tracks.id
+              WHERE  p.song_id = tracks.external_id
             TRACKS
           end
         end
