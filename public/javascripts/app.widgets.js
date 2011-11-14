@@ -65,6 +65,12 @@ $(function() {
       this.$('[data-widget = "toggle-notifications"]').
         text(this.collection.length);
 
+      if (this.collection.length > 0) {
+        $(this.el).addClass('new');
+      } else {
+        $(this.el).removeClass('new');
+      }
+
       this.collection.each(this.renderNotification);
     },
 
