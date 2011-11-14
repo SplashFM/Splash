@@ -55,6 +55,10 @@ $(function() {
       this.collection.fetch();
     },
 
+    isActive: function() {
+      return $(this.el).hasClass('active');
+    },
+
     renderNotification: function(model) {
       $('.load_more', this.list).before(new BaseApp.Notifications.Notification({
         model: model
@@ -78,6 +82,10 @@ $(function() {
       this.list.toggle();
 
       $(this.el).toggleClass('active');
+
+      if (this.isActive()) {
+        this.collection.markRead();
+      }
     },
   });
 

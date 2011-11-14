@@ -105,6 +105,10 @@ $(function() {
 
   window.Notification     = Backbone.Model.extend({});
   window.NotificationList = Backbone.Collection.extend({
-    url: '/notifications'
+    url: '/notifications',
+
+    markRead: function() {
+      $.ajax(Routes.reset_read_notifications_path(), {type: 'PUT'});
+    },
   });
 });
