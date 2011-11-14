@@ -2,5 +2,5 @@
   $(function() { window.App = new BaseApp; })
 
 = render 'shared/header'
-#main
+#main{:class => "#{controller_name} #{action_name}"}
   = yield
