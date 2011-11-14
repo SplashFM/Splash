@@ -62,7 +62,9 @@ $(function() {
       'submit form': 'splash'
     },
 
-    splash: function() {
+    splash: function(e) {
+      e.preventDefault();
+
       new Splash().save({
         comment:  this.$('form textarea').val(),
         track_id: this.model.get('id')
