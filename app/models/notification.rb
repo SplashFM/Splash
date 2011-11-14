@@ -4,11 +4,12 @@ class Notification < ActiveRecord::Base
   belongs_to :target, :polymorphic => true
 
   scope :unread, where(:read_at => nil)
+  scope :by_recency, order('created_at desc')
 
   after_create :email_notification
 
   def self.for(user)
-    where(:notified_id => user).order('created_at desc')
+    where(:notified_id => user)
   end
 
   def as_json(opts = {})
