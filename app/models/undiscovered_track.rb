@@ -1,7 +1,7 @@
 require 'paperclip_processors/metadata'
 
 class UndiscoveredTrack < Track
-  ALLOWED_ATTACHMENT_EXTS = %w(.mp3 .m4a)
+  ALLOWED_ATTACHMENT_EXTS = %w(mp3 m4a)
   ALLOWED_ATTACHMENTS = ALLOWED_ATTACHMENT_EXTS.
     to_sentence(:two_words_connector => ', ', :last_word_connector => ', ')
   INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
@@ -64,7 +64,7 @@ class UndiscoveredTrack < Track
 
   def validate_attachment_type
     if data.file?
-      unless ALLOWED_ATTACHMENT_EXTS.include?(File.extname(data.path))
+      unless ALLOWED_ATTACHMENT_EXTS.include?(preview_type)
         errors.add(:data_content_type,
                    I18n.t(INVALID_ATTACHMENT, :allowed => ALLOWED_ATTACHMENTS))
       end
