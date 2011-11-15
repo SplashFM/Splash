@@ -35,7 +35,7 @@ class UndiscoveredTrack < Track
   validate :validate_track_uniqueness,   :if => :full_validation?
 
   def preview_type
-    File.extname(data.path).split('.').last
+    File.extname(data_file_name).split('.').last
   end
 
   def preview_url
