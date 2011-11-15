@@ -26,7 +26,7 @@ module RedisRecord
         def sorted_#{name.to_s.pluralize}(page, num_records)
           page  = page.to_i <= 1 ? 1 : page.to_i
           start = (page - 1) * num_records
-          stop  = start + num_records
+          stop  = start + num_records - 1
 
           RedisRecord.redis.zrevrange(key("sorted_#{name}"), start, stop)
         end
