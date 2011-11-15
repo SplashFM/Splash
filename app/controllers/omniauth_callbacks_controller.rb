@@ -26,6 +26,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_oauth(env['omniauth.auth'])
 
     if @user.persisted?
+      @user.fetch_avatar
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => kind
       sign_in_and_redirect @user, :event => :authentication
     else

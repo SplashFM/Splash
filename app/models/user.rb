@@ -45,9 +45,11 @@ class User < ActiveRecord::Base
   validates :tagline, :length => { :maximum => 60 }
 
   has_attached_file :avatar,
-                    :styles  => { :thumb => "100x100#", :large => "240x300>" },
-                    :default_url => DEFAULT_AVATAR_URL,
-                    :processors => [:cropper]
+                    :styles => {
+                      :thumb => {:geometry => "125x185#", :processors => [:cropper]},
+                      :large => {:geometry => "240x300>"}
+                    },
+                    :default_url => DEFAULT_AVATAR_URL
 
   before_save :possibly_delete_avatar
 
