@@ -9,7 +9,7 @@ class TracksController < ApplicationController
     if params[:top]
       results = Track.top_splashed(current_page, TRACKS_PER_PAGE)
     else
-      results = apply_scopes(Track).page(params[:page].to_i)
+      results = apply_scopes(Track).page(current_page)
     end
     respond_with results
   end

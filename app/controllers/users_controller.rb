@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       results = User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
     else
       results = apply_scopes(User).
-      page(params[:page].to_i).per(PER_SEARCH).
+      page(current_page).per(PER_SEARCH).
       map { |u| u.as_json.merge!(:path => user_slug_path(u)) }
     end
     render :json => results
