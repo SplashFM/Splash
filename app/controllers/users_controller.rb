@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  TOP_SPLASHERS_PER_PAGE = 30
+  TOP_SPLASHERS_PER_PAGE = 10
   PER_SEARCH = 10
 
   inherit_resources
