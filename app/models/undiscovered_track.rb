@@ -6,24 +6,24 @@ class UndiscoveredTrack < Track
     to_sentence(:two_words_connector => ', ', :last_word_connector => ', ')
   INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
 
+  ATTACHMENT_OPTS = {
+    :processors  => [:metadata],
+    # processors are only used when you have a style specification
+    :styles      => {:original => [:metadata]},
+  }
+
   if AppConfig.aws
     has_attached_file :data,
-      :storage => :s3,
-      :path => "/:class/:attachment/:id/:hash.:extension",
-      :hash_secret => ":class/:attachment/:id",
-      :processors => [:metadata],
-      # processors are only used when you have a style specification
-      :styles => {:original => [:metadata]},
-      :s3_credentials => {
-        :access_key_id => AppConfig.aws['access_key_id'],
-        :secret_access_key => AppConfig.aws['secret_access_key'],
-        :bucket => AppConfig.aws['bucket']
-      }
+      {:path => "/:class/:attachment/:id/:hash.:extension",
+       :hash_secret => ":class/:attachment/:id",
+       :storage => :s3,
+       :s3_credentials => {
+         :access_key_id => AppConfig.aws['access_key_id'],
+         :secret_access_key => AppConfig.aws['secret_access_key'],
+         :bucket => AppConfig.aws['bucket']
+      }}.merge!(ATTACHMENT_OPTS)
   else
-    has_attached_file :data,
-      :processors => [:metadata],
-      # processors are only used when you have a style specification
-      :styles => {:original => [:metadata]}
+    has_attached_file :data, ATTACHMENT_OPTS
   end
 
   belongs_to :uploader, :class_name => 'User'
