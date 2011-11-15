@@ -30,6 +30,7 @@ $(function() {
         $(this.el).addClass(opts.extraClass)
       }
     },
+
     allFilters: function() {
       return {top: true};
     },
@@ -50,8 +51,37 @@ $(function() {
       return this;
     },
     renderItem: function(s) {
+      $(this.el).append(new SplashboardItem({model: s, template: this.template}).render().el);
+    },
+  });
+
+  window.SplashboardItem = {}
+  SplashboardItem = Backbone.View.extend({
+    tagName: "li",
+    events: {
+      'click [data-widget = "play"]': 'play'
+    },
+
+    initialize: function(opts) {
+      _.extend(this, opts);
+
+      //_.bindAll(this, 'scroll', 'renderItem', 'play');
+      this.template = opts.template;
+    },
+
+    render: function() {
+      var s = this.model;
       var json = s.toJSON();
       $($.tmpl(this.template, json)).appendTo(this.el);
+      return this;
     },
+
+    play: function(e) {
+      e.preventDefault();
+
+      $(this.el).trigger('request:play',
+                         {track: this.model});
+    },
+
   });
 });

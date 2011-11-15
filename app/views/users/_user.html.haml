@@ -1,6 +1,6 @@
 / ADD .following .follow .unfollow to .buttonStyle2 with an inner span to display the icon
 %script#tmpl-user{:type => 'text/x-jquery-tmpl'}
-  %li{:data => {:user_id => '${id}'}}
+  %div{:data => {:user_id => '${id}'}}
     .holder
       .left
         .splash-score.left ${score}
@@ -9,10 +9,10 @@
             %img{:alt => "", :height => "42", :src => "${avatar_search}", :width => "42"}/
           .left
             .name.avan-demi ${name}
-            .ripples.left 
+            .ripples.left
               Ripples
               .num.avan-demi ${ripple_count}
-            .splashes.left 
+            .splashes.left
               Splashes
               .num.avan-demi ${splash_count}
             .clear
