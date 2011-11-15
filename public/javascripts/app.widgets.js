@@ -196,7 +196,7 @@ $(function() {
 
       $("[data-widget = 'player']").
         jPlayer({cssSelectorAncestor: '[data-widget = "player-ui"]',
-                 swfPath:             'Jplayer.swf',
+                 swfPath:             '/Jplayer.swf',
                  supplied:            data.track.preview_type,
                  ready: function() {
                    $(this).
