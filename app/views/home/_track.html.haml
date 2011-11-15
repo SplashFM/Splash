@@ -1,8 +1,9 @@
 %script#tmpl-home-track{:type => 'text/x-jquery-tmpl'}
   %div{:data => {:track_id => '${id}'}}
     .holder
-      %a.art.left{:href => "#"}
-        %img{:alt => "", :height => "42", :src => "${artwork_url}", :width => "42"}/
+      %a.art.left{:href => "${preview_url}", :data => {:widget => 'play'}}
+        %img{:alt => "", :height => "71", :src => "${artwork_url}", :width => "71"}/
+        %span
       .info.left
         %a.songname.avan-demi{:href => "#"} ${title}
         %span.songauthor ${performers}
