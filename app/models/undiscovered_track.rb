@@ -7,15 +7,15 @@ class UndiscoveredTrack < Track
   INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
 
   ATTACHMENT_OPTS = {
-    :processors  => [:metadata],
+    :hash_secret => ":class/:attachment/:id",
     # processors are only used when you have a style specification
+    :processors  => [:metadata],
     :styles      => {:original => [:metadata]},
   }
 
   if AppConfig.aws
     has_attached_file :data,
-      {:path => "/:class/:attachment/:id/:hash.:extension",
-       :hash_secret => ":class/:attachment/:id",
+      {:path   => "/:class/:attachment/:id/:hash.:extension",
        :storage => :s3,
        :s3_credentials => {
          :access_key_id => AppConfig.aws['access_key_id'],
@@ -23,7 +23,9 @@ class UndiscoveredTrack < Track
          :bucket => AppConfig.aws['bucket']
       }}.merge!(ATTACHMENT_OPTS)
   else
-    has_attached_file :data, ATTACHMENT_OPTS
+    has_attached_file :data,
+      {:path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension"}.
+        merge!(ATTACHMENT_OPTS)
   end
 
   belongs_to :uploader, :class_name => 'User'
