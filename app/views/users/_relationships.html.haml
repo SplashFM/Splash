@@ -2,8 +2,8 @@
   %span.shadow
   %span.count
     %strong
-      = link_to_relationship(user.followers.count, 'followers')
+      = link_to_relationship(user, 'followers')
   %span.count
     %strong
-      = link_to_relationship(user.following.count, 'following')
+      = link_to_relationship(user, 'following')
   %span.corner
