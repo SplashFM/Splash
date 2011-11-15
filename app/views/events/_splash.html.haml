@@ -14,7 +14,11 @@
       %p.songauthor ${track.performers}
       %ul.meta
         %li.download
-          %a{:href => "${track.purchase_url}", :target => '_blank', :'data-skip-pjax' => true} Download track
+          {{if track.purchase_url}}
+          %a{:href => "${track.purchase_url}", :target => '_blank', :'data-skip-pjax' => true} Purchase track
+          {{else}}
+          %a{:href => "undiscovered_tracks/${id}/download", :target => '_blank', :'data-skip-pjax' => true} Download track
+          {{/if}}
         %li.comment-link
           %span &bull;
           %a{:href => "#", :data => {:widget => 'expand'}} ${comment_count}

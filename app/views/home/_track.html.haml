@@ -8,7 +8,11 @@
         %span.songauthor ${performers}
         %ul.meta
           %li.download
-            %a{:href => '#'}Download Track
+            {{if purchase_url}}
+            %a{:href => "${purchase_url}", :target => '_blank', :'data-skip-pjax' => true} Purchase track
+            {{else}}
+            %a{:href => "undiscovered_tracks/${id}/download", :target => '_blank', :'data-skip-pjax' => true} Download track
+            {{/if}}
       %div{:data => {:widget => 'full-splash-action'}}
         %a.icon.right.splash-btn{:href => "#"}
         %form.commentForm{:action => '#'}
