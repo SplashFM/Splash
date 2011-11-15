@@ -10,6 +10,7 @@ $(function() {
                       'renderUpdateCount', 'scroll');
 
       $('body').bind('splash:splash', this.onSplash)
+      $('body').bind('upload:complete', this.onSplash)
 
       this.pageFilters = {user: this.currentUserId,
                           follower: this.currentUserId,
