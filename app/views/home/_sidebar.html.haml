@@ -9,8 +9,7 @@
           See All
         %h3 Suggested Splashers
         .cl &nbsp;
-        %ul{:data => {:widget => 'suggested-users'}}
-          = render :partial => "users/suggested_splasher", :collection => current_user.suggested_users, :as => :user
-        %a.viewmore-btn{:href => "#"} View More
+        %div{:data => {:widget => 'suggested-users'}}
+          = render 'suggested_splashers'
       = render "shared/splashboard"
     = render "shared/invites"

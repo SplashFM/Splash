@@ -113,7 +113,7 @@ module UI
     end
 
     def has_suggested_users?(count)
-      within("ul[data-widget = 'suggested-users']") do
+      within("[data-widget = 'suggested-users'] ul") do
         has_css?("li", :count => count)
       end
     end
