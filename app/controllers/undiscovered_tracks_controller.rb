@@ -1,14 +1,8 @@
-require 'song_file'
-
 class UndiscoveredTracksController < ApplicationController
   respond_to :json
 
   def create
-    track = current_user.uploaded_tracks.build(params.slice(:data))
-
-    track.fill_metadata if track.save
-
-    respond_with track
+    respond_with current_user.uploaded_tracks.build(params.slice(:data))
   end
 
   def destroy

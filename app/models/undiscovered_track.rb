@@ -1,3 +1,5 @@
+require 'paperclip_processors/metadata'
+
 class UndiscoveredTrack < Track
   ALLOWED_ATTACHMENT_EXTS = %w(.mp3 .m4a)
   ALLOWED_ATTACHMENTS = ALLOWED_ATTACHMENT_EXTS.
@@ -9,13 +11,19 @@ class UndiscoveredTrack < Track
       :storage => :s3,
       :path => "/:class/:attachment/:id/:hash.:extension",
       :hash_secret => ":class/:attachment/:id",
+      :processors => [:metadata],
+      # processors are only used when you have a style specification
+      :styles => {:original => [:metadata]},
       :s3_credentials => {
         :access_key_id => AppConfig.aws['access_key_id'],
         :secret_access_key => AppConfig.aws['secret_access_key'],
         :bucket => AppConfig.aws['bucket']
       }
   else
-    has_attached_file :data
+    has_attached_file :data,
+      :processors => [:metadata],
+      # processors are only used when you have a style specification
+      :styles => {:original => [:metadata]}
   end
 
   belongs_to :uploader, :class_name => 'User'
@@ -44,20 +52,8 @@ class UndiscoveredTrack < Track
     data.file?
   end
 
-  def fill_metadata
-    self.title      = song_file.title
-    self.albums     = song_file.album
-    self.performers = song_file.artist
-
-    self
-  end
-
   def replace_with_canonical
     destroy and return canonical_version
-  end
-
-  def song_file
-    @song_file ||= SongFile.new(data.path)
   end
 
   private
