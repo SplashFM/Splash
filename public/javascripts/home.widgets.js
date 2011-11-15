@@ -24,7 +24,9 @@ $(function() {
       $(new TrackSearch.Track(opts).render().el).appendTo(this.menu);
     },
 
-    showUpload: function() {
+    showUpload: function(e) {
+      e.stopPropagation();
+
       this.upload.show();
     },
   });
@@ -76,6 +78,8 @@ $(function() {
 
     initialize: function() {
       _.bindAll(this, 'hide', 'onUpload');
+
+      $(this.el).clickout(this.hide);
     },
 
     hide: function() {
@@ -126,6 +130,7 @@ $(function() {
     onComplete: function() {
       $(this.el).trigger('upload:complete');
     },
+
     onSubmit: function(e) {
       e.preventDefault();
 
