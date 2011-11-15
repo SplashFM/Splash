@@ -7,18 +7,15 @@ module UsersHelper
     @user == current_user && profile_page?
   end
 
-  def link_to_relationship(count, relationship_type = 'following')
-    label = ""
-    if relationship_type == 'following'
-      label << " #{t('following', :scope => 'users.show')}"
-      url = following_relationships_url()
-    else
-      label << " #{t('followers', :scope => 'users.show')}"
-      url = followers_relationships_url()
-    end
-      the_count = "<span class='avan-demi'>"+count.to_s+"</span>"
-      the_link = link_to label, url
-      raw(the_count + the_link)
+  def link_to_relationship(user, relationship_type = 'following')
+    label = t("#{relationship_type}", :scope => 'users.show')
+    url = relationship_type == 'following'? following_path(user) : followers_path(user)
+    link = link_to label, url
+
+    count_content = user.send(relationship_type).count.to_s
+    count = content_tag(:span, count_content, :class => "avan-demi")
+
+    raw(count + link)
   end
 
   def link_to_social_site(site)

@@ -1,9 +1,9 @@
 class RelationshipsController < ApplicationController
   respond_to :js
-  before_filter :load_user, :only => [:create, :destroy]
+  before_filter :load_user
 
   def following
-    @following = current_user.following
+    @following = @user.following
 
     respond_to { |f|
       f.html { render 'follow', :locals => {:users => @following} }
@@ -13,7 +13,7 @@ class RelationshipsController < ApplicationController
   end
 
   def followers
-    @followers = current_user.followers
+    @followers = @user.followers
     render 'follow', :locals => {:users => @followers}
   end
 
