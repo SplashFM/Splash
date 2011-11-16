@@ -21,7 +21,7 @@ feature "Suggested Splashsers", :js => true do
     generate_suggested_users(4)
     go_to 'home'
 
-    follow(user.suggested_users.first, false)
+    follow(user.recommended_users.first, false)
 
     go_to 'profile'
 
@@ -32,7 +32,7 @@ feature "Suggested Splashsers", :js => true do
     generate_suggested_users(4)
     go_to 'home'
 
-    user_to_ignore = user.suggested_users.first
+    user_to_ignore = user.recommended_users(1).first
 
     ignore(user_to_ignore)
     go_to 'home'
@@ -44,7 +44,7 @@ feature "Suggested Splashsers", :js => true do
     generate_suggested_users(4)
     go_to 'home'
 
-    click_link t('home.suggested_splashers.view_more')
+    click_link t('shared.suggested_splashers.view_more')
     should have_suggested_users(1)
   end
 
@@ -66,5 +66,7 @@ feature "Suggested Splashsers", :js => true do
     u2.following << [u6, u7]
     u3.following << [u6, u7]
     u3.following << [u8, u9] if count == 4
+
+    user.suggest_users
   end
 end

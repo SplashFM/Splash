@@ -9,6 +9,9 @@ class User < ActiveRecord::Base
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
   SUGGESTED_USERS_PER_PAGE = 3
 
+  scope :ignore,  lambda { |users| where("id not in (?)", users) unless users.blank? }
+  scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
+
   redis_sorted_field :influence
   redis_counter :ripple_count
   redis_counter :splash_count
@@ -122,15 +125,41 @@ class User < ActiveRecord::Base
     read_attribute(:suggested_users) || []
   end
 
-  def recommended_users(page=nil)
-    relationships = Relationship.select('DISTINCT relationships.followed_id')
-                                .with_followers(followers.map(&:id))
-                                .ignore(ignore_suggested_users +
-                                                (following + [self]).map(&:id))
-                                .limited(page, SUGGESTED_USERS_PER_PAGE)
-                                .includes(:followed)
+  def suggestions_count
+    suggested_users.count
+  end
 
-    relationships.map(&:followed)
+  def recommended_users(page=0)
+    User.where("id IN (?)", suggested_users)
+        .limited(page, SUGGESTED_USERS_PER_PAGE)
+  end
+
+  def suggest_users
+    ignore = following.map(&:id) + ignore_suggested_users
+
+    facebook_suggestions(ignore)
+    splash_suggestions(ignore)
+    save
+  end
+
+  def facebook_suggestions(ignore=[])
+    if has_social_connection?('facebook')
+      facebook_friends = FbGraph::User.me(social_connection('facebook').token).friends
+      ids = User.where(:name => facebook_friends.map(&:name))
+                .ignore(ignore)
+                .map(&:id)
+
+      write_attribute(:suggested_users, suggested_users | ids) unless ids.blank?
+    end
+  end
+
+  def splash_suggestions(ignore=[])
+    relationships = Relationship.select('DISTINCT relationships.followed_id')
+                            .with_followers(followers.map(&:id))
+                            .ignore(ignore + [self.id])
+    ids = relationships.map(&:followed_id)
+
+    write_attribute(:suggested_users, suggested_users | ids) unless ids.blank?
   end
 
   def as_json(opts = {})
@@ -172,6 +201,8 @@ class User < ActiveRecord::Base
 
   def follow(followed)
     relationships.create(:followed => followed)
+    followed.suggest_users
+    save
   end
 
   def unfollow(user)
@@ -252,7 +283,9 @@ class User < ActiveRecord::Base
       user.social_connections.build(:provider => provider, :uid => uid,
                                     :token => token, :token_secret => token_secret)
       user.save unless email.blank?
+      user.facebook_suggestions
     end
+
     user
   end
 
