@@ -206,5 +206,85 @@ $(function() {
     },
   });
 
+  window.UserMentions = Backbone.View.extend({
+    initialize: function() {
+      _.bindAll(this, 'find', 'isSearchable', 'onClose', 'onSelect');
+
+      this.showingMenu = false;
+      this.mentions    = [];
+
+      $(this.el).autocomplete({
+        autoFocus: true,
+        close:     this.onClose,
+        delay:     0,
+        focus:     function() { return false },
+        search:    this.isSearchable,
+        select:    this.onSelect,
+        source:    this.find,
+      }).keydown(function(e) {
+        if (e.which === $.ui.keyCode.TAB) e.preventDefault();
+      });
+    },
+
+    atMention: function(input) {
+      var cursor = $(input).getSelection().start;
+      var text   = $(input).val();
+
+      return text.substr(0, cursor).match(/@\w$/) != null;
+    },
+
+    commentWithMentions: function() {
+      var text = $(this.el).val();
+
+      $.each(this.mentions, function(_, m) {
+        text = text.replace(m[0], "{" + m[1] + "}");
+      });
+
+      return text;
+    },
+
+    find: function(req, resp) {
+      var term    = req.term;
+      var at      = term.lastIndexOf('@');
+      var mention = term.substr(at + 1);
+
+      $.ajax({
+        url: Routes.users_path({filter: mention}),
+        dataType: 'json',
+        success: function(data) {
+          resp($.map(data, function(e) {
+            return {value: e.id, label: e.name};
+          }));
+        }
+      });
+    },
+
+    isSearchable: function(e) {
+      return (this.showingMenu ||
+              (this.showingMenu = this.atMention(e.target)));
+    },
+
+    onClose: function() {
+      this.showingMenu = false;
+    },
+
+    onSelect: function(e, ui) {
+      var l      = ui.item.label;
+      var v      = ui.item.value;
+      var text   = $(e.target).val();
+      var before = text.substr(0, text.lastIndexOf('@'));
+      var after  = text.substr(text.lastIndexOf('@'));
+
+      $(e.target).val(before + '@' + l);
+
+      this.mentions.push([l, v]);
+
+      $(e.target).setSelection(0, $(e.target).val().length);
+      $(e.target).collapseSelection(false);
+
+      return false;
+    },
+  });
+
   window.Player = new PlayerView;
 });

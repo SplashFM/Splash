@@ -26,83 +26,6 @@ Widgets.Paginate = {
   }
 }
 
-Widgets.CommentBox = {
-  init: function() {
-    $w('comment-box').each(function(_, e) {
-      var isMenuVisible = false;
-      var mentions      = [];
-
-      $(e).autocomplete({
-        autoFocus: true,
-
-        change: function() {
-          var text = $(this).val();
-
-          $.each(mentions, function(_, e) {
-            text = text.replace(e[0], "{" + e[1] + "}");
-          });
-
-          $w('comment-field').val(text);
-        },
-
-        close: function() { isMenuVisible = false },
-
-        delay: 0,
-
-        focus: function() { return false },
-
-        source: function(req, resp) {
-          var term    = req.term;
-          var at      = term.lastIndexOf('@');
-          var mention = term.substr(at + 1);
-
-          $.ajax({
-            url: Routes.users_path({filter: mention}),
-            dataType: 'json',
-            success: function(data) {
-              resp($.map(data, function(e) {
-                return {value: e.id, label: e.name};
-              }));
-            }
-          });
-        },
-
-        search: function() {
-          return (isMenuVisible || (isMenuVisible = isMention()));
-        },
-
-        select: function(_, ui) {
-          var l      = ui.item.label;
-          var v      = ui.item.value;
-          var text   = $(this).val();
-          var before = text.substr(0, text.lastIndexOf('@'));
-          var after  = text.substr(text.lastIndexOf('@'));
-
-          $(this).val(before + '@' + l);
-
-          mentions.push([l, v]);
-
-          $(this).setSelection(0, $(this).val().length);
-          $(this).collapseSelection(false);
-
-          return false;
-        }
-      }).keydown(function(e) {
-        if (e.which === $.ui.keyCode.TAB)
-          e.preventDefault();
-      });
-
-      function isMention() {
-        var cursor    = $(e).getSelection().start;
-        var text      = $(e).val();
-
-        return text.substr(0, cursor).match(/@\w$/) != null;
-      }
-
-    });
-  }
-}
-
 Widgets.Scroll = {
   init: function() {
     $(".scroll-area").jScrollPane();
@@ -456,6 +379,6 @@ $(document).ready(function() {
   Widgets.Purchase.init();
   Widgets.SuggestedUsers.init();
   new SPLASH.Widgets.waterNums('.waterNum');
-  
+
 });
 
