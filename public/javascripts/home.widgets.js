@@ -91,10 +91,6 @@ $(function() {
 
     hide: function() {
       $(this.el).hide();
-    },
-
-    hide: function() {
-      $(this.el).hide();
 
       return this;
     },
