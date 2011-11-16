@@ -1,11 +1,11 @@
 class Mention < Notification
-  def self.notify(target)
-    recipients = extract_recipients(target.comment)
+  def self.notify(comment)
+    recipients = extract_recipients(comment.body)
 
     recipients.each { |recipient|
-      if recipient.following?(target.user)
-        create!(:target   => target,
-                :notifier => target.user,
+      if recipient.following?(comment.author)
+        create!(:target   => comment,
+                :notifier => comment.author,
                 :notified => recipient)
       end
     }
