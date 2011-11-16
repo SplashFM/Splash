@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
     where(['name ilike ?', "#{name}%"])
   end
 
+  def self.filter(name)
+    filter_by_name(name)
+  end
+
   def self.named(name_or_names)
     where(:name => name_or_names)
   end

@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   before_filter      :load_user, :only => [:show, :events, :event_updates]
 
   has_scope :with_text
+  has_scope :filter
 
   def index
     if params[:top] == 'true'
