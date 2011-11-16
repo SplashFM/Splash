@@ -72,10 +72,11 @@ Scaphandrier::Application.routes.draw do
       get :top
     end
   end
+
+  resources :relationships
   match '/:id' => 'users#show', :as => 'user_slug'
   get ':id/followers' => 'relationships#followers', :as => 'followers'
   get ':id/following' => 'relationships#following', :as => 'following'
-  resources :relationships
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
