@@ -12,7 +12,7 @@
             {{if purchase_url}}
             %a{:href => "${purchase_url}", :target => '_blank', :'data-skip-pjax' => true} Purchase track
             {{else}}
-            %a{:href => "undiscovered_tracks/${id}/download", :'data-skip-pjax' => true} Download track
+            %a{:href => "/undiscovered_tracks/${id}/download", :'data-skip-pjax' => true} Download track
             {{/if}}
       %div{:data => {:widget => 'full-splash-action'}}
         %a.icon.right.splash-btn{:href => "#", :data => {:widget => 'toggle-splash'}}
