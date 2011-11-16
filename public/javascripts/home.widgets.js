@@ -41,7 +41,7 @@ $(function() {
 
       new TrackSearch.Track.FullSplashAction({
         model: this.model,
-        el: $('[data-widget = "full-splash-action"]', this.el),
+        el: this.$('[data-widget = "full-splash-action"]').get(0),
       });
 
       return this;
