@@ -100,8 +100,8 @@ class User < ActiveRecord::Base
     replace_summed_splashed_tracks(following_ids)
   end
 
-  def top_tracks
-    ids = summed_splashed_tracks(1, 50).map(&:to_i)
+  def top_tracks(page=1, num_records=20)
+    ids = summed_splashed_tracks(page, num_records).map(&:to_i)
     cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
 
     ids.map { |id| cache[id] }

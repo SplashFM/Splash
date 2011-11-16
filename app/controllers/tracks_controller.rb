@@ -6,7 +6,9 @@ class TracksController < ApplicationController
   has_scope :with_text
 
   def index
-    if params[:top]
+    if params[:user_id] && user = User.find(params[:user_id])
+      results = user.top_tracks(current_page, TRACKS_PER_PAGE)
+    elsif params[:top]
       results = Track.top_splashed(current_page, TRACKS_PER_PAGE)
     else
       results = apply_scopes(Track).page(current_page)

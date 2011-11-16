@@ -11,10 +11,6 @@ $(function() {
       _.bindAll(this, 'scroll', 'renderItem');
 
       this.app         = opts.app;
-      this.pageFilters = {user: this.currentUserId,
-                          follower: this.currentUserId,
-                          update_on_splash: true}
-      this.userFilters = {};
 
       this.template = $(this.template).template()
       this.feed.bind('reset', this.render, this);
@@ -38,7 +34,7 @@ $(function() {
     fetch: function(add) {
       this.feed.fetch({add:  add,
                        data: _.extend({page: this.page},
-                                      this.allFilters())});
+                                      this.allFilters(), this.filters)});
     },
     scroll: function() {
       this.page++;
