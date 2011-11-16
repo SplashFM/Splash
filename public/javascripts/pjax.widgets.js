@@ -8,7 +8,7 @@ Widgets.Pjax = {
       ":not([href^=#])" +
       ":not([data-widget = 'purchase'])";
 
-    $("#header a" + skip + ", #main a" + skip).
+    $("#header a" + skip + ", #main a[href]" + skip).
       pjax('[data-pjax-container]', {timeout: 2500});
 
     $('body').bind('success.pjax', function() {
