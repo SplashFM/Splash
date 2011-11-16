@@ -23,7 +23,7 @@ class Splash < ActiveRecord::Base
   }
   scope :as_event, select("splashes.created_at, splashes.id target_id, 'Splash' target_type")
 
-  # Return the Splashes for a given user.
+  # Return the Splashes for a given user or users.
   #
   # @param user the owner or owners of the Splashes
   # @param track a (possibly splashed) track
