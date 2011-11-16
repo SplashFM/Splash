@@ -11,6 +11,7 @@ class Splash < ActiveRecord::Base
   validates :track_id, :presence => true, :uniqueness => {:scope => :user_id}
 
   before_create :freeze_hierarchies, :if => :resplash?
+  before_create :set_comment
 
   scope :for_users, lambda { |user_ids|
     user_ids.blank? ? scoped : where(:user_id => user_ids)
@@ -59,6 +60,10 @@ class Splash < ActiveRecord::Base
              :user  => user.as_json)
   end
 
+  def comment=(body)
+    @comment = body
+  end
+
   def comments_count
     read_attribute(:comments_count).to_i
   end
@@ -83,5 +88,9 @@ class Splash < ActiveRecord::Base
 
   def freeze_hierarchies
     self.user_path = parent.user_path + [parent.user.id]
+  end
+
+  def set_comment
+    comments.build(:body => @comment, :author => user) if @comment
   end
 end
