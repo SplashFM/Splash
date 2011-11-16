@@ -21,7 +21,9 @@ class UndiscoveredTrack < Track
          :access_key_id => AppConfig.aws['access_key_id'],
          :secret_access_key => AppConfig.aws['secret_access_key'],
          :bucket => AppConfig.aws['bucket']
-      }}.merge!(ATTACHMENT_OPTS)
+        },
+       :s3_headers => {"Content-Disposition" => "attachment"},
+     }.merge!(ATTACHMENT_OPTS)
   else
     has_attached_file :data,
       {:path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension"}.
