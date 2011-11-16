@@ -112,6 +112,16 @@ $(function() {
 
   var HEIGHT_WHEN_OPEN = 62;
 
+  window.BaseApp.ReSplashAction = BaseApp.SplashAction.extend({
+    events: {'click' : 'splash'},
+
+    splash: function() {
+      new Splash().save({track_id: this.model.get('track').id,
+                         parent_id: this.model.get('id')},
+                        {success: this.broadcastSplash});
+    },
+  });
+
   window.Events.Splash = Backbone.View.extend({
     events: {
       'click [data-widget = "expand"]': 'expand',
@@ -158,6 +168,11 @@ $(function() {
       $(this.el).attr('data-track_id', this.model.get('track').id);
 
       $(this.el).html($.tmpl(this.template, json).html());
+
+      new BaseApp.ReSplashAction({
+        el: this.$('[data-widget = "splash-action"]'),
+        model: this.model
+      });
 
       if (this.model.get('expanded')) {
         $(this.el).addClass('expanded');
