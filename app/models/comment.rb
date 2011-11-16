@@ -11,6 +11,9 @@ class Comment < ActiveRecord::Base
   scope :for_users, lambda { |user_ids|
     user_ids.blank? ? scoped : where(:author_id => user_ids)
   }
+  scope :on_splashes, lambda { |splash_ids|
+    splash_ids.blank? ? scoped : where(:splash_id => splash_ids)
+  }
   scope :since, lambda { |time|
     time.blank? ? scoped : where(['created_at > ?', Time.parse(time).utc])
   }

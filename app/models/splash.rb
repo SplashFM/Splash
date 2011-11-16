@@ -48,6 +48,12 @@ class Splash < ActiveRecord::Base
     exists?(:track_id => track.id, :user_id => user.id)
   end
 
+  def self.ids(user_id)
+    s = arel_table
+
+    connection.select_values(s.project(:id).where(s[:user_id].eq(user_id)).to_sql)
+  end
+
   def as_full_json
     as_json.merge!(:expanded => true,
                    :comments => comments)
