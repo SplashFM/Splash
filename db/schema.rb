@@ -192,6 +192,7 @@ ActiveRecord::Schema.define(:version => 20111116162050) do
     t.date     "birthday"
     t.text     "ignore_suggested_users"
     t.string   "nickname"
+    t.text     "suggested_users"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

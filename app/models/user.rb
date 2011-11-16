@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   redis_counter :splash_count
   redis_hash :splashed_tracks
   serialize :ignore_suggested_users, Array
+  serialize :suggested_users, Array
 
   has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
   # The users I am following.
@@ -115,6 +116,10 @@ class User < ActiveRecord::Base
 
   def ignore_suggested_users
     read_attribute(:ignore_suggested_users) || []
+  end
+
+  def suggested_users
+    read_attribute(:suggested_users) || []
   end
 
   def suggested_users(page=nil)
