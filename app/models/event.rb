@@ -3,18 +3,25 @@ class Event < ActiveRecord::Base
 
   def self.scope_by(params)
     last_update_at = params[:last_update_at]
-    user_ids = User.following_ids(params[:follower])
-    user_ids << params[:user] unless params[:user].blank?
-    tags = params[:tags] || []
-    page = params[:page].to_i
-    page = 1 if page < 1
-    omit_splashes = params[:omit_splashes] == 'true'
-    omit_other = params[:omit_other] == 'true'
+    main_user_id   = params[:user]
+    user_ids       = User.following_ids(params[:follower])
+    user_ids << main_user_id unless main_user_id.blank?
+    tags           = params[:tags] || []
+    page           = params[:page].to_i
+    page           = 1 if page < 1
+    omit_splashes  = params[:omit_splashes] == 'true'
+    omit_other     = params[:omit_other] == 'true'
 
-    splashes = Splash.as_event.for_users(user_ids).since(last_update_at).
+    splashes        = Splash.as_event.for_users(user_ids).since(last_update_at).
       with_tags(tags)
-    relationships = Relationship.as_event.for_users(user_ids).since(last_update_at)
-    comments = Comment.as_event.for_users(user_ids).since(last_update_at)
+    relationships   = Relationship.as_event.for_users(user_ids).
+      since(last_update_at)
+    comments        = Comment.as_event.for_users(user_ids).since(last_update_at)
+
+    if main_user_id
+      splash_comments = Comment.as_event.on_splashes(Splash.ids(main_user_id)).
+        since(last_update_at)
+    end
 
     if params[:count]
       # BUG?: doesn't respect omit_* ?
@@ -24,7 +31,10 @@ class Event < ActiveRecord::Base
 
       q << splashes.to_sql unless omit_splashes
       q << " UNION ALL " unless omit_other || omit_splashes
-      q << relationships.to_sql + " UNION ALL " + comments.to_sql unless omit_other
+      unless omit_other
+        q << relationships.to_sql + " UNION ALL " + comments.to_sql
+        q << " UNION ALL " << splash_comments.to_sql if main_user_id
+      end
       q << " ORDER BY created_at DESC"
       q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
 
