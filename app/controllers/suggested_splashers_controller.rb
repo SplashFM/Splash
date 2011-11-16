@@ -7,6 +7,6 @@ class SuggestedSplashersController < ApplicationController
     user = User.find_by_slug(params[:id])
     current_user.ignore_suggested(user)
 
-    render :partial => "users/suggested_splasher", :collection => current_user.suggested_users, :as => :user
+    render :partial => "users/suggested_splasher", :collection => current_user.recommended_users, :as => :user
   end
 end

@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
     read_attribute(:suggested_users) || []
   end
 
-  def suggested_users(page=nil)
+  def recommended_users(page=nil)
     relationships = Relationship.select('DISTINCT relationships.followed_id')
                                 .with_followers(followers.map(&:id))
                                 .ignore(ignore_suggested_users +
