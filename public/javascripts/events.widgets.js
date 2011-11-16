@@ -128,7 +128,7 @@ $(function() {
     addComment: function(e) {
       e.preventDefault();
 
-      this.model.comments().create({body: this.$(':text').val()});
+      this.model.comments().create({body: this.mentions.commentWithMentions()});
 
       this.$(':text').val('');
     },
@@ -167,6 +167,8 @@ $(function() {
         });
 
         this.comments.render();
+
+        this.mentions = new UserMentions({el: this.$(':text'), parent: this.el});
       }
 
       return this;
