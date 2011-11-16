@@ -54,11 +54,18 @@ $(function() {
       'submit form': 'splash'
     },
 
+    initialize: function() {
+      BaseApp.SplashAction.prototype.initialize.call(this);
+
+      this.mentions = new UserMentions({el: this.$('form textarea'),
+                                        parent: this.el});
+    },
+
     splash: function(e) {
       e.preventDefault();
 
       new Splash().save({
-        comment:  this.$('form textarea').val(),
+        comment:  this.mentions.commentWithMentions(),
         track_id: this.model.get('id')
       }, {
         success: this.broadcastSplash

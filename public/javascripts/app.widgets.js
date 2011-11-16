@@ -214,6 +214,7 @@ $(function() {
       this.mentions    = [];
 
       $(this.el).autocomplete({
+        appendTo:  this.options.parent,
         autoFocus: true,
         close:     this.onClose,
         delay:     0,
