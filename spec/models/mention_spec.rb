@@ -60,29 +60,4 @@ describe Mention do
     mentionables.should have(1).mentionable
     mentionables.first.should == splash
   end
-
-  it "returns a comment with a user name" do
-    u = create(User).with_required_info!
-    s  = Splash.new(:comment => "I'm mentioning @{#{u.id}}.")
-
-    s.comment_with_mentions.should == "I'm mentioning @#{u.name}."
-  end
-
-  it "returns a comment with user names replaced" do
-    u1 = create(User).with_required_info!
-    u2 = create(User).with_required_info!
-    s  = Splash.new(:comment => "I'm mentioning @{#{u1.id}} and @{#{u2.id}}.")
-
-    s.comment_with_mentions.
-      should == "I'm mentioning @#{u1.name} and @#{u2.name}."
-  end
-
-  it "returns a comment without any mentions" do
-    Splash.new(:comment => 'A comment.').comment_with_mentions.
-      should == 'A comment.'
-  end
-
-  it "returns a nil comment if it's nil" do
-    Splash.new.comment_with_mentions.should be_nil
-  end
 end
