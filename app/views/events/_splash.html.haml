@@ -17,7 +17,7 @@
           {{if track.purchase_url}}
           %a{:href => "${track.purchase_url}", :target => '_blank', :'data-skip-pjax' => true} Purchase track
           {{else}}
-          %a{:href => "undiscovered_tracks/${id}/download", :target => '_blank', :'data-skip-pjax' => true} Download track
+          %a{:href => "undiscovered_tracks/${track.id}/download", :'data-skip-pjax' => true} Download track
           {{/if}}
         %li.comment-link
           %span &bull;

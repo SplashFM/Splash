@@ -12,7 +12,7 @@ class UndiscoveredTracksController < ApplicationController
   end
 
   def download
-    custom_send_file current_track.download_path
+    redirect_to current_track.data.url
   end
 
   def update

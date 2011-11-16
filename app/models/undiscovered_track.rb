@@ -48,10 +48,6 @@ class UndiscoveredTrack < Track
 
   alias_method :preview_url?, :preview_url
 
-  def download_path
-    data.path
-  end
-
   def downloadable?
     data.file?
   end
