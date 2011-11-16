@@ -150,9 +150,9 @@ $(function() {
     render: function() {
       var s          = this.model;
       var commentStr = I18n.t('comments', {count: s.get('comments_count')});
-      var json       = _.extend({created_at_dist: $.timeago(s.get('created_at')),
-                                 comment_count:   commentStr},
-                                s.toJSON());
+      var createdAt  = $.timeago(s.get('created_at'));
+      var ext        = {created_at: createdAt, comment_count: commentStr};
+      var json       = _.extend(s.toJSON(), ext);
 
       $(this.el).attr('data-widget', 'splash');
       $(this.el).attr('data-track_id', this.model.get('track').id);
