@@ -87,6 +87,12 @@ class User < ActiveRecord::Base
     splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
   end
 
+  def reset_splashed_tracks_hash!
+    Splash.for_users(id).select(:track_id).map(&:track_id).each{|i|
+      record_splashed_track(i)
+    }
+  end
+
   def ignore_suggested_users
     read_attribute(:ignore_suggested_users) || []
   end
