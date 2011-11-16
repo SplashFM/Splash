@@ -16,11 +16,14 @@ class User < ActiveRecord::Base
   serialize :ignore_suggested_users, Array
 
   has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
+  # The users I am following.
   has_many :following, :through => :relationships, :source => :followed
 
   has_many :reverse_relationships, :foreign_key => 'followed_id',
                                    :class_name => 'Relationship',
                                    :dependent => :destroy
+
+  # The users who are following me.
   has_many :followers, :through => :reverse_relationships
   has_many :uploaded_tracks,
            :class_name  => 'UndiscoveredTrack',
@@ -91,6 +94,17 @@ class User < ActiveRecord::Base
     Splash.for_users(id).select(:track_id).map(&:track_id).each{|i|
       record_splashed_track(i)
     }
+  end
+
+  def reset_top_tracks!
+    replace_summed_splashed_tracks(following_ids)
+  end
+
+  def top_tracks
+    ids = summed_splashed_tracks(1, 50).map(&:to_i)
+    cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
+
+    ids.map { |id| cache[id] }
   end
 
   def ignore_suggested_users
