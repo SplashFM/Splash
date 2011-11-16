@@ -50,7 +50,7 @@ $(function() {
 
   TrackSearch.Track.FullSplashAction = BaseApp.SplashAction.extend({
     events: {
-      'click a': 'toggle',
+      'click [data-widget = "toggle-splash"]': 'toggle',
       'submit form': 'splash'
     },
 
