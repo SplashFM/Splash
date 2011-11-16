@@ -3,18 +3,19 @@ class Event < ActiveRecord::Base
 
   def self.scope_by(params)
     last_update_at = params[:last_update_at]
-    user_ids = User.following_ids(params[:follower])
+    user_ids       = User.following_ids(params[:follower])
     user_ids << params[:user] unless params[:user].blank?
-    tags = params[:tags] || []
-    page = params[:page].to_i
-    page = 1 if page < 1
-    omit_splashes = params[:omit_splashes] == 'true'
-    omit_other = params[:omit_other] == 'true'
+    tags           = params[:tags] || []
+    page           = params[:page].to_i
+    page           = 1 if page < 1
+    omit_splashes  = params[:omit_splashes] == 'true'
+    omit_other     = params[:omit_other] == 'true'
 
-    splashes = Splash.as_event.for_users(user_ids).since(last_update_at).
+    splashes      = Splash.as_event.for_users(user_ids).since(last_update_at).
       with_tags(tags)
-    relationships = Relationship.as_event.for_users(user_ids).since(last_update_at)
-    comments = Comment.as_event.for_users(user_ids).since(last_update_at)
+    relationships = Relationship.as_event.for_users(user_ids).
+      since(last_update_at)
+    comments      = Comment.as_event.for_users(user_ids).since(last_update_at)
 
     if params[:count]
       # BUG?: doesn't respect omit_* ?
