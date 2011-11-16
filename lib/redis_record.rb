@@ -105,6 +105,46 @@ module RedisRecord
         end
       RUBY
     end
+
+    # Example: redis_hash :splashed_tracks
+    # produces:
+    #   MyClass#record_splashed_track(track_id)
+    #   MyClass#splashed_tracks
+    #   MyClass#summed_splashed_tracks
+    #   MyClass#replace_summed_splashed_tracks(other_ids)
+    # TODO:
+    #   MyClass#update_summed_splashed_tracks(other_id, weight)
+    #     -1 to subtract; 1 to add
+    def redis_hash(name)
+      name.to_s.singularize
+      class_eval <<-RUBYI
+        def record_#{name.to_s.singularize}(track_id)
+          k = key("#{name.to_s}/") + id.to_s
+          RedisRecord.redis.zadd(k, 1, track_id)
+        end
+
+        def #{name}
+          k = key("#{name.to_s}/") + id.to_s
+          RedisRecord.redis.zrevrange(k, 0, -1)
+        end
+
+        def summed_#{name}(page=1, num_records=20)
+          page  = page.to_i <= 1 ? 1 : page.to_i
+          start = (page - 1) * num_records
+          stop  = start + num_records - 1
+
+          k = key("summed_#{name.to_s}/") + id.to_s
+          RedisRecord.redis.zrevrange(k, start, stop)
+        end
+
+        def replace_summed_#{name}(other_ids)
+          return if other_ids.empty?
+          k = key("summed_#{name.to_s}/") + id.to_s
+          other_keys = other_ids.map {|i| key("#{name.to_s}/") + i.to_s}
+          RedisRecord.redis.zunionstore(k, other_keys)
+        end
+      RUBYI
+    end
   end
 
   def self.included(base)

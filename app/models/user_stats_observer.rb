@@ -7,5 +7,6 @@ class UserStatsObserver < ActiveRecord::Observer
     splash.user.increment_splash_count
 
     User.update_influence(splash.user_path + [splash.user.id])
+    splash.user.record_splashed_track(splash.track.id)
   end
 end

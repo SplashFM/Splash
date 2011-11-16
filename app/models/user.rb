@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   redis_sorted_field :influence
   redis_counter :ripple_count
   redis_counter :splash_count
+  redis_hash :splashed_tracks
   serialize :ignore_suggested_users, Array
 
   has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
@@ -80,6 +81,10 @@ class User < ActiveRecord::Base
       [id, s.to_i + r.to_i] }
 
     update_influence_scores scores
+  end
+
+  def splashed_tracks_hash
+    splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
   end
 
   def ignore_suggested_users
