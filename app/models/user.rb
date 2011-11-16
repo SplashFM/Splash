@@ -200,6 +200,8 @@ class User < ActiveRecord::Base
   end
 
   def follow(followed)
+    suggested_users.delete(followed.id)
+    write_attribute(:suggested_users, suggested_users)
     relationships.create(:followed => followed)
     followed.suggest_users
     save
@@ -225,6 +227,8 @@ class User < ActiveRecord::Base
 
   def ignore_suggested(user)
     write_attribute(:ignore_suggested_users, ignore_suggested_users << user.id)
+    suggested_users.delete(user.id)
+    write_attribute(:suggested_users, suggested_users)
     save
   end
 
