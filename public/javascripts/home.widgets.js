@@ -92,6 +92,8 @@ $(function() {
     hide: function() {
       $(this.el).hide();
 
+      this.mentions.reset();
+
       return this;
     },
 
@@ -110,6 +112,9 @@ $(function() {
       this.metadata = new Upload.Metadata({model: this.model});
 
       $(this.el).append(this.metadata.render().el);
+
+      this.mentions = new UserMentions({el: this.$('form textarea'),
+                                        parent: this.el});
 
       return this;
     },
