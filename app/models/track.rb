@@ -58,9 +58,11 @@ class Track < ActiveRecord::Base
     ]).order(:popularity_rank)
   end
 
-  def as_json(options = {})
+  def as_json(opts = {})
+    st = opts[:splashed_tracks] || {}
     {:id           => id,
      :title        => title,
+     :splashable   => st[id],
      :artwork_url  => artwork_url,
      :purchase_url => purchase_url_raw,
      :preview_url  => preview_url,

@@ -19,7 +19,7 @@ class Comment < ActiveRecord::Base
     {:body       => body,
      :created_at => created_at,
      :type       => 'comment',
-     :author     => author.as_json,
-     :splash     => splash.as_json}
+     :author     => author.as_json(opts),
+     :splash     => splash.as_json(opts)}
   end
 end

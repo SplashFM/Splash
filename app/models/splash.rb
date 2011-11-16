@@ -54,10 +54,12 @@ class Splash < ActiveRecord::Base
   end
 
   def as_json(opts = {})
+    st = opts[:splashed_tracks] || {}
     super(:only => [:id, :comments_count, :created_at]).
       merge!(:type  => 'splash',
-             :track => track.as_json,
-             :user  => user.as_json)
+             :splashable => st[track.id],
+             :track => track.as_json(opts),
+             :user  => user.as_json(opts))
   end
 
   def comment=(body)
