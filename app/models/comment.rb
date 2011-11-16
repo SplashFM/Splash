@@ -12,7 +12,8 @@ class Comment < ActiveRecord::Base
   scope :since, lambda { |time|
     time.blank? ? scoped : where(['created_at > ?', Time.parse(time).utc])
   }
-  scope :as_event, select("comments.created_at, comments.id target_id, 'Comment' target_type")
+  scope :as_event, select("comments.created_at, comments.id target_id, 'Comment' target_type").
+                     where(:skip_feed => false)
 
   def as_json(opts = {})
     {:body       => body,
