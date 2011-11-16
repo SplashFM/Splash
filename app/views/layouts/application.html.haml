@@ -12,6 +12,7 @@
     = render "shared/ga"
     = yield :head
     - if logged_in?
+      = render "shared/flash_messages"
       = render "shared/player"
       = render "shared/user"
       = render "shared/track"
