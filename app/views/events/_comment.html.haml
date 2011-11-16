@@ -7,4 +7,4 @@
           %a{:href => "${author.url}"} ${author.name}
           commented on
           %a{:href => "${splash.user.url}"} ${splash.user.name}’s
-          splash “${splash.track.title}”: ${body}”
+          splash “${splash.track.title}”: {{html UserMentions.linkMentions(body)}}”

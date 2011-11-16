@@ -291,5 +291,9 @@ $(function() {
     },
   });
 
+  UserMentions.linkMentions = function(text) {
+    return text.replace(/@\{([^:]+):([^}]+)\}/g, '<a href="/$1">$2</a>');
+  };
+
   window.Player = new PlayerView;
 });
