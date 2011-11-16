@@ -285,6 +285,10 @@ $(function() {
 
       return false;
     },
+
+    reset: function() {
+      this.mentions = [];
+    },
   });
 
   window.Player = new PlayerView;

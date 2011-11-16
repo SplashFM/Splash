@@ -130,6 +130,7 @@ $(function() {
 
       this.model.comments().create({body: this.mentions.commentWithMentions()});
 
+      this.mentions.reset();
       this.$(':text').val('');
     },
 
