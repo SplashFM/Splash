@@ -17,7 +17,7 @@ describe Mention do
       create(Splash).
         track(create!(Track)).
         user(author).
-        comment!("A comment mentioning @{#{recipient.slug}}")
+        comment!("A comment mentioning @{#{recipient.slug}:#{recipient.name}}")
     }.should_not change(Mention, :count)
   end
 
@@ -27,7 +27,7 @@ describe Mention do
     splash    = create(Splash).
       track(create!(Track)).
       user(author).
-      comment!("A comment mentioning @{#{recipient.slug}}")
+      comment!("A comment mentioning @{#{recipient.slug}:#{recipient.name}}")
 
     mention = Mention.first
 
@@ -43,8 +43,8 @@ describe Mention do
     splash     = create(Splash).
       track(create!(Track)).
       user(author).
-      comment!("A comment to @{#{recipient2.slug}}
-                mentioning @{#{recipient1.slug}}")
+      comment!("A comment to @{#{recipient2.slug}:#{recipient2.name}}
+                mentioning @{#{recipient1.slug}:#{recipient1.name}}")
 
     mentions     = Mention.all
     recipients   = mentions.map(&:notified)

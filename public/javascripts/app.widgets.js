@@ -238,7 +238,7 @@ $(function() {
       var text = $(this.el).val();
 
       $.each(this.mentions, function(_, m) {
-        text = text.replace(m[0], "{" + m[1] + "}");
+        text = text.replace(m[0], "{" + m[1] + ":" + m[0] + "}");
       });
 
       return text;

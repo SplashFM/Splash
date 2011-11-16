@@ -12,7 +12,7 @@ class Mention < Notification
   end
 
   def self.extract_recipients(text)
-    mentions = text.try(:scan, /@{([^}]+)}/)
+    mentions = text.try(:scan, /@{([^:]+)/)
 
     mentions.present? ? User.with_slugs(*mentions) : []
   end
