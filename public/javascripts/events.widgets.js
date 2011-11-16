@@ -190,7 +190,10 @@ $(function() {
     },
 
     renderComment: function(c) {
-      $(this.el).append($.tmpl(this.template, c.toJSON()));
+      var createdAt  = $.timeago(c.get('created_at'));
+      var json       = _.extend(c.toJSON(), {created_at: createdAt});
+
+      $(this.el).append($.tmpl(this.template, json));
     },
   });
 
