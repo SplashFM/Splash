@@ -1,6 +1,6 @@
 class SuggestedSplashersController < ApplicationController
   def index
-    render :partial => "home/suggested_splashers"
+    render :partial => "shared/suggested_splashers"
   end
 
  def destroy
