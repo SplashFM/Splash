@@ -6,7 +6,6 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   skip_before_filter :require_user, :only => 'exists'
-  skip_before_filter :require_name, :only => ['edit', 'update']
   before_filter      :load_user, :only => [:show, :events, :event_updates]
 
   has_scope :with_text

@@ -41,7 +41,6 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider
 
-  validates :name, :presence => true
   validates :tagline, :length => { :maximum => 60 }
 
   has_attached_file :avatar,
