@@ -55,6 +55,8 @@ class User < ActiveRecord::Base
 
   after_update :reprocess_avatar, :if => :cropping?
 
+  scope :with_slugs, lambda { |*slugs| where(:slug => slugs) }
+
   def self.filter_by_name(name)
     where(['name ilike ?', "#{name}%"])
   end
@@ -102,6 +104,7 @@ class User < ActiveRecord::Base
      :avatar_search => avatar.url(:thumb),
      :ripple_count => ripple_count,
      :splash_count => splash_count,
+     :slug          => slug,
      :score         => splash_score}
   end
 

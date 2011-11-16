@@ -4,7 +4,7 @@ describe Mention do
   it "creates no mentions if field is blank" do
     create(Splash).
       track(create!(Track)).
-      user!(create!(User))
+      user!(create(User).with_required_info!)
 
     Mention.all.should be_empty
   end
@@ -17,7 +17,7 @@ describe Mention do
       create(Splash).
         track(create!(Track)).
         user(author).
-        comment!("A comment mentioning @{#{recipient.id}}")
+        comment!("A comment mentioning @{#{recipient.slug}}")
     }.should_not change(Mention, :count)
   end
 
@@ -27,7 +27,7 @@ describe Mention do
     splash    = create(Splash).
       track(create!(Track)).
       user(author).
-      comment!("A comment mentioning @{#{recipient.id}}")
+      comment!("A comment mentioning @{#{recipient.slug}}")
 
     mention = Mention.first
 
@@ -43,8 +43,8 @@ describe Mention do
     splash     = create(Splash).
       track(create!(Track)).
       user(author).
-      comment!("A comment to @{#{recipient2.id}}
-                mentioning @{#{recipient1.id}}")
+      comment!("A comment to @{#{recipient2.slug}}
+                mentioning @{#{recipient1.slug}}")
 
     mentions     = Mention.all
     recipients   = mentions.map(&:notified)

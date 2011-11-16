@@ -254,7 +254,7 @@ $(function() {
         dataType: 'json',
         success: function(data) {
           resp($.map(data, function(e) {
-            return {value: e.id, label: e.name};
+            return {value: e.slug, label: e.name};
           }));
         }
       });
