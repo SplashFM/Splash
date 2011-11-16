@@ -168,6 +168,7 @@ $(function() {
       $(this.el).attr('data-track_id', this.model.get('track').id);
 
       $(this.el).html($.tmpl(this.template, json).html());
+      SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
 
       new BaseApp.ReSplashAction({
         el: this.$('[data-widget = "splash-action"]'),

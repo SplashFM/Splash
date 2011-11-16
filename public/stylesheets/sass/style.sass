@@ -1885,6 +1885,40 @@ textarea
     span
       text-shadow: 0px -1px 0px #000
 
+.numHolderCount
+  background: url('/css/images/nums.png') no-repeat
+  float: left
+  position: absolute
+  height: 53px
+  width: 45px
+  display: inline-block
+
+  .nonBlank_false
+    opacity: 0
+    filter: alpha(opacity = 0)
+
+  .numFlipper
+    overflow: hidden
+    position: relative
+    height: 53px
+
+  .inner_num
+    position: absolute
+    height: 100%
+    width: 100%
+    background: url('../images/nums.png') no-repeat inherit 0px 0px
+    opacity: 0
+    filter: alpha(opacity = 0)
+    -webkit-transition: all 500ms ease-in-out
+    -moz-transition: all 500ms ease-in-out
+    -o-transition: all 500ms ease-in-out
+    -ms-transition: all 500ms ease-in-out
+    transition: all 500ms ease-in-out
+
+.numHolderCount.animating
+  .inner_num
+    opacity: 1
+    filter: alpha(opacity = 100)
 
 .numHolder
   background: url('/css/images/water_nums.png') no-repeat
