@@ -5,5 +5,5 @@
     .entry.left
       %p
         %a.avan-demi{:href => "${author.url}"} ${author.name}
-        ${body}
+        {{html UserMentions.linkMentions(body)}}
       %span.time ${created_at_dist}
