@@ -8,28 +8,28 @@
               = user.followers.count
             .relationship-label
               = t('followers', :scope => 'users.show')
-
-      %li.border-left
+            .active_underline
+      .v-space
+      %li.following-count
         %strong.avan-demi
           %a{:href => "#following"}
             .relationship-count
               = user.following.count
             .relationship-label
               = t('following', :scope => 'users.show')
+            .active_underline
     .line
     .cl &nbsp;
 
     #followers
       = render :partial => 'follows_avatar_samples', :locals => {:type => 'followers'}
       .cl.line &nbsp;
-      .viewmore-btn.vspace
-        = link_to "view more", followers_url(user)
+      = link_to "view more", followers_url(user), :class => 'viewmore-btn vspace'
 
 
     #following
       = render :partial => 'follows_avatar_samples', :locals => {:type => 'following'}
       .cl.line &nbsp;
-      .viewmore-btn.vspace
-        = link_to "view more", following_url(user)
+      = link_to "view more", following_url(user), :class => 'viewmore-btn vspace'
 
     .cl.border.vspace &nbsp;
