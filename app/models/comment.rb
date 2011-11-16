@@ -6,6 +6,8 @@ class Comment < ActiveRecord::Base
 
   validates :body, :presence => true
 
+  before_create :set_skip_feed
+
   scope :for_users, lambda { |user_ids|
     user_ids.blank? ? scoped : where(:author_id => user_ids)
   }
@@ -21,5 +23,13 @@ class Comment < ActiveRecord::Base
      :type       => 'comment',
      :author     => author.as_json,
      :splash     => splash.as_json}
+  end
+
+  private
+
+  def set_skip_feed
+    write_attribute(:skip_feed, !! skip_feed)
+
+    nil
   end
 end
