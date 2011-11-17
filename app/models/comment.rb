@@ -17,6 +17,9 @@ class Comment < ActiveRecord::Base
   scope :since, lambda { |time|
     time.blank? ? scoped : where(['created_at > ?', Time.parse(time).utc])
   }
+  scope :skip_users, lambda { |user_ids|
+    user_ids.blank? ? scoped : where('author_id not in (?)', user_ids)
+  }
   scope :as_event, select("comments.created_at, comments.id target_id, 'Comment' target_type").
                      where(:skip_feed => false)
 

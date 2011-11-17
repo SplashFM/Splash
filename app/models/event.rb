@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
 
     if main_user_id
       splash_comments = Comment.as_event.on_splashes(Splash.ids(main_user_id)).
-        since(last_update_at)
+        since(last_update_at).skip_users(user_ids)
     end
 
     if params[:count]
