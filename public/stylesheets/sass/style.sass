@@ -449,7 +449,7 @@ textarea
         color: #5092cc
   .tracks
     li
-      height: 24px
+      min-height: 24px
       width: 134px
       padding: 0 7px
       line-height: 24px
@@ -940,7 +940,6 @@ textarea
 #stream-wrap
   width: 635px
   position: relative
-  overflow-x: hidden
   &.left
     padding: 8px 0 8px 8px
   &.right
@@ -1491,6 +1490,8 @@ textarea
       margin: 4px 21px 0 0
       &:hover
         text-decoration: none
+      &:active
+        text-decoration: none
         background-position: 0 bottom
     .report-song
       font-size: 8px
@@ -1552,7 +1553,7 @@ textarea
     input
       display: block
       font-size: 10px
-      color: #adb3b6
+      color: #1d1d1d
       height: 13px
       border: 1px solid #c9dae8
       padding: 3px
@@ -2030,7 +2031,7 @@ textarea
     border: solid 1px transparent
     box-shadow: 0px 1px 1px #FFF
     color: #8f969a
-    text-shadow: 0px 0px 0px
+    text-shadow: 0px 0px 0px transparent !important
   .buttonStyle2:hover
     color: #000
     background: #fdd602
@@ -2041,6 +2042,7 @@ textarea
     background: -ms-linear-gradient(top,  #fdd602 0%,#fdd602 50%,#edb903 51%,#edb903 100%)
     background: linear-gradient(top,  #fdd602 0%,#fdd602 50%,#edb903 51%,#edb903 100%)
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdd602', endColorstr='#edb903',GradientType=0 )
+    text-shadow: 0px 0px 0px transparent !important
 
 #side-bar
   .user-follows
@@ -2136,12 +2138,17 @@ textarea
   text-align: center
   font-size: 20px
 
+.suggested-splashers  a.see-all
+  display: none
 [data-widget = 'track-search'] [data-widget = 'results'],
 [data-widget = 'global-search'] [data-widget = 'results'],
 [data-widget = 'quick-splash'] [data-widget = 'box'],
 [data-widget = 'full-splash-action'] form,
 [data-widget = 'metadata']
   display: none
+
+.comingSoon
+  opacity: 0.3
 
 [data-widget = "events-filter"]
   height: auto
