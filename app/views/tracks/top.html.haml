@@ -27,7 +27,7 @@
   });
 
 .splashboard
-  = render "home/sidebar"
+  = render "home/sidebar", :omit_splashboards => true
   #stream-wrap.left.tabs
     #stream-feed
       .streamfeed-top

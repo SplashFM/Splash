@@ -2,14 +2,15 @@
   #side-bar
     = render :partial => "users/vcard", :locals => {:user => current_user}
     = render :partial => "users/relationships", :locals => {:user => current_user}
-    .splashers-widgets
-      .suggested-splashers
-        %a.see-all.right{:href => "#"}
-          %span &bull;
-          See All
-        %h3 Suggested Splashers
-        .cl &nbsp;
-        %div{:data => {:widget => 'suggested-users'}}
-          = render 'shared/suggested_splashers'
-      = render "shared/splashboard"
+    - unless defined?(omit_splashboards)
+      .splashers-widgets
+        .suggested-splashers
+          %a.see-all.right{:href => "#"}
+            %span &bull;
+            See All
+          %h3 Suggested Splashers
+          .cl &nbsp;
+          %div{:data => {:widget => 'suggested-users'}}
+            = render 'shared/suggested_splashers'
+        = render "shared/splashboard"
     = render "shared/invites"
