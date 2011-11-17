@@ -68,6 +68,7 @@ $(function() {
     initialize: function() {
       BaseApp.SplashAction.prototype.initialize.call(this);
 
+      _.bindAll(this, 'finishSplash');
       this.mentions = new UserMentions({el: this.$('form textarea'),
                                         parent: this.el});
     },
@@ -79,7 +80,7 @@ $(function() {
         comment:  this.mentions.commentWithMentions(),
         track_id: this.model.get('id')
       }, {
-        success: this.broadcastSplash
+        success: this.finishSplash
       });
     },
 
@@ -89,6 +90,13 @@ $(function() {
         this.$('form').toggle();
       }
     },
+
+    finishSplash: function() {
+      this.$('form').hide();
+      // FIXME: neither of these seem to actually trigger a rerender of the single view.
+      this.broadcastSplash();
+      this.model.change();
+    }
   });
 
   Upload = Backbone.View.extend({
