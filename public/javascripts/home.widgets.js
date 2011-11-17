@@ -1,5 +1,8 @@
 $(function() {
   TrackSearch = Search.extend({
+    UPLOAD_BEGIN_POS: -625,
+    UPLOAD_END_POS: -25,
+
     collection: new TrackList,
     el: '[data-widget = "track-search"]',
     events: _.extend({
@@ -33,8 +36,9 @@ $(function() {
 
     prepareUploadProgressForm: function() {
       this.uploadBar.addClass('uploading')
+      this.uploadBar.css('background-position', this.UPLOAD_BEGIN_POS + 'px 0');
       this.uploadBar.attr('disabled','true');
-      this.uploadBar.attr('value','Uploading');
+      this.uploadBar.attr('value', I18n.t('upload.waiting'));
     },
 
     removeUploadProgressForm: function() {
