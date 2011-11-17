@@ -207,6 +207,7 @@ class User < ActiveRecord::Base
     write_attribute(:suggested_users, suggested_users)
     relationships.create(:followed => followed)
     followed.suggest_users
+    suggest_users
     save
   end
 
