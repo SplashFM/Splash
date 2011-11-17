@@ -5,7 +5,7 @@ feature "Edit user", :js => true do
 
   background do
     go_to 'profile'
-    click_link t('users.show.edit')
+    click_link t('users.vcard.edit')
   end
 
   scenario "fill in name field with Mojo Test" do
