@@ -1,10 +1,9 @@
 %script#tmpl-event-comment{:type => 'text/x-jquery-tmpl'}
-  %li.feed-socials
-    %ul
-      %li
-        %img{:alt => "", :height => "27", :src => "/css/images/ico-new-comment.png", :width => "36"}/
-        %p
-          %a{:href => "${author.url}"} ${author.name}
-          commented on
-          %a{:href => "${splash.user.url}"} ${splash.user.name}’s
-          splash “${splash.track.title}”: {{html UserMentions.linkMentions(body)}}”
+  %ul
+    %li
+      %img{:alt => "", :height => "27", :src => "/css/images/ico-new-comment.png", :width => "36"}/
+      %p
+        %a{:href => "${author.url}"} ${author.name}
+        commented on
+        %a{:href => "${splash.user.url}"} ${splash.user.name}’s
+        splash “${splash.track.title}”: {{html UserMentions.linkMentions(body)}}”

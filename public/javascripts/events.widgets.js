@@ -104,7 +104,7 @@ $(function() {
 
     render: function() {
       $(this.el).html($.tmpl(this.templates[this.model.get('type')],
-                             this.model.toJSON()).html());
+                             this.model.toJSON()));
 
       return this;
     },
@@ -164,10 +164,7 @@ $(function() {
       var ext        = {created_at: createdAt, comment_count: commentStr};
       var json       = _.extend(s.toJSON(), ext);
 
-      $(this.el).attr('data-widget', 'splash');
-      $(this.el).attr('data-track_id', this.model.get('track').id);
-
-      $(this.el).html($.tmpl(this.template, json).html());
+      $(this.el).html($.tmpl(this.template, json));
       SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
 
       new BaseApp.ReSplashAction({

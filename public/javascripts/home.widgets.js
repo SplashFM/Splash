@@ -48,7 +48,7 @@ $(function() {
 
     render: function() {
       $(this.el).attr('data-track_id', this.model.get('id'));
-      $(this.el).html($.tmpl(this.template, this.model.toJSON()).html());
+      $(this.el).html($.tmpl(this.template, this.model.toJSON()));
 
       new TrackSearch.Track.FullSplashAction({
         model: this.model,
