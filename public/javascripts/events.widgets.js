@@ -234,16 +234,16 @@ $(function() {
     },
 
     onChange: function() {
-      var active = $('[data-widget = "filter-following"] a.active');
-      var user   = active.attr('href') === '#everyone' ? '' : this.currentUserId;
-      var follower   = active.attr('href') === '#following' ? this.currentUserId : '';
-
       var settings = {
         omit_splashes: $('[data-widget = "filter-splash"]').is(":checked") ? '' : true,
         omit_other:    $('[data-widget = "filter-other"]').is(":checked") ? '' : true,
-        user:          user,
-        follower:      follower
       };
+
+      var everyone = $('[data-widget = "filter-following"] a[href = "#everyone"]');
+      if (everyone.hasClass('active')) {
+        settings.user     = '';
+        settings.follower = '';
+      }
 
       this.trigger('change', settings);
     },
