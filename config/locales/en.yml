@@ -89,6 +89,7 @@ en:
   upload:
     cancel: Cancel Upload
     done: Check file metadata
+    error: Upload failed
     metadata: Saving metadata...
     start: Uploading file...
     upload: Upload

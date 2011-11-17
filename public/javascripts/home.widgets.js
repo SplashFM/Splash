@@ -10,6 +10,7 @@ $(function() {
       'hiding': 'removeUploadProgressForm',
       'showing': 'prepareUploadProgressForm',
       'upload:done': 'onUploadDone',
+      'upload:error': 'onUploadError',
       'upload:metadata': 'onMetadataSave',
       'upload:progress': 'onUploadProgress',
       'upload:start': 'onUploadStart'
@@ -29,6 +30,11 @@ $(function() {
       this.$('.wrap').append(this.upload.hide().el);
     },
 
+    onUploadError: function() {
+      this.uploadBar.addClass('error');
+      this.uploadBar.val(I18n.t('upload.error'));
+    },
+
     onMetadataSave: function() {
       this.uploadBar.val(I18n.t('upload.metadata'));
     },
@@ -42,6 +48,7 @@ $(function() {
     },
 
     onUploadStart: function() {
+      this.uploadBar.removeClass('error');
       this.uploadBar.val(I18n.t('upload.start'));
     },
 
@@ -56,6 +63,7 @@ $(function() {
     },
 
     prepareUploadProgressForm: function() {
+      this.uploadBar.removeClass('error');
       this.uploadBar.addClass('uploading')
       this.uploadBar.attr('disabled','true');
       this.uploadBar.attr('value', I18n.t('upload.waiting'));
@@ -146,7 +154,7 @@ $(function() {
     template: $('#tmpl-upload').template(),
 
     initialize: function() {
-      _.bindAll(this, 'hide', 'onProgress', 'onStart', 'onUpload');
+      _.bindAll(this, 'hide', 'onError', 'onProgress', 'onStart', 'onUpload');
       _this = this;
       $(this.el).clickout(this.hide);
     },
@@ -163,6 +171,10 @@ $(function() {
       $(this.el).trigger('upload:progress', {
         percent: parseInt(data.loaded / data.total * 100)
       });
+    },
+
+    onError: function() {
+      $(this.el).trigger('upload:error');
     },
 
     onStart: function() {
@@ -182,6 +194,7 @@ $(function() {
         progress: this.onProgress,
         start: this.onStart,
         done: this.onUpload,
+        fail: this.onError
       });
 
       this.metadata = new Upload.Metadata({model: this.model});
