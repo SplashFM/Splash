@@ -23,8 +23,8 @@ $(function() {
 
       this.fetch();
 
-      this.filter = new Events.Filter;
-      this.filter.bind('change', this.refresh, this);
+      this.filterView = new Events.Filter;
+      this.filterView.bind('change', this.refresh, this);
 
       this.settings = new Events.Settings({currentUserId: this.currentUserId});
       this.settings.bind('change', this.refresh, this);
@@ -271,7 +271,7 @@ $(function() {
     },
 
     initialize: function() {
-      this.filter      = this.$('[data-widget = "filter"]');
+      this.filterView  = this.$('[data-widget = "filter"]');
       this.suggestions = this.$('[data-widget = "suggestions"]');
       this.tags        = [];
 
@@ -329,9 +329,9 @@ $(function() {
     },
 
     toggleFilter: function() {
-      this.filter.toggle();
+      this.filterView.toggle();
 
-      if (this.filter.is(':visible')) {
+      if (this.filterView.is(':visible')) {
         $(this.el).height(HEIGHT_WHEN_OPEN);
       } else {
         $(this.el).height('auto');
