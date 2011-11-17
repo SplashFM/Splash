@@ -17,13 +17,13 @@ en:
       search_for_song: Search for a song to Splash
       load_more: Load More Results
       upload: Upload
-    suggested_splashers:
-      view_more: View More
 
   shared:
     search:
       global: Search for songs or users
       track: Enter a song to splash
+    suggested_splashers:
+      view_more: View More
 
   events:
     following: %{follower} is now following %{followed}

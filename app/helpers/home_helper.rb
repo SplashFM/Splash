@@ -25,6 +25,6 @@ module HomeHelper
   end
 
   def pages_count
-    current_user.suggested_users.count / User::SUGGESTED_USERS_PER_PAGE + 1
+    (current_user.suggestions_count + (User::SUGGESTED_USERS_PER_PAGE-1)) / User::SUGGESTED_USERS_PER_PAGE
   end
 end
