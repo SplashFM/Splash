@@ -50,6 +50,8 @@ $(function() {
     onUploadStart: function() {
       this.uploadBar.removeClass('error');
       this.uploadBar.val(I18n.t('upload.start'));
+
+      this.setUploadProgress(0);
     },
 
     open: function() {
