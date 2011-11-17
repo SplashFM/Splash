@@ -41,6 +41,8 @@ javascripts:
     - public/javascripts/iphone-style-checkboxes.js
     - public/javascripts/jquery.clickout.js
     - public/javascripts/SPLASH.Widgets.waterNums.js
+    - public/javascripts/SPLASH.Widgets.numFlipper.js
+    
 
   pjax:
     - public/javascripts/jquery.pjax.js

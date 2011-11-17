@@ -26,10 +26,8 @@
     .cl &nbsp;
     %a.splash-btn{:href => "#", :data => {:widget => 'splash-action'}}
     .numbers
-      %span
-        %img{:alt => "", :height => "53", :src => "/css/images/feed-number-2.png", :width => "32"}/
-      %span
-        %img{:alt => "", :height => "53", :src => "/css/images/feed-number-3.png", :width => "34"}/
+      .the_splash_count
+        ${track.splash_count}
     {{if expanded}}
     .container
       .graph.left
