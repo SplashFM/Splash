@@ -62,7 +62,7 @@ class Track < ActiveRecord::Base
     st = opts[:splashed_tracks] || {}
     {:id           => id,
      :title        => title,
-     :splashable   => st[id],
+     :splashable   => !st[id],
      :artwork_url  => artwork_url,
      :purchase_url => purchase_url_raw,
      :preview_url  => preview_url,
