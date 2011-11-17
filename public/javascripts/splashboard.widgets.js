@@ -66,9 +66,7 @@ $(function() {
     },
 
     render: function() {
-      var s = this.model;
-      var json = {track: s.toJSON()};
-      $($.tmpl(this.template, json)).appendTo(this.el);
+      $($.tmpl(this.template, this.model.toJSON())).appendTo(this.el);
       SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
 
       new TrackSearch.Track.FullSplashAction({
