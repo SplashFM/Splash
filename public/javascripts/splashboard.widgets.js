@@ -67,7 +67,12 @@ $(function() {
 
     render: function() {
       var s = this.model;
-      var json = {track: s.toJSON()};
+      /* HACK: to make tracks, but not users, look like splashes */
+      if (s.get('avatar_search')) {
+        var json = s.toJSON();
+      } else {
+        var json = {track: s.toJSON()};
+      }
       $($.tmpl(this.template, json)).appendTo(this.el);
       SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
 
