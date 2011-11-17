@@ -36,16 +36,19 @@ $(function() {
                        data: _.extend({page: this.page},
                                       this.allFilters(), this.filters)});
     },
+
     scroll: function() {
       this.page++;
 
       this.fetch(true);
     },
+
     render: function() {
       $(this.el).empty();
       this.feed.each(this.renderItem);
       return this;
     },
+
     renderItem: function(s) {
       $(this.el).append(new SplashboardItem({model: s, template: this.template}).render().el);
     },
