@@ -10,12 +10,14 @@ $(function() {
     initialize: function() {
       Search.prototype.initialize.call(this);
 
+      _.bindAll(this, 'removeUploadProgressForm');
+
       this.input     = this.$('input.field');
       this.uploadBar = this.input;
 
       this.upload = new Upload().render();
-      this.upload.bind('hiding',this.removeUploadProgressForm);
       this.$('.wrap').append(this.upload.hide().el);
+      this.upload.bind('hiding',this.removeUploadProgressForm);
     },
 
     open: function() {
@@ -113,15 +115,13 @@ $(function() {
     initialize: function() {
       _.bindAll(this, 'hide', 'onUpload');
       _this = this;
-      $(this.el).clickout(function(){_this.hide("tripped")});
+      $(this.el).clickout(this.hide);
     },
 
     hide: function(args) {
       $(this.el).hide();
       this.mentions.reset();
-      if(args) {
-        this.trigger("hiding");
-      }
+      this.trigger("hiding");
 
       return this;
     },
