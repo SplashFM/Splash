@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111116162050) do
+ActiveRecord::Schema.define(:version => 20111117205756) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -188,7 +188,6 @@ ActiveRecord::Schema.define(:version => 20111116162050) do
     t.string   "name"
     t.string   "initial_provider"
     t.string   "tagline",                :limit => 60
-    t.string   "slug"
     t.date     "birthday"
     t.text     "ignore_suggested_users"
     t.string   "nickname"

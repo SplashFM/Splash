@@ -63,15 +63,12 @@ class User < ActiveRecord::Base
 
   before_save :possibly_delete_avatar
 
-  extend FriendlyId
-  friendly_id :name, :use => :slugged
-
   attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
   after_update :reprocess_avatar, :if => :cropping?
 
-  scope :with_slugs, lambda { |*slugs| where(:slug => slugs) }
+  scope :with_slugs, lambda { |*slugs| where(:nickname => slugs) }
 
   def self.filter_by_name(name)
     where(['name ilike ?', "#{name}%"])
@@ -96,6 +93,10 @@ class User < ActiveRecord::Base
       [id, s.to_i + r.to_i] }
 
     update_influence_scores scores
+  end
+
+  def self.find_by_slug(slug)
+    where(:nickname => slug).first
   end
 
   def splashed_tracks_hash
@@ -340,6 +341,10 @@ class User < ActiveRecord::Base
 
   def to_params
     slug || super
+  end
+
+  def slug
+    nickname
   end
 
   def avatar_url(style=:thumb)
