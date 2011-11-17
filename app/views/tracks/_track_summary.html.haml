@@ -1,6 +1,7 @@
 %script#tmpl-track-summary{:type => 'text/x-jquery-tmpl'}
-  %div{:data => {:track_id => '${id}'}}
+  %div{:class => '{{if track.splashable}}splashable{{else}}unsplashable{{/if}}', |
+       :data => {:track_id => '${track.id}'}}
     .wrap
       %a.btn.right{:href => "#"}
-      %strong.count.avan-bold.left ${splash_count}
-      %p ${title}
+      %strong.count.avan-bold.left ${track.splash_count}
+      %p ${track.title}
