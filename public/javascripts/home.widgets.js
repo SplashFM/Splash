@@ -233,6 +233,8 @@ $(function() {
       this.$('[name = "albums"]').val('');
 
       $(this.el).trigger('upload:complete');
+
+      this.$('[data-widget = "metadata"]').hide();
     },
 
     onSubmit: function(e) {
