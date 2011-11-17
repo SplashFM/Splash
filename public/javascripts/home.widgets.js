@@ -10,6 +10,7 @@ $(function() {
       'hiding': 'removeUploadProgressForm',
       'showing': 'prepareUploadProgressForm',
       'upload:done': 'onUploadDone',
+      'upload:metadata': 'onMetadataSave',
       'upload:progress': 'onUploadProgress',
       'upload:start': 'onUploadStart'
     }, Search.prototype.events),
@@ -26,6 +27,10 @@ $(function() {
 
       this.upload = new Upload().render();
       this.$('.wrap').append(this.upload.hide().el);
+    },
+
+    onMetadataSave: function() {
+      this.uploadBar.val(I18n.t('upload.metadata'));
     },
 
     onUploadDone: function(e) {
@@ -218,6 +223,8 @@ $(function() {
         title: this.$('[name = "title"]').val(),
         performers: this.$('[name = "performers"]').val(),
       }
+
+      $(this.el).trigger('upload:metadata');
 
       this.model.save(attrs, {success: this.onComplete});
     },
