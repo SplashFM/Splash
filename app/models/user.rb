@@ -95,6 +95,10 @@ class User < ActiveRecord::Base
     update_influence_scores scores
   end
 
+  def self.find_by_slug(slug)
+    where(:nickname => slug).first
+  end
+
   def splashed_tracks_hash
     splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
   end
