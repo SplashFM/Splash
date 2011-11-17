@@ -83,8 +83,11 @@ $(function() {
       });
     },
 
-    toggle: function() {
-      this.$('form').toggle();
+    toggle: function(e) {
+      e.preventDefault();
+      if (this.model.get('splashable')) {
+        this.$('form').toggle();
+      }
     },
   });
 
