@@ -9,8 +9,8 @@ $(function() {
 
     initialize: function() {
       Search.prototype.initialize.call(this);
-
       this.upload = new Upload().render();
+      this.upload.bind('hiding',this.removeUploadProgressForm);
       this.$('.wrap').append(this.upload.hide().el);
     },
 
@@ -23,10 +23,21 @@ $(function() {
 
       $(new TrackSearch.Track(opts).render().el).appendTo(this.menu);
     },
-
+    prepareUploadProgressForm: function() {
+      var upload_bar = $(this.el).parents('.container').find('input.field');
+      upload_bar.addClass('uploading')
+      upload_bar.attr('disabled','true');
+      upload_bar.attr('value','Uploading');
+    },
+    removeUploadProgressForm: function() {
+      var upload_bar = $(this.el).parents('.container').find('input.field');
+      upload_bar.removeClass('uploading')
+      upload_bar.removeAttr('disabled','disabled');
+      upload_bar.attr('value','');
+    },
     showUpload: function(e) {
+      this.prepareUploadProgressForm();
       e.stopPropagation();
-
       this.upload.show();
     },
   });
@@ -85,14 +96,16 @@ $(function() {
 
     initialize: function() {
       _.bindAll(this, 'hide', 'onUpload');
-
-      $(this.el).clickout(this.hide);
+      _this = this;
+      $(this.el).clickout(function(){_this.hide("tripped")});
     },
 
-    hide: function() {
+    hide: function(args) {
       $(this.el).hide();
-
       this.mentions.reset();
+      if(args) {
+        this.trigger("hiding");
+      }
 
       return this;
     },
