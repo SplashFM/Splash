@@ -112,6 +112,16 @@ Splash.Widget = {
   }
 }
 
+Splash.ShareButton = function() {
+  $('.share-btn').live( 'click' , toggleShare );
+
+  function toggleShare(e) {
+    $(e.target).parents('.container').find('.share_pane').toggle();
+    e.preventDefault();
+  }
+
+}
+
 // onLoad
 jQuery(document).ready(function() {
   Scaphandrier.Fancybox.init();
@@ -121,4 +131,5 @@ jQuery(document).ready(function() {
   Scaphandrier.PreventHeaderLinksDefault.init();
   Splash.Widget.init();
   SPLASH.Widgets.sticky("#header .shell");
+  Splash.ShareButton();
 });
