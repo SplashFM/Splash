@@ -237,7 +237,7 @@ $(function() {
 
       var settings = {
         omit_splashes: $('[data-widget = "filter-splash"]').is(":checked") ? '' : true,
-        omit_others:   $('[data-widget = "filter-other"]').is(":checked") ? '' : true,
+        omit_other:    $('[data-widget = "filter-other"]').is(":checked") ? '' : true,
         user:          user,
         follower:      follower
       };
