@@ -36,15 +36,20 @@ $(function() {
 
     prepareUploadProgressForm: function() {
       this.uploadBar.addClass('uploading')
-      this.uploadBar.css('background-position', this.UPLOAD_BEGIN_POS + 'px 0');
       this.uploadBar.attr('disabled','true');
       this.uploadBar.attr('value', I18n.t('upload.waiting'));
+
+      this.setUploadProgress();
     },
 
     removeUploadProgressForm: function() {
       this.uploadBar.removeClass('uploading')
       this.uploadBar.removeAttr('disabled','disabled');
       this.uploadBar.attr('value','');
+    },
+
+    setUploadProgress: function() {
+      this.uploadBar.css('background-position', this.UPLOAD_BEGIN_POS + 'px 0');
     },
 
     showUpload: function(e) {
