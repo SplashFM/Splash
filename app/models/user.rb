@@ -46,9 +46,11 @@ class User < ActiveRecord::Base
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider,
                   :nickname
 
+  before_validation :generate_nickname
+
   validates :nickname, :presence => true, :uniqueness => true
   validates_format_of :nickname,
-                      :with => /^[A-Za-z\d_]+$/,
+                      :with => /^[A-Za-z\d_\-]+$/,
                       :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
 
@@ -272,16 +274,17 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_oauth(access_token)
-    name     = access_token['user_info']['name']
+    name     = access_token['user_info'].try(:[], 'name')
+    email    = access_token['extra'].try(:[], 'user_hash').try(:[], 'email')
+    nickname = access_token['user_info'].try(:[], 'nickname') || generate_nickname
     provider = access_token['provider']
     uid      = access_token['uid']
-    email    = access_token['extra'].try(:[], 'user_hash').try(:[], 'email')
     token    = access_token['credentials']['token']
     token_secret  = access_token['credentials'].try(:[], 'secret')
 
     user = User.with_social_connection(provider, uid)
     unless user
-      user = User.new(:name => name, :email => email,
+      user = User.new(:name => name, :email => email, :nickname => nickname,
                       :initial_provider => provider,
                       :password => Devise.friendly_token[0,20])
       user.social_connections.build(:provider => provider, :uid => uid,
@@ -315,7 +318,8 @@ class User < ActiveRecord::Base
           user.name = user_hash['name']
           user.email = user_hash['email']
         else
-          user.name = data['user_info']['name'] if data['user_info']
+          user.name = data['user_info'].try(:[], 'name')
+          user.nickname = data['user_info'].try(:[], 'nickname') || generate_nickname
         end
       end
     end
@@ -393,5 +397,25 @@ class User < ActiveRecord::Base
 
   def reprocess_avatar
     avatar.reprocess!
+  end
+
+  def generate_nickname
+    self.nickname ||= check_existence(to_slug(self.name)) \
+                      || check_existence(to_slug(self.email)) \
+                      || rand(36**6).to_s(36)
+  end
+
+  def to_slug(string)
+    if !string.blank?
+      ret = string.strip
+      ret.gsub!(/@/, "_at_")
+      ret.gsub!(/\W+/, '_')
+      ret = ret.split(".").first
+      ret
+    end
+  end
+
+  def check_existence(name)
+    User.exists?(:nickname => name) ? nil : name
   end
 end
