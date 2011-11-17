@@ -13,7 +13,7 @@ $(function() {
     initialize: function() {
       Search.prototype.initialize.call(this);
 
-      _.bindAll(this, 'onUploadProgress', 'onUploadStart',
+      _.bindAll(this, 'onUploadProgress', 'onUploadDone', 'onUploadStart',
                       'prepareUploadProgressForm', 'removeUploadProgressForm');
 
       this.input     = this.$('input.field');
@@ -26,8 +26,13 @@ $(function() {
       this.$('.wrap').append(this.upload.hide().el);
       this.upload.bind('hiding',this.removeUploadProgressForm);
       this.upload.bind('showing',this.prepareUploadProgressForm);
+      this.upload.bind('upload:done',this.onUploadDone);
       this.upload.bind('upload:progress',this.onUploadProgress);
       this.upload.bind('upload:start',this.onUploadStart);
+    },
+
+    onUploadDone: function(e) {
+      this.uploadBar.val(I18n.t('upload.done'));
     },
 
     onUploadProgress: function(e) {
@@ -163,6 +168,8 @@ $(function() {
     },
 
     onUpload: function(_, data) {
+      this.trigger('upload:done');
+
       this.metadata.setModel(new UndiscoveredTrack(data.result));
     },
 

@@ -93,6 +93,7 @@ en:
 
   upload:
     cancel: Cancel Upload
+    done: Check file metadata
     start: Uploading file...
     upload: Upload
     waiting: Choose a file to upload
