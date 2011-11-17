@@ -115,6 +115,12 @@ $(function() {
   window.BaseApp.ReSplashAction = BaseApp.SplashAction.extend({
     events: {'click' : 'splash'},
 
+    initialize: function() {
+      BaseApp.SplashAction.prototype.initialize.call(this)
+
+      $(this.el).css('z-index', 10);
+    },
+
     splash: function() {
       new Splash().save({track_id: this.model.get('track').id,
                          parent_id: this.model.get('id')},
