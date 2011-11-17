@@ -51,18 +51,23 @@ SPLASH.Widgets.waterNums = function(theSelector) {
     var direction = -1;
 
     function step() {
-      var newPos  = getBackgroundPositionX(theWater.css('background-position')) + speed * direction;
+      var newPos  = getBackgroundPositionX(theWater) + speed * direction;
       if(newPos < maxWaterWidth || newPos > 0) {
         direction *= -1;
-        newPos = getBackgroundPositionX(theWater.css('background-position')) + speed * direction;
+        newPos = getBackgroundPositionX(theWater) + speed * direction;
       }
-      newPos = newPos + "px -280px"
-      theWater.css({'background-position':newPos});
+
+      var newBgPosition = newPos + "px " + getBackgroundPositionY(theWater) + "px";
+      theWater.css({'background-position':newBgPosition});
       setTimeout(step,50);
     }
 
-    function getBackgroundPositionX(bgCoordinates) {
-      return parseInt(bgCoordinates.split(" ")[0], 10);
+    function getBackgroundPositionX(theElement) {
+      return parseInt(theElement.css("background-position").split(" ")[0], 10);
+    }
+
+    function getBackgroundPositionY(theElement) {
+      return parseInt(theElement.css("background-position").split(" ")[1], 10);
     }
     step();
   }
