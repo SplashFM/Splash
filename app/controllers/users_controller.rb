@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   private
 
   def load_user
-    @user = params[:id].blank? ? current_user : User.find_by_slug!(params[:id])
+    @user = params[:id].blank? ? current_user : User.find_by_slug(params[:id])
   end
 
   helper_method :own_profile?
