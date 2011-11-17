@@ -12,16 +12,13 @@ $(function() {
       $('body').bind('splash:splash', this.onSplash)
       $('body').bind('upload:complete', this.onSplash)
 
-      this.pageFilters = {user: this.currentUserId,
-                          follower: this.currentUserId,
-                          update_on_splash: true}
-      this.userFilters = {};
+      this.filters = {user: this.currentUserId,
+                      follower: this.currentUserId,
+                      update_on_splash: true}
 
       this.feed = new EventList;
       this.feed.bind('reset', this.render, this);
       this.feed.bind('add', this.renderEvent, this);
-
-      this.fetch();
 
       this.filterView = new Events.Filter;
       this.filterView.bind('change', this.refresh, this);
@@ -29,17 +26,19 @@ $(function() {
       this.settings = new Events.Settings({currentUserId: this.currentUserId});
       this.settings.bind('change', this.refresh, this);
 
-      this.page = 1;
-
       this.currentInterval = setInterval(this.checkForUpdates,
                                          this.updateInterval);
       if (this.app) {
         this.app.bind('endlessScroll', this.scroll, this)
       }
+
+      this.refresh();
     },
 
     allFilters: function() {
-      return _.extend({}, this.pageFilters, this.userFilters);
+      return _.extend({}, this.filters,
+                          this.filterView.filters(),
+                          this.settings.filters())
     },
 
     checkForUpdates: function() {
@@ -48,17 +47,15 @@ $(function() {
 
     fetch: function(add) {
       this.feed.fetch({add:  add,
-                       data: _.extend({page: this.page},
-                                      this.allFilters())});
+                       data: _.extend({page: this.page}, this.allFilters())});
     },
 
     onSplash: function() {
       this.refresh();
     },
 
-    refresh: function(filters) {
-      this.page        = 1;
-      this.userFilters = _.extend(this.userFilters, filters);
+    refresh: function() {
+      this.page = 1;
 
       this.fetch();
     },
@@ -217,9 +214,7 @@ $(function() {
   });
 
   window.Events.Settings = Backbone.View.extend({
-    initialize: function(opts) {
-      this.currentUserId = opts.currentUserId;
-
+    initialize: function() {
       _.bindAll(this, 'onChange', 'onToggleFollowing');
 
       var self = this;
@@ -231,6 +226,10 @@ $(function() {
         });
 
       $('[data-widget = "filter-following"] a').click(this.onToggleFollowing);
+    },
+
+    filters: function() {
+      return this.settings;
     },
 
     onChange: function() {
@@ -245,7 +244,9 @@ $(function() {
         settings.follower = '';
       }
 
-      this.trigger('change', settings);
+      this.settings = settings;
+
+      this.trigger('change');
     },
 
     onToggleFollowing: function(e) {
@@ -280,12 +281,16 @@ $(function() {
       this.setupAutoSuggest();
     },
 
+    filters: function() {
+      return {tags: this.tags};
+    },
+
     onAdd: function(e) {
       this.suggestions.hide();
 
       this.tags.push(this.textFrom(e));
 
-      this.trigger('change', {tags: this.tags});
+      this.trigger('change');
     },
 
     onRemove: function(e) {
@@ -293,7 +298,7 @@ $(function() {
 
       e.remove();
 
-      this.trigger('change', {tags: this.tags});
+      this.trigger('change');
     },
 
     onSuggestions: function() {
