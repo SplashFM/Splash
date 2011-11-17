@@ -6,15 +6,17 @@ $(function() {
     collection: new TrackList,
     el: '[data-widget = "track-search"]',
     events: _.extend({
-      'click [data-widget = "toggle-upload"]': 'showUpload'
+      'click [data-widget = "toggle-upload"]': 'showUpload',
+      'hiding': 'removeUploadProgressForm',
+      'showing': 'prepareUploadProgressForm',
+      'upload:done': 'onUploadDone',
+      'upload:progress': 'onUploadProgress',
+      'upload:start': 'onUploadStart'
     }, Search.prototype.events),
     menuContainer: 'ul',
 
     initialize: function() {
       Search.prototype.initialize.call(this);
-
-      _.bindAll(this, 'onUploadProgress', 'onUploadDone', 'onUploadStart',
-                      'prepareUploadProgressForm', 'removeUploadProgressForm');
 
       this.input     = this.$('input.field');
       this.uploadBar = this.input;
@@ -24,19 +26,14 @@ $(function() {
 
       this.upload = new Upload().render();
       this.$('.wrap').append(this.upload.hide().el);
-      this.upload.bind('hiding',this.removeUploadProgressForm);
-      this.upload.bind('showing',this.prepareUploadProgressForm);
-      this.upload.bind('upload:done',this.onUploadDone);
-      this.upload.bind('upload:progress',this.onUploadProgress);
-      this.upload.bind('upload:start',this.onUploadStart);
     },
 
     onUploadDone: function(e) {
       this.uploadBar.val(I18n.t('upload.done'));
     },
 
-    onUploadProgress: function(e) {
-      this.setUploadProgress(e.percent);
+    onUploadProgress: function(_, data) {
+      this.setUploadProgress(data.percent);
     },
 
     onUploadStart: function() {
@@ -152,23 +149,23 @@ $(function() {
     hide: function(args) {
       $(this.el).hide();
       this.mentions.reset();
-      this.trigger("hiding");
+      $(this.el).trigger("hiding");
 
       return this;
     },
 
     onProgress: function(_, data) {
-      this.trigger('upload:progress', {
+      $(this.el).trigger('upload:progress', {
         percent: parseInt(data.loaded / data.total * 100)
       });
     },
 
     onStart: function() {
-      this.trigger('upload:start');
+      $(this.el).trigger('upload:start');
     },
 
     onUpload: function(_, data) {
-      this.trigger('upload:done');
+      $(this.el).trigger('upload:done');
 
       this.metadata.setModel(new UndiscoveredTrack(data.result));
     },
@@ -195,7 +192,7 @@ $(function() {
     show: function() {
       $(this.el).show();
 
-      this.trigger('showing');
+      $(this.el).trigger('showing');
 
       return this;
     },
