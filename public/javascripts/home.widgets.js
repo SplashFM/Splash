@@ -13,8 +13,8 @@ $(function() {
     initialize: function() {
       Search.prototype.initialize.call(this);
 
-      _.bindAll(this, 'onUploadProgress', 'prepareUploadProgressForm',
-                      'removeUploadProgressForm');
+      _.bindAll(this, 'onUploadProgress', 'onUploadStart',
+                      'prepareUploadProgressForm', 'removeUploadProgressForm');
 
       this.input     = this.$('input.field');
       this.uploadBar = this.input;
@@ -27,10 +27,15 @@ $(function() {
       this.upload.bind('hiding',this.removeUploadProgressForm);
       this.upload.bind('showing',this.prepareUploadProgressForm);
       this.upload.bind('upload:progress',this.onUploadProgress);
+      this.upload.bind('upload:start',this.onUploadStart);
     },
 
     onUploadProgress: function(e) {
       this.setUploadProgress(e.percent);
+    },
+
+    onUploadStart: function() {
+      this.uploadBar.val(I18n.t('upload.start'));
     },
 
     open: function() {
@@ -134,7 +139,7 @@ $(function() {
     template: $('#tmpl-upload').template(),
 
     initialize: function() {
-      _.bindAll(this, 'hide', 'onProgress', 'onUpload');
+      _.bindAll(this, 'hide', 'onProgress', 'onStart', 'onUpload');
       _this = this;
       $(this.el).clickout(this.hide);
     },
@@ -153,6 +158,10 @@ $(function() {
       });
     },
 
+    onStart: function() {
+      this.trigger('upload:start');
+    },
+
     onUpload: function(_, data) {
       this.metadata.setModel(new UndiscoveredTrack(data.result));
     },
@@ -162,7 +171,7 @@ $(function() {
 
       this.$('form').fileupload({
         progress: this.onProgress,
-        start: function() { console.log("Uploading."); },
+        start: this.onStart,
         done: this.onUpload,
       });
 

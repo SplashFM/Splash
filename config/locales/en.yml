@@ -93,6 +93,7 @@ en:
 
   upload:
     cancel: Cancel Upload
+    start: Uploading file...
     upload: Upload
     waiting: Choose a file to upload
     already_splashed: This track exists and you already splashed it.
