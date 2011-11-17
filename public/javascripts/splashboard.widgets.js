@@ -67,8 +67,10 @@ $(function() {
 
     render: function() {
       var s = this.model;
-      var json = s.toJSON();
+      var json = {track: s.toJSON()};
       $($.tmpl(this.template, json)).appendTo(this.el);
+      SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
+
       return this;
     },
 

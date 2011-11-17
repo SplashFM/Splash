@@ -6,9 +6,11 @@
       %img{:alt => "", :height => "71", :src => "${track.artwork_url}", :width => "71"}/
       %span
     .entry.left
+      {{if user}}
       %p.names
         %a.avan-bold{:href => "${user.url}"} ${user.name}
         %span ${user.name}
+      {{/if}}
       %p.songname.avan-demi
         %a{:href => "#", :data => {:widget => 'expand'}} ${track.title}
       %p.songauthor ${track.performers}
@@ -17,7 +19,7 @@
           {{if track.purchase_url}}
           %a{:href => "${track.purchase_url}", :target => '_blank', :'data-skip-pjax' => true} Purchase track
           {{else}}
-          %a{:href => "undiscovered_tracks/${track.id}/download", :'data-skip-pjax' => true} Download track
+          %a{:href => "/undiscovered_tracks/${track.id}/download", :'data-skip-pjax' => true} Download track
           {{/if}}
         %li.comment-link
           %span &bull;
@@ -26,8 +28,7 @@
     .cl &nbsp;
     %a.splash-btn{:href => "#", :data => {:widget => 'splash-action'}}
     .numbers
-      .the_splash_count
-        ${track.splash_count}
+      .the_splash_count ${track.splash_count}
     {{if expanded}}
     .container
       .graph.left
@@ -48,9 +49,11 @@
       .aside.left
         %a.share-btn.avan-bold.right{:href => "#"} Share
         %a.report-song.right{:href => "#"} Report song
+        {{if user}}
         %p.author
           %em Splashed by
           %a.avan-bold{:href => "${user.url}"} ${user.name}
+        {{/if}}
         .cl &nbsp;
         %span.comments-module-t
         .scroll-area

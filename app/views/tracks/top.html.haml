@@ -1,7 +1,7 @@
 :javascript
   $(function () {
     var topTracks = new Splashboard.Items({
-      template: '#tmpl-home-track',
+      template: '#tmpl-event-splash',
       feed: new TrackList,
       app: window.App,
       extraClass: 'live-feed'
@@ -9,7 +9,7 @@
     $('#tab-top-tracks').html(topTracks.el)
 
     var myTopTracks = new Splashboard.Items({
-      template: '#tmpl-home-track',
+      template: '#tmpl-event-splash',
       feed: new TrackList,
       app: window.App,
       filters: {user_id: #{current_user.id}},
