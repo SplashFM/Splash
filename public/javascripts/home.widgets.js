@@ -10,7 +10,7 @@ $(function() {
     initialize: function() {
       Search.prototype.initialize.call(this);
 
-      _.bindAll(this, 'removeUploadProgressForm');
+      _.bindAll(this, 'prepareUploadProgressForm', 'removeUploadProgressForm');
 
       this.input     = this.$('input.field');
       this.uploadBar = this.input;
@@ -18,6 +18,7 @@ $(function() {
       this.upload = new Upload().render();
       this.$('.wrap').append(this.upload.hide().el);
       this.upload.bind('hiding',this.removeUploadProgressForm);
+      this.upload.bind('showing',this.prepareUploadProgressForm);
     },
 
     open: function() {
@@ -43,8 +44,8 @@ $(function() {
     },
 
     showUpload: function(e) {
-      this.prepareUploadProgressForm();
       e.stopPropagation();
+
       this.upload.show();
     },
   });
@@ -150,6 +151,8 @@ $(function() {
 
     show: function() {
       $(this.el).show();
+
+      this.trigger('showing');
 
       return this;
     },
