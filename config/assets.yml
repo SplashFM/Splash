@@ -42,6 +42,7 @@ javascripts:
     - public/javascripts/jquery.clickout.js
     - public/javascripts/SPLASH.Widgets.waterNums.js
     - public/javascripts/SPLASH.Widgets.numFlipper.js
+    - public/javascripts/SPLASH.Widgets.sticky.js
     
 
   pjax:

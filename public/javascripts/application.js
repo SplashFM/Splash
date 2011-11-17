@@ -3,6 +3,13 @@
 
 var Scaphandrier = Scaphandrier || {};
 
+Scaphandrier.PreventHeaderLinksDefault = {
+  init : function() {
+    $('a[href="#"]','#header').click(function(e){
+      e.preventDefault();
+    });
+  }
+}
 Scaphandrier.Fancybox = {
   params: {
     customizations: {
@@ -111,5 +118,7 @@ jQuery(document).ready(function() {
   Scaphandrier.InlineLabels.init();
   Scaphandrier.Console.init();
   Scaphandrier.Flash.init();
+  Scaphandrier.PreventHeaderLinksDefault.init();
   Splash.Widget.init();
+  SPLASH.Widgets.sticky("#header .shell");
 });
