@@ -13,8 +13,7 @@ $(function() {
       $('body').bind('upload:complete', this.onSplash)
 
       this.filters = {user: this.currentUserId,
-                      follower: this.currentUserId,
-                      update_on_splash: true}
+                      follower: this.currentUserId}
 
       this.feed = new EventList;
       this.feed.bind('reset', this.render, this);
