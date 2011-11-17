@@ -228,6 +228,10 @@ $(function() {
     },
 
     onComplete: function() {
+      this.$('[name = "title"]').val('');
+      this.$('[name = "performers"]').val('');
+      this.$('[name = "albums"]').val('');
+
       $(this.el).trigger('upload:complete');
     },
 
