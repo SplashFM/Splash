@@ -18,7 +18,7 @@ unless Rails.env.production?
     user.superuser = false
     user.confirmed_at = Time.now
     user.name = 'Mojo User'
-    user.slug = 'mojo-user'
+    user.nickname = 'MojoJojo'
   end
 
   User.seed(:email) do |user|
@@ -27,7 +27,7 @@ unless Rails.env.production?
     user.superuser = false
     user.confirmed_at = Time.now
     user.name = 'Jack Close'
-    user.slug = 'jack-close'
+    user.nickname = 'Sparrow'
   end
 
   User.seed(:email) do |user|
@@ -36,7 +36,7 @@ unless Rails.env.production?
     user.superuser = false
     user.confirmed_at = Time.now
     user.name = 'Jack Johnson'
-    user.slug = 'jack-johnson'
+    user.nickname = 'JJ'
   end
 
   1.upto(30) { |i|
