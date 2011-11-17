@@ -38,8 +38,11 @@ class Event < ActiveRecord::Base
       q << " ORDER BY created_at DESC"
       q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
 
-      events = Event.find_by_sql(q);
-
+      if omit_other && omit_splashes
+        events = []
+      else
+        events = Event.find_by_sql(q);
+      end
       events.map(&:target)
     end
   end
