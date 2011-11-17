@@ -417,7 +417,7 @@ class User < ActiveRecord::Base
       ret.gsub!(/@/, "_at_")
       ret.gsub!(/\W+/, '_')
       ret = ret.split(".").first
-      ret
+      ret.downcase
     end
   end
 
