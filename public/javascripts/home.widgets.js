@@ -13,15 +13,24 @@ $(function() {
     initialize: function() {
       Search.prototype.initialize.call(this);
 
-      _.bindAll(this, 'prepareUploadProgressForm', 'removeUploadProgressForm');
+      _.bindAll(this, 'onUploadProgress', 'prepareUploadProgressForm',
+                      'removeUploadProgressForm');
 
       this.input     = this.$('input.field');
       this.uploadBar = this.input;
+
+      this.uploadStep =
+        Math.abs(parseInt((this.UPLOAD_END_POS + this.UPLOAD_BEGIN_POS) / 100));
 
       this.upload = new Upload().render();
       this.$('.wrap').append(this.upload.hide().el);
       this.upload.bind('hiding',this.removeUploadProgressForm);
       this.upload.bind('showing',this.prepareUploadProgressForm);
+      this.upload.bind('upload:progress',this.onUploadProgress);
+    },
+
+    onUploadProgress: function(e) {
+      this.setUploadProgress(e.percent);
     },
 
     open: function() {
@@ -39,7 +48,7 @@ $(function() {
       this.uploadBar.attr('disabled','true');
       this.uploadBar.attr('value', I18n.t('upload.waiting'));
 
-      this.setUploadProgress();
+      this.setUploadProgress(0);
     },
 
     removeUploadProgressForm: function() {
@@ -48,8 +57,10 @@ $(function() {
       this.uploadBar.attr('value','');
     },
 
-    setUploadProgress: function() {
-      this.uploadBar.css('background-position', this.UPLOAD_BEGIN_POS + 'px 0');
+    setUploadProgress: function(percent) {
+      var pos = this.UPLOAD_BEGIN_POS + percent * this.uploadStep;
+
+      this.uploadBar.css('background-position', pos + 'px 0');
     },
 
     showUpload: function(e) {
@@ -123,7 +134,7 @@ $(function() {
     template: $('#tmpl-upload').template(),
 
     initialize: function() {
-      _.bindAll(this, 'hide', 'onUpload');
+      _.bindAll(this, 'hide', 'onProgress', 'onUpload');
       _this = this;
       $(this.el).clickout(this.hide);
     },
@@ -136,6 +147,12 @@ $(function() {
       return this;
     },
 
+    onProgress: function(_, data) {
+      this.trigger('upload:progress', {
+        percent: parseInt(data.loaded / data.total * 100)
+      });
+    },
+
     onUpload: function(_, data) {
       this.metadata.setModel(new UndiscoveredTrack(data.result));
     },
@@ -144,6 +161,7 @@ $(function() {
       $(this.el).append($.tmpl(this.template));
 
       this.$('form').fileupload({
+        progress: this.onProgress,
         start: function() { console.log("Uploading."); },
         done: this.onUpload,
       });
