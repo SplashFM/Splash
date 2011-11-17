@@ -1,7 +1,10 @@
 :javascript
   $(function () {
     window.App.trackSearch = new TrackSearch({perPage: #{Track.default_per_page}})
-    window.App.eventFeed = new Events({app: window.App, currentUserId: #{@user.id}});
+    window.App.eventFeed = new Events({
+      app:     window.App,
+      filters: {user: #{@user.id}}
+    });
   });
 
 .users-show

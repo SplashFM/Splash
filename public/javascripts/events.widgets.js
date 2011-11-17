@@ -12,9 +12,6 @@ $(function() {
       $('body').bind('splash:splash', this.onSplash)
       $('body').bind('upload:complete', this.onSplash)
 
-      this.filters = {user: this.currentUserId,
-                      follower: this.currentUserId}
-
       this.feed = new EventList;
       this.feed.bind('reset', this.render, this);
       this.feed.bind('add', this.renderEvent, this);
@@ -35,7 +32,7 @@ $(function() {
     },
 
     allFilters: function() {
-      return _.extend({}, this.filters,
+      return _.extend({}, this.options.filters,
                           this.filterView.filters(),
                           this.settings.filters())
     },
