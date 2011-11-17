@@ -5,6 +5,7 @@
 
 html
   height: 100%
+  background: #030F1D !important
 
 body
   height: 100%
@@ -84,13 +85,15 @@ textarea
 #header
   height: 53px
   background: url(/css/images/header-bg.png) repeat-x 0 0
-  position: relative
+  position: fixed
   z-index: 2
   box-shadow: 0 2px 1px rgba(4, 31, 44, 0.3)
+  width: 100%
   .shell
     width: 930px
     margin: 0 auto
     height: 53px
+    position: relative
 
 .nav-user-settings
   width: 30px
@@ -460,9 +463,10 @@ textarea
 #navigation
   list-style: none outside none
   padding-top: 20px
+  padding-right: 60px
   li
     float: left
-    margin-right: 17px
+    margin-right: 30px
     a
       float: left
       color: #c3c9cc
@@ -478,7 +482,7 @@ textarea
   margin: 0 auto
   position: relative
   z-index: 1
-  padding: 22px 0 50px
+  padding: 62px 0 50px
 
 #side-bar-wrap
   width: 300px
@@ -1120,6 +1124,8 @@ textarea
     background: #d1d1d3
 
 .feed-settings-toggles
+  .field.iphone-checkbox
+    opacity: 0
   .toggle
     height: 26px
     background: #fff
@@ -1139,7 +1145,7 @@ textarea
     .off
       background-image: url(/css/images/toggle-offstate.png)
       right: 0
-      border-radius: 0 7px 7px 0
+      border-radius: 7px 7px 7px 0
       text-align: right
       span
         padding-right: 8px
@@ -2002,6 +2008,7 @@ textarea
   font-size: 10px
   color: #788d99
   position: relative
+  text-shadow: 0px 0px 0px transparent !important
   .top_tip
     background: url("/css/images/following_icons.png") no-repeat -49px 0px
     height: 16px
