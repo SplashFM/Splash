@@ -33,7 +33,9 @@ class Event < ActiveRecord::Base
       q << " UNION ALL " unless omit_other || omit_splashes
       unless omit_other
         q << relationships.to_sql + " UNION ALL " + comments.to_sql
-        q << " UNION ALL " << splash_comments.to_sql if main_user_id
+
+        comment_union = " UNION " << (user_ids.present? ? " ALL " : "")
+        q << comment_union << splash_comments.to_sql if main_user_id
       end
       q << " ORDER BY created_at DESC"
       q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
