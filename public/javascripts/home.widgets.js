@@ -93,8 +93,18 @@ $(function() {
   });
 
   TrackSearch.Track = Backbone.View.extend({
+    events: {
+      'click [data-widget = "play"]': 'play'
+    },
     tagName: 'li',
     template: $('#tmpl-home-track').template(),
+
+    play: function(e) {
+      e.preventDefault();
+
+      $(this.el).trigger('request:play',
+                         {track: this.model.toJSON()});
+    },
 
     render: function() {
       $(this.el).attr('data-track_id', this.model.get('id'));
