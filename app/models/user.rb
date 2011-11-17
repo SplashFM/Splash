@@ -39,9 +39,13 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :name, :uid, :provider, :tagline, :avatar, :initial_provider
+                  :name, :uid, :provider, :tagline, :avatar, :initial_provider,
+                  :nickname
 
-  validates :name, :presence => true
+  validates :nickname, :presence => true, :uniqueness => true
+  validates_format_of :nickname,
+                      :with => /^[A-Za-z\d_]+$/,
+                      :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
 
   has_attached_file :avatar,

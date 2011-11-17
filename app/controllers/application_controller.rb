@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :require_user
-  before_filter :require_name, :if => 'logged_in?'
 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
@@ -76,12 +75,6 @@ class ApplicationController < ActionController::Base
 
   def logging_out?
     params[:action] == 'destroy' && params[:controller] == 'devise/sessions'
-  end
-
-  def require_name
-    if current_user.name.blank? && ! logging_out?
-      redirect_to edit_user_path(current_user), :alert => t('errors.user.attributes.name.blank')
-    end
   end
 
   def require_user
