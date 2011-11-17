@@ -23,18 +23,21 @@ $(function() {
 
       $(new TrackSearch.Track(opts).render().el).appendTo(this.menu);
     },
+
     prepareUploadProgressForm: function() {
       var upload_bar = $(this.el).parents('.container').find('input.field');
       upload_bar.addClass('uploading')
       upload_bar.attr('disabled','true');
       upload_bar.attr('value','Uploading');
     },
+
     removeUploadProgressForm: function() {
       var upload_bar = $(this.el).parents('.container').find('input.field');
       upload_bar.removeClass('uploading')
       upload_bar.removeAttr('disabled','disabled');
       upload_bar.attr('value','');
     },
+
     showUpload: function(e) {
       this.prepareUploadProgressForm();
       e.stopPropagation();
