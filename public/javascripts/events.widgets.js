@@ -110,8 +110,6 @@ $(function() {
 
     initialize: function() {
       BaseApp.SplashAction.prototype.initialize.call(this)
-
-      $(this.el).css('z-index', 10);
     },
 
     splash: function() {
