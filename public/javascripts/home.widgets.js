@@ -9,6 +9,10 @@ $(function() {
 
     initialize: function() {
       Search.prototype.initialize.call(this);
+
+      this.input     = this.$('input.field');
+      this.uploadBar = this.input;
+
       this.upload = new Upload().render();
       this.upload.bind('hiding',this.removeUploadProgressForm);
       this.$('.wrap').append(this.upload.hide().el);
@@ -25,17 +29,15 @@ $(function() {
     },
 
     prepareUploadProgressForm: function() {
-      var upload_bar = $(this.el).parents('.container').find('input.field');
-      upload_bar.addClass('uploading')
-      upload_bar.attr('disabled','true');
-      upload_bar.attr('value','Uploading');
+      this.uploadBar.addClass('uploading')
+      this.uploadBar.attr('disabled','true');
+      this.uploadBar.attr('value','Uploading');
     },
 
     removeUploadProgressForm: function() {
-      var upload_bar = $(this.el).parents('.container').find('input.field');
-      upload_bar.removeClass('uploading')
-      upload_bar.removeAttr('disabled','disabled');
-      upload_bar.attr('value','');
+      this.uploadBar.removeClass('uploading')
+      this.uploadBar.removeAttr('disabled','disabled');
+      this.uploadBar.attr('value','');
     },
 
     showUpload: function(e) {
