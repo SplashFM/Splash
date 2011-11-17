@@ -76,7 +76,7 @@ $(function() {
       e.preventDefault();
 
       $(this.el).trigger('request:play',
-                         {track: this.model});
+                         {track: this.model.toJSON()});
     },
 
   });
