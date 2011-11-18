@@ -252,6 +252,7 @@ $(function() {
       this.$('[name = "title"]').val('');
       this.$('[name = "performers"]').val('');
       this.$('[name = "albums"]').val('');
+      this.$('textarea').val('');
 
       this.mentions.reset();
 
