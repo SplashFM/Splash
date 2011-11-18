@@ -198,7 +198,6 @@ $(function() {
     },
 
     reset: function() {
-      this.mentions.reset();
       this.$(':text').val('');
 
       this.toggleExpanded();

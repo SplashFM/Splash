@@ -8,7 +8,7 @@ describe Mention do
     lambda {
       create(Comment).
         author(author).
-        body!("A comment mentioning @{#{recipient.slug}:#{recipient.name}}")
+        body!("A comment mentioning @#{recipient.nickname}")
     }.should_not change(Mention, :count)
   end
 
@@ -17,7 +17,7 @@ describe Mention do
     recipient = create(User).following([author]).with_required_info!
     splash    = create(Comment).
       author(author).
-      body!("A comment mentioning @{#{recipient.slug}:#{recipient.name}}")
+      body!("A comment mentioning @#{recipient.nickname}")
 
     mention = Mention.first
 
@@ -32,8 +32,8 @@ describe Mention do
     recipient2 = create(User).following([author]).with_required_info!
     splash     = create(Comment).
       author(author).
-      body!("A comment to @{#{recipient2.slug}:#{recipient2.name}}
-             mentioning @{#{recipient1.slug}:#{recipient1.name}}")
+      body!("A comment to @#{recipient2.nickname}
+             mentioning @#{recipient1.nickname}")
 
     mentions     = Mention.all
     recipients   = mentions.map(&:notified)

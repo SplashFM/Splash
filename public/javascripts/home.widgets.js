@@ -254,8 +254,6 @@ $(function() {
       this.$('[name = "albums"]').val('');
       this.$('textarea').val('');
 
-      this.mentions.reset();
-
       $(this.el).trigger('upload:complete');
 
       this.$('[data-widget = "metadata"]').hide();

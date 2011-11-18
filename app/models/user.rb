@@ -70,14 +70,14 @@ class User < ActiveRecord::Base
 
   after_update :reprocess_avatar, :if => :cropping?
 
-  scope :with_slugs, lambda { |*slugs| where(:nickname => slugs) }
+  scope :nicknamed,  lambda { |*nicknames| where(:nickname => nicknames) }
 
   def self.filter_by_name(name)
     where(['name ilike ?', "#{name}%"])
   end
 
-  def self.filter(name)
-    filter_by_name(name)
+  def self.filter(nickname)
+    nickname.present? ? where('nickname ilike ?', "#{nickname}%") : scoped
   end
 
   def self.named(name_or_names)

@@ -211,7 +211,6 @@ $(function() {
       _.bindAll(this, 'find', 'isSearchable', 'onClose', 'onSelect');
 
       this.showingMenu = false;
-      this.mentions    = [];
 
       $(this.el).autocomplete({
         appendTo:  this.options.parent,
@@ -235,13 +234,7 @@ $(function() {
     },
 
     commentWithMentions: function() {
-      var text = $(this.el).val();
-
-      $.each(this.mentions, function(_, m) {
-        text = text.replace(m[0], "{" + m[1] + ":" + m[0] + "}");
-      });
-
-      return text;
+      return $(this.el).val();
     },
 
     find: function(req, resp) {
@@ -254,7 +247,7 @@ $(function() {
         dataType: 'json',
         success: function(data) {
           resp($.map(data, function(e) {
-            return {value: e.slug, label: e.name};
+            return {value: e.nickname};
           }));
         }
       });
@@ -278,21 +271,15 @@ $(function() {
 
       $(e.target).val(before + '@' + l);
 
-      this.mentions.push([l, v]);
-
       $(e.target).setSelection(0, $(e.target).val().length);
       $(e.target).collapseSelection(false);
 
       return false;
     },
-
-    reset: function() {
-      this.mentions = [];
-    },
   });
 
   UserMentions.linkMentions = function(text) {
-    return text.replace(/@\{([^:]+):([^}]+)\}/g, '<a href="/$1">$2</a>');
+    return text.replace(Constants.NICKNAME_REGEXP, '<a href="/$1">$1</a>');
   };
 
   window.Player = new PlayerView;
