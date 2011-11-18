@@ -95,4 +95,17 @@ $(function() {
     },
 
   });
+
+  window.Splashboard.ViewMore = Backbone.View.extend({
+    initialize: function() {
+      _.bindAll(this, 'onTabSelect');
+
+      this.tabs = $(this.options.tabs);
+      this.tabs.bind('tabsselect', this.onTabSelect);
+    },
+
+    onTabSelect: function(_, ui) {
+      $(this.el).attr('href', this.options.lists[ui.index].url + "/top");
+    },
+  });
 });

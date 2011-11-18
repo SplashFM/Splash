@@ -24,6 +24,8 @@
       extraClass: 'live-feed'
     })
     $('#tab-top-users').html(topUsers.el)
+
+    $('.splashboard .tabs').tabs('select', #{@selected_tab.to_i})
   });
 
 .splashboard

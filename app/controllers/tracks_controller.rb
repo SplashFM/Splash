@@ -1,5 +1,6 @@
 class TracksController < ApplicationController
-  TRACKS_PER_PAGE         = 10
+  TRACKS_PER_PAGE = 10
+  TRACK_TAB       = 1
 
   respond_to :json
 
@@ -19,6 +20,8 @@ class TracksController < ApplicationController
   end
 
   def top
+    @selected_tab = TRACK_TAB
+
     render :template => 'splashboards/index'
   end
 end

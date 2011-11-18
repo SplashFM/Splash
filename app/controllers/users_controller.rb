@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   TOP_SPLASHERS_PER_PAGE = 10
   PER_SEARCH = 10
+  USER_TAB = 2
 
   inherit_resources
   respond_to :html, :json
@@ -59,7 +60,9 @@ class UsersController < ApplicationController
   end
 
   def top
-    @users = User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
+    @selected_tab = USER_TAB
+
+    render :template => 'splashboards/index'
   end
 
   private
