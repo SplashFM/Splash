@@ -59,10 +59,11 @@ class Track < ActiveRecord::Base
   end
 
   def as_json(opts = {})
-    st = opts[:splashed_tracks] || {}
+    splashable = !(opts[:splashed_tracks] || {})[id] && !opts[:unsplashable]
+
     {:id           => id,
      :title        => title,
-     :splashable   => !st[id],
+     :splashable   => splashable,
      :artwork_url  => artwork_url,
      :purchase_url => purchase_url_raw,
      :preview_url  => preview_url,

@@ -54,9 +54,9 @@ class Splash < ActiveRecord::Base
     connection.select_values(s.project(:id).where(s[:user_id].eq(user_id)).to_sql)
   end
 
-  def as_full_json
-    as_json.merge!(:expanded => true,
-                   :comments => comments)
+  def as_full_json(from_user)
+    as_json(:unsplashable => from_user.id == user_id).
+      merge!(:expanded => true, :comments => comments)
   end
 
   def as_json(opts = {})

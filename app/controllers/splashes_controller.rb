@@ -9,7 +9,7 @@ class SplashesController < ApplicationController
   end
 
   def show
-    respond_with Splash.find(params[:id]).as_full_json
+    respond_with Splash.find(params[:id]).as_full_json(current_user)
   end
 
   protected
