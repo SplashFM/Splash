@@ -13,6 +13,7 @@ $(function() {
       'upload:error': 'onUploadError',
       'upload:metadata': 'onMetadataSave',
       'upload:progress': 'onUploadProgress',
+      'upload:splash': 'onUploadSplash',
       'upload:start': 'onUploadStart'
     }, Search.prototype.events),
     menuContainer: 'ul',
@@ -45,6 +46,10 @@ $(function() {
 
     onUploadProgress: function(_, data) {
       this.setUploadProgress(data.percent);
+    },
+
+    onUploadSplash: function() {
+      this.uploadBar.val(I18n.t('upload.exists'));
     },
 
     onUploadStart: function() {
@@ -201,6 +206,8 @@ $(function() {
         break;
       case 200:
         this.metadata.setModel(new UndiscoveredTrack(data.result), 'splash');
+
+        $(this.el).trigger('upload:splash');
 
         break;
       }
