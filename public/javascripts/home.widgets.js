@@ -167,7 +167,6 @@ $(function() {
 
     initialize: function() {
       _.bindAll(this, 'hide', 'onError', 'onProgress', 'onStart', 'onUpload');
-      _this = this;
       $(this.el).clickout(this.hide);
     },
 
