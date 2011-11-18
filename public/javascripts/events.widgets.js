@@ -121,7 +121,7 @@ $(function() {
 
   window.Events.Splash = Backbone.View.extend({
     events: {
-      'click': 'expand',
+      'click': 'toggleExpanded',
       'submit [data-widget = "comment-box"]': 'addComment',
       'click [data-widget = "play"]': 'play'
     },
@@ -141,7 +141,7 @@ $(function() {
       this.$(':text').val('');
     },
 
-    expand: function(e) {
+    toggleExpanded: function(e) {
       if (($(e.target).closest('[data-widget = "expand"]').length > 0 ||
            $(e.target).closest('a').length == 0) &&
           $(e.target).closest('[data-widget = "more-info"]').length === 0) {
