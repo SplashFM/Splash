@@ -53,7 +53,10 @@ $(function() {
       this.collection = new NotificationList;
       this.collection.bind('reset', this.reset, this);
       this.collection.fetch();
-      $(this.el).clickout(this.toggle);
+      var _this = this;
+      $(this.el).clickout(function(){ if($('.dropDown',_this.el).is(':visible')) {
+        _this.toggle();
+      }});
     },
 
     isActive: function() {
