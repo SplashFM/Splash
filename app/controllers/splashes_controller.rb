@@ -19,6 +19,8 @@ class SplashesController < ApplicationController
 
     if params[:site] == 'twitter'
       twitter_post(splash)
+    else
+      facebook_post(splash)
     end
 
     head :ok

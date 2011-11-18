@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
       fb_user = FbGraph::User.me(current_user.social_connection('facebook').token)
       link = fb_user.link!(:link => splash_url(splash, :host => host),
-                          :message => "#{splash.user.name} splashed #{splash.track.title}. #{splash.comment}")
+                          :message => "#{splash.user.name} splashed #{splash.track.title}. #{splash.comments.first.body}")
     end
   end
 
