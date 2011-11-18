@@ -280,7 +280,7 @@ class User < ActiveRecord::Base
   def self.find_for_oauth(access_token)
     name     = access_token['user_info'].try(:[], 'name')
     email    = access_token['extra'].try(:[], 'user_hash').try(:[], 'email')
-    nickname = access_token['user_info'].try(:[], 'nickname') || generate_nickname
+    nickname = access_token['user_info'].try(:[], 'nickname')
     provider = access_token['provider']
     uid      = access_token['uid']
     token    = access_token['credentials']['token']
@@ -323,7 +323,7 @@ class User < ActiveRecord::Base
           user.email = user_hash['email']
         else
           user.name = data['user_info'].try(:[], 'name')
-          user.nickname = data['user_info'].try(:[], 'nickname') || generate_nickname
+          user.nickname = data['user_info'].try(:[], 'nickname')
         end
       end
     end
