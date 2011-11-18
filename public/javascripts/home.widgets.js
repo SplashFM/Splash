@@ -266,6 +266,7 @@ $(function() {
 
       if (this.mode == 'edit') {
         var attrs = {
+          albums: this.$('[name = "albums"]').val(),
           comment: this.mentions.commentWithMentions(),
           title: this.$('[name = "title"]').val(),
           performers: this.$('[name = "performers"]').val(),

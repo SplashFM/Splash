@@ -31,7 +31,7 @@ class UndiscoveredTracksController < ApplicationController
 
   def update
     track      = current_user.uploaded_tracks.find(params[:id])
-    splashable = if track.update_attributes(params.slice(:title, :performers))
+    splashable = if track.update_attributes(params.slice(:albums, :title, :performers))
                    track
                  elsif track.taken?
                    track.replace_with_canonical
