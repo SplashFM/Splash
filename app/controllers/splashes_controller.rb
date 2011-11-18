@@ -9,8 +9,9 @@ class SplashesController < ApplicationController
   end
 
   def show
-    respond_with Splash.find(params[:id]).
-      as_json(:full => true, :user_id => current_user.id)
+    opts = {:full => params[:summary].blank?, :user_id => current_user.id}
+
+    respond_with Splash.find(params[:id]).as_json(opts)
   end
 
   def tweet
