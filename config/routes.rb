@@ -23,6 +23,9 @@ Scaphandrier::Application.routes.draw do
   resources :tags
   resources :splashes do
     resources :comments
+    member do
+      post :tweet
+    end
   end
   resources :suggested_splashers
   resources :tracks do

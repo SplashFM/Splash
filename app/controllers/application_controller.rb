@@ -62,8 +62,8 @@ class ApplicationController < ActionController::Base
                         splash.user.name,
                         'splashed',
                         splash.track.title,
-                        splash.comment].join(' ')))
-      rescue Twitter::NotFound => e
+                        splash.comments.first.body].join(' ')))
+      rescue Twitter::NotFound, Twitter::Forbidden => e
         notify_hoptoad(e)
       end
     end

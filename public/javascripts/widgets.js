@@ -365,6 +365,22 @@ Widgets.SuggestedUsers = {
   }
 }
 
+Widgets.TweeterPost = {
+  init: function(){
+    $w('twitter-post').live('click', function(){
+      $.ajax({
+        type: 'post',
+        url: "/splashes/" + $(this).attr('data-id') + "/tweet",
+        data: "id=" + $(this).attr('data-id'),
+        success: function(){
+          $(".share_pane").hide();
+        }
+      });
+
+      return false;
+    });
+  }
+}
 $(document).ready(function() {
   Widgets.Scroll.init();
   Widgets.Tabs.init();
@@ -377,6 +393,7 @@ $(document).ready(function() {
   Widgets.Notification.init();
   Widgets.Paginate.init();
   Widgets.Purchase.init();
+  Widgets.TweeterPost.init();
   Widgets.SuggestedUsers.init();
   new SPLASH.Widgets.waterNums('.waterNum');
 

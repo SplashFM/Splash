@@ -12,6 +12,13 @@ class SplashesController < ApplicationController
     respond_with Splash.find(params[:id]).as_full_json(current_user)
   end
 
+  def tweet
+    splash = Splash.find(params[:id])
+    twitter_post(splash)
+
+    head :ok
+  end
+
   protected
 
   def current_splash

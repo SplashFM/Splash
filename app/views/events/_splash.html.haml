@@ -64,8 +64,8 @@
           .inner
             .social_link.facebook.left
               <iframe src="//www.facebook.com/plugins/like.php?href=splash.fm&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=21&amp;appId=184290874953561" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
-            .social_link.twitter.left
-              <img src="https://si0.twimg.com/a/1321466386/images/goodies/tweetn.png"/>
+            .social_link.twitter.left{:data => {:widget => 'twitter-post', :id => "${id}"}}
+              = image_tag 'https://si0.twimg.com/a/1321466386/images/goodies/tweetn.png'
           .arrow
         %a.report-song.right{:href => "#"} Report song
         {{if user}}
