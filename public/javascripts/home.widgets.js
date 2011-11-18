@@ -193,9 +193,18 @@ $(function() {
     },
 
     onUpload: function(_, data) {
-      $(this.el).trigger('upload:done');
+      switch (data.jqXHR.status) {
+      case 201:
+        this.metadata.setModel(new UndiscoveredTrack(data.result), 'edit');
 
-      this.metadata.setModel(new UndiscoveredTrack(data.result));
+        $(this.el).trigger('upload:done');
+
+        break;
+      case 200:
+        this.metadata.setModel(new UndiscoveredTrack(data.result), 'splash');
+
+        break;
+      }
     },
 
     render: function() {
@@ -243,19 +252,29 @@ $(function() {
       $(this.el).trigger('upload:complete');
 
       this.$('[data-widget = "metadata"]').hide();
+      this.$('[data-widget = "complete-upload"]').hide();
     },
 
     onSubmit: function(e) {
       e.preventDefault();
 
-      var attrs = {
-        title: this.$('[name = "title"]').val(),
-        performers: this.$('[name = "performers"]').val(),
+      if (this.mode == 'edit') {
+        var attrs = {
+          title: this.$('[name = "title"]').val(),
+          performers: this.$('[name = "performers"]').val(),
+        }
+
+        $(this.el).trigger('upload:metadata');
+
+        this.model.save(attrs, {success: this.onComplete});
+      } else {
+        new Splash().save({
+          comment:  this.mentions.commentWithMentions(),
+          track_id: this.model.get('id')
+        }, {
+          success: this.onComplete
+        });
       }
-
-      $(this.el).trigger('upload:metadata');
-
-      this.model.save(attrs, {success: this.onComplete});
     },
 
     render: function() {
@@ -263,17 +282,31 @@ $(function() {
 
       this.mentions = new UserMentions({el: this.$('textarea'),
                                         parent: this.el});
+
+      this.$('[data-widget = "complete-upload"]').hide();
+
       return this;
     },
 
-    setModel: function(model) {
+    setModel: function(model, mode) {
+      var button = this.$('[data-widget = "complete-upload"] input');
+
       this.model = model;
+      this.mode  = mode;
 
-      this.$('[name = "title"]').val(model.get('title'));
-      this.$('[name = "performers"]').val(model.get('performers'));
-      this.$('[name = "albums"]').val(model.get('albums'));
+      if (mode == 'edit') {
+        this.$('[name = "title"]').val(model.get('title'));
+        this.$('[name = "performers"]').val(model.get('performers'));
+        this.$('[name = "albums"]').val(model.get('albums'));
 
-      this.$('[data-widget = "metadata"]').show();
+        button.val(I18n.t('upload.save'));
+
+        this.$('[data-widget = "metadata"]').show();
+      } else {
+        button.val(I18n.t('upload.splash'));
+      }
+
+      this.$('[data-widget = "complete-upload"]').show();
     },
   });
 });

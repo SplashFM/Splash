@@ -89,6 +89,8 @@ en:
       fetch_error: Sorry your image can not be downloaded for edition
 
   upload:
+    save: Save and Splash
+    splash: Splash
     cancel: Cancel Upload
     done: Check file metadata
     error: Upload failed

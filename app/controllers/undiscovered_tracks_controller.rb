@@ -2,7 +2,15 @@ class UndiscoveredTracksController < ApplicationController
   respond_to :json
 
   def create
-    respond_with current_user.uploaded_tracks.create(params.slice(:data))
+    track = current_user.uploaded_tracks.build(params.slice(:data))
+
+    if track.save
+      respond_with track
+    elsif track.taken?
+      respond_with track.replace_with_canonical, :status => :ok
+    else
+      respond_with track
+    end
   end
 
   def destroy
@@ -28,8 +36,8 @@ class UndiscoveredTracksController < ApplicationController
     if splashable
       begin
         splash_and_post(params.slice(:comment), splashable)
-      rescue ActiveRecord::RecordInvalid
-        # do nothing
+      rescue ActiveRecord::RecordInvalid => e
+        respond_with e.record, :status => :forbidden
       end
     end
 
