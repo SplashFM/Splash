@@ -2,6 +2,12 @@
 #header
   .shell
     %a.nav-user-settings.right{:href => "#"}
+    .settings-drop
+      .inner
+        %a{:href => "#"} Logout
+        .cl
+        %a{:href => "#"} Settings
+      .tip
     %a.nav-username.right{:href => "#"}= current_user.try(:name)
     .nav-notifications.right{:data => {:widget => 'notifications'}}
       %a.avan-demi.count{:href => "#", :data => {:widget => 'toggle-notifications'}}

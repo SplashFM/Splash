@@ -81,8 +81,12 @@ Scaphandrier.Console = {
 // Handle flash messages
 Scaphandrier.Flash = {
   init : function() {
-    $("#flash_notice").fadeIn("slow");
-    $("#flash_error").fadeIn("slow");
+    var selector  = $(".flash-msg");
+    if(selector.length) {
+      selector.fadeIn("slow");
+      selector.click(function(e){ selector,fadeOut('slow') });
+      setTimeout(function(){ selector.fadeOut('slow') }, 10000);
+    }
   }
 };
 
@@ -112,14 +116,24 @@ Splash.Widget = {
   }
 }
 
+Splash.SetDrops = function() {
+  Splash.SettingsButton();
+  Splash.ShareButton();
+}
 Splash.ShareButton = function() {
   $('.share-btn').live( 'click' , toggleShare );
-
   function toggleShare(e) {
     $(e.target).parents('.container').find('.share_pane').toggle();
     e.preventDefault();
   }
+}
 
+Splash.SettingsButton = function() {
+  $('.nav-user-settings').live('click',toggleSettings);
+  function toggleSettings(e) {
+    $(e.target).parents('.shell').find('.settings-drop').toggle();
+    e.preventDefault();
+  }
 }
 
 // onLoad
@@ -131,5 +145,5 @@ jQuery(document).ready(function() {
   Scaphandrier.PreventHeaderLinksDefault.init();
   Splash.Widget.init();
   SPLASH.Widgets.sticky("#header .shell");
-  Splash.ShareButton();
+  Splash.SetDrops();
 });
