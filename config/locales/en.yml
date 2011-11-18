@@ -24,7 +24,9 @@ en:
       track: Enter a song to splash
     suggested_splashers:
       view_more: View More
-
+    feed_search:
+      search_for_song: Search for a song to Splash
+      load_more: Load More Results
   events:
     following: %{follower} is now following %{followed}
     updates:
