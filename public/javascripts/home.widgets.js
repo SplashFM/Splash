@@ -173,7 +173,6 @@ $(function() {
 
     hide: function(args) {
       $(this.el).hide();
-      this.mentions.reset();
       $(this.el).trigger("hiding");
 
       return this;
@@ -213,9 +212,6 @@ $(function() {
 
       $(this.el).append(this.metadata.render().el);
 
-      this.mentions = new UserMentions({el: this.$('form textarea'),
-                                        parent: this.el});
-
       return this;
     },
 
@@ -242,6 +238,8 @@ $(function() {
       this.$('[name = "performers"]').val('');
       this.$('[name = "albums"]').val('');
 
+      this.mentions.reset();
+
       $(this.el).trigger('upload:complete');
 
       this.$('[data-widget = "metadata"]').hide();
@@ -263,6 +261,8 @@ $(function() {
     render: function() {
       $(this.el).html($.tmpl(this.template));
 
+      this.mentions = new UserMentions({el: this.$('textarea'),
+                                        parent: this.el});
       return this;
     },
 
