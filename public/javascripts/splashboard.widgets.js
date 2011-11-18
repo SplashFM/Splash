@@ -74,7 +74,7 @@ $(function() {
       if (s.get('avatar_search')) {
         var json = s.toJSON();
       } else {
-        var json = {track: s.toJSON()};
+        var json = {track: s.toJSON(), user: false};
       }
       $($.tmpl(this.template, json)).appendTo(this.el);
       SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
