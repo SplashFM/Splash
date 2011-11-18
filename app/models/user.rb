@@ -157,8 +157,9 @@ class User < ActiveRecord::Base
   end
 
   def splash_suggestions(ignore=[])
+    # the users followed by people I am following, but whom I am not already following.
     relationships = Relationship.select('DISTINCT relationships.followed_id')
-                            .with_followers(followers.map(&:id))
+                            .with_followers(following.map(&:id))
                             .ignore(ignore + [self.id])
     ids = relationships.map(&:followed_id)
 
