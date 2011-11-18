@@ -19,6 +19,6 @@ class TracksController < ApplicationController
   end
 
   def top
-    @tracks = Track.top_splashed(current_page, TRACKS_PER_PAGE)
+    render :template => 'splashboards/index'
   end
 end
