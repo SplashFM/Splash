@@ -365,13 +365,13 @@ Widgets.SuggestedUsers = {
   }
 }
 
-Widgets.TweeterPost = {
+Widgets.SocialSite = {
   init: function(){
-    $w('twitter-post').live('click', function(){
+    $w('social-site-post').live('click', function(){
       $.ajax({
         type: 'post',
-        url: "/splashes/" + $(this).attr('data-id') + "/tweet",
-        data: "id=" + $(this).attr('data-id'),
+        url: "/splashes/" + $(this).attr('data-id') + "/share",
+        data: "id=" + $(this).attr('data-id') + "&site=" + $(this).attr('data-site'),
         success: function(){
           $(".share_pane").hide();
         }
@@ -393,7 +393,7 @@ $(document).ready(function() {
   Widgets.Notification.init();
   Widgets.Paginate.init();
   Widgets.Purchase.init();
-  Widgets.TweeterPost.init();
+  Widgets.SocialSite.init();
   Widgets.SuggestedUsers.init();
   new SPLASH.Widgets.waterNums('.waterNum');
 

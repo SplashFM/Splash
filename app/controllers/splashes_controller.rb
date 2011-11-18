@@ -14,9 +14,14 @@ class SplashesController < ApplicationController
     respond_with Splash.find(params[:id]).as_json(opts)
   end
 
-  def tweet
+  def share
     splash = Splash.find(params[:id])
-    twitter_post(splash)
+
+    if params[:site] == 'twitter'
+      twitter_post(splash)
+    else
+      facebook_post(splash)
+    end
 
     head :ok
   end

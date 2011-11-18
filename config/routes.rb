@@ -24,7 +24,7 @@ Scaphandrier::Application.routes.draw do
   resources :splashes do
     resources :comments
     member do
-      post :tweet
+      post :share
     end
   end
   resources :suggested_splashers
