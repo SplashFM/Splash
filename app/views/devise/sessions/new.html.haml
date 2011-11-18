@@ -8,6 +8,11 @@
 
 .user-signin
   .main
+    .pulsars
+      .p1.p
+      .p2.p
+      .p3.p
+      .p4.p
     .wrap
       = form_for(resource, :as => resource_name, :url => session_path(resource_name), :remote => true, :html => {:'data-type' => 'json'}) do |f|
         = f.text_field :email, :class => 'input', :placeholder => 'enter your email address...'
@@ -28,4 +33,3 @@
             = link_to 'Sign In with Facebook', user_omniauth_authorize_path(:facebook), :'data-skip-pjax' => 'true'
           %p.tw
             = link_to 'Sign In with Twitter', user_omniauth_authorize_path(:twitter), :'data-skip-pjax' => 'true'
-

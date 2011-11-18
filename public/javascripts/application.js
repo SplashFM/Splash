@@ -132,4 +132,5 @@ jQuery(document).ready(function() {
   Splash.Widget.init();
   SPLASH.Widgets.sticky("#header .shell");
   Splash.ShareButton();
+  SPLASH.Widgets.pulsars();
 });
