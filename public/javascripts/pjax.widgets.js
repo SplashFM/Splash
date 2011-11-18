@@ -17,6 +17,7 @@ Widgets.Pjax = {
       Widgets.Tabs.init();
       Scaphandrier.Fancybox.init();
       new SPLASH.Widgets.waterNums('.waterNum');
+      new SPLASH.Widgets.waterNums('.splash-score');
       SPLASH.Widgets.sticky("#header .shell");
       Scaphandrier.PreventHeaderLinksDefault.init();
     });

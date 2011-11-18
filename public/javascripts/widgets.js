@@ -405,6 +405,7 @@ $(document).ready(function() {
   Widgets.SocialSite.init();
   Widgets.SuggestedUsers.init();
   new SPLASH.Widgets.waterNums('.waterNum');
+  new SPLASH.Widgets.waterNums('.splash-score');
 
 });
 
