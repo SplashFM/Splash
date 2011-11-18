@@ -129,9 +129,11 @@ $(function() {
     template: $('#tmpl-event-splash').template(),
 
     initialize: function() {
-      _.bindAll(this, 'reset');
+      _.bindAll(this, 'onHover', 'onHoverOut', 'reset');
 
       this.model.bind('change', this.render, this);
+
+      $(this.el).hover(this.onHover, this.onHoverOut);
     },
 
     addComment: function(e) {
@@ -142,6 +144,14 @@ $(function() {
       }, {
         success: this.reset
       });
+    },
+
+    onHover: function() {
+      this.$('[data-widget = "play"] span').css('display', 'block');
+    },
+
+    onHoverOut: function() {
+      this.$('[data-widget = "play"] span').hide();
     },
 
     toggleExpanded: function(e) {
