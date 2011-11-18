@@ -46,6 +46,7 @@ $(function() {
     render: function() {
       $(this.el).empty();
       this.feed.each(this.renderItem);
+      SPLASH.Widgets.waterNums('.splash-score',this.el);
       return this;
     },
 

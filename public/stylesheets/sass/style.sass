@@ -1826,21 +1826,33 @@ textarea
       list-style: none outside none
       padding-top: 7px
     .splash-score
-      width: 100px
+      position: relative
+      margin-right: 20px
     .avatar
       padding-right: 10px
       height: 55px
       width: 55px
+      img[width]
+        height: 55px !important
+        width: 55px !important
     .num
       color: #34c3f2
+      font-size: 15px
     .name
       color: #242424
       font-size: 18px
     .ripples
-      font-size: 10px
+      font-size: 11px
       padding-right: 20px
+      color: #666
     .splashes
-      font-size: 10px
+      font-size: 11px
+      color: #666
+    .names
+      position: relative
+      .nickname
+        position: absolute
+        bottom: 0px
 
 .buttonStyle2
   min-width: 80px
@@ -1989,7 +2001,7 @@ textarea
   height: 100%
   width: 100%
   background: url('/css/images/water_nums.png') no-repeat
-  background-position: -20px -280px
+  background-position: -20px -400px
   z-index: 1
   top: 0px
 
@@ -2404,5 +2416,16 @@ html body #main.sessions
             &:hover
               background-position: 0 -78px
 
+.user_wrap
+  .sub
+  .user-name
+    color: #424242
+    font-size: 20px
+.splash-score
+  .water_bg_color
+    background-color: #a8b5c4
 .hide
   display: none
+.splash-score
+  .nonBlank_false
+    opacity: 1

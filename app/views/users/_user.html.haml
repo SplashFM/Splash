@@ -8,18 +8,20 @@
           .avatar.left
             %img{:alt => "", :height => "42", :src => "${avatar_search}", :width => "42"}/
           .left
-            %a.avan-demi{:href => "${url}"} ${name}
-            %span ${nickname}
-            .ripples.left
-              Ripples
-              .num.avan-demi ${ripple_count}
-            .splashes.left
-              Splashes
-              .num.avan-demi ${splash_count}
-            .clear
+            .names
+              %a.avan-demi.user-name.left{:href => "${url}"} ${name}
+              %span.left.nickname ${nickname}
+            .sub
+              .ripples.left
+                Ripples
+                .num.avan-demi ${ripple_count}
+              .splashes.left
+                Splashes
+                .num.avan-demi ${splash_count}
+              .clear
       .right
         .follow-links
-          .buttonStyle2.following
+          .buttonStyle2.follow
             %span
-            Following
+            Follow
       .clear
