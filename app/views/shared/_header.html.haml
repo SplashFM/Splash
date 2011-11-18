@@ -6,7 +6,7 @@
       .inner
         %a{:href => destroy_user_session_path} Logout
         .cl
-        %a{:href => "#"} Settings
+        %a{:href => edit_user_registration_path,:class => "fancybox"} Settings
       .tip
     %a.nav-username.right{:href => "#"}= current_user.try(:name)
     .nav-notifications.right{:data => {:widget => 'notifications'}}
