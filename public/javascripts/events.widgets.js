@@ -129,18 +129,19 @@ $(function() {
     template: $('#tmpl-event-splash').template(),
 
     initialize: function() {
+      _.bindAll(this, 'reset');
+
       this.model.bind('change', this.render, this);
     },
 
     addComment: function(e) {
       e.preventDefault();
 
-      this.model.comments().create({body: this.mentions.commentWithMentions()});
-
-      this.mentions.reset();
-      this.$(':text').val('');
-
-      this.toggleExpanded();
+      this.model.comments().create({
+        body: this.mentions.commentWithMentions()
+      }, {
+        success: this.reset
+      });
     },
 
     toggleExpanded: function(e) {
@@ -194,6 +195,13 @@ $(function() {
       }
 
       return this;
+    },
+
+    reset: function() {
+      this.mentions.reset();
+      this.$(':text').val('');
+
+      this.toggleExpanded();
     },
   })
 
