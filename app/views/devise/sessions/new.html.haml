@@ -1,26 +1,31 @@
-%h2=t('devise.labels.sign_in')
+- content_for(:head) do
+  %style
+    :sass
+      #wrapper
+        height: 100% !important
+      #player-area
+        display: none
 
-= form_for(resource, :as => resource_name, :url => session_path(resource_name), :remote => true, :html => {:'data-type' => 'json'}) do |f|
-  %p
-    = f.label :email
-    %br
-    = f.text_field :email
+.user-signin
+  .main
+    .wrap
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name), :remote => true, :html => {:'data-type' => 'json'}) do |f|
+        = f.text_field :email, :class => 'input', :placeholder => 'enter your email address...'
+        = f.password_field :password, :class => 'input'
+        = link_to t("Forgot Password?"), '#', :id => 'forgot_password'
+        = f.submit t('devise.buttons.login')
 
-  #password.hide
-    %p
-      = f.label :password
-      %br
-      = f.password_field :password
-
-    - if devise_mapping.rememberable?
-      %p
-        = f.check_box :remember_me
-        = f.label :remember_me
-
-    %p.form-button
-      = f.submit t('devise.buttons.login')
-
-= render :partial => 'devise/shared/links'
-%p#forgot_password.hide
-  = submit_tag t("devise.buttons.password_reset")
+  .bottom
+    .wrap
+      .description
+        %p.title Social music discovery
+        %p Share, compare and curate your listening favorites in the first music discovery community for avid listeners and taste-makers.
+      .signup
+        %p.title Sign Up
+        %p.text Logging in with your Facebook and Twitter accounts make Splashing with friends easy.  Splash.FM finds your friends for you so you can start Splashing your newest finds with friends instantly.
+        .omniauth-links
+          %p.fb
+            = link_to 'Sign In with Facebook', user_omniauth_authorize_path(:facebook), :'data-skip-pjax' => 'true'
+          %p.tw
+            = link_to 'Sign In with Twitter', user_omniauth_authorize_path(:twitter), :'data-skip-pjax' => 'true'
 
