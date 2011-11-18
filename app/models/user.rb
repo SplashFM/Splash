@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   include RedisRecord
   extend TestableSearch
 
+  NICKNAME_REGEXP = '[A-Za-z\d_\-]+'
+
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
   SUGGESTED_USERS_PER_PAGE = 3
 
@@ -50,7 +52,7 @@ class User < ActiveRecord::Base
 
   validates :nickname, :presence => true, :uniqueness => true
   validates_format_of :nickname,
-                      :with => /^[A-Za-z\d_\-]+$/,
+                      :with => /^#{NICKNAME_REGEXP}/,
                       :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
 
