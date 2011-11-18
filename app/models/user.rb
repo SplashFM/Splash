@@ -168,10 +168,11 @@ class User < ActiveRecord::Base
   def as_json(opts = {})
     {:id            => id,
      :name          => name,
+     :nickname      => nickname,
      :url          => "/#{slug}",
      :avatar_search => avatar.url(:thumb),
-     :ripple_count => ripple_count,
-     :splash_count => splash_count,
+     :ripple_count  => ripple_count,
+     :splash_count  => splash_count,
      :slug          => slug,
      :score         => splash_score}
   end
