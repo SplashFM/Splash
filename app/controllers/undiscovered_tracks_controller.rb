@@ -7,7 +7,13 @@ class UndiscoveredTracksController < ApplicationController
     if track.save
       respond_with track
     elsif track.taken?
-      respond_with track.replace_with_canonical, :status => :ok
+      canonical = track.replace_with_canonical
+
+      if ! Splash.for?(current_user, canonical)
+        respond_with canonical, :status => :ok
+      else
+        head :forbidden
+      end
     else
       respond_with track
     end
