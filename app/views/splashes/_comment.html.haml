@@ -4,6 +4,6 @@
       %img{:alt => "", :height => "34", :src => "${author.avatar_search}", :width => "34"}/
     .entry.left
       %p
-        %a.avan-demi{:href => "${author.url}"} ${author.name}
+        %a.avan-demi{:href => "${author.url}"} ${author.nickname}
         {{html UserMentions.linkMentions(body)}}
       %span.time ${created_at}

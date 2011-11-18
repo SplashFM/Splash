@@ -8,7 +8,7 @@
     .entry.left
       {{if user}}
       %p.names
-        %a.avan-bold{:href => "${user.url}"} ${user.name}
+        %a.avan-bold{:href => "${user.url}"} ${user.nickname}
         %span ${user.name}
       {{/if}}
       %p.songname.avan-demi
@@ -71,7 +71,7 @@
         {{if user}}
         %p.author
           %em Splashed by
-          %a.avan-bold{:href => "${user.url}"} ${user.name}
+          %a.avan-bold{:href => "${user.url}"} ${user.nickname}
         {{/if}}
         .cl &nbsp;
         %span.comments-module-t
