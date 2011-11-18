@@ -46,13 +46,14 @@ $(function() {
     },
 
     initialize: function() {
-      _.bindAll(this, 'renderNotification');
+      _.bindAll(this, 'renderNotification','toggle');
 
       this.list       = this.$('[data-widget = "list-notifications"]');
 
       this.collection = new NotificationList;
       this.collection.bind('reset', this.reset, this);
       this.collection.fetch();
+      $(this.el).clickout(this.toggle);
     },
 
     isActive: function() {

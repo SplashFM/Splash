@@ -122,6 +122,8 @@ Splash.SetDrops = function() {
 }
 Splash.ShareButton = function() {
   $('.share-btn').live( 'click' , toggleShare );
+  var theDrop = $('.share-btn').parents('.container').find('.share_pane').toggle();
+
   function toggleShare(e) {
     $(e.target).parents('.container').find('.share_pane').toggle();
     e.preventDefault();
@@ -130,9 +132,19 @@ Splash.ShareButton = function() {
 
 Splash.SettingsButton = function() {
   $('.nav-user-settings').live('click',toggleSettings);
+  var theDrop = $('.nav-user-settings').parents('.shell').find('.settings-drop');
+  theDrop.clickout(function(e){
+      if(theDrop.hasClass('down')) {
+          theDrop.hide();
+          theDrop.removeClass('down');
+        }
+    });
+
   function toggleSettings(e) {
-    $(e.target).parents('.shell').find('.settings-drop').toggle();
+    theDrop.toggle();
+    theDrop.toggleClass('down');
     e.preventDefault();
+    return false;
   }
 }
 
