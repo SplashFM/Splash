@@ -8,7 +8,8 @@
           .avatar.left
             %img{:alt => "", :height => "42", :src => "${avatar_search}", :width => "42"}/
           .left
-            .name.avan-demi ${name}
+            %a.avan-demi{:href => "${url}"} ${name}
+            %span ${nickname}
             .ripples.left
               Ripples
               .num.avan-demi ${ripple_count}
