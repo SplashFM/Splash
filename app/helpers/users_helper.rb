@@ -24,23 +24,6 @@ module UsersHelper
     link + label
   end
 
-  def follow_label
-    if profile_page?
-      content = ''
-
-      if @user.nil?
-      elsif @user == current_user
-        content = link_to t('.edit'), edit_user_path(current_user)
-      elsif current_user.following? @user
-        content = render 'users/unfollow'
-      else
-        content = render 'users/follow'
-      end
-
-      content_tag(:div, content, :class => "follow-button")
-    end
-  end
-
 private
   def profile_page?
     controller_path == 'users'

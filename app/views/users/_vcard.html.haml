@@ -19,5 +19,5 @@
           .tag-line.edit{:'data-action' => "#{user_path(current_user)}",
                         :'data-widget' => "#{ 'editable' if tagline_editable?}"}
             = user.tagline
-      = follow_label
       .cl &nbsp;
+    = render :partial => '/users/follow_button', :locals => {:user => user} unless user == current_user

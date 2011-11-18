@@ -1,1 +1,2 @@
-$('.follow-button').html("#{escape_javascript(render 'users/unfollow')}")
+- r = render :partial => '/users/follow_button', :locals => {:user => @user} unless @user == current_user
+$('.follow-container').replaceWith("#{escape_javascript(r)}")

@@ -68,6 +68,8 @@ en:
       title: 'User profile'
       follow: Follow
       unfollow: Unfollow
+      follow_detail: Follow this Splasher...
+      unfollow_detail: You are already following this Splasher.
       following: Following
       followers: Followers
       tagline: TAGLINE
