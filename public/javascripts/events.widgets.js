@@ -121,7 +121,7 @@ $(function() {
 
   window.Events.Splash = Backbone.View.extend({
     events: {
-      'click [data-widget = "expand"]': 'expand',
+      'click': 'expand',
       'submit [data-widget = "comment-box"]': 'addComment',
       'click [data-widget = "play"]': 'play'
     },
@@ -142,9 +142,12 @@ $(function() {
     },
 
     expand: function(e) {
-      e.preventDefault();
+      if ($(e.target).closest('[data-widget = "expand"]').length > 0 ||
+          $(e.target).closest('a').length == 0) {
+        e.preventDefault();
 
-      this.model.fetch();
+        this.model.fetch();
+      }
     },
 
     play: function(e) {
