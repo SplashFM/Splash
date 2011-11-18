@@ -1,6 +1,7 @@
 :javascript
   $(function() { window.App = new BaseApp; })
 
-= render 'shared/header'
+- if logged_in?
+  = render 'shared/header'
 #main{:class => "#{controller_name} #{action_name}"}
   = yield

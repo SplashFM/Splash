@@ -146,4 +146,6 @@ jQuery(document).ready(function() {
   Splash.Widget.init();
   SPLASH.Widgets.sticky("#header .shell");
   Splash.SetDrops();
+  Splash.ShareButton();
+  SPLASH.Widgets.pulsars();
 });

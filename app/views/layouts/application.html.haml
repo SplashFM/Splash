@@ -28,7 +28,7 @@
       = render "users/user_summary"
       = render "home/track"
       = render "tracks/track_summary"
-  %body
+  %body{ :class => controller.controller_name }
     = render "shared/ie6_banner"
     #wrapper{'data-pjax-container' => ''}
       = render :template => 'layouts/pjax'

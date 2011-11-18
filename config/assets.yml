@@ -43,6 +43,7 @@ javascripts:
     - public/javascripts/SPLASH.Widgets.waterNums.js
     - public/javascripts/SPLASH.Widgets.numFlipper.js
     - public/javascripts/SPLASH.Widgets.sticky.js
+    - public/javascripts/SPLASH.Widgets.pulsars.js
     
 
   pjax:

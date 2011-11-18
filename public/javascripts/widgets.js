@@ -40,6 +40,10 @@ Widgets.Tabs = {
 
 Widgets.TypingStop ={
   init: function(){
+    $wrapper = $(".user-signin .main .wrap");
+    $password = $("#user_password");
+    $forgotPassword = $("#forgot_password");
+    $submit = $("#user_submit");
     $('#user_email').typing({
         start: function (event, $elem) {
         },
@@ -52,16 +56,18 @@ Widgets.TypingStop ={
 
             complete: function(data){
               if(data.status == 200){
-                $('#password').show();
-                $('p.form-button').show();
+                $wrapper.animate({paddingTop: 90 - 53});
+                $password.show();
+                // $submit.show();
               } else if(data.status == 404) {
-                $('#password').hide();
-                $('p.form-button').hide();
+                $wrapper.animate({paddingTop: 90});
+                $password.hide();
+                // $submit.hide();
               }
             },
           });
         },
-        delay: 200
+        delay: 1000
    });
   }
 }
@@ -77,10 +83,13 @@ Widgets.SignIn = (function(){
   function manageResponse() {
     $("form#user_new")
       .bind('ajax:success', function(evt, data, status, xhr){
+        $("#user_password").removeClass('error');
+        $("#forgot_password").hide();
         window.location.href = Routes.home_path();
       })
       .bind('ajax:error', function(evt, xhr, status, error){
-        Widgets.FlashTemplate.error($.parseJSON(xhr.responseText).error);
+        // Widgets.FlashTemplate.error($.parseJSON(xhr.responseText).error);
+        $("#user_password").addClass('error');
         $("#forgot_password").show();
       });
   };
