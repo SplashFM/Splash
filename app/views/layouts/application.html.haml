@@ -28,6 +28,13 @@
       = render "users/user_summary"
       = render "home/track"
       = render "tracks/track_summary"
+    :javascript
+      var Constants = {};
+
+      $(function () {
+        Constants.NICKNAME_REGEXP =
+          new RegExp("@(" + #{User::NICKNAME_REGEXP.inspect} + ")", "g");
+      });
   %body{ :class => controller.controller_name }
     = render "shared/ie6_banner"
     #wrapper{'data-pjax-container' => ''}
