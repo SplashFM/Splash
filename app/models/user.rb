@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   include RedisRecord
   extend TestableSearch
 
+  MAX_SCORE       = 99
   NICKNAME_REGEXP = '[A-Za-z\d_\-]+'
 
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
@@ -251,7 +252,9 @@ class User < ActiveRecord::Base
   end
 
   def splash_score
-    influence_score + 10
+    s = influence_score + 10
+
+    s > MAX_SCORE ? MAX_SCORE : s
   end
 
   def search_result_type
