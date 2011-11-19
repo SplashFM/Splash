@@ -213,11 +213,19 @@ class User < ActiveRecord::Base
     relationships.create(:followed => followed)
     followed.suggest_users
     suggest_users
+    recompute_splashboard(:add, followed)
     save
   end
 
-  def unfollow(user)
-    followed(user).try(:destroy)
+  def unfollow(followed)
+    followed(followed).try(:destroy)
+    recompute_splashboard(:subtract, followed)
+  end
+
+  def recompute_splashboard(operation, followed)
+    # TODO: there is a more efficient way to add or subtract the other users history,
+    # but this works for now.
+    reset_top_tracks!
   end
 
   def following_sample(count=0)
