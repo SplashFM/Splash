@@ -2,6 +2,8 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 var Scaphandrier = Scaphandrier || {};
+var SPLASH = SPLASH || {};
+SPLASH.Widgets = SPLASH.Widgets || {};
 
 Scaphandrier.PreventHeaderLinksDefault = {
   init : function() {
@@ -116,11 +118,12 @@ Splash.Widget = {
   }
 }
 
-Splash.SetDrops = function() {
-  Splash.SettingsButton();
-  Splash.ShareButton();
+SPLASH.Widgets.SetDrops = function() {
+  console.log("rdy");
+  SPLASH.Widgets.SettingsButton();
+  SPLASH.Widgets.ShareButton();
 }
-Splash.ShareButton = function() {
+SPLASH.Widgets.ShareButton = function() {
   $('.share-btn').live( 'click' , toggleShare );
   var theDrop = $('.share-btn').parents('.container').find('.share_pane').toggle();
 
@@ -130,8 +133,8 @@ Splash.ShareButton = function() {
   }
 }
 
-Splash.SettingsButton = function() {
-  $('.nav-user-settings').live('click',toggleSettings);
+SPLASH.Widgets.SettingsButton = function() {
+  $('.nav-user-settings').bind('click',toggleSettings);
   var theDrop = $('.nav-user-settings').parents('.shell').find('.settings-drop');
   theDrop.clickout(function(e){
       if(theDrop.hasClass('down')) {
@@ -157,7 +160,6 @@ jQuery(document).ready(function() {
   Scaphandrier.PreventHeaderLinksDefault.init();
   Splash.Widget.init();
   SPLASH.Widgets.sticky("#header .shell");
-  Splash.SetDrops();
-  Splash.ShareButton();
+  SPLASH.Widgets.SetDrops();
   SPLASH.Widgets.pulsars();
 });

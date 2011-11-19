@@ -254,7 +254,7 @@ textarea
   position: relative
   width: 39px
   height: 41px
-  margin: 6px 21px 0 0
+  margin: 6px 19px 0 0
   .trigger
     display: block
     height: 41px
@@ -382,7 +382,7 @@ textarea
   .dd
     position: absolute
     top: 37px
-    left: 10px
+    left: 0px
     width: 356px
     height: 229px
     background: url(/css/images/head-search-dd.png) repeat-x 0 0
@@ -458,6 +458,10 @@ textarea
       width: 134px
       padding: 0 7px
       line-height: 24px
+      text-overflow: ellipsis
+      white-space: nowrap
+      overflow: hidden
+      height: 25px
       &.even
         background: #dee6ec
     a
@@ -468,7 +472,7 @@ textarea
 #navigation
   list-style: none outside none
   padding-top: 20px
-  padding-right: 60px
+  padding-right: 0px
   li
     float: left
     margin-right: 30px
@@ -697,8 +701,6 @@ textarea
   .scores
     color: #5092cc
     font-size: 27px
-    background: url(/css/images/suggested-splashers-spbadge.png) no-repeat 0 2px
-    padding-left: 21px
     line-height: 1
     height: 27px
   .delete
@@ -2433,3 +2435,7 @@ html body #main.sessions
     opacity: 1
 
 @import partials/forms
+
+.splashboard-items
+  .follow-links
+    display: none
