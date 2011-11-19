@@ -8,4 +8,8 @@ class HomeController < ApplicationController
       render 'preview', :layout => false
     end
   end
+
+  def splashboards
+    render :template => 'splashboards/index'
+  end
 end

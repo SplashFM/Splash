@@ -47,6 +47,7 @@ Scaphandrier::Application.routes.draw do
   resource :visitor
 
   match 'home' => 'home#index', :as =>'home'
+  match '/splashboards' => 'home#splashboards', :as =>'splashboards'
   match 'dashboard' => 'home#index', :as => 'dashboard'
   match 'home/events' => 'home#events'
   match 'home/event_updates' => 'home#event_updates'
