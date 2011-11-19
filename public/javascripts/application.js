@@ -119,7 +119,6 @@ Splash.Widget = {
 }
 
 SPLASH.Widgets.SetDrops = function() {
-  console.log("rdy");
   SPLASH.Widgets.SettingsButton();
   SPLASH.Widgets.ShareButton();
 }

@@ -20,7 +20,6 @@ Widgets.Pjax = {
       SPLASH.Widgets.sticky("#header .shell");
       Scaphandrier.PreventHeaderLinksDefault.init();
       SPLASH.Widgets.SettingsButton();
-      SPLASH.Widgets.ShareButton();
     });
   }
 }
