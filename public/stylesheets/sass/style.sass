@@ -1352,8 +1352,10 @@ textarea
   .entry
     width: 300px
     padding: 0 0 0 15px
-    .names span
-      font-size: 10px
+    .names
+      -2px
+      span
+        font-size: 10px
     .songname
       color: #252525
       font-size: 20px
@@ -1366,7 +1368,7 @@ textarea
       font-size: 10px
       line-height: 12px
       list-style: none outside none
-      padding-top: 7px
+      padding-top: 0px
       li
         float: left
         margin-right: 5px
@@ -1854,9 +1856,11 @@ textarea
       color: #666
     .names
       position: relative
+      height: 26px
       .nickname
-        position: absolute
-        bottom: 0px
+        position: relative
+        margin-left: 10px
+        top: 6px
 
 .buttonStyle2
   min-width: 80px
@@ -2224,8 +2228,8 @@ textarea
   .art
     border: solid 1px #CCC
     img
-      width: 41px !important
-      height: 41px !important
+      width: 71px !important
+      height: 71px !important
   .icon
     position: relative
     top: 2px
@@ -2255,10 +2259,12 @@ textarea
     background: url(/css/images/quick-splash-form-arrow.png) no-repeat
 
 .avatars
-  width: 41px !important
-  height: 41px !important
-  margin-right  2px
-  margin-bottom: 2px
+  padding: 10px
+  img
+    width: 41px !important
+    height: 41px !important
+    margin-right  2px
+    margin-bottom: 2px
 
 [data-widget = "events-filter"]
   height: auto
@@ -2291,7 +2297,7 @@ html body #main.sessions
   min-height: 250px + 227px
   width: auto
   padding: 0
-  background-color: #0f1b29 !important
+  background-color: #0F1B27 !important
 .user-signin
   height: 100%
   .main
@@ -2439,3 +2445,9 @@ html body #main.sessions
 .splashboard-items
   .follow-links
     display: none
+.live-feed
+  .ui-autocomplete
+    background-color: rgba(0, 0, 0, 0.5)
+    margin-left: -3px
+    width: 319px !important
+    padding: 5px
