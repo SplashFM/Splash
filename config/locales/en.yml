@@ -123,7 +123,7 @@ en:
       tooltip: 'Click to edit...'
 
   notifications:
-    following: "%{follower} is following you"
+    following: "%{user} is following you"
     mention: "%{user} has mentioned you"
 
   you: you
