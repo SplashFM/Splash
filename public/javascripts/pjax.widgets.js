@@ -19,6 +19,8 @@ Widgets.Pjax = {
       new SPLASH.Widgets.waterNums('.waterNum');
       SPLASH.Widgets.sticky("#header .shell");
       Scaphandrier.PreventHeaderLinksDefault.init();
+      SPLASH.Widgets.SettingsButton();
+      SPLASH.Widgets.ShareButton();
     });
   }
 }
