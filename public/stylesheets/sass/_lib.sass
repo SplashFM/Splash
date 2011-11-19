@@ -1,0 +1,158 @@
+=Layout_Reset
+
+  /* CSS RESET */
+
+  html, body, div, span, p, a,
+  h1, h2, h3, h4, h5, h6,
+  dl, dt, dd, ol, ul, li,
+  form, fieldset, legend, label, input, textarea, select, button,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  strong, em, b, i,
+  blockquote, q, pre, code, cite,
+  abbr, acronym, address, del, dfn, img, hr,
+  object, iframe,
+  article, aside, dialog, figure, footer, header, hgroup, nav, section
+    margin: 0
+    padding: 0
+    font-family: inherit
+    font-size: 100%
+    font-weight: inherit
+    font-style: inherit
+    font-variant: normal
+    vertical-align: baseline
+
+  html, body, div, span, p, a,
+  h1, h2, h3, h4, h5, h6,
+  dl, dt, dd, ol, ul, li,
+  form, fieldset, legend, label,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  strong, em, b, i,
+  blockquote, q, pre, code, cite,
+  abbr, acronym, address, del, dfn, img, hr,
+  object, iframe,
+  article, aside, dialog, figure, footer, header, hgroup, nav, section
+    border: 0 none
+    outline: 0 none
+    background: none
+
+  article, aside, dialog, figure, footer, header, hgroup, nav, section
+    display: block
+
+  table
+    border-collapse: collapse
+    border-spacing: 0
+
+  caption, th, td
+    text-align: left
+
+  table, td, th
+    vertical-align: middle
+
+  ol, ul, li
+    list-style: none
+
+  blockquote, q
+    &:before, &:after
+      content: ''
+    quotes: none
+
+  i, em
+    font-style: italic
+
+  b, strong
+    font-weight: bold
+
+  sup
+    vertical-align: text-top
+
+  sub
+    vertical-align: text-bottom
+
+  body
+    cursor: default
+    color: #000
+    background: #fff
+
+  a, label, button
+    cursor: pointer
+
+  acronym, abbr
+    cursor: help
+
+  a, label, button, input, textarea, select
+    &:focus, &:active
+      outline: 0 none
+
+
+=Layout_Helpers
+
+  /* CSS Helpers */
+
+  div.Clear
+    display: block !important
+    clear: both !important
+    float: none !important
+    width: 100% !important
+    height: 1px !important
+    margin: 0 0 -1px 0 !important
+    font-size: 0px !important
+
+  .Hidden
+    visibility: hidden !important
+
+  .Visible
+    visibility: visible !important
+
+  .None
+    display: none
+
+/* SASS Mixings */
+
+@mixin round-borders($args)
+  -moz-border-radius: $args
+  -khtml-border-radius: $args
+  -webkit-border-radius: $args
+  border-radius: $args
+
+@mixin box-shadow($args)
+  -moz-box-shadow: unquote($args)
+  -webkit-box-shadow: unquote($args)
+  box-shadow: unquote($args)
+
+@mixin transform($args)
+  -moz-transform: $args
+  -webkit-transform: $args
+  -o-transform: $args
+  transform: $args
+
+@mixin transition($args)
+  -moz-transition: $args
+  -webkit-transition: $args
+  -o-transition: $args
+
+@mixin bg-linear-gradient($from, $to)
+  background: $from
+  background: -moz-linear-gradient(top, $from, $to)
+  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to))
+  background: linear-gradient($from, $to)
+
+@mixin opacity($opacity)
+  filter: alpha(opacity = $opacity*100)
+  -moz-opacity: $opacity
+  -khtml-opacity: $opacity
+  opacity: $opacity
+
+@mixin box-sizing($args)
+  box-sizing: $args
+  -webkit-box-sizing: $args
+  -moz-box-sizing: $args
+
+@mixin box-sizing-border-box
+  +box-sizing(border-box)
+
+@mixin ellipsis
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+  -o-text-overflow: ellipsis
+
