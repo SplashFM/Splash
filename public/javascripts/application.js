@@ -105,7 +105,7 @@ Splash.Widget = {
     $("tr[data-source=\"soundcloud\"] td[data-track_url]").each(function(i, e) {
       SC.oEmbed($(e).attr("data-track_url"), {}, e);
     });
-    
+
     $("tr[data-source=\"itunessearch\"] td[data-track_url]").each(function(i, e) {
       jwplayer($(e).attr("id")).setup({
         flashplayer: "/player.swf",
@@ -119,7 +119,6 @@ Splash.Widget = {
 }
 
 SPLASH.Widgets.SetDrops = function() {
-  console.log("rdy");
   SPLASH.Widgets.SettingsButton();
   SPLASH.Widgets.ShareButton();
 }
