@@ -18,3 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+every 2.hours do
+  runner "User.recompute_all_splashboards"
+end

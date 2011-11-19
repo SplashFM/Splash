@@ -98,6 +98,10 @@ class User < ActiveRecord::Base
     update_influence_scores scores
   end
 
+  def self.recompute_all_splashboards
+    User.find_each(:batch_size => 100) {|u| u.recompute_splashboard }
+  end
+
   def self.find_by_slug(slug)
     where(:nickname => slug).first
   end
