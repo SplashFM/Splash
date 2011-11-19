@@ -44,7 +44,8 @@ Widgets.TypingStop ={
     $password = $("#user_password");
     $forgotPassword = $("#forgot_password");
     $submit = $("#user_submit");
-    $('#user_email').typing({
+
+    $w('user-email').typing({
         start: function (event, $elem) {
         },
         stop: function (event, $elem) {
@@ -96,7 +97,7 @@ Widgets.SignIn = (function(){
 
   function ajaxifyForgotPasswordButton() {
     $('#forgot_password').live("click", function() {
-      email = $("#user_email").val();
+      email = $w("user-email").val();
       $.ajax({
         type: 'post',
         url: Routes.user_password_path(),
