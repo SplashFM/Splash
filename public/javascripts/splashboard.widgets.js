@@ -47,9 +47,6 @@ $(function() {
       $(this.el).empty();
       this.feed.each(this.renderItem);
 
-      if (this.options.waterNums)
-        SPLASH.Widgets.waterNums('.splash-score',this.el);
-
       return this;
     },
 
@@ -58,6 +55,7 @@ $(function() {
         model: s,
         template: this.template,
         numFlipper: this.options.numFlipper,
+        waterNums: this.options.waterNums,
       }).render().el);
     },
   });
@@ -86,9 +84,12 @@ $(function() {
       }
       $($.tmpl(this.template, json)).appendTo(this.el);
 
-      if (this.options.numFlipper) {
-        SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
+      if (this.options.waterNums) {
+        SPLASH.Widgets.waterNums($('.splash-score',this.el));
       }
+
+      if (this.options.numFlipper)
+        SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
 
       new TrackSearch.Track.FullSplashAction({
         model: this.model,
