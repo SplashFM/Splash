@@ -418,6 +418,7 @@
   if ( $.inArray('state', $.event.props) < 0 )
     $.event.props.push('state');
 
+  if (window.location.hash === "#_=_") window.location.hash = "";
 
   // While page is loading, we should handle different URL types
   var hash = window.location.hash.toString();
