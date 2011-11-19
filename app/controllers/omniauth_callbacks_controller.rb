@@ -49,6 +49,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
                                           :token => token,
                                           :token_secret => token_secret)
 
-    redirect_to edit_user_path(current_user), :notice => I18n.t('devise.omniauth.site_link', :site => site)
+    redirect_to root_path, :notice => I18n.t('devise.omniauth.site_link', :site => site)
   end
 end
