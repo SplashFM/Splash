@@ -124,6 +124,6 @@ en:
 
   notifications:
     following: "%{follower} is following you"
-    mention: "%{user} is has mentioned you"
+    mention: "%{user} has mentioned you"
 
   you: you
