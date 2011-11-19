@@ -46,12 +46,19 @@ $(function() {
     render: function() {
       $(this.el).empty();
       this.feed.each(this.renderItem);
-      SPLASH.Widgets.waterNums('.splash-score',this.el);
+
+      if (this.options.waterNums)
+        SPLASH.Widgets.waterNums('.splash-score',this.el);
+
       return this;
     },
 
     renderItem: function(s) {
-      $(this.el).append(new SplashboardItem({model: s, template: this.template}).render().el);
+      $(this.el).append(new SplashboardItem({
+        model: s,
+        template: this.template,
+        numFlipper: this.options.numFlipper,
+      }).render().el);
     },
   });
 
@@ -78,7 +85,10 @@ $(function() {
         var json = {track: s.toJSON(), user: false};
       }
       $($.tmpl(this.template, json)).appendTo(this.el);
-      SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
+
+      if (this.options.numFlipper) {
+        SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
+      }
 
       new TrackSearch.Track.FullSplashAction({
         model: this.model,
