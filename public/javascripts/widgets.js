@@ -392,7 +392,6 @@ Widgets.SocialSite = {
 }
 $(document).ready(function() {
   Widgets.Scroll.init();
-  Widgets.Tabs.init();
   Widgets.TypingStop.init();
   Widgets.SignIn.init();
   Widgets.Upload.init();

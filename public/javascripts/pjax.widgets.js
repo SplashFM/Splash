@@ -14,7 +14,6 @@ Widgets.Pjax = {
     $('body').bind('success.pjax', function() {
       Widgets.Upload.reload();
       Widgets.Editable.reload();
-      Widgets.Tabs.init();
       Scaphandrier.Fancybox.init();
       new SPLASH.Widgets.waterNums('.waterNum');
       SPLASH.Widgets.sticky("#header .shell");

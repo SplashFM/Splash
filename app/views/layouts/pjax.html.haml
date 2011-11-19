@@ -1,5 +1,9 @@
 :javascript
-  $(function() { window.App = new BaseApp; })
+  $(function() {
+    window.App = new BaseApp;
+
+    Widgets.Tabs.init();
+  });
 
 - if logged_in?
   = render 'shared/header'
