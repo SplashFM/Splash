@@ -5,7 +5,7 @@ class HomeController < ApplicationController
     if logged_in?
       render
     else
-      render 'preview', :layout => false
+      redirect_to 'http://signup.splash.fm'
     end
   end
 
