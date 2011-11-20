@@ -251,7 +251,7 @@ Widgets.Avatar = {
     $("form.edit_user").bind('ajax:complete', function(evt, data, status, xhr){
           user = $.parseJSON(data.responseText);
           d = new Date();
-          $('#user-avatar').attr('src', user.avatar_search+d.getTime());
+          $('#user-avatar').attr('src', user.avatar_thumb_url + d.getTime());
           $.fancybox.close();
       });
 
@@ -289,7 +289,7 @@ Widgets.AvatarUpload = {
   init: function(){
     $('#fileupload').fileupload({
               done:  function(e, data) {
-                $('#user-avatar').attr('src', data.result.avatar_search).fadeIn();
+                $('#user-avatar').attr('src', data.result.avatar_thumb_url).fadeIn();
                 $.fancybox.close();
               }
     });

@@ -77,7 +77,7 @@ $(function() {
     render: function() {
       var s = this.model;
       /* HACK: to make tracks, but not users, look like splashes */
-      if (s.get('avatar_search')) {
+      if (s.get('avatar_thumb_url')) {
         var json = s.toJSON();
       } else {
         var json = {track: s.toJSON(), user: false};
