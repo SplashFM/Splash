@@ -13,8 +13,9 @@ class Notification < ActiveRecord::Base
   end
 
   def as_json(opts = {})
-    super(:methods => [:title]).
-      merge!(:type => self.class.name.parameterize)
+    {:title    => title,
+     :type     => self.class.name.parameterize,
+     :notifier => notifier.as_json}
   end
 
   def unread?
