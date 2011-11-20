@@ -6,7 +6,9 @@
 .follow-container
   .inner
     .left.following-button
-      %a.buttonStyle2.following{:href => relationship_path(user), :data => {:remote => true, :method => method}}
+      %a.buttonStyle2.following{:href  => relationship_path(user), |
+                                :data  => {:remote => true, :method => method}, |
+                                :class => "buttonStyle2 following #{verb}"}
         %span
         = t(verb, :scope => 'users.show')
     .left.following-text
