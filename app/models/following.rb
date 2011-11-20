@@ -6,6 +6,6 @@ class Following < Notification
 
   def title
     I18n.t('notifications.following',
-           :follower => notifier.name)
+           :user => notifier.name)
   end
 end
