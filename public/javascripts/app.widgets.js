@@ -102,6 +102,7 @@ $(function() {
   window.BaseApp.Notifications.Notification = Backbone.View.extend({
     tagName: 'div',
     className: 'item',
+    events: {'click': 'showTarget'},
     template: $('#tmpl-notification').template(),
 
     render: function() {
@@ -110,6 +111,16 @@ $(function() {
       $(this.el).html($.tmpl(this.template, this.model.toJSON()));
 
       return this;
+    },
+
+    showTarget: function() {
+      switch (this.model.get('type')) {
+      case 'following':
+        $.pjax({
+          url: this.model.get('notifier').url,
+          container: '[data-pjax-container]',
+        });
+      }
     },
   });
 
