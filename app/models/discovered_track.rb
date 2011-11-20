@@ -1,4 +1,9 @@
 class DiscoveredTrack < Track
+  def as_json(opts = {})
+    super(opts).
+      merge!(:purchase_url => purchase_url)
+  end
+
   def preview_type
     "m4a"
   end
