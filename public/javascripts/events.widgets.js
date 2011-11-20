@@ -76,8 +76,15 @@ $(function() {
     },
 
     renderUpdateCount: function(count) {
-      $('[data-widget = "update-count"]').
-        text(I18n.t('events.updates', {count: count}))
+      var upd = $('[data-widget = "update-count"]');
+
+      upd.text(I18n.t('events.updates', {count: count}))
+
+      if (count === 0) {
+        upd.addClass('no-new');
+      } else {
+        upd.removeClass('no-new');
+      }
     },
 
     scroll: function() {

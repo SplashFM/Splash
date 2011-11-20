@@ -26,7 +26,7 @@
                 %a{:href => "#everyone"} Everyone
           .line
             %span
-          %span.feed-updates-count.left{:data => {:widget => 'update-count'}}
+          %span.feed-updates-count.no-new.left{:data => {:widget => 'update-count'}}
           = render "shared/feed_toggles"
       = render "shared/feed_filter"
       %ul.live-feed{:data => {:widget => 'events'}}
