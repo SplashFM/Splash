@@ -12,4 +12,8 @@
         .jp-seek-bar
           .jp-play-bar
       %a.splash-btn.left{:href => "#"}
-      %a.download-track.left{:href => "#"} Download track
+      {{if purchase_url}}
+      %a.download-track.left{:href => "${purchase_url}"} ${I18n.t('tracks.purchase')}
+      {{else download_url}} |
+      %a.download-track.left{:href => "${download_url}"} ${I18n.t('tracks.download')}
+      {{/if}}

@@ -59,6 +59,8 @@ en:
       comment_number: View all %{number} comments
 
   tracks:
+    download: Download track
+    purchase: Purchase track
     widget:
       splashed: Splashed
       splash: Splash
