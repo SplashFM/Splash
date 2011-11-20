@@ -29,6 +29,6 @@ class Notification < ActiveRecord::Base
   private
 
   def email_notification
-    UserMailer.notification(self).deliver
+    UserMailer.delay.notification(self)
   end
 end
