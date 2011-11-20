@@ -57,6 +57,7 @@ $(function() {
       this.page = 1;
 
       this.fetch();
+      this.renderUpdateCount(0);
     },
 
     render: function() {
