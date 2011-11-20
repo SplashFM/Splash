@@ -38,6 +38,11 @@ class UndiscoveredTrack < Track
   validate :validate_performer_presence, :if => :full_validation?
   validate :validate_track_uniqueness,   :if => :full_validation?
 
+  def as_json(opts = {})
+    super(opts).
+      merge!(:download_url => download_url)
+  end
+
   def preview_type
     File.extname(data_file_name).split('.').last
   end
@@ -46,6 +51,7 @@ class UndiscoveredTrack < Track
     data.url
   end
 
+  alias_method :download_url, :preview_url
   alias_method :preview_url?, :preview_url
 
   def downloadable?
