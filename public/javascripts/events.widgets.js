@@ -28,6 +28,9 @@ $(function() {
         this.app.bind('endlessScroll', this.scroll, this)
       }
 
+      // TODO: move to the events object when this attaches to #stream-feed
+      $('[data-widget = "update-count"]').bind('click', this.refresh);
+
       this.refresh();
     },
 
