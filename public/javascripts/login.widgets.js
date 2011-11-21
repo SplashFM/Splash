@@ -65,7 +65,8 @@ $(function() {
 
   window.Registration = Backbone.View.extend({
     events: {
-      'ajax:success': 'onRegister'
+      'ajax:success': 'onRegister',
+      'ajax:error': 'onErrors'
     },
     template: $('#tmpl-registration').template(),
 
@@ -73,6 +74,24 @@ $(function() {
       this.$('[name = "user[email]"]').val(val);
 
       return this;
+    },
+
+    onErrors: function(_, xhr) {
+      var errors = $.parseJSON(xhr.responseText);
+
+      for (var k in errors) {
+        switch (k) {
+        case 'email':
+          this.$('[name = "user[email]"]').addClass('error');
+
+          break;
+        case 'password':
+          this.$('[name = "user[password]"]').addClass('error');
+          this.$('[name = "user[password_confirmation]"]').addClass('error');
+
+          break;
+        }
+      }
     },
 
     onRegister: function() {
