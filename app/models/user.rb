@@ -215,10 +215,14 @@ class User < ActiveRecord::Base
     suggested_users.delete(followed.id)
     write_attribute(:suggested_users, suggested_users)
     relationships.create(:followed => followed)
-    followed.suggest_users
-    suggest_users
     recompute_splashboard(:add, followed)
+    self.delay.update_suggestions
     save
+  end
+
+  def update_suggestions
+    suggest_users
+    followers.each &:suggest_users
   end
 
   def unfollow(followed)
