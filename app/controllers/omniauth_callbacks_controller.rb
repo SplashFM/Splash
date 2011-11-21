@@ -44,11 +44,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     token         = access_token['credentials']['token']
     token_secret  = access_token['credentials'].try(:[], 'secret')
 
-    current_user.social_connections.create(:provider => provider,
-                                          :uid => uid,
-                                          :token => token,
-                                          :token_secret => token_secret)
-
-    redirect_to root_path, :notice => I18n.t('devise.omniauth.site_link', :site => site)
+    connection = current_user.social_connections.build(:provider => provider,
+                                                  :uid => uid,
+                                                  :token => token,
+                                                  :token_secret => token_secret)
+    if connection.save
+      redirect_to root_path, :notice => I18n.t('devise.omniauth.site_link', :site => site)
+    else
+      redirect_to root_path, :error => I18n.t('errors.messages.already_taken')
+    end
   end
 end

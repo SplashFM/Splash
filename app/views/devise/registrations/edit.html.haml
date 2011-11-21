@@ -25,13 +25,11 @@
       %li
         %label Social Connect
       %li
-        %a.buttonStyle2
-          = image_tag("twitter-logo.png")
-          Link your Twitter Account
+        = link_to_social_site(:twitter, 'twitter-logo.png')
+
       %li
-        %a.buttonStyle2
-          = image_tag("fb-logo.png")
-          Link your Facebook Account
+        = link_to_social_site(:facebook, 'fb-logo.png')
+
     %ul.actions
       %li= link_to "Cancel", "#", :class => "buttonStyle2"
       %li= f.submit "Save", :class => "buttonStyle2"
