@@ -35,9 +35,9 @@ class UsersController < ApplicationController
 
   def exists
     if User.exists?(params.slice(:email))
-      head(:ok)
+      render :json => true
     else
-      head(:not_found)
+      render :json => params.slice(:email), :status => 404
     end
   end
 

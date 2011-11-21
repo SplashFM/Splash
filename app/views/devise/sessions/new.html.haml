@@ -6,6 +6,47 @@
       #player-area
         display: none
 
+  :javascript
+    $(function () { $('.main').append(new LoginView().render().el); });
+
+  %script#tmpl-registration{:type => 'text/x-jquery-tmpl'}
+    = form_for :user, |
+        :remote => true, |
+        :url  => registration_path(:user), |
+        :html => {:'data-type' => 'json', |
+                  :class => 'register'} do |f|
+      = f.text_field :email, :class => 'input', :placeholder => 'email'
+      = f.text_field :name, :class => 'input', :placeholder => 'name'
+      = f.password_field :password, :class => 'input', :placeholder => 'password'
+      = f.password_field :password_confirmation, :class => 'input', :placeholder => 'confirm password'
+      = f.submit
+
+  %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
+    = form_for(:user, |
+        :url    => session_path(:user), |
+        :remote => true, |
+        :html   => {:'data-type' => 'json', |
+                    :class       => 'sign-in'}) do |f|
+      = f.text_field :email, :class => 'input', :placeholder => 'enter your email address...', :'data-widget' => 'user-email'
+      = f.password_field :password, :class => 'input'
+      = link_to t("Forgot Password?"), '#', :id => 'forgot_password'
+      = f.submit t('devise.buttons.login')
+
+  %script#tmpl-choice{:type => 'text/x-jquery-tmpl'}
+    .confirm-new
+      .title.hide
+        Sounds good.
+        %span.indent
+          Happy Splashing!
+      .title
+        New to Splash.FM?
+      .small
+        A new account is being created for,
+      .email.large
+      .buttons
+        = link_to 'Yep. I’m new', '#', :class => 'yes', :'data-widget' => 'yes'
+        = link_to 'Oops. I mistyped it', '#', :class => 'no', :'data-widget' => 'no'
+
 .user-signin
   .main
     .pulsars
@@ -13,26 +54,6 @@
       .p2.p
       .p3.p
       .p4.p
-    .wrap
-      -# .confirm-new
-        .title.hide
-          Sounds good.
-          %span.indent
-            Happy Splashing!
-        .title
-          New to Splash.FM?
-        .small
-          A new account is being created for,
-        .email.large
-          andrew@andrewshedd.com
-        .buttons
-          = link_to 'Yep. I’m new', '#', :class => 'yes'
-          = link_to 'Oops. I mistyped it', '#', :class => 'no'
-      = form_for(resource, :as => resource_name, :url => session_path(resource_name), :remote => true, :html => {:'data-type' => 'json'}) do |f|
-        = f.text_field :email, :class => 'input', :placeholder => 'enter your email address...', :'data-widget' => 'user-email'
-        = f.password_field :password, :class => 'input'
-        = link_to t("Forgot Password?"), '#', :id => 'forgot_password'
-        = f.submit t('devise.buttons.login')
 
   .bottom
     .wrap

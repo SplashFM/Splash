@@ -38,83 +38,6 @@ Widgets.Tabs = {
   }
 }
 
-Widgets.TypingStop ={
-  init: function(){
-    $wrapper = $(".user-signin .main .wrap");
-    $password = $("#user_password");
-    $forgotPassword = $("#forgot_password");
-    $submit = $("#user_submit");
-
-    $w('user-email').typing({
-        start: function (event, $elem) {
-        },
-        stop: function (event, $elem) {
-          $.ajax({
-            type: 'get',
-            dataType: 'js',
-            url: Routes.users_exists_path(),
-            data: "email=" + encodeURIComponent($elem.val()),
-
-            complete: function(data){
-              if(data.status == 200){
-                $wrapper.animate({paddingTop: 90 - 53});
-                $password.show();
-                // $submit.show();
-              } else if(data.status == 404) {
-                $wrapper.animate({paddingTop: 90});
-                $password.hide();
-                // $submit.hide();
-              }
-            },
-          });
-        },
-        delay: 1000
-   });
-  }
-}
-
-Widgets.SignIn = (function(){
-  var self = {};
-
-  self.init = function() {
-    manageResponse();
-    ajaxifyForgotPasswordButton();
-  };
-
-  function manageResponse() {
-    $("form#user_new")
-      .bind('ajax:success', function(evt, data, status, xhr){
-        $("#user_password").removeClass('error');
-        $("#forgot_password").hide();
-        window.location.href = Routes.home_path();
-      })
-      .bind('ajax:error', function(evt, xhr, status, error){
-        // Widgets.FlashTemplate.error($.parseJSON(xhr.responseText).error);
-        $("#user_password").addClass('error');
-        $("#forgot_password").show();
-      });
-  };
-
-  function ajaxifyForgotPasswordButton() {
-    $('#forgot_password').live("click", function() {
-      email = $w("user-email").val();
-      $.ajax({
-        type: 'post',
-        url: Routes.user_password_path(),
-        data: "user[email]=" + email,
-        success: function(data){
-          Widgets.FlashTemplate.success(I18n.t('devise.passwords.send_instructions'));
-        },
-        error: function(data){
-          Widgets.FlashTemplate.error(I18n.t('devise.failure.send_instructions'));
-        }
-      });
-    });
-  };
-
-  return self;
-})();
-
 Widgets.Upload = {
   init: function() {
     var self = this;
@@ -393,8 +316,6 @@ Widgets.SocialSite = {
 }
 $(document).ready(function() {
   Widgets.Scroll.init();
-  Widgets.TypingStop.init();
-  Widgets.SignIn.init();
   Widgets.Upload.init();
   Widgets.Editable.init();
   Widgets.UserProfile.init();
