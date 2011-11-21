@@ -143,7 +143,7 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
   config.omniauth :facebook, AppConfig.facebook['key'], AppConfig.facebook['secret'],
-                              {:scope => 'publish_stream,email'}
+                              {:scope => 'publish_stream,email,offline_access'}
 
   config.omniauth :twitter, AppConfig.twitter['key'], AppConfig.twitter['secret']
 end
