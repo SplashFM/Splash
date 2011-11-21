@@ -107,6 +107,7 @@ $(function() {
 
   window.SignIn = Backbone.View.extend({
     events: {
+      'ajax:before': 'onSubmit',
       'ajax:success': 'onLogin',
       'ajax:error': 'onLoginFailed',
       'click #forgot_password': 'resetPassword',
@@ -130,6 +131,14 @@ $(function() {
       this.pwdField.show();
     },
 
+    onSubmit: function(e) {
+      if (! this.pwdField.is(':visible')) {
+        this.verifyUser();
+
+        return false;
+      }
+    },
+
     render: function() {
       $(this.el).html($.tmpl(this.template));
 
@@ -137,8 +146,6 @@ $(function() {
       this.emailField     = this.$('[data-widget = "user-email"]')
       this.pwdField       = this.$('#user_password');
       this.forgotPwdField = this.$('#forgot_password');
-
-      this.emailField.typing({stop: this.verifyUser, delay: 1000});
 
       return this;
     },
