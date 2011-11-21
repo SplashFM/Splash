@@ -18,9 +18,10 @@ $(function() {
     renderChoice: function() {
       this.signIn.remove();
 
-      $(this.el).css({paddingTop: '90px'});
+      $(this.el).css({paddingTop: '45px'});
 
-      $(this.el).html(this.choice.render().email(this.signIn.email()).el);
+      $(this.el).html(
+        this.choice.render().email(this.signIn.email()).el);
     },
 
     render: function() {
@@ -98,7 +99,7 @@ $(function() {
     },
 
     email: function(val) {
-      return this.email;
+      return this._email;
     },
 
     onNewUser: function() {
@@ -133,6 +134,8 @@ $(function() {
     },
 
     verifyUser: function() {
+      this._email = this.emailField.val();
+
       User.checkExistence(this.emailField.val(),
                           this.onRegisteredUser,
                           this.onNewUser);
