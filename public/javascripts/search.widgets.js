@@ -7,6 +7,7 @@ $(function() {
     events: {
       'keyup :text': 'maybeSearch',
       'click [data-widget = "load-more"]': 'loadMoreResults',
+      'submit': 'maybeSearch',
     },
 
     initialize: function(opts) {
@@ -56,6 +57,7 @@ $(function() {
       if (this.timeout) clearTimeout(this.timeout);
 
       this.timeout  = setTimeout(this.search, this.delay);
+      return false;
     },
 
     render: function() {
