@@ -220,13 +220,6 @@ $(function() {
 
     reset: function() {
       this.$(':text').val('');
-
-      this.toggleExpanded();
-
-      // fetch doesn't clear existing attributes
-      this.model.unset('expanded', {silent: true});
-
-      this.model.fetch({data: {summary: true}});
     },
   })
 
