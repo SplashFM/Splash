@@ -32,6 +32,7 @@ en:
       email: enter your email address...
       facebook: Sign In with Facebook
       forgot_password: Forgot Password?
+      password: password
       twitter: Sign In with Twitter
 
     sign_up:

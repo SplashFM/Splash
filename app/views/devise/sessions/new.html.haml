@@ -28,7 +28,7 @@
         :html   => {:'data-type' => 'json', |
                     :class       => 'sign-in'}) do |f|
       = f.text_field :email, :class => 'input', :placeholder => t('login.sign_in.email'), :'data-widget' => 'user-email'
-      = f.password_field :password, :class => 'input'
+      = f.password_field :password, :class => 'input', :placeholder => t('login.sign_in.password')
       = link_to t("login.sign_in.forgot_password"), '#', :id => 'forgot_password'
       = f.submit t('devise.buttons.login')
 
