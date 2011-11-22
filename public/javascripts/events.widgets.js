@@ -168,6 +168,7 @@ $(function() {
     toggleExpanded: function(e) {
       if (!e ||
           (($(e.target).closest('[data-widget = "expand"]').length > 0 ||
+            $(e.target).closest('[data-widget = "comments-count"]').length > 0 ||
             $(e.target).closest('a').length == 0) &&
            $(e.target).closest('[data-widget = "more-info"]').length === 0)) {
         if (e) e.preventDefault();
