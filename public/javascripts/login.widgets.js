@@ -129,6 +129,7 @@ $(function() {
     onRegisteredUser: function() {
       this.wrapper.animate({paddingTop: 90 - 53});
       this.pwdField.show();
+      this.pwdField.focus();
     },
 
     onSubmit: function(e) {
