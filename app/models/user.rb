@@ -301,15 +301,15 @@ class User < ActiveRecord::Base
   end
 
   def self.find_for_oauth(access_token)
-    name     = access_token['user_info'].try(:[], 'name')
-    email    = access_token['extra'].try(:[], 'user_hash').try(:[], 'email')
-    nickname = access_token['user_info'].try(:[], 'nickname')
     provider = access_token['provider']
     uid      = access_token['uid']
 
     user = User.with_social_connection(provider, uid)
     unless user
-      user = User.new(:name => name, :email => email, :nickname => nickname,
+      name     = access_token['user_info'].try(:[], 'name')
+      email    = access_token['extra'].try(:[], 'user_hash').try(:[], 'email')
+      nickname = access_token['user_info'].try(:[], 'nickname')
+      user     = User.new(:name => name, :email => email, :nickname => nickname,
                       :initial_provider => provider,
                       :password => Devise.friendly_token[0,20])
 
