@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "notifications@splash.fm"
+  default :from => "Splash.FM <notifications@splash.fm>"
 
   def notification(notification)
     @notification = notification
