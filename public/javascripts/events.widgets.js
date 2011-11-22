@@ -140,7 +140,7 @@ $(function() {
     template: $('#tmpl-event-splash').template(),
 
     initialize: function() {
-      _.bindAll(this, 'onHover', 'onHoverOut', 'reset');
+      _.bindAll(this, 'onCommentAdded', 'onHover', 'onHoverOut', 'reset');
 
       this.model.bind('change', this.render, this);
 
@@ -153,8 +153,16 @@ $(function() {
       this.model.comments().create({
         body: this.mentions.commentWithMentions()
       }, {
-        success: this.reset
+        success: this.onCommentAdded
       });
+    },
+
+    onCommentAdded: function() {
+      this.reset();
+
+      var cCount = I18n.t('comments', {count: this.model.comments().length});
+
+      this.$('[data-widget = "comments-count"]').text(cCount);
     },
 
     onHover: function() {
