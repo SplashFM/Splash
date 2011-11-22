@@ -15,10 +15,10 @@
         :url  => registration_path(:user), |
         :html => {:'data-type' => 'json', |
                   :class => 'register'} do |f|
-      = f.text_field :email, :class => 'input', :placeholder => 'email'
-      = f.text_field :name, :class => 'input', :placeholder => 'name'
-      = f.password_field :password, :class => 'input', :placeholder => 'password'
-      = f.password_field :password_confirmation, :class => 'input', :placeholder => 'confirm password'
+      = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
+      = f.text_field :name, :class => 'input', :placeholder => t('login.register.name')
+      = f.password_field :password, :class => 'input', :placeholder => t('login.register.password')
+      = f.password_field :password_confirmation, :class => 'input', :placeholder => t('login.register.confirm_password')
       = f.submit
 
   %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
@@ -27,9 +27,9 @@
         :remote => true, |
         :html   => {:'data-type' => 'json', |
                     :class       => 'sign-in'}) do |f|
-      = f.text_field :email, :class => 'input', :placeholder => 'enter your email address...', :'data-widget' => 'user-email'
+      = f.text_field :email, :class => 'input', :placeholder => t('login.sign_in.email'), :'data-widget' => 'user-email'
       = f.password_field :password, :class => 'input'
-      = link_to t("Forgot Password?"), '#', :id => 'forgot_password'
+      = link_to t("login.sign_in.forgot_password"), '#', :id => 'forgot_password'
       = f.submit t('devise.buttons.login')
 
   %script#tmpl-choice{:type => 'text/x-jquery-tmpl'}
@@ -38,14 +38,12 @@
         Sounds good.
         %span.indent
           Happy Splashing!
-      .title
-        New to Splash.FM?
-      .small
-        A new account is being created for,
+      .title= t('login.choice.title')
+      .small= t('login.choice.creating_account')
       .email.large
       .buttons
-        = link_to 'Yep. I’m new', '#', :class => 'yes', :'data-widget' => 'yes'
-        = link_to 'Oops. I mistyped it', '#', :class => 'no', :'data-widget' => 'no'
+        = link_to t('login.choice.new_user'), '#', :class => 'yes', :'data-widget' => 'yes'
+        = link_to t('login.choice.mistyped'), '#', :class => 'no', :'data-widget' => 'no'
 
 .user-signin
   .main
@@ -58,13 +56,13 @@
   .bottom
     .wrap
       .description
-        %p.title Social music discovery
-        %p Share, compare and curate your listening favorites in the first music discovery community for avid listeners and taste-makers.
+        %p.title= t('login.title')
+        %p= t('login.blurb')
       .signup
-        %p.title Sign Up
-        %p.text Logging in with your Facebook and Twitter accounts make Splashing with friends easy.  Splash.FM finds your friends for you so you can start Splashing your newest finds with friends instantly.
+        %p.title= t('login.sign_up.title')
+        %p.text= t('login.sign_up.blurb')
         .omniauth-links
           %p.fb
-            = link_to 'Sign In with Facebook', user_omniauth_authorize_path(:facebook), :'data-skip-pjax' => 'true'
+            = link_to t('login.sign_in.facebook'), user_omniauth_authorize_path(:facebook), :'data-skip-pjax' => 'true'
           %p.tw
-            = link_to 'Sign In with Twitter', user_omniauth_authorize_path(:twitter), :'data-skip-pjax' => 'true'
+            = link_to t('login.sign_in.twitter'), user_omniauth_authorize_path(:twitter), :'data-skip-pjax' => 'true'

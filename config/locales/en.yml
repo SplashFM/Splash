@@ -12,6 +12,34 @@ en:
       messages:
         invalid_attachment: is invalid. Use one of %{allowed}
 
+  login:
+    blurb: Share, compare and curate your listening favorites in the first music discovery community for avid listeners and taste-makers.
+    title: Social music discovery
+
+    choice:
+      creating_account: A new account is being created for
+      mistyped: Oops. I mistyped it
+      new_user: Yep. I'm new
+      title: New to Splash.FM?
+
+    register:
+      confirm_password: confirm password
+      email: email
+      name: name
+      password: password
+
+    sign_in:
+      email: enter your email address...
+      facebook: Sign In with Facebook
+      forgot_password: Forgot Password?
+      twitter: Sign In with Twitter
+
+    sign_up:
+      blurb: Logging in with your Facebook and Twitter accounts make Splashing with friends easy.  Splash.FM finds your friends for you so you can start Splashing your newest finds with friends instantly.
+      facebook:
+      title: Sign Up
+      twitter:
+
   home:
     search:
       search_for_song: Search for a song to Splash
