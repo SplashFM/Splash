@@ -1,1 +1,7 @@
-= "#{@notification.notifier.name} mentioned you in a comment."
+%p
+  = link_to(@notification.notifier.name, |
+            user_slug_url(@notification.notifier.slug))
+  mentioned you in a comment on
+  = link_to('Splash.FM', root_url) << ":"
+
+%blockquote= @notification.target.body.inspect
