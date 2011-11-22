@@ -1,3 +1,10 @@
 %p
-  = @notification.notifier.name
-  is now following you.
+  = link_to(@notification.notifier.name, |
+            user_slug_url(@notification.notifier.slug))
+  is now following you on
+  = link_to('Splash.FM', root_url) << "."
+
+%p
+  View
+  = link_to(@notification.notifier.name + "'s profile", |
+            user_slug_url(@notification.notifier.slug))
