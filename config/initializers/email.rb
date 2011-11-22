@@ -1,5 +1,7 @@
 ActionMailer::Base.default :charset => "UTF-8"
 ActionMailer::Base.default :from => AppConfig.noreply_address
+ActionMailer::Base.default_url_options[:host] =
+  AppConfig.preferred_host || "example.com"
 
 unless Rails.env.test? || Rails.env.test_pg?
   ActionMailer::Base.delivery_method = :smtp
