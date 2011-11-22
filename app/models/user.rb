@@ -309,9 +309,11 @@ class User < ActiveRecord::Base
       name     = access_token['user_info'].try(:[], 'name')
       email    = access_token['extra'].try(:[], 'user_hash').try(:[], 'email')
       nickname = access_token['user_info'].try(:[], 'nickname')
-      user     = User.new(:name => name, :email => email, :nickname => nickname,
-                      :initial_provider => provider,
-                      :password => Devise.friendly_token[0,20])
+      user     = User.new(:name             => name,
+                          :email            => email,
+                          :nickname         => nickname,
+                          :initial_provider => provider,
+                          :password         => Devise.friendly_token[0,20])
 
       user.build_social_network_link(access_token)
 
