@@ -12,6 +12,10 @@ module UI
       def t(*args)
         I18n.t(*args)
       end
+
+      def w(name)
+        "[data-widget = '#{name}']"
+      end
     end
 
     module Matchers
