@@ -10,6 +10,22 @@ module UI
         find(w(widget)).click
       end
 
+      def fast_login(user)
+        visit new_user_session_path
+
+        page.execute_script <<-JS
+          $.ajax(
+            "#{user_session_path}",
+            {type: "POST",
+             async: false,
+             cache: false,
+             data:  {"user[email]": "#{user.email}",
+                     "user[password]": "#{user.password}"}});
+        JS
+
+        visit dashboard_path
+      end
+
       def go_to(section, full_load = false)
         if full_load
           case section

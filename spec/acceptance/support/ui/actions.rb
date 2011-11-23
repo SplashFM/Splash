@@ -58,22 +58,6 @@ module UI
       click_button t('devise.buttons.login')
     end
 
-    def fast_login(user)
-      visit new_user_session_path
-
-      page.execute_script <<-JS
-        $.ajax(
-          "#{user_session_path}",
-          {type: "POST",
-           async: false,
-           cache: false,
-           data:  {"user[email]": "#{user.email}",
-                   "user[password]": "#{user.password}"}});
-      JS
-
-      visit dashboard_path
-    end
-
     def fetch_event_updates
       page.execute_script 'Widgets.Feed.fetchUpdateCount()'
     end
