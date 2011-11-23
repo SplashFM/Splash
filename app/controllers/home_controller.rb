@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_filter :require_user, :only => [:index, :privacy]
+  skip_before_filter :require_user, :only => [:index, :privacy, :terms]
 
   def index
     if logged_in?
@@ -14,5 +14,8 @@ class HomeController < ApplicationController
   end
 
   def privacy
+  end
+
+  def terms
   end
 end
