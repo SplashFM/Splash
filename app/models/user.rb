@@ -306,17 +306,17 @@ class User < ActiveRecord::Base
     nickname = access_token['user_info'].try(:[], 'nickname')
     provider = access_token['provider']
     uid      = access_token['uid']
-    token    = access_token['credentials']['token']
-    token_secret  = access_token['credentials'].try(:[], 'secret')
 
     user = User.with_social_connection(provider, uid)
     unless user
       user = User.new(:name => name, :email => email, :nickname => nickname,
                       :initial_provider => provider,
                       :password => Devise.friendly_token[0,20])
-      user.social_connections.build(:provider => provider, :uid => uid,
-                                    :token => token, :token_secret => token_secret)
+
+      user.build_social_network_link(access_token)
+
       user.save unless email.blank?
+
       user.facebook_suggestions
     end
 
@@ -334,10 +334,7 @@ class User < ActiveRecord::Base
 
         token_secret = data['credentials'].try(:[], 'secret')
         user.initial_provider = data['provider']
-        user.social_connections.build(:provider => data['provider'],
-                                      :uid => data['uid'],
-                                      :token => data['credentials']['token'],
-                                      :token_secret => token_secret)
+        user.build_social_network_link data
 
         user_hash = data['extra']['user_hash'] if data['extra']
 
@@ -350,6 +347,18 @@ class User < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def build_social_network_link(access_token)
+    provider      = access_token['provider']
+    uid           = access_token['uid']
+    token         = access_token['credentials']['token']
+    token_secret  = access_token['credentials'].try(:[], 'secret')
+
+    social_connections.build(:provider     => provider,
+                             :uid          => uid,
+                             :token        => token,
+                             :token_secret => token_secret)
   end
 
   # Declarative Authorization user roles

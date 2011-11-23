@@ -37,18 +37,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def link_site(site)
-    access_token = env['omniauth.auth']
-
-    provider      = access_token['provider']
-    uid           = access_token['uid']
-    token         = access_token['credentials']['token']
-    token_secret  = access_token['credentials'].try(:[], 'secret')
-
-    connection = current_user.social_connections.build(:provider => provider,
-                                                  :uid => uid,
-                                                  :token => token,
-                                                  :token_secret => token_secret)
-    if connection.save
+    if current_user.build_social_network_link(env['omniauth.auth']).save
       redirect_to root_path, :notice => I18n.t('devise.omniauth.site_link', :site => site)
     else
       redirect_to root_path, :error => I18n.t('errors.messages.already_taken')
