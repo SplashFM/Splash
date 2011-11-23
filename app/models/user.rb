@@ -418,13 +418,13 @@ class User < ActiveRecord::Base
   end
 
   def update_with_password(attrs = {})
-    if params[:password].blank?
-      params.delete(:password)
-      params.delete(:password_confirmation) if
-        params[:password_confirmation].blank?
+    if attrs[:password].blank?
+      attrs.delete(:password)
+      attrs.delete(:password_confirmation) if
+        attrs[:password_confirmation].blank?
     end
 
-    update_attributes(params)
+    update_attributes(attrs)
   end
 
   def avatar_exists_or_able_to_download?
