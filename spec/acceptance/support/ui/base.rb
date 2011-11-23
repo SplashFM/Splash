@@ -6,6 +6,9 @@ module UI
     end
 
     module Actions
+      def click_widget(widget)
+        find(w(widget)).click
+      end
     end
 
     module Helpers
