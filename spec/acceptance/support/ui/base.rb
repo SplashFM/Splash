@@ -10,7 +10,14 @@ module UI
         find(w(widget)).click
       end
 
-      def fast_login(user)
+      def fast_login(*args)
+        email, pwd = *case args.size
+                      when 1
+                       [args.first.email, args.first.password]
+                      else
+                        args
+                      end
+
         visit new_user_session_path
 
         page.execute_script <<-JS
@@ -19,8 +26,8 @@ module UI
             {type: "POST",
              async: false,
              cache: false,
-             data:  {"user[email]": "#{user.email}",
-                     "user[password]": "#{user.password}"}});
+             data:  {"user[email]": "#{email}",
+                     "user[password]": "#{pwd}"}});
         JS
 
         visit dashboard_path
