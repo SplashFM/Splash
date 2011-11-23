@@ -1,39 +1,23 @@
 en:
-  errors:
-    messages:
-      not_found: "not found"
-      already_confirmed: "was already confirmed"
-      not_locked: "was not locked"
-      already_taken: "has already been taken"
-
   devise:
+    buttons:
+      login: 'Login'
+      password_reset: 'Send me reset password instructions'
+    confirmations:
+      confirmed: 'Your account was successfully confirmed. You are now signed in.'
+      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
     failure:
-      unauthenticated: 'You need to sign in or sign up before continuing.'
-      unconfirmed: 'You have to confirm your account before continuing.'
-      locked: 'Your account is locked.'
+      inactive: 'Your account was not activated yet.'
       invalid: 'Invalid email or password.'
       invalid_token: 'Invalid authentication token.'
-      timeout: 'Your session expired, please sign in again to continue.'
-      inactive: 'Your account was not activated yet.'
+      locked: 'Your account is locked.'
       send_instructions: 'There was an error sending the password reset email'
-    sessions:
-      signed_in: 'Signed in successfully.'
-      signed_out: 'Signed out successfully.'
-    passwords:
-      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
-      updated: 'Your password was changed successfully. You are now signed in.'
-    confirmations:
-      send_instructions: 'You will receive an email with instructions about how to confirm your account in a few minutes.'
-      confirmed: 'Your account was successfully confirmed. You are now signed in.'
-    registrations:
-      sign_up: 'Sign up'
-      signed_up: 'You have signed up successfully. If enabled, a confirmation was sent to your e-mail.'
-      updated: 'You updated your account successfully.'
-      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
-      twitter: 'You have to provide an email to complete your registration through Twitter.'
-    unlocks:
-      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
-      unlocked: 'Your account was successfully unlocked. You are now signed in.'
+      timeout: 'Your session expired, please sign in again to continue.'
+      unauthenticated: 'You need to sign in or sign up before continuing.'
+      unconfirmed: 'You have to confirm your account before continuing.'
+    labels:
+      sign_in: 'Sign in'
+      sign_out: '[Sign out]'
     mailer:
       confirmation_instructions:
         subject: 'Confirmation instructions'
@@ -41,11 +25,27 @@ en:
         subject: 'Reset password instructions'
       unlock_instructions:
         subject: 'Unlock Instructions'
-    buttons:
-      login: 'Login'
-      password_reset: 'Send me reset password instructions'
-    labels:
-      sign_in: 'Sign in'
-      sign_out: '[Sign out]'
     omniauth:
       site_link: '%{site} linked successfully'
+    passwords:
+      send_instructions: 'You will receive an email with instructions about how to reset your password in a few minutes.'
+      updated: 'Your password was changed successfully. You are now signed in.'
+    sessions:
+      signed_in: 'Signed in successfully.'
+      signed_out: 'Signed out successfully.'
+    registrations:
+      destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
+      sign_up: 'Sign up'
+      signed_up: 'You have signed up successfully. If enabled, a confirmation was sent to your e-mail.'
+      twitter: 'You have to provide an email to complete your registration through Twitter.'
+      updated: 'You updated your account successfully.'
+    unlocks:
+      send_instructions: 'You will receive an email with instructions about how to unlock your account in a few minutes.'
+      unlocked: 'Your account was successfully unlocked. You are now signed in.'
+
+  errors:
+    messages:
+      not_found: "not found"
+      already_confirmed: "was already confirmed"
+      not_locked: "was not locked"
+      already_taken: "has already been taken"

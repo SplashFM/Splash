@@ -5,12 +5,44 @@ en:
   activerecord:
     attributes:
       track:
+        albums: Album
         data: File
         performers: Artist
-        albums: Album
     errors:
       messages:
         invalid_attachment: is invalid. Use one of %{allowed}
+
+  comments:
+    comments:
+      comment_number: View all %{number} comments
+    index:
+      add_comment: Add comment
+    one: 1 Comment
+    other: %{count} Comments
+
+  errors:
+    user:
+      attributes:
+        name:
+          blank: 'You need set an user name to use site'
+
+  events:
+    following: %{follower} is now following %{followed}
+    updates:
+      one: 1 new update
+      other: %{count} new updates
+
+  home:
+    search:
+      load_more: Load More Results
+      search_for_song: Search for a song to Splash
+      upload: Upload
+
+  jeditable:
+    labels:
+      cancel: 'Cancel'
+      submit: 'Change'
+      tooltip: 'Click to edit...'
 
   lifesaver:
     logout: Logout
@@ -18,38 +50,37 @@ en:
 
   login:
     blurb: Share, compare and curate your listening favorites in the first music discovery community for avid listeners and taste-makers.
-    title: Social music discovery
-
     choice:
       creating_account: A new account is being created for
       mistyped: Oops. I mistyped it
       new_user: Yep. I'm new
       title: New to Splash.FM?
-
     register:
       confirm_password: confirm password
       email: email
       name: name
       password: password
-
     sign_in:
       email: enter your email address...
       facebook: Sign In with Facebook
       forgot_password: Forgot Password?
       password: password
       twitter: Sign In with Twitter
-
     sign_up:
       blurb: Logging in with your Facebook and Twitter accounts make Splashing with friends easy.  Splash.FM finds your friends for you so you can start Splashing your newest finds with friends instantly.
       facebook:
       title: Sign Up
       twitter:
+    title: Social music discovery
 
-  home:
-    search:
-      search_for_song: Search for a song to Splash
-      load_more: Load More Results
-      upload: Upload
+  notifications:
+    following: "%{user} is following you"
+    mention: "%{user} has mentioned you"
+
+  searches:
+    empty: No results found.
+    page:
+      see_more: See more
 
   shared:
     search:
@@ -58,91 +89,8 @@ en:
     suggested_splashers:
       view_more: View More
     feed_search:
-      search_for_song: Search for a song to Splash
       load_more: Load More Results
-  events:
-    following: %{follower} is now following %{followed}
-    updates:
-      one: 1 new update
-      other: %{count} new updates
-
-  searches:
-    empty: No results found.
-    page:
-      see_more: See more
-
-  splashes:
-    splash:
-      by: Splashed by %{user}
-      play: Play
-      expand: Expand
-      download: Download
-      purchase: Purchase on iTunes
-      resplash: Resplash
-      post_to_facebook: Post to Facebook?
-      post_to_twitter: Post to Twitter?
-
-  comments:
-    one: 1 Comment
-    other: %{count} Comments
-
-    index:
-      add_comment: Add comment
-    comments:
-      comment_number: View all %{number} comments
-
-  tracks:
-    download: Download track
-    purchase: Purchase track
-    widget:
-      splashed: Splashed
-      splash: Splash
-    actions:
-      complete_upload: Upload and Splash
-
-  users:
-    show:
-      title: 'User profile'
-      follow: Follow
-      unfollow: Unfollow
-      follow_detail: Follow this Splasher...
-      unfollow_detail: You are already following this Splasher.
-      following: Following
-      followers: Followers
-      tagline: TAGLINE
-    edit:
-      title: 'User profile'
-      site_connected: %{site} connected
-      social_connect: Social Connect
-      basic_settings: Basic settings
-    vcard:
-      edit: Edit
-      edit_avatar: Change image
-    avatar:
-      title: Update Avatar Picture
-    crop:
-      crop: Crop
-      cancel: Cancel
-      fetch_error: Sorry your image can not be downloaded for edition
-
-  upload:
-    exists: Song exists. Splash instead?
-    save: Save and Splash
-    splash: Splash
-    cancel: Cancel Upload
-    done: Check file metadata
-    error: Upload failed
-    metadata: Saving metadata...
-    start: Uploading file...
-    upload: Upload
-    waiting: Choose a file to upload
-    already_splashed: This track exists and you already splashed it.
-
-  errors:
-    user:
-      attributes:
-        name:
-          blank: 'You need set an user name to use site'
+      search_for_song: Search for a song to Splash
 
   simple_navigation:
     menus:
@@ -151,14 +99,63 @@ en:
       splashboard: Splashboard
       top_songs: Top Songs
       top_users: Top Splashers
-  jeditable:
-    labels:
-      submit: 'Change'
-      cancel: 'Cancel'
-      tooltip: 'Click to edit...'
 
-  notifications:
-    following: "%{user} is following you"
-    mention: "%{user} has mentioned you"
+  splashes:
+    splash:
+      by: Splashed by %{user}
+      download: Download
+      expand: Expand
+      play: Play
+      post_to_facebook: Post to Facebook?
+      post_to_twitter: Post to Twitter?
+      purchase: Purchase on iTunes
+      resplash: Resplash
+
+  tracks:
+    actions:
+      complete_upload: Upload and Splash
+    download: Download track
+    purchase: Purchase track
+    widget:
+      splashed: Splashed
+      splash: Splash
+
+  upload:
+    already_splashed: This track exists and you already splashed it.
+    cancel: Cancel Upload
+    done: Check file metadata
+    error: Upload failed
+    exists: Song exists. Splash instead?
+    metadata: Saving metadata...
+    save: Save and Splash
+    splash: Splash
+    start: Uploading file...
+    upload: Upload
+    waiting: Choose a file to upload
+
+  users:
+    avatar:
+      title: Update Avatar Picture
+    crop:
+      cancel: Cancel
+      crop: Crop
+      fetch_error: Sorry your image can not be downloaded for edition
+    edit:
+      basic_settings: Basic settings
+      site_connected: %{site} connected
+      social_connect: Social Connect
+      title: 'User profile'
+    show:
+      follow: Follow
+      follow_detail: Follow this Splasher...
+      followers: Followers
+      following: Following
+      tagline: TAGLINE
+      title: 'User profile'
+      unfollow: Unfollow
+      unfollow_detail: You are already following this Splasher.
+    vcard:
+      edit: Edit
+      edit_avatar: Change image
 
   you: you
