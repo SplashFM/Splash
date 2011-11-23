@@ -363,6 +363,17 @@ class User < ActiveRecord::Base
                              :token_secret => token_secret)
   end
 
+  def update_social_network_link(access_token)
+    provider      = access_token['provider']
+    uid           = access_token['uid']
+    token         = access_token['credentials']['token']
+    token_secret  = access_token['credentials'].try(:[], 'secret')
+    connection    = social_connections.where(:provider     => provider,
+                                             :uid          => uid).first
+
+    connection.update_attributes :token => token, :token_secret => token_secret
+  end
+
   # Declarative Authorization user roles
   DEFAULT_ROLES = [:guest, :user].freeze
   def role_symbols

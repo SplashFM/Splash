@@ -27,6 +27,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       @user.fetch_avatar
+      @user.update_social_network_link env['omniauth.auth']
+
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => kind
       sign_in_and_redirect @user, :event => :authentication
     else
