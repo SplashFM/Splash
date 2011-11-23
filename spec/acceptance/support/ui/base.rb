@@ -70,6 +70,10 @@ module UI
     end
 
     module Matchers
+      def home?
+        %w(/ /home /dashboard).include?(current_path)
+      end
+
       Capybara::Session.send(:include, self)
     end
   end
