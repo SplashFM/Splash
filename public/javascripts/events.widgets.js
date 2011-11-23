@@ -269,10 +269,6 @@ $(function() {
     },
 
     filters: function() {
-      return this.settings;
-    },
-
-    onChange: function() {
       var settings = {
         omit_splashes: $('[data-widget = "filter-splash"]').is(":checked") ? '' : true,
         omit_other:    $('[data-widget = "filter-other"]').is(":checked") ? '' : true,
@@ -284,8 +280,10 @@ $(function() {
         settings.follower = '';
       }
 
-      this.settings = settings;
+      return settings;
+    },
 
+    onChange: function() {
       this.trigger('change');
     },
 
