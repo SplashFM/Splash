@@ -13,13 +13,13 @@
         = f.label :nickname
         = f.text_field :nickname
       %li
-        = f.label :password, "Change Password"
-        = f.password_field :password, :placeholder => "Enter new password"
-        = f.password_field :password_confirmation, :placeholder => "Confirm new password"
+        = f.label :password, t('.change_password')
+        = f.password_field :password, :placeholder => t('.new_password')
+        = f.password_field :password_confirmation, :placeholder => t('.confirm_password')
         %hr
     %ul
       %li
-        %label Social Connect
+        %label= t('.social_connect')
       %li
         = link_to_social_site(:twitter, 'twitter-logo.png')
 
@@ -27,8 +27,8 @@
         = link_to_social_site(:facebook, 'fb-logo.png')
 
     %ul.actions
-      %li= link_to "Cancel", "#", :class => "buttonStyle2"
-      %li= f.submit "Save", :class => "buttonStyle2"
+      %li= link_to t('.cancel'), "#", :class => "buttonStyle2"
+      %li= f.submit t('.save'), :class => "buttonStyle2"
     -#%h3 Cancel my account
     -#%p
       -#Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete}.
