@@ -19,6 +19,8 @@ feature "Filter feed", :js => true do
   end
 
   scenario "Filter by genre" do
+    pending
+
     friend = create!(User)
     user.following << friend
     track1  = create(Track).title("Track 1").tag_list!(["Rock"])
