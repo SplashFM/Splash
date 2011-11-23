@@ -270,8 +270,8 @@ $(function() {
 
     filters: function() {
       var settings = {
-        omit_splashes: $('[data-widget = "filter-splash"]').is(":checked") ? '' : true,
-        omit_other:    $('[data-widget = "filter-other"]').is(":checked") ? '' : true,
+        splashes: $('[data-widget = "filter-splash"]').is(":checked") ? true : '',
+        other:    $('[data-widget = "filter-other"]').is(":checked") ? true : '',
       };
 
       var everyone = $('[data-widget = "filter-following"] a[href = "#everyone"]');

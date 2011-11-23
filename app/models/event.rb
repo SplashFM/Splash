@@ -2,15 +2,15 @@ class Event < ActiveRecord::Base
   PER_PAGE = 10
 
   def self.scope_by(params)
-    last_update_at = params[:last_update_at]
-    main_user_id   = params[:user]
-    user_ids       = User.following_ids(params[:follower])
+    last_update_at   = params[:last_update_at]
+    main_user_id     = params[:user]
+    user_ids         = User.following_ids(params[:follower])
     user_ids << main_user_id unless main_user_id.blank?
-    tags           = params[:tags] || []
-    page           = params[:page].to_i
-    page           = 1 if page < 1
-    omit_splashes  = params[:omit_splashes] == 'true'
-    omit_other     = params[:omit_other] == 'true'
+    tags             = params[:tags] || []
+    page             = params[:page].to_i
+    page             = 1 if page < 1
+    include_splashes = params[:splashes].present?
+    include_other    = params[:other].present?
 
     splashes        = Splash.as_event.for_users(user_ids).since(last_update_at).
       with_tags(tags)
@@ -29,9 +29,9 @@ class Event < ActiveRecord::Base
     else
       q = ""
 
-      q << splashes.to_sql unless omit_splashes
-      q << " UNION ALL " unless omit_other || omit_splashes
-      unless omit_other
+      q << splashes.to_sql if include_splashes
+      q << " UNION ALL "   if include_splashes && include_other
+      if include_other
         q << relationships.to_sql + " UNION ALL " + comments.to_sql
 
         comment_union = " UNION " << (user_ids.present? ? " ALL " : "")
@@ -40,10 +40,10 @@ class Event < ActiveRecord::Base
       q << " ORDER BY created_at DESC"
       q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
 
-      if omit_other && omit_splashes
-        events = []
-      else
+      if include_other || include_splashes
         events = Event.find_by_sql(q);
+      else
+        events = []
       end
       events.map(&:target)
     end
