@@ -4,9 +4,10 @@
     %a.nav-user-settings.right{:href => "#", :data => {:widget => 'lifesaver'}}
     .settings-drop{:data => {:widget => 'lifesaver-menu'}}
       .inner
-        %a{:href => destroy_user_session_path} Logout
+        %a{:href => destroy_user_session_path}= t('lifesaver.logout')
         .cl
-        %a{:href => edit_user_registration_path,:class => "fancybox"} Settings
+        %a{:href => edit_user_registration_path,:class => "fancybox"}
+          = t('lifesaver.settings')
       .tip
     %a.nav-username.right{:href => "#"}= current_user.try(:name)
     .nav-notifications.right{:data => {:widget => 'notifications'}}

@@ -12,6 +12,10 @@ en:
       messages:
         invalid_attachment: is invalid. Use one of %{allowed}
 
+  lifesaver:
+    logout: Logout
+    settings: Settings
+
   login:
     blurb: Share, compare and curate your listening favorites in the first music discovery community for avid listeners and taste-makers.
     title: Social music discovery
