@@ -10,7 +10,14 @@ module UI
 
     module Helpers
       def t(*args)
-        I18n.t(*args)
+        klass, field = args
+
+        case klass
+        when Class
+          klass.human_attribute_name(field)
+        else
+          I18n.t(*args)
+        end
       end
 
       def w(name)
