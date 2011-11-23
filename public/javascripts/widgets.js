@@ -224,8 +224,8 @@ Widgets.AvatarCrop = {
       $('#cropbox').Jcrop({
         onChange: update_crop,
         onSelect: update_crop,
-        setSelect: [0, 0, 240, 300],
-        aspectRatio: 1,
+        setSelect: [0, 0, 125, 185],
+        aspectRatio: 125/185,
         minSize: [40, 60]
       });
 
