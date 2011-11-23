@@ -10,6 +10,10 @@ module UI
         find(w(widget)).click
       end
 
+      def go_to(section)
+        click_link t("simple_navigation.menus.#{section}")
+      end
+
       def with_lifesaver(&do_stuff)
         click_widget 'lifesaver'
         within w('lifesaver-menu'), &do_stuff

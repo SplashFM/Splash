@@ -87,10 +87,6 @@ module UI
       }
     end
 
-    def go_to(section)
-      click_link t("simple_navigation.menus.#{section}")
-    end
-
     def logout
       click_link t('devise.labels.sign_out')
     end
