@@ -290,18 +290,13 @@ $(function() {
     onToggleFollowing: function(e) {
       e.preventDefault();
 
-      var active   = $('[data-widget = "filter-following"] a.active');
-      var inactive = $('[data-widget = "filter-following"] a:not(.active)');
+      $('[data-widget = "filter-following"] li').removeClass('ui-tabs-selected');
+      $('[data-widget = "filter-following"] a').removeClass('active');
 
-      if (active.attr('href') != $(e.target).attr('href')) {
-        active.removeClass('active');
-        active.parent().removeClass('ui-tabs-selected');
+      $(e.target).addClass('active');
+      $(e.target).closest('li').first().addClass('ui-tabs-selected');
 
-        inactive.addClass('active');
-        inactive.parent().addClass('ui-tabs-selected');
-
-        this.onChange();
-      }
+      this.onChange();
     },
   });
 
