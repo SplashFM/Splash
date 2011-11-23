@@ -417,6 +417,16 @@ class User < ActiveRecord::Base
     !self.avatar.exists? && !self.initial_provider.blank?
   end
 
+  def update_with_password(attrs = {})
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if
+        params[:password_confirmation].blank?
+    end
+
+    update_attributes(params)
+  end
+
   def avatar_exists_or_able_to_download?
     !(self.avatar_url == DEFAULT_AVATAR_URL)
   end
