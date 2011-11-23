@@ -10,8 +10,17 @@ module UI
         find(w(widget)).click
       end
 
-      def go_to(section)
-        click_link t("simple_navigation.menus.#{section}")
+      def go_to(section, full_load = false)
+        if full_load
+          case section
+          when 'home'
+            visit root_path
+          else
+            raise "Unknown section: #{section}"
+          end
+        else
+          click_link t("simple_navigation.menus.#{section}")
+        end
       end
 
       def with_lifesaver(&do_stuff)
