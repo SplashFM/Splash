@@ -288,6 +288,8 @@ $(function() {
     },
 
     onToggleFollowing: function(e) {
+      e.preventDefault();
+
       var active   = $('[data-widget = "filter-following"] a.active');
       var inactive = $('[data-widget = "filter-following"] a:not(.active)');
 
