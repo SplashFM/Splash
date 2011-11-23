@@ -46,6 +46,10 @@ module UI
         end
       end
 
+      def log_out
+        with_lifesaver { click_link t('lifesaver.logout') }
+      end
+
       def with_lifesaver(&do_stuff)
         click_widget 'lifesaver'
         within w('lifesaver-menu'), &do_stuff

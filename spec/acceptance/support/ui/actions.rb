@@ -71,10 +71,6 @@ module UI
       }
     end
 
-    def logout
-      click_link t('devise.labels.sign_out')
-    end
-
     def set_splash_comment(track, comment = nil)
       wait_until { page.has_css?(track_css(track)) }
 
