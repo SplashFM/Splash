@@ -1,8 +1,8 @@
 %span#wrap-pattern
 #header
   .shell
-    %a.nav-user-settings.right{:href => "#"}
-    .settings-drop
+    %a.nav-user-settings.right{:href => "#", :data => {:widget => 'lifesaver'}}
+    .settings-drop{:data => {:widget => 'lifesaver-menu'}}
       .inner
         %a{:href => destroy_user_session_path} Logout
         .cl

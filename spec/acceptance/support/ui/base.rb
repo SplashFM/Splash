@@ -9,6 +9,11 @@ module UI
       def click_widget(widget)
         find(w(widget)).click
       end
+
+      def with_lifesaver(&do_stuff)
+        click_widget 'lifesaver'
+        within w('lifesaver-menu'), &do_stuff
+      end
     end
 
     module Helpers
