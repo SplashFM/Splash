@@ -60,7 +60,8 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
                     :styles => {
                       :thumb => {:geometry => "125x185#", :processors => [:cropper]},
-                      :large => {:geometry => "240x300>"}
+                      :large => {:geometry => "240x300>"},
+                      :micro => {:geometry => "50x50#", :processors => [:cropper]}
                     },
                     :default_url => DEFAULT_AVATAR_URL
 
@@ -178,6 +179,7 @@ class User < ActiveRecord::Base
      :name             => name,
      :nickname         => nickname,
      :url              => "/#{slug}",
+     :avatar_micro_url => avatar.url(:micro),
      :avatar_thumb_url => avatar.url(:thumb),
      :ripple_count     => ripple_count,
      :splash_count     => splash_count,
