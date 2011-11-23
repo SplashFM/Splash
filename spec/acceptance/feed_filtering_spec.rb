@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature "Filter feed", :js => true do
+feature "Feed filtering", :js => true do
   subject { page }
 
   scenario "Filter by performer" do
