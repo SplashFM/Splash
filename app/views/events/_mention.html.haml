@@ -1,0 +1,9 @@
+%script#tmpl-event-mention{:type => 'text/x-jquery-tmpl'}
+  %ul
+    %li{:data => {:widget => 'mention'}}
+      %img{:alt => "", :height => "27", :src => "/css/images/ico-new-comment.png", :width => "36"}/
+      %p
+        %a{:href => "${author.url}"} ${author.nickname}
+        mentioned you in a comment on
+        %a{:href => "${comment.splash.user.url}"} ${comment.splash.user.nickname}’s
+        splash “${comment.splash.track.title}”: {{html UserMentions.linkMentions(comment.body)}}”

@@ -32,6 +32,16 @@ class Mention < Notification
     mentions.present? ? User.nicknamed(*mentions) : []
   end
 
+  def as_json(opts = {})
+    if opts[:mention_format] == 'mention'
+      {:author  => notifier.as_json,
+       :comment => target.as_json,
+       :type    => 'mention'}
+    else
+      super
+    end
+  end
+
   def title
     I18n.t('notifications.mention', :user => notifier.name)
   end

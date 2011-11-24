@@ -13,6 +13,7 @@
     = yield :head
     - if logged_in?
       = render "events/comment"
+      = render "events/mention"
       = render "events/relationship"
       = render "events/splash"
       = render "home/track"
