@@ -27,6 +27,9 @@ en:
           blank: 'You need set an user name to use site'
 
   events:
+    filters:
+      everyone: Everyone
+      following: Following
     following: %{follower} is now following %{followed}
     updates:
       one: 1 new update

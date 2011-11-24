@@ -21,9 +21,9 @@
           .avan-bold
             %ul{:data => {:widget => 'filter-following'}}
               %li.ui-tabs-selected
-                %a.active{:href => "#following"} Following
+                %a.active{:href => "#following"}= t('events.filters.following')
               %li
-                %a{:href => "#everyone"} Everyone
+                %a{:href => "#everyone"}= t('events.filters.everyone')
           .line
             %span
           %a.feed-updates-count.no-new.left{:data => {:widget => 'update-count'}}
