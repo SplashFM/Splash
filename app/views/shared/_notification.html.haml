@@ -1,8 +1,9 @@
 %script#tmpl-notification{:type => 'text/x-jquery-tmpl'}
-  .left
-    %img{:src => '${notifier.avatar_micro_url}',:class => 'small-pic left'}
-    .message.left ${title}
-  .right
-    .icon.right
+  %div{:data => {:widget => 'notification'}}
+    .left
+      %img{:src => '${notifier.avatar_micro_url}',:class => 'small-pic left'}
+      .message.left ${title}
+    .right
+      .icon.right
 
-  .clear
+    .clear
