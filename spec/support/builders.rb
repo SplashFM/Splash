@@ -39,7 +39,7 @@ Bricks do
       name  n
     end
 
-    after :clone do
+    before :save do
       user_seq  += 1
     end
   end
