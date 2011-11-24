@@ -19,9 +19,8 @@
             %ul{:data => {:widget => 'filter-following'}}
               %li.ui-tabs-selected
                 %a.active{:href => "#activity"}= t('events.filters.my_activity')
-            /
               %li
-                %a{:href => "#mentions"} @Mentions
+                %a{:href => "#mentions"}= t('events.filters.mentions')
           .line
             %span
           %span.feed-updates-count.left{:data => {:widget => 'update-count'}}

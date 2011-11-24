@@ -15,7 +15,7 @@ feature "Feed filtering", :js => true do
       body("Hey, I'm mentioning @#{user.nickname}").
       author! u
 
-    go_to 'home'
+    go_to 'profile'
 
     with_feed {
       enable :mentions
