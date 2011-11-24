@@ -10,6 +10,7 @@ class Event < ActiveRecord::Base
     page             = params[:page].to_i
     page             = 1 if page < 1
     include_splashes = params[:splashes].present?
+    include_mentions = params[:mentions].present?
     include_other    = params[:other].present?
 
     splashes        = Splash.as_event.for_users(user_ids).since(last_update_at).
@@ -17,6 +18,7 @@ class Event < ActiveRecord::Base
     relationships   = Relationship.as_event.for_users(user_ids).
       since(last_update_at)
     comments        = Comment.as_event.for_users(user_ids).since(last_update_at)
+    mentions        = Mention.as_event.for_users(user_ids).since(last_update_at)
 
     if main_user_id
       splash_comments = Comment.as_event.on_splashes(Splash.ids(main_user_id)).
@@ -37,10 +39,13 @@ class Event < ActiveRecord::Base
         comment_union = " UNION " << (user_ids.present? ? " ALL " : "")
         q << comment_union << splash_comments.to_sql if main_user_id
       end
+      q << " UNION ALL "   if include_mentions && ! q.blank?
+      q << mentions.to_sql if include_mentions
+
       q << " ORDER BY created_at DESC"
       q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
 
-      if include_other || include_splashes
+      if include_other || include_splashes || include_mentions
         events = Event.find_by_sql(q);
       else
         events = []

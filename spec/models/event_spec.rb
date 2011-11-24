@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Event do
   [
    ['comments', :other, Comment],
+   ['mentions', :mentions, Mention],
    ['relationships', :other, Relationship],
    ['splashes', :splashes, Splash],
   ].each { |(label, filter, klass)|
