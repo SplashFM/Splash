@@ -71,6 +71,8 @@ module UI
       def w(name)
         "[data-widget = '#{name}']"
       end
+
+      Capybara::Session.send(:include, self)
     end
 
     module Matchers
