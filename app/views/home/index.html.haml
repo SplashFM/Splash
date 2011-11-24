@@ -13,7 +13,7 @@
 .home
   = render "sidebar"
   #stream-wrap.left
-    #stream-feed
+    #stream-feed{:data => {:widget => 'feed'}}
       .streamfeed-top
         .container
           = render "shared/feed_search"
