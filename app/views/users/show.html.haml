@@ -10,7 +10,7 @@
 .users-show
   = render "sidebar"
   #stream-wrap.right
-    #stream-feed
+    #stream-feed{:data => {:widget => 'feed'}}
       .streamfeed-top
         .container
           = render "shared/feed_search"
