@@ -98,6 +98,10 @@ class Track < ActiveRecord::Base
     write_attribute(:performers, Track.value_to_string_list(value))
   end
 
+  def preview_type; end
+
+  def preview_url; end
+
   def search_result_type
     :track
   end
