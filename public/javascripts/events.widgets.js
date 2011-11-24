@@ -19,7 +19,7 @@ $(function() {
       this.filterView = new Events.Filter;
       this.filterView.bind('change', this.refresh, this);
 
-      this.settings = new Events.Settings({currentUserId: this.currentUserId});
+      this.settings = new Events.Settings;
       this.settings.bind('change', this.refresh, this);
 
       this.currentInterval = setInterval(this.checkForUpdates,
