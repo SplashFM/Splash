@@ -10,6 +10,20 @@ Bricks do
     name 'Going for the one'
   end
 
+  builder Relationship do
+    follower.with_required_info!
+    followed.with_required_info!
+  end
+
+  builder Comment do
+    body "This is a comment!"
+  end
+
+  builder Splash do
+    track
+    user
+  end
+
   builder Track do
     title  { "Turn of the century #{track_seq}" }
     albums ["Going for the one"]
