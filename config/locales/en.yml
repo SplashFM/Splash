@@ -31,6 +31,7 @@ en:
       everyone: Everyone
       following: Following
       mentions: @Mentions
+      my_activity: My Activity
     following: %{follower} is now following %{followed}
     updates:
       one: 1 new update
