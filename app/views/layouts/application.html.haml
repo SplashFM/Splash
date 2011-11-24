@@ -12,22 +12,22 @@
     = render "shared/ga"
     = yield :head
     - if logged_in?
+      = render "events/comment"
+      = render "events/relationship"
+      = render "events/splash"
+      = render "home/track"
       = render "shared/flash_messages"
-      = render "shared/player"
-      = render "shared/user"
-      = render "shared/track"
       = render "shared/notification"
+      = render "shared/player"
       = render "shared/quick_splash_track"
+      = render "shared/track"
       = render "shared/upload"
       = render "shared/upload_metadata"
+      = render "shared/user"
       = render "splashes/comment"
-      = render "events/comment"
-      = render "events/splash"
-      = render "events/relationship"
+      = render "tracks/track_summary"
       = render "users/user"
       = render "users/user_summary"
-      = render "home/track"
-      = render "tracks/track_summary"
     :javascript
       var Constants = {};
 
