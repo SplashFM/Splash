@@ -30,6 +30,7 @@ en:
     filters:
       everyone: Everyone
       following: Following
+      mentions: @Mentions
     following: %{follower} is now following %{followed}
     updates:
       one: 1 new update

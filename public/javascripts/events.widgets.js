@@ -283,6 +283,12 @@ $(function() {
         settings.follower = '';
       }
 
+      var mentions = $('[data-widget = "filter-following"] a[href = "#mentions"]');
+      if (mentions.hasClass('active')) {
+        settings.splashes = '';
+        settings.other    = '';
+      }
+
       return settings;
     },
 

@@ -1,7 +1,29 @@
 require 'acceptance/acceptance_helper'
 
 feature "Feed filtering", :js => true do
+  include UI::Feed
+
   subject { page }
+
+  scenario "Show mentions only" do
+    u = create!(User)
+    s = create(Splash).user! u
+
+    user.follow u
+    create(Comment).
+      splash(s).
+      body("Hey, I'm mentioning @#{user.nickname}").
+      author! u
+
+    go_to 'home'
+
+    with_feed {
+      enable :mentions
+
+      should have_no_splashes
+      should have(1).mention
+    }
+  end
 
   scenario "Filter by performer" do
     pending
