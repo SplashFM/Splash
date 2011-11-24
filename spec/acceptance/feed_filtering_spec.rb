@@ -7,13 +7,9 @@ feature "Feed filtering", :js => true do
 
   scenario "Show mentions only" do
     u = create!(User)
-    s = create(Splash).user! u
-
     user.follow u
-    create(Comment).
-      splash(s).
-      body("Hey, I'm mentioning @#{user.nickname}").
-      author! u
+
+    s = create(Splash).user(u).mention!(user)
 
     go_to 'profile'
 

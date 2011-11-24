@@ -22,6 +22,10 @@ Bricks do
   builder Splash do
     track
     user
+
+    trait :mention do |user|
+      comment "Hey, I'm mentioning @#{user.nickname}!"
+    end
   end
 
   builder Track do
