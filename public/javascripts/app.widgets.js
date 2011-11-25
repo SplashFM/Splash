@@ -120,6 +120,13 @@ $(function() {
           url: this.model.get('notifier').url,
           container: '[data-pjax-container]',
         });
+
+        break;
+      case 'mention':
+        $.pjax({
+          url: Routes.profile_path({mentions: 1}),
+          container: '[data-pjax-container]',
+        });
       }
     },
   });

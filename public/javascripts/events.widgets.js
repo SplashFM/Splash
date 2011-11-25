@@ -19,7 +19,7 @@ $(function() {
       this.filterView = new Events.Filter;
       this.filterView.bind('change', this.refresh, this);
 
-      this.settings = new Events.Settings;
+      this.settings = new Events.Settings({filters: this.options.filters});
       this.settings.bind('change', this.refresh, this);
 
       this.currentInterval = setInterval(this.checkForUpdates,
@@ -268,6 +268,11 @@ $(function() {
         });
 
       $('[data-widget = "filter-following"] a').click(this.onToggleFollowing);
+
+      if (this.options.filters.mentions) {
+        // TODO: Find a better way to do this.
+        $('[data-widget = "filter-following"] a[href = "#mentions"]').click();
+      }
     },
 
     filters: function() {
