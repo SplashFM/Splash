@@ -24,6 +24,17 @@ describe Event do
     end
   }
 
+  describe "scoping to user" do
+    let(:other) { create!(User) }
+
+    it "filters out unrelated comments" do
+      create(Splash).with_comment_by!(other)
+
+      Event.scope_by(:user => user.id, :splashes => 1, :other => 1).
+        should be_empty
+    end
+  end
+
   describe "mentions" do
     before do
       user.follow friend

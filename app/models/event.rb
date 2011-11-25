@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   PER_PAGE = 10
 
   def self.scope_by(params)
+    # TODO: This method is in serious need of cleanup
     last_update_at   = params[:last_update_at]
     main_user_id     = params[:user]
     user_ids         = User.following_ids(params[:follower])
@@ -20,7 +21,8 @@ class Event < ActiveRecord::Base
     comments        = Comment.as_event.for_users(user_ids).since(last_update_at)
 
     if main_user_id
-      splash_comments = Comment.as_event.on_splashes(Splash.ids(main_user_id)).
+      splash_ids      = Splash.ids(main_user_id)
+      splash_comments = Comment.as_event.on_splashes(splash_ids).
         since(last_update_at).skip_users(user_ids)
 
       mentions        = Splash.as_event.since(last_update_at).
@@ -43,7 +45,9 @@ class Event < ActiveRecord::Base
         q << relationships.to_sql + " UNION ALL " + comments.to_sql
 
         comment_union = " UNION " << (user_ids.present? ? " ALL " : "")
-        q << comment_union << splash_comments.to_sql if main_user_id
+        if main_user_id && splash_ids.present?
+          q << comment_union << splash_comments.to_sql
+        end
       end
 
       q << " ORDER BY created_at DESC"
