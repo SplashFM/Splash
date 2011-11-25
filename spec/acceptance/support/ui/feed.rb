@@ -16,6 +16,8 @@ module UI
         case filter
         when :mentions
           click_link t('events.filters.mentions')
+
+          wait_until { page.has_css?("a[href = '#mentions'].active") }
         else
           raise "Unknown filter: #{filter}"
         end
