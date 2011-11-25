@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe Event do
+  let(:user)   { create!(User) }
+  let(:friend) { create!(User) }
+
   [
    ['comments', :other, Comment],
    ['relationships', :other, Relationship],
@@ -22,9 +25,6 @@ describe Event do
   }
 
   describe "mentions" do
-    let(:user)   { create!(User) }
-    let(:friend) { create!(User) }
-
     before do
       user.follow friend
 
