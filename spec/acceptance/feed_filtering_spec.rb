@@ -16,8 +16,7 @@ feature "Feed filtering", :js => true do
     with_feed {
       enable :mentions
 
-      should have_no_splashes
-      should have(1).mention
+      should have(1).splash
     }
   end
 

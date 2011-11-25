@@ -22,7 +22,19 @@ class Splash < ActiveRecord::Base
   scope :with_tags, lambda { |tags|
     tags.blank? ? scoped : joins(:track => :tags).where(:tags => {:name => tags})
   }
-  scope :as_event, select("splashes.created_at, splashes.id target_id, 'Splash' target_type")
+  scope :as_event, select("distinct splashes.created_at,
+                                    splashes.id target_id,
+                                    'Splash' target_type")
+  scope :mentioning, lambda { |user_ids|
+    if user_ids.blank?
+      scoped
+    else
+      joins(:comments).
+      joins("join notifications n on
+               n.target_id = comments.id and n.target_type = 'Comment'").
+      where('n.notified_id in (?)', user_ids)
+    end
+  }
 
   # Return the Splashes for a given user or users.
   #

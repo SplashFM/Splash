@@ -72,7 +72,6 @@ $(function() {
         $(this.el).append(new Events.Splash({model: e}).render().el);
         break;
       case 'relationship':
-      case 'mention':
       case 'comment':
         $(this.el).append(new Events.Social({model: e}).render().el);
         break;
@@ -104,7 +103,6 @@ $(function() {
     className: 'feed-socials',
     templates: {
       relationship: $('#tmpl-event-relationship').template(),
-      mention: $('#tmpl-event-mention').template(),
       comment: $('#tmpl-event-comment').template(),
     },
 

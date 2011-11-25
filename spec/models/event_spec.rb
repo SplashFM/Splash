@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Event do
   [
    ['comments', :other, Comment],
-   ['mentions', :mentions, Mention],
    ['relationships', :other, Relationship],
    ['splashes', :splashes, Splash],
   ].each { |(label, filter, klass)|
@@ -21,4 +20,29 @@ describe Event do
       Event.scope_by({}).should be_empty
     end
   }
+
+  describe "mentions" do
+    let(:user)   { create!(User) }
+    let(:friend) { create!(User) }
+
+    before do
+      user.follow friend
+
+      create(Splash).user(friend).mention!(user)
+    end
+
+    it "includes mentions" do
+      Event.scope_by(:user => user.id, :mentions => 1).should have(1).item
+    end
+
+    it "includes a mention only once" do
+      create(Comment).author(friend).splash!(Splash.first)
+
+      Event.scope_by(:user => user.id, :mentions => 1).should have(1).item
+    end
+
+    it "filters out mentions" do
+      Event.scope_by(:user => user.id).should be_empty
+    end
+  end
 end
