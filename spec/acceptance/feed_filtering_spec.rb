@@ -11,7 +11,7 @@ feature "Feed filtering", :js => true do
 
     s = create(Splash).user(u).mention!(user)
 
-    go_to 'profile'
+    go_to 'home'
 
     with_feed {
       enable :mentions
