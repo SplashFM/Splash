@@ -124,7 +124,7 @@ $(function() {
         break;
       case 'mention':
         $.pjax({
-          url: Routes.profile_path({mentions: 1}),
+          url: Routes.root_path({mentions: 1}),
           container: '[data-pjax-container]',
         });
       }
