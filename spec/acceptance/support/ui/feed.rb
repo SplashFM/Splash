@@ -33,7 +33,7 @@ module UI
       end
 
       def splashes
-        wait_until { all('splash').presence }
+        wait_until { all(w('splash')).presence }
       end
     end
 
