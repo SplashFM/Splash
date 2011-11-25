@@ -6,8 +6,7 @@ class Mention < Notification
     if user_ids.blank?
       scoped
     else
-      where('notifications.notifier_id in (:ids) or
-             notifications.notified_id in (:ids)', :ids => user_ids)
+      where('notifications.notified_id in (:ids)', :ids => user_ids)
     end
   }
   scope :since, lambda { |time|
