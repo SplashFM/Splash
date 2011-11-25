@@ -58,11 +58,11 @@ class ApplicationController < ActionController::Base
       end
 
       begin
-        Twitter.update(truncate([splash_url(splash),
-                        splash.user.name,
-                        'splashed',
-                        splash.track.title,
-                        splash.comments.first.body].join(' ')))
+        Twitter.update(truncate([splashboards_url,
+                                  splash.user.name,
+                                  'splashed',
+                                  splash.track.title,
+                                  splash.comments.first.body].join(' ')))
       rescue Twitter::NotFound, Twitter::Forbidden => e
         notify_hoptoad(e)
       end
