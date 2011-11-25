@@ -80,6 +80,10 @@ module UI
         %w(/ /home /dashboard).include?(current_path)
       end
 
+      def user_mentions?
+        has_css?("a[href = '#mentions'].active")
+      end
+
       Capybara::Session.send(:include, self)
     end
   end
