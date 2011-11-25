@@ -26,6 +26,10 @@ Bricks do
     trait :mention do |user|
       comment "Hey, I'm mentioning @#{user.nickname}!"
     end
+
+    trait :with_comment_by do |user|
+      comments.author(user)
+    end
   end
 
   builder Track do
