@@ -8,6 +8,10 @@ class DiscoveredTrack < Track
     "m4a"
   end
 
+  def preview_url
+    read_attribute(:preview_url)
+  end
+
   def purchase_url
     purchase_url_raw
   end
