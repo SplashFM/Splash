@@ -1,6 +1,6 @@
 %script#tmpl-home-track{:type => 'text/x-jquery-tmpl'}
   %div{:class => '{{if splashable}}splashable{{else}}unsplashable{{/if}}', |
-       :data => {:track_id => '${id}'}}
+       :data => {:track_id => '${id}', :widget => 'track-result'}}
     .holder
       %a.art.left{:href => "${preview_url}", :data => {:widget => 'play'}}
         %img{:alt => "", :height => "71", :src => "${artwork_url}", :width => "71"}/
