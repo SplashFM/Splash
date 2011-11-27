@@ -234,7 +234,9 @@ $(function() {
       var media = {};
       media[data.track.preview_type] = data.track.preview_url;
 
-      $('#player-area').html($.tmpl(this.template, data.track));
+      this.el = $('#player-area').get(0);
+
+      $(this.el).html($.tmpl(this.template, data.track));
 
       $("[data-widget = 'player']").
         jPlayer({cssSelectorAncestor: '[data-widget = "player-ui"]',
