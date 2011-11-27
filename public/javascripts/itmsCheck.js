@@ -55,7 +55,9 @@ function iTunesActiveXComponentInstalled() {
  */
 function iTunesMozillaPluginDetected() {
   var result = false;
-  if (navigator.plugins && navigator.plugins.length > 0) {
+  if (navigator.userAgent.indexOf("Linux") == -1 &&
+      navigator.plugins &&
+      navigator.plugins.length > 0) {
     for (var i=0; i < navigator.plugins.length; i++ ) {
       var plugin = navigator.plugins[i];
       var pluginName = plugin.name;
