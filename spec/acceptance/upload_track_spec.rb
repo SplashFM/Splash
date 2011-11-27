@@ -10,15 +10,21 @@ feature "Upload track", :js => true do
   background { go_to 'home' }
 
   scenario "Upload and splash" do
+    track = build(Track).title!('Steady as she goes')
     upload file('sky_sailing_steady_as_she_goes.m4a'),
-           build(Track).title!('Steady as she goes'),
+           track,
            'This is my comment!'
 
     search_tracks_for 'Steady as she goes' do
       track_results { should have(1).track_result }
     end
 
-    feed { should have(1).splash }
+    feed {
+      should have(1).splash
+
+      should have_content(track.title)
+      should have_content(track.performers.first)
+    }
   end
 
   scenario "Double upload of track" do
@@ -45,17 +51,6 @@ feature "Upload track", :js => true do
     wait_until { page.has_search_results_hidden? }
 
     should have_validation_error(UndiscoveredTrack, :title, :performers)
-  end
-
-  scenario "Upload using metadata" do
-    upload file('sky_sailing_steady_as_she_goes.m4a'),
-           nil,
-           'This is my comment!'
-
-    should_have_splash
-
-    should have_content("Steady As She Goes")
-    should have_content("Sky Sailing")
   end
 
   scenario "Upload invalid file" do
