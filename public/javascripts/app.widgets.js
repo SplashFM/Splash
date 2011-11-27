@@ -6,6 +6,19 @@ $(function() {
     return this;
   }
 
+  Purchase = {
+    events: {
+      'click [data-widget = "purchase"]': 'purchase'
+    },
+
+    purchase: function(e) {
+      e.preventDefault();
+
+      if (! itmsOpen($(e.target).attr('href')))
+        window.open($(e.target).attr('href'));
+    },
+  };
+
   window.BaseApp = Backbone.View.extend({
     initialize: function() {
       this.userSearch    = new BaseApp.UserSearch;

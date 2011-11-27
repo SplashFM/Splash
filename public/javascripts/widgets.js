@@ -8,16 +8,6 @@ function $w(name) {
   return $($ws(name));
 }
 
-Widgets.Purchase = {
-  init: function() {
-    $w('purchase').live('click', function(e) {
-      e.preventDefault();
-
-      window.open($(this).attr('href'));
-    });
-  }
-}
-
 Widgets.Paginate = {
   init: function() {
     $w('next-page').live('ajax:success', function(_, data) {
@@ -322,7 +312,6 @@ $(document).ready(function() {
   Widgets.SplashAction.init();
   Widgets.Notification.init();
   Widgets.Paginate.init();
-  Widgets.Purchase.init();
   Widgets.SocialSite.init();
   Widgets.SuggestedUsers.init();
   new SPLASH.Widgets.waterNums('.waterNum');
