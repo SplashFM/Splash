@@ -32,10 +32,6 @@ module UI
       has_css?("##{type}-results", :hidden => true)
     end
 
-    def has_metadata_form?
-      has_css?('[data-widget = "upload-metadata"]')
-    end
-
     def has_search_results_hidden?
       has_css?('[data-widget = "results"]', :hidden => true)
     end

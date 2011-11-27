@@ -12,6 +12,9 @@ module UI
     end
 
     module Actions
+      def add_splash_comment(comment)
+        find('.commentArea').set(comment)
+      end
     end
 
     module Collections

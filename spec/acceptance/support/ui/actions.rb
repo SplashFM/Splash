@@ -148,34 +148,6 @@ module UI
       end
     end
 
-    def upload(path, track = nil, comment = nil)
-      upload_track(path, comment)
-
-      wait_until { page.has_metadata_form? }
-
-      if track
-        fill_in Track.human_attribute_name(:title), :with => track.title
-        fill_in Track.human_attribute_name(:performers),
-                :with => track.performer_names.first
-        fill_in Track.human_attribute_name(:albums), :with => track.albums.first
-      end
-
-      click_button t('tracks.actions.complete_upload')
-    end
-
-    def upload_track(path, comment = nil)
-      wait_until { page.has_link?(t('upload.upload'), :visible => true) }
-
-      click_link t('upload.upload')
-
-      wait_until { page.has_css?(upload_css, :visible => true) }
-
-      if comment
-        fill_in Splash.human_attribute_name(:comment), :with => comment
-      end
-      attach_file Track.human_attribute_name(:data), path
-    end
-
     def with_found_track(t, &block)
       within(track_css(t), &block)
     end

@@ -1,37 +1,24 @@
 require 'acceptance/acceptance_helper'
 
 feature "Upload track", :js => true do
+  include UI::Feed
+  include UI::TrackSearch
+  include UI::Upload
+
   subject { page }
 
   background { go_to 'home' }
 
-  scenario "Upload track" do
-    t = build(Track).title!('Steady as she goes')
-
+  scenario "Upload and splash" do
     upload file('sky_sailing_steady_as_she_goes.m4a'),
-           t,
+           build(Track).title!('Steady as she goes'),
            'This is my comment!'
 
-    should have_hidden_search_results(:track)
-
-    search_for "steady", :track do
-      should have(1).track
+    search_tracks_for 'Steady as she goes' do
+      track_results { should have(1).track_result }
     end
 
-    should_have_splash
-  end
-
-  scenario "Splash uploaded" do
-    track = build(Track).
-      title("Steady As She Goes").
-      albums("An Airplane Carried Me to Bed").
-      with_performer!("Sky Sailing")
-
-    upload file('sky_sailing_steady_as_she_goes.m4a'),
-           track,
-           'This is my comment!'
-
-    should_have_splash
+    feed { should have(1).splash }
   end
 
   scenario "Upload using bad data" do
