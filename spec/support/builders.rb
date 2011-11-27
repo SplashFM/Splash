@@ -50,7 +50,6 @@ Bricks do
 
   builder User do
     email        { "user#{user_seq}@mojotech.com" }
-    nickname     { "User#{user_seq}"}
     password     'testing'
     confirmed_at 1.day.ago
 
