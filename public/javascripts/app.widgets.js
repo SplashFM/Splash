@@ -247,8 +247,10 @@ $(function() {
                      jPlayer('setMedia', media).
                      jPlayer('play');
                  }});
+
+      this.delegateEvents(this.events);
     },
-  });
+  }).mixin(Purchase);
 
   window.UserMentions = Backbone.View.extend({
     initialize: function() {
