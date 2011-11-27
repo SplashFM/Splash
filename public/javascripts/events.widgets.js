@@ -230,7 +230,7 @@ $(function() {
     reset: function() {
       this.$(':text').val('');
     },
-  })
+  }).mixin(Purchase);
 
   window.Events.Splash.Comments = Backbone.View.extend({
     template: $('#tmpl-event-splash-comment').template(),
