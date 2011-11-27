@@ -21,6 +21,20 @@ feature "Upload track", :js => true do
     feed { should have(1).splash }
   end
 
+  scenario "Double upload of track" do
+    track = create(UndiscoveredTrack).
+      data!(File.new(file('sky_sailing_steady_as_she_goes.m4a')))
+
+    upload_song file('sky_sailing_steady_as_she_goes.m4a')
+    splash_uploaded
+
+    search_tracks_for "Steady As She Goes" do
+      track_results { should have(1).track_result }
+    end
+
+    feed { should have(1).splash }
+  end
+
   scenario "Upload using bad data" do
     track = build(Track).title("").with_performer!("")
 
@@ -31,23 +45,6 @@ feature "Upload track", :js => true do
     wait_until { page.has_search_results_hidden? }
 
     should have_validation_error(UndiscoveredTrack, :title, :performers)
-  end
-
-  scenario "Splash uploaded that already exists" do
-    track = create(Track).
-      title("Steady As She Goes").
-      albums("An Airplane Carried Me to Bed").
-      with_performer!("Sky Sailing")
-
-    upload file('sky_sailing_steady_as_she_goes.m4a'),
-           track,
-           'This is my comment!'
-
-    search_for "Steady As She Goes", :track do
-      should have(1).track
-    end
-
-    should_have_splash
   end
 
   scenario "Upload using metadata" do

@@ -15,6 +15,10 @@ module UI
     module Actions
       include Splash::Actions
 
+      def splash_uploaded
+        click_button t("upload.splash")
+      end
+
       def upload(path, track = nil, comment = nil)
         upload_song(path, comment)
 
