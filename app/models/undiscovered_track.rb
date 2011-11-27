@@ -13,7 +13,7 @@ class UndiscoveredTrack < Track
     :styles      => {:original => [:metadata]},
   }
 
-  if AppConfig.aws
+  if AppConfig.aws && ! Rails.env.test?
     has_attached_file :data,
       {:path   => "/:class/:attachment/:id/:hash.:extension",
        :storage => :s3,
