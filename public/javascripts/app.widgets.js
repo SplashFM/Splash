@@ -1,4 +1,11 @@
 $(function() {
+  Backbone.View.mixin = function(module) {
+    _.defaults(this.prototype,        module);
+    _.defaults(this.prototype.events, module.events);
+
+    return this;
+  }
+
   window.BaseApp = Backbone.View.extend({
     initialize: function() {
       this.userSearch    = new BaseApp.UserSearch;
