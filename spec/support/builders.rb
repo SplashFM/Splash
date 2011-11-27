@@ -23,8 +23,10 @@ Bricks do
     track
     user
 
-    trait :mention do |user|
-      comment "Hey, I'm mentioning @#{user.nickname}!"
+    trait :mention do |*users|
+      mentions = "@" << users.map(&:nickname).join(" @")
+
+      comment "Hey, I'm mentioning #{mentions}!"
     end
 
     trait :with_comment_by do |user|
