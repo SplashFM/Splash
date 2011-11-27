@@ -26,14 +26,11 @@ describe Mention do
     mention.target.should   == splash
   end
 
-  it "creates many mentions from a splash's comment field" do
+  it "creates many mentions from a splash's comment" do
     author     = create(User).with_required_info!
     recipient1 = create(User).following([author]).with_required_info!
     recipient2 = create(User).following([author]).with_required_info!
-    splash     = create(Comment).
-      author(author).
-      body!("A comment to @#{recipient2.nickname}
-             mentioning @#{recipient1.nickname}")
+    splash     = create(Splash).user(author).mention!(recipient1, recipient2)
 
     mentions     = Mention.all
     recipients   = mentions.map(&:notified)
@@ -44,6 +41,6 @@ describe Mention do
     recipients.should include(recipient2)
 
     authors.should      == [author]
-    mentionables.should == [splash]
+    mentionables.should == [splash.comments.first]
   end
 end
