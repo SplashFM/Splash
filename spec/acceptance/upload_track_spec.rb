@@ -42,6 +42,8 @@ feature "Upload track", :js => true do
   end
 
   scenario "Upload using bad data" do
+    pending
+
     track = build(Track).title("").with_performer!("")
 
     upload file('sky_sailing_steady_as_she_goes.m4a'),
@@ -54,6 +56,8 @@ feature "Upload track", :js => true do
   end
 
   scenario "Upload invalid file" do
+    pending
+
     upload_track File.join(Rails.root, 'Rakefile'),
                  'This is my comment!'
 
@@ -61,6 +65,8 @@ feature "Upload track", :js => true do
   end
 
   scenario "Cancel upload" do
+    pending
+
     upload_track file('sky_sailing_steady_as_she_goes.m4a'),
                  'This is my comment!'
 
@@ -70,6 +76,8 @@ feature "Upload track", :js => true do
   end
 
   scenario "Double splash" do
+    pending
+
     upload file('sky_sailing_steady_as_she_goes.m4a'),
            nil,
            'This is my comment!'
