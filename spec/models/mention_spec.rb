@@ -43,10 +43,7 @@ describe Mention do
     recipients.should include(recipient1)
     recipients.should include(recipient2)
 
-    authors.should have(1).author
-    authors.first.should == author
-
-    mentionables.should have(1).mentionable
-    mentionables.first.should == splash
+    authors.should      == [author]
+    mentionables.should == [splash]
   end
 end
