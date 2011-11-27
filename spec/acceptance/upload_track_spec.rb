@@ -41,6 +41,22 @@ feature "Upload track", :js => true do
     feed { should have(1).splash }
   end
 
+  scenario "Upload discovered track" do
+    track = create(DiscoveredTrack).
+      title("Steady As She Goes").
+      albums("An Airplane Carried Me to Bed").
+      with_performer!("Sky Sailing")
+
+    upload_song file('sky_sailing_steady_as_she_goes.m4a')
+    splash_uploaded
+
+    search_tracks_for "Steady As She Goes" do
+      track_results { should have(1).track_result }
+    end
+
+    feed { should have(1).splash }
+  end
+
   scenario "Upload using bad data" do
     pending
 
