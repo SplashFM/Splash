@@ -45,4 +45,19 @@ describe User, :adapter => :postgresql do
   it "should start with no ripples" do
     create!(User).ripple_count.should == 0
   end
+
+  describe "nicknames" do
+    it "generates a nickname from the name" do
+      create(User).name!('Adam Constantinides').nickname.
+        should == 'adam_constantinides'
+    end
+
+    it "forbids creating nicknames with spaces" do
+      lambda {
+        create(User).
+          name('Adam Constantinides').
+          nickname!('Adam Constantinides')
+      }.should raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
 end
