@@ -40,11 +40,11 @@ javascripts:
     - public/javascripts/login.widgets.js
     - public/javascripts/iphone-style-checkboxes.js
     - public/javascripts/jquery.clickout.js
+    - public/javascripts/itmsCheck.js
     - public/javascripts/SPLASH.Widgets.waterNums.js
     - public/javascripts/SPLASH.Widgets.numFlipper.js
     - public/javascripts/SPLASH.Widgets.sticky.js
     - public/javascripts/SPLASH.Widgets.pulsars.js
-
 
   pjax:
     - public/javascripts/jquery.pjax.js
