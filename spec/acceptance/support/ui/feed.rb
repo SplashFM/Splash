@@ -27,6 +27,8 @@ module UI
       def with_feed(&do_stuff)
         within w('feed'), &do_stuff
       end
+
+      alias_method :feed, :with_feed
     end
 
     module Collections
