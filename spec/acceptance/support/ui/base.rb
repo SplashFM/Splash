@@ -68,8 +68,8 @@ module UI
         end
       end
 
-      def w(name)
-        "[data-widget = '#{name}']"
+      def w(name, children = nil)
+        "[data-widget = '#{name}'] #{children}".strip
       end
 
       Capybara::Session.send(:include, self)
