@@ -111,16 +111,11 @@ function itmsOpen(url, downloadUrl, overridePanelId, noClose){
         setTimeout(function(){
             window.location.href = url;
         }, 1);
+
+      return true;
     } else {
-        if (BROWSER_INTERNET_EXPLORER == b || BROWSER_FIREFOX == b || BROWSER_SAFARI == b) {
-            // take IE users straight to the download page because we're sure they don't
-            // have iTunes installed (they would have had the ActiveX component show up)
-            window.location.replace(downloadUrl);
-        } else { // for all other browsers, let the user tell us if iTunes is installed:
-            document.getElementById(overridePanelId).style.display = 'block';
-        }
+      return false;
     }
-    return false;
 }
 
 
