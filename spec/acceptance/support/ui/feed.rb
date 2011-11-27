@@ -21,7 +21,6 @@ module UI
         else
           raise "Unknown filter: #{filter}"
         end
-
       end
 
       def with_feed(&do_stuff)
