@@ -16,7 +16,14 @@ $(function() {
     },
   }
 
-  window.Track             = Backbone.Model.extend();
+  window.Track             = Backbone.Model.extend({
+    flag: function(){
+      $.ajax({
+        type: 'post',
+        url: '/tracks/' + this.get('id') + '/flag'
+      });
+    }
+  });
   window.UndiscoveredTrack = Track.extend({
     urlRoot: '/undiscovered_tracks'
   });

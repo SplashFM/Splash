@@ -29,6 +29,7 @@ Scaphandrier::Application.routes.draw do
   end
   resources :suggested_splashers
   resources :tracks do
+    post 'flag'
     resources :splashes
 
     collection do

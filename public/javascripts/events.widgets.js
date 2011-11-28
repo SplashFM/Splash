@@ -148,7 +148,8 @@ $(function() {
     events: {
       'click': 'toggleExpanded',
       'submit [data-widget = "comment-box"]': 'addComment',
-      'click [data-widget = "play"]': 'play'
+      'click [data-widget = "play"]': 'play',
+      'click [data-widget = "flag"]': 'flag'
     },
     tagName: 'li',
     template: $('#tmpl-event-splash').template(),
@@ -208,6 +209,12 @@ $(function() {
 
       $(this.el).trigger('request:play',
                          {track: this.model.get('track')});
+    },
+
+    flag: function() {
+      var track = new Track(this.model.get('track'));
+
+      track.flag();
     },
 
     render: function() {

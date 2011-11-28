@@ -70,7 +70,7 @@
             .social_link.twitter.left{:data => {:widget => 'social-site-post', :id => "${id}", :site => 'twitter'}}
               = image_tag 'https://si0.twimg.com/a/1321466386/images/goodies/tweetn.png'
           .arrow
-        %a.report-song.right{:href => "#"} Report song
+        %a.report-song.right{:data => {:widget => 'flag'}} Report song
         {{if user}}
         %p.author
           %em Splashed by
