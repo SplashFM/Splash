@@ -50,6 +50,10 @@ module UI
         with_lifesaver { click_link t('lifesaver.logout') }
       end
 
+      def scroll_to_bottom
+        page.execute_script "$(document).scrollTop($(document).height())"
+      end
+
       def with_lifesaver(&do_stuff)
         click_widget 'lifesaver'
         within w('lifesaver-menu'), &do_stuff
