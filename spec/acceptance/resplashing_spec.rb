@@ -4,6 +4,8 @@ feature "Resplashing", :js => true do
   subject { page }
 
   scenario "Resplash" do
+    pending
+
     user.following << create_splash.user
 
     go_to 'home'
@@ -14,6 +16,8 @@ feature "Resplashing", :js => true do
   end
 
   scenario "Only resplash once" do
+    pending
+
     splash = create_splash
 
     user.following << splash.user
@@ -26,6 +30,8 @@ feature "Resplashing", :js => true do
   end
 
   scenario "Assign a ripple to parent splashers on resplash" do
+    pending
+
     RedisRecord.reset_all
 
     grandp = create_splash

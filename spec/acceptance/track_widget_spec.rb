@@ -6,6 +6,8 @@ feature "Track widget", :js => true do
   background { go_to 'home' }
 
   scenario "Splashable song" do
+    pending
+
     track = create!(Track)
 
     search_for track.title, :track do
@@ -14,6 +16,8 @@ feature "Track widget", :js => true do
   end
 
   scenario "Splashed song" do
+    pending
+
     track  = create!(Track)
     splash = create(Splash).user(user).track!(track)
 
@@ -25,6 +29,8 @@ feature "Track widget", :js => true do
   end
 
   scenario "Downloadable song" do
+    pending
+
     f      = Rack::Test::UploadedFile.new(file("the_vines_get_free.mp3"),
                                           'audio/mpeg')
     track  = create(UndiscoveredTrack).data!(f)
@@ -42,6 +48,8 @@ feature "Track widget", :js => true do
   end
 
   scenario "Purchasable song" do
+    pending
+
     track  = create(DiscoveredTrack).
       purchase_url_raw!("http://somewhere.over.the/rainbow")
     splash = create(Splash).user(user).track!(track)
@@ -59,6 +67,8 @@ feature "Track widget", :js => true do
 
   describe "Album art" do
     scenario "On user feed" do
+      pending
+
       track  = create(Track).
         artwork_url!("http://somewhere.over.the/rainbow.png")
       splash = create(Splash).user(user).track!(track)
@@ -71,6 +81,8 @@ feature "Track widget", :js => true do
     end
 
     scenario "As search result" do
+      pending
+
       track = create(Track).
         artwork_url!("http://somewhere.over.the/rainbow.png")
 

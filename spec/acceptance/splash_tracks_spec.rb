@@ -6,6 +6,8 @@ feature "Splash tracks", :js => true do
   background { go_to 'home' }
 
   scenario "Splash existing track" do
+    pending
+
     track = create!(Track)
 
     search_for track.title, :track do
@@ -16,6 +18,8 @@ feature "Splash tracks", :js => true do
   end
 
   scenario "Splash song with comment" do
+    pending
+
     track = create!(Track)
 
     search_for track.title, :track do
@@ -32,6 +36,8 @@ feature "Splash tracks", :js => true do
   end
 
   scenario "Splashing at another user's profile" do
+    pending
+
     other = create(User).with_required_info!
     track = create!(Track)
 
@@ -47,6 +53,8 @@ feature "Splash tracks", :js => true do
   end
 
   scenario "Splashing at own profile" do
+    pending
+
     go_to 'profile'
 
     track = create!(Track)
@@ -61,6 +69,8 @@ feature "Splash tracks", :js => true do
   end
 
   scenario "show time since it was splashed" do
+    pending
+
     track = create!(Track)
 
     search_for track.title, :track do

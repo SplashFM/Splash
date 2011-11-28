@@ -8,6 +8,8 @@ feature "Track search box", :adapter => :postgresql, :js => true do
   scenario "Empty query"
 
   scenario "No results"  do
+    pending
+
     search_for "Nothing", :track do
       should_not have_tracks
       should     have_content(t('searches.empty'))
@@ -16,6 +18,8 @@ feature "Track search box", :adapter => :postgresql, :js => true do
   end
 
   scenario "Song found" do
+    pending
+
     track = create!(Track)
 
     search_for track.title, :track do
@@ -25,6 +29,8 @@ feature "Track search box", :adapter => :postgresql, :js => true do
   end
 
   scenario "Does not return results for users" do
+    pending
+
     user = create(User).with_name!('Jack Johnson')
 
     search_for user.name, :track do
@@ -34,6 +40,8 @@ feature "Track search box", :adapter => :postgresql, :js => true do
   end
 
   scenario "Paginated results" do
+    pending
+
     per_page     = Track.default_per_page
     pages        = 3
     total_tracks = per_page * pages

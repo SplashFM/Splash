@@ -4,6 +4,8 @@ feature "User Profile", :js => true do
   subject { page }
 
   scenario "Follow User" do
+    pending
+
     followed = create(User).with_required_info!
     follow(followed)
 
@@ -11,6 +13,8 @@ feature "User Profile", :js => true do
   end
 
   scenario "See following notification" do
+    pending
+
     followed = create(User).with_required_info!
     follow(followed)
 
@@ -23,6 +27,8 @@ feature "User Profile", :js => true do
   end
 
   scenario "See following feed update" do
+    pending
+
     followed = create(User).with_required_info!
     follow(followed)
 
@@ -33,6 +39,8 @@ feature "User Profile", :js => true do
   end
 
   scenario "Edit tagline" do
+    pending
+
     go_to 'profile'
     change_tagline("hi cruel world")
 

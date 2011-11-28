@@ -4,6 +4,8 @@ feature "Comment on splash tracks", :js => true do
   subject { page }
 
   scenario "Add comment" do
+    pending
+
     track = create!(Track)
 
     search_for track.title, :global do
@@ -17,6 +19,8 @@ feature "Comment on splash tracks", :js => true do
   end
 
   scenario "Remove comment" do
+    pending
+
     track = create!(Track)
 
     search_for track.title, :global do
@@ -35,6 +39,8 @@ feature "Comment on splash tracks", :js => true do
   end
 
   scenario "see view more comments link" do
+    pending
+
     track = create!(Track)
 
     search_for track.title, :global do

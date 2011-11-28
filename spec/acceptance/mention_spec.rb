@@ -4,6 +4,8 @@ feature "Mentioning", :js => true do
   subject { page }
 
   scenario "While splashing" do
+    pending
+
     u = create(User).with_required_info.following!([user])
     t = create!(Track)
 
@@ -17,6 +19,8 @@ feature "Mentioning", :js => true do
   end
 
   scenario "While resplashing" do
+    pending
+
     u      = create(User).with_required_info.following!([user])
     pu     = create(User).with_required_info!
     parent = create(Splash).track(create!(Track)).user!(pu)

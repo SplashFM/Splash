@@ -6,6 +6,8 @@ shared_examples_for "Live updates" do
   end
 
   scenario "Update counter after splash" do
+    pending
+
     sleep 2
     splash_and_fetch
 
@@ -13,6 +15,8 @@ shared_examples_for "Live updates" do
   end
 
   scenario "Replace update counter when more updates happen" do
+    pending
+
     2.times { |i|
       sleep 2
       splash_and_fetch
@@ -22,6 +26,8 @@ shared_examples_for "Live updates" do
   end
 
   scenario "Show no updates if feed is up to date" do
+    pending
+
     user_splash
 
     sleep 2
@@ -32,6 +38,8 @@ shared_examples_for "Live updates" do
   end
 
   scenario "Refresh feed when user clicks on update counter" do
+    pending
+
     sleep 2
     splash_and_fetch
 

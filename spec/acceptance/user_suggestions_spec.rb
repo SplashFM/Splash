@@ -4,6 +4,8 @@ feature "Suggested Splashsers", :js => true do
   subject { page }
 
   scenario "see three suggested splashers" do
+    pending
+
     generate_suggested_users(4)
     go_to 'home'
 
@@ -11,6 +13,8 @@ feature "Suggested Splashsers", :js => true do
   end
 
   scenario "has only two suggested splashers" do
+    pending
+
     generate_suggested_users(2)
     go_to 'home'
 
@@ -18,6 +22,8 @@ feature "Suggested Splashsers", :js => true do
   end
 
   scenario "can be followed" do
+    pending
+
     generate_suggested_users(4)
     go_to 'home'
 
@@ -29,6 +35,8 @@ feature "Suggested Splashsers", :js => true do
   end
 
   scenario "ignore suggested user" do
+    pending
+
     generate_suggested_users(4)
     go_to 'home'
 
@@ -41,6 +49,8 @@ feature "Suggested Splashsers", :js => true do
   end
 
   scenario "see more" do
+    pending
+
     generate_suggested_users(4)
     go_to 'home'
 
