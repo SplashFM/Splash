@@ -5,21 +5,6 @@ feature "Feed filtering", :js => true do
 
   subject { page }
 
-  scenario "Show mentions only" do
-    u = create!(User)
-    user.follow u
-
-    s = create(Splash).user(u).mention!(user)
-
-    go_to 'home'
-
-    with_feed {
-      enable :mentions
-
-      should have(1).splash
-    }
-  end
-
   scenario "Filter by performer" do
     pending
 
