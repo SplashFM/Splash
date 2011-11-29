@@ -288,22 +288,6 @@ Widgets.SuggestedUsers = {
   }
 }
 
-Widgets.SocialSite = {
-  init: function(){
-    $w('social-site-post').live('click', function(){
-      $.ajax({
-        type: 'post',
-        url: "/splashes/" + $(this).attr('data-id') + "/share",
-        data: "id=" + $(this).attr('data-id') + "&site=" + $(this).attr('data-site'),
-        success: function(){
-          $(".share_pane").hide();
-        }
-      });
-
-      return false;
-    });
-  }
-}
 $(document).ready(function() {
   Widgets.Scroll.init();
   Widgets.Upload.init();
@@ -312,7 +296,6 @@ $(document).ready(function() {
   Widgets.SplashAction.init();
   Widgets.Notification.init();
   Widgets.Paginate.init();
-  Widgets.SocialSite.init();
   Widgets.SuggestedUsers.init();
   new SPLASH.Widgets.waterNums('.waterNum');
 });

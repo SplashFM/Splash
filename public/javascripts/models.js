@@ -122,6 +122,19 @@ $(function() {
         return this.urlRoot + "/" + this.get('id');
       }
     },
+
+    share: function(site){
+      $.ajax({
+        type: 'post',
+        url: '/splashes/' + this.get('id') + '/share',
+        data: {site: site},
+        success: function(data){
+          $('[data-id = "' + data.id + '"].social_link')
+            .find('img')
+            .attr('src', '/images/twitter-btn-gray.png');
+        }
+      });
+    },
   });
   window.EventList = Backbone.Collection.extend({
     model: Event,
