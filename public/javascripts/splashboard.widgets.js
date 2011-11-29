@@ -38,7 +38,12 @@ $(function() {
     },
 
     fetchDone: function() {
-      this.trigger('scroll:loaded');
+      if (this.feed.hasMoreResults()) {
+        this.trigger('scroll:loaded');
+      } else {
+        console.log("done");
+        this.trigger('scroll:done');
+      }
     },
 
     scroll: function() {
@@ -63,6 +68,18 @@ $(function() {
         numFlipper: this.options.numFlipper,
         waterNums: this.options.waterNums,
       }).render().el);
+    },
+
+    scroll: function(e) {
+      if ($(this.el).is(":visible") && this.feed.hasMoreResults()) {
+        this.page++;
+
+        this.fetch(true);
+
+        return true;
+      } else {
+        return false;
+      }
     },
   });
 

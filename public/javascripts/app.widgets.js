@@ -26,6 +26,10 @@ $(function() {
       });
     },
 
+    done: function() {
+      this.spinnerContainer.html(this.options.noMoreResults);
+    },
+
     loaded: function() {
       this.spinner.remove();
     },
@@ -38,6 +42,7 @@ $(function() {
       this.data = data;
 
       this.data.bind('scroll:loaded', this.loaded, this);
+      this.data.bind('scroll:done', this.done, this);
     },
 
     setSpinnerContainer: function(el) {
@@ -45,9 +50,7 @@ $(function() {
     },
 
     triggerScroll: function () {
-      this.loading();
-
-      this.data.scroll();
+      if (this.data.scroll()) this.loading();
     }
   });
 

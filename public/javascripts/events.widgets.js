@@ -50,7 +50,11 @@ $(function() {
     },
 
     fetchDone: function() {
-      this.trigger('scroll:loaded');
+      if (this.feed.hasMoreResults()) {
+        this.trigger('scroll:loaded');
+      } else {
+        this.trigger('scroll:done');
+      }
     },
 
     onSplash: function() {
@@ -95,10 +99,16 @@ $(function() {
       }
     },
 
-    scroll: function() {
-      this.page++;
+    scroll: function(e) {
+      if (this.feed.hasMoreResults()) {
+        this.page++;
 
-      this.fetch(true);
+        this.fetch(true);
+
+        return true;
+      } else {
+        return false;
+      }
     },
   });
 

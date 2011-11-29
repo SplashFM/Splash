@@ -12,6 +12,9 @@
     });
     window.Scroll = new EndlessScroll({
       data: App.eventFeed,
+      noMoreResults: $('<p/>').
+        text(I18n.t('events.all_loaded')).
+        addClass('loaded'),
       spinnerContainer: $('.loading-spinner-container'),
     });
   });

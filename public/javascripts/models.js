@@ -5,20 +5,55 @@ $(function() {
     }
   };
 
+  HasMoreResults = {
+    hasMoreResults: function() {
+      return this._hasMoreResults;
+    },
+
+    setHasMoreResults: function(results) {
+      this._hasMoreResults = results.length >=
+        Constants.SPLASHBOARD_ITEMS_PER_PAGE;
+    },
+  }
+
   window.Track             = Backbone.Model.extend();
   window.UndiscoveredTrack = Track.extend({
     urlRoot: '/undiscovered_tracks'
   });
   window.TrackList         = Backbone.Collection.extend({
     model: Track,
-    url: '/tracks'
-  }).extend(Paginated);
+    url: '/tracks',
+
+    initialize: function() {
+      this.setHasMoreResults(true);
+    },
+
+    parse: function(response) {
+      this.setHasMoreResults(response);
+
+      return Backbone.Collection.prototype.parse.call(this, response);
+    },
+  }).
+    extend(Paginated).
+    extend(HasMoreResults);
 
   window.User     = Backbone.Model.extend();
   window.UserList = Backbone.Collection.extend({
     model: User,
-    url: '/users'
-  }).extend(Paginated);
+    url: '/users',
+
+    initialize: function() {
+      this.setHasMoreResults(true);
+    },
+
+    parse: function(response) {
+      this.setHasMoreResults(response);
+
+      return Backbone.Collection.prototype.parse.call(this, response);
+    },
+  }).
+    extend(Paginated).
+    extend(HasMoreResults);
 
   User.checkExistence = function(email, yesCallback, noCallback) {
     $.ajax({
@@ -85,8 +120,14 @@ $(function() {
     model: Event,
     url: '/events',
 
+    initialize: function() {
+      this.setHasMoreResults(true);
+    },
+
     parse: function(response) {
       this.recordUpdate(response);
+
+      this.setHasMoreResults(response.results);
 
       return _.map(response.results, function(e) {
         switch (e.type) {
@@ -112,7 +153,9 @@ $(function() {
           resultFunc.call(this, response.results);
         });
     },
-  }).extend(Paginated);
+  }).
+    extend(Paginated).
+    extend(HasMoreResults);
 
   window.Notification     = Backbone.Model.extend({});
   window.NotificationList = Backbone.Collection.extend({

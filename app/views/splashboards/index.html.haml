@@ -11,6 +11,9 @@
     var topTracksScroll = new EndlessScroll({
       data: topTracks,
       spinnerContainer: $('#tab-top-tracks .loading-spinner-container'),
+      noMoreResults: $('<p/>').
+        text(I18n.t('splashboards.all_loaded')).
+        addClass('loaded'),
     });
 
     var myTopTracks = new Splashboard.Items({
@@ -25,6 +28,9 @@
     var myTopTracksScroll = new EndlessScroll({
       data: myTopTracks,
       spinnerContainer: $('#tab-my-top-tracks .loading-spinner-container'),
+      noMoreResults: $('<p/>').
+        text(I18n.t('splashboards.all_loaded')).
+        addClass('loaded'),
     });
 
     var topUsers = new Splashboard.Items({
@@ -38,6 +44,9 @@
     var topUsersScroll = new EndlessScroll({
       data: topUsers,
       spinnerContainer: $('#tab-top-users .loading-spinner-container'),
+      noMoreResults: $('<p/>').
+        text(I18n.t('splashboards.all_loaded')).
+        addClass('loaded'),
     });
 
     $('.splashboard .tabs').tabs('select', #{@selected_tab.to_i})

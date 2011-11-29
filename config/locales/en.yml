@@ -27,6 +27,7 @@ en:
           blank: 'You need set an user name to use site'
 
   events:
+    all_loaded: No more Splash activity.
     filters:
       everyone: Everyone
       following: Following
@@ -104,6 +105,9 @@ en:
       splashboard: Splashboard
       top_songs: Top Songs
       top_users: Top Splashers
+
+  splashboards:
+    all_loaded: No more Splashboard data.
 
   splashes:
     splash:
