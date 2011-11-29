@@ -2,4 +2,4 @@ Song Flagged br <%= @user.nickname %>
 
   id: <%= @song.id %>
   title: <%= @song.title %>
-  artist: <%= @song.artist %>
+  artist: <%= @song.performers.to_sentence %>
