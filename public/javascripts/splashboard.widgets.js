@@ -8,7 +8,7 @@ $(function() {
     initialize: function(opts) {
       _.extend(this, opts);
 
-      _.bindAll(this, 'scroll', 'renderItem');
+      _.bindAll(this, 'renderItem');
 
       this.app         = opts.app;
 
@@ -19,9 +19,7 @@ $(function() {
       this.fetch();
 
       this.page = 1;
-      if (this.app) {
-        this.app.bind('endlessScroll', this.scroll, this)
-      }
+
       if (opts.extraClass) {
         $(this.el).addClass(opts.extraClass)
       }

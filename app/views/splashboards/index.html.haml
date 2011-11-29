@@ -8,6 +8,7 @@
       numFlipper: true,
     })
     $('#tab-top-tracks').html(topTracks.el)
+    var topTracksScroll = new EndlessScroll({data: topTracks});
 
     var myTopTracks = new Splashboard.Items({
       template: '#tmpl-event-splash',
@@ -18,6 +19,7 @@
       numFlipper: true,
     })
     $('#tab-my-top-tracks').html(myTopTracks.el)
+    var myTopTracksScroll = new EndlessScroll({data: myTopTracks});
 
     var topUsers = new Splashboard.Items({
       template: '#tmpl-user',
@@ -27,6 +29,7 @@
       waterNums: true,
     })
     $('#tab-top-users').html(topUsers.el)
+    var topUsersScroll = new EndlessScroll({data: topUsers});
 
     $('.splashboard .tabs').tabs('select', #{@selected_tab.to_i})
   });

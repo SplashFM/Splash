@@ -6,6 +6,28 @@ $(function() {
     return this;
   }
 
+  EndlessScroll = Backbone.View.extend({
+    el: document,
+
+    initialize: function() {
+      _.bindAll(this, 'triggerScroll');
+
+      this.setData(this.options.data);
+
+      $(document).endlessScroll({
+        callback: this.triggerScroll,
+      });
+    },
+
+    setData: function(data) {
+      this.data = data;
+    },
+
+    triggerScroll: function () {
+      this.data.scroll();
+    }
+  });
+
   Purchase = {
     events: {
       'click [data-widget = "purchase"]': 'purchase'
@@ -27,17 +49,7 @@ $(function() {
       this.notifications = new BaseApp.Notifications({
         el: $('[data-widget = "notifications"]')
       });
-
-      _.bindAll(this, 'triggerScroll');
-
-      $(document).endlessScroll({
-        callback: this.triggerScroll
-      });
     },
-
-    triggerScroll: function () {
-      this.trigger('endlessScroll');
-    }
   });
 
   window.BaseApp.SplashAction = Backbone.View.extend({

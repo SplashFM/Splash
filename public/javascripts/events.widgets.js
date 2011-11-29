@@ -6,8 +6,8 @@ $(function() {
     initialize: function(opts) {
       _.extend(this, opts);
 
-      _.bindAll(this, 'checkForUpdates', 'onSplash', 'refresh', 'renderEvent',
-                      'renderUpdateCount', 'scroll');
+      _.bindAll(this, 'checkForUpdates', 'onSplash', 'refresh',
+                      'renderEvent', 'renderUpdateCount');
 
       $('body').bind('splash:splash', this.onSplash)
       $('body').bind('upload:complete', this.onSplash)
@@ -24,9 +24,6 @@ $(function() {
 
       this.currentInterval = setInterval(this.checkForUpdates,
                                          this.updateInterval);
-      if (this.app) {
-        this.app.bind('endlessScroll', this.scroll, this)
-      }
 
       // TODO: move to the events object when this attaches to #stream-feed
       $('[data-widget = "update-count"]').bind('click', this.refresh);
