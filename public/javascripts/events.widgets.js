@@ -215,6 +215,12 @@ $(function() {
       var track = new Track(this.model.get('track'));
 
       track.flag();
+
+      this.$('[data-widget = "flag"]').
+        replaceWith($("<span/>").
+                      text("Thanks!").
+                      addClass('report-song').
+                      addClass('right'));
     },
 
     render: function() {
