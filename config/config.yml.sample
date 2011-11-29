@@ -8,6 +8,8 @@ common: &common
     merchant_id: merchant_id
     public_key:  public_key
     private_key: private_key
+  email:
+    flag: report@splash.fm
   google: google_api_key
   http_auth:
     username: u
