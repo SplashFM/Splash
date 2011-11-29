@@ -43,6 +43,14 @@ module UI
     module Matchers
       include Base::Helpers
 
+      def has_loading_spinner?
+        has_css?('#loading-spinner')
+      end
+
+      def has_no_loading_spinner?
+        has_no_css?('#loading-spinner')
+      end
+
       def has_no_splashes?
         has_no_css?(w('splash'))
       end
