@@ -8,7 +8,7 @@ $(function() {
     initialize: function(opts) {
       _.extend(this, opts);
 
-      _.bindAll(this, 'renderItem');
+      _.bindAll(this, 'fetchDone', 'renderItem');
 
       this.app         = opts.app;
 
@@ -30,15 +30,23 @@ $(function() {
     },
 
     fetch: function(add) {
-      this.feed.fetch({add:  add,
-                       data: _.extend({page: this.page},
-                                      this.allFilters(), this.filters)});
+      this.feed.fetch({
+        add:     add,
+        data:    _.extend({page: this.page}, this.allFilters(), this.filters),
+        success: this.fetchDone
+      });
+    },
+
+    fetchDone: function() {
+      this.trigger('scroll:loaded');
     },
 
     scroll: function() {
-      this.page++;
+      if ($(this.el).is(':visible')) {
+        this.page++;
 
-      this.fetch(true);
+        this.fetch(true);
+      }
     },
 
     render: function() {

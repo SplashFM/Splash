@@ -7,8 +7,11 @@
       extraClass: 'live-feed',
       numFlipper: true,
     })
-    $('#tab-top-tracks').html(topTracks.el)
-    var topTracksScroll = new EndlessScroll({data: topTracks});
+    $('#tab-top-tracks').prepend(topTracks.el)
+    var topTracksScroll = new EndlessScroll({
+      data: topTracks,
+      spinnerContainer: $('#tab-top-tracks .loading-spinner-container'),
+    });
 
     var myTopTracks = new Splashboard.Items({
       template: '#tmpl-event-splash',
@@ -18,8 +21,11 @@
       extraClass: 'live-feed',
       numFlipper: true,
     })
-    $('#tab-my-top-tracks').html(myTopTracks.el)
-    var myTopTracksScroll = new EndlessScroll({data: myTopTracks});
+    $('#tab-my-top-tracks').prepend(myTopTracks.el)
+    var myTopTracksScroll = new EndlessScroll({
+      data: myTopTracks,
+      spinnerContainer: $('#tab-my-top-tracks .loading-spinner-container'),
+    });
 
     var topUsers = new Splashboard.Items({
       template: '#tmpl-user',
@@ -28,8 +34,11 @@
       extraClass: 'live-feed',
       waterNums: true,
     })
-    $('#tab-top-users').html(topUsers.el)
-    var topUsersScroll = new EndlessScroll({data: topUsers});
+    $('#tab-top-users').prepend(topUsers.el)
+    var topUsersScroll = new EndlessScroll({
+      data: topUsers,
+      spinnerContainer: $('#tab-top-users .loading-spinner-container'),
+    });
 
     $('.splashboard .tabs').tabs('select', #{@selected_tab.to_i})
   });
@@ -55,8 +64,10 @@
             %span
       =# render "shared/feed_filter"
       #tab-top-tracks
+        .loading-spinner-container
       #tab-top-users
+        .loading-spinner-container
       #tab-my-top-tracks
-      .loading-spinner
+        .loading-spinner-container
     .cl &nbsp;
 

@@ -10,7 +10,10 @@
       },
       $.deparam.querystring(qs))
     });
-    window.Scroll = new EndlessScroll({data: App.eventFeed});
+    window.Scroll = new EndlessScroll({
+      data: App.eventFeed,
+      spinnerContainer: $('.loading-spinner-container'),
+    });
   });
 
 .home
@@ -35,7 +38,7 @@
           = render "shared/feed_toggles"
       = render "shared/feed_filter"
       %ul.live-feed{:data => {:widget => 'events'}}
-      .loading-spinner
+      .loading-spinner-container
   .cl &nbsp;
 
 /= render "user_list"

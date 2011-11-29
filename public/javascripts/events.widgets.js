@@ -6,7 +6,7 @@ $(function() {
     initialize: function(opts) {
       _.extend(this, opts);
 
-      _.bindAll(this, 'checkForUpdates', 'onSplash', 'refresh',
+      _.bindAll(this, 'checkForUpdates', 'fetchDone', 'onSplash', 'refresh',
                       'renderEvent', 'renderUpdateCount');
 
       $('body').bind('splash:splash', this.onSplash)
@@ -42,8 +42,15 @@ $(function() {
     },
 
     fetch: function(add) {
-      this.feed.fetch({add:  add,
-                       data: _.extend({page: this.page}, this.allFilters())});
+      this.feed.fetch({
+        add:     add,
+        data:    _.extend({page: this.page}, this.allFilters()),
+        success: this.fetchDone
+      });
+    },
+
+    fetchDone: function() {
+      this.trigger('scroll:loaded');
     },
 
     onSplash: function() {
