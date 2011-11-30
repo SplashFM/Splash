@@ -6,6 +6,7 @@ class Splash < ActiveRecord::Base
   belongs_to :parent, :class_name => 'Splash'
 
   has_many :comments, :order => 'created_at asc'
+  has_many :resplashes, :class_name => 'Splash', :foreign_key => 'parent_id'
 
   validates :user_id,  :presence => true
   validates :track_id, :presence => true, :uniqueness => {:scope => :user_id}
