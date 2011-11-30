@@ -12,7 +12,7 @@ $(function() {
 
       this.app         = opts.app;
 
-      this.template = $(this.template).template()
+      this.template = $(this.template).template();
       this.feed.bind('reset', this.render, this);
       this.feed.bind('add', this.renderItem, this);
 
@@ -41,7 +41,6 @@ $(function() {
       if (this.feed.hasMoreResults()) {
         this.trigger('scroll:loaded');
       } else {
-        console.log("done");
         this.trigger('scroll:done');
       }
     },

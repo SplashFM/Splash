@@ -148,6 +148,7 @@ $(function() {
     events: {
       'click': 'toggleExpanded',
       'submit [data-widget = "comment-box"]': 'addComment',
+      'keypress [data-widget = "comment-text-area"]': 'checkKeyDown',
       'click [data-widget = "play"]': 'play',
       'click [data-widget = "flag"]': 'flag'
     },
@@ -160,6 +161,14 @@ $(function() {
       this.model.bind('change', this.render, this);
 
       $(this.el).hover(this.onHover, this.onHoverOut);
+    },
+
+    checkKeyDown: function(e) {
+      if(e.keyCode==13) {
+        e.preventDefault();
+        this.addComment(e);
+        return false;
+      }
     },
 
     addComment: function(e) {
@@ -248,16 +257,20 @@ $(function() {
 
         this.comments.render();
 
-        this.mentions = new UserMentions({el: this.$(':text'), parent: this.el});
+        this.mentions = new UserMentions({
+          el: this.$('.comment-text-area'),
+          parent: this.el
+        });
 
         this.share = new Events.Splash.SocialSitePost({model: this.model});
       }
 
+      $(this.el).find(".expand").each(function(){$(this).TextAreaExpander(20)});
       return this;
     },
 
     reset: function() {
-      this.$(':text').val('');
+      this.$('textarea').val('');
     },
   }).mixin(Purchase);
 
@@ -400,14 +413,14 @@ $(function() {
     },
 
     positionSuggestions: function() {
-      var os = this.$(':text').position();
-      var l  = os.left + (this.$(':text').width() / 2);
+      var os = this.$('.comment-text-area').position();
+      var l  = os.left + (this.$('.comment-text-area').width() / 2);
 
       this.suggestions.css('left', l + 'px');
     },
 
     setupAutoSuggest: function() {
-      this.$(':text').autoSuggest(Routes.tags_path(), {
+      this.$('.comment-text-area').autoSuggest(Routes.tags_path(), {
         selectionRemoved: this.onRemove,
         selectionAdded: this.onAdd,
         resultsHighlight: false,

@@ -89,7 +89,7 @@
       / /aside
       .write-comment
         %form{:action => "#", :method => "post", :data => {:widget => 'comment-box'}}
-          %input{:type => "text", :placeholder => "Write a comment..."}/
+          %textarea{:type => "textarea", :placeholder => "Write a comment...", :class => 'expand comment-text-area', :data => {:widget => 'comment-text-area'}}
     {{/if}}
     / /container
   / /row
