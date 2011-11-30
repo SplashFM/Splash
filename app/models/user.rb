@@ -117,6 +117,15 @@ class User < ActiveRecord::Base
     }
   end
 
+  def self.recompute_splashed_tracks
+    reset_splashed_tracks
+
+    find_each(:batch_size => 100) { |u|
+      u.reset_splashed_tracks_hash!
+      u.recompute_splashboard
+    }
+  end
+
   def self.recompute_ripple_counts
     reset_ripple_counts
 
