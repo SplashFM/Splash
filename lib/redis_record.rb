@@ -86,7 +86,7 @@ module RedisRecord
           reset_#{name}_sorted
         end
 
-        def #{name.to_s.pluralize}(ids)
+        def #{name.to_s.pluralize}(ids = [])
           if ids.empty?
             RedisRecord.redis.hgetall(key(#{name.to_s.inspect}))
           else
