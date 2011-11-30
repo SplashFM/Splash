@@ -124,6 +124,13 @@ module RedisRecord
     #     -1 to subtract; 1 to add
     def redis_hash(name)
       name.to_s.singularize
+      instance_eval <<-RUBY
+        def reset_#{name.to_s.pluralize}
+          RedisRecord.redis.del(RedisRecord.redis.keys("#{name}/*"))
+          RedisRecord.redis.del(RedisRecord.redis.keys("summed_#{name}/*"))
+        end
+      RUBY
+
       class_eval <<-RUBYI
         def record_#{name.to_s.singularize}(track_id)
           k = key("#{name.to_s}/") + id.to_s
