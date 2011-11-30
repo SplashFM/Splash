@@ -86,6 +86,12 @@ class User < ActiveRecord::Base
     where(:name => name_or_names)
   end
 
+  def self.recompute_influence
+    reset_influence_sorted
+
+    update_influence(User.select(:id).map(&:id))
+  end
+
   def self.top_splashers(page, num_records)
     sorted_by_influence(page, num_records)
   end
