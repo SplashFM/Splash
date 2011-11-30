@@ -60,4 +60,13 @@ describe User, :adapter => :postgresql do
       }.should raise_error(ActiveRecord::RecordInvalid)
     end
   end
+
+  it "calculates the splash count from the DB" do
+    user = create!(User)
+
+    create(Splash).user!(user)
+    create(Splash).user!(user)
+
+    user.slow_splash_count.should == 2
+  end
 end

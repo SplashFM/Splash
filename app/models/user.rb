@@ -107,6 +107,10 @@ class User < ActiveRecord::Base
     where(:nickname => slug).first
   end
 
+  def slow_splash_count
+    Splash.for_users(id).count
+  end
+
   def splashed_tracks_hash
     splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
   end
