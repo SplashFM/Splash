@@ -183,7 +183,7 @@ $(function() {
         break;
       case 'mention':
         $.pjax({
-          url: Routes.root_path({mentions: 1}),
+          url: Routes.home_path({mentions: 1}),
           container: '[data-pjax-container]',
           timeout: 30000,
         });
