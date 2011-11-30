@@ -126,8 +126,11 @@ module RedisRecord
       name.to_s.singularize
       instance_eval <<-RUBY
         def reset_#{name.to_s.pluralize}
-          RedisRecord.redis.del(RedisRecord.redis.keys("#{name}/*"))
-          RedisRecord.redis.del(RedisRecord.redis.keys("summed_#{name}/*"))
+          keys  = RedisRecord.redis.keys(key("#{name}") + "/*")
+          skeys = RedisRecord.redis.keys(key("summed_#{name}") + "/*")
+
+          RedisRecord.redis.del(*keys)  unless keys.blank?
+          RedisRecord.redis.del(*skeys) unless skeys.blank?
         end
       RUBY
 
