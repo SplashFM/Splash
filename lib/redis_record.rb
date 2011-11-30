@@ -87,6 +87,12 @@ module RedisRecord
           reset_#{name}_sorted
         end
 
+        def update_#{name}(id, count)
+          RedisRecord.redis.hset key(#{name.to_s.inspect}), id.to_s, count
+
+          update_#{name}_score(id, count)
+        end
+
         def #{name.to_s.pluralize}(ids = [])
           if ids.empty?
             RedisRecord.redis.hgetall(key(#{name.to_s.inspect}))
