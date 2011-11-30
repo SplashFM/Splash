@@ -115,6 +115,10 @@ class User < ActiveRecord::Base
     where(:nickname => slug).first
   end
 
+  def slow_ripple_count
+    Splash.for_users(id).map(&:ripple_count).sum
+  end
+
   def slow_splash_count
     Splash.for_users(id).count
   end

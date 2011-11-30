@@ -70,6 +70,30 @@ describe User, :adapter => :postgresql do
     user.slow_splash_count.should == 2
   end
 
+  describe "calculates ripple counts" do
+    let(:u1) { create!(User) }
+    let(:u2) { create!(User) }
+    let(:u3) { create!(User) }
+
+    let(:s1) { create(Splash).user!(u1) }
+    let(:s2) { create(Splash).user(u2).with_parent!(s1) }
+    let(:s3) { create(Splash).user(u3).with_parent!(s2) }
+
+    before { s3 }
+
+    it "allows 0 ripples" do
+      u3.slow_ripple_count.should == 0
+    end
+
+    it "calculate ripples for parent-child relationship" do
+      u2.slow_ripple_count.should == 1
+    end
+
+    it "takes the whole splash hierarchy into account" do
+      u1.slow_ripple_count.should == 2
+    end
+  end
+
   it "recomputes the splash count for all users" do
     users = 1.upto(3).map { |i|
       create!(User).tap { |u| i.times { create(Splash).user!(u) } }
