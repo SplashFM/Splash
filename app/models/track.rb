@@ -16,6 +16,8 @@ class Track < ActiveRecord::Base
 
   has_and_belongs_to_many :genres, :join_table => :track_genres
 
+  scope :splashed, where('id in (select s.track_id from splashes s)')
+
   def self.string_list_to_array(str)
     if str.present?
       str.split(/\s*;;\s*/)
@@ -35,6 +37,12 @@ class Track < ActiveRecord::Base
         end
 
     l.sort.map(&:strip).join(" ;; ")
+  end
+
+  def self.recompute_splash_counts
+    Track.reset_splash_counts
+
+    splashed.find_each(:batch_size => 100) { |t| t.recompute_splash_count }
   end
 
   def self.top_splashed(page, num_records)
@@ -101,6 +109,10 @@ class Track < ActiveRecord::Base
   def preview_type; end
 
   def preview_url; end
+
+  def recompute_splash_count
+    self.class.update_splash_count(id, Splash.for_tracks(self).count)
+  end
 
   def search_result_type
     :track

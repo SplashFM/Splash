@@ -78,4 +78,15 @@ describe Track, :adapter => :postgresql do
     Track.top_splashed(1, 5).map { |t| [t.id, t.splash_count] }.
       should == tracks.reverse
   end
+
+  it "recalculates splash counts" do
+    tracks = 1.upto(3).map { |i|
+      create!(Track).tap { |t| i.times { create(Splash).track!(t) } }
+    }
+
+    Track.reset_splash_counts
+    Track.recompute_splash_counts
+
+    Track.top_splashed(1, 5).should == tracks.reverse
+  end
 end
