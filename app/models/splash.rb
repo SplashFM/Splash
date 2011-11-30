@@ -103,6 +103,17 @@ class Splash < ActiveRecord::Base
     parent_id? || parent.present?
   end
 
+  ##
+  # Returns the (non-cached) splash's ripple count.
+  #
+  # WARNING: Existing clients of this method *expect* this to be the actual
+  # value calculated from the DB. If the splash count later needs to be cached,
+  # this method should still allow for a way to calculate the non-cached value
+  # (or another method needs to be created and clients updated).
+  def ripple_count
+    resplashes.map(&:ripple_count).sum + resplashes.length
+  end
+
   def user_path
     (user_list || '').split(',')
   end

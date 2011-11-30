@@ -80,4 +80,24 @@ describe Splash do
       s3.user.ripple_count.should == 0
     end
   end
+
+  describe "ripple counts" do
+    let(:s1) { create!(Splash) }
+    let(:s2) { create(Splash).with_parent!(s1) }
+    let(:s3) { create(Splash).with_parent!(s2) }
+
+    before { s3 }
+
+    it "allows 0 ripples" do
+      s3.ripple_count.should == 0
+    end
+
+    it "calculate ripples for parent-child relationship" do
+      s2.ripple_count.should == 1
+    end
+
+    it "takes the whole splash hierarchy into account" do
+      s1.ripple_count.should == 2
+    end
+  end
 end
