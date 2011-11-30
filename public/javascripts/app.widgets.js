@@ -177,6 +177,7 @@ $(function() {
         $.pjax({
           url: this.model.get('notifier').url,
           container: '[data-pjax-container]',
+          timeout: 30000,
         });
 
         break;
@@ -184,6 +185,7 @@ $(function() {
         $.pjax({
           url: Routes.root_path({mentions: 1}),
           container: '[data-pjax-container]',
+          timeout: 30000,
         });
       }
     },
