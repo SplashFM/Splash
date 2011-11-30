@@ -104,4 +104,19 @@ describe User, :adapter => :postgresql do
 
     User.sorted_by_splash_count(1, 5).should == users.reverse
   end
+
+  it "recomputes the ripple count for all users" do
+    u1 = create!(User)
+    u2 = create!(User)
+    u3 = create!(User)
+
+    s3 = create(Splash).user!(u3)
+    s2 = create(Splash).user(u2).with_parent!(s3)
+    create(Splash).user(u1).with_parent!(s2)
+
+    User.reset_ripple_counts
+    User.recompute_ripple_counts
+
+    User.sorted_by_ripple_count(1, 5).should == [u3, u2, u1]
+  end
 end

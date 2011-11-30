@@ -111,6 +111,14 @@ class User < ActiveRecord::Base
     }
   end
 
+  def self.recompute_ripple_counts
+    reset_ripple_counts
+
+    find_each(:batch_size => 100) {|u|
+      update_ripple_count u.id, u.slow_ripple_count
+    }
+  end
+
   def self.find_by_slug(slug)
     where(:nickname => slug).first
   end
