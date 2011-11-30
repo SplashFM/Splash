@@ -10,8 +10,7 @@ module UsersHelper
   def link_to_relationship(user, relationship_type = 'following')
     label = t("#{relationship_type}", :scope => 'users.show')
     url = relationship_type == 'following'? following_path(user) : followers_path(user)
-    link = link_to label, url
-
+    link = link_to(label, url, :class => 'fancybox')
     count_content = user.send(relationship_type).count.to_s
     count = content_tag(:span, count_content, :class => "avan-demi")
 

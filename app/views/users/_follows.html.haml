@@ -24,12 +24,12 @@
     #followers
       = render :partial => 'follows_avatar_samples', :locals => {:type => 'followers'}
       .cl.line &nbsp;
-      = link_to "view more", followers_url(user), :class => 'viewmore-btn vspace'
+      = link_to "view more", followers_url(user), :class => 'viewmore-btn vspace fancybox'
 
 
     #following
       = render :partial => 'follows_avatar_samples', :locals => {:type => 'following'}
       .cl.line &nbsp;
-      = link_to "view more", following_url(user), :class => 'viewmore-btn vspace'
+      = link_to "view more", following_url(user), :class => 'viewmore-btn vspace fancybox'
 
     .cl.border.vspace &nbsp;
