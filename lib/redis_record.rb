@@ -69,12 +69,13 @@ module RedisRecord
         def increment_#{name.to_s.pluralize}(ids)
           ids.each { |id|
             increment_#{name}(id)
-            increment_#{name}_sorted(id)
           }
         end
 
         def increment_#{name}(id)
           RedisRecord.redis.hincrby key(#{name.to_s.inspect}), id.to_s, 1
+
+          increment_#{name}_sorted(id)
         end
 
         def reset_#{name}_counter
