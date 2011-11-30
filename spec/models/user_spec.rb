@@ -69,4 +69,15 @@ describe User, :adapter => :postgresql do
 
     user.slow_splash_count.should == 2
   end
+
+  it "recomputes the splash count for all users" do
+    users = 1.upto(3).map { |i|
+      create!(User).tap { |u| i.times { create(Splash).user!(u) } }
+    }
+
+    User.reset_splash_counts
+    User.recompute_splash_counts
+
+    User.sorted_by_splash_count(1, 5).should == users.reverse
+  end
 end

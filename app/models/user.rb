@@ -103,6 +103,14 @@ class User < ActiveRecord::Base
     User.find_each(:batch_size => 100) {|u| u.recompute_splashboard }
   end
 
+  def self.recompute_splash_counts
+    reset_splash_counts
+
+    find_each(:batch_size => 100) {|u|
+      update_splash_count u.id, u.slow_splash_count
+    }
+  end
+
   def self.find_by_slug(slug)
     where(:nickname => slug).first
   end
