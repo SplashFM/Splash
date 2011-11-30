@@ -11,6 +11,13 @@ Splash.seed(:user_id, :track_id) { |s|
   s.track_id = Track.find_by_title('Close to the edge').id
 }
 
+Splash.seed(:user_id, :track_id) { |s|
+  tid = Track.find_by_title('Close to the edge').id
+  s.user_id  = User.find_by_email('user@mojotech.com').id
+  s.track_id = tid
+  s.parent_id = Splash.for_tracks(Splash.find_by_track_id(tid)).first
+}
+
 u = User.find_by_email('user@mojotech.com')
 
 1.upto(20) { |i|
