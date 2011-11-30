@@ -1,3 +1,3 @@
 .avatars
-  - @user.send("#{type}_sample", 12).each do |user|
+  - @user.send("#{type}_sample", 13).each do |user|
     = link_to (image_tag user.avatar(:micro), :size => '32x32'), user_slug_path(user)
