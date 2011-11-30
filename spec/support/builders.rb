@@ -32,6 +32,11 @@ Bricks do
     trait :with_comment_by do |user|
       comments.author(user)
     end
+
+    trait :with_parent do |p|
+      track  p.track
+      parent p
+    end
   end
 
   builder Track do
