@@ -262,7 +262,7 @@ class User < ActiveRecord::Base
     recompute_splashboard(:subtract, followed)
   end
 
-  def recompute_splashboard(operation, followed)
+  def recompute_splashboard(operation = nil, followed = nil)
     # TODO: there is a more efficient way to add or subtract the other users history,
     # but this works for now.
     reset_top_tracks!
