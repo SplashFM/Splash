@@ -9,6 +9,21 @@ feature "Homepage", :js => true do
 
     it_should_behave_like "feed"
 
+    scenario "View own and friends' splashes on feed" do
+      friend = create!(User) and user.follow friend
+
+      # include
+      2.times { create(Splash).user!(user) }
+      create(Splash).user!(friend)
+
+      # exclude
+      create!(Splash)
+
+      go_to current_page
+
+      feed { should have(3).splashes }
+    end
+
     scenario "Show mentions only" do
       u = create!(User)
       user.follow u
