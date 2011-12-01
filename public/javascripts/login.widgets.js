@@ -12,7 +12,7 @@ $(function() {
       this.registration = new Registration();
 
       this.signIn = new SignIn();
-      this.signIn.bind('signin:unregistered', this.renderChoice, this);
+      //this.signIn.bind('signin:unregistered', this.renderChoice, this);
     },
 
     renderChoice: function() {
