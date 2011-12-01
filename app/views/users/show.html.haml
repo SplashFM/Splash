@@ -5,6 +5,13 @@
       app:     window.App,
       filters: {user: #{@user.id}},
     });
+    window.Scroll = new EndlessScroll({
+      data: App.eventFeed,
+      noMoreResults: $('<p/>').
+        text(I18n.t('events.all_loaded')).
+        addClass('loaded'),
+      spinnerContainer: $('.loading-spinner-container'),
+    });
   });
 
 .users-show
@@ -28,7 +35,7 @@
           = render "shared/feed_toggles"
       = render "shared/feed_filter"
       %ul.live-feed{:data => {:widget => 'events'}}
-      .loading-spinner
+      .loading-spinner-container
   .cl &nbsp;
 
 .clear

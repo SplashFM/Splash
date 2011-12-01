@@ -1,4 +1,5 @@
 require 'acceptance/acceptance_helper'
+require 'acceptance/shared/feed'
 
 feature "User Profile", :js => true do
   subject { page }
@@ -45,5 +46,15 @@ feature "User Profile", :js => true do
     change_tagline("hi cruel world")
 
     should have_content("hi cruel world")
+  end
+
+  describe "Feed" do
+    include UI::Feed
+
+    it_should_behave_like "feed"
+
+    def current_page
+      'profile'
+    end
   end
 end
