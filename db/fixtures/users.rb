@@ -46,6 +46,7 @@ unless Rails.env.production?
       user.superuser = false
       user.confirmed_at = Time.now
       user.name = "Mojo User #{i}"
+      user.nickname = "mojo_user_#{i}"
     end
   }
 end
