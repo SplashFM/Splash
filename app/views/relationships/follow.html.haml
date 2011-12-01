@@ -19,12 +19,11 @@
 
     .followed-box{:data => {:widget => 'relationship', :user_id => user.id}}
       .avatar
-        = link_to (image_tag user.avatar(:micro)), user_slug_path(user)
+        = link_to (image_tag user.avatar(:micro), :title => user.nickname), user_slug_path(user)
       .meta
         .link.avan-demi
           = link_to user.name, user_slug_path(user)
         %div
           = user.splash_score
-
       .clear
 .clear

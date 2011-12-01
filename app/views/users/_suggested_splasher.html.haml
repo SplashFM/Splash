@@ -17,7 +17,10 @@
 
   .wrap
     %a.avatar.left{:href => "#"}
-      %img{:alt => "", :height => "45", :src => user.avatar.url, :width => "45"}/
+      %img{:alt => "", :height => "45", 
+                        :src => user.avatar.url,
+                        :width => "45",
+                        :title => user.nickname}/
     .info.left
       %p.names
         = link_to user.name, user_slug_path(user), :class => 'avan-bold'
