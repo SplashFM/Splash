@@ -8,5 +8,5 @@ on_app_master do
   message += " (with migrations)" if migrate?
   message += "."
 
-  run "cd #{release_path} && rake hipchat:send MESSAGE='#{message}'"
+  run "cd #{release_path} && bundle exec rake hipchat:send MESSAGE='#{message}'"
 end
