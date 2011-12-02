@@ -9,6 +9,8 @@ describe SongFile do
       subject.title.should  == "Shot Clock (Avicii Remix)"
       subject.album.should  == "www.GoodMusicAllDay.com"
       subject.artist.should == "Aer"
+      subject.artwork.should be_a(File)
+      subject.artwork.length.should_not be_zero
     end
 
     it "skips transcoding when the default format is requested" do
@@ -29,6 +31,7 @@ describe SongFile do
       subject.title.should  == "Steady As She Goes"
       subject.album.should  == "An Airplane Carried Me to Bed"
       subject.artist.should == "Sky Sailing"
+      subject.artwork.should be_nil
     end
 
     it "transcodes to mp3" do
