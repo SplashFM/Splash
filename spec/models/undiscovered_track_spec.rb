@@ -58,5 +58,6 @@ describe UndiscoveredTrack, :adapter => :postgresql do
     t.title.should      == "Shot Clock (Avicii Remix)"
     t.albums.should     == ["www.GoodMusicAllDay.com"]
     t.performers.should == ["Aer"]
+    t.artwork.should be_a_file
   end
 end

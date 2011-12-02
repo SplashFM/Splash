@@ -13,6 +13,13 @@ class UndiscoveredTrack < Track
     :styles      => {:original => [:metadata]},
   }
 
+  ARTWORK_OPTS = {
+    :default_style => :normal,
+    :styles        => {:normal => '100x100>'},
+    :default_url   => DEFAULT_ARTWORK_URL,
+    :hash_secret   => ":class/:attachment/:id"
+  }
+
   if AppConfig.aws && ! Rails.env.test?
     has_attached_file :data,
       {:path   => "/:class/:attachment/:id/:hash.:extension",
@@ -24,10 +31,24 @@ class UndiscoveredTrack < Track
         },
        :s3_headers => {"Content-Disposition" => "attachment"},
      }.merge!(ATTACHMENT_OPTS)
+
+    has_attached_file :artwork, {
+      :path    => "/:class/:attachment/:id/:hash",
+      :storage => :s3,
+      :s3_credentials => {
+        :access_key_id => AppConfig.aws['access_key_id'],
+        :secret_access_key => AppConfig.aws['secret_access_key'],
+        :bucket => AppConfig.aws['bucket']
+      },
+    }.merge!(ARTWORK_OPTS)
   else
     has_attached_file :data,
       {:path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension"}.
         merge!(ATTACHMENT_OPTS)
+
+    has_attached_file :artwork, {
+      :path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension",
+    }.merge!(ARTWORK_OPTS)
   end
 
   belongs_to :uploader, :class_name => 'User'
