@@ -7,9 +7,7 @@ module UsersHelper
     owner? && profile_page?
   end
 
-  def tagline_editable?
-    owner? && profile_page?
-  end
+  alias_method :tagline_editable?, :avatar_editable?
 
   def link_to_relationship(user, relationship_type = 'following')
     label = t("#{relationship_type}", :scope => 'users.show')
