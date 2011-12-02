@@ -53,6 +53,30 @@ feature "User Profile", :js => true do
 
     it_should_behave_like "feed"
 
+    scenario "Show own social activity only" do
+      friend         = create(User).with_required_info!
+      friends_friend = create(User).with_required_info!
+
+      # include
+      user.follow friend
+      create(Comment).author!(user)
+
+      # exclude
+      friend.follow friends_friend
+      create(Comment).author!(friend)
+      create(Comment).author!(friend)
+      create(Splash).user!(user)
+
+      go_to current_page
+
+      with_feed {
+        enable :activity
+
+        should have(2).social_activities
+        should have_no_splashes
+      }
+    end
+
     scenario "View own splashes only on feed" do
       friend = create!(User) and user.follow friend
 
