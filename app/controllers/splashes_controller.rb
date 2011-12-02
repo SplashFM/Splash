@@ -23,7 +23,7 @@ class SplashesController < ApplicationController
       facebook_post(splash)
     end
 
-    head :ok
+    render :json => splash
   end
 
   protected
