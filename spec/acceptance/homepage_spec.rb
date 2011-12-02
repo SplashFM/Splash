@@ -24,6 +24,28 @@ feature "Homepage", :js => true do
       feed { should have(3).splashes }
     end
 
+    scenario "Show social activity only" do
+      friend         = create(User).with_required_info!
+      friends_friend = create(User).with_required_info!
+
+      # include
+      user.follow friend
+      friend.follow friends_friend
+      create(Comment).author!(user)
+
+      # exclude
+      create(Splash).user!(user)
+
+      go_to current_page
+
+      with_feed {
+        enable :activity
+
+        should have(3).social_activities
+        should have_no_splashes
+      }
+    end
+
     scenario "Show mentions only" do
       u = create!(User)
       user.follow u

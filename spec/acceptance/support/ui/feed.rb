@@ -8,12 +8,17 @@ module UI
       base.before {
         page.extend(Collections)
         page.extend(Matchers)
+        page.extend(Util)
       }
     end
 
     module Actions
       def enable(filter)
         case filter
+        when :activity
+          click_link t('events.filters.social')
+
+          wait_until { page.has_css?("a[href = '#social'].active") }
         when :mentions
           click_link t('events.filters.mentions')
 
@@ -35,6 +40,12 @@ module UI
         wait_until { all(w('mention')).presence }
       end
 
+      def social_activities
+        activities = social_activity_selector
+
+        wait_until { all(activities).presence }
+      end
+
       def splashes
         wait_until { all(w('splash')).presence }
       end
@@ -53,6 +64,12 @@ module UI
 
       def has_no_splashes?
         has_no_css?(w('splash'))
+      end
+    end
+
+    module Util
+      def social_activity_selector
+        w('social-comment') + ',' + w('social-relationship')
       end
     end
   end
