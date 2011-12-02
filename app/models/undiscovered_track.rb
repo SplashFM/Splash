@@ -59,6 +59,10 @@ class UndiscoveredTrack < Track
   validate :validate_performer_presence, :if => :full_validation?
   validate :validate_track_uniqueness,   :if => :full_validation?
 
+  def artwork_url
+    artwork.url
+  end
+
   def as_json(opts = {})
     super(opts).
       merge!(:download_url => download_url)
