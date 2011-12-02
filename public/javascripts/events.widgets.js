@@ -338,6 +338,7 @@ $(function() {
 
       var everyone = $('[data-widget = "filter-following"] a[href = "#everyone"]');
       var mentions = $('[data-widget = "filter-following"] a[href = "#mentions"]');
+      var social   = $('[data-widget = "filter-following"] a[href = "#social"]');
 
       if (everyone.hasClass('active')) {
         settings.user     = '';
@@ -345,6 +346,10 @@ $(function() {
       } else if (mentions.hasClass('active')) {
         settings.splashes = '';
         settings.other    = '';
+      } else if (social.hasClass('active')) {
+        settings.mentions = '';
+        settings.splashes = '';
+        settings.other    = 1;
       }
 
       return settings;
