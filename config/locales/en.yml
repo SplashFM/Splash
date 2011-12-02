@@ -30,9 +30,7 @@ en:
     all_loaded: No more Splash activity.
     filters:
       everyone: Everyone
-      following: Following
       mentions: @Mentions
-      my_activity: My Activity
       social: Activity
       my_social: My Activity
       splashes: Splashes
