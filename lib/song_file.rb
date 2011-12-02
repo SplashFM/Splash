@@ -1,4 +1,6 @@
 class SongFile
+  class Metadata < Struct.new(:title, :artist, :album); end
+
   class TranscodeError < StandardError; end
   class UnknownFormat  < StandardError; end
 
@@ -42,7 +44,15 @@ class SongFile
   end
 
   def metadata
-    @metadata ||= TagLib::File.new(path)
+    @metadata ||=
+      begin
+        f = TagLib::FileRef.new(path)
+        t = f.tag
+
+        Metadata.new(t.title, t.artist, t.album)
+      ensure
+        f.close
+      end
   end
 
   def have_format?(format)
