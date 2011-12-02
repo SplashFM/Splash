@@ -332,7 +332,7 @@ $(function() {
     filters: function() {
       var settings = {
         mentions: '',
-        splashes: $('[data-widget = "filter-splash"]').is(":checked") ? true : '',
+        splashes: 1,
         other:    '',
       };
 
