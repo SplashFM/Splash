@@ -57,7 +57,10 @@ Scaphandrier::Application.routes.draw do
 
   get "home/index"
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" } do
+  devise_for :users, :controllers => {
+    :omniauth_callbacks => "omniauth_callbacks",
+    :registrations      => "registrations"
+  } do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     get '/users/exists' => 'users#exists'
   end

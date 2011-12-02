@@ -6,6 +6,19 @@
       %li
         = f.label :email
         = f.text_field :email
+        - if params[:full].blank?
+          %hr
+
+      - if params[:full].present?
+        %li
+          = f.label :name
+          = f.text_field :name
+        %li
+          = f.label :password
+          = f.password_field :password
+        %li
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation
         %hr
 
     %ul.actions
