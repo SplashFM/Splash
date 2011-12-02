@@ -9,6 +9,27 @@ feature "Homepage", :js => true do
 
     it_should_behave_like "feed"
 
+    scenario "View only splashes on everyone feed" do
+      friend = create!(User)
+
+      # exclude
+      user.follow friend
+
+      # include
+      2.times { create(Splash).user!(user) }
+      create(Splash).user!(friend)
+      create!(Splash)
+
+      go_to current_page
+
+      with_feed {
+        enable :everyone
+
+        should have(4).splashes
+        should have_no_social_activity
+      }
+    end
+
     scenario "View own and friends' splashes on feed" do
       friend = create!(User)
 

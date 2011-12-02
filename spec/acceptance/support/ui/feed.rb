@@ -19,6 +19,10 @@ module UI
           click_link t('events.filters.social')
 
           wait_until { page.has_css?("a[href = '#social'].active") }
+        when :everyone
+          click_link t('events.filters.everyone')
+
+          wait_until { page.has_css?("a[href = '#everyone'].active") }
         when :mentions
           click_link t('events.filters.mentions')
 
