@@ -16,6 +16,7 @@ Bricks do
   end
 
   builder Comment do
+    splash
     body "This is a comment!"
   end
 
