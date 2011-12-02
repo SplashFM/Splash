@@ -25,9 +25,13 @@
           .avan-bold
             %ul{:data => {:widget => 'filter-following'}}
               %li.ui-tabs-selected
-                %a.active{:href => "#activity"}= t('events.filters.splashes')
+                %a.active{:href => "#activity"}
+                  = label_with_current_user('splashes', |
+                                            :scope => 'events.filters')
               %li
-                %a{:href => "#social"}= t('events.filters.social')
+                %a{:href => "#social"}
+                  = label_with_current_user('social', |
+                                            :scope => 'events.filters')
           .line
             %span
           %span.feed-updates-count.left{:data => {:widget => 'update-count'}}

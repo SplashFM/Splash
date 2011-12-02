@@ -9,6 +9,12 @@ module UsersHelper
 
   alias_method :tagline_editable?, :avatar_editable?
 
+  def label_with_current_user(label, opts = {})
+    prefix = owner? ? 'my_' : ''
+
+    t(prefix << label, opts)
+  end
+
   def link_to_relationship(user, relationship_type = 'following')
     label = t("#{relationship_type}", :scope => 'users.show')
     url = relationship_type == 'following'? following_path(user) : followers_path(user)
