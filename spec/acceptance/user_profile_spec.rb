@@ -78,18 +78,22 @@ feature "User Profile", :js => true do
     end
 
     scenario "View own splashes only on feed" do
-      friend = create!(User) and user.follow friend
+      friend = create!(User)
 
       # include
       2.times { create(Splash).user!(user) }
 
       # exclude
+      user.follow friend
       create(Splash).user!(friend)
       create!(Splash)
 
       go_to current_page
 
-      feed { should have(2).splashes }
+      feed {
+        should have(2).splashes
+        should have_no_social_activity
+      }
     end
 
     def current_page

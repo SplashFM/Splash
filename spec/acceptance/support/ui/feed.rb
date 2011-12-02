@@ -62,6 +62,10 @@ module UI
         has_no_css?('#loading-spinner')
       end
 
+      def has_no_social_activity?
+        has_no_css?(social_activity_selector)
+      end
+
       def has_no_splashes?
         has_no_css?(w('splash'))
       end

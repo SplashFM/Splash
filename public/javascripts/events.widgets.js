@@ -333,7 +333,7 @@ $(function() {
       var settings = {
         mentions: true,
         splashes: $('[data-widget = "filter-splash"]').is(":checked") ? true : '',
-        other:    $('[data-widget = "filter-other"]').is(":checked") ? true : '',
+        other:    '',
       };
 
       var everyone = $('[data-widget = "filter-following"] a[href = "#everyone"]');
