@@ -34,6 +34,7 @@ en:
       mentions: @Mentions
       my_activity: My Activity
       social: Activity
+      splashes: Splashes
     following: %{follower} is now following %{followed}
     updates:
       one: 1 new update
