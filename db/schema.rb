@@ -144,14 +144,14 @@ ActiveRecord::Schema.define(:version => 20111202173052) do
   end
 
   create_table "tracks", :force => true do |t|
-    t.string   "title",             :limit => 1000
+    t.string   "title",                :limit => 1000
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "data_file_name"
     t.string   "data_content_type"
     t.integer  "data_file_size"
     t.datetime "data_updated_at"
-    t.string   "purchase_url_raw",  :limit => 1024
+    t.string   "purchase_url_raw",     :limit => 1024
     t.string   "type"
     t.string   "artwork_url"
     t.integer  "external_id"
