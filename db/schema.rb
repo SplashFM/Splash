@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111118174841) do
+ActiveRecord::Schema.define(:version => 20111202173052) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -144,14 +144,14 @@ ActiveRecord::Schema.define(:version => 20111118174841) do
   end
 
   create_table "tracks", :force => true do |t|
-    t.string   "title",             :limit => 1000
+    t.string   "title",                :limit => 1000
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "data_file_name"
     t.string   "data_content_type"
     t.integer  "data_file_size"
     t.datetime "data_updated_at"
-    t.string   "purchase_url_raw",  :limit => 1024
+    t.string   "purchase_url_raw",     :limit => 1024
     t.string   "type"
     t.string   "artwork_url"
     t.integer  "external_id"
@@ -161,6 +161,10 @@ ActiveRecord::Schema.define(:version => 20111118174841) do
     t.string   "album_artwork_url"
     t.integer  "popularity_rank"
     t.integer  "uploader_id"
+    t.string   "artwork_file_name"
+    t.string   "artwork_content_type"
+    t.integer  "artwork_file_size"
+    t.datetime "artwork_updated_at"
   end
 
   create_table "users", :force => true do |t|

@@ -9,6 +9,7 @@ module Paperclip
       track.title      = song.title
       track.albums     = song.album
       track.performers = song.artist
+      track.artwork    = song.artwork
 
       @file
     end

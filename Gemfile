@@ -72,7 +72,7 @@ end
 # Put Gems used by your application, but not by scap, here:
 gem "jquery-rails"
 gem "babilu"
-gem "taglib2"
+gem "taglib-ruby", :require => 'taglib', :git => 'git://github.com/david/taglib-ruby.git'
 gem "redis"
 gem "kaminari"
 gem "sanitize"

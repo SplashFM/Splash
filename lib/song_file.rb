@@ -1,10 +1,12 @@
 class SongFile
+  class Metadata < Struct.new(:title, :artist, :album, :artwork); end
+
   class TranscodeError < StandardError; end
   class UnknownFormat  < StandardError; end
 
   extend Forwardable
 
-  def_delegators :metadata, :title, :album, :artist
+  def_delegators :metadata, :title, :album, :artist, :artwork
 
   def initialize(path)
     @default_format = extract_format(path) or
@@ -42,7 +44,26 @@ class SongFile
   end
 
   def metadata
-    @metadata ||= TagLib::File.new(path)
+    @metadata ||=
+      begin
+        if @default_format == :mp3
+          f = TagLib::MPEG::File.new(path)
+          t = f.id3v2_tag
+          p = t.frame_list('APIC').first
+
+          if p
+            pic = Tempfile.new('artwork')
+            pic.syswrite(p.picture)
+          end
+        else
+          f = TagLib::FileRef.new(path)
+          t = f.tag
+        end
+
+        Metadata.new(t.title, t.artist, t.album, pic)
+      ensure
+        f.close
+      end
   end
 
   def have_format?(format)
