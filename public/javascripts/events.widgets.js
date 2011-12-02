@@ -337,13 +337,12 @@ $(function() {
       };
 
       var everyone = $('[data-widget = "filter-following"] a[href = "#everyone"]');
+      var mentions = $('[data-widget = "filter-following"] a[href = "#mentions"]');
+
       if (everyone.hasClass('active')) {
         settings.user     = '';
         settings.follower = '';
-      }
-
-      var mentions = $('[data-widget = "filter-following"] a[href = "#mentions"]');
-      if (mentions.hasClass('active')) {
+      } else if (mentions.hasClass('active')) {
         settings.splashes = '';
         settings.other    = '';
       }
