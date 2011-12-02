@@ -48,4 +48,15 @@ describe UndiscoveredTrack, :adapter => :postgresql do
       t.should be_taken
     end
   end
+
+  it "extracts metadata from the file" do
+    f = Rack::Test::UploadedFile.new(file("shot_clock_avicii_remix.mp3"),
+                                     'audio/mpeg')
+
+    t = create(UndiscoveredTrack).data!(f)
+
+    t.title.should      == "Shot Clock (Avicii Remix)"
+    t.albums.should     == ["www.GoodMusicAllDay.com"]
+    t.performers.should == ["Aer"]
+  end
 end
