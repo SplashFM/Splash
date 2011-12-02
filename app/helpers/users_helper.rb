@@ -1,10 +1,14 @@
 module UsersHelper
+  def owner?
+    @user == current_user
+  end
+
   def avatar_editable?
-    @user == current_user && profile_page?
+    owner? && profile_page?
   end
 
   def tagline_editable?
-    @user == current_user && profile_page?
+    owner? && profile_page?
   end
 
   def link_to_relationship(user, relationship_type = 'following')
