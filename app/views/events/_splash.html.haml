@@ -74,7 +74,9 @@
               .social_link.twitter.left
                 = link_to image_tag('https://si0.twimg.com/a/1321466386/images/goodies/tweetn.png'), user_omniauth_authorize_path(:twitter)
           .arrow
+        {{if track.download_url}}
         %a.report-song.right{:data => {:widget => 'flag'}} Report song
+        {{/if}}
         {{if user}}
         %p.author
           %em Splashed by
