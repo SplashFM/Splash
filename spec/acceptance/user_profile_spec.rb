@@ -86,6 +86,7 @@ feature "User Profile", :js => true do
       # exclude
       user.follow friend
       create(Splash).user!(friend)
+      create(Splash).user(friend).mention!(user)
       create!(Splash)
 
       go_to current_page

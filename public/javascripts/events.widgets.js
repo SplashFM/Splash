@@ -331,7 +331,7 @@ $(function() {
 
     filters: function() {
       var settings = {
-        mentions: true,
+        mentions: '',
         splashes: $('[data-widget = "filter-splash"]').is(":checked") ? true : '',
         other:    '',
       };
@@ -346,6 +346,7 @@ $(function() {
       } else if (mentions.hasClass('active')) {
         settings.splashes = '';
         settings.other    = '';
+        settings.mentions = 1;
       } else if (social.hasClass('active')) {
         settings.mentions = '';
         settings.splashes = '';
