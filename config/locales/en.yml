@@ -150,6 +150,8 @@ en:
   users:
     avatar:
       title: Update Avatar Picture
+      errors:
+        dimension: Width or height must be at least %{dimension}px
     crop:
       cancel: Cancel
       crop: Crop

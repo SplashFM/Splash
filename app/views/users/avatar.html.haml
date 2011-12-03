@@ -1,5 +1,8 @@
 .avatar
   %h2= t('.title')
+
+  .notification{:data => {:widget => 'notification'}}
+
   .image
     %p
       = image_tag current_user.avatar_url(:large), :id => 'cropbox', :class => 'fancybox_avatar'
