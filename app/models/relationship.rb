@@ -8,6 +8,7 @@ class Relationship < ActiveRecord::Base
 
   scope :ignore, lambda { |users| where("followed_id not in (?)", users) }
   scope :with_followers, lambda { |users| where(:follower_id => users) }
+  scope :with_following, lambda { |users| where(:followed_id => users) }
   scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
 
   def as_json(opts = {})
