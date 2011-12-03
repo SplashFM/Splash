@@ -67,6 +67,23 @@ class UsersController < ApplicationController
     render :template => 'splashboards/index'
   end
 
+  def merge
+    connection = SocialConnection.find_by_provider_and_uid(session["devise.provider"],
+                                                           session["devise.uid"])
+
+    if connection
+      current_user.merge_account(connection.user)
+
+      flash[:notice] = I18n.t("devise.omniauth.site_link",
+                              :site => connection.provider)
+    else
+      flash[:error] = I18n.t('errors.messages.site_not_linked',
+                              :site => connection.provider)
+    end
+
+    redirect_to root_path
+  end
+
   private
 
   def load_user

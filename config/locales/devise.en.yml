@@ -43,6 +43,8 @@ en:
       already_confirmed: "was already confirmed"
       not_locked: "was not locked"
       already_taken: "has already been taken"
+      site_already_taken: "Your %{site} ID is already linked to a different account, do you want to transfer it to this account?"
+      site_not_linked: "We can't link Your %{site} Account"
 
   registrations:
     edit:
