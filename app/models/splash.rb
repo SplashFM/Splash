@@ -40,6 +40,7 @@ class Splash < ActiveRecord::Base
       where('n.notified_id in (?)', user_ids)
     end
   }
+  scope :with_users, includes(:user)
 
   # Return the Splashes for a given user or users.
   #
