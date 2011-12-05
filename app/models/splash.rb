@@ -14,6 +14,7 @@ class Splash < ActiveRecord::Base
   before_create :freeze_hierarchies, :if => :resplash?
   before_create :set_comment
 
+  scope :by_date, order(:created_at)
   scope :for_tracks, lambda { |track_ids|
     track_ids.blank? ? scoped : where(:track_id => track_ids)
   }
