@@ -8,7 +8,7 @@ module UI
       def edit_settings(&actions)
         with_settings {
           actions.call
-          click_button t('devise.registrations.edit.save')
+          click_button t('registrations.edit.save')
         }
       end
 
