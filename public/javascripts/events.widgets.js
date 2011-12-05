@@ -265,7 +265,8 @@ $(function() {
         this.share = new Events.Splash.SocialSitePost({model: this.model});
       }
 
-      $(this.el).find(".expand").each(function(){$(this).TextAreaExpander(20)});
+      //$(this.el).find(".expand").each(function(){$(this).TextAreaExpander(20)});
+
       return this;
     },
 
