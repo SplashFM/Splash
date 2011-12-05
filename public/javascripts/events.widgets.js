@@ -77,7 +77,10 @@ $(function() {
     renderEvent: function(e) {
       switch (e.get('type')) {
       case 'splash':
-        $(this.el).append(new Events.Splash({model: e}).render().el);
+        $(this.el).append(new Events.Splash({
+          model: e,
+          currentUserID: this.options.currentUserID,
+        }).render().el);
         break;
       case 'relationship':
       case 'comment':
@@ -154,13 +157,18 @@ $(function() {
     },
     tagName: 'li',
     template: $('#tmpl-event-splash').template(),
+    thumbTemplate: $('#tmpl-user-thumbnail').template(),
 
     initialize: function() {
-      _.bindAll(this, 'onCommentAdded', 'onHover', 'onHoverOut', 'reset');
+      _.bindAll(this, 'onCommentAdded', 'loadThumbnails', 'onHover',
+                      'onHoverOut', 'reset');
 
       this.model.bind('change', this.render, this);
 
       $(this.el).hover(this.onHover, this.onHoverOut);
+
+      this.siblings = new SplashList();
+      this.siblings.bind('reset', this.renderThumbnails, this);
     },
 
     checkKeyDown: function(e) {
@@ -232,6 +240,17 @@ $(function() {
                       addClass('right'));
     },
 
+    loadThumbnails: function(onLoad) {
+      $('[data-widget = "thumbnails"]').addClass('loading');
+
+      this.siblings.fetch({
+        data: {
+          splashed: this.model.get('track').id,
+          tree_with: this.options.currentUserID,
+        },
+      })
+    },
+
     render: function() {
       var s          = this.model;
       var commentStr = I18n.t('comments', {count: s.get('comments_count')});
@@ -262,7 +281,9 @@ $(function() {
           parent: this.el
         });
 
-        this.share = new Events.Splash.SocialSitePost({model: this.model});
+        this.share      = new Events.Splash.SocialSitePost({model: this.model});
+
+        this.loadThumbnails();
       }
 
       //$(this.el).find(".expand").each(function(){$(this).TextAreaExpander(20)});
@@ -272,6 +293,22 @@ $(function() {
 
     reset: function() {
       this.$('textarea').val('');
+    },
+
+    renderThumbnails: function() {
+      var ul   = $('<ul/>');
+      var self = this;
+
+      this.siblings.each(function(s) {
+        var li = $('<li/>').html($.tmpl(self.thumbTemplate, s.get('user')));
+
+        if (s.get('user').id === self.options.currentUserID)
+          li.addClass('highlight');
+
+        ul.append(li);
+      });
+
+      this.$('[data-widget = "thumbnails"]').html(ul).removeClass('loading');
     },
   }).mixin(Purchase);
 

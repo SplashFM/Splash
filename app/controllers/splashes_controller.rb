@@ -8,6 +8,19 @@ class SplashesController < ApplicationController
     respond_with splash
   end
 
+  def index
+    if params[:splashed].present? && params[:tree_with].present?
+      respond_with Splash.
+        for_tracks(params[:splashed]).
+        for_users([params[:tree_with]] <<
+            Relationship.followed_ids(params[:tree_with])).
+        by_date.
+        with_users
+    else
+      head :bad_request
+    end
+  end
+
   def show
     opts = {:full => params[:summary].blank?, :user_id => current_user.id}
 

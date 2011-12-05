@@ -1455,6 +1455,16 @@ textarea
     height: 178px
     margin: 3px 0 0 3px
     position: relative
+    li
+      display: inline
+
+      img
+        margin: 2px
+
+      &.highlight
+        img
+          margin: 0
+          border: 2px solid #34C3F2
   .container
     .aside
       width: 350px
@@ -1577,7 +1587,7 @@ textarea
     font-size: 14px
     padding: 15px 0 5px 0
 
-.loading-spinner
+.loading-spinner, .loading
   height: 56px
   background: url(/css/images/loading-spinner.gif) no-repeat center center
   margin-top: 10px
