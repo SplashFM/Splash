@@ -67,12 +67,9 @@
           .inner
             .social_link.facebook.left
               <iframe src="//www.facebook.com/plugins/like.php?href=${track.preview_url}&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
-            - if current_user.has_social_connection? 'twitter'
-              .social_link.twitter.left{:data => {:widget => 'social-site-post', :id => "${id}", :site => 'twitter'}}
+            .social_link.twitter.left{:data => {:widget => 'social-site-post', :id => "${id}", :site => 'twitter'}}
+              %a{:href => "https://twitter.com/share?url=${track.preview_url}"}
                 = image_tag 'https://si0.twimg.com/a/1321466386/images/goodies/tweetn.png'
-            - else
-              .social_link.twitter.left
-                = link_to image_tag('https://si0.twimg.com/a/1321466386/images/goodies/tweetn.png'), user_omniauth_authorize_path(:twitter)
           .arrow
         {{if track.download_url}}
         %a.report-song.right{:data => {:widget => 'flag'}} Report song
