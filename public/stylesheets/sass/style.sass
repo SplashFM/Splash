@@ -1019,6 +1019,10 @@ textarea
 .right .streamfeed-top
   border-radius: 0 7px 0 0
 
+.splashboards .main-search, .splashboards .main-panel
+  label
+    display: block
+
 .main-search, .main-panel
   padding: 5px 20px 0
   label
@@ -1030,6 +1034,7 @@ textarea
     margin-left: 5px
     margin-top: 10px
     margin-bottom: 10px
+    display: none
   .wrap
     width: 591px
     height: 50px
@@ -1038,12 +1043,12 @@ textarea
     padding: 2px
     border-radius: 7px
     z-index: 1
+    margin-top: 5px
   .field
     background: #e0e0e0
     border: 0
     display: block
     border-radius: 5px
-    font-size: 30px
     height: 38px
     padding: 6px 10px
     width: 571px
@@ -1051,6 +1056,7 @@ textarea
     z-index: 11
     position: relative
     &:focus, &.loading
+      font-size: 18px
       background: #fff
       color: #426c95
 
