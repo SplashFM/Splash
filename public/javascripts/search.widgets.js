@@ -82,7 +82,7 @@ $(function() {
     },
 
     renderLoadMoreResults: function() {
-      if (this.collection.hasFullPages(this.perPage)) {
+      if (this.collection.hasFullPages(this.options.perPage)) {
         this.$('[data-widget = "load-more"]').show();
       } else {
         this.$('[data-widget = "load-more"]').hide();
