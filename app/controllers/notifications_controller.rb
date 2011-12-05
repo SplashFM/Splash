@@ -8,6 +8,12 @@ class NotificationsController < ApplicationController
   end
 
   def index
-    respond_with Notification.for(current_user).by_recency.page(1)
+    n = Notification.for(current_user)
+
+    if params[:count].present?
+      render :json => n.unread.count
+    else
+      respond_with n.by_recency.page(1)
+    end
   end
 end

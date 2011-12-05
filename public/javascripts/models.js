@@ -184,5 +184,9 @@ $(function() {
     markRead: function() {
       $.ajax(Routes.reset_read_notifications_path(), {type: 'PUT'});
     },
+
+    unreadCount: function(opts) {
+      $.ajax(this.url, {data: {count: 1}}).done(opts.success);
+    },
   });
 });

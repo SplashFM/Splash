@@ -104,7 +104,7 @@ $(function() {
     },
 
     initialize: function() {
-      _.bindAll(this, 'renderNotification','toggle');
+      _.bindAll(this, 'renderNotification', 'setCount', 'toggle');
 
       this.list       = this.$('[data-widget = "list-notifications"]');
 
@@ -128,7 +128,7 @@ $(function() {
     },
 
     reset: function() {
-      this.setCount(this.collection.length);
+      this.collection.unreadCount({success: this.setCount});
 
       this.collection.each(this.renderNotification);
     },
