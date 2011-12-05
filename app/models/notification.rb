@@ -1,4 +1,6 @@
 class Notification < ActiveRecord::Base
+  paginates_per 5
+
   belongs_to :notified, :class_name => 'User'
   belongs_to :notifier, :class_name => 'User'
   belongs_to :target, :polymorphic => true

@@ -8,6 +8,6 @@ class NotificationsController < ApplicationController
   end
 
   def index
-    respond_with Notification.for(current_user).unread.by_recency
+    respond_with Notification.for(current_user).by_recency.page(1)
   end
 end
