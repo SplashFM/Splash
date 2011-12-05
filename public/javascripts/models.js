@@ -136,6 +136,10 @@ $(function() {
       });
     },
   });
+  window.SplashList = Backbone.Collection.extend({
+    url: "/splashes"
+  });
+
   window.EventList = Backbone.Collection.extend({
     model: Event,
     url: '/events',

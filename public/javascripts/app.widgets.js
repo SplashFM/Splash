@@ -369,4 +369,25 @@ $(function() {
   };
 
   window.Player = new PlayerView;
+
+  window.List = Backbone.View.extend({
+    tagName: 'ul',
+
+    initialize: function() {
+      _.bindAll(this, 'renderItem');
+
+      this.itemTemplate = this.options.itemTemplate;
+      this.items        = this.options.items;
+    },
+
+    render: function() {
+      _.each(this.items, this.renderItem);
+
+      return this;
+    },
+
+    renderItem: function(i) {
+      return $('<li/>').append($.tmpl(this.itemTemplate, i)).appendTo(this.el);
+    },
+  });
 });

@@ -1451,74 +1451,21 @@ textarea
     border-radius: 3px
     margin-top: 6px
     position: relative
-  .graph
+  [data-widget = "thumbnails"]
     width: 211px
     height: 178px
-    background: url(/css/images/graph.png) no-repeat 0 0
     margin: 3px 0 0 3px
     position: relative
-    .arrow
-      position: absolute
-      width: 31px
-      height: 32px
-      background: url(/css/images/graph-arrows.png) no-repeat
-      top: 73px
-      z-index: 3
-    .arrow-prev
-      left: -16px
-      background-position: 0 0
-    .arrow-next
-      right: -16px
-      background-position: right 0
-    .overlay
-      position: absolute
-      height: 100%
-      width: 27px
-      top: 0
-      right: 0
-      background: url(/css/images/bg-trans-40.png) repeat 0 0
-      z-index: 1
-    .red-arrow
-      position: absolute
-      top: -2px
-      right: 20px
-      width: 14px
-      height: 10px
-      background: url(/css/images/graph-red-arrow.png) no-repeat 0 0
-      z-index: 4
-    .date
-      position: absolute
-      color: #fff
-      font-size: 10px
-      bottom: 6px
-      right: 32px
-      z-index: 5
-    .count
-      position: absolute
-      top: 8px
-      right: 35px
-      height: 18px
-      line-height: 16px
-      font-size: 11px
-      padding: 0 8px
-      background: url(/css/images/bg-trans-80.png) repeat 0 0
-      color: #fff
-      border-radius: 4px
-      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
-    .labels
-      position: absolute
-      bottom: -10px
-      left: 4px
-      width: 37px
-      list-style: none outside none
-      li
-        height: 34px
-        text-align: right
-        color: #fff
-        font-size: 10px
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
-        &.last
-          padding-top: 5px
+    li
+      display: inline
+
+      img
+        margin: 2px
+
+      &.highlight
+        img
+          margin: 0
+          border: 2px solid #34C3F2
   .container
     .aside
       width: 350px
@@ -1641,7 +1588,7 @@ textarea
     font-size: 14px
     padding: 15px 0 5px 0
 
-.loading-spinner
+.loading-spinner, .loading
   height: 56px
   background: url(/css/images/loading-spinner.gif) no-repeat center center
   margin-top: 10px

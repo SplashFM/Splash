@@ -46,21 +46,7 @@
     {{/if}}
     {{if expanded}}
     .container{:data => {:widget => 'more-info'}}
-      .graph.left.comingSoon
-        %img{:alt => "", :height => "178", :src => "/css/images/graph.png", :width => "211"}/
-        %a.arrow.arrow-prev{:href => "#"}
-        %a.arrow.arrow-next{:href => "#"}
-        %span.overlay
-        %span.red-arrow
-        %span.date Wed, 10/05/11
-        %span.count.avan-demi Splashes = 1,623
-        %ul.labels.avan-demi
-          %li 2k
-          %li 1.5k
-          %li 1k
-          %li .5k
-          %li.last 0
-      / /graph
+      .left{:data => {:widget => 'thumbnails'}}
       .aside.left
         %a.share-btn.avan-bold.right{:href => "#"} Share
         .share_pane

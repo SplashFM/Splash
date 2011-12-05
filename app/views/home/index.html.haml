@@ -3,8 +3,9 @@
     var qs = #{request.query_string.inspect};
     window.App.trackSearch = new TrackSearch({perPage: #{Track.default_per_page}})
     window.App.eventFeed = new Events({
-      app:     window.App,
-      filters: _.extend({
+      app:           window.App,
+      currentUserID: #{current_user.id},
+      filters:       _.extend({
         user:     #{current_user.id},
         follower: #{current_user.id}
       },

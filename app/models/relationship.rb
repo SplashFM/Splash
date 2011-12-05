@@ -24,4 +24,12 @@ class Relationship < ActiveRecord::Base
   scope :since, lambda { |time|
     time.blank? ? scoped : where(['created_at > ?', Time.parse(time).utc])
   }
+
+  def self.followed_ids(follower_id)
+    t = arel_table
+    s = t.project(:followed_id)
+    w = t[:follower_id].eq(follower_id)
+
+    connection.select_values(s.where(w).to_sql)
+  end
 end
