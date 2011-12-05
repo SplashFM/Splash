@@ -48,8 +48,8 @@ $(function() {
 
       this.$('[data-widget = "load-more"]').hide();
 
-      this.collection.fetch({data: {page: this.page, with_text: this.term()},
-                             add: true}).
+      this.collection.
+        fetch({data: {page: this.page, with_text: this.term()}}).
         done(this.renderLoadMoreResults);
     },
 
