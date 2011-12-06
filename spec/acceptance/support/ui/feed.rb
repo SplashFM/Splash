@@ -32,6 +32,21 @@ module UI
         end
       end
 
+      def expand_splash
+        find(w('expand')).click
+      end
+
+      def with_splash(index, &do_stuff)
+        with_feed {
+          i = case index
+              when Integer; index
+              when :first; 1
+              end
+
+          within w('splash') + ":nth-of-type(#{i})", &do_stuff
+        }
+      end
+
       def with_feed(&do_stuff)
         within w('feed'), &do_stuff
       end
@@ -72,6 +87,15 @@ module UI
 
       def has_no_splashes?
         has_no_css?(w('splash'))
+      end
+
+      def has_ordered_splasher_thumbnails?(*users)
+        users.flatten!
+
+        exp   = users.map { |u| "/#{u.slug}" }
+        found = all(w('thumbnails', 'a')).map { |n| URI.parse(n['href']).path }
+
+        found == exp
       end
     end
 
