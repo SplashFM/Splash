@@ -33,7 +33,7 @@ en:
       mentions: @Mentions
       social: Activity
       my_social: My Activity
-      followin: Following
+      following: Following
       splashes: Splashes
       my_splashes: My Splashes
     following: %{follower} is now following %{followed}
