@@ -163,12 +163,15 @@ $(function() {
       _.bindAll(this, 'onCommentAdded', 'loadThumbnails', 'onHover',
                       'onHoverOut', 'reset');
 
+      this.enableExpansion();
+
       this.model.bind('change', this.render, this);
 
       $(this.el).hover(this.onHover, this.onHoverOut);
 
       this.siblings = new SplashList();
       this.siblings.bind('reset', this.renderThumbnails, this);
+
     },
 
     checkKeyDown: function(e) {
@@ -189,6 +192,14 @@ $(function() {
       });
     },
 
+    disableExpansion: function() {
+      this.expand = false;
+    },
+
+    enableExpansion: function() {
+      this.expand = true;
+    },
+
     onCommentAdded: function() {
       this.reset();
 
@@ -206,11 +217,12 @@ $(function() {
     },
 
     toggleExpanded: function(e) {
-      if (!e ||
+      if (this.expand &&
+        (!e ||
           (($(e.target).closest('[data-widget = "expand"]').length > 0 ||
             $(e.target).closest('[data-widget = "comments-count"]').length > 0 ||
             $(e.target).closest('a').length == 0) &&
-           $(e.target).closest('[data-widget = "more-info"]').length === 0)) {
+           $(e.target).closest('[data-widget = "more-info"]').length === 0))) {
         if (e) e.preventDefault();
 
         if (this.$('[data-widget = "more-info"]').length === 0) {
@@ -261,11 +273,13 @@ $(function() {
       $(this.el).html($.tmpl(this.template, json));
       SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
 
-      new FullSplashAction({
+      this.resplash = new FullSplashAction({
         el:     this.$('[data-widget = "full-splash-action"]'),
         model:  new Track(this.model.get('track')),
         parent: this.model,
       });
+      this.resplash.bind('splash:open', this.disableExpansion, this);
+      this.resplash.bind('splash:close', this.enableExpansion, this);
 
       if (this.model.get('expanded')) {
         $(this.el).addClass('expanded');

@@ -105,6 +105,8 @@ $(function() {
         target:    this.$('form'),
         isEnabled: this.model.get('splashable'),
       });
+      this.toggle.bind('toggle:show', this.triggerOpen, this);
+      this.toggle.bind('toggle:hide', this.triggerClose, this);
     },
 
     splash: function(e) {
@@ -117,6 +119,14 @@ $(function() {
       }, {
         success: this.finishSplash
       });
+    },
+
+    triggerClose: function() {
+      this.trigger('splash:close');
+    },
+
+    triggerOpen: function() {
+      this.trigger('splash:open');
     },
 
     finishSplash: function() {
