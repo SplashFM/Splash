@@ -88,6 +88,44 @@ $(function() {
     },
   });
 
+  window.FullSplashAction = BaseApp.SplashAction.extend({
+    events: {
+      'submit form': 'splash'
+    },
+
+    initialize: function() {
+      BaseApp.SplashAction.prototype.initialize.call(this);
+
+      _.bindAll(this, 'finishSplash');
+
+      this.comment  = new SplashComment({el: this.$('form textarea')});
+
+      this.toggle   = new Toggle({
+        el:        this.$('[data-widget = "toggle-splash"]'),
+        target:    this.$('form'),
+        isEnabled: this.model.get('splashable'),
+      });
+    },
+
+    splash: function(e) {
+      e.preventDefault();
+
+      new Splash().save({
+        comment:  this.comment.comment(),
+        track_id: this.model.get('id')
+      }, {
+        success: this.finishSplash
+      });
+    },
+
+    finishSplash: function() {
+      this.toggle.toggle();
+      // FIXME: neither of these seem to actually trigger a rerender of the single view.
+      this.broadcastSplash();
+      this.model.change();
+    }
+  });
+
 
   window.BaseApp.QuickSplashAction = BaseApp.SplashAction.extend({
     events: {'click' : 'splash'},

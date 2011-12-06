@@ -113,7 +113,7 @@ $(function() {
       if (this.options.numFlipper)
         SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
 
-      new TrackSearch.Track.FullSplashAction({
+      new FullSplashAction({
         model: this.model,
         el: this.$('[data-widget = "full-splash-action"]').get(0),
       });
