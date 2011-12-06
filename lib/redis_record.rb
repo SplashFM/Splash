@@ -38,15 +38,15 @@ module RedisRecord
           ids.map { |id| cache[id] }
         end
 
-        def increment_#{name}_sorted(id)
+        def increment_sorted_#{name}(id)
           RedisRecord.redis.zincrby key("sorted_#{name}"), 1, id.to_s
         end
 
-        def reset_#{name}_sorted
+        def reset_sorted_#{name}
           RedisRecord.redis.del key("sorted_#{name}")
         end
 
-        def update_#{name}_sorted(id, value)
+        def update_sorted_#{name}(id, value)
           RedisRecord.redis.zadd key("sorted_#{name}"), value, id
         end
 
@@ -72,7 +72,7 @@ module RedisRecord
         def increment_#{name}(id)
           RedisRecord.redis.hincrby key(#{name.to_s.inspect}), id.to_s, 1
 
-          increment_#{name}_sorted(id)
+          increment_sorted_#{name}(id)
         end
 
         def reset_#{name}_counter
@@ -81,13 +81,13 @@ module RedisRecord
 
         def reset_#{name.to_s.pluralize}
           reset_#{name}_counter
-          reset_#{name}_sorted
+          reset_sorted_#{name}
         end
 
         def update_#{name}(id, count)
           RedisRecord.redis.hset key(#{name.to_s.inspect}), id.to_s, count
 
-          update_#{name}_sorted(id, count)
+          update_sorted_#{name}(id, count)
         end
 
         def #{name.to_s.pluralize}(ids = [])

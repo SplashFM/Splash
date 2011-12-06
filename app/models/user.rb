@@ -109,7 +109,7 @@ class User < ActiveRecord::Base
   end
 
   def self.recompute_influence
-    reset_influence_sorted
+    reset_sorted_influence
 
     update_influences(User.select(:id).map(&:id))
   end
@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
     scores = ids.zip(scs, rcs).map { |(id, s, r)|
       [id, s.to_i + r.to_i] }
 
-    scores.each { |(id, score)| update_influence_sorted(id, score) }
+    scores.each { |(id, score)| update_sorted_influence(id, score) }
   end
 
   def self.recompute_all_splashboards
