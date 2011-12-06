@@ -57,13 +57,32 @@ class User < ActiveRecord::Base
                       :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
 
-  has_attached_file :avatar,
-                    :styles => {
-                      :thumb => {:geometry => "125x185#", :processors => [:cropper]},
-                      :large => {:geometry => "240x300>"},
-                      :micro => {:geometry => "50x50#", :processors => [:cropper]}
-                    },
-                    :default_url => DEFAULT_AVATAR_URL
+  ATTACHMENT_OPTS = {
+    :hash_secret => ":class/:attachment/:id",
+    :styles => {
+      :thumb => {:geometry => "125x185#", :processors => [:cropper]},
+      :large => {:geometry => "240x300>"},
+      :micro => {:geometry => "50x50#", :processors => [:cropper]}
+    },
+    :default_url => DEFAULT_AVATAR_URL,
+    :path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension"
+  }
+
+   PAPERCLIP_STORAGE_OPTIONS = {
+    :path   => "/:class/:attachment/:id/:hash.:extension",
+    :storage => :s3,
+    :s3_credentials => {
+      :access_key_id => AppConfig.aws['access_key_id'],
+      :secret_access_key => AppConfig.aws['secret_access_key'],
+      :bucket => AppConfig.aws['bucket']
+    }
+  }
+
+  if AppConfig.aws && ! Rails.env.test?
+    has_attached_file :avatar, ATTACHMENT_OPTS.merge(PAPERCLIP_STORAGE_OPTIONS)
+  else
+    has_attached_file :avatar, ATTACHMENT_OPTS
+  end
 
   before_save :possibly_delete_avatar
 
@@ -232,7 +251,7 @@ class User < ActiveRecord::Base
 
   def avatar_geometry(style = :original)
     @geometry ||= {}
-    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style)) unless avatar.path.blank?
+    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.to_file(style)) unless avatar.path.blank?
   end
 
   def followed(followed)
