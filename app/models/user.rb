@@ -121,10 +121,9 @@ class User < ActiveRecord::Base
   def self.update_influences(ids)
     scs    = splash_counts(ids) || []
     rcs    = ripple_counts(ids) || []
-    scores = ids.zip(scs, rcs).map { |(id, s, r)|
-      [id, s.to_i + r.to_i] }
-
-    scores.each { |(id, score)| update_sorted_influence(id, score) }
+    ids.zip(scs, rcs).each { |(id, s, r)|
+      update_sorted_influence(id, s.to_i + r.to_i)
+    }
   end
 
   def self.recompute_all_splashboards
