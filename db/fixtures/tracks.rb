@@ -40,7 +40,7 @@ if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
     s.tag_list         = ["Grunge"]
   end
 
-  1.upto(20) { |i|
+  1.upto(30) { |i|
     DiscoveredTrack.seed :title do |s|
       s.title       = "Track #{i}"
       s.albums      = ['Album']
