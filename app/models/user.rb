@@ -111,14 +111,14 @@ class User < ActiveRecord::Base
   def self.recompute_influence
     reset_influence_sorted
 
-    update_influence(User.select(:id).map(&:id))
+    update_influences(User.select(:id).map(&:id))
   end
 
   def self.top_splashers(page, num_records)
     sorted_by_influence(page, num_records)
   end
 
-  def self.update_influence(ids)
+  def self.update_influences(ids)
     scs    = splash_counts(ids) || []
     rcs    = ripple_counts(ids) || []
     scores = ids.zip(scs, rcs).map { |(id, s, r)|
