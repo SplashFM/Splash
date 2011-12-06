@@ -126,7 +126,6 @@ $(function() {
 
   TrackSearch.Track.FullSplashAction = BaseApp.SplashAction.extend({
     events: {
-      'click [data-widget = "toggle-splash"]': 'toggle',
       'submit form': 'splash'
     },
 
@@ -136,6 +135,11 @@ $(function() {
       _.bindAll(this, 'finishSplash');
       this.mentions = new UserMentions({el: this.$('form textarea'),
                                         parent: this.el});
+      this.toggle   = new Toggle({
+        el:        this.$('[data-widget = "toggle-splash"]'),
+        target:    this.$('form'),
+        isEnabled: this.model.get('splashable'),
+      });
     },
 
     splash: function(e) {
@@ -149,15 +153,8 @@ $(function() {
       });
     },
 
-    toggle: function(e) {
-      e.preventDefault();
-      if (this.model.get('splashable')) {
-        this.$('form').toggle();
-      }
-    },
-
     finishSplash: function() {
-      this.$('form').hide();
+      this.toggle.toggle();
       // FIXME: neither of these seem to actually trigger a rerender of the single view.
       this.broadcastSplash();
       this.model.change();
