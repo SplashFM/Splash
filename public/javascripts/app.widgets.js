@@ -112,7 +112,8 @@ $(function() {
 
       new Splash().save({
         comment:  this.comment.comment(),
-        track_id: this.model.get('id')
+        track_id: this.model.get('id'),
+        parent_id: this.options.parent && this.options.parent.get('id'),
       }, {
         success: this.finishSplash
       });
