@@ -390,4 +390,24 @@ $(function() {
       return $('<li/>').append($.tmpl(this.itemTemplate, i)).appendTo(this.el);
     },
   });
+
+  window.Toggle = Backbone.View.extend({
+    events: {'click': 'toggleTarget'},
+
+    initialize: function() {
+      this.$target   = $(this.options.target);
+      this.isEnabled = this.options.isEnabled;
+    },
+
+    toggle: function() {
+      if (this.isEnabled) this.$target.toggle();
+    },
+
+    toggleTarget: function(e) {
+      e.preventDefault();
+
+      this.toggle();
+    },
+  });
+
 });
