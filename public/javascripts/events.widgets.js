@@ -261,9 +261,10 @@ $(function() {
       $(this.el).html($.tmpl(this.template, json));
       SPLASH.Widgets.numFlipper($('.the_splash_count',this.el));
 
-      new BaseApp.ReSplashAction({
-        el: this.$('[data-widget = "splash-action"]'),
-        model: this.model
+      new FullSplashAction({
+        el:     this.$('[data-widget = "full-splash-action"]'),
+        model:  new Track(this.model.get('track')),
+        parent: this.model,
       });
 
       if (this.model.get('expanded')) {

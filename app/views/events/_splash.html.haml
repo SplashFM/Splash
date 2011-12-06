@@ -29,12 +29,8 @@
           %a{:href => "#", :data => {:widget => 'comments-count'}} ${comment_count}
         %li.time ${created_at}
     .cl &nbsp;
-    {{if user}}
-    %a.splash-btn{:href => "#", :data => {:widget => 'splash-action'}}
-    {{/if}}
     .numbers
       .the_splash_count ${track.splash_count}
-    {{if ! user}}
     %div{:data => {:widget => 'full-splash-action'}}
       %a.icon.right.splash-btn{:href => "#", :data => {:widget => 'toggle-splash'}}
       %form.commentForm{:action => '#'}
@@ -43,7 +39,6 @@
           .right
             %input.submit.buttonStyle2{:type => 'submit', :value => 'Comment and Splash'}
           .clear
-    {{/if}}
     {{if expanded}}
     .container{:data => {:widget => 'more-info'}}
       .left{:data => {:widget => 'thumbnails'}}
