@@ -8,5 +8,10 @@ class UserStatsObserver < ActiveRecord::Observer
 
     User.update_influences(splash.user_path + [splash.user.id])
     splash.user.record_splashed_track(splash.track.id)
+
+    # If we wanted to be eager about this, we could update the summed_splash_track
+    # for all the users following splash.user, but currently we are not so eager.
+    # Instead we therefore have the User.recompute_all_splashboards method.
+    
   end
 end

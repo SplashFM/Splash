@@ -116,6 +116,7 @@ module RedisRecord
     #   MyClass#splashed_tracks
     #   MyClass#summed_splashed_tracks
     #   MyClass#replace_summed_splashed_tracks(other_ids)
+    #   MyClass.reset_splashed_tracks
     # TODO:
     #   MyClass#update_summed_splashed_tracks(other_id, weight)
     #     -1 to subtract; 1 to add
