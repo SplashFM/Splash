@@ -2,8 +2,9 @@
   $(function () {
     window.App.trackSearch = new TrackSearch({perPage: #{Track.default_per_page}})
     window.App.eventFeed = new Events({
-      app:     window.App,
-      filters: {user: #{@user.id}},
+      app:           window.App,
+      currentUserID: #{current_user.id},
+      filters:       {user: #{@user.id}},
     });
     window.Scroll = new EndlessScroll({
       data: App.eventFeed,
