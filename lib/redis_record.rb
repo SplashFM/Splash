@@ -46,13 +46,10 @@ module RedisRecord
           RedisRecord.redis.del key("sorted_#{name}")
         end
 
-        def update_#{name}_score(id, score)
-          RedisRecord.redis.zadd key("sorted_#{name}"), score, id
+        def update_#{name}_sorted(id, value)
+          RedisRecord.redis.zadd key("sorted_#{name}"), value, id
         end
 
-        def update_#{name}_scores(data)
-          data.each { |(id, score)| update_#{name}_score(id, score) }
-        end
       RUBYI
 
       class_eval <<-RUBY
@@ -90,7 +87,7 @@ module RedisRecord
         def update_#{name}(id, count)
           RedisRecord.redis.hset key(#{name.to_s.inspect}), id.to_s, count
 
-          update_#{name}_score(id, count)
+          update_#{name}_sorted(id, count)
         end
 
         def #{name.to_s.pluralize}(ids = [])

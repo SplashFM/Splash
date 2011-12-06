@@ -124,7 +124,7 @@ class User < ActiveRecord::Base
     scores = ids.zip(scs, rcs).map { |(id, s, r)|
       [id, s.to_i + r.to_i] }
 
-    update_influence_scores scores
+    scores.each { |(id, score)| update_influence_sorted(id, score) }
   end
 
   def self.recompute_all_splashboards
