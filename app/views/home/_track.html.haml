@@ -15,11 +15,4 @@
             {{else}}
             %a{:href => "/undiscovered_tracks/${id}/download", :'data-skip-pjax' => true} Download track
             {{/if}}
-      %div{:data => {:widget => 'full-splash-action'}}
-        %a.icon.right.splash-btn{:href => "#", :data => {:widget => 'toggle-splash'}}
-        %form.commentForm{:action => '#'}
-          .inner
-            = render 'shared/comment_area'
-            .right
-              %input{:class => 'submit buttonStyle2', :type => 'submit', :value => 'Comment and Splash'}
-            .clear
+      = render 'shared/splash_action'
