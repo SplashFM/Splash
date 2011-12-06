@@ -241,7 +241,7 @@ $(function() {
     },
 
     loadThumbnails: function(onLoad) {
-      $('[data-widget = "thumbnails"]').addClass('loading');
+      this.$('[data-widget = "thumbnails"]').addClass('loading');
 
       this.siblings.fetch({
         data: {
