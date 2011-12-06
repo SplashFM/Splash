@@ -410,4 +410,17 @@ $(function() {
     },
   });
 
+  window.SplashComment = Backbone.View.extend({
+    initialize: function() {
+      this.mentions = new UserMentions({
+        el:     $(this.el),
+        parent: $(this.el).parent(),
+      });
+    },
+
+    comment: function() {
+      return this.mentions.commentWithMentions();
+    },
+  });
+
 });

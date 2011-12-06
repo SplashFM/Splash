@@ -133,8 +133,9 @@ $(function() {
       BaseApp.SplashAction.prototype.initialize.call(this);
 
       _.bindAll(this, 'finishSplash');
-      this.mentions = new UserMentions({el: this.$('form textarea'),
-                                        parent: this.el});
+
+      this.comment  = new SplashComment({el: this.$('form textarea')});
+
       this.toggle   = new Toggle({
         el:        this.$('[data-widget = "toggle-splash"]'),
         target:    this.$('form'),
@@ -146,7 +147,7 @@ $(function() {
       e.preventDefault();
 
       new Splash().save({
-        comment:  this.mentions.commentWithMentions(),
+        comment:  this.comment.comment(),
         track_id: this.model.get('id')
       }, {
         success: this.finishSplash
@@ -263,7 +264,7 @@ $(function() {
       if (this.mode == 'edit') {
         var attrs = {
           albums: this.$('[name = "albums"]').val(),
-          comment: this.mentions.commentWithMentions(),
+          comment: this.comment.comment(),
           title: this.$('[name = "title"]').val(),
           performers: this.$('[name = "performers"]').val(),
         }
@@ -273,7 +274,7 @@ $(function() {
         this.model.save(attrs, {success: this.onComplete});
       } else {
         new Splash().save({
-          comment:  this.mentions.commentWithMentions(),
+          comment:  this.comment.comment(),
           track_id: this.model.get('id')
         }, {
           success: this.onComplete
@@ -284,8 +285,7 @@ $(function() {
     render: function() {
       $(this.el).html($.tmpl(this.template));
 
-      this.mentions = new UserMentions({el: this.$('textarea'),
-                                        parent: this.el});
+      this.comment = new SplashComment({el: this.$('textarea')});
 
       this.$('[data-widget = "complete-upload"]').hide();
 
