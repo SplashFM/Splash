@@ -115,6 +115,7 @@ en:
   splashes:
     splash:
       by: Splashed by %{user}
+      comment: "Optional: Splash @ User or Comment"
       download: Download
       expand: Expand
       play: Play
