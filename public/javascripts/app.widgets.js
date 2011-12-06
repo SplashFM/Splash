@@ -440,12 +440,22 @@ $(function() {
 
     toggle: function() {
       if (this.isEnabled) this.$target.toggle();
+
+      this.triggerToggled();
     },
 
     toggleTarget: function(e) {
       e.preventDefault();
 
       this.toggle();
+    },
+
+    triggerToggled: function() {
+      if (this.$target.is(':visible')) {
+        this.trigger('toggle:show');
+      } else {
+        this.trigger('toggle:hide');
+      }
     },
   });
 
