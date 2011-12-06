@@ -13,7 +13,7 @@ module UI
     end
 
     module Actions
-      def enable(filter)
+      def enable(filter, user=nil)
         case filter
         when :activity
           click_link t('events.filters.social')
@@ -24,7 +24,7 @@ module UI
 
           wait_until { page.has_css?("a[href = '#everyone'].active") }
         when :mentions
-          click_link t('events.filters.mentions')
+          click_link '@' + user.nickname
 
           wait_until { page.has_css?("a[href = '#mentions'].active") }
         else
