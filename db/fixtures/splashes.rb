@@ -18,9 +18,18 @@ Splash.seed(:user_id, :track_id) { |s|
   s.parent_id = Splash.for_tracks(Splash.find_by_track_id(tid)).first
 }
 
+u = User.find_by_email('jack.close@mojotech.com')
+
+1.upto(5) { |i|
+  Splash.seed(:user_id, :track_id) { |s|
+    s.user_id  = u.id
+    s.track_id = Track.find_by_title("Track #{i}").id
+  }
+}
+
 u = User.find_by_email('user@mojotech.com')
 
-1.upto(20) { |i|
+6.upto(20) { |i|
   Splash.seed(:user_id, :track_id) { |s|
     s.user_id  = u.id
     s.track_id = Track.find_by_title("Track #{i}").id
