@@ -54,9 +54,7 @@ $(function() {
 
       this.toggleLoading();
 
-      this.collection.
-        fetch({data: {page: this.page, with_text: this.term()}}).
-        done(this.renderLoadMoreResults);
+      this.collection.fetch({data: {page: this.page, with_text: this.term()}});
     },
 
     maybeSearch: function() {
@@ -81,6 +79,7 @@ $(function() {
 
       this.toggleLoading();
 
+      this.renderLoadMoreResults();
       this.container.show();
       Widgets.Scroll.init();
     },
