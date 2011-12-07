@@ -33,7 +33,7 @@ module UI
       end
 
       def expand_splash
-        find(w('expand')).click
+        find(w('comments-count')).click
       end
 
       def with_splash(index, &do_stuff)
