@@ -1,7 +1,7 @@
 $(function() {
   window.Paginated = {
     hasFullPages: function(perPage) {
-      return this.length % perPage == 0;
+      return this.length > 0 && this.length % perPage == 0;
     }
   };
 
