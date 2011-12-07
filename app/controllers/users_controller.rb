@@ -16,9 +16,11 @@ class UsersController < ApplicationController
     if params[:top] == 'true'
       results = User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
     else
-      results = apply_scopes(User).
-      page(current_page).per(PER_SEARCH).
-      map { |u| u.as_json.merge!(:path => user_slug_path(u)) }
+      results = apply_scopes(User)
+      results = results.followed_by(current_user) if params[:following].present?
+      results.
+        page(current_page).per(PER_SEARCH).
+        map { |u| u.as_json.merge!(:path => user_slug_path(u)) }
     end
     render :json => results
   end

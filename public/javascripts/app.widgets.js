@@ -378,7 +378,7 @@ $(function() {
       var mention = term.substr(at + 1);
 
       $.ajax({
-        url: Routes.users_path({filter: mention}),
+        url: Routes.users_path({filter: mention, following: 1}),
         dataType: 'json',
         success: function(data) {
           resp($.map(data, function(e) {

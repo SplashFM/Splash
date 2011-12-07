@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
   SUGGESTED_USERS_PER_PAGE = 3
 
+  scope :followed_by, lambda { |user|
+    joins(:followers).where(:relationships => {:follower_id => user.id})
+  }
   scope :ignore,  lambda { |users| where("id not in (?)", users) unless users.blank? }
   scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
 
