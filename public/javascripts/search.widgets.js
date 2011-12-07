@@ -52,6 +52,8 @@ $(function() {
 
       this.$('[data-widget = "load-more"]').hide();
 
+      this.toggleLoading();
+
       this.collection.
         fetch({data: {page: this.page, with_text: this.term()}}).
         done(this.renderLoadMoreResults);
