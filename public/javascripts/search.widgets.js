@@ -41,6 +41,10 @@ $(function() {
       return this.term().length > 0 && this.lastTerm !== this.term();
     },
 
+    toggleLoading: function() {
+      this.$(':text').toggleClass('loading');
+    },
+
     loadMoreResults: function(e) {
       e.preventDefault();
 
@@ -73,6 +77,8 @@ $(function() {
 
       if (this.open) this.open.call(this);
 
+      this.toggleLoading();
+
       this.container.show();
       Widgets.Scroll.init();
     },
@@ -92,6 +98,8 @@ $(function() {
     search: function() {
       if (this.isSearchable()) {
         this.lastTerm = this.term();
+
+        this.toggleLoading();
 
         this.collection.fetch({data: {with_text: this.term()}});
       }
