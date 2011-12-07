@@ -1,0 +1,20 @@
+.points-container
+  .ripples.left{:data => {:widget => 'ripples'}}
+    %span.label.avan-bold Ripples
+    %span.v-divider
+    %span.number.avan-bold
+      .outer
+        = user.ripple_count
+        .inner
+          = user.ripple_count
+  .splashes.left
+    %span.label.avan-bold Splashes
+    %span.v-divider
+    %span.number.avan-bold
+      .outer
+        = user.splash_count
+        .inner
+          = user.splash_count
+  / .influence top 5% influencer this week
+  / .last-seen last seen 8 min ago
+  .cl.border &nbsp;
