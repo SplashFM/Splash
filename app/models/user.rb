@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   end
 
   def self.filter(nickname)
-    nickname.present? ? where('nickname ilike ?', "#{nickname}%") : scoped
+    nickname.present? ? where('users.nickname ilike ?', "#{nickname}%") : scoped
   end
 
   def self.named(name_or_names)
