@@ -3,6 +3,6 @@
     = render :partial => "users/vcard", :locals => {:user => @user}
 
     .contact-sep-shadow
-    = render 'users/points_container', :user => @user
+    = render 'users/points_container', :user => @user, :border => true
     = render :partial => "follows", :locals => {:user => @user}
     = render "shared/footer"

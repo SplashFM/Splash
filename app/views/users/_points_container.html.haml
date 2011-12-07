@@ -15,6 +15,5 @@
         = user.splash_count
         .inner
           = user.splash_count
-  / .influence top 5% influencer this week
-  / .last-seen last seen 8 min ago
-  .cl.border &nbsp;
+
+  %div{:class => "cl #{defined?(border) && 'border'}"} &nbsp;
