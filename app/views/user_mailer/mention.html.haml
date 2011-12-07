@@ -1,7 +1,10 @@
 %p
   = link_to(@notification.notifier.name, |
             user_slug_url(@notification.notifier.slug))
-  mentioned you in a comment on
-  = link_to('Splash.FM', root_url) << ":"
+  splashed a song at you on Splash.FM:
+
+  "#{@notification.target.splash.track.title}"  by "#{@notification.target.splash.track.performers.join(', ')}"
 
 %blockquote= @notification.target.body.inspect
+
+= link_to('View Splash', root_url)

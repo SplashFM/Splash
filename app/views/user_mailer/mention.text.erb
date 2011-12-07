@@ -1,3 +1,5 @@
-<%= @notification.notifier.name %> mentioned you in a comment on Splash.FM:
+<%= @notification.notifier.name %> splashed a song at you on Splash.FM:
+
+"<%= @notification.target.splash.track.title %>" by "<%= @notification.target.splash.track.performers.join(', ') %>"
 
 "<%= @notification.target.body %>"
