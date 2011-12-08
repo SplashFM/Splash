@@ -35,3 +35,13 @@ u = User.find_by_email('user@mojotech.com')
     s.track_id = Track.find_by_title("Track #{i}").id
   }
 }
+
+t = Track.find_by_title('Track 1')
+31.upto(60) { |i|
+  u = User.find_by_name("Mojo User #{i}")
+
+  Splash.seed(:user_id, :track_id) { |s|
+    s.user_id  = u.id
+    s.track_id = t.id
+  }
+}
