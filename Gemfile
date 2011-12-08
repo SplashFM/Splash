@@ -89,6 +89,7 @@ group :test do
   gem "bricks", :require => 'bricks/adapters/active_record'
   gem "spork", "~> 0.9.0.rc"
   gem "rspec-instafail"
+  gem "timecop"
 end
 
 gem "itunes-search-api"
