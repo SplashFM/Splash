@@ -58,6 +58,7 @@ Bricks do
     email        { "user#{user_seq}@mojotech.com" }
     password     'testing'
     confirmed_at 1.day.ago
+    name         { "Mojo User #{user_seq}" }
 
     trait :with_required_info do
       name "Mojo User #{user_seq}"
