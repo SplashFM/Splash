@@ -139,7 +139,7 @@ en:
     cancel: Cancel Upload
     done: Check file metadata
     error: Upload failed
-    exists: Song exists. Splash instead?
+    exists: Upload complete
     metadata: Saving metadata...
     save: Save and Splash
     splash: Splash
