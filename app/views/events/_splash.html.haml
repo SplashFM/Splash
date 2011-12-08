@@ -11,8 +11,7 @@
         %a.avan-bold{:href => "${user.url}"} ${user.nickname}
         %span ${user.name}
       {{/if}}
-      %p.songname.avan-demi
-        %a{:href => "#", :data => {:widget => 'play'}} ${track.title}
+      %p.songname.avan-demi ${track.title}
       %p.songauthor ${track.performers}
       %ul.meta
         %li.download
