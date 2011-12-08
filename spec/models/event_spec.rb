@@ -35,6 +35,35 @@ describe Event do
     end
   end
 
+  describe "update counts" do
+    it "updates the counter on friend splash" do
+      create(Splash).user!(friend) and updates.should == 1
+    end
+
+    it "does not update the counter on unrelated splash" do
+      create!(Splash) and updates.should == 0
+    end
+
+    it "updates the counter with each update" do
+      create(Splash).user!(friend) and updates.should == 1
+      create(Splash).user!(friend) and updates.should == 2
+    end
+
+    it "returns updates only since last update" do
+      Timecop.freeze(2.hours.ago) { create(Splash).user! friend }
+
+      create(Splash).user!(friend) and updates.should == 1
+    end
+
+    def updates(last_update = 1.hour.ago)
+      Event.scope_by(:count          => 1,
+                     :follower       => user.id,
+                     :last_update_at => last_update.iso8601,
+                     :splashes       => 1,
+                     :user           => user.id)
+    end
+  end
+
   describe "mentions" do
     before do
       create(Splash).user(friend).mention!(user)
