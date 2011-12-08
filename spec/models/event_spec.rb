@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Event do
   let(:user)   { create!(User) }
-  let(:friend) { create!(User) }
+  let(:friend) { create(User).followers!([user]) }
 
   [
    ['comments', :other, Comment],
@@ -37,8 +37,6 @@ describe Event do
 
   describe "mentions" do
     before do
-      user.follow friend
-
       create(Splash).user(friend).mention!(user)
     end
 
