@@ -30,8 +30,12 @@ class Event < ActiveRecord::Base
     end
 
     if params[:count]
-      # BUG?: doesn't respect omit_* ?
-      splashes.count + relationships.count
+      count = 0
+
+      count += splashes.count      if include_splashes
+      count += relationships.count if include_other
+
+      count
     else
       q = ""
 
