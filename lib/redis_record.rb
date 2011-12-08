@@ -5,7 +5,7 @@ module RedisRecord
   end
 
   def self.reset_all
-    redis.keys('*').each { |k| redis.del(k) }
+    redis.keys(Rails.env + '/*').each { |k| redis.del(k) }
   end
 
   module ClassMethods
