@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
 
   validates :nickname, :presence => true, :uniqueness => true
   validates_format_of :nickname,
-                      :with => /^#{NICKNAME_REGEXP}$/,
+                      :with => /\A#{NICKNAME_REGEXP}\Z/,
                       :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
 
