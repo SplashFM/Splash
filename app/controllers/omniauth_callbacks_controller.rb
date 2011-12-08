@@ -2,19 +2,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_filter :require_user
 
   def facebook
-    if current_user
-      link_site('Facebook')
-    else
-      oauthorize("Facebook")
-    end
+    current_user ? link_site('Facebook') : oauthorize("Facebook")
   end
 
   def twitter
-    if current_user
-      link_site('Twitter')
-    else
-      oauthorize("Twitter")
-    end
+    current_user ? link_site('Twitter') : oauthorize("Twitter")
   end
 
   def passthru
