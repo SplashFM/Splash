@@ -228,6 +228,7 @@ $(function() {
         if (this.$('[data-widget = "more-info"]').length === 0) {
           this.model.fetch();
         } else {
+          $(this.el).toggleClass('expanded');
           this.$('[data-widget = "more-info"]').toggle();
         }
       }
