@@ -86,13 +86,14 @@ $(function() {
   SplashboardItem = Backbone.View.extend({
     tagName: "li",
     events: {
-      'click [data-widget = "play"]': 'play'
+      'click [data-widget = "play"]': 'play',
     },
 
     initialize: function(opts) {
       _.extend(this, opts);
 
-      //_.bindAll(this, 'scroll', 'renderItem', 'play');
+      _.bindAll(this, 'togglePlay');
+
       this.template = opts.template;
     },
 
@@ -117,6 +118,9 @@ $(function() {
         model: this.model,
         el: this.$('[data-widget = "full-splash-action"]').get(0),
       });
+
+      this.$('[data-widget = "play"]').hover(this.togglePlay, this.togglePlay);
+
       return this;
     },
 
@@ -127,6 +131,9 @@ $(function() {
                          {track: this.model.toJSON()});
     },
 
+    togglePlay: function() {
+      $(this.el).toggleClass('playable');
+    },
   });
 
   window.Splashboard.ViewMore = Backbone.View.extend({
