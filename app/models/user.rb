@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   extend TestableSearch
 
   MAX_SCORE       = 99
-  NICKNAME_REGEXP = '[A-Za-z\d_\-]+'
+  NICKNAME_REGEXP = '[A-Za-z\d_\-.]+'
 
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
   SUGGESTED_USERS_PER_PAGE = 3
