@@ -94,12 +94,14 @@ class User < ActiveRecord::Base
 
   validate :avatar_dimensions, :on => :update
   def avatar_dimensions
-    dimensions = Paperclip::Geometry.from_file(avatar.to_file(:original))
+    if avatar?
+      dimensions = Paperclip::Geometry.from_file(avatar.to_file(:original))
 
-    if dimensions.width < MINIMUM_AVATAR_WIDTH_ALLOWED &&
-         dimensions.height < MINIMUM_AVATAR_HEIGHT_ALLOWED
-      errors.add(:avatar, I18n.t('users.avatar.errors.dimension',
-                                 :dimension => "#{MINIMUM_AVATAR_WIDTH_ALLOWED}x#{MINIMUM_AVATAR_HEIGHT_ALLOWED}"))
+      if dimensions.width < MINIMUM_AVATAR_WIDTH_ALLOWED &&
+           dimensions.height < MINIMUM_AVATAR_HEIGHT_ALLOWED
+        errors.add(:avatar, I18n.t('users.avatar.errors.dimension',
+                                   :dimension => "#{MINIMUM_AVATAR_WIDTH_ALLOWED}x#{MINIMUM_AVATAR_HEIGHT_ALLOWED}"))
+      end
     end
   end
 
