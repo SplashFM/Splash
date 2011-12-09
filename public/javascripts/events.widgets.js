@@ -10,6 +10,7 @@ $(function() {
                       'renderEvent', 'renderUpdateCount');
 
       $('body').bind('splash:splash', this.onSplash)
+      $('body').bind('splash:resplash', this.onSplash)
       $('body').bind('upload:complete', this.onSplash)
 
       this.feed = new EventList;

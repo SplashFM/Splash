@@ -109,6 +109,14 @@ $(function() {
       this.toggle.bind('toggle:hide', this.triggerClose, this);
     },
 
+    broadcastSplash: function() {
+      if (this.options.parent) {
+        $(this.el).trigger('splash:resplash');
+      } else {
+        BaseApp.SplashAction.prototype.broadcastSplash.call(this);
+      }
+    },
+
     splash: function(e) {
       e.preventDefault();
 
