@@ -66,8 +66,8 @@ class User < ActiveRecord::Base
     :hash_secret => ":class/:attachment/:id",
     :styles => {
       :thumb => {:geometry => "125x185#", :processors => [:cropper]},
-      :large => {:geometry => "240x300>"},
-      :micro => {:geometry => "50x50#", :processors => [:cropper]}
+      :large => {:geometry => "240x319>"},
+      :micro => {:geometry => "41x61#", :processors => [:cropper]}
     },
     :default_url => DEFAULT_AVATAR_URL,
     :path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension"
