@@ -204,6 +204,19 @@ Widgets.AvatarUpload = {
               done:  function(e, data) {
                 $('#user-avatar').attr('src', data.result.avatar_thumb_url).fadeIn();
                 $.fancybox.close();
+              },
+              error: function(xhr, data) {
+                var l = $('<dl/>');
+
+                $.each($.parseJSON(xhr.responseText), function(k, v) {
+                  // @ToDo: I had to add '' because $('<dd/>').text(v) is
+                  //       returning empty string, jquery bug?
+                  l.append($('<dt/>').text(k))
+                   .append($('<dd/>').text(''+v));
+
+                });
+
+                $w("notification").html(l).show();
               }
     });
   }
