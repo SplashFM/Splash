@@ -8,7 +8,7 @@ describe Splash do
     Track.reset_splash_counts
     User.reset_splash_counts
     User.reset_ripple_counts
-    User.reset_influence_sorted
+    User.reset_sorted_influence
   end
 
   it "splashes a song that the user hasn't splashed yet" do

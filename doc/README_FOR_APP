@@ -25,3 +25,34 @@ $ ./EPFImporter.py --tableprefix itunes -D postgresql -d ec2-107-20-221-189.comp
 
 # Flat Import
 $ ./EPFImporter.py -f --tableprefix itunesflat -D postgresql -d ec2-107-20-221-189.compute-1.amazonaws.com -u deploy -p $DB_PASSWD -n splash /mnt/backups/itunes20110914
+
+
+Redis
+=====
+
+# Hash from track_id to splash counts for all splashed tracks
+# (comes with a sorted set of most splashed tracks)
+$ENV/track/splash_count
+$ENV/track/sorted_splash_count
+
+# Hash of user_id to ripple counts for all users
+# (comes with a sorted set of most rippled users)
+$ENV/user/ripple_count
+$ENV/user/sorted_ripple_count
+
+# Hash of user_id to splash counts for all users
+# (comes with a sorted set of top splashers)
+$ENV/user/splash_count
+$ENV/user/sorted_splash_count
+
+# A sorted set of influeces for all users
+$ENV/user/sorted_influence
+
+# A sorted set of all the track ids splashed by this user, for each user.
+# (this is kept as a sorted set in order to enable zunionstore operations,
+# the value of each member is 1.)
+$ENV/user/splashed_tracks/#{id}
+
+# A sorted set of the number of splashes for each track id splashed by users followed
+# by this user.
+$ENV/user/summed_splash_tracks/#{id}

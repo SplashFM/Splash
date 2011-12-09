@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   extend TestableSearch
 
   MAX_SCORE       = 99
-  NICKNAME_REGEXP = '[A-Za-z\d_\-]+'
+  NICKNAME_REGEXP = '[A-Za-z\d_\-.]+'
 
   DEFAULT_AVATAR_URL = '/images/dummy_user.png'
   MINIMUM_AVATAR_WIDTH_ALLOWED = 125
@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
 
   validates :nickname, :presence => true, :uniqueness => true
   validates_format_of :nickname,
-                      :with => /^#{NICKNAME_REGEXP}$/,
+                      :with => /\A#{NICKNAME_REGEXP}\Z/,
                       :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
 
@@ -125,22 +125,21 @@ class User < ActiveRecord::Base
   end
 
   def self.recompute_influence
-    reset_influence_sorted
+    reset_sorted_influence
 
-    update_influence(User.select(:id).map(&:id))
+    update_influences(User.select(:id).map(&:id))
   end
 
   def self.top_splashers(page, num_records)
     sorted_by_influence(page, num_records)
   end
 
-  def self.update_influence(ids)
+  def self.update_influences(ids)
     scs    = splash_counts(ids) || []
     rcs    = ripple_counts(ids) || []
-    scores = ids.zip(scs, rcs).map { |(id, s, r)|
-      [id, s.to_i + r.to_i] }
-
-    update_influence_scores scores
+    ids.zip(scs, rcs).each { |(id, s, r)|
+      update_sorted_influence(id, s.to_i + r.to_i)
+    }
   end
 
   def self.recompute_all_splashboards
