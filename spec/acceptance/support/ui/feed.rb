@@ -36,6 +36,10 @@ module UI
         find(w('comments-count')).click
       end
 
+      def fetch_feed_updates
+        page.execute_script "window.App.eventFeed.checkForUpdates();"
+      end
+
       def with_splash(index, &do_stuff)
         with_feed {
           i = case index
@@ -72,6 +76,11 @@ module UI
 
     module Matchers
       include Base::Helpers
+
+      def has_update_counter?(opts)
+        has_css?(w('update-count'), :visible => true) &&
+          has_content?(t('events.updates', opts))
+      end
 
       def has_loading_spinner?
         has_css?('#loading-spinner')

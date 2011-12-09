@@ -6,8 +6,15 @@ feature "Homepage", :js => true do
 
   describe "Feed" do
     include UI::Feed
-
     it_should_behave_like "feed"
+
+    scenario "See updates" do
+      create(Splash).user! create(User).followers!([user])
+
+      fetch_feed_updates
+
+      feed { should have_update_counter(:count => 1) }
+    end
 
     scenario "View only splashes on everyone feed" do
       friend = create!(User)

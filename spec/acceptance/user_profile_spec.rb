@@ -53,6 +53,14 @@ feature "User Profile", :js => true do
 
     it_should_behave_like "feed"
 
+    scenario "See updates" do
+      create(Splash).user! user
+
+      fetch_feed_updates
+
+      feed { should have_update_counter(:count => 1) }
+    end
+
     scenario "Show own social activity only" do
       friend         = create(User).with_required_info!
       friends_friend = create(User).with_required_info!
