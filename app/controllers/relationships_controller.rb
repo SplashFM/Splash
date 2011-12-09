@@ -18,13 +18,11 @@ class RelationshipsController < ApplicationController
   end
 
   def create
-    relationship = current_user.follow @user
-    respond_with relationship
+    respond_with current_user.follow(@user)
   end
 
   def destroy
-    relationship = current_user.unfollow @user
-    respond_with relationship
+    respond_with current_user.unfollow(@user)
   end
 
   private
