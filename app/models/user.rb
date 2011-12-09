@@ -458,6 +458,23 @@ class User < ActiveRecord::Base
     nickname
   end
 
+  def merge_account(user)
+    Notification.for(user).update_all :notified_id => self.id
+    Notification.from(user).update_all :notifier_id => self.id
+
+    Splash.for(user).update_all :user_id => self.id
+
+    user.comments.update_all :author_id => self.id
+
+    Relationship.with_followers(user).update_all :follower_id => self.id
+    Relationship.with_following(user).update_all :followed_id => self.id
+
+    user.social_connections.update_all :user_id => self.id
+    user.destroy
+
+    save
+  end
+
   def avatar_url(style=:thumb)
     if avatar.exists?
       avatar.url(style)

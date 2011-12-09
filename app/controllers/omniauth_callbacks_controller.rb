@@ -2,19 +2,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_filter :require_user
 
   def facebook
-    if current_user
-      link_site('Facebook')
-    else
-      oauthorize("Facebook")
-    end
+    current_user ? link_site('Facebook') : oauthorize("Facebook")
   end
 
   def twitter
-    if current_user
-      link_site('Twitter')
-    else
-      oauthorize("Twitter")
-    end
+    current_user ? link_site('Twitter') : oauthorize("Twitter")
   end
 
   def passthru
@@ -41,10 +33,15 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def link_site(site)
-    if current_user.build_social_network_link(env['omniauth.auth']).save
+    @site_connection = current_user.build_social_network_link(env['omniauth.auth'])
+
+    if @site_connection.save
       redirect_to root_path, :notice => I18n.t('devise.omniauth.site_link', :site => site)
     else
-      redirect_to root_path, :error => I18n.t('errors.messages.already_taken')
+      session["devise.provider"] = env["omniauth.auth"]["provider"]
+      session["devise.uid"] = env["omniauth.auth"]["uid"]
+
+      render :template => 'users/merge_accounts'
     end
   end
 end

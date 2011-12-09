@@ -14,6 +14,10 @@ class Notification < ActiveRecord::Base
     where(:notified_id => user)
   end
 
+  def self.from(user)
+    where(:notifier_id => user)
+  end
+
   def as_json(opts = {})
     {:title    => title,
      :type     => self.class.name.parameterize,

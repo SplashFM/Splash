@@ -1,0 +1,6 @@
+.connection-already-taken-msg
+  %h2
+    = I18n.t('errors.messages.site_already_taken', :site => @site_connection.provider)
+
+    = form_for current_user, :url => users_merge_path, :method => :put do |f|
+      = f.submit t('afirmative')
