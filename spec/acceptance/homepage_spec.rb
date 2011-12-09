@@ -80,7 +80,7 @@ feature "Homepage", :js => true do
       go_to 'home'
 
       with_feed {
-        enable :mentions
+        enable :mentions, user
 
         should have(1).splash
       }

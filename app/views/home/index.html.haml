@@ -35,7 +35,7 @@
               %li
                 %a{:href => "#everyone"}= t('events.filters.everyone')
               %li
-                %a{:href => "#mentions"}= t('events.filters.mentions')
+                %a{:href => "#mentions"}= '@' + current_user.nickname
               %li
                 %a{:href => "#social"}= t('events.filters.social')
           .line
