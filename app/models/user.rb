@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   MAX_SCORE       = 99
   NICKNAME_REGEXP = '[A-Za-z\d_\-.]+'
 
-  DEFAULT_AVATAR_URL = '/images/dummy_user.png'
+  DEFAULT_AVATAR_URL = '/images/dummy_user_:style.png'
   MINIMUM_AVATAR_WIDTH_ALLOWED = 125
   MINIMUM_AVATAR_HEIGHT_ALLOWED = 185
   SUGGESTED_USERS_PER_PAGE = 3
@@ -509,7 +509,7 @@ class User < ActiveRecord::Base
     elsif has_social_connections?
       provider_avatar_url
     else
-      DEFAULT_AVATAR_URL
+      avatar.url(style)
     end
   end
 
