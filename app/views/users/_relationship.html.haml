@@ -1,0 +1,10 @@
+%script#tmpl-profile-relationship{:type => 'text/x-jquery-tmpl'}
+  .inner
+    .left.following-button
+      %a{:class => 'buttonStyle2 following ${nextAction}'}
+        %span
+        ${I18n.t('users.show.' + nextAction)}
+    .left.following-text
+      ${I18n.t('users.show.' + nextAction + "_detail")}
+    .clear
+    .top_tip

@@ -16,6 +16,10 @@ $(function() {
     },
   }
 
+  window.Relationship = Backbone.Model.extend({
+    urlRoot: '/relationships',
+  });
+
   window.Track             = Backbone.Model.extend({
     flag: function(){
       $.ajax({

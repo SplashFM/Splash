@@ -12,9 +12,12 @@ class Relationship < ActiveRecord::Base
   scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
 
   def as_json(opts = {})
-    {:type     => 'relationship',
-     :follower => follower.as_json,
-     :followed => followed.as_json}
+    {:type        => 'relationship',
+     :id          => id,
+     :follower    => follower.as_json,
+     :follower_id => follower_id,
+     :followed    => followed.as_json,
+     :followed_id => followed_id}
   end
 
   scope :as_event, select("created_at, id target_id, 'Relationship' target_type")
