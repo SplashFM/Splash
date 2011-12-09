@@ -106,6 +106,7 @@ class User < ActiveRecord::Base
   end
 
   before_save :possibly_delete_avatar
+  after_create :fetch_avatar
 
   attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
