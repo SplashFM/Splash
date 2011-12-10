@@ -15,6 +15,23 @@
     });
   });
 
+- unless owner?
+  :javascript
+    $(function() {
+      $('.user-vcard > div').append(
+        new RelationshipView({
+          className: 'follow-container',
+          model:     new Relationship(#{
+                       {:follower_id => current_user.id,
+                        :followed_id => @user.id,
+                        :id          => current_user.followed(@user).try(:id)
+                       }.to_json
+                     }),
+          template:  $('#tmpl-profile-relationship').template(),
+        }).render().el
+      );
+    });
+
 .users-show
   = render "sidebar"
   #stream-wrap.right

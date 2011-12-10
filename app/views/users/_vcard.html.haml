@@ -20,4 +20,3 @@
                         :'data-widget' => "#{ 'editable' if tagline_editable?}"}
             = user.tagline
       .cl &nbsp;
-    = render :partial => '/users/follow_button', :locals => {:user => user} unless user == current_user

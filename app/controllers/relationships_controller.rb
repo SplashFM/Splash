@@ -1,6 +1,6 @@
 class RelationshipsController < ApplicationController
-  respond_to :js
-  before_filter :load_user
+  respond_to :json
+  before_filter :load_user, :only => [:following, :followers]
 
   def following
     @following = @user.following
@@ -18,11 +18,13 @@ class RelationshipsController < ApplicationController
   end
 
   def create
-    respond_with current_user.follow(@user)
+    attrs = params.slice(:follower_id, :followed_id)
+
+    respond_with current_user.relationships.create!(attrs)
   end
 
   def destroy
-    respond_with current_user.unfollow(@user)
+    respond_with current_user.relationships.find(params[:id]).destroy
   end
 
   private

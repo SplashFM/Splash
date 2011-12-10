@@ -1,4 +1,20 @@
-%li
+%li{:data => {:widget => 'suggested-splasher', :user_id => user.id}}
+  :javascript
+    $(function() {
+      $('[data-widget = "suggested-splasher"][data-user_id = "#{user.id}"] .wrap').
+        append(
+          new RelationshipView({
+            model:    new Relationship(#{
+                        {:follower_id => current_user.id,
+                         :followed_id => user.id,
+                        }.to_json
+                      }),
+            tagName:  'span',
+            template: $('#tmpl-suggested-relationship').template(),
+          }).render().el
+        );
+    });
+
   .wrap
     %a.avatar.left{:href => "#"}
       %img{:alt => "", :height => "45", :src => user.avatar.url, :width => "45"}/
@@ -9,5 +25,3 @@
       %p.scores.avan-bold= user.splash_score
 
     = ignore_user(user)
-
-    = follow_suggested_user(user)
