@@ -3,13 +3,7 @@ class RelationshipsController < ApplicationController
   before_filter :load_user, :only => [:following, :followers]
 
   def following
-    @following = @user.following
-
-    respond_to { |f|
-      f.html { render 'follow', :locals => {:users => @following} }
-      f.js   { render 'follow', :locals => {:users => @following} }
-      f.json { render :json => @following.to_json(:includes => [:id, :name]) }
-    }
+    render 'follow', :locals => {:users => @user.following}
   end
 
   def followers
