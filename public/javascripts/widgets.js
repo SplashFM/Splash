@@ -188,6 +188,22 @@ Widgets.Avatar = {
 
       return false;
     });
+  },
+
+  locate: function(width, height){
+    if(width <= Constants.AVATAR_WIDTH){
+      marginLeft = (Constants.AVATAR_WIDTH - width) / 2;
+    } else {
+      marginLeft = 0;
+    }
+
+    if(height <= Constants.AVATAR_HEIGHT){
+      marginTop  = (Constants.AVATAR_HEIGHT - height) / 2;
+    } else {
+      marginTop = 0;
+    }
+
+    $(".user-vcard .picture .style").attr('style', "margin-left:" + marginLeft + 'px; margin-top:' + marginTop + 'px;');
   }
 }
 
@@ -197,6 +213,8 @@ Widgets.AvatarUpload = {
               done:  function(e, data) {
                 $('#user-avatar').attr('src', data.result.avatar_thumb_url).fadeIn();
                 $.fancybox.close();
+
+                Widgets.Avatar.locate(data.result.avatar_geometry.width, data.result.avatar_geometry.height);
               },
               error: function(xhr, data) {
                 var l = $('<dl/>');
@@ -244,6 +262,8 @@ Widgets.AvatarCrop = {
       var d = new Date();
       $('#user-avatar').attr('src', user.avatar_thumb_url + d.getTime());
       $.fancybox.close();
+
+      Widgets.Avatar.locate(user.avatar_geometry.width, user.avatar_geometry.height);
     });
   }
 }
