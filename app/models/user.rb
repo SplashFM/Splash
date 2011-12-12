@@ -246,6 +246,9 @@ class User < ActiveRecord::Base
   end
 
   def as_json(opts = {})
+    method_names = Array.wrap(opts[:methods]).map { |n| n if respond_to?(n.to_s) }.compact
+    method_hash = method_names.map { |n| [n, send(n)] }
+
     {:id               => id,
      :name             => name,
      :nickname         => nickname,
@@ -255,7 +258,7 @@ class User < ActiveRecord::Base
      :ripple_count     => ripple_count,
      :splash_count     => splash_count,
      :slug             => slug,
-     :score            => splash_score}
+     :score            => splash_score}.merge(Hash[method_hash])
   end
 
   def cropping?
