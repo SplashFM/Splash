@@ -39,7 +39,7 @@ $(function() {
     },
 
     checkForUpdates: function() {
-      this.feed.updateCount(this.allFilters(), this.renderUpdateCount);
+      this.feed.updateCount(this.updateCounterFilters(), this.renderUpdateCount);
     },
 
     fetch: function(add) {
@@ -113,6 +113,10 @@ $(function() {
       } else {
         return false;
       }
+    },
+
+    updateCounterFilters: function() {
+      return this.options.updateFilters;
     },
   });
 

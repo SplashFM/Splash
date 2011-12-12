@@ -9,7 +9,11 @@ feature "Homepage", :js => true do
     it_should_behave_like "feed"
 
     scenario "See updates" do
-      create(Splash).user! create(User).followers!([user])
+      friend = create(User).followers!([user])
+
+      friend.follow create!(User)
+      create(Splash).user! friend
+      create(Splash).user! user
 
       fetch_feed_updates
 

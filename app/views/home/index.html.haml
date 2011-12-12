@@ -9,7 +9,11 @@
         user:     #{current_user.id},
         follower: #{current_user.id}
       },
-      $.deparam.querystring(qs))
+      $.deparam.querystring(qs)),
+      updateFilters: {
+        follower: #{current_user.id},
+        splashes: 1,
+      },
     });
     window.Scroll = new EndlessScroll({
       data: App.eventFeed,
