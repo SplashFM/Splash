@@ -274,9 +274,14 @@ class User < ActiveRecord::Base
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
 
-  def avatar_geometry(style = :original)
+  def avatar_geometry(style = :thumb)
     @geometry ||= {}
-    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.to_file(style)) unless avatar.path.blank?
+    begin
+      @geometry[style] ||= Paperclip::Geometry.from_file(avatar.to_file(style)) unless avatar.path.blank?
+    rescue Exception => e
+      notify_hoptoad(e)
+      return nil
+    end
   end
 
   def followed(followed)
