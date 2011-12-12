@@ -2,7 +2,7 @@
   %div{:class => controller_path}
     .container
       .picture.left
-        = image_tag user.avatar_url(:thumb), :size => '125x185', :id => "user-avatar"
+        = user_avatar(user)
         - if avatar_editable?
           .upload-avatar-link{:'data-widget' => 'edit-avatar-link'}
             = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
