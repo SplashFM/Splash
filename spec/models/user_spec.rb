@@ -119,4 +119,19 @@ describe User, :adapter => :postgresql do
 
     User.sorted_by_ripple_count(1, 5).should == [u3, u2, u1]
   end
+
+  describe "filtering" do
+    let(:homer) { create(User).name!('Homer Simpson') }
+    let(:bart)  { create(User).name('Bart Simpson').nickname!('bartman') }
+
+    before { homer and bart }
+
+    it "filters user by name" do
+      User.filter('H').should == [User.find_by_name('Homer Simpson')]
+    end
+
+    it "filters user by nickname" do
+      User.filter('bartm').should == [User.find_by_name('Bart Simpson')]
+    end
+  end
 end

@@ -118,8 +118,13 @@ class User < ActiveRecord::Base
     where(['name ilike ?', "#{name}%"])
   end
 
-  def self.filter(nickname)
-    nickname.present? ? where('users.nickname ilike ?', "#{nickname}%") : scoped
+  def self.filter(nick_or_name)
+    if nick_or_name.present?
+      where('users.nickname ilike :nn or
+             users.name ilike :nn', :nn => "#{nick_or_name}%")
+    else
+      scoped
+    end
   end
 
   def self.named(name_or_names)
