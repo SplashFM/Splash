@@ -54,6 +54,12 @@ feature "User Profile", :js => true do
     it_should_behave_like "feed"
 
     scenario "See updates" do
+      go_to current_page
+
+      friend = create(User).followers!([user])
+
+      friend.follow create!(User)
+      2.times { create(Splash).user! friend }
       create(Splash).user! user
 
       fetch_feed_updates

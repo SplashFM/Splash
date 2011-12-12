@@ -5,6 +5,7 @@
       app:           window.App,
       currentUserID: #{current_user.id},
       filters:       {user: #{@user.id}},
+      updateFilters: {user: #{@user.id}, splashes: 1},
     });
     window.Scroll = new EndlessScroll({
       data: App.eventFeed,
