@@ -60,4 +60,10 @@ describe UndiscoveredTrack, :adapter => :postgresql do
     t.performers.should == ["Aer"]
     t.artwork.should be_a_file
   end
+
+  it "handles files with no metadata" do
+    f = Rack::Test::UploadedFile.new(file("glad_you_came.mp3"), 'audio/mpeg')
+
+    create(UndiscoveredTrack).data!(f)
+  end
 end

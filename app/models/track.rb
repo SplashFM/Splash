@@ -32,6 +32,8 @@ class Track < ActiveRecord::Base
           value
         when String
           string_list_to_array(value)
+        when nil
+          []
         else
           raise "Don't know how to handle #{value.inspect}"
         end
