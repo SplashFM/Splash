@@ -313,6 +313,7 @@ class User < ActiveRecord::Base
   def unfollow(followed)
     followed(followed).try(:destroy)
     recompute_splashboard(:subtract, followed)
+    ignore_suggested(followed)
   end
 
   def recompute_splashboard(operation = nil, followed = nil)
