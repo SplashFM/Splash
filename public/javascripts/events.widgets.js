@@ -303,7 +303,7 @@ $(function() {
         this.loadThumbnails();
       }
 
-      //$(this.el).find(".expand").each(function(){$(this).TextAreaExpander(20)});
+      $(this.el).find(".expand").each(function(){$(this).TextAreaExpander(20)});
 
       return this;
     },
