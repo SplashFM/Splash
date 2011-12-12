@@ -3,7 +3,7 @@
     window.App.trackSearch = new TrackSearch({perPage: #{Track.default_per_page}})
     window.App.eventFeed = new Events({
       app:           window.App,
-      currentUserID: #{current_user.id},
+      currentUserID: #{@user.id},
       filters:       {user: #{@user.id}},
       updateFilters: {user: #{@user.id}, splashes: 1},
     });
