@@ -17,6 +17,7 @@ $(function() {
       this.menu      = this.$(this.menuContainer || this.container);
       this.template  = $(this.template).template();
       this.page      = 1;
+      this.searching = {readyState: 4};
 
       _.bindAll(this, 'hide', 'search', 'loadMoreResults',
                       'renderItem', 'renderLoadMoreResults');
@@ -29,6 +30,10 @@ $(function() {
       $(this.el).clickout(this.hide);
 
       $(this.el).bind('splash:splash', this.hide);
+    },
+
+    cancelPreviousSearch: function() {
+      if (this.searching.readyState < 4) this.searching.abort();
     },
 
     hide: function() {
@@ -98,11 +103,11 @@ $(function() {
 
     search: function() {
       if (this.isSearchable()) {
-        this.lastTerm = this.term();
-
+        this.cancelPreviousSearch();
         this.toggleLoading();
 
-        this.collection.fetch({data: {with_text: this.term()}});
+        this.lastTerm  = this.term();
+        this.searching = this.collection.fetch({data: {with_text: this.term()}});
       }
     },
 
