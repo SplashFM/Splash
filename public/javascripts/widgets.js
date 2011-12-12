@@ -161,13 +161,6 @@ Widgets.UserProfile = {
 
 Widgets.Avatar = {
   init: function(){
-    $("form.edit_user").bind('ajax:complete', function(evt, data, status, xhr){
-          user = $.parseJSON(data.responseText);
-          d = new Date();
-          $('#user-avatar').attr('src', user.avatar_thumb_url + d.getTime());
-          $.fancybox.close();
-      });
-
     $w("edit_avatar").click(function(){
       $.ajax({
         url: $(this).attr('data-action'),
@@ -245,6 +238,13 @@ Widgets.AvatarCrop = {
         $("#crop_w").val(Math.round(coords.w * ratio));
         $("#crop_h").val(Math.round(coords.h * ratio));
       }
+
+    $("form.edit_user").bind('ajax:complete', function(evt, data, status, xhr){
+      var user = $.parseJSON(data.responseText);
+      var d = new Date();
+      $('#user-avatar').attr('src', user.avatar_thumb_url + d.getTime());
+      $.fancybox.close();
+    });
   }
 }
 
