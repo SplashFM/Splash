@@ -1,8 +1,16 @@
 %script#tmpl-global-search-user{:type => 'text/x-jquery-tmpl'}
-  %li
+  %li.single_user_result
     %a.thumb.left{:href => "${path}"}
       %img{:alt => "", :height => "50", :src => "${avatar_micro_url}", :width => "50"}/
     .info.left
-      %a.avan-bold{:href => "${path}"} ${nickname}
-      %small ${name}
-      %span.avan-bold ${score}
+      .left
+        %a.avan-bold{:href => "${path}"} ${nickname}
+        %small ${name}
+      %span.number.avan-bold.right
+        .outer
+          ${score}
+          .inner
+            ${score}
+      %a.search-follow.follow.buttonStyle2
+        follow
+    .clear

@@ -431,24 +431,13 @@ textarea
     border-radius: 7px
     padding: 0 10px
   .col
-    width: 165px
+    width: 210px
     padding-top: 6px
   h4
-    font-size: 11px
-    color: #5092cc
-    font-style: italic
-    font-weight: normal
-    font-family: georgia
-    background: url(/css/images/head-search-titlebg.png) repeat-x 0 6px
-    height: 14px
-    margin-bottom: 6px
-    span
-      height: 14px
-      float: right
-      padding-left: 5px
-      background: #e4eff7
+    color: #FFF
+    height: 18px
   .scroll-area
-    width: 165px
+    width: 210px
     height: 185px
     position: relative
     overflow-x: hidden
@@ -456,7 +445,7 @@ textarea
   ul
     list-style: none outside none
   .splashers
-    li
+    list
       position: relative
       overflow: hidden
       padding-bottom: 17px
@@ -464,7 +453,7 @@ textarea
       width: 50px
       height: 50px
     .info
-      width: 90px
+      width: 133px
       padding: 0 0 0 7px
       a
         display: block
@@ -1019,6 +1008,10 @@ textarea
 .right .streamfeed-top
   border-radius: 0 7px 0 0
 
+.splashboards .main-search, .splashboards .main-panel
+  label
+    display: block
+
 .main-search, .main-panel
   padding: 5px 20px 0
   label
@@ -1030,6 +1023,7 @@ textarea
     margin-left: 5px
     margin-top: 10px
     margin-bottom: 10px
+    display: none
   .wrap
     width: 591px
     height: 50px
@@ -1038,12 +1032,12 @@ textarea
     padding: 2px
     border-radius: 7px
     z-index: 1
+    margin-top: 5px
   .field
     background: #e0e0e0
     border: 0
     display: block
     border-radius: 5px
-    font-size: 30px
     height: 38px
     padding: 6px 10px
     width: 571px
@@ -1051,6 +1045,7 @@ textarea
     z-index: 11
     position: relative
     &:focus, &.loading
+      font-size: 18px
       background: #fff
       color: #426c95
 
@@ -1778,7 +1773,6 @@ textarea
 
 .uploadForm
   @extend .dd
-
   input
     @extend .customInputStyle
     width: 360px
@@ -2561,6 +2555,9 @@ html body #main.sessions
       margin: 10px
       span
         display: none
+    padding-left: 10px
+    width: 100px
+    text-overflow: ellipsis
 
 a.suggested_follow_link
   color: #5092CC
@@ -2577,7 +2574,6 @@ html
     #fancybox-outer
       //overflow-y: hidden !important
       //overflow-x: hidden !important
-
 .connection-already-taken-msg
   background: white
   h2
@@ -2585,3 +2581,66 @@ html
     margin: 0.7em 0 0.2em 0
     font-size: 12px
     font-weight: bold
+.head-search
+  .container
+    width: 215px
+    border-radius: 0px
+    background-color: #FFF
+  .splashers 
+    .info
+      small
+        color: #a8a8a8
+      a
+        font-size: 11px
+  .dd
+    padding: 0px !important
+    width: 234px
+    .jspVerticalBar
+      width: 9px
+    .col.right
+      display: none
+    .col.left
+      h4
+        color: white
+        height: 16px
+        background-color: #516B8B
+        font-size: 10px
+        text-transform: uppercase
+        padding-top: 6px
+        margin-left: -10px
+        margin-top: -6px
+        margin-right: -15px
+        padding-left: 10px
+        letter-spacing: 1px
+        margin-bottom: 10px
+    .single_user_result
+      margin-bottom: 10px
+      .search-follow
+        margin-top: 31px
+        height: 9px
+        min-width: 40px
+        width: 70px
+        line-height: 9px
+        color: white
+        text-shadow: 0px 1px 0px black
+        span
+          margin-top: -3px
+      a.search-follow:hover
+        text-decoration: none
+      .number
+        color: #34c3f2
+        font-size: 24px
+        position: relative
+        top: -4px
+        display: inline-block
+        margin-top: 5px
+        .outer
+          color: #3883a8
+          position: relative
+        .inner
+          position: absolute
+          top: 0px
+          overflow: hidden
+          height: 15px
+          height: 19px
+          color: #34C3F2
