@@ -1,7 +1,7 @@
 %script#tmpl-event-splash-comment{:type => 'text/x-jquery-tmpl'}
   %li
     %a.avatar.left{:href => "${author.url}"}
-      %img{:alt => "", :height => "34", :src => "${author.avatar_micro_url}", :width => "34"}/
+      %img{:alt => "", :height => "34", :src => "${author.avatar_micro_url}", :width => "34", :title => "${author.nickname}"}/
     .entry.left
       %p
         %a.avan-demi{:href => "${author.url}"} ${author.nickname}
