@@ -410,7 +410,6 @@ textarea
     position: absolute
     top: 37px
     left: 0px
-    width: 356px
     height: 229px
     background: url(/css/images/head-search-dd.png) repeat-x 0 0
     border-radius: 0 6px 6px 6px
@@ -2590,8 +2589,6 @@ html
 .head-search
   .container
     width: 215px
-    border-radius: 0px
-    background-color: #FFF
   .splashers 
     .info
       small
@@ -2599,26 +2596,20 @@ html
       a
         font-size: 11px
   .dd
-    padding: 0px !important
-    width: 234px
     .jspVerticalBar
       width: 9px
     .col.right
       display: none
     .col.left
       h4
-        color: white
-        height: 16px
-        background-color: #516B8B
-        font-size: 10px
-        text-transform: uppercase
-        padding-top: 6px
-        margin-left: -10px
-        margin-top: -6px
-        margin-right: -15px
-        padding-left: 10px
-        letter-spacing: 1px
-        margin-bottom: 10px
+        font-size: 11px
+        color: #5092CC
+        font-style: italic
+        font-weight: normal
+        font-family: georgia
+        background: url(/css/images/head-search-titlebg.png?1320530523) repeat-x 0 6px
+        height: 14px
+        margin-bottom: 6px
     .single_user_result
       margin-bottom: 10px
       .search-follow
@@ -2696,3 +2687,10 @@ body
       overflow: hidden !important
     #fancybox-close
       display: none
+.single_user_result
+  .text_result
+    a,small
+      width: 99px
+      white-space: nowrap
+      text-overflow: ellipsis
+      overflow: hidden
