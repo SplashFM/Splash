@@ -8,7 +8,7 @@ class SongFile
 
   def_delegators :metadata, :title, :album, :artist, :artwork
 
-  attr_reader :path
+  attr_reader :path, :format
 
   def initialize(path)
     @format = extract_format(path) or
