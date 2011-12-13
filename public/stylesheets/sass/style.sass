@@ -2540,9 +2540,8 @@ html body #main.sessions
   width: 170px
   float: left
   .avatar
-    height: 50px
-    overflow: hidden
     float: left
+    padding-top: 4px
     img
       float: left
       width: 50px
@@ -2550,7 +2549,10 @@ html body #main.sessions
     float: left
     .link
       padding-left: 10px
-
+      overflow: hidden
+      text-overflow: ellipsis
+      width: 110px
+      height: 25px
     .following-button
       margin: 10px
       span
@@ -2644,3 +2646,49 @@ html
           height: 15px
           height: 19px
           color: #34C3F2
+.buttonStyle2
+  display: block
+  background: #bdbdbd
+  border-radius: 8px
+  border: solid 1px transparent
+  box-shadow: 0px 1px 1px #FFF
+  color: #8f969a
+  text-shadow: 0px 0px 0px transparent !important
+.buttonStyle2:hover
+  color: #000
+  background: #fdd602
+  background: -moz-linear-gradient(top,  #fdd602 0%, #fdd602 50%, #edb903 51%, #edb903 100%)
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdd602), color-stop(50%,#fdd602), color-stop(51%,#edb903), color-stop(100%,#edb903))
+  background: -webkit-linear-gradient(top,  #fdd602 0%,#fdd602 50%,#edb903 51%,#edb903 100%)
+  background: -o-linear-gradient(top,  #fdd602 0%,#fdd602 50%,#edb903 51%,#edb903 100%)
+  background: -ms-linear-gradient(top,  #fdd602 0%,#fdd602 50%,#edb903 51%,#edb903 100%)
+  background: linear-gradient(top,  #fdd602 0%,#fdd602 50%,#edb903 51%,#edb903 100%)
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdd602', endColorstr='#edb903',GradientType=0 )
+  text-shadow: 0px 0px 0px transparent !important
+.buttonStyle2
+  span
+    display: inline-block !important
+.following-container
+  .number
+    color: #34c3f2
+    font-size: 18px
+    position: relative
+    top: -4px
+    display: block
+    margin-left: 9px
+    margin-top: -5px
+    margin-bottom: -7px
+    .outer
+      color: #3883a8
+      position: relative
+    .inner
+      position: absolute
+      top: 0px
+      overflow: hidden
+      height: 13px
+body
+  .users
+    #fancybox-outer
+      overflow: hidden !important
+    #fancybox-close
+      display: none
