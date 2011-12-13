@@ -267,12 +267,9 @@ class User < ActiveRecord::Base
 
   def avatar_geometry(style = :thumb)
     @geometry ||= {}
-    begin
-      @geometry[style] ||= Paperclip::Geometry.from_file(avatar.to_file(style)) unless avatar.path.blank?
-    rescue Exception => e
-      notify_hoptoad(e)
-      return nil
-    end
+
+    @geometry[style] ||= Paperclip::Geometry.new(avatar.image_size(style).split('x').first,
+                                                  avatar.image_size(style).split('x').last)
   end
 
   def followed(followed)
