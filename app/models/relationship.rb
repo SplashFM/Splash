@@ -7,6 +7,7 @@ class Relationship < ActiveRecord::Base
   validates_uniqueness_of :follower_id, :scope => [:followed_id]
 
   scope :ignore, lambda { |users| where("followed_id not in (?)", users) }
+  scope :ignore_followers, lambda { |users| where("follower_id not in (?)", users) }
   scope :with_followers, lambda { |users| where(:follower_id => users) }
   scope :with_following, lambda { |users| where(:followed_id => users) }
   scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
