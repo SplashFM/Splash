@@ -495,13 +495,7 @@ class User < ActiveRecord::Base
   end
 
   def avatar_url(style=:thumb)
-    if avatar.exists?
-      avatar.url(style)
-    elsif has_social_connections?
-      provider_avatar_url
-    else
-      avatar.url(style)
-    end
+    avatar.url(style)
   end
 
   def fetch_avatar
