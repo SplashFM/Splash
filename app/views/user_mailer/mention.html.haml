@@ -6,3 +6,5 @@
   "#{@notification.target.splash.track.title}"  by "#{@notification.target.splash.track.performers.join(', ')}"
 
 %blockquote= @notification.target.body.inspect
+
+%p= link_to('View Splash', home_url(:mentions => 1))
