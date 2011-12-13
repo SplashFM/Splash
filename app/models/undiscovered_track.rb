@@ -1,4 +1,4 @@
-require 'paperclip_processors/metadata'
+require 'song_file'
 
 class UndiscoveredTrack < Track
   ALLOWED_ATTACHMENT_EXTS = %w(mp3 m4a)
@@ -7,10 +7,7 @@ class UndiscoveredTrack < Track
   INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
 
   ATTACHMENT_OPTS = {
-    :hash_secret => ":class/:attachment/:id",
-    # processors are only used when you have a style specification
-    :processors  => [:metadata],
-    :styles      => {:original => [:metadata]},
+    :hash_secret => ":class/:attachment/:id"
   }
 
   ARTWORK_OPTS = {
@@ -59,6 +56,8 @@ class UndiscoveredTrack < Track
   validate :validate_performer_presence, :if => :full_validation?
   validate :validate_track_uniqueness,   :if => :full_validation?
 
+  before_validation :extract_metadata, :on => :create, :if => :data?
+
   def artwork_url
     artwork.url
   end
@@ -83,11 +82,22 @@ class UndiscoveredTrack < Track
     data.file?
   end
 
+  def song_file
+    @song_file ||= SongFile.new(data.to_file.path)
+  end
+
   def replace_with_canonical
     destroy and return canonical_version
   end
 
   private
+
+  def extract_metadata
+    self.title      = song_file.title
+    self.albums     = song_file.album
+    self.performers = song_file.artist
+    self.artwork    = song_file.artwork
+  end
 
   def full_validation?
     ! new_record? || title.present? || performers.present?
