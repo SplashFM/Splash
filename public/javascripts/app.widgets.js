@@ -70,7 +70,6 @@ $(function() {
   window.BaseApp = Backbone.View.extend({
     initialize: function() {
       this.userSearch    = new BaseApp.UserSearch;
-      this.trackSearch   = new BaseApp.TrackSearch;
       this.quickSplash   = new BaseApp.QuickSplash;
       this.notifications = new BaseApp.Notifications({
         el: $('[data-widget = "notifications"]')
