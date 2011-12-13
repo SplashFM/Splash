@@ -16,6 +16,10 @@ class SongFile
     @path   = path
   end
 
+  def extension
+    format.to_s
+  end
+
   private
 
   def extract_format(path)
