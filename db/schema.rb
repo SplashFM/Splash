@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111202173052) do
+ActiveRecord::Schema.define(:version => 20111213203957) do
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(:version => 20111202173052) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "",     :null => false
+    t.string   "email",                                 :default => ""
     t.string   "encrypted_password",     :limit => 128, :default => "",     :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
@@ -194,8 +194,9 @@ ActiveRecord::Schema.define(:version => 20111202173052) do
     t.string   "tagline",                :limit => 60
     t.date     "birthday"
     t.text     "ignore_suggested_users"
-    t.string   "nickname"
     t.text     "suggested_users"
+    t.string   "nickname"
+    t.text     "avatar_meta"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
