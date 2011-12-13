@@ -84,7 +84,7 @@ en:
 
   notifications:
     following: "%{user} is following you"
-    mention: "%{user} has mentioned you"
+    mention: "%{user} splashed a song at you"
 
   searches:
     empty: No results found.
