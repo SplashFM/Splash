@@ -57,6 +57,7 @@ class UndiscoveredTrack < Track
   validate :validate_track_uniqueness,   :if => :full_validation?
 
   before_validation :extract_metadata, :on => :create, :if => :data?
+  before_create :set_data_content_disposition, :if => :file_name_from_metadata
 
   def artwork_url
     artwork.url
@@ -92,6 +93,10 @@ class UndiscoveredTrack < Track
 
   private
 
+  def data_content_disposition(filename)
+    {"Content-Disposition" => "attachment; filename=#{filename}"}
+  end
+
   def extract_metadata
     self.title      = song_file.title
     self.albums     = song_file.album
@@ -99,8 +104,22 @@ class UndiscoveredTrack < Track
     self.artwork    = song_file.artwork
   end
 
+  def display_file_name(title, ext)
+    title + '.' + ext
+  end
+
   def full_validation?
     ! new_record? || title.present? || performers.present?
+  end
+
+  def file_name_from_metadata
+    if song_file.title.present? && song_file.extension.present?
+      display_file_name(song_file.title, song_file.extension)
+    end
+  end
+
+  def set_data_content_disposition(filename = file_name_from_metadata)
+    data.instance_variable_set :@s3_headers, data_content_disposition(filename)
   end
 
   def validate_attachment_type
