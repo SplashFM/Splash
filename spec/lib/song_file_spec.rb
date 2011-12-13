@@ -33,23 +33,5 @@ describe SongFile do
       subject.artist.should == "Sky Sailing"
       subject.artwork.should be_nil
     end
-
-    it "transcodes to mp3" do
-      mp3 = subject.path(:mp3)
-
-      mp3.should =~ /sky_sailing_steady_as_she_goes.+\.mp3$/
-      File.exists?(mp3).should be_true
-    end
-
-    it "raises an error when the transcoding fails" do
-      stub(subject).`(anything) { # `
-        system("false")
-
-        "noes!"
-      }
-
-      lambda { subject.path(:mp3) }.
-        should raise_error(SongFile::TranscodeError, "noes!")
-    end
   end
 end
