@@ -4,5 +4,7 @@
 
     .contact-sep-shadow
     = render 'users/points_container', :user => @user, :border => true
-    = render :partial => "follows", :locals => {:user => @user}
+    = render "follows", :followers => @followers,
+                        :following => @following,
+                        :user      => @user
     = render "shared/footer"

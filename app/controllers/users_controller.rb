@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   TOP_SPLASHERS_PER_PAGE = 10
-  PER_SEARCH = 10
-  USER_TAB = 2
+  PER_SEARCH             = 10
+  USER_TAB               = 2
+  SIDEBAR_THUMB_COUNT    = 10
 
   inherit_resources
   respond_to :html, :json
@@ -41,6 +42,11 @@ class UsersController < ApplicationController
     else
       render :json => params.slice(:email), :status => 404
     end
+  end
+
+  def show
+    @following = @user.following.take(SIDEBAR_THUMB_COUNT)
+    @followers = @user.followers.take(SIDEBAR_THUMB_COUNT)
   end
 
   def update
