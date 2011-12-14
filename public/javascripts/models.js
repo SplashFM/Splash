@@ -66,17 +66,6 @@ $(function() {
     extend(Paginated).
     extend(HasMoreResults);
 
-  User.checkExistence = function(email, yesCallback, noCallback) {
-    $.ajax({
-      type: 'get',
-      dataType: 'json',
-      url: Routes.users_exists_path(),
-      data: {email: email},
-    }).
-      done(yesCallback).
-      fail(noCallback);
-  };
-
   window.Comment     = Backbone.Model.extend({
     url: "/comments"
   });

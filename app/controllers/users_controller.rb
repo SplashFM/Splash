@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   inherit_resources
   respond_to :html, :json
 
-  skip_before_filter :require_user, :only => 'exists'
   before_filter      :load_user, :only => [:show, :events, :event_updates]
 
   has_scope :with_text
@@ -32,14 +31,6 @@ class UsersController < ApplicationController
 
   def crop
     respond_with(current_user)
-  end
-
-  def exists
-    if User.exists?(params.slice(:email))
-      render :json => true
-    else
-      render :json => params.slice(:email), :status => 404
-    end
   end
 
   def show
