@@ -42,7 +42,9 @@ class User < ActiveRecord::Base
            :foreign_key => 'uploader_id'
 
   has_many :comments, :foreign_key => :author_id
-  has_many :social_connections, :dependent => :destroy
+  has_many :social_connections,
+           :after_add => :fetch_avatar,
+           :dependent => :destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -93,7 +95,6 @@ class User < ActiveRecord::Base
                                     :content_type => ['image/jpeg', 'image/png', 'image/gif']
 
   before_save :possibly_delete_avatar
-  after_create :fetch_avatar
 
   attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
@@ -492,7 +493,7 @@ class User < ActiveRecord::Base
   end
 
   def fetch_avatar_needed?
-    !self.avatar.exists? && !self.initial_provider.blank?
+    !avatar? && has_social_connections?
   end
 
   def update_with_password(attrs = {})
