@@ -21,9 +21,19 @@ module Paperclip
 
     def crop_command
       target = @attachment.instance
+
       if target.cropping?
-        ["-crop", "#{target.crop_w}x#{target.crop_h}+#{target.crop_x}+#{target.crop_y}"]
+        crop_x = target.crop_x
+        crop_y = target.crop_y
+        crop_w = target.crop_w
+        crop_h = square? ? target.crop_w : target.crop_h
+
+        ["-crop", "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"]
       end
+    end
+
+    def square?
+      @target_geometry.height.to_i == @target_geometry.width.to_i
     end
   end
 end
