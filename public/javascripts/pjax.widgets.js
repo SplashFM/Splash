@@ -11,6 +11,8 @@ Widgets.Pjax = {
     $("#header a" + skip + ", #main a[href]" + skip).
       pjax('[data-pjax-container]', {timeout: 2500});
 
+    $w('pjax').pjax("[data-pjax-container]", {timeout: 2500});
+
     $('body').bind('success.pjax', function() {
       Widgets.Upload.reload();
       Widgets.Editable.reload();

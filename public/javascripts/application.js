@@ -32,6 +32,9 @@ Scaphandrier.Fancybox = {
       'onComplete' : function() {
         Widgets.AvatarUpload.init();
         Widgets.Avatar.init();
+        $w('pjax').click(function() {
+          $.fancybox.close();
+        });
       }
     }
   },
