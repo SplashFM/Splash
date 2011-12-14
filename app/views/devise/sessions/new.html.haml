@@ -22,15 +22,24 @@
       = f.submit
 
   %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
-    = form_for(:user, |
-        :url    => session_path(:user), |
-        :remote => true, |
-        :html   => {:'data-type' => 'json', |
-                    :class       => 'sign-in'}) do |f|
-      = f.text_field :email, :class => 'input', :placeholder => t('login.sign_in.email'), :'data-widget' => 'user-email'
-      = f.password_field :password, :class => 'input', :placeholder => t('login.sign_in.password')
-      = link_to t("login.sign_in.forgot_password"), '#', :id => 'forgot_password'
-      = f.submit t('devise.buttons.login')
+    .signin
+      = form_for(:user, |
+          :url    => session_path(:user), |
+          :remote => true, |
+          :html   => {:'data-type' => 'json', |
+                      :class       => 'sign-in'}) do |f|
+        = f.text_field :email, :class => 'input', :placeholder => t('login.sign_in.email'), :'data-widget' => 'user-email'
+        = f.password_field :password, :class => 'input', :placeholder => t('login.sign_in.password')
+        = link_to t("login.sign_in.forgot_password"), '#', :id => 'forgot_password'
+        = f.submit t('devise.buttons.login')
+    .omniauth-links
+      %p.fb
+        = link_to t('login.sign_in.facebook'), user_omniauth_authorize_path(:facebook), :'data-skip-pjax' => 'true'
+      %p.tw
+        = link_to t('login.sign_in.twitter'), user_omniauth_authorize_path(:twitter), :'data-skip-pjax' => 'true'
+    .or
+      or
+    .cl
 
   %script#tmpl-choice{:type => 'text/x-jquery-tmpl'}
     .confirm-new
@@ -57,13 +66,10 @@
   .bottom
     .wrap
       .description
-        %p.title= t('login.title')
-        %p= t('login.blurb')
+        %p.title= "Splash.FM"
+
       .signup
-        %p.title= t('login.sign_up.title')
-        %p.text= t('login.sign_up.blurb')
-        .omniauth-links
-          %p.fb
-            = link_to t('login.sign_in.facebook'), user_omniauth_authorize_path(:facebook), :'data-skip-pjax' => 'true'
-          %p.tw
-            = link_to t('login.sign_in.twitter'), user_omniauth_authorize_path(:twitter), :'data-skip-pjax' => 'true'
+        %p.title= t('login.title')
+        %p.text
+          = t('login.sign_up.blurb')
+
