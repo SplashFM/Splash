@@ -17,8 +17,8 @@
 
   .wrap
     %a.avatar.left{:href => "#"}
-      %img{:alt => "", :height => "45", 
-                        :src => user.avatar.url,
+      %img{:alt => "", :height => "45",
+                        :src => user.avatar.url(:micro),
                         :width => "45",
                         :title => user.nickname}/
     .info.left
