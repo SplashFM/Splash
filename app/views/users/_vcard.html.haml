@@ -15,6 +15,12 @@
           .cl &nbsp;
           %span.badge
           %a.expand{:href => "#"}
+            %span.tip
+              %span.top
+              %span.contents
+                The Splash Score measures your influence in music. It's based on how often you splash, the users that follow you, and the number of times users ripple (or re-splash) your splashes. Check out the Top Splashers chart to see where you stand in the Crowd.
+        .score-text.avan-bold
+          splash score
         .blurb
           .tag-line.edit{:'data-action' => "#{user_path(current_user)}",
                         :'data-widget' => "#{ 'editable' if tagline_editable?}"}
