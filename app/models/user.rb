@@ -91,8 +91,7 @@ class User < ActiveRecord::Base
     has_attached_file :avatar, ATTACHMENT_OPTS
   end
 
-  validates_attachment_content_type :avatar,
-                                    :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  validates_attachment_content_type :avatar, :content_type => /image/
 
   before_save :possibly_delete_avatar
 
