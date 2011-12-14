@@ -159,6 +159,18 @@ SPLASH.Widgets.ScrollBubble = function(selector,_toScroll) {
     toScroll.scrollTop(toScroll.scrollTop()+toMove);
   });
 }
+
+SPLASH.Widgets.stepFontSize = function (selector,maxH) {
+  var cached          = $(selector);
+  if(cached.length) {
+    var currentFontSize = parseInt(cached.css('font-size'),10);
+    var nfs             = (currentFontSize-1) + "px";
+    cached.css({'font-size':nfs});
+    if(cached.height() > maxH) {
+      SPLASH.Widgets.stepFontSize(cached,maxH);
+    }
+  }
+}
 // onLoad
 jQuery(document).ready(function() {
   Scaphandrier.Fancybox.init();
@@ -171,4 +183,5 @@ jQuery(document).ready(function() {
   SPLASH.Widgets.SetDrops();
   SPLASH.Widgets.pulsars();
   SPLASH.Widgets.ScrollBubble('.followed-box','.following-container');
+  SPLASH.Widgets.stepFontSize('.actor_name',62);
 });
