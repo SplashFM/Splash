@@ -218,6 +218,8 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
+    paperclip-meta (0.2)
+      paperclip
     parallel (0.5.9)
     parallel_tests (0.6.7)
       parallel
@@ -386,6 +388,7 @@ DEPENDENCIES
   nokogiri
   omniauth (~> 0.3.0)
   paperclip
+  paperclip-meta
   parallel_tests
   pg
   rails (>= 3.0.1)

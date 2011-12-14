@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
   MAX_SCORE       = 99
   NICKNAME_REGEXP = '[A-Za-z\d_\-.]+'
 
-  DEFAULT_AVATAR_URL = '/images/dummy_user.png'
-  MINIMUM_AVATAR_WIDTH_ALLOWED = 125
-  MINIMUM_AVATAR_HEIGHT_ALLOWED = 185
+  DEFAULT_AVATAR_URL = '/images/dummy_user_:style.png'
+  AVATAR_WIDTH = 125
+  AVATAR_HEIGHT = 185
   SUGGESTED_USERS_PER_PAGE = 3
 
   scope :followed_by, lambda { |user|
@@ -66,8 +66,8 @@ class User < ActiveRecord::Base
     :hash_secret => ":class/:attachment/:id",
     :styles => {
       :thumb => {:geometry => "125x185#", :processors => [:cropper]},
-      :large => {:geometry => "240x300>"},
-      :micro => {:geometry => "50x50#", :processors => [:cropper]}
+      :large => {:geometry => "240x319>"},
+      :micro => {:geometry => "41x61#", :processors => [:cropper]}
     },
     :default_url => DEFAULT_AVATAR_URL,
     :path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension"
@@ -92,20 +92,8 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar,
                                     :content_type => ['image/jpeg', 'image/png', 'image/gif']
 
-  validate :avatar_dimensions, :on => :update
-  def avatar_dimensions
-    if avatar?
-      dimensions = Paperclip::Geometry.from_file(avatar.to_file(:original))
-
-      if dimensions.width < MINIMUM_AVATAR_WIDTH_ALLOWED &&
-           dimensions.height < MINIMUM_AVATAR_HEIGHT_ALLOWED
-        errors.add(:avatar, I18n.t('users.avatar.errors.dimension',
-                                   :dimension => "#{MINIMUM_AVATAR_WIDTH_ALLOWED}x#{MINIMUM_AVATAR_HEIGHT_ALLOWED}"))
-      end
-    end
-  end
-
   before_save :possibly_delete_avatar
+  after_create :fetch_avatar
 
   attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
@@ -258,6 +246,9 @@ class User < ActiveRecord::Base
   end
 
   def as_json(opts = {})
+    method_names = Array.wrap(opts[:methods]).map { |n| n if respond_to?(n.to_s) }.compact
+    method_hash = method_names.map { |n| [n, send(n)] }
+
     {:id               => id,
      :name             => name,
      :nickname         => nickname,
@@ -267,16 +258,18 @@ class User < ActiveRecord::Base
      :ripple_count     => ripple_count,
      :splash_count     => splash_count,
      :slug             => slug,
-     :score            => splash_score}
+     :score            => splash_score}.merge(Hash[method_hash])
   end
 
   def cropping?
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
 
-  def avatar_geometry(style = :original)
+  def avatar_geometry(style = :thumb)
     @geometry ||= {}
-    @geometry[style] ||= Paperclip::Geometry.from_file(avatar.to_file(style)) unless avatar.path.blank?
+
+    @geometry[style] ||= Paperclip::Geometry.new(avatar.image_size(style).split('x').first,
+                                                  avatar.image_size(style).split('x').last)
   end
 
   def followed(followed_id)
@@ -501,13 +494,7 @@ class User < ActiveRecord::Base
   end
 
   def avatar_url(style=:thumb)
-    if avatar.exists?
-      avatar.url(style)
-    elsif has_social_connections?
-      provider_avatar_url
-    else
-      DEFAULT_AVATAR_URL
-    end
+    avatar.url(style)
   end
 
   def fetch_avatar

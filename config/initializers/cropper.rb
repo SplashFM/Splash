@@ -1,8 +1,19 @@
 module Paperclip
   class Cropper < Thumbnail
     def transformation_command
-      if crop_command
-        crop_command + super.join(' ').sub(/ -crop \S+/, '').split(' ') # super returns an array like this: ["-resize", "100x", "-crop", "100x100+0+0", "+repage"]
+      crop_options = crop_command
+      current_geometry_small = @current_geometry.height < @target_geometry.height &&
+                                    @current_geometry.width < @target_geometry.width
+
+      if crop_options && current_geometry_small
+        crop_options
+
+      elsif crop_options && !current_geometry_small
+        crop_options + super.join(' ').sub(/ -crop \S+/, '').split(' ')
+
+      elsif !crop_options && current_geometry_small
+        ["-resize", "#{@current_geometry.width}x"]
+
       else
         super
       end

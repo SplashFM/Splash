@@ -39,6 +39,8 @@
         Constants.NICKNAME_REGEXP =
           new RegExp("@(" + #{User::NICKNAME_REGEXP.inspect} + ")", "g");
         Constants.SPLASHBOARD_ITEMS_PER_PAGE = 10; // TODO: Get from server
+        Constants.AVATAR_WIDTH = #{User::AVATAR_WIDTH};
+        Constants.AVATAR_HEIGHT = #{User::AVATAR_HEIGHT};
       });
   %body{ :class => controller.controller_name }
     = render "shared/ie6_banner"

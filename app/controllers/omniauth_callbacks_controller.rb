@@ -18,7 +18,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.find_for_oauth(env['omniauth.auth'])
 
     if @user.persisted?
-      @user.fetch_avatar
       @user.update_social_network_link env['omniauth.auth']
 
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => kind
