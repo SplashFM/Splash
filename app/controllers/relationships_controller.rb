@@ -7,8 +7,7 @@ class RelationshipsController < ApplicationController
   end
 
   def followers
-    @followers = @user.followers
-    render 'follow', :locals => {:users => @followers}
+    render 'follow', :locals => {:users => @user.followers}
   end
 
   def create
