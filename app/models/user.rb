@@ -279,8 +279,8 @@ class User < ActiveRecord::Base
     @geometry[style] ||= Paperclip::Geometry.from_file(avatar.to_file(style)) unless avatar.path.blank?
   end
 
-  def followed(followed)
-    relationships.find_by_followed_id(followed)
+  def followed(followed_id)
+    relationships.find_by_followed_id(followed_id)
   end
 
   def following?(followed)
@@ -296,11 +296,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def follow(followed)
-    suggested_users.delete(followed.id)
+  def follow(followed_id)
+    suggested_users.delete(followed_id)
     write_attribute(:suggested_users, suggested_users)
-    relationships.create(:followed => followed)
-    recompute_splashboard(:add, followed)
+    relationships.create(:followed_id => followed_id)
+    recompute_splashboard(:add, followed_id)
     self.delay.update_suggestions
     save
   end
@@ -310,10 +310,10 @@ class User < ActiveRecord::Base
     followers.each &:suggest_users
   end
 
-  def unfollow(followed)
-    followed(followed).try(:destroy)
-    recompute_splashboard(:subtract, followed)
-    ignore_suggested(followed)
+  def unfollow(followed_id)
+    followed(followed_id).try(:destroy)
+    recompute_splashboard(:subtract, followed_id)
+    ignore_suggested(followed_id)
   end
 
   def recompute_splashboard(operation = nil, followed = nil)
@@ -336,9 +336,9 @@ class User < ActiveRecord::Base
                   :limit => count
   end
 
-  def ignore_suggested(user)
-    write_attribute(:ignore_suggested_users, ignore_suggested_users << user.id)
-    suggested_users.delete(user.id)
+  def ignore_suggested(user_id)
+    write_attribute(:ignore_suggested_users, ignore_suggested_users << user_id)
+    suggested_users.delete(user_id)
     write_attribute(:suggested_users, suggested_users)
     save
   end

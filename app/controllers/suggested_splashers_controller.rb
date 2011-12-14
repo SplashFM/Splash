@@ -6,7 +6,7 @@ class SuggestedSplashersController < ApplicationController
   end
 
  def destroy
-    current_user.ignore_suggested(@user)
+    current_user.ignore_suggested(@user.id)
 
     render :partial => "users/suggested_splasher", :collection => current_user.recommended_users, :as => :user
   end
