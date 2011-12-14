@@ -317,20 +317,6 @@ class User < ActiveRecord::Base
     reset_top_tracks!
   end
 
-  def following_sample(count=0)
-    max_offset = [0, following.count - count+1].max
-    following.find :all,
-                  :offset => max_offset,
-                  :limit => count
-  end
-
-  def followers_sample(count=0)
-    max_offset = [0, followers.count - count+1].max
-    followers.find :all,
-                  :offset => max_offset,
-                  :limit => count
-  end
-
   def ignore_suggested(user_id)
     write_attribute(:ignore_suggested_users, ignore_suggested_users << user_id)
     suggested_users.delete(user_id)
