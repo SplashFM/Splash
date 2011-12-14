@@ -233,7 +233,7 @@ class User < ActiveRecord::Base
 
     facebook_suggestions(ignore)
     splash_suggestions(ignore)
-    save
+    save!
   end
 
   def facebook_suggestions(ignore=[])
@@ -302,7 +302,7 @@ class User < ActiveRecord::Base
     relationships.create(:followed_id => followed_id)
     recompute_splashboard(:add, followed_id)
     self.delay.update_suggestions
-    save
+    save!
   end
 
   def update_suggestions
@@ -340,7 +340,7 @@ class User < ActiveRecord::Base
     write_attribute(:ignore_suggested_users, ignore_suggested_users << user_id)
     suggested_users.delete(user_id)
     write_attribute(:suggested_users, suggested_users)
-    save
+    save!
   end
 
   def influence_score
@@ -495,7 +495,7 @@ class User < ActiveRecord::Base
     user.social_connections.update_all :user_id => self.id
     user.destroy
 
-    save
+    save!
   end
 
   def avatar_url(style=:thumb)
