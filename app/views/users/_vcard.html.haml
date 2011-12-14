@@ -7,7 +7,7 @@
           .upload-avatar-link{:'data-widget' => 'edit-avatar-link'}
             = link_to t('.edit_avatar'), user_avatar_path(current_user), :class => 'fancybox'
       .info.left
-        %h2.avan-bold= user.try(:name)
+        %h2.avan-bold.actor_name= user.try(:name)
         .score
           .score-digits
             .waterNumHolder
