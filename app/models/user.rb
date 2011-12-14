@@ -484,7 +484,15 @@ class User < ActiveRecord::Base
     avatar.url(style)
   end
 
-  def fetch_avatar
+  def default_social_connection
+    if initial_provider
+      social_connection(initial_provider)
+    else
+      social_connections.first
+    end
+  end
+
+  def fetch_avatar(social_connection = nil)
     begin
       self.update_attribute(:avatar, open(URI.encode(provider_avatar_url))) if fetch_avatar_needed?
     rescue OpenURI::HTTPError => e
@@ -511,10 +519,13 @@ class User < ActiveRecord::Base
   end
 
   def provider_avatar_url
-    if initial_provider == 'facebook' || (has_social_connection?('facebook') && initial_provider.blank?)
-      "http://graph.facebook.com/#{social_connection('facebook').uid}/picture?type=large"
-    elsif initial_provider == 'twitter' || has_social_connection?('twitter')
-      "http://api.twitter.com/1/users/profile_image/#{social_connection('twitter').uid}.json?size=bigger"
+    sc = default_social_connection
+
+    case sc.try(:provider)
+    when 'facebook'
+      "http://graph.facebook.com/#{sc.uid}/picture?type=large"
+    when 'twitter'
+      "http://api.twitter.com/1/users/profile_image/#{sc.uid}.json?size=bigger"
     else
       nil
     end
