@@ -11,13 +11,11 @@ class RelationshipsController < ApplicationController
   end
 
   def create
-    attrs = params.slice(:follower_id, :followed_id)
-
-    respond_with current_user.relationships.create!(attrs)
+    respond_with current_user.follow(params[:followed_id])
   end
 
   def destroy
-    respond_with current_user.relationships.find(params[:id]).destroy
+    respond_with current_user.unfollow(params[:id])
   end
 
   private

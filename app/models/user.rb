@@ -299,10 +299,11 @@ class User < ActiveRecord::Base
   def follow(followed_id)
     suggested_users.delete(followed_id)
     write_attribute(:suggested_users, suggested_users)
-    relationships.create(:followed_id => followed_id)
+    r = relationships.create(:followed_id => followed_id)
     recompute_splashboard(:add, followed_id)
     self.delay.update_suggestions
     save!
+    r
   end
 
   def update_suggestions
@@ -311,9 +312,10 @@ class User < ActiveRecord::Base
   end
 
   def unfollow(followed_id)
-    followed(followed_id).try(:destroy)
+    r = followed(followed_id).try(:destroy)
     recompute_splashboard(:subtract, followed_id)
     ignore_suggested(followed_id)
+    r
   end
 
   def recompute_splashboard(operation = nil, followed = nil)
