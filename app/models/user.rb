@@ -573,7 +573,7 @@ class User < ActiveRecord::Base
 
   def to_slug(string)
     if !string.blank?
-      string.strip.gsub(/@/, "_at_").gsub(/\W+/, '_').downcase
+      string.strip.gsub(/@.*/, "").gsub(/\W+/, '_').downcase
     end
   end
 
