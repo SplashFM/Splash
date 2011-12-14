@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   has_many :comments, :foreign_key => :author_id
   has_many :social_connections,
-           :after_add => :fetch_avatar,
+           :after_add => :maybe_fetch_avatar,
            :dependent => :destroy
 
   # Include default devise modules. Others available are:
@@ -493,7 +493,7 @@ class User < ActiveRecord::Base
 
   def fetch_avatar(social_connection = nil)
     begin
-      self.update_attribute(:avatar, open(URI.encode(provider_avatar_url))) if fetch_avatar_needed?
+      self.update_attribute(:avatar, open(URI.encode(provider_avatar_url)))
     rescue OpenURI::HTTPError => e
       notify_hoptoad(e)
     end
@@ -501,6 +501,10 @@ class User < ActiveRecord::Base
 
   def fetch_avatar_needed?
     !avatar? && has_social_connections?
+  end
+
+  def maybe_fetch_avatar
+    fetch_avatar if fetch_avatar_needed?
   end
 
   def update_with_password(attrs = {})

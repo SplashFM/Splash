@@ -31,8 +31,6 @@ class UsersController < ApplicationController
   end
 
   def crop
-    current_user.fetch_avatar
-
     respond_with(current_user)
   end
 
