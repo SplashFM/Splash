@@ -39,15 +39,9 @@ module UsersHelper
   end
 
   def user_avatar(user)
-    avatar_width  = user.avatar_geometry(:thumb).width
-    avatar_height = user.avatar_geometry(:thumb).height
-
-    margin_left = ((User::AVATAR_WIDTH - avatar_width).modulo User::AVATAR_WIDTH) / 2
-    margin_top = ((User::AVATAR_HEIGHT - avatar_height).modulo User::AVATAR_HEIGHT) / 2
-
     image = image_tag user.avatar_url(:thumb), :id => "user-avatar"
-    content_tag(:div, image, :class => 'style',
-        :style => "margin-left: #{margin_left}px; margin-top: #{margin_top}px;")
+
+    content_tag(:div, image, :class => 'style')
   end
 
 private
