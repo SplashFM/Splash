@@ -3,8 +3,8 @@ SPLASH.Widgets = SPLASH.Widgets || {};
 
 SPLASH.Widgets.pulsars = function(selector) {
   var selectors = 4;
-  var rate      = 2500;
-  var opacV     = 0.4;
+  var rate      = 2000;
+  var opacV     = 0.6;
   (function init() {
     jQuery.fx.interval = 100;
     if($('.sessions')) {
