@@ -493,7 +493,12 @@ class User < ActiveRecord::Base
 
   def fetch_avatar(social_connection = nil)
     begin
-      self.update_attribute(:avatar, open(URI.encode(provider_avatar_url)))
+      Tempfile.open('avatar') { |f|
+        f.binmode
+        f.write open(URI.encode(provider_avatar_url)).read
+
+        self.update_attribute(:avatar, f)
+      }
     rescue OpenURI::HTTPError => e
       notify_hoptoad(e)
     end
