@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       if params[:following].present?
         render :json => results.followed_by(current_user)
       else
-        render :json => results
+        render :json => inline_relationships(results, current_user)
       end
     end
   end
@@ -82,6 +82,21 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def inline_relationships(results, current_user)
+    relationships = current_user.relationships.with_following(results)
+    rh            =
+      Hash[*relationships.map { |r| [r.followed_id, r] }.flatten]
+
+    results.map { |u|
+      r  = rh[u.id] || current_user.relationships.build(:followed_id => u.id)
+      rj = {:id          => r.id,
+           :follower_id => r.follower_id,
+           :followed_id => r.followed_id}
+
+      u.as_json.merge!(:relationship => rj)
+    }
+  end
 
   def load_user
     @user = params[:id].blank? ? current_user : User.find_by_slug(params[:id])
