@@ -107,7 +107,6 @@ $(function() {
 
   window.SignIn = Backbone.View.extend({
     events: {
-      'ajax:before': 'onSubmit',
       'ajax:success': 'onLogin',
       'ajax:error': 'onLoginFailed',
       'click #forgot_password': 'resetPassword',
@@ -115,7 +114,7 @@ $(function() {
     template: $('#tmpl-sign-in').template(),
 
     initialize: function() {
-      _.bindAll(this, 'onNewUser', 'onRegisteredUser', 'verifyUser');
+      _.bindAll(this, 'onNewUser', 'onRegisteredUser');
     },
 
     email: function(val) {
@@ -130,14 +129,6 @@ $(function() {
       this.wrapper.animate({paddingTop: 90 - 53});
       this.pwdField.show();
       this.pwdField.focus();
-    },
-
-    onSubmit: function(e) {
-      if (! this.pwdField.is(':visible')) {
-        this.verifyUser();
-
-        return false;
-      }
     },
 
     render: function() {
@@ -158,14 +149,6 @@ $(function() {
         url: Routes.user_password_path(),
         data: {'user[email]': this.emailField.val()},
       });
-    },
-
-    verifyUser: function() {
-      this._email = this.emailField.val();
-
-      User.checkExistence(this.emailField.val(),
-                          this.onRegisteredUser,
-                          this.onNewUser);
     },
 
     onLogin: function() {

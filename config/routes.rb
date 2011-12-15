@@ -62,7 +62,6 @@ Scaphandrier::Application.routes.draw do
     :registrations      => "registrations"
   } do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
-    get '/users/exists' => 'users#exists'
     put '/users/merge' => 'users#merge'
   end
 
