@@ -16,7 +16,9 @@ $(function() {
       return this;
     },
 
-    toggle: function() {
+    toggle: function(e) {
+      e.preventDefault();
+
       if (this.model.isNew()) {
         this.model.save();
 
