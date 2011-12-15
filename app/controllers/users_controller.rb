@@ -18,9 +18,7 @@ class UsersController < ApplicationController
     else
       results = apply_scopes(User)
       results = results.followed_by(current_user) if params[:following].present?
-      results.
-        page(current_page).per(PER_SEARCH).
-        map { |u| u.as_json.merge!(:path => user_slug_path(u)) }
+      results = results.page(current_page).per(PER_SEARCH)
     end
     render :json => results
   end
