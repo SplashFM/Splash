@@ -294,6 +294,20 @@ $(function() {
     el: '[data-widget = "global-search"]',
     menuContainer: '[data-widget = "users"] ul',
     template: '#tmpl-global-search-user',
+    templateRelationship: $('#tmpl-relationship-list').template(),
+
+    renderItem: function(i) {
+      var $i = Search.prototype.renderItem.call(this, i);
+      var rv = new RelationshipView({
+        el:       $i.find('[data-widget = "follow"]'),
+        model:    new Relationship(i.get('relationship')),
+        template: this.templateRelationship,
+      });
+
+      rv.render()
+
+      return $i;
+    },
   });
 
   window.BaseApp.TrackSearch = Search.extend({
