@@ -16,9 +16,8 @@ class UsersController < ApplicationController
     if params[:top] == 'true'
       results = User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
     else
-      results = apply_scopes(User)
+      results = apply_scopes(User).page(current_page).per(PER_SEARCH)
       results = results.followed_by(current_user) if params[:following].present?
-      results = results.page(current_page).per(PER_SEARCH)
     end
     render :json => results
   end
