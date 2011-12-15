@@ -2400,12 +2400,15 @@ html body #main.sessions
 
       &.placeholder
         background-position: 0
-        color: transparentize(#12b2e6, 1 - 0.25)
+        color: transparentize(#d2d2d2, 0.5)
+        text-shadow: 0px 1px 0px #000
       &::-webkit-input-placeholder
         background-position: 0
-        color: transparentize(#12b2e6, 1 - 0.25)
+        color: transparentize(#d2d2d2, 0.5)
+        text-shadow: 0px 1px 0px #000
       &:-moz-placeholder
-        color: transparentize(#12b2e6, 1 - 0.25)
+        color: transparentize(#d2d2d2, 0.5)
+        text-shadow: 0px 1px 0px #000
       &.hover, &:hover
         background-position: 0 -1*53px
         color: #12b2e6
@@ -2466,12 +2469,20 @@ html body #main.sessions
     width: 280px
   .or
     float: right
-    width: 20px
-    margin: -40px 50px
+    width: 24px
+    margin: -46px 50px
+    font-family: georgia
+    color: #C3C9CC
+    font-size: 21px
+    font-style: italic
+    text-shadow: rgba(9, 20, 33, 0.75) 0 2px 1px, rgba(160, 182, 205, 0.5) 0 0 15px
   .omniauth-links
     float: left
     width: 280px
-    margin: 20px 0 0 0
+    margin: 12px 0 0 0
+    .tw
+      display: block
+      margin-top: 12px
     p
       a
         display: block
