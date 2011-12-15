@@ -14,12 +14,16 @@ class UsersController < ApplicationController
 
   def index
     if params[:top] == 'true'
-      results = User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
+      render :json => User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
     else
       results = apply_scopes(User).page(current_page).per(PER_SEARCH)
-      results = results.followed_by(current_user) if params[:following].present?
+
+      if params[:following].present?
+        render :json => results.followed_by(current_user)
+      else
+        render :json => results
+      end
     end
-    render :json => results
   end
 
   def avatar
