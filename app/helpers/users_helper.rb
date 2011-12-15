@@ -2,6 +2,7 @@ module UsersHelper
   def avatar(user, opts = {})
     img_opts = {:title => user.nickname}
     img_opts.merge!(:width => 45, :height => 45) if opts.delete(:size) == :nano
+    img_opts.merge!(:'data-widget' => 'tip') if opts.delete(:'data-widget')
 
     link_to(image_tag(user.avatar(:micro), img_opts),
             user_slug_path(user.slug),
@@ -12,6 +13,7 @@ module UsersHelper
     opts     = args.extract_options!
     prefix   = args.first and prefix << '.'
     img_opts = opts.delete(:size) == :pico ? {:width => 34, :height => 34} : {}
+    img_opts.merge!(:'data-widget' => 'tip') if opts.delete(:'data-widget')
 
     capture_haml {
       haml_tag(:a, {:href => "${#{prefix}url}"}.merge(opts)) {
