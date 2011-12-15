@@ -1,4 +1,13 @@
 module UsersHelper
+  def avatar(user, opts = {})
+    img_opts = {:title => user.nickname}
+    img_opts.merge!(:width => 45, :height => 45) if opts.delete(:size) == :nano
+
+    link_to(image_tag(user.avatar(:micro), img_opts),
+            user_slug_path(user.slug),
+            opts)
+  end
+
   def owner?
     @user == current_user
   end

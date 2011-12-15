@@ -16,11 +16,7 @@
     });
 
   .wrap
-    %a.avatar.left{:href => "#"}
-      %img{:alt => "", :height => "45",
-                        :src => user.avatar.url(:micro),
-                        :width => "45",
-                        :title => user.nickname}/
+    = avatar(user, :class => 'avatar left', :size => :nano)
     .info.left
       %p.names
         = link_to user.name, user_slug_path(user), :class => 'avan-bold'

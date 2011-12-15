@@ -1,3 +1,3 @@
 .avatars
   - collection.each do |user|
-    = link_to (image_tag user.avatar(:micro), :title => user.nickname), user_slug_path(user)
+    = avatar(user)
