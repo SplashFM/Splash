@@ -1,7 +1,6 @@
 %script#tmpl-global-search-user{:type => 'text/x-jquery-tmpl'}
   %li.single_user_result
-    %a.thumb.left{:href => "${path}"}
-      %img{:alt => "", :height => "50", :src => "${avatar_micro_url}", :width => "50", :title => "${nickname}"}/
+    = avatar_js(:class => 'thumb left')
     .info.left
       .left.text_result
         %a.avan-bold{:href => "${url}"} ${nickname}

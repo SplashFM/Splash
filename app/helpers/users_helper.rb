@@ -8,6 +8,19 @@ module UsersHelper
             opts)
   end
 
+  def avatar_js(*args)
+    opts     = args.extract_options!
+    prefix   = args.first and prefix << '.'
+    img_opts = opts.delete(:size) == :pico ? {:width => 34, :height => 34} : {}
+
+    capture_haml {
+      haml_tag(:a, {:href => "${#{prefix}url}"}.merge(opts)) {
+        haml_tag(:img, :/, {:src   => "${#{prefix}avatar_micro_url}",
+                            :title => "${#{prefix}nickname}"}.merge(img_opts))
+      }
+    }
+  end
+
   def owner?
     @user == current_user
   end

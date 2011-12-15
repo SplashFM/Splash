@@ -5,8 +5,7 @@
       .left
         .splash-score.left ${score}
         .user_wrap.left
-          .avatar.left
-            %img{:alt => "", :height => "42", :src => "${avatar_micro_url}", :width => "42", :title => "{nickname}"}/
+          = avatar_js(:class => 'avatar left')
           .left
             .names
               %a.avan-demi.user-name.left{:href => "${url}"} ${name}
