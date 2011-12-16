@@ -20,8 +20,7 @@ $(function() {
 
       $(this.el).css({paddingTop: '45px'});
 
-      $(this.el).html(
-        this.choice.render().email(this.signIn.email()).el);
+      $(this.el).html(this.choice.render().el);
     },
 
     render: function() {
@@ -51,8 +50,8 @@ $(function() {
     className: 'wrap',
     template: $('#tmpl-choice').template(),
 
-    email: function(val) {
-      this.$('.email').text(val);
+    render: function() {
+      $(this.el).html($.tmpl(this.template));
 
       return this;
     },
