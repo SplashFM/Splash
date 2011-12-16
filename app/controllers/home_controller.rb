@@ -4,10 +4,8 @@ class HomeController < ApplicationController
   def index
     if logged_in?
       render
-    elsif Rails.env.development?
-      redirect_to new_user_session_path
     else
-      redirect_to 'http://signup.splash.fm'
+      redirect_to new_user_session_path
     end
   end
 
