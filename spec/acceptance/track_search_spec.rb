@@ -23,17 +23,6 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     end
   end
 
-  scenario "Does not return results for users" do
-    pending
-
-    user = create(User).with_name!('Jack Johnson')
-
-    search_for user.name, :track do
-      should have_content(t('searches.empty'))
-      should_not have_more_results
-    end
-  end
-
   scenario "Paginated results" do
     pending
 
