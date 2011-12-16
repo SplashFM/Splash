@@ -9,8 +9,6 @@ $(function() {
       _.bindAll(this, 'checkForUpdates', 'fetchDone', 'onSplash', 'refresh',
                       'renderEvent', 'renderUpdateCount');
 
-      $('body').bind('splash:splash', this.onSplash)
-      $('body').bind('splash:resplash', this.onSplash)
       $('body').bind('upload:complete', this.onSplash)
 
       this.feed = new EventList;
@@ -166,7 +164,7 @@ $(function() {
 
     initialize: function() {
       _.bindAll(this, 'onCommentAdded', 'loadThumbnails', 'onHover',
-                      'onHoverOut', 'reset');
+                      'onHoverOut', 'reset', 'splashed');
 
       this.enableExpansion();
 
@@ -177,6 +175,7 @@ $(function() {
       this.siblings = new SplashList();
       this.siblings.bind('reset', this.renderThumbnails, this);
 
+      $('body').bind('splash:splash splash:resplash', this.splashed);
     },
 
     checkKeyDown: function(e) {
@@ -244,6 +243,14 @@ $(function() {
 
       $(this.el).trigger('request:play',
                          {track: this.model.get('track')});
+    },
+
+    splashed: function(_, data) {
+      if (data.track.id === this.model.get('track').id) {
+        this.$('[data-widget = "splash"]').
+          removeClass('splashable').
+          addClass('unsplashable');
+      }
     },
 
     flag: function() {
