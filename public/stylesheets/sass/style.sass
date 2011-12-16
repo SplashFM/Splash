@@ -2371,9 +2371,19 @@ html body #main.sessions
     padding: 0 0 0 0
     position: relative
     background: url('/css/images/login-top.png') repeat-x #0f1b29
-
+    .or
+      font-size: 16
+      color: white
+      float: left
+      width: 20px
+      margin-top: 50px
+      margin-left: -14px
+    .code
+      float: left
+      width: 200px
     .wrap
       position: relative
+      margin-top: -100px
       box-sizing: border-box
       z-index: 1
       margin: auto
@@ -2385,6 +2395,31 @@ html body #main.sessions
       left: 0
       padding-top: 90px
 
+    .buttons
+      a
+        margin-top: 10px
+        display: block
+        width: 115px
+        height: 36px
+        line-height: 36px
+        background-color: #516c88
+        +round-borders(7px)
+        font-size: 12px
+        text-align: center
+        color: #a9d1f2
+        text-decoration: none
+        &:hover, &:focus
+          background-color: #00b3e5
+          color: #fff
+        &:active
+          background-color: #03aad8
+          color: #fff
+        &.new-user
+          float: left
+          margin-left: 70px
+        &.registered-user
+          float: right
+          margin-right: 70px
     #forgot_password
       display: none
     #user_submit
@@ -2527,28 +2562,6 @@ html body #main.sessions
       font-size: 16px
       text-align: center
       color: #fff
-    .buttons
-      a
-        display: block
-        width: 115px
-        height: 36px
-        line-height: 36px
-        background-color: #516c88
-        +round-borders(7px)
-        font-size: 12px
-        text-align: center
-        color: #a9d1f2
-        text-decoration: none
-        &:hover, &:focus
-          background-color: #00b3e5
-          color: #fff
-        &:active
-          background-color: #03aad8
-          color: #fff
-        &.yes
-          float: left
-        &.no
-          float: right
 
 .user_wrap
   // .sub ?

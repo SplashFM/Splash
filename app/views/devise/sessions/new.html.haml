@@ -42,17 +42,9 @@
     .cl
 
   %script#tmpl-choice{:type => 'text/x-jquery-tmpl'}
-    .confirm-new
-      .title.hide
-        Sounds good.
-        %span.indent
-          Happy Splashing!
-      .title= t('login.choice.title')
-      .small= t('login.choice.creating_account')
-      .email.large
-      .buttons
-        = link_to t('login.choice.new_user'), '#', :class => 'yes', :'data-widget' => 'yes'
-        = link_to t('login.choice.mistyped'), '#', :class => 'no', :'data-widget' => 'no'
+    .buttons
+      = link_to t('login.choice.new_user'), '#', :class => 'new-user', :'data-widget' => 'new-user'
+      = link_to t('login.choice.registered_user'), '#', :class => 'registered-user', :'data-widget' => 'registered-user'
 
 .user-signin
   .main

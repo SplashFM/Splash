@@ -2,8 +2,8 @@ $(function() {
   window.LoginView = Backbone.View.extend({
     className: 'wrap',
     events: {
-      'click a[data-widget = "yes"]': 'renderRegistration',
-      'click a[data-widget = "no"]': 'renderSignIn',
+      'click a[data-widget = "new-user"]': 'renderRegistration',
+      'click a[data-widget = "registered-user"]': 'renderSignIn',
     },
 
     initialize: function() {
@@ -12,7 +12,7 @@ $(function() {
       this.registration = new Registration();
 
       this.signIn = new SignIn();
-      //this.signIn.bind('signin:unregistered', this.renderChoice, this);
+      this.signIn.bind('signin:unregistered', this.renderChoice, this);
     },
 
     renderChoice: function() {
@@ -25,7 +25,7 @@ $(function() {
     },
 
     render: function() {
-      this.renderSignIn();
+      this.renderChoice();
 
       return this;
     },
@@ -43,11 +43,12 @@ $(function() {
 
       $(this.el).css({paddingTop: '20px'});
 
-      $(this.el).html(this.registration.render().email(this.signIn.email()).el);
+      $(this.el).html(this.registration.render().el);
     },
   });
 
   window.NewUserChoice = Backbone.View.extend({
+    className: 'wrap',
     template: $('#tmpl-choice').template(),
 
     email: function(val) {

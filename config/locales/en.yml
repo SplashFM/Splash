@@ -62,13 +62,15 @@ en:
     choice:
       creating_account: A new account is being created for
       mistyped: Oops. I mistyped it
-      new_user: Yep. I'm new
+      new_user: I'm new
+      registered_user: I've Splashed
       title: New to Splash.FM?
     register:
       confirm_password: confirm password
       email: email
       name: name
       password: password
+      code: Enter code
     sign_in:
       email: enter your email address...
       facebook: Sign In with Facebook
