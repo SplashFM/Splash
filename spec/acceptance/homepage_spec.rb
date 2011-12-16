@@ -6,6 +6,8 @@ feature "Homepage", :js => true do
 
   describe "Feed" do
     include UI::Feed
+    include UI::Splash
+
     it_should_behave_like "feed"
 
     scenario "See updates" do
@@ -95,6 +97,22 @@ feature "Homepage", :js => true do
 
         should have(1).splash
       }
+    end
+
+    scenario "Resplashing" do
+      RedisRecord.reset_all
+
+      f1 = create!(User)
+      f2 = create(User) and user.following = [f1]
+      t  = create!(Track)
+      s1 = create(Splash).track(t).user!(f1)
+      s2 = create(Splash).track(t).user!(f2)
+
+      go_to 'home'
+
+      with_splash(s1) { resplash }
+
+      feed { should have_unsplashable_track(t) }
     end
 
     def current_page
