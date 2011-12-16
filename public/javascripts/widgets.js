@@ -302,6 +302,15 @@ Widgets.SuggestedUsers = {
   }
 }
 
+Widgets.ToolTip = {
+  init: function(){
+    $w("tip").live("mouseover", function() {
+      $(this).tooltip({offset: [-2, 38]});
+      $(this).tooltip().show();
+    });
+  }
+}
+
 $(document).ready(function() {
   Widgets.Scroll.init();
   Widgets.Upload.init();
@@ -311,6 +320,7 @@ $(document).ready(function() {
   Widgets.Notification.init();
   Widgets.Paginate.init();
   Widgets.SuggestedUsers.init();
+  Widgets.ToolTip.init();
   new SPLASH.Widgets.waterNums('.waterNum');
 });
 
