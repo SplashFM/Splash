@@ -3,10 +3,6 @@ require 'acceptance/acceptance_helper'
 feature "Track search box", :adapter => :postgresql, :js => true do
   subject { page }
 
-  background { go_to 'home' }
-
-  scenario "Empty query"
-
   scenario "No results"  do
     pending
 
