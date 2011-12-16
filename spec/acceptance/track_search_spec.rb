@@ -1,6 +1,8 @@
 require 'acceptance/acceptance_helper'
 
 feature "Track search box", :adapter => :postgresql, :js => true do
+  include UI::TrackSearch
+
   subject { page }
 
   scenario "No results"  do
@@ -14,13 +16,10 @@ feature "Track search box", :adapter => :postgresql, :js => true do
   end
 
   scenario "Song found" do
-    pending
-
     track = create!(Track)
 
-    search_for track.title, :track do
-      should have(1).track
-      should_not have_more_results
+    search_tracks_for track.title do
+      track_results { should have(1).track_result }
     end
   end
 
