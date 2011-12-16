@@ -43,11 +43,11 @@ javascripts:
     - public/javascripts/iphone-style-checkboxes.js
     - public/javascripts/jquery.clickout.js
     - public/javascripts/itmsCheck.js
+    - public/javascripts/jquery.tools.min.js
+    - public/javascripts/SPLASH.Widgets.pulsars.js
+    - public/javascripts/SPLASH.Widgets.sticky.js
     - public/javascripts/SPLASH.Widgets.waterNums.js
     - public/javascripts/SPLASH.Widgets.numFlipper.js
-    - public/javascripts/SPLASH.Widgets.sticky.js
-    - public/javascripts/SPLASH.Widgets.pulsars.js
-    - public/javascripts/jquery.tools.min.js
 
   pjax:
     - public/javascripts/jquery.pjax.js
