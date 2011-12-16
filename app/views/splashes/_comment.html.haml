@@ -3,6 +3,7 @@
     = avatar_js('author', :class => 'avatar left', :size => :pico)
     .entry.left
       %p
-        %a.avan-demi{:href => "${author.url}"} ${author.nickname}
-        {{html UserMentions.linkMentions(body)}}
+        %a.avan-demi.author-name{:href => "${author.url}"} ${author.nickname}
+        %span.inner-comment-text
+          {{html UserMentions.linkMentions(body)}}
       %span.time ${created_at}
