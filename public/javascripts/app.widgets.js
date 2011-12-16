@@ -83,7 +83,7 @@ $(function() {
     },
 
     broadcastSplash: function() {
-      $(this.el).trigger('splash:splash');
+      $(this.el).trigger('splash:splash', {track: this.model});
     },
   });
 
