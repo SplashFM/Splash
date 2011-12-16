@@ -131,7 +131,8 @@ textarea
   height: 33px
   text-overflow: ellipsis
   background: url(/css/images/username-divider.png) no-repeat 0 0
-  width: 111px
+  max-width: 175px
+  min-width: 111px
   padding-left: 7px
   text-align: right
   color: #c3c9cc
@@ -140,9 +141,6 @@ textarea
   position: relative
   overflow: hidden
   margin: 10px 18px 0 0
-a.nav-username:hover
-  min-width: 111px
-  width: auto
 .nav-notifications
   width: 37px
   height: 31px
@@ -2779,3 +2777,5 @@ body
 .author-name
   text-transform: capitalize
   margin-right: 2px
+.left_header_wrap
+  width: 570px
