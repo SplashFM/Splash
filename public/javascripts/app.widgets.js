@@ -110,7 +110,7 @@ $(function() {
 
     broadcastSplash: function() {
       if (this.options.parent) {
-        $(this.el).trigger('splash:resplash');
+        $(this.el).trigger('splash:resplash', {track: this.model});
       } else {
         BaseApp.SplashAction.prototype.broadcastSplash.call(this);
       }
