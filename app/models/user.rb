@@ -72,11 +72,11 @@ class User < ActiveRecord::Base
       :micro => {:geometry => "50x50#", :processors => [:cropper]}
     },
     :default_url => DEFAULT_AVATAR_URL,
-    :path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension"
+    :path => "#{Rails.root}/tmp/:class/:attachment/:id/:style"
   }
 
    PAPERCLIP_STORAGE_OPTIONS = {
-    :path   => "/:class/:attachment/:id/:hash.:extension",
+    :path   => "/:class/:attachment/:id/:style",
     :storage => :s3,
     :s3_credentials => {
       :access_key_id => AppConfig.aws['access_key_id'],
