@@ -40,7 +40,7 @@ namespace :migrate do
 
       File.open("/tmp/avatarz_#{u.id}", 'w') { |f|
         f.binmode
-        f.write file
+        f.write file.read
       }
     }
 
