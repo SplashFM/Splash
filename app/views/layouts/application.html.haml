@@ -42,7 +42,7 @@
         Constants.AVATAR_WIDTH = #{User::AVATAR_WIDTH};
         Constants.AVATAR_HEIGHT = #{User::AVATAR_HEIGHT};
       });
-  %body{ :class => controller.controller_name }
+  %body
     = render "shared/ie6_banner"
     #wrapper{'data-pjax-container' => ''}
       = render :template => 'layouts/pjax'
