@@ -10,13 +10,9 @@ module Paperclip
 
     def transformation_command
       if cropping?
-        super.each_slice(2).map { |(sw, val)|
-          if sw == '-crop'
-            [sw, user_geometry]
-          else
-            [sw, val]
-          end
-        }.compact
+        ['-crop', user_geometry] << super.each_slice(2).reject { |(sw, val)|
+          sw == '-crop'
+        }.flatten.compact
       else
         super.each_slice(2).map { |(sw, val)|
           if sw == '-crop'
