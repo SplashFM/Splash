@@ -1,0 +1,6 @@
+%table
+  %tr
+    %th Email
+    - @requests.each do |r|
+      %tr
+        %td= r.email

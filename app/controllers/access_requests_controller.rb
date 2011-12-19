@@ -5,6 +5,8 @@ class AccessRequestsController < ApplicationController
     ar = AccessRequest.new(params[:user])
 
     if ar.save
+      AdminMailer.delay.list_access_requests AccessRequest.all
+
       render :json => ar, :status => :created
     else
       render :json => ar

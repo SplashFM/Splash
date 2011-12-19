@@ -1,4 +1,6 @@
 class AdminMailer < ActionMailer::Base
+  INVITE_EMAIL = 'invite@splash.fm'
+
   default :from => "Splash.FM <notifications@splash.fm>"
 
   def flag(song, user)
@@ -6,5 +8,11 @@ class AdminMailer < ActionMailer::Base
 
     mail :to            => AppConfig.email['flag'],
          :subject       => "Song #{song.title} flagged by #{user.nickname}"
+  end
+
+  def list_access_requests(requests)
+    @requests = requests
+
+    mail :to => INVITE_EMAIL, :subject => 'Access requests'
   end
 end
