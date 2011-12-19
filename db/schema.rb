@@ -10,7 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111213203957) do
+ActiveRecord::Schema.define(:version => 20111219171329) do
+
+  create_table "access_requests", :force => true do |t|
+    t.string   "email"
+    t.boolean  "granted"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "album_tracks", :id => false, :force => true do |t|
     t.integer "album_id"
