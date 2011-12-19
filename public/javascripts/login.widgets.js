@@ -125,14 +125,13 @@ $(function() {
 
   window.SignIn = Backbone.View.extend({
     events: {
-      'ajax:success': 'onLogin',
-      'ajax:error': 'onLoginFailed',
       'click #forgot_password': 'resetPassword',
     },
     template: $('#tmpl-sign-in').template(),
 
     initialize: function() {
-      _.bindAll(this, 'onNewUser', 'onRegisteredUser');
+      _.bindAll(this, 'onLogin', 'onLoginFailed', 'onNewUser',
+                      'onRegisteredUser');
     },
 
     email: function(val) {
@@ -156,6 +155,10 @@ $(function() {
       this.emailField     = this.$('[data-widget = "user-email"]')
       this.pwdField       = this.$('#user_password');
       this.forgotPwdField = this.$('#forgot_password');
+
+      this.$('form').
+        bind('ajax:success', this.onLogin).
+        bind('ajax:error', this.onLoginFailed);
 
       return this;
     },
