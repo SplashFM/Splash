@@ -20,7 +20,7 @@
     = avatar(user, :class => 'avatar left', :size => :nano)
     .info.left
       %p.names
-        = link_to user.name, user_slug_path(user), :class => 'avan-bold'
+        = link_to user.name, user_slug_path(user.slug), :class => 'avan-bold'
         %small= user.name
       %p.scores.avan-bold= user.splash_score
 
