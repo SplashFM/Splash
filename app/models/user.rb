@@ -513,7 +513,7 @@ class User < ActiveRecord::Base
     !avatar? && has_social_connections?
   end
 
-  def maybe_fetch_avatar
+  def maybe_fetch_avatar(_ = nil)
     fetch_avatar if fetch_avatar_needed?
   end
 
