@@ -3,15 +3,19 @@ $(function() {
     events: {'click a': 'toggle'},
 
     initialize: function() {
+      _.bindAll(this, 'render');
+
+      this.refresh = this.options.refresh == false ? false : true
+
       this.nextAction = this.model.isNew() ? 'follow' : 'unfollow';
 
       this.model.bind('destroy', this.changed, this);
       this.model.bind('change',  this.changed, this);
+
+      if (this.refresh) $(this.el).bind('follow unfollow', this.render);
     },
 
     changed: function() {
-      this.render();
-
       $(this.el).trigger(this.currentAction());
     },
 
