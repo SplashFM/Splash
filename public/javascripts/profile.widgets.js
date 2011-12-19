@@ -5,8 +5,12 @@ $(function() {
     initialize: function() {
       this.nextAction = this.model.isNew() ? 'follow' : 'unfollow';
 
-      this.model.bind('destroy', this.render, this);
-      this.model.bind('change',  this.render, this);
+      this.model.bind('destroy', this.changed, this);
+      this.model.bind('change',  this.changed, this);
+    },
+
+    changed: function() {
+      this.render();
     },
 
     render: function() {
