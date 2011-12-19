@@ -9,6 +9,7 @@
                          :followed_id => user.id,
                         }.to_json
                       }),
+            refresh:  false,
             tagName:  'span',
             template: $('#tmpl-suggested-relationship').template(),
           }).render().el

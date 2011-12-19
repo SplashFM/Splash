@@ -282,6 +282,17 @@ Widgets.Notification = {
 
 Widgets.SuggestedUsers = {
   init: function(){
+    $w('suggested-users').live('follow', function() {
+      console.log("here?");
+      $.ajax({
+        type: 'GET',
+        url: Routes.suggested_splashers_path(),
+        success: function(data){
+          $w('suggested-users').html(data);
+        }
+      });
+    });
+
     $w('next-suggested-users').live('ajax:success', function(_, data) {
         $w("suggested-users").html(data);
     });
