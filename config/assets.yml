@@ -48,6 +48,7 @@ javascripts:
     - public/javascripts/SPLASH.Widgets.sticky.js
     - public/javascripts/SPLASH.Widgets.waterNums.js
     - public/javascripts/SPLASH.Widgets.numFlipper.js
+    - public/javascripts/SPLASH.Widgets.JPlayerSeekable.js
 
   pjax:
     - public/javascripts/jquery.pjax.js
