@@ -21,6 +21,20 @@
       = f.password_field :password_confirmation, :class => 'input', :placeholder => t('login.register.confirm_password')
       = f.submit
 
+  %script#tmpl-request-invite{:type => 'text/x-jquery-tmpl'}
+    = form_for :user, |
+        :remote => true, |
+        :url    => access_requests_path, |
+        :html   => {:'data-type' => 'json', |
+                    :class => 'register'} do |f|
+      = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
+      = f.submit
+
+  %script#tmpl-request-invite-sent{:type => 'text/x-jquery-tmpl'}
+    %h2 We've added you to the invite list.
+
+    %p Look out for an email with your invite.
+
   %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
     .signin
       = form_for(:user, |

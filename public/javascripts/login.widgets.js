@@ -2,12 +2,13 @@ $(function() {
   window.LoginView = Backbone.View.extend({
     className: 'wrap',
     events: {
-      'click a[data-widget = "new-user"]': 'renderRegistration',
+      'click a[data-widget = "new-user"]': 'renderAccessRequest',
       'click a[data-widget = "registered-user"]': 'renderSignIn',
     },
 
     initialize: function() {
-      this.choice = new NewUserChoice();
+      this.choice        = new NewUserChoice();
+      this.accessRequest = new RequestAccess();
 
       this.registration = new Registration();
 
@@ -27,6 +28,12 @@ $(function() {
       this.renderChoice();
 
       return this;
+    },
+
+    renderAccessRequest: function() {
+      this.choice.remove();
+
+      $(this.el).html(this.accessRequest.render().el);
     },
 
     renderSignIn: function() {
@@ -55,11 +62,22 @@ $(function() {
 
       return this;
     },
+  });
+
+  window.RequestAccess = Backbone.View.extend({
+    className:    'wrap',
+    events:       {'ajax:success': 'requested'},
+    template:     $('#tmpl-request-invite').template(),
+    sentTemplate: $('#tmpl-request-invite-sent').template(),
 
     render: function() {
       $(this.el).html($.tmpl(this.template));
 
       return this;
+    },
+
+    requested: function() {
+      $(this.el).html($.tmpl(this.sentTemplate));
     },
   });
 
