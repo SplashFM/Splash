@@ -11,6 +11,12 @@ $(function() {
 
     changed: function() {
       this.render();
+
+      $(this.el).trigger(this.currentAction());
+    },
+
+    currentAction: function() {
+      return this.nextAction == 'follow' ? 'unfollow' : 'follow';
     },
 
     render: function() {
