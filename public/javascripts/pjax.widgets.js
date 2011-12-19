@@ -20,6 +20,7 @@ Widgets.Pjax = {
       Scaphandrier.PreventHeaderLinksDefault.init();
       SPLASH.Widgets.SettingsButton();
       SPLASH.Widgets.stepFontSize('.actor_name',62);
+      $('.tooltip').hide();
     });
   }
 }
