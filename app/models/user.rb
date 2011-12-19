@@ -1,6 +1,7 @@
 require 'redis_record'
 require 'testable_search'
 require 'open-uri'
+require 'cropper'
 
 class User < ActiveRecord::Base
   include RedisRecord
