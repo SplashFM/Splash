@@ -1,5 +1,9 @@
 module Paperclip
   class Cropper < Thumbnail
+    def cropping?
+      @attachment.instance.cropping?
+    end
+
     def square?
       @target_geometry.height.to_i == @target_geometry.width.to_i
     end
@@ -7,7 +11,7 @@ module Paperclip
     def transformation_command
       super.each_slice(2).map { |(sw, val)|
         if sw == '-crop'
-          [sw, user_geometry || transform_geometry(val)]
+          [sw, cropping? ? user_geometry : transform_geometry(val)]
         else
           [sw, val]
         end
@@ -20,15 +24,12 @@ module Paperclip
 
     def user_geometry
       target = @attachment.instance
+      crop_x = target.crop_x
+      crop_y = target.crop_y
+      crop_w = target.crop_w
+      crop_h = square? ? target.crop_w : target.crop_h
 
-      if target.cropping?
-        crop_x = target.crop_x
-        crop_y = target.crop_y
-        crop_w = target.crop_w
-        crop_h = square? ? target.crop_w : target.crop_h
-
-        "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"
-      end
+      "#{crop_w}x#{crop_h}+#{crop_x}+#{crop_y}"
     end
   end
 end
