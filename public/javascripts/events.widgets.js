@@ -9,7 +9,7 @@ $(function() {
       _.bindAll(this, 'checkForUpdates', 'fetchDone', 'onSplash', 'refresh',
                       'renderEvent', 'renderUpdateCount');
 
-      $('body').bind('upload:complete', this.onSplash)
+      $('body').bind('upload:complete splash:splash', this.onSplash)
 
       this.feed = new EventList;
       this.feed.bind('reset', this.render, this);
@@ -175,7 +175,7 @@ $(function() {
       this.siblings = new SplashList();
       this.siblings.bind('reset', this.renderThumbnails, this);
 
-      $('body').bind('splash:splash splash:resplash', this.splashed);
+      $('body').bind('splash:resplash', this.splashed);
     },
 
     checkKeyDown: function(e) {
