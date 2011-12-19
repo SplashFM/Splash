@@ -11,50 +11,47 @@
       .tip
     %a.nav-username.right{:href => user_link(current_user)}
       = current_user.try(:name)
-    .left_header_wrap
-      .nav-notifications.right{:data => {:widget => 'notifications'}}
-        %a.avan-demi.count{:href => "#", :data => {:widget => 'toggle-notifications'}}
-        .dropDown{:data => {:widget => 'list-notifications'}}
-          .arrow
-          .label
-            .span.avan-demi Notifications
-          .load_more
-            .text
-              %a{:href => '#', :class => 'avan-demi' } load more
+    .nav-notifications.right{:data => {:widget => 'notifications'}}
+      %a.avan-demi.count{:href => "#", :data => {:widget => 'toggle-notifications'}}
+      .dropDown{:data => {:widget => 'list-notifications'}}
+        .arrow
+        .label
+          .span.avan-demi Notifications
+        .load_more
+          .text
+            %a{:href => '#', :class => 'avan-demi' } load more
 
-      .quick-splash.right{:data => {:widget => 'quick-splash'}}
-        %a.trigger{:href => "#", :data => {:widget => 'toggle'}}
-        %form{:action => "#", :method => "post", :data => {:widget => 'box'}}
-          %span.arrow
-          %label.avan-bold Quick Splash
-          .wrap
-            %input.submit{:type => "submit", :value => "Search"}/
-            %input.field{:type => "text"}/
-            %ul{:data => {:widget => 'results'}}
-      .top_links.left
-        = render_navigation
-      / /quick splash
-      %form.head-search.opened.right{:action => "#", |
-                                     :method => "post", |
-                                     :data   => {:widget => 'global-search'}}
-        %input.field{:type => "text"}/
-        %input.submit{:type => "submit", :value => "Search"}/
-        .dd{:data => {:widget => 'results'}}
-          %span.arrow
-          .container
-            .col.left{:data => {:widget => 'users'}}
-              %h4
-                %span users
-              .scroll-area
-                %ul.splashers
-            / /colum
-            .col.right{:data => {:widget => 'tracks'}}
-              %h4
-                %span Tracks
-              .scroll-area
-                %ul.tracks
+    .quick-splash.right{:data => {:widget => 'quick-splash'}}
+      %a.trigger{:href => "#", :data => {:widget => 'toggle'}}
+      %form{:action => "#", :method => "post", :data => {:widget => 'box'}}
+        %span.arrow
+        %label.avan-bold Quick Splash
+        .wrap
+          %input.submit{:type => "submit", :value => "Search"}/
+          %input.field{:type => "text"}/
+          %ul{:data => {:widget => 'results'}}
+    / /quick splash
+    %form.head-search.opened.right{:action => "#", |
+                                   :method => "post", |
+                                   :data   => {:widget => 'global-search'}}
+      %input.field{:type => "text"}/
+      %input.submit{:type => "submit", :value => "Search"}/
+      .dd{:data => {:widget => 'results'}}
+        %span.arrow
+        .container
+          .col.left{:data => {:widget => 'users'}}
+            %h4
+              %span users
+            .scroll-area
+              %ul.splashers
           / /colum
-      .clear
+          .col.right{:data => {:widget => 'tracks'}}
+            %h4
+              %span Tracks
+            .scroll-area
+              %ul.tracks
+          / /colum
     / /head search
+    = render_navigation
   / /shell
 / /header
