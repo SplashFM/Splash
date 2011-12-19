@@ -5,7 +5,7 @@ module UsersHelper
     img_opts.merge!(:'data-widget' => 'tip') if opts.delete(:'data-widget')
 
     link_to(image_tag(user.avatar(:micro), img_opts),
-            user_slug_path(user.slug),
+            user_link(user),
             opts)
   end
 
@@ -60,6 +60,10 @@ module UsersHelper
 
       link_to link_label, url, :'data-skip-pjax' => true, :class => 'buttonStyle2'
     end
+  end
+
+  def user_link(user)
+    user_slug_path(user.slug)
   end
 
   def user_avatar(user)

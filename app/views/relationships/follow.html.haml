@@ -22,7 +22,7 @@
         = avatar(user)
       .meta
         .link.avan-demi
-          = link_to user.name, user_slug_path(user.slug)
+          = link_to user.name, user_link(user)
         %span.number.avan-bold
           .outer
             = user.splash_score

@@ -9,7 +9,7 @@
         %a{:href => edit_user_registration_path,:class => "fancybox"}
           = t('lifesaver.settings')
       .tip
-    %a.nav-username.right{:href => user_slug_path(current_user.slug)}
+    %a.nav-username.right{:href => user_link(current_user)}
       = current_user.try(:name)
     .left_header_wrap
       .nav-notifications.right{:data => {:widget => 'notifications'}}
