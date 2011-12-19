@@ -538,7 +538,7 @@ class User < ActiveRecord::Base
     when 'facebook'
       "http://graph.facebook.com/#{sc.uid}/picture?type=large"
     when 'twitter'
-      "http://api.twitter.com/1/users/profile_image/#{sc.uid}.json?size=bigger"
+      "http://api.twitter.com/1/users/profile_image/#{sc.uid}.json?size=original"
     else
       nil
     end
