@@ -9,13 +9,23 @@ module Paperclip
     end
 
     def transformation_command
-      super.each_slice(2).map { |(sw, val)|
-        if sw == '-crop'
-          [sw, cropping? ? user_geometry : transform_geometry(val)]
-        else
-          [sw, val]
-        end
-      }.compact
+      if cropping?
+        super.each_slice(2).map { |(sw, val)|
+          if sw == '-crop'
+            [sw, user_geometry]
+          else
+            [sw, val]
+          end
+        }.compact
+      else
+        super.each_slice(2).map { |(sw, val)|
+          if sw == '-crop'
+            [sw, transform_geometry(val)]
+          else
+            [sw, val]
+          end
+        }.compact
+      end
     end
 
     def transform_geometry(geom)
