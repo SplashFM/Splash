@@ -92,12 +92,6 @@ $(function() {
     },
     template: $('#tmpl-registration').template(),
 
-    email: function(val) {
-      this.$('[name = "user[email]"]').val(val);
-
-      return this;
-    },
-
     onErrors: function(_, xhr) {
       var errors = $.parseJSON(xhr.responseText);
 
