@@ -9,7 +9,21 @@ class AccessRequest < ActiveRecord::Base
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
   end
 
+  def code
+    self.class.codes.first
+  end
+
+  def invite
+    UserMailer.delay.invite self
+
+    mark_invited
+  end
+
   private
+
+  def mark_invited
+    update_attribute :granted, true
+  end
 
   def reset_granted
     self.granted = false

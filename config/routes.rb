@@ -18,7 +18,11 @@ Scaphandrier::Application.routes.draw do
   #root :to => 'visitors#new'
   root :to => 'home#index'
 
-  resources :access_requests
+  resources :access_requests do
+    member do
+      get :approve
+    end
+  end
   resources :comments
   resources :events, :only => :index
   resources :tags

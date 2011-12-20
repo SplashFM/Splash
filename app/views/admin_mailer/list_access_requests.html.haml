@@ -1,6 +1,8 @@
 %table
   %tr
     %th Email
+    %th Invite Link
     - @requests.each do |r|
       %tr
         %td= r.email
+        %td= link_to 'Invite', approve_access_request_url(r)
