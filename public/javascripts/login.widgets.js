@@ -25,7 +25,11 @@ $(function() {
     },
 
     render: function() {
-      this.renderChoice();
+      if (this.options.to == 'signup') {
+        this.renderRegistration();
+      } else {
+        this.renderChoice();
+      }
 
       return this;
     },

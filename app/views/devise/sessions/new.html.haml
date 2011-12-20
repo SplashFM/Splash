@@ -7,7 +7,9 @@
         display: none
 
   :javascript
-    $(function () { $('.main').append(new LoginView().render().el); });
+    $(function () {
+      $('.main').append(new LoginView($.deparam.querystring()).render().el);
+    });
 
   %script#tmpl-registration{:type => 'text/x-jquery-tmpl'}
     = form_for :user, |
