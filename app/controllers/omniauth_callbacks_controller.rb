@@ -2,11 +2,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_filter :require_user
 
   def facebook
-    current_user ? link_site('Facebook') : oauthorize("Facebook")
+    current_user ? link_site('Facebook') : authorize_facebook
   end
 
   def twitter
-    current_user ? link_site('Twitter') : oauthorize("Twitter")
+    current_user ? link_site('Twitter') : authorize_twitter
   end
 
   def passthru
@@ -14,13 +14,30 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
-  def oauthorize(kind)
+
+  def authorize_facebook
     user = User.find_for_oauth(env['omniauth.auth'])
 
     if user.persisted?
       user.update_social_network_link env['omniauth.auth']
 
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => kind
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => 'Facebook'
+      sign_in_and_redirect user, :event => :authentication
+    else
+      redirect_to new_user_session_path and return
+
+      session["devise.provider_data"] = env["omniauth.auth"].except('extra')
+      redirect_to new_user_registration_url
+    end
+  end
+
+  def authorize_twitter
+    user = User.find_for_oauth(env['omniauth.auth'])
+
+    if user.persisted?
+      user.update_social_network_link env['omniauth.auth']
+
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => 'Twitter'
       sign_in_and_redirect user, :event => :authentication
     else
       redirect_to new_user_session_path and return
