@@ -493,11 +493,7 @@ class User < ActiveRecord::Base
   end
 
   def default_social_connection
-    if initial_provider
-      social_connection(initial_provider)
-    else
-      social_connections.first
-    end
+    social_connections.first
   end
 
   def fetch_avatar(social_connection = nil)
