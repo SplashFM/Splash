@@ -19,3 +19,4 @@ public/blank.html
 .DS_Store
 /config/initializers/developer.rb
 dump.rdb
+/config/access_codes.yml
