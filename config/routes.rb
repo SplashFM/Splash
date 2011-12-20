@@ -64,7 +64,6 @@ Scaphandrier::Application.routes.draw do
 
   devise_for :users, :controllers => {
     :omniauth_callbacks => "omniauth_callbacks",
-    :registrations      => "registrations"
   } do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     put '/users/merge' => 'users#merge'
