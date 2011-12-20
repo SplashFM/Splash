@@ -15,18 +15,18 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   private
   def oauthorize(kind)
-    @user = User.find_for_oauth(env['omniauth.auth'])
+    user = User.find_for_oauth(env['omniauth.auth'])
 
-    if @user.persisted?
-      @user.update_social_network_link env['omniauth.auth']
+    if user.persisted?
+      user.update_social_network_link env['omniauth.auth']
 
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => kind
-      sign_in_and_redirect @user, :event => :authentication
+      sign_in_and_redirect user, :event => :authentication
     else
       redirect_to new_user_session_path and return
 
       session["devise.provider_data"] = env["omniauth.auth"].except('extra')
-      flash[:notice] = I18n.t('devise.registrations.twitter') if @user.initial_provider == 'twitter'
+      flash[:notice] = I18n.t('devise.registrations.twitter') if user.initial_provider == 'twitter'
       redirect_to new_user_registration_url
     end
   end
