@@ -576,9 +576,7 @@ class User < ActiveRecord::Base
   end
 
   def to_slug(string)
-    if !string.blank?
-      string.strip.gsub(/@.*/, "").gsub(/\W+/, '_').downcase
-    end
+    string.strip.gsub(/@.*/, "").gsub(/\W+/, '_').downcase if string.present?
   end
 
   def check_existence(name)
