@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   serialize :ignore_suggested_users, Array
   serialize :suggested_users, Array
 
+  attr_accessor :access_code
+
   has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
   # The users I am following.
   has_many :following, :through => :relationships, :source => :followed
@@ -55,7 +57,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider,
-                  :nickname
+                  :nickname, :access_code
 
   before_validation :generate_nickname
 
@@ -64,6 +66,8 @@ class User < ActiveRecord::Base
                       :with => /\A#{NICKNAME_REGEXP}\Z/,
                       :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
+  validates :access_code, :inclusion => {:in => AccessRequest.codes},
+                          :on        => :create
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",

@@ -53,7 +53,7 @@ $(function() {
 
       $(this.el).css({paddingTop: '20px'});
 
-      $(this.el).html(this.registration.render().el);
+      $(this.el).html(this.registration.render(this.options.code).el);
     },
   });
 
@@ -120,8 +120,8 @@ $(function() {
       window.location.href = Routes.home_path();
     },
 
-    render: function() {
-      $(this.el).html($.tmpl(this.template));
+    render: function(accessCode) {
+      $(this.el).html($.tmpl(this.template, {accessCode: accessCode}));
 
       return this;
     },
