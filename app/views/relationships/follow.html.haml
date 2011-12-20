@@ -20,9 +20,10 @@
     .followed-box{:data => {:widget => 'relationship', :user_id => user.id}}
       .avatar
         = avatar(user)
+
       .meta
         .link.avan-demi
-          = link_to user.name, user_link(user)
+          = link_to user.name, user_link(user), :'data-widget' => 'pjax'
         %span.number.avan-bold
           .outer
             = user.splash_score
