@@ -87,8 +87,8 @@ $(function() {
 
   window.Registration = Backbone.View.extend({
     events: {
-      'ajax:success': 'onRegister',
-      'ajax:error': 'onErrors'
+      'ajax:success form': 'onRegister',
+      'ajax:error form': 'onErrors'
     },
     template: $('#tmpl-registration').template(),
 
