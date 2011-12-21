@@ -5,6 +5,9 @@ class AccessRequest < ActiveRecord::Base
 
   before_create :reset_granted
 
+  scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
+  scope :pending, where(:granted => false)
+
   def self.codes
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
   end

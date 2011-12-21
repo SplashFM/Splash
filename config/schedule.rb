@@ -21,3 +21,7 @@
 every 2.hours do
   runner "User.recompute_all_splashboards"
 end
+
+every 1.day, :at => '3 am' do
+  runner "AdminMailer.list_access_requests(AccessRequest.requested_on(Date.yesterday).pending).deliver"
+end
