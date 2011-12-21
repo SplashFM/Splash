@@ -29,7 +29,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       email    = access_token['user_info']['email']
       name     = access_token['user_info']['name']
       nickname = access_token['user_info']['nickname']
-      user     = User.create_with_social_connection(:email       => email,
+      user     = User.create_with_social_connection(:access_code => signup_code,
+                                                    :email       => email,
                                                     :name        => name,
                                                     :nickname    => nickname,
                                                     :provider    => provider,
@@ -58,7 +59,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       sign_in_and_redirect user, :event => :authentication
     else
-      data = {:name         => access_token['user_info']['name'],
+      data = {:access_code  => signup_code,
+              :name         => access_token['user_info']['name'],
               :nickname     => access_token['user_info']['nickname'],
               :provider     => provider,
               :token        => token,
@@ -67,7 +69,12 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       session['devise.provider_data'] = data
 
-      redirect_to new_user_registration_path
+      # for Beta
+      if AccessRequest.codes.include?(signup_code)
+        redirect_to new_user_registration_path
+      else
+        redirect_to root_path
+      end
     end
   end
 
@@ -82,5 +89,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       render :template => 'users/merge_accounts'
     end
+  end
+
+  def signup_code
+    query = URI.parse(env["omniauth.origin"]).query
+
+    CGI.parse(query)['code'].first if query && query['code']
   end
 end

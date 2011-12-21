@@ -420,6 +420,7 @@ class User < ActiveRecord::Base
         case data[:provider]
         when 'twitter'
           if user.email.present?
+            user.access_code      = data[:access_code]
             user.initial_provider = data[:provider]
             user.name             = data[:name]
             user.nickname         = data[:nickname]

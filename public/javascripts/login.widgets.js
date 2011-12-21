@@ -117,6 +117,16 @@ $(function() {
     render: function(accessCode) {
       $(this.el).html($.tmpl(this.template, {accessCode: accessCode}));
 
+      this.$('.omniauth-links a').each(function() {
+        var orig = $.param.querystring(window.location.href,
+                                       $.param({code: accessCode}));
+        var url  = $.param.querystring($(this).attr('href'),
+                                       $.param({origin: orig}));
+
+        console.log(url);
+        $(this).attr('href', url);
+      });
+
       return this;
     },
   });
