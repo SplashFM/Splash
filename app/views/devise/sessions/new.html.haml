@@ -36,13 +36,16 @@
     .cl
 
   %script#tmpl-request-invite{:type => 'text/x-jquery-tmpl'}
-    = form_for :user, |
-        :remote => true, |
-        :url    => access_requests_path, |
-        :html   => {:'data-type' => 'json', |
-                    :class => 'register'} do |f|
-      = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
-      = f.submit
+    %h2= t('login.beta_warning')
+    %div
+      %h3= t('login.register.request_invite')
+      = form_for :user, |
+          :remote => true, |
+          :url    => access_requests_path, |
+          :html   => {:'data-type' => 'json', |
+                      :class => 'register'} do |f|
+        = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
+        = f.submit
 
   %script#tmpl-request-invite-sent{:type => 'text/x-jquery-tmpl'}
     .invite-sent

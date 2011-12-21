@@ -58,6 +58,7 @@ en:
     settings: Settings
 
   login:
+    beta_warning: We're currently in Private Beta
     blurb: Share, compare and curate your listening favorites in the first music discovery community for listeners and taste-makers.
     choice:
       creating_account: A new account is being created for
@@ -66,11 +67,12 @@ en:
       registered_user: I've Splashed
       title: New to Splash.FM?
     register:
+      code: Enter code
       confirm_password: confirm password
-      email: email
+      email: enter email
       name: name
       password: password
-      code: Enter code
+      request_invite: Request Invite
     sign_in:
       email: enter your email address...
       facebook: Sign In with Facebook
