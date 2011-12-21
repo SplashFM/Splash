@@ -67,7 +67,7 @@ en:
       registered_user: I've Splashed
       title: New to Splash.FM?
     register:
-      code: Enter code
+      code: enter code
       confirm_password: confirm password
       email: enter email
       header: Create an Account

@@ -4,6 +4,7 @@ $(function() {
     events: {
       'click a[data-widget = "new-user"]': 'renderAccessRequest',
       'click a[data-widget = "registered-user"]': 'renderSignIn',
+      'register:code': 'onCode'
     },
 
     initialize: function() {
@@ -14,6 +15,10 @@ $(function() {
 
       this.signIn = new SignIn();
       this.signIn.bind('signin:unregistered', this.renderChoice, this);
+    },
+
+    onCode: function(_, data) {
+      this.renderRegistration(data.code);
     },
 
     renderChoice: function() {
@@ -48,12 +53,12 @@ $(function() {
       $(this.el).html(this.signIn.render().el);
     },
 
-    renderRegistration: function() {
+    renderRegistration: function(code) {
       this.choice.remove();
 
       $(this.el).css({paddingTop: '20px'});
 
-      $(this.el).html(this.registration.render(this.options.code).el);
+      $(this.el).html(this.registration.render(code || this.options.code).el);
     },
   });
 
@@ -70,9 +75,18 @@ $(function() {
 
   window.RequestAccess = Backbone.View.extend({
     className:    'wrap',
-    events:       {'ajax:success': 'requested'},
+    events:       {
+      'ajax:success': 'requested',
+      'keyup input[name = "access_code"]': 'onCode',
+    },
     template:     $('#tmpl-request-invite').template(),
     sentTemplate: $('#tmpl-request-invite-sent').template(),
+
+    onCode: function(e) {
+      if (e.keyCode === $.ui.keyCode.ENTER) {
+        $(this.el).trigger('register:code', {code: $(e.target).val()});
+      }
+    },
 
     render: function() {
       $(this.el).html($.tmpl(this.template));
