@@ -16,16 +16,31 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def authorize_facebook
-    user = User.find_for_oauth(env['omniauth.auth'])
+    access_token = env['omniauth.auth']
+    provider     = access_token['provider']
+    uid          = access_token['uid']
+    token        = access_token['credentials']['token']
 
-    if user.persisted?
-      user.update_social_network_link env['omniauth.auth']
+    if user = User.with_social_connection(provider, uid)
+      user.social_connections.with_provider(provider).refresh :token => token
 
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => 'Facebook'
       sign_in_and_redirect user, :event => :authentication
     else
-      session["devise.provider_data"] = env["omniauth.auth"].except('extra')
-      redirect_to new_user_registration_url
+      email    = access_token['user_info']['email']
+      name     = access_token['user_info']['name']
+      nickname = access_token['user_info']['nickname']
+      user     = User.create_with_social_connection(:email       => email,
+                                                    :name        => name,
+                                                    :nickname    => nickname,
+                                                    :provider    => provider,
+                                                    :token       => token,
+                                                    :uid         => uid)
+
+      if user.persisted?
+        sign_in_and_redirect user, :event => :authentication
+      else
+        redirect_to root_path
+      end
     end
   end
 

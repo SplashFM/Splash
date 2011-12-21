@@ -124,6 +124,19 @@ class User < ActiveRecord::Base
     where(:name => name_or_names)
   end
 
+  def self.create_with_social_connection(params)
+    transaction {
+      user_params = params.slice(:access_code, :email, :name, :nickname).
+        merge!(:initial_provider => params[:provider])
+      sc_params   = params.slice(:provider, :token, :uid)
+
+      user = create(user_params)
+      user.social_connections.create!(sc_params) if user.persisted?
+
+      user
+    }
+  end
+
   def self.recompute_influence
     reset_sorted_influence
 
