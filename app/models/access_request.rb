@@ -4,6 +4,7 @@ class AccessRequest < ActiveRecord::Base
   validates :email, :presence => true, :uniqueness => true
 
   before_create :reset_granted
+  before_create :generate_referral_code
 
   scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
   scope :pending, where(:granted => false)
@@ -23,6 +24,10 @@ class AccessRequest < ActiveRecord::Base
   end
 
   private
+
+  def generate_referral_code
+    self.referral_code = rand(36**8).to_s(36)
+  end
 
   def mark_invited
     update_attribute :granted, true
