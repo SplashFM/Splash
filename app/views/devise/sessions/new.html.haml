@@ -54,6 +54,7 @@
       %p Look out for an email with your invite.
 
   %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
+    %h2= t('login.sign_in.header')
     .signin
       = form_for(:user, |
           :url    => session_path(:user), |
