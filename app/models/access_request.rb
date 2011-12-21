@@ -5,6 +5,7 @@ class AccessRequest < ActiveRecord::Base
 
   before_create :reset_granted
   before_create :generate_referral_code
+  after_create  :confirm_inclusion
 
   scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
   scope :pending, where(:granted => false)
@@ -24,6 +25,10 @@ class AccessRequest < ActiveRecord::Base
   end
 
   private
+
+  def confirm_inclusion
+    UserMailer.delay.confirm_access_request self
+  end
 
   def generate_referral_code
     self.referral_code = rand(36**8).to_s(36)

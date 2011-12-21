@@ -1,6 +1,12 @@
 class UserMailer < ActionMailer::Base
   default :from => "Splash.FM <notifications@splash.fm>"
 
+  def confirm_access_request(access_request)
+    @code = access_request.referral_code
+
+    mail :to => access_request.email, :subject => "You're on the Invite List!"
+  end
+
   def invite(access_request)
     @url  = home_url(:to => 'signup', :code => access_request.code)
 
