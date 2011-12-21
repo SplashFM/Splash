@@ -68,6 +68,7 @@
     .cl
 
   %script#tmpl-choice{:type => 'text/x-jquery-tmpl'}
+    %h2= t('login.beta_warning')
     .buttons
       = link_to t('login.choice.new_user'), '#', :class => 'new-user', :'data-widget' => 'new-user'
       = link_to t('login.choice.registered_user'), '#', :class => 'registered-user', :'data-widget' => 'registered-user'
