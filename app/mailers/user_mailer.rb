@@ -4,8 +4,7 @@ class UserMailer < ActionMailer::Base
   def invite(access_request)
     @url  = home_url(:to => 'signup', :code => access_request.code)
 
-    mail :to      => access_request.email,
-         :subject => "Come on in, the water is fine!"
+    mail :to => access_request.email, :subject => 'Jump In!'
   end
 
   def notification(notification)
