@@ -123,7 +123,6 @@ $(function() {
         var url  = $.param.querystring($(this).attr('href'),
                                        $.param({origin: orig}));
 
-        console.log(url);
         $(this).attr('href', url);
       });
 
