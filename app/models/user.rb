@@ -376,8 +376,6 @@ class User < ActiveRecord::Base
 
     user = User.with_social_connection(provider, uid)
     unless user
-      return User.new
-
       name     = access_token['user_info'].try(:[], 'name')
       email    = access_token['extra'].try(:[], 'user_hash').try(:[], 'email')
       nickname = access_token['user_info'].try(:[], 'nickname')

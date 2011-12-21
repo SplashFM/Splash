@@ -24,8 +24,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => 'Facebook'
       sign_in_and_redirect user, :event => :authentication
     else
-      redirect_to new_user_session_path and return
-
       session["devise.provider_data"] = env["omniauth.auth"].except('extra')
       redirect_to new_user_registration_url
     end
@@ -40,8 +38,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => 'Twitter'
       sign_in_and_redirect user, :event => :authentication
     else
-      redirect_to new_user_session_path and return
-
       session["devise.provider_data"] = env["omniauth.auth"].except('extra')
       flash[:notice] = I18n.t('devise.registrations.twitter') if user.initial_provider == 'twitter'
       redirect_to new_user_registration_url
