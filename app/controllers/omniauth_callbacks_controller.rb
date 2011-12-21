@@ -16,26 +16,15 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def authorize_facebook
-    access_token = env['omniauth.auth']
-    provider     = access_token['provider']
-    uid          = access_token['uid']
-    token        = access_token['credentials']['token']
+    ft = social_token
 
-    if user = User.with_social_connection(provider, uid)
-      user.social_connections.with_provider(provider).refresh :token => token
+    if user = User.with_social_connection(ft[:provider], ft[:uid])
+      user.social_connections.with_provider(ft[:provider]).
+        refresh ft.slice(:token)
 
       sign_in_and_redirect user, :event => :authentication
     else
-      email    = access_token['user_info']['email']
-      name     = access_token['user_info']['name']
-      nickname = access_token['user_info']['nickname']
-      user     = User.create_with_social_connection(:access_code => signup_code,
-                                                    :email       => email,
-                                                    :name        => name,
-                                                    :nickname    => nickname,
-                                                    :provider    => provider,
-                                                    :token       => token,
-                                                    :uid         => uid)
+      user = User.create_with_social_connection(ft)
 
       if user.persisted?
         sign_in_and_redirect user, :event => :authentication
@@ -46,28 +35,16 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def authorize_twitter
-    access_token = env['omniauth.auth']
-    provider     = access_token['provider']
-    uid          = access_token['uid']
-    token        = access_token['credentials']['token']
-    token_secret = access_token['credentials']['token_secret']
-    user         = User.with_social_connection(provider, uid)
+    tt   = social_token
+    user = User.with_social_connection(tt[:provider], tt[:uid])
 
     if user
-      user.social_connections.with_provider(provider).
-        refresh :token => token, :token_secret => token_secret
+      user.social_connections.with_provider(tt[:provider]).
+        refresh tt.slice(:token, :token_secret)
 
       sign_in_and_redirect user, :event => :authentication
     else
-      data = {:access_code  => signup_code,
-              :name         => access_token['user_info']['name'],
-              :nickname     => access_token['user_info']['nickname'],
-              :provider     => provider,
-              :token        => token,
-              :token_secret => token_secret,
-              :uid          => uid}
-
-      session['devise.provider_data'] = data
+      session['devise.provider_data'] = tt
 
       # for Beta
       if AccessRequest.codes.include?(signup_code)
@@ -89,6 +66,27 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       render :template => 'users/merge_accounts'
     end
+  end
+
+  def social_meta_token
+    t = env['omniauth.auth']
+
+    {:provider     => t['provider'],
+     :uid          => t['uid'],
+     :token        => t['credentials']['token']}.tap { |st|
+      if t['credentials']['token_secret']
+        st[:token_secret] = t['credentials']['token_secret']
+      end
+    }
+  end
+
+  def social_token
+    t = env['omniauth.auth']
+
+    social_meta_token.merge!({:access_code => signup_code,
+                              :email       => t['user_info']['email'],
+                              :name        => t['user_info']['name'],
+                              :nickname    => t['user_info']['nickname']})
   end
 
   def signup_code
