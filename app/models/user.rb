@@ -401,21 +401,21 @@ class User < ActiveRecord::Base
 
   def self.new_with_session(params, session)
     super.tap do |user|
-      if session['devise.provider_data']
-        data = session['devise.provider_data']
+      data = session['devise.provider_data']
 
-        token_secret = data['credentials'].try(:[], 'secret')
-        user.initial_provider = data['provider']
-        user.build_social_network_link data
+      if data
+        case data[:provider]
+        when 'twitter'
+          if user.email.present?
+            user.initial_provider = data[:provider]
+            user.name             = data[:name]
+            user.nickname         = data[:nickname]
 
-        user_hash = data['extra']['user_hash'] if data['extra']
-
-        if user_hash
-          user.name = user_hash['name']
-          user.email = user_hash['email']
+            user.social_connections.
+              build data.slice(:provider, :uid, :token, :token_secret)
+          end
         else
-          user.name = data['user_info'].try(:[], 'name')
-          user.nickname = data['user_info'].try(:[], 'nickname')
+          raise "Don't know how to handle #{data.inspect}"
         end
       end
     end

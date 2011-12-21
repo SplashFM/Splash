@@ -5,4 +5,6 @@ class SocialConnection < ActiveRecord::Base
   def self.with_provider(provider)
     where(:provider => provider).first
   end
+
+  alias_method :refresh, :update_attributes!
 end
