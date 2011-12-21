@@ -383,31 +383,6 @@ class User < ActiveRecord::Base
       .first
   end
 
-  def self.find_for_oauth(access_token)
-    provider = access_token['provider']
-    uid      = access_token['uid']
-
-    user = User.with_social_connection(provider, uid)
-    unless user
-      name     = access_token['user_info'].try(:[], 'name')
-      email    = access_token['extra'].try(:[], 'user_hash').try(:[], 'email')
-      nickname = access_token['user_info'].try(:[], 'nickname')
-      user     = User.new(:name             => name,
-                          :email            => email,
-                          :nickname         => nickname,
-                          :initial_provider => provider,
-                          :password         => Devise.friendly_token[0,20])
-
-      user.build_social_network_link(access_token)
-
-      user.save unless email.blank?
-
-      user.facebook_suggestions
-    end
-
-    user
-  end
-
   def password_required?
     initial_provider.blank? && super
   end
@@ -433,29 +408,6 @@ class User < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def build_social_network_link(access_token)
-    provider      = access_token['provider']
-    uid           = access_token['uid']
-    token         = access_token['credentials']['token']
-    token_secret  = access_token['credentials'].try(:[], 'secret')
-
-    social_connections.build(:provider     => provider,
-                             :uid          => uid,
-                             :token        => token,
-                             :token_secret => token_secret)
-  end
-
-  def update_social_network_link(access_token)
-    provider      = access_token['provider']
-    uid           = access_token['uid']
-    token         = access_token['credentials']['token']
-    token_secret  = access_token['credentials'].try(:[], 'secret')
-    connection    = social_connections.where(:provider     => provider,
-                                             :uid          => uid).first
-
-    connection.update_attributes :token => token, :token_secret => token_secret
   end
 
   # Declarative Authorization user roles
