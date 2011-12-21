@@ -56,7 +56,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def link_site(site)
-    @site_connection = current_user.build_social_network_link(env['omniauth.auth'])
+    @site_connection = current_user.social_connections.build(social_meta_token)
 
     if @site_connection.save
       redirect_to root_path, :notice => I18n.t('devise.omniauth.site_link', :site => site)
