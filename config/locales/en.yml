@@ -70,6 +70,7 @@ en:
       code: Enter code
       confirm_password: confirm password
       email: enter email
+      header: Create an Account
       name: name
       password: password
       request_invite: Request Invite

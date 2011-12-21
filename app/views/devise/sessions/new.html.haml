@@ -21,6 +21,7 @@
     });
 
   %script#tmpl-registration{:type => 'text/x-jquery-tmpl'}
+    %h2= t('login.register.header')
     = form_for :user, |
         :remote => true, |
         :url  => registration_path(:user), |
