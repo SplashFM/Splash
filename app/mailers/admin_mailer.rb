@@ -1,7 +1,7 @@
 class AdminMailer < ActionMailer::Base
   INVITE_EMAIL = 'invite@splash.fm'
 
-  default :from => "Splash.FM <notifications@splash.fm>"
+  default :from => "\"Splash.FM (#{AppConfig.preferred_host})\" <notifications@splash.fm>"
 
   def flag(song, user)
     @user, @song = user, song
