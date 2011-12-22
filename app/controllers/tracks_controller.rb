@@ -15,7 +15,9 @@ class TracksController < ApplicationController
       results = apply_scopes(Track).page(current_page)
     end
 
-    respond_with results
+    respond_with results.map { |t|
+      t.active_model_serializer.new(t, current_user, :scoped_score => !! user)
+    }
   end
 
   def top

@@ -18,6 +18,8 @@ class Track < ActiveRecord::Base
 
   scope :splashed, where('id in (select s.track_id from splashes s)')
 
+  attr_accessor :scoped_splash_count
+
   def self.string_list_to_array(str)
     if str.present?
       str.split(/\s*;;\s*/)

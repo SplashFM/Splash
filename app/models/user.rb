@@ -211,10 +211,18 @@ class User < ActiveRecord::Base
   end
 
   def top_tracks(page=1, num_records=20)
-    ids = summed_splashed_tracks(page, num_records).map { |(id, _)| id.to_i }
-    cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
+    scores = summed_splashed_tracks(page, num_records)
 
-    ids.map { |id| cache[id] }
+    if scores.present?
+      ids, _ = *scores.transpose
+      cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
+
+      scores.map { |(id, score)|
+        cache[id.to_i].tap { |t| t.scoped_splash_count = score }
+      }
+    else
+      []
+    end
   end
 
   def ignore_suggested_users
