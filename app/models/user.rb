@@ -211,10 +211,18 @@ class User < ActiveRecord::Base
   end
 
   def top_tracks(page=1, num_records=20)
-    ids = summed_splashed_tracks(page, num_records).map(&:to_i)
-    cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
+    scores = summed_splashed_tracks(page, num_records)
 
-    ids.map { |id| cache[id] }
+    if scores.present?
+      ids, _ = *scores.transpose
+      cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
+
+      scores.map { |(id, score)|
+        cache[id.to_i].tap { |t| t.scoped_splash_count = score }
+      }
+    else
+      []
+    end
   end
 
   def ignore_suggested_users
@@ -479,6 +487,15 @@ class User < ActiveRecord::Base
 
   def maybe_fetch_avatar(_ = nil)
     fetch_avatar if fetch_avatar_needed?
+  end
+
+  def splashed?(track)
+    case track
+    when Track
+      splashed_tracks_hash[track.id]
+    else
+      splashed_tracks_hash[track]
+    end
   end
 
   def update_with_password(attrs = {})

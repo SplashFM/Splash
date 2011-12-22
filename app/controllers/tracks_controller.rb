@@ -7,7 +7,6 @@ class TracksController < ApplicationController
   has_scope :with_text
 
   def index
-    sth = current_user.try(:splashed_tracks_hash)
     if params[:user_id] && user = User.find(params[:user_id])
       results = user.top_tracks(current_page, TRACKS_PER_PAGE)
     elsif params[:top]
@@ -16,7 +15,9 @@ class TracksController < ApplicationController
       results = apply_scopes(Track).page(current_page)
     end
 
-    respond_with results.as_json(:splashed_tracks => sth)
+    respond_with results.map { |t|
+      t.active_model_serializer.new(t, current_user, :scoped_score => !! user)
+    }
   end
 
   def top

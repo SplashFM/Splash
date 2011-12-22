@@ -18,6 +18,8 @@ class Track < ActiveRecord::Base
 
   scope :splashed, where('id in (select s.track_id from splashes s)')
 
+  attr_accessor :scoped_splash_count
+
   def self.string_list_to_array(str)
     if str.present?
       str.split(/\s*;;\s*/)
@@ -102,20 +104,6 @@ class Track < ActiveRecord::Base
     # prefer exact matching, but only in title or performers
     exact = Track.send(:sanitize_sql, ["(title || performers) ilike ? as exact", "%#{query}%"])
     select("*, #{rank}, #{exact}").where("#{tsv} @@ #{tsq}").order("exact DESC, rank DESC")
-  end
-
-  def as_json(opts = {})
-    splashable = !(opts[:splashed_tracks] || {})[id] && !opts[:unsplashable]
-
-    {:id           => id,
-     :title        => title,
-     :splashable   => splashable,
-     :artwork_url  => artwork_url,
-     :preview_url  => preview_url,
-     :preview_type => preview_type,
-     :splash_count => splash_count,
-     :albums       => albums.to_sentence,
-     :performers   => performers.to_sentence}
   end
 
   def artwork_url
