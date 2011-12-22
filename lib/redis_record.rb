@@ -149,7 +149,11 @@ module RedisRecord
           stop  = start + num_records - 1
 
           k = key("summed_#{name.to_s}/") + id.to_s
-          RedisRecord.redis.zrevrange(k, start, stop)
+          RedisRecord.
+            redis.
+            zrevrange(k, start, stop, :with_scores => true).
+            each_slice(2).
+            to_a
         end
 
         def replace_summed_#{name}(other_ids)

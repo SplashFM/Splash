@@ -211,7 +211,7 @@ class User < ActiveRecord::Base
   end
 
   def top_tracks(page=1, num_records=20)
-    ids = summed_splashed_tracks(page, num_records).map(&:to_i)
+    ids = summed_splashed_tracks(page, num_records).map { |(id, _)| id.to_i }
     cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
 
     ids.map { |id| cache[id] }
