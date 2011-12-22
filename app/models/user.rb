@@ -481,6 +481,15 @@ class User < ActiveRecord::Base
     fetch_avatar if fetch_avatar_needed?
   end
 
+  def splashed?(track)
+    case track
+    when Track
+      splashed_tracks_hash[track.id]
+    else
+      splashed_tracks_hash[track]
+    end
+  end
+
   def update_with_password(attrs = {})
     if attrs[:password].blank?
       attrs.delete(:password)
