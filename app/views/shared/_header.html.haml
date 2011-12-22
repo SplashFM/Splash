@@ -4,7 +4,8 @@
     %a.nav-user-settings.right{:href => "#", :data => {:widget => 'lifesaver'}}
     .settings-drop{:data => {:widget => 'lifesaver-menu'}}
       .inner
-        %a{:href => destroy_user_session_path}= t('lifesaver.logout')
+        %a{:href => destroy_user_session_path,
+           :data => {:'skip-pjax' => true}}= t('lifesaver.logout')
         .cl
         %a{:href => edit_user_registration_path,:class => "fancybox"}
           = t('lifesaver.settings')
