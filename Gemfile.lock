@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/david/active_model_serializers.git
+  revision: ce12aecac216aa3fe8b097b698f699faf61e81fa
+  specs:
+    active_model_serializers (0.1.0)
+      activemodel (~> 3.0)
+
+GIT
   remote: git://github.com/david/taglib-ruby.git
   revision: b3780449878d0d5d5edc25ba09871c9a1810d763
   specs:
@@ -28,8 +35,6 @@ GEM
       rack-mount (~> 0.6.14)
       rack-test (~> 0.5.7)
       tzinfo (~> 0.3.23)
-    active_model_serializers (0.1.0)
-      activemodel (~> 3.0)
     active_scaffold (3.0.12)
       rails (~> 3.0.0)
       render_component
@@ -357,7 +362,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers!
   active_scaffold
   active_scaffold_export (>= 3.0.6)
   acts-as-taggable-on (~> 2.1.0)
