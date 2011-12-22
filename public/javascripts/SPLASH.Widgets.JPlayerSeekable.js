@@ -6,10 +6,20 @@ SPLASH.Widgets.JPlayerSeekable = (function() {
       cached,
       target;
 
-  $('.jp-seek-bar').live('mousedown',downdown);
-  $('.jp-seek-bar').live('mouseup',up);
-  $('.jp-seek-bar').live('mousemove',movement);
-  $('.jp-audio').live('mouseleave',up);
+  $('#player').live($.jPlayer.event.ready,reBind);
+
+  function reBind() {
+    $('.jp-seek-bar').die('mousedown',downdown);
+    $('.jp-seek-bar').die('mouseup',up);
+    $('.jp-seek-bar').die('mousemove',movement);
+    $('.jp-audio').die('mouseleave',up);
+    $('.jp-seek-bar').live('mousedown',downdown);
+    $('.jp-seek-bar').live('mouseup',up);
+    $('.jp-seek-bar').live('mousemove',movement);
+    $('.jp-audio').live('mouseleave',up);
+    cached = $('#player');
+    target = $('.jp-seek-bar');
+  }
 
   function movement(e) {
     cached = cached || $('#player');
@@ -29,5 +39,5 @@ SPLASH.Widgets.JPlayerSeekable = (function() {
     down = false;
   }
 
-  return {};
+  return {'reBind':reBind};
 }())
