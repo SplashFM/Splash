@@ -469,7 +469,7 @@ class User < ActiveRecord::Base
         self.update_attribute(:avatar, f)
       }
     rescue OpenURI::HTTPError => e
-      notify_hoptoad(e)
+      HoptoadNotifier.notify e
     end
   end
 
