@@ -77,10 +77,15 @@ $(function() {
     className:    'wrap',
     events:       {
       'ajax:success': 'requested',
+      'ajax:error': 'failed',
       'keyup input[name = "access_code"]': 'onCode',
     },
     template:     $('#tmpl-request-invite').template(),
     sentTemplate: $('#tmpl-request-invite-sent').template(),
+
+    failed: function() {
+      this.$('form input').addClass('error')
+    },
 
     onCode: function(e) {
       if (e.keyCode === $.ui.keyCode.ENTER) {

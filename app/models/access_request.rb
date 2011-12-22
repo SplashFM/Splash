@@ -1,7 +1,10 @@
 class AccessRequest < ActiveRecord::Base
   ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
 
-  validates :email, :presence => true, :uniqueness => true
+  validates :email,
+            :presence   => true,
+            :uniqueness => true,
+            :format     => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}
 
   before_create :reset_granted
   before_create :generate_referral_code
