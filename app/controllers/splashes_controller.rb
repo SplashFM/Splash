@@ -22,9 +22,7 @@ class SplashesController < ApplicationController
   end
 
   def show
-    opts = {:full => params[:summary].blank?, :user_id => current_user.id}
-
-    respond_with Splash.find(params[:id]).as_json(opts)
+    respond_with Splash.find(params[:id]), :full => params[:summary].blank?
   end
 
   def share

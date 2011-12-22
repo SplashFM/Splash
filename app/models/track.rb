@@ -104,20 +104,6 @@ class Track < ActiveRecord::Base
     select("*, #{rank}, #{exact}").where("#{tsv} @@ #{tsq}").order("exact DESC, rank DESC")
   end
 
-  def as_json(opts = {})
-    splashable = !(opts[:splashed_tracks] || {})[id] && !opts[:unsplashable]
-
-    {:id           => id,
-     :title        => title,
-     :splashable   => splashable,
-     :artwork_url  => artwork_url,
-     :preview_url  => preview_url,
-     :preview_type => preview_type,
-     :splash_count => splash_count,
-     :albums       => albums.to_sentence,
-     :performers   => performers.to_sentence}
-  end
-
   def artwork_url
     read_attribute(:artwork_url) || DEFAULT_ARTWORK_URL
   end

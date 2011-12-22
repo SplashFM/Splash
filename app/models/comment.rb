@@ -28,7 +28,7 @@ class Comment < ActiveRecord::Base
      :created_at => created_at,
      :type       => 'comment',
      :author     => author.as_json(opts),
-     :splash     => splash.as_json(opts)}
+     :splash     => splash.active_model_serializer.new(splash, nil, opts)}
   end
 
   private

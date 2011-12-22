@@ -72,23 +72,6 @@ class Splash < ActiveRecord::Base
     connection.select_values(s.project(:id).where(s[:user_id].eq(user_id)).to_sql)
   end
 
-  def as_json(opts = {})
-    st   = opts[:splashed_tracks] || {}
-    base = super(:only => [:id, :comments_count, :created_at]).
-      merge!(:type  => 'splash',
-             :splashable => !st[track.id],
-             :track => track.as_json(opts),
-             :user  => user.as_json(opts))
-
-    if opts[:full]
-      base[:unsplashable] = opts[:user_id] == user_id
-      base[:expanded]     = true
-      base[:comments]     = comments
-    end
-
-    base
-  end
-
   def comment=(body)
     @comment = body
   end

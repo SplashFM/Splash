@@ -63,11 +63,6 @@ class UndiscoveredTrack < Track
     artwork.url
   end
 
-  def as_json(opts = {})
-    super(opts).
-      merge!(:download_url => download_url)
-  end
-
   def preview_type
     File.extname(data_file_name).split('.').last
   end
