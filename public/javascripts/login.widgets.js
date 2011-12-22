@@ -4,12 +4,14 @@ $(function() {
     events: {
       'click a[data-widget = "new-user"]': 'renderAccessRequest',
       'click a[data-widget = "registered-user"]': 'renderSignIn',
-      'register:code': 'onCode'
+      'register:code': 'onCode',
+      'forgotpassword': 'renderForgotPassword'
     },
 
     initialize: function() {
-      this.choice        = new NewUserChoice();
-      this.accessRequest = new RequestAccess();
+      this.choice         = new NewUserChoice();
+      this.accessRequest  = new RequestAccess();
+      this.forgotPassword = new ForgotPassword();
 
       this.registration = new Registration();
 
@@ -45,6 +47,12 @@ $(function() {
       $(this.el).html(this.accessRequest.render().el);
     },
 
+    renderForgotPassword: function() {
+      this.signIn.remove();
+
+      $(this.el).html(this.forgotPassword.render().el);
+    },
+
     renderSignIn: function() {
       this.choice.remove();
 
@@ -61,6 +69,25 @@ $(function() {
       $(this.el).html(this.registration.render(code || this.options.code).el);
     },
   });
+
+  window.ForgotPassword = Backbone.View.extend({
+    events: {
+      'ajax:success form': 'passwordReset',
+    },
+
+    template: $('#tmpl-forgot-password').template(),
+
+    passwordReset: function() {
+      $(this.el).html(I18n.t('devise.passwords.send_instructions'));
+    },
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template));
+
+      return this;
+    },
+  });
+
 
   window.NewUserChoice = Backbone.View.extend({
     className: 'wrap',
@@ -150,14 +177,11 @@ $(function() {
   });
 
   window.SignIn = Backbone.View.extend({
-    events: {
-      'click #forgot_password': 'resetPassword',
-    },
     template: $('#tmpl-sign-in').template(),
 
     initialize: function() {
       _.bindAll(this, 'onLogin', 'onLoginFailed', 'onNewUser',
-                      'onRegisteredUser');
+                      'onRegisteredUser', 'triggerForgotPassword');
     },
 
     email: function(val) {
@@ -186,16 +210,13 @@ $(function() {
         bind('ajax:success', this.onLogin).
         bind('ajax:error', this.onLoginFailed);
 
+      this.$('#forgot_password').click(this.triggerForgotPassword)
+
       return this;
     },
 
-    resetPassword: function() {
-      // TODO: Show flash messages (the ones on Widgets.SignIn weren't working).
-      $.ajax({
-        type: 'post',
-        url: Routes.user_password_path(),
-        data: {'user[email]': this.emailField.val()},
-      });
+    triggerForgotPassword: function() {
+      $(this.el).trigger('forgotpassword');
     },
 
     onLogin: function() {

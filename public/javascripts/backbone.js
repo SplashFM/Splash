@@ -962,8 +962,11 @@
         method = _.bind(method, this);
         eventName += '.delegateEvents' + this.cid;
         if (selector === '') {
+          console.log('binding? ' + selector + ' ' + eventName);
           $(this.el).bind(eventName, method);
         } else {
+          console.log('delegating? ' + selector + ' ' + eventName);
+          console.log(this.el);
           $(this.el).delegate(selector, eventName, method);
         }
       }

@@ -78,6 +78,13 @@
       = link_to t('login.choice.new_user'), '#', :class => 'new-user', :'data-widget' => 'new-user'
       = link_to t('login.choice.registered_user'), '#', :class => 'registered-user', :'data-widget' => 'registered-user'
 
+  %script#tmpl-forgot-password{:type => 'text/x-jquery-tmpl'}
+    %h2= t('login.forgot_password')
+    = form_for(:user, :url    => password_path(:user),
+                      :html   => {:method => :post, :'data-type' => 'json'},
+                      :remote => true) do |f|
+      = f.text_field :email, :class => 'input'
+
 .user-signin
   .main
     .pulsars-wrap
