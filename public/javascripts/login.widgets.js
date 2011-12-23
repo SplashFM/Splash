@@ -1,75 +1,4 @@
 $(function() {
-  window.LoginView = Backbone.View.extend({
-    className: 'wrap',
-    events: {
-      'click a[data-widget = "new-user"]': 'renderAccessRequest',
-      'click a[data-widget = "registered-user"]': 'renderSignIn',
-      'register:code': 'onCode',
-      'forgotpassword': 'renderForgotPassword'
-    },
-
-    initialize: function() {
-      this.choice         = new NewUserChoice();
-      this.accessRequest  = new RequestAccess();
-      this.forgotPassword = new ForgotPassword();
-
-      this.registration = new Registration();
-
-      this.signIn = new SignIn();
-      this.signIn.bind('signin:unregistered', this.renderChoice, this);
-    },
-
-    onCode: function(_, data) {
-      this.renderRegistration(data.code);
-    },
-
-    renderChoice: function() {
-      this.signIn.remove();
-
-      $(this.el).css({paddingTop: '45px'});
-
-      $(this.el).html(this.choice.render().el);
-    },
-
-    render: function() {
-      if (this.options.to == 'signup') {
-        this.renderRegistration();
-      } else {
-        this.renderChoice();
-      }
-
-      return this;
-    },
-
-    renderAccessRequest: function() {
-      this.choice.remove();
-
-      $(this.el).html(this.accessRequest.render().el);
-    },
-
-    renderForgotPassword: function() {
-      this.signIn.remove();
-
-      $(this.el).html(this.forgotPassword.render().el);
-    },
-
-    renderSignIn: function() {
-      this.choice.remove();
-
-      $(this.el).css({paddingTop: '90px'});
-
-      $(this.el).html(this.signIn.render().el);
-    },
-
-    renderRegistration: function(code) {
-      this.choice.remove();
-
-      $(this.el).css({paddingTop: '20px'});
-
-      $(this.el).html(this.registration.render(code || this.options.code).el);
-    },
-  });
-
   window.ForgotPassword = Backbone.View.extend({
     events: {
       'ajax:success form': 'passwordReset',
@@ -88,17 +17,6 @@ $(function() {
     },
   });
 
-
-  window.NewUserChoice = Backbone.View.extend({
-    className: 'wrap',
-    template: $('#tmpl-choice').template(),
-
-    render: function() {
-      $(this.el).html($.tmpl(this.template));
-
-      return this;
-    },
-  });
 
   window.RequestInvite = Backbone.View.extend({
     events: {
