@@ -3,7 +3,12 @@ class HomeController < ApplicationController
 
   def index
     if logged_in?
-      render
+      if active?
+        render
+      else
+        sign_out :user
+        redirect_to new_user_session_path
+      end
     else
       redirect_to new_user_session_path
     end
