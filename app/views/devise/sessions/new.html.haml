@@ -44,6 +44,18 @@
     %a{:href => '#request-invite-sn'} Request Invite via Facebook and Twitter
     %a{:href => '#request-invite-email'} Request Invite via email
 
+  %script#tmpl-request-invite-confirmed{:type => 'text/x-jquery-tmpl'}
+    %h2= t('login.beta_warning')
+
+    %p
+      You've been successfully added to the Public Beta request list! Not a fan
+      of waiting in long lines? We love enthusiastic users:
+
+    %p
+      Share with 3 friends! Copy and paste the URL below into Twitter,
+      Facebook, or in an email, or use the social links contained in this
+      window to share and climb the list.
+
   %script#tmpl-request-invite-sn{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.beta_warning')
 

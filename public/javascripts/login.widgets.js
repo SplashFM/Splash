@@ -22,13 +22,19 @@ $(function() {
     events: {
       'click [href = "#request-invite-sn"]':    'renderRequestInviteSN',
       'click [href = "#request-invite-email"]': 'renderRequestInviteEmail',
+      'invited': 'renderInviteConfirmation',
     },
     template: $('#tmpl-request-invite').template(),
+    templateConfirmed: $('#tmpl-request-invite-confirmed').template(),
 
     render: function() {
       $(this.el).html($.tmpl(this.template));
 
       return this;
+    },
+
+    renderInviteConfirmation: function() {
+      $(this.el).html($.tmpl(this.templateConfirmed));
     },
 
     renderRequestInviteSN: function() {
@@ -54,7 +60,14 @@ $(function() {
   });
 
   window.RequestInviteEmail = Backbone.View.extend({
+    events: {
+      'ajax:success': 'accepted',
+    },
     template: $('#tmpl-request-invite-email').template(),
+
+    accepted: function() {
+      $(this.el).trigger('invited');
+    },
 
     render: function() {
       $(this.el).html($.tmpl(this.template));
