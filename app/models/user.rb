@@ -60,7 +60,9 @@ class User < ActiveRecord::Base
                   :nickname, :access_code
 
   before_create     :set_state
+  before_create     :generate_referral_code
   before_validation :generate_nickname, :on => :update
+  after_create      :confirm_creation
 
   validates :nickname,
             :presence => true,
@@ -546,6 +548,11 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def confirm_creation
+    UserMailer.delay.confirm_access_request self
+  end
+
   def possibly_delete_avatar
     self.avatar = nil if self.delete_avatar == "1" && !self.avatar.dirty?
   end
@@ -558,6 +565,10 @@ class User < ActiveRecord::Base
     self.nickname ||= check_existence(to_slug(self.name)) \
                       || check_existence(to_slug(self.email)) \
                       || rand(36**6).to_s(36)
+  end
+
+  def generate_referral_code
+    self.referral_code = rand(36**8).to_s(36)
   end
 
   def to_slug(string)
