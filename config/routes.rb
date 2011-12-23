@@ -22,6 +22,9 @@ Scaphandrier::Application.routes.draw do
     member do
       get :approve
     end
+    collection do
+      get :verify
+    end
   end
   resources :comments
   resources :events, :only => :index

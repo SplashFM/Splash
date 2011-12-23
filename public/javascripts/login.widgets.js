@@ -110,14 +110,36 @@ $(function() {
     template:     $('#tmpl-request-invite').template(),
     sentTemplate: $('#tmpl-request-invite-sent').template(),
 
+    initialize: function() {
+      _.bindAll(this, 'onValidCode', 'onInvalidCode');
+    },
+
     failed: function() {
-      this.$('form input').addClass('error')
+      this.$('form input').addClass('error');
     },
 
     onCode: function(e) {
       if (e.keyCode === $.ui.keyCode.ENTER) {
-        $(this.el).trigger('register:code', {code: $(e.target).val()});
+        var code = $(e.target).val();
+
+        $.ajax({
+          url:  Routes.verify_access_requests_path({code: code}),
+          error: this.onInvalidCode,
+          success: this.onValidCode,
+        });
       }
+    },
+
+    onInvalidCode: function() {
+      this.$('[name = "access_code"]').addClass('error');
+    },
+
+    onValidCode: function() {
+      var $input = this.$('[name = \"access_code\"]');
+
+      $input.removeClass('error');
+
+      $(this.el).trigger('register:code', {code: $input.val()});
     },
 
     render: function() {
