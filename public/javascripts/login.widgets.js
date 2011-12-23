@@ -38,13 +38,10 @@ $(function() {
     },
 
     renderRequestInviteSN: function() {
-      console.log("blah");
-
       $(this.el).html(new RequestInviteSN().render().el);
     },
 
     renderRequestInviteEmail: function() {
-      console.log("bleh");
       $(this.el).html(new RequestInviteEmail().render().el);
     },
   });
