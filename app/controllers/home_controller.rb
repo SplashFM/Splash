@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_filter :require_user, :only => [:index, :privacy, :terms]
+  skip_before_filter :require_user, :only => [:index, :r, :privacy, :terms]
 
   def index
     if logged_in?
@@ -7,6 +7,10 @@ class HomeController < ApplicationController
     else
       redirect_to new_user_session_path
     end
+  end
+
+  def r
+    redirect_to :action => :index
   end
 
   def splashboards

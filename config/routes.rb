@@ -62,6 +62,7 @@ Scaphandrier::Application.routes.draw do
   match 'home/event_updates' => 'home#event_updates'
   match 'privacy' => 'home#privacy'
   match 'terms' => 'home#terms'
+  match 'r/:code' => 'home#r', :as => 'r'
 
   get "home/index"
 
