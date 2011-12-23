@@ -17,7 +17,9 @@
 
   :javascript
     $(function () {
-      $('.main').append(new LoginView($.deparam.querystring()).render().el);
+      $('.main').
+        append(new SignIn().render().el).
+        append(new RequestAccess().render().el);
     });
 
   %script#tmpl-registration{:type => 'text/x-jquery-tmpl'}
