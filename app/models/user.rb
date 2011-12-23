@@ -59,15 +59,17 @@ class User < ActiveRecord::Base
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider,
                   :nickname, :access_code
 
-  before_validation :generate_nickname
+  before_validation :generate_nickname, :on => :update
 
-  validates :nickname, :presence => true, :uniqueness => true
+  validates :nickname,
+            :presence => true,
+            :uniqueness => true,
+            :on => :update
   validates_format_of :nickname,
                       :with => /\A#{NICKNAME_REGEXP}\Z/,
-                      :message => "can only be alphanumeric with no spaces"
+                      :message => "can only be alphanumeric with no spaces",
+                      :on => :update
   validates :tagline, :length => { :maximum => 60 }
-  validates :access_code, :inclusion => {:in => AccessRequest.codes},
-                          :on        => :create
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",
@@ -104,6 +106,7 @@ class User < ActiveRecord::Base
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
   before_update :reprocess_avatar, :if => :cropping?
+  before_update :activate, :if => :valid_access_code?
 
   scope :nicknamed,  lambda { |*nicknames| where(:nickname => nicknames) }
 
@@ -391,10 +394,6 @@ class User < ActiveRecord::Base
       .first
   end
 
-  def password_required?
-    initial_provider.blank? && super
-  end
-
   def self.new_with_session(params, session)
     super.tap do |user|
       data = session['devise.provider_data']
@@ -416,6 +415,10 @@ class User < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def password_required?
+    persisted?
   end
 
   # Declarative Authorization user roles
@@ -535,6 +538,10 @@ class User < ActiveRecord::Base
 
   def social_connection(provider)
     social_connections.with_provider provider
+  end
+
+  def valid_access_code?
+    AccessRequest.codes.include?(access_code)
   end
 
   private

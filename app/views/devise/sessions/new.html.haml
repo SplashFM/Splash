@@ -56,7 +56,7 @@
     %h2= t('login.beta_warning')
     = form_for :user, |
         :remote => true, |
-        :url    => access_requests_path, |
+        :url    => registration_path(:user), |
         :html   => {:'data-type' => 'json', |
                     :class => 'register'} do |f|
       = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
