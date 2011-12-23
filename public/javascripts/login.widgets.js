@@ -17,11 +17,22 @@ $(function() {
     },
   });
 
+  window.CodeTest = Backbone.View.extend({
+    template: $('#tmpl-code-test').template(),
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template));
+
+      return this;
+    },
+  });
+
 
   window.RequestInvite = Backbone.View.extend({
     events: {
       'click [href = "#request-invite-sn"]':    'renderRequestInviteSN',
       'click [href = "#request-invite-email"]': 'renderRequestInviteEmail',
+      'click [href = "#code-test"]': 'renderCodeTest',
       'invited': 'renderInviteConfirmation',
     },
     template: $('#tmpl-request-invite').template(),
@@ -31,6 +42,10 @@ $(function() {
       $(this.el).html($.tmpl(this.template));
 
       return this;
+    },
+
+    renderCodeTest: function() {
+      $(this.el).html(new CodeTest().render().el);
     },
 
     renderInviteConfirmation: function() {

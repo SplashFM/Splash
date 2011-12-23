@@ -41,6 +41,8 @@
   %script#tmpl-request-invite{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.beta_warning')
 
+    %a{:href => '#code-test'} Submit Entry Code
+
     %a{:href => '#request-invite-sn'} Request Invite via Facebook and Twitter
     %a{:href => '#request-invite-email'} Request Invite via email
 
@@ -59,6 +61,8 @@
   %script#tmpl-request-invite-sn{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.beta_warning')
 
+    %a{:href => '#code-test'} Submit Entry Code
+
     = link_to 'Request invite via Facebook', user_omniauth_authorize_path(:facebook)
     = link_to 'Request invite via Twitter', user_omniauth_authorize_path(:twitter)
 
@@ -66,6 +70,9 @@
 
   %script#tmpl-request-invite-email{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.beta_warning')
+
+    %a{:href => '#code-test'} Submit Entry Code
+
     = form_for :user, |
         :remote => true, |
         :url    => registration_path(:user), |
@@ -81,6 +88,13 @@
       %h2 We've added you to the invite list.
 
       %p Look out for an email with your invite.
+
+  %script#tmpl-code-test{:type => 'text/x-jquery-tmpl'}
+    %div
+      %input.input{:name => 'access_code', :placeholder => t('login.register.code')}
+
+    %a{:href => '#request-invite-sn'} Request Invite via Facebook and Twitter
+    %a{:href => '#request-invite-email'} Request Invite via email
 
   %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.sign_in.header')
