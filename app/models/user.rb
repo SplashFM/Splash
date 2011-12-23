@@ -290,6 +290,7 @@ class User < ActiveRecord::Base
      :ripple_count     => ripple_count,
      :splash_count     => splash_count,
      :slug             => slug,
+     :referral_url     => "#{AppConfig.preferred_host}/r/#{referral_code}",
      :score            => splash_score}.merge(Hash[method_hash])
   end
 

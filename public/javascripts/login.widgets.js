@@ -48,8 +48,8 @@ $(function() {
       $(this.el).html(new CodeTest().render().el);
     },
 
-    renderInviteConfirmation: function() {
-      $(this.el).html($.tmpl(this.templateConfirmed));
+    renderInviteConfirmation: function(_, data) {
+      $(this.el).html($.tmpl(this.templateConfirmed, data));
     },
 
     renderRequestInviteSN: function() {
@@ -77,8 +77,8 @@ $(function() {
     },
     template: $('#tmpl-request-invite-email').template(),
 
-    accepted: function() {
-      $(this.el).trigger('invited');
+    accepted: function(_, user) {
+      $(this.el).trigger('invited', {referralURL: user.referral_url});
     },
 
     render: function() {
