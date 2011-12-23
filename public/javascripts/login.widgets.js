@@ -100,6 +100,51 @@ $(function() {
     },
   });
 
+  window.RequestInvite = Backbone.View.extend({
+    events: {
+      'click [href = "#request-invite-sn"]':    'renderRequestInviteSN',
+      'click [href = "#request-invite-email"]': 'renderRequestInviteEmail',
+    },
+    template: $('#tmpl-request-invite').template(),
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template));
+
+      return this;
+    },
+
+    renderRequestInviteSN: function() {
+      console.log("blah");
+
+      $(this.el).html(new RequestInviteSN().render().el);
+    },
+
+    renderRequestInviteEmail: function() {
+      console.log("bleh");
+      $(this.el).html(new RequestInviteEmail().render().el);
+    },
+  });
+
+  window.RequestInviteSN = Backbone.View.extend({
+    template: $('#tmpl-request-invite-sn').template(),
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template));
+
+      return this;
+    },
+  });
+
+  window.RequestInviteEmail = Backbone.View.extend({
+    template: $('#tmpl-request-invite-email').template(),
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template));
+
+      return this;
+    },
+  });
+
   window.RequestAccess = Backbone.View.extend({
     className:    'wrap',
     events:       {

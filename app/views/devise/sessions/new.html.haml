@@ -19,7 +19,7 @@
     $(function () {
       $('.main').
         append(new SignIn().render().el).
-        append(new RequestAccess().render().el);
+        append(new RequestInvite().render().el);
     });
 
   %script#tmpl-registration{:type => 'text/x-jquery-tmpl'}
@@ -40,18 +40,29 @@
 
   %script#tmpl-request-invite{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.beta_warning')
-    %div
-      %h3= t('login.register.request_invite')
-      = form_for :user, |
-          :remote => true, |
-          :url    => access_requests_path, |
-          :html   => {:'data-type' => 'json', |
-                      :class => 'register'} do |f|
-        = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
-        = f.submit
-    .or
-      or
-    %input.input{:name => 'access_code', :placeholder => t('login.register.code')}
+
+    %a{:href => '#request-invite-sn'} Request Invite via Facebook and Twitter
+    %a{:href => '#request-invite-email'} Request Invite via email
+
+  %script#tmpl-request-invite-sn{:type => 'text/x-jquery-tmpl'}
+    %h2= t('login.beta_warning')
+
+    = link_to 'Request invite via Facebook', user_omniauth_authorize_path(:facebook)
+    = link_to 'Request invite via Twitter', user_omniauth_authorize_path(:twitter)
+
+    %a{:href => '#request-invite-email'} Request Invite via email
+
+  %script#tmpl-request-invite-email{:type => 'text/x-jquery-tmpl'}
+    %h2= t('login.beta_warning')
+    = form_for :user, |
+        :remote => true, |
+        :url    => access_requests_path, |
+        :html   => {:'data-type' => 'json', |
+                    :class => 'register'} do |f|
+      = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
+      = f.submit
+
+    %a{:href => '#request-invite-sn'} Request Invite via Facebook and Twitter
 
   %script#tmpl-request-invite-sent{:type => 'text/x-jquery-tmpl'}
     .invite-sent
@@ -89,12 +100,13 @@
 
 .user-signin
   .main
-    .pulsars-wrap
-      .pulsars
-        .p1.p
-        .p2.p
-        .p3.p
-        .p4.p
+    /
+      .pulsars-wrap
+        .pulsars
+          .p1.p
+          .p2.p
+          .p3.p
+          .p4.p
 
   .bottom
     .wrap
