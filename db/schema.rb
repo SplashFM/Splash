@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111221161438) do
+ActiveRecord::Schema.define(:version => 20111223185408) do
 
   create_table "access_requests", :force => true do |t|
     t.string   "email"
@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20111221161438) do
     t.text     "suggested_users"
     t.string   "nickname"
     t.text     "avatar_meta"
+    t.boolean  "active"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

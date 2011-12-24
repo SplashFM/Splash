@@ -59,6 +59,7 @@ class User < ActiveRecord::Base
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider,
                   :nickname, :access_code
 
+  before_create     :set_state
   before_validation :generate_nickname, :on => :update
 
   validates :nickname,
@@ -565,5 +566,11 @@ class User < ActiveRecord::Base
 
   def check_existence(name)
     User.exists?(:nickname => name) ? nil : name
+  end
+
+  def set_state
+    self.active = false
+
+    nil
   end
 end
