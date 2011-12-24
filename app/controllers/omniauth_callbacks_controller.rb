@@ -23,14 +23,20 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         refresh ft.slice(:token)
 
       sign_in_and_redirect user, :event => :authentication
-    else
+    elsif invite_via_facebook?
       user = User.create_with_social_connection(ft)
 
       if user.persisted?
-        sign_in_and_redirect user, :event => :authentication
+        redirect_to invite_created_path
       else
+        HoptoadNotifier.notify :error_class   => "Unknown state",
+                               :error_message => "Couldn't create user",
+                               :params        => user
+
         redirect_to root_path
       end
+    else
+      redirect_to root_path
     end
   end
 
@@ -53,6 +59,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to root_path
       end
     end
+  end
+
+  def invite_via_facebook?
+    URI.parse(env['omniauth.origin']).path == facebook_invite_path
   end
 
   def link_site(site)

@@ -63,6 +63,7 @@ Scaphandrier::Application.routes.draw do
   match 'privacy' => 'home#privacy'
   match 'terms' => 'home#terms'
   match 'r/:code' => 'home#r', :as => 'r'
+  match 'invites/facebook' => 'home#index', :as => 'facebook_invite'
 
   get "home/index"
 
@@ -71,6 +72,7 @@ Scaphandrier::Application.routes.draw do
   } do
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
     put '/users/merge' => 'users#merge'
+    match 'invites/thanks' => 'devise/sessions#new', :as => 'invite_created'
   end
 
   resources :notifications do

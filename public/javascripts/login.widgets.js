@@ -39,7 +39,11 @@ $(function() {
     templateConfirmed: $('#tmpl-request-invite-confirmed').template(),
 
     render: function() {
-      $(this.el).html($.tmpl(this.template));
+      if (window.location.pathname == this.options.invitePath) {
+        this.renderInviteConfirmation();
+      } else {
+        $(this.el).html($.tmpl(this.template));
+      }
 
       return this;
     },

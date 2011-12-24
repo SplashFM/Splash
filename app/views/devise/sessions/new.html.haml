@@ -19,7 +19,9 @@
     $(function () {
       $('.main').
         append(new SignIn().render().el).
-        append(new RequestInvite().render().el);
+        append(new RequestInvite({
+          invitePath: "#{invite_created_path}",
+        }).render().el);
     });
 
   %script#tmpl-registration{:type => 'text/x-jquery-tmpl'}
@@ -66,8 +68,11 @@
 
     %a{:href => '#code-test'} Submit Entry Code
 
-    = link_to 'Request invite via Facebook', user_omniauth_authorize_path(:facebook)
-    = link_to 'Request invite via Twitter', user_omniauth_authorize_path(:twitter)
+    = link_to 'Request invite via Facebook',
+              user_omniauth_authorize_path(:facebook,
+                                           :origin => facebook_invite_url)
+    = link_to 'Request invite via Twitter',
+              user_omniauth_authorize_path(:twitter)
 
     %a{:href => '#request-invite-email'} Request Invite via email
 
