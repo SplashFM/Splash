@@ -118,23 +118,6 @@ class User < ActiveRecord::Base
 
   scope :nicknamed,  lambda { |*nicknames| where(:nickname => nicknames) }
 
-  def self.filter_by_name(name)
-    where(['name ilike ?', "#{name}%"])
-  end
-
-  def self.filter(nick_or_name)
-    if nick_or_name.present?
-      where('users.nickname ilike :nn or
-             users.name ilike :nn', :nn => "#{nick_or_name}%")
-    else
-      scoped
-    end
-  end
-
-  def self.named(name_or_names)
-    where(:name => name_or_names)
-  end
-
   def self.create_with_social_connection(params)
     transaction {
       user_params = params.slice(:access_code, :email, :name, :nickname).
@@ -148,174 +131,21 @@ class User < ActiveRecord::Base
     }
   end
 
-  def self.recompute_influence
-    reset_sorted_influence
-
-    update_influences(User.select(:id).map(&:id))
+  def self.filter(nick_or_name)
+    if nick_or_name.present?
+      where('users.nickname ilike :nn or
+             users.name ilike :nn', :nn => "#{nick_or_name}%")
+    else
+      scoped
+    end
   end
 
-  def self.top_splashers(page, num_records)
-    sorted_by_influence(page, num_records)
-  end
-
-  def self.update_influences(ids)
-    scs    = splash_counts(ids) || []
-    rcs    = ripple_counts(ids) || []
-    ids.zip(scs, rcs).each { |(id, s, r)|
-      update_sorted_influence(id, s.to_i + r.to_i)
-    }
-  end
-
-  def self.recompute_all_splashboards
-    User.find_each(:batch_size => 100) {|u| u.recompute_splashboard }
-  end
-
-  def self.recompute_splash_counts
-    reset_splash_counts
-
-    find_each(:batch_size => 100) {|u|
-      update_splash_count u.id, u.slow_splash_count
-    }
-  end
-
-  def self.recompute_splashed_tracks
-    reset_splashed_tracks
-
-    find_each(:batch_size => 100) { |u|
-      u.reset_splashed_tracks_hash!
-      u.recompute_splashboard
-    }
-  end
-
-  def self.recompute_ripple_counts
-    reset_ripple_counts
-
-    find_each(:batch_size => 100) {|u|
-      update_ripple_count u.id, u.slow_ripple_count
-    }
+  def self.filter_by_name(name)
+    where(['name ilike ?', "#{name}%"])
   end
 
   def self.find_by_slug(slug)
     where(:nickname => slug).first
-  end
-
-  def slow_ripple_count
-    Splash.for_users(id).map(&:ripple_count).sum
-  end
-
-  def slow_splash_count
-    Splash.for_users(id).count
-  end
-
-  def splashed_tracks_hash
-    splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
-  end
-
-  def reset_splashed_tracks_hash!
-    Splash.for_users(id).select(:track_id).map(&:track_id).each{|i|
-      record_splashed_track(i)
-    }
-  end
-
-  def reset_top_tracks!
-    replace_summed_splashed_tracks(following_ids)
-  end
-
-  def top_tracks(page=1, num_records=20)
-    scores = summed_splashed_tracks(page, num_records)
-
-    if scores.present?
-      ids, _ = *scores.transpose
-      cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
-
-      scores.map { |(id, score)|
-        cache[id.to_i].tap { |t| t.scoped_splash_count = score }
-      }
-    else
-      []
-    end
-  end
-
-  def ignore_suggested_users
-    read_attribute(:ignore_suggested_users) || []
-  end
-
-  def suggested_users
-    read_attribute(:suggested_users) || []
-  end
-
-  def suggestions_count
-    suggested_users.count
-  end
-
-  def recommended_users(page=0)
-    User.where("id IN (?)", suggested_users)
-        .limited(page, SUGGESTED_USERS_PER_PAGE)
-  end
-
-  def suggest_users
-    ignore = following.map(&:id) + ignore_suggested_users
-
-    facebook_suggestions(ignore)
-    splash_suggestions(ignore)
-    save!
-  end
-
-  def facebook_suggestions(ignore=[])
-    if has_social_connection?('facebook')
-      facebook_friends = FbGraph::User.me(social_connection('facebook').token).friends
-      ids = User.where(:name => facebook_friends.map(&:name))
-                .ignore(ignore)
-                .map(&:id)
-
-      write_attribute(:suggested_users, suggested_users | ids) unless ids.blank?
-    end
-  end
-
-  def splash_suggestions(ignore=[])
-    # the users followed by people I am following, but whom I am not already following.
-    relationships = Relationship.select('DISTINCT relationships.followed_id')
-                            .with_followers(following.map(&:id))
-                            .ignore(ignore + [self.id])
-    ids = relationships.map(&:followed_id)
-
-    write_attribute(:suggested_users, suggested_users | ids) unless ids.blank?
-  end
-
-  def as_json(opts = {})
-    method_names = Array.wrap(opts[:methods]).map { |n| n if respond_to?(n.to_s) }.compact
-    method_hash = method_names.map { |n| [n, send(n)] }
-
-    {:id               => id,
-     :name             => name,
-     :nickname         => nickname,
-     :url              => "/#{slug}",
-     :avatar_micro_url => avatar.url(:micro),
-     :avatar_thumb_url => avatar.url(:thumb),
-     :ripple_count     => ripple_count,
-     :splash_count     => splash_count,
-     :slug             => slug,
-     :referral_url     => "#{AppConfig.preferred_host}/r/#{referral_code}",
-     :score            => splash_score}.merge(Hash[method_hash])
-  end
-
-  def cropping?
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
-  end
-
-  def avatar_geometry(style = :thumb)
-    @geometry ||= {}
-
-    @geometry[style] ||= Paperclip::Geometry.new(avatar.image_size(style).split('x').first,
-                                                  avatar.image_size(style).split('x').last)
-  end
-
-  def followed(followed_id)
-    relationships.find_by_followed_id(followed_id)
-  end
-
-  def following?(followed)
-    !!followed(followed)
   end
 
   def self.following_ids(follower_id)
@@ -327,80 +157,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def follow(followed_id)
-    suggested_users.delete(followed_id)
-    write_attribute(:suggested_users, suggested_users)
-    r = relationships.create(:followed_id => followed_id)
-    recompute_splashboard(:add, followed_id)
-    self.delay.update_suggestions
-    save!
-    r
-  end
-
-  def update_suggestions
-    suggest_users
-    followers.each &:suggest_users
-  end
-
-  def unfollow(followed_id)
-    r = followed(followed_id).try(:destroy)
-    recompute_splashboard(:subtract, followed_id)
-    ignore_suggested(followed_id)
-    r
-  end
-
-  def recompute_splashboard(operation = nil, followed = nil)
-    # TODO: there is a more efficient way to add or subtract the other users history,
-    # but this works for now.
-    reset_top_tracks!
-  end
-
-  def ignore_suggested(user_id)
-    write_attribute(:ignore_suggested_users, ignore_suggested_users << user_id)
-    suggested_users.delete(user_id)
-    write_attribute(:suggested_users, suggested_users)
-    save!
-  end
-
-  def influence_score
-    total_users = User.count
-
-    if influence_rank
-      (90 * (((total_users - influence_rank) / total_users.to_f) ** 2)).floor
-    else
-      0
-    end
-  end
-
-  def splash_score
-    s = influence_score + 10
-
-    s > MAX_SCORE ? MAX_SCORE : s
-  end
-
-  def search_result_type
-    :user
-  end
-
-  # Search for users matching the given name.
-  #
-  # @param [String] name the user name to search for
-  #
-  # @return a (possibly empty) list of users
-  def self.with_text(name)
-    q = connection.quote_string(name)
-    select("users.*, ts_rank(to_tsvector('english', users.name),
-            plainto_tsquery('english', '#{q}')) name_rank").
-    where(["to_tsvector('english', users.name) @@
-            plainto_tsquery('english', ?)", name]).
-    order('name_rank desc')
-  end
-
-  def self.with_social_connection(provider, uid)
-    joins(:social_connections)
-      .where(:social_connections => {:provider => provider, :uid => uid})
-      .readonly(false)
-      .first
+  def self.named(name_or_names)
+    where(:name => name_or_names)
   end
 
   def self.new_with_session(params, session)
@@ -426,29 +184,191 @@ class User < ActiveRecord::Base
     end
   end
 
-  def password_required?
-    persisted?
+  def self.recompute_all_splashboards
+    User.find_each(:batch_size => 100) {|u| u.recompute_splashboard }
   end
 
-  # Declarative Authorization user roles
-  DEFAULT_ROLES = [:guest, :user].freeze
-  def role_symbols
-    roles = DEFAULT_ROLES.dup
-    roles << :superuser if superuser?
-    roles
+  def self.recompute_influence
+    reset_sorted_influence
+
+    update_influences(User.select(:id).map(&:id))
   end
 
-  # to_label for ActiveScaffold
-  def to_label
-    email
+  def self.recompute_ripple_counts
+    reset_ripple_counts
+
+    find_each(:batch_size => 100) {|u|
+      update_ripple_count u.id, u.slow_ripple_count
+    }
   end
 
-  def to_params
-    slug || super
+  def self.recompute_splash_counts
+    reset_splash_counts
+
+    find_each(:batch_size => 100) {|u|
+      update_splash_count u.id, u.slow_splash_count
+    }
   end
 
-  def slug
-    nickname
+  def self.recompute_splashed_tracks
+    reset_splashed_tracks
+
+    find_each(:batch_size => 100) { |u|
+      u.reset_splashed_tracks_hash!
+      u.recompute_splashboard
+    }
+  end
+
+  def self.top_splashers(page, num_records)
+    sorted_by_influence(page, num_records)
+  end
+
+  def self.update_influences(ids)
+    scs    = splash_counts(ids) || []
+    rcs    = ripple_counts(ids) || []
+    ids.zip(scs, rcs).each { |(id, s, r)|
+      update_sorted_influence(id, s.to_i + r.to_i)
+    }
+  end
+
+  def self.with_social_connection(provider, uid)
+    joins(:social_connections)
+      .where(:social_connections => {:provider => provider, :uid => uid})
+      .readonly(false)
+      .first
+  end
+
+  # Search for users matching the given name.
+  #
+  # @param [String] name the user name to search for
+  #
+  # @return a (possibly empty) list of users
+  def self.with_text(name)
+    q = connection.quote_string(name)
+    select("users.*, ts_rank(to_tsvector('english', users.name),
+            plainto_tsquery('english', '#{q}')) name_rank").
+    where(["to_tsvector('english', users.name) @@
+            plainto_tsquery('english', ?)", name]).
+    order('name_rank desc')
+  end
+
+  def as_json(opts = {})
+    method_names = Array.wrap(opts[:methods]).map { |n| n if respond_to?(n.to_s) }.compact
+    method_hash = method_names.map { |n| [n, send(n)] }
+
+    {:id               => id,
+     :name             => name,
+     :nickname         => nickname,
+     :url              => "/#{slug}",
+     :avatar_micro_url => avatar.url(:micro),
+     :avatar_thumb_url => avatar.url(:thumb),
+     :ripple_count     => ripple_count,
+     :splash_count     => splash_count,
+     :slug             => slug,
+     :referral_url     => "#{AppConfig.preferred_host}/r/#{referral_code}",
+     :score            => splash_score}.merge(Hash[method_hash])
+  end
+
+  def avatar_exists_or_able_to_download?
+    !(self.avatar_url == DEFAULT_AVATAR_URL)
+  end
+
+  def avatar_geometry(style = :thumb)
+    @geometry ||= {}
+
+    @geometry[style] ||= Paperclip::Geometry.new(avatar.image_size(style).split('x').first,
+                                                  avatar.image_size(style).split('x').last)
+  end
+
+  def avatar_url(style=:thumb)
+    avatar.url(style)
+  end
+
+  def cropping?
+    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
+  end
+
+  def default_social_connection
+    social_connections.first
+  end
+
+  def facebook_suggestions(ignore=[])
+    if has_social_connection?('facebook')
+      facebook_friends = FbGraph::User.me(social_connection('facebook').token).friends
+      ids = User.where(:name => facebook_friends.map(&:name))
+                .ignore(ignore)
+                .map(&:id)
+
+      write_attribute(:suggested_users, suggested_users | ids) unless ids.blank?
+    end
+  end
+
+  def fetch_avatar(social_connection = nil)
+    begin
+      Tempfile.open('avatar') { |f|
+        f.binmode
+        f.write open(URI.encode(provider_avatar_url)).read
+
+        self.update_attribute(:avatar, f)
+      }
+    rescue OpenURI::HTTPError => e
+      HoptoadNotifier.notify e
+    end
+  end
+
+  def fetch_avatar_needed?
+    !avatar? && has_social_connections?
+  end
+
+  def follow(followed_id)
+    suggested_users.delete(followed_id)
+    write_attribute(:suggested_users, suggested_users)
+    r = relationships.create(:followed_id => followed_id)
+    recompute_splashboard(:add, followed_id)
+    self.delay.update_suggestions
+    save!
+    r
+  end
+
+  def followed(followed_id)
+    relationships.find_by_followed_id(followed_id)
+  end
+
+  def following?(followed)
+    !!followed(followed)
+  end
+
+  def has_social_connection?(provider)
+    social_connection provider
+  end
+
+  def has_social_connections?
+    !social_connections.length.zero?
+  end
+
+  def ignore_suggested(user_id)
+    write_attribute(:ignore_suggested_users, ignore_suggested_users << user_id)
+    suggested_users.delete(user_id)
+    write_attribute(:suggested_users, suggested_users)
+    save!
+  end
+
+  def ignore_suggested_users
+    read_attribute(:ignore_suggested_users) || []
+  end
+
+  def influence_score
+    total_users = User.count
+
+    if influence_rank
+      (90 * (((total_users - influence_rank) / total_users.to_f) ** 2)).floor
+    else
+      0
+    end
+  end
+
+  def maybe_fetch_avatar(_ = nil)
+    fetch_avatar if fetch_avatar_needed?
   end
 
   def merge_account(user)
@@ -472,35 +392,6 @@ class User < ActiveRecord::Base
     save!
   end
 
-  def avatar_url(style=:thumb)
-    avatar.url(style)
-  end
-
-  def default_social_connection
-    social_connections.first
-  end
-
-  def fetch_avatar(social_connection = nil)
-    begin
-      Tempfile.open('avatar') { |f|
-        f.binmode
-        f.write open(URI.encode(provider_avatar_url)).read
-
-        self.update_attribute(:avatar, f)
-      }
-    rescue OpenURI::HTTPError => e
-      HoptoadNotifier.notify e
-    end
-  end
-
-  def fetch_avatar_needed?
-    !avatar? && has_social_connections?
-  end
-
-  def maybe_fetch_avatar(_ = nil)
-    fetch_avatar if fetch_avatar_needed?
-  end
-
   def splashed?(track)
     case track
     when Track
@@ -510,18 +401,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def update_with_password(attrs = {})
-    if attrs[:password].blank?
-      attrs.delete(:password)
-      attrs.delete(:password_confirmation) if
-        attrs[:password_confirmation].blank?
-    end
-
-    update_attributes(attrs)
-  end
-
-  def avatar_exists_or_able_to_download?
-    !(self.avatar_url == DEFAULT_AVATAR_URL)
+  def password_required?
+    persisted?
   end
 
   def provider_avatar_url
@@ -537,16 +418,135 @@ class User < ActiveRecord::Base
     end
   end
 
-  def has_social_connections?
-    !social_connections.length.zero?
+  def recommended_users(page=0)
+    User.where("id IN (?)", suggested_users)
+        .limited(page, SUGGESTED_USERS_PER_PAGE)
   end
 
-  def has_social_connection?(provider)
-    social_connection provider
+  def recompute_splashboard(operation = nil, followed = nil)
+    # TODO: there is a more efficient way to add or subtract the other users history,
+    # but this works for now.
+    reset_top_tracks!
+  end
+
+  def reset_splashed_tracks_hash!
+    Splash.for_users(id).select(:track_id).map(&:track_id).each{|i|
+      record_splashed_track(i)
+    }
+  end
+
+  def reset_top_tracks!
+    replace_summed_splashed_tracks(following_ids)
+  end
+
+  # Declarative Authorization user roles
+  DEFAULT_ROLES = [:guest, :user].freeze
+  def role_symbols
+    roles = DEFAULT_ROLES.dup
+    roles << :superuser if superuser?
+    roles
+  end
+
+  def search_result_type
+    :user
+  end
+
+  def splash_suggestions(ignore=[])
+    # the users followed by people I am following, but whom I am not already following.
+    relationships = Relationship.select('DISTINCT relationships.followed_id')
+                            .with_followers(following.map(&:id))
+                            .ignore(ignore + [self.id])
+    ids = relationships.map(&:followed_id)
+
+    write_attribute(:suggested_users, suggested_users | ids) unless ids.blank?
+  end
+
+  def slow_ripple_count
+    Splash.for_users(id).map(&:ripple_count).sum
+  end
+
+  def slow_splash_count
+    Splash.for_users(id).count
+  end
+
+  def slug
+    nickname
   end
 
   def social_connection(provider)
     social_connections.with_provider provider
+  end
+
+  def splash_score
+    s = influence_score + 10
+
+    s > MAX_SCORE ? MAX_SCORE : s
+  end
+
+  def splashed_tracks_hash
+    splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
+  end
+
+  def suggest_users
+    ignore = following.map(&:id) + ignore_suggested_users
+
+    facebook_suggestions(ignore)
+    splash_suggestions(ignore)
+    save!
+  end
+
+  def suggested_users
+    read_attribute(:suggested_users) || []
+  end
+
+  def suggestions_count
+    suggested_users.count
+  end
+
+  # to_label for ActiveScaffold
+  def to_label
+    email
+  end
+
+  def to_params
+    slug || super
+  end
+
+  def top_tracks(page=1, num_records=20)
+    scores = summed_splashed_tracks(page, num_records)
+
+    if scores.present?
+      ids, _ = *scores.transpose
+      cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
+
+      scores.map { |(id, score)|
+        cache[id.to_i].tap { |t| t.scoped_splash_count = score }
+      }
+    else
+      []
+    end
+  end
+
+  def unfollow(followed_id)
+    r = followed(followed_id).try(:destroy)
+    recompute_splashboard(:subtract, followed_id)
+    ignore_suggested(followed_id)
+    r
+  end
+
+  def update_suggestions
+    suggest_users
+    followers.each &:suggest_users
+  end
+
+  def update_with_password(attrs = {})
+    if attrs[:password].blank?
+      attrs.delete(:password)
+      attrs.delete(:password_confirmation) if
+        attrs[:password_confirmation].blank?
+    end
+
+    update_attributes(attrs)
   end
 
   def valid_access_code?
@@ -555,16 +555,12 @@ class User < ActiveRecord::Base
 
   private
 
+  def check_existence(name)
+    User.exists?(:nickname => name) ? nil : name
+  end
+
   def confirm_creation
     UserMailer.delay.confirm_access_request self
-  end
-
-  def possibly_delete_avatar
-    self.avatar = nil if self.delete_avatar == "1" && !self.avatar.dirty?
-  end
-
-  def reprocess_avatar
-    avatar.reprocess!
   end
 
   def generate_nickname
@@ -577,17 +573,21 @@ class User < ActiveRecord::Base
     self.referral_code = rand(36**8).to_s(36)
   end
 
-  def to_slug(string)
-    string.strip.gsub(/@.*/, "").gsub(/\W+/, '_').downcase if string.present?
+  def possibly_delete_avatar
+    self.avatar = nil if self.delete_avatar == "1" && !self.avatar.dirty?
   end
 
-  def check_existence(name)
-    User.exists?(:nickname => name) ? nil : name
+  def reprocess_avatar
+    avatar.reprocess!
   end
 
   def set_state
     self.active = false
 
     nil
+  end
+
+  def to_slug(string)
+    string.strip.gsub(/@.*/, "").gsub(/\W+/, '_').downcase if string.present?
   end
 end
