@@ -34,6 +34,12 @@ class UsersController < ApplicationController
     respond_with(current_user)
   end
 
+  def invite
+    User.find(params[:id]).invite
+
+    render :text => 'User invited'
+  end
+
   def show
     @following = @user.following.take(SIDEBAR_THUMB_COUNT)
     @followers = @user.followers.take(SIDEBAR_THUMB_COUNT)

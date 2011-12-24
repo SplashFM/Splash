@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   include RedisRecord
   extend TestableSearch
 
+  ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
+
   MAX_SCORE       = 99
   NICKNAME_REGEXP = '[A-Za-z\d_\-.]+'
 
@@ -117,6 +119,14 @@ class User < ActiveRecord::Base
   before_update :activate, :if => :valid_access_code?
 
   scope :nicknamed,  lambda { |*nicknames| where(:nickname => nicknames) }
+
+  def self.access_code
+    allowed_access_codes.first
+  end
+
+  def self.allowed_access_codes
+    @codes ||= YAML.load_file(ACCESS_CODES_PATH)
+  end
 
   def self.create_with_social_connection(params)
     transaction {
@@ -365,6 +375,10 @@ class User < ActiveRecord::Base
     else
       0
     end
+  end
+
+  def invite
+    UserMailer.delay.invite self, self.class.access_code
   end
 
   def maybe_fetch_avatar(_ = nil)
