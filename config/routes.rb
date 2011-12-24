@@ -86,6 +86,7 @@ Scaphandrier::Application.routes.draw do
     member do
       get :events
       get :event_updates
+      get :approve
     end
 
     collection do

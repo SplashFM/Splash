@@ -21,6 +21,11 @@ class User < ActiveRecord::Base
   scope :ignore,  lambda { |users| where("id not in (?)", users) unless users.blank? }
   scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
 
+  scope :registered_around, lambda { |date|
+    where('date(created_at) = ?', date)
+  }
+  scope :pending, where(:active => false)
+
   redis_sorted_field :influence
   redis_counter :ripple_count
   redis_counter :splash_count
