@@ -66,10 +66,7 @@ class User < ActiveRecord::Base
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider,
                   :nickname, :access_code
 
-  before_validation :set_state, :unless => :active?
-  before_create     :generate_referral_code
-  before_validation :generate_nickname, :if => :active?, :unless => :nickname?
-  after_create      :confirm_creation, :unless => :active?
+  before_validation :generate_nickname, :on => :create
 
   validates :nickname,
             :presence => true,
@@ -80,6 +77,9 @@ class User < ActiveRecord::Base
                       :message => "can only be alphanumeric with no spaces",
                       :on => :update
   validates :tagline, :length => { :maximum => 60 }
+  validates :access_code,
+            :inclusion => {:in => AccessRequest.codes},
+            :on => :create
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",
@@ -563,28 +563,16 @@ class User < ActiveRecord::Base
     update_attributes(attrs)
   end
 
-  def valid_access_code?
-    AccessRequest.codes.include?(access_code)
-  end
-
   private
 
   def check_existence(name)
     User.exists?(:nickname => name) ? nil : name
   end
 
-  def confirm_creation
-    UserMailer.delay.confirm_access_request self
-  end
-
   def generate_nickname
     self.nickname ||= check_existence(to_slug(self.name)) \
                       || check_existence(to_slug(self.email)) \
                       || rand(36**6).to_s(36)
-  end
-
-  def generate_referral_code
-    self.referral_code = rand(36**8).to_s(36)
   end
 
   def nickname_needed?
@@ -599,17 +587,7 @@ class User < ActiveRecord::Base
     avatar.reprocess!
   end
 
-  def set_state
-    self.active = valid_access_code?
-
-    nil
-  end
-
   def to_slug(string)
     string.strip.gsub(/@.*/, "").gsub(/\W+/, '_').downcase if string.present?
-  end
-
-  def valid_access_code?
-    User.allowed_access_codes.include?(access_code)
   end
 end
