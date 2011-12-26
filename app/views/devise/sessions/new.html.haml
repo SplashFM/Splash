@@ -21,7 +21,9 @@
       var registering = location.pathname == "#{new_user_registration_path}";
 
       if (registering) {
-        topView = new Registration;
+        topView = new Registration({
+          accessCode: $.deparam.querystring().code,
+        });
       } else {
         topView = new SignIn;
       }
