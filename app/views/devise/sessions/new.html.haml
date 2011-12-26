@@ -58,7 +58,6 @@
 
     %a{:href => '#code-test'} Submit Entry Code
 
-    %a{:href => '#request-invite-sn'} Request Invite via Facebook and Twitter
     %a{:href => '#request-invite-email'} Request Invite via email
 
   %script#tmpl-request-invite-confirmed{:type => 'text/x-jquery-tmpl'}
@@ -85,19 +84,6 @@
     %p
       Create your new account by filling out the forms above, or by signing in
       with Facebook or Twitter.
-
-  %script#tmpl-request-invite-sn{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.beta_warning')
-
-    %a{:href => '#code-test'} Submit Entry Code
-
-    = link_to 'Request invite via Facebook',
-              user_omniauth_authorize_path(:facebook,
-                                           :origin => facebook_invite_url)
-    = link_to 'Request invite via Twitter',
-              user_omniauth_authorize_path(:twitter)
-
-    %a{:href => '#request-invite-email'} Request Invite via email
 
   %script#tmpl-request-invite-email{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.beta_warning')

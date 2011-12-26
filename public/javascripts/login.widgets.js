@@ -30,7 +30,6 @@ $(function() {
 
   window.RequestInvite = Backbone.View.extend({
     events: {
-      'click [href = "#request-invite-sn"]':    'renderRequestInviteSN',
       'click [href = "#request-invite-email"]': 'renderRequestInviteEmail',
       'click [href = "#code-test"]': 'renderCodeTest',
       'invited': 'userInvited',
@@ -63,26 +62,12 @@ $(function() {
       $(this.el).html($.tmpl(this.templateRegistering));
     },
 
-    renderRequestInviteSN: function() {
-      $(this.el).html(new RequestInviteSN().render().el);
-    },
-
     renderRequestInviteEmail: function() {
       $(this.el).html(new RequestInviteEmail().render().el);
     },
 
     userInvited: function(_, data) {
       this.renderInviteConfirmation(data);
-    },
-  });
-
-  window.RequestInviteSN = Backbone.View.extend({
-    template: $('#tmpl-request-invite-sn').template(),
-
-    render: function() {
-      $(this.el).html($.tmpl(this.template));
-
-      return this;
     },
   });
 
