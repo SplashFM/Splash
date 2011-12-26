@@ -7,9 +7,6 @@ class ApplicationController < ActionController::Base
   layout Proc.new { |c| pjax_request? ? 'pjax' : request.xhr? ? false : 'application'}
 
   protected
-  def active?
-    current_user.active?
-  end
 
   def pjax_request?
     env['HTTP_X_PJAX'].present?
@@ -82,8 +79,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    unless (signed_in?(:user) && active?) ||
-           params[:controller].include?('devise')
+    unless signed_in?(:user) || params[:controller].include?('devise')
       deny_access("Please login or create an account to access that feature.")
     end
   end
