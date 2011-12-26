@@ -116,7 +116,6 @@ class User < ActiveRecord::Base
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
   before_update :reprocess_avatar, :if => :cropping?
-  before_update :activate, :if => :valid_access_code?
 
   scope :nicknamed,  lambda { |*nicknames| where(:nickname => nicknames) }
 
