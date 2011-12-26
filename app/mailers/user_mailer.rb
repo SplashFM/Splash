@@ -8,7 +8,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def invite(access_request, code)
-    @url  = new_user_registration_path(:code => code)
+    @url  = new_user_registration_url(:code => code)
 
     mail :to => access_request.email, :subject => 'Jump In!'
   end
