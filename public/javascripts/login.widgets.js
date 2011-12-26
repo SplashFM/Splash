@@ -33,7 +33,7 @@ $(function() {
       'click [href = "#request-invite-sn"]':    'renderRequestInviteSN',
       'click [href = "#request-invite-email"]': 'renderRequestInviteEmail',
       'click [href = "#code-test"]': 'renderCodeTest',
-      'invited': 'renderInviteConfirmation',
+      'invited': 'userInvited',
     },
     template: $('#tmpl-request-invite').template(),
     templateConfirmed: $('#tmpl-request-invite-confirmed').template(),
@@ -52,7 +52,7 @@ $(function() {
       $(this.el).html(new CodeTest().render().el);
     },
 
-    renderInviteConfirmation: function(_, data) {
+    renderInviteConfirmation: function(data) {
       $(this.el).html($.tmpl(this.templateConfirmed, data));
     },
 
@@ -62,6 +62,10 @@ $(function() {
 
     renderRequestInviteEmail: function() {
       $(this.el).html(new RequestInviteEmail().render().el);
+    },
+
+    userInvited: function(_, data) {
+      this.renderInviteConfirmation(data);
     },
   });
 
