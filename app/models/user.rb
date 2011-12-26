@@ -375,10 +375,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def invite
-    UserMailer.delay.invite self, self.class.access_code
+  def invite(code)
+    UserMailer.delay.invite self, code
 
-    destroy if user.social_connections.length.zero?
+    destroy if social_connections.length.zero?
   end
 
   def maybe_fetch_avatar(_ = nil)

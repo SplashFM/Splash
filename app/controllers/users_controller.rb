@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   end
 
   def invite
-    User.find(params[:id]).invite
+    User.find(params[:id]).invite(params[:code])
 
     render :text => 'User invited'
   end
