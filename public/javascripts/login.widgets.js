@@ -40,7 +40,7 @@ $(function() {
 
     render: function() {
       if (window.location.pathname == this.options.invitePath) {
-        this.renderInviteConfirmation();
+        this.renderInviteConfirmation(this.options);
       } else {
         $(this.el).html($.tmpl(this.template));
       }

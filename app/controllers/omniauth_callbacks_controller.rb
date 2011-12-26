@@ -27,6 +27,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       user = User.create_with_social_connection(ft)
 
       if user.persisted?
+        session['splash.referral_url'] = r_url(user.referral_code)
+
         redirect_to invite_created_path
       else
         HoptoadNotifier.notify :error_class   => "Unknown state",

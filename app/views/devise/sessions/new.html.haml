@@ -21,6 +21,7 @@
         append(new SignIn().render().el).
         append(new RequestInvite({
           invitePath: "#{invite_created_path}",
+          referralURL: "#{session['splash.referral_url']}"
         }).render().el);
     });
 
@@ -145,4 +146,3 @@
         %p.title= t('login.title')
         %p.text
           = t('login.sign_up.blurb')
-
