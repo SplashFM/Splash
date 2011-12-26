@@ -48,7 +48,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       # for Beta
       if AccessRequest.codes.include?(signup_code)
-        redirect_to new_user_registration_path
+        redirect_to new_sn_registration_path
       else
         redirect_to root_path
       end

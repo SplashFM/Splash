@@ -74,6 +74,7 @@ Scaphandrier::Application.routes.draw do
     put '/users/merge' => 'users#merge'
     match 'invites/thanks' => 'devise/sessions#new', :as => 'invite_created'
     match 'users/sign_up'  => 'devise/sessions#new'
+    match 'users/sign_up_sn'  => 'devise/registrations#new', :as => :new_sn_registration
   end
 
   resources :notifications do
