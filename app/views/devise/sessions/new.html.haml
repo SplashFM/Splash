@@ -28,8 +28,8 @@
         topView = new SignIn;
       }
 
-      $('.main').
-        append(topView.render().el).
+      $('.main').append(topView.render().el);
+      $('.signup').
         append(new RequestInvite({
           invitePath: "#{invite_created_path}",
           referralURL: "#{session['splash.referral_url']}",
