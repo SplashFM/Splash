@@ -23,5 +23,5 @@ every 2.hours do
 end
 
 every 1.day, :at => '3 am' do
-  runner "AdminMailer.list_access_requests(User.registered_around(Date.yesterday).pending).deliver"
+  runner "AdminMailer.list_access_requests(AccessRequest.requested_on(Date.yesterday).pending).deliver"
 end
