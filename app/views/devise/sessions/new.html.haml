@@ -98,8 +98,6 @@
       = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
       = f.submit
 
-    %a{:href => '#request-invite-sn'} Request Invite via Facebook and Twitter
-
   %script#tmpl-request-invite-sent{:type => 'text/x-jquery-tmpl'}
     .invite-sent
       %h2 We've added you to the invite list.
@@ -110,7 +108,6 @@
     %div
       %input.input{:name => 'access_code', :placeholder => t('login.register.code')}
 
-    %a{:href => '#request-invite-sn'} Request Invite via Facebook and Twitter
     %a{:href => '#request-invite-email'} Request Invite via email
 
   %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
