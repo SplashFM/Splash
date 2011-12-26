@@ -12,7 +12,7 @@ class AdminMailer < ActionMailer::Base
 
   def list_access_requests(requests)
     @requests = requests
-    @code     = User.access_code
+    @code     = AccessRequest.codes.first
 
     mail :to => INVITE_EMAIL, :subject => 'Access requests'
   end
