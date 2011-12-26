@@ -25,8 +25,8 @@ class AccessRequest < ActiveRecord::Base
     self.class.codes.first
   end
 
-  def invite
-    UserMailer.delay.invite self
+  def invite(code)
+    UserMailer.delay.invite self, code
 
     mark_invited
   end

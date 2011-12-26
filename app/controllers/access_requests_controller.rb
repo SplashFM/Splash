@@ -4,7 +4,7 @@ class AccessRequestsController < ApplicationController
   skip_before_filter :require_user, :only => [:create, :verify]
 
   def approve
-    AccessRequest.find(params[:id]).invite
+    AccessRequest.find(params[:id]).invite params[:code]
 
     render :text => 'User invited.'
   end
