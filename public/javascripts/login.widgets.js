@@ -225,6 +225,7 @@ $(function() {
   });
 
   window.SignIn = Backbone.View.extend({
+    className: 'wrap',
     template: $('#tmpl-sign-in').template(),
 
     initialize: function() {
