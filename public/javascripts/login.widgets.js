@@ -18,12 +18,43 @@ $(function() {
   });
 
   window.CodeTest = Backbone.View.extend({
+    events: {'keyup input': 'verify'},
+
     template: $('#tmpl-code-test').template(),
+
+    initialize: function() {
+      _.bindAll(this, 'onInvalidCode', 'onValidCode');
+    },
+
+    onInvalidCode: function() {
+      this.$('input').addClass('error');
+    },
+
+    onValidCode: function() {
+      var $input = this.$('input');
+
+      $input.removeClass('error');
+
+      $(this.el).trigger('register:code', {code: $input.val()});
+    },
 
     render: function() {
       $(this.el).html($.tmpl(this.template));
 
       return this;
+    },
+
+    verify: function(e) {
+      if (e.keyCode === $.ui.keyCode.ENTER) {
+        var code = $(e.target).val();
+
+        $.ajax({
+          url:  Routes.verify_access_requests_path({code: code}),
+          error: this.onInvalidCode,
+          success: this.onValidCode,
+        });
+      }
+
     },
   });
 
@@ -33,10 +64,15 @@ $(function() {
       'click [href = "#request-invite-email"]': 'renderRequestInviteEmail',
       'click [href = "#code-test"]': 'renderCodeTest',
       'invited': 'userInvited',
+      'register:code': 'onCode',
     },
     template: $('#tmpl-request-invite').template(),
     templateConfirmed: $('#tmpl-request-invite-confirmed').template(),
     templateRegistering: $('#tmpl-request-invite-registering').template(),
+
+    onCode: function() {
+      this.renderRegistrationInfo();
+    },
 
     render: function() {
       if (this.options.registering) {
