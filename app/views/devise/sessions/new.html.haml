@@ -18,18 +18,20 @@
   :javascript
     $(function () {
       var topView;
+      var registering = location.pathname == "#{new_user_registration_path}";
 
-      if (location.pathname == "#{new_user_registration_path}") {
+      if (registering) {
         topView = new Registration;
       } else {
         topView = new SignIn;
       }
 
       $('.main').
-        append(top.render().el).
+        append(topView.render().el).
         append(new RequestInvite({
           invitePath: "#{invite_created_path}",
-          referralURL: "#{session['splash.referral_url']}"
+          referralURL: "#{session['splash.referral_url']}",
+          registering: registering,
         }).render().el);
     });
 
@@ -71,6 +73,16 @@
 
     %p
       %span ${referralURL}
+
+  %script#tmpl-request-invite-registering{:type => 'text/x-jquery-tmpl'}
+    %h2= t('login.beta_warning')
+
+    %p
+      Your Entry Code has been accepted.
+
+    %p
+      Create your new account by filling out the forms above, or by signing in
+      with Facebook or Twitter.
 
   %script#tmpl-request-invite-sn{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.beta_warning')

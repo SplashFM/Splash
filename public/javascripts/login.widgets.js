@@ -37,9 +37,12 @@ $(function() {
     },
     template: $('#tmpl-request-invite').template(),
     templateConfirmed: $('#tmpl-request-invite-confirmed').template(),
+    templateRegistering: $('#tmpl-request-invite-registering').template(),
 
     render: function() {
-      if (window.location.pathname == this.options.invitePath) {
+      if (this.options.registering) {
+        this.renderRegistrationInfo();
+      } else if (window.location.pathname == this.options.invitePath) {
         this.renderInviteConfirmation(this.options);
       } else {
         $(this.el).html($.tmpl(this.template));
@@ -54,6 +57,10 @@ $(function() {
 
     renderInviteConfirmation: function(data) {
       $(this.el).html($.tmpl(this.templateConfirmed, data));
+    },
+
+    renderRegistrationInfo: function() {
+      $(this.el).html($.tmpl(this.templateRegistering));
     },
 
     renderRequestInviteSN: function() {
