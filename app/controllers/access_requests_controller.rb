@@ -10,7 +10,8 @@ class AccessRequestsController < ApplicationController
   end
 
   def create
-    respond_with AccessRequest.create(params[:user])
+    respond_with AccessRequest.create(params[:user]),
+                 :url_builder => lambda { |code| r_url(code) }
   end
 
   def verify

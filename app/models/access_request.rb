@@ -17,6 +17,10 @@ class AccessRequest < ActiveRecord::Base
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
   end
 
+  def as_json(options = {})
+    super.merge!(:referral_url => options[:url_builder].call(referral_code))
+  end
+
   def code
     self.class.codes.first
   end
