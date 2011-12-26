@@ -126,6 +126,8 @@
                       :class       => 'sign-in'}) do |f|
         = f.text_field :email, :class => 'input', :placeholder => t('login.sign_in.email'), :'data-widget' => 'user-email'
         = f.password_field :password, :class => 'input', :placeholder => t('login.sign_in.password')
+        = f.check_box :remember_me
+        = f.label :remember_me
         = link_to t("login.sign_in.forgot_password"), '#', :id => 'forgot_password'
         = f.submit t('devise.buttons.login')
     = social_links
