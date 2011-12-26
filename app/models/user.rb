@@ -416,7 +416,7 @@ class User < ActiveRecord::Base
   end
 
   def password_required?
-    persisted?
+    initial_provider.blank? && super
   end
 
   def provider_avatar_url
