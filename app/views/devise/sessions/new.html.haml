@@ -92,7 +92,7 @@
 
     = form_for :user, |
         :remote => true, |
-        :url    => registration_path(:user), |
+        :url    => access_requests_path, |
         :html   => {:'data-type' => 'json', |
                     :class => 'register'} do |f|
       = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
