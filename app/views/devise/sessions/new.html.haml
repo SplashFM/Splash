@@ -17,8 +17,16 @@
 
   :javascript
     $(function () {
+      var topView;
+
+      if (location.pathname == "#{new_user_registration_path}") {
+        topView = new Registration;
+      } else {
+        topView = new SignIn;
+      }
+
       $('.main').
-        append(new SignIn().render().el).
+        append(top.render().el).
         append(new RequestInvite({
           invitePath: "#{invite_created_path}",
           referralURL: "#{session['splash.referral_url']}"
