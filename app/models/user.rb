@@ -66,10 +66,10 @@ class User < ActiveRecord::Base
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider,
                   :nickname, :access_code
 
-  before_create     :set_state
+  before_validation :set_state, :unless => :active?
   before_create     :generate_referral_code
-  before_validation :generate_nickname, :on => :update
-  after_create      :confirm_creation
+  before_validation :generate_nickname, :if => :active?, :unless => :nickname?
+  after_create      :confirm_creation, :unless => :active?
 
   validates :nickname,
             :presence => true,
@@ -377,6 +377,8 @@ class User < ActiveRecord::Base
 
   def invite
     UserMailer.delay.invite self, self.class.access_code
+
+    destroy if user.social_connections.length.zero?
   end
 
   def maybe_fetch_avatar(_ = nil)
@@ -585,6 +587,10 @@ class User < ActiveRecord::Base
     self.referral_code = rand(36**8).to_s(36)
   end
 
+  def nickname_needed?
+    nickname.blank? && active?
+  end
+
   def possibly_delete_avatar
     self.avatar = nil if self.delete_avatar == "1" && !self.avatar.dirty?
   end
@@ -594,12 +600,16 @@ class User < ActiveRecord::Base
   end
 
   def set_state
-    self.active = false
+    self.active = valid_access_code?
 
     nil
   end
 
   def to_slug(string)
     string.strip.gsub(/@.*/, "").gsub(/\W+/, '_').downcase if string.present?
+  end
+
+  def valid_access_code?
+    User.allowed_access_codes.include?(access_code)
   end
 end
