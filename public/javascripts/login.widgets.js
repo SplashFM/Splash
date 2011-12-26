@@ -170,7 +170,9 @@ $(function() {
       window.location.href = Routes.home_path();
     },
 
-    render: function(accessCode) {
+    render: function() {
+      var accessCode = this.options.accessCode;
+
       $(this.el).html($.tmpl(this.template, {accessCode: accessCode}));
 
       this.$('.omniauth-links a').each(function() {
