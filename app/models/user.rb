@@ -19,7 +19,8 @@ class User < ActiveRecord::Base
   DEFAULT_EMAIL_PREFERENCES = { 'following' => 'true',
                                 'mention'   => 'true',
                                 'splash_comment' => '',
-                                'response_comment' => '' }
+                                'response_comment' => '',
+                                'newsletter' => 'true' }
 
   scope :followed_by, lambda { |user|
     joins(:followers).where(:relationships => {:follower_id => user.id})
