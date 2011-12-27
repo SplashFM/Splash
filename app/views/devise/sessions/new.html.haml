@@ -62,14 +62,16 @@
   %script#tmpl-request-invite{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.register.request_invite')
 
-    %a{:href => '#code-test'} Submit Entry Code
+    %a#has-code{:href => '#code-test'} Submit Entry Code
+
+    .cl
 
     %p
       Splash.FM is currently in private Beta. You may request an invite below,
       and we will notify you by email when a spot becomes available.
 
 
-    %p
+    %p.request-via-email
       %a{:href => '#request-invite-email'} Request Invite via email
 
   %script#tmpl-request-invite-confirmed{:type => 'text/x-jquery-tmpl'}
@@ -100,7 +102,9 @@
   %script#tmpl-request-invite-email{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.beta_warning')
 
-    %a{:href => '#code-test'} Submit Entry Code
+    %a#has-code{:href => '#code-test'} Submit Entry Code
+
+    .cl
 
     = form_for :user, |
         :remote => true, |
@@ -120,7 +124,8 @@
     %div
       %input.input{:name => 'access_code', :placeholder => t('login.register.code')}
 
-    %a{:href => '#request-invite-email'} Request Invite via email
+    %p.request-via-email
+      %a{:href => '#request-invite-email'} Request Invite via email
 
   %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.sign_in.header')
