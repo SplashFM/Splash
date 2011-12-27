@@ -5,4 +5,4 @@
     - @requests.each do |r|
       %tr
         %td= r.email
-        %td= link_to 'Invite', invite_user_url(r, :code => @code)
+        %td= link_to 'Invite', approve_access_request_url(r, :code => @code)
