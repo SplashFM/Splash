@@ -111,11 +111,16 @@ $(function() {
   window.RequestInviteEmail = Backbone.View.extend({
     events: {
       'ajax:success': 'accepted',
+      'ajax:error':   'refused',
     },
     template: $('#tmpl-request-invite-email').template(),
 
     accepted: function(_, user) {
       $(this.el).trigger('invited', {referralURL: user.referral_url});
+    },
+
+    refused: function() {
+      this.$('form input').addClass('error');
     },
 
     render: function() {
