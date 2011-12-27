@@ -181,6 +181,7 @@ $(function() {
   window.Registration = Backbone.View.extend({
     className: 'wrap',
     events: {
+      'ajax:before form': 'validate',
       'ajax:success form': 'onRegister',
       'ajax:error form': 'onErrors'
     },
@@ -223,6 +224,14 @@ $(function() {
       });
 
       return this;
+    },
+
+    validate: function() {
+      if (! this.$('#age').is(':checked')) {
+        this.$('label[for = "age"]').addClass('error');
+
+        return false;
+      }
     },
   });
 

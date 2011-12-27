@@ -123,13 +123,16 @@
       color: lighten (#4a6580, 10%)
       text-shadow: transparentize(#000, 1 - 0.75) 0 1px 1px
 
-    #user_remember_me
+    #user_remember_me, #age
       margin-left: 15px
 
-    label[for = "user_remember_me"]
+    label[for = "user_remember_me"], label[for = "age"]
       font-size: 10px
       line-height: 1.6
       vertical-align: top
+
+    label[for = "age"].error
+      color: #a94d4d
 
   .bottom
     width: 100%
