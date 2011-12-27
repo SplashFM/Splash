@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   AVATAR_WIDTH = 125
   AVATAR_HEIGHT = 185
   SUGGESTED_USERS_PER_PAGE = 3
-  DEFAULT_EMAIL_PREFERENCES = {}
+  DEFAULT_EMAIL_PREFERENCES = {'following' => 'true'}
 
   scope :followed_by, lambda { |user|
     joins(:followers).where(:relationships => {:follower_id => user.id})

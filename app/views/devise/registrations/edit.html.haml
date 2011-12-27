@@ -25,6 +25,14 @@
 
       %li
         = link_to_social_site(:facebook, 'fb-logo.png')
+      %hr
+
+    %ul
+      %li
+        %label= 'Email preferences'
+
+      = email_preference('following')
+
 
     %ul.actions
       %li= link_to t('.cancel'), "#", :class => "buttonStyle2"

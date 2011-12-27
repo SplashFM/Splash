@@ -72,6 +72,16 @@ module UsersHelper
     content_tag(:div, image, :class => 'style')
   end
 
+  def email_preference(preference)
+    check = check_box "user[email_preferences]",
+                      preference.to_sym,
+                      {:checked => resource.email_preference(preference)},
+                      true,
+                      false
+
+    content_tag(:li, check + I18n.t("devise.registrations.edit.email_preferences.#{preference}"))
+  end
+
 private
   def profile_page?
     controller_path == 'users'
