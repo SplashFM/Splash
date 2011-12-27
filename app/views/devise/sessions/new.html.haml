@@ -118,6 +118,7 @@
 
   %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.sign_in.header')
+    = social_links
     .signin
       = form_for(:user, |
           :url    => session_path(:user), |
@@ -130,7 +131,6 @@
         = f.label :remember_me
         = link_to t("login.sign_in.forgot_password"), '#', :id => 'forgot_password'
         = f.submit t('devise.buttons.login')
-    = social_links
     .cl
 
   %script#tmpl-forgot-password{:type => 'text/x-jquery-tmpl'}
