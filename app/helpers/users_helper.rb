@@ -72,10 +72,11 @@ module UsersHelper
     content_tag(:div, image, :class => 'style')
   end
 
-  def email_preference(preference)
+  def email_preference(preference, disabled=false)
     check = check_box "user[email_preferences]",
                       preference.to_sym,
-                      {:checked => resource.email_preference(preference)},
+                      {:checked => resource.email_preference(preference),
+                        :disabled => disabled},
                       true,
                       false
 
