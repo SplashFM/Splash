@@ -60,6 +60,7 @@ $(function() {
 
 
   window.RequestInvite = Backbone.View.extend({
+    className: 'signup',
     events: {
       'click [href = "#request-invite-email"]': 'renderRequestInviteEmail',
       'click [href = "#code-test"]': 'renderCodeTest',

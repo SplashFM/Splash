@@ -29,7 +29,7 @@
       }
 
       $('.main').append(topView.render().el);
-      $('.signup').
+      $('.bottom .wrap').
         append(new RequestInvite({
           invitePath: "#{invite_created_path}",
           referralURL: "#{session['splash.referral_url']}",
@@ -60,11 +60,17 @@
     .cl
 
   %script#tmpl-request-invite{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.beta_warning')
+    %h2= t('login.register.request_invite')
 
     %a{:href => '#code-test'} Submit Entry Code
 
-    %a{:href => '#request-invite-email'} Request Invite via email
+    %p
+      Splash.FM is currently in private Beta. You may request an invite below,
+      and we will notify you by email when a spot becomes available.
+
+
+    %p
+      %a{:href => '#request-invite-email'} Request Invite via email
 
   %script#tmpl-request-invite-confirmed{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.beta_warning')
@@ -154,6 +160,3 @@
       .description
         %p.title= t('login.title')
         %p.text= t('login.blurb')
-
-      .signup
-        %p.title= t('login.title')
