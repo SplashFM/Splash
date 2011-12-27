@@ -100,11 +100,16 @@
       with Facebook or Twitter.
 
   %script#tmpl-request-invite-email{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.beta_warning')
+    %h2= t('login.register.request_invite')
 
     %a#has-code{:href => '#code-test'} Submit Entry Code
 
     .cl
+
+    %p
+      Create your account and start splashing instantly. Want to increase your
+      influence later? Link your social accounts to invite friends and bolster
+      your listening audience.
 
     = form_for :user, |
         :remote => true, |
