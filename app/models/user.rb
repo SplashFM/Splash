@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   AVATAR_WIDTH = 125
   AVATAR_HEIGHT = 185
   SUGGESTED_USERS_PER_PAGE = 3
+  DEFAULT_EMAIL_PREFERENCES = {}
 
   scope :followed_by, lambda { |user|
     joins(:followers).where(:relationships => {:follower_id => user.id})
@@ -34,6 +35,7 @@ class User < ActiveRecord::Base
   redis_hash :splashed_tracks
   serialize :ignore_suggested_users, Array
   serialize :suggested_users, Array
+  serialize :email_preferences, Hash
 
   attr_accessor :access_code
 
@@ -64,7 +66,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider,
-                  :nickname, :access_code
+                  :nickname, :access_code, :email_preferences
 
   before_validation :generate_nickname, :on => :create
 
@@ -369,6 +371,14 @@ class User < ActiveRecord::Base
     read_attribute(:ignore_suggested_users) || []
   end
 
+  def email_preferences
+    read_attribute(:email_preferences) || DEFAULT_EMAIL_PREFERENCES
+  end
+
+  def email_preference(key)
+    email_preferences[key] == 'true'
+  end
+
   def influence_score
     total_users = User.count
 
@@ -583,6 +593,7 @@ class User < ActiveRecord::Base
     nickname.blank? && active?
   end
 
+  private
   def possibly_delete_avatar
     self.avatar = nil if self.delete_avatar == "1" && !self.avatar.dirty?
   end
