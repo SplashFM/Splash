@@ -179,6 +179,7 @@ $(function() {
   });
 
   window.Registration = Backbone.View.extend({
+    className: 'wrap',
     events: {
       'ajax:success form': 'onRegister',
       'ajax:error form': 'onErrors'

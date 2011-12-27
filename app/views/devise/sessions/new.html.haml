@@ -45,18 +45,19 @@
 
   %script#tmpl-registration{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.register.header')
-    = form_for :user, |
-        :remote => true, |
-        :url  => registration_path(:user), |
-        :html => {:'data-type' => 'json', |
-                  :class => 'register'} do |f|
-      = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
-      = f.text_field :name, :class => 'input', :placeholder => t('login.register.name')
-      = f.password_field :password, :class => 'input', :placeholder => t('login.register.password')
-      = f.password_field :password_confirmation, :class => 'input', :placeholder => t('login.register.confirm_password')
-      = f.hidden_field :access_code, :value => "${accessCode}"
-      = f.submit
     = social_links
+    .register
+      = form_for :user, |
+          :remote => true, |
+          :url  => registration_path(:user), |
+          :html => {:'data-type' => 'json', |
+                    :class => 'register'} do |f|
+        = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
+        = f.text_field :name, :class => 'input', :placeholder => t('login.register.name')
+        = f.password_field :password, :class => 'input', :placeholder => t('login.register.password')
+        = f.password_field :password_confirmation, :class => 'input', :placeholder => t('login.register.confirm_password')
+        = f.hidden_field :access_code, :value => "${accessCode}"
+        = f.submit
     .cl
 
   %script#tmpl-request-invite{:type => 'text/x-jquery-tmpl'}
@@ -90,7 +91,8 @@
       %span ${referralURL}
 
   %script#tmpl-request-invite-registering{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.beta_warning')
+    %h2= t('login.register.request_invite')
+    .cl
 
     %p
       Your Entry Code has been accepted.
