@@ -2330,248 +2330,12 @@ input.splash:active, .buttonStyle2:active, .tag-line.edit button:active
   [data-widget = 'filter'], [data-widget = 'suggestions']
     display: none
 
-.pulsars-wrap
-  position: absolute
-  width: 100%
-  height: 100%
-  bottom: 0px
-.pulsars
-  width: 1070px
-  position: relative
-  margin: 0px auto
-  height: 100%
-  .p
-    position: absolute
-    width: 100%
-    height: 100%
-    opacity: 0
-  .p1
-    background: url('/css/images/p1.png') no-repeat transparent
-  .p2
-    background: url('/css/images/p2.png') no-repeat transparent
-  .p3
-    background: url('/css/images/p3.png') no-repeat transparent
-  .p4
-    background: url('/css/images/p4.png') no-repeat transparent
-
 html body #main.sessions
   height: 100%
   min-height: 250px + 227px
   width: auto
   padding: 0
   background-color: #0F1B27 !important
-.user-signin
-  height: 100%
-  .main
-    box-sizing: border-box
-    position: relative !important
-    width: 100%
-    height: 250px !important
-    height: 100%
-    padding: 0 0 0 0
-    position: relative
-    background: url('/css/images/login-top.png') repeat-x #0f1b29
-    .or
-      font-size: 16
-      color: white
-      float: left
-      width: 20px
-      margin-left: 225px
-      margin-top: -92px
-    .code
-      float: left
-      width: 200px
-    .wrap
-      position: relative
-      margin-top: -100px
-      box-sizing: border-box
-      z-index: 1
-      margin: auto
-      width: 570px
-      height: 250px
-      top: 0
-      right: 0
-      bottom: 227px
-      left: 0
-      padding-top: 90px
-
-    .buttons
-      a
-        margin-top: 10px
-        display: block
-        width: 115px
-        height: 36px
-        line-height: 36px
-        background-color: #516c88
-        +round-borders(7px)
-        border: solid 1px #4B6482
-        text-shadow: 0px 1px 0px #0F1B27
-        box-shadow: 0px 1px 2px #0f1b27
-        border-top: solid 1px #5B7999
-        font-size: 12px
-        text-align: center
-        color: #a9d1f2
-        text-decoration: none
-        &:hover, &:focus
-          color: #fff
-        &:active
-          background-color: #516c88
-          color: #fff
-          box-shadow: 0px -1px 2px #0f1b27
-          border-bottom: solid 1px #5B7999
-          border-top: solid 1px #516c88
-        &.new-user
-          float: left
-          margin-left: 70px
-        &.registered-user
-          float: right
-          margin-right: 70px
-    #forgot_password
-      display: none
-    #user_submit
-      visibility: hidden
-    input.input
-      display: block
-      background: url('/images/signin_input.png') no-repeat 0 0
-      width: 243px - 2*20px
-      height: 53px
-      padding: 0 20px
-      border: 0 none
-      margin: 0px auto
-      font:
-        size: 12px
-        style: italic
-      background-position: 0 0
-      color: transparentize(#12b2e6, 1 - 0.25)
-
-      &.placeholder
-        background-position: 0
-        color: transparentize(#d2d2d2, 0.5)
-        text-shadow: 0px 1px 0px #000
-      &::-webkit-input-placeholder
-        background-position: 0
-        color: transparentize(#d2d2d2, 0.5)
-        text-shadow: 0px 1px 0px #000
-      &:-moz-placeholder
-        color: transparentize(#d2d2d2, 0.5)
-        text-shadow: 0px 1px 0px #000
-      &.hover, &:hover
-        background-position: 0 -1*53px
-        color: #12b2e6
-      &.active, &:focus
-        background-position: 0 -2*53px
-        color: #333
-      &.error
-        background-position: 0 -3*53px
-        color: #333
-    #forgot_password
-      float: right
-      margin: 0 20px 0 0
-      font-size: 10px
-      color: lighten (#4a6580, 10%)
-      text-shadow: transparentize(#000, 1 - 0.75) 0 1px 1px
-
-  .bottom
-    bottom: 0
-    width: 100%
-    height: 260px
-    background: url('/css/images/login-bottom.png') repeat-x #0f1b29
-    .wrap
-      overflow: hidden
-      margin: 0 auto
-      padding: 30px 0 0 80px
-      width: 710px
-    .description
-      float: left
-      margin: 0 70px 0 0
-      width: 360px
-      color: #c3c9cc
-      text-shadow: transparentize(#091421, 0.25) 0 2px 1px, transparentize(#a0b6cd, 0.5) 0 0 15px
-      p
-        font-size: 14px
-        line-height: 20px
-        &.title
-          margin: 0 0 0.3em 0
-          font-size: 30px
-          line-height: 1.2
-    .signup
-      float: left
-      width: 280px
-      color: #38618b
-      p
-        &.title
-          margin: 0 0 0.5em 0
-          font-size: 20px
-          line-height: 1.2
-          font-weight: bold
-          text-shadow: transparentize(#000, 0.1) 0 2px 0px
-        &.text
-          font-size: 10px
-          line-height: 14px
-          text-shadow: transparentize(#000, 0.2) 0 1px 0px
-
-  .invite-sent
-    color: #C3C9CC
-    text-shadow: rgba(9, 20, 33, 0.75) 0 2px 1px, rgba(160, 182, 205, 0.5) 0 0 15px
-  .signin
-    float: right
-    width: 280px
-  .or
-    float: right
-    width: 24px
-    margin: -46px 50px
-    font-family: georgia
-    color: #C3C9CC
-    font-size: 21px
-    font-style: italic
-    text-shadow: rgba(9, 20, 33, 0.75) 0 2px 1px, rgba(160, 182, 205, 0.5) 0 0 15px
-  .omniauth-links
-    float: left
-    width: 280px
-    margin: 12px 0 0 0
-    .tw
-      display: block
-      margin-top: 12px
-    p
-      a
-        display: block
-        margin: 10px 0 0 0
-        padding: 0 0 0 25px
-        width: 153px - 25px
-        height: 26px
-        line-height: 24px
-        background: url('/images/omniauth_buttons.png') no-repeat 0 0
-        color: #fff
-        font-size: 11px
-        text-shadow: transparentize(#000, 0.2) 0 1px 2px
-        &:hover
-          text-decoration: none
-      &.fb a
-        &:hover
-          background-position: 0 -26px
-      &.tw a
-        background-position: 0 -52px
-        &:hover
-          background-position: 0 -78px
-
-  .confirm-new
-    .title
-      font-size: 23px
-      color: #c3c9cc
-      text-shadow: transparentize(#091421, 0.25) 0 2px 1px, transparentize(#a0b6cd, 0.5) 0 0 15px
-      span.indent
-        display: block
-        text-indent: 2em
-    .small
-      font-size: 12px
-      color: #12b2e6
-      text-shadow: transparentize(#000, 1 - 0.75) 0 1px 1px
-      text-indent: 3em
-    .large
-      margin: 25px 0
-      font-size: 16px
-      text-align: center
-      color: #fff
 
 .user_wrap
   // .sub ?
@@ -2587,6 +2351,7 @@ html body #main.sessions
   .nonBlank_false
     opacity: 1
 
+@import login
 @import partials/forms
 
 .splashboard-items
@@ -2824,3 +2589,6 @@ body
   width: 570px
 .jp-seek-bar, jp-seek-bar:active
   cursor: pointer
+
+.drop
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.898)
