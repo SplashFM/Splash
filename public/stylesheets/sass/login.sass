@@ -1,3 +1,5 @@
+@import lib
+
 =input
   display: block
   background: url('/images/signin_input.png') no-repeat 0 0
@@ -43,10 +45,18 @@
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.898)
   height: 100%
 
-  input[type = "submit"]
-    display: none
+  p.submit
+    margin-top: 10px
+
+    input
+      background-color: #516c88
+      border: none
+      color: #fff
+      padding: 5px 10px
+      +round-borders(7px)
 
   .main
+
     position: relative
     width: 100%
     height: 350px
@@ -111,8 +121,6 @@
           margin-right: 70px
     #forgot_password
       display: none
-    #user_submit
-      visibility: hidden
     input.input
       +input
     #forgot_password
@@ -122,7 +130,7 @@
       color: lighten (#4a6580, 10%)
       text-shadow: transparentize(#000, 1 - 0.75) 0 1px 1px
 
-    #user_remember_me, #age
+    #user_remember_me, #age, p.submit input
       margin-left: 15px
 
     label[for = "user_remember_me"], label[for = "age"]
@@ -198,7 +206,7 @@
           text-shadow: transparentize(#000, 0.2) 0 1px 0px
 
         &.request-via-email
-          margin-top: 10px
+          margin-top: 15px
 
         a
           background: url(/css/images/request-invite.png) no-repeat

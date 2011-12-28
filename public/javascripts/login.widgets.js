@@ -18,7 +18,10 @@ $(function() {
   });
 
   window.CodeTest = Backbone.View.extend({
-    events: {'keyup input': 'verify'},
+    events: {
+      'keyup input': 'verify',
+      'click p.submit.via-email input': 'verify',
+    },
 
     template: $('#tmpl-code-test').template(),
 
@@ -45,8 +48,8 @@ $(function() {
     },
 
     verify: function(e) {
-      if (e.keyCode === $.ui.keyCode.ENTER) {
-        var code = $(e.target).val();
+      if (e.type === 'click' || e.keyCode === $.ui.keyCode.ENTER) {
+        var code = this.$('[name = "access_code"]').val();
 
         $.ajax({
           url:  Routes.verify_access_requests_path({code: code}),

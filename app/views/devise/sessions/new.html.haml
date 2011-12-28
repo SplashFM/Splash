@@ -59,7 +59,9 @@
         = f.hidden_field :access_code, :value => "${accessCode}"
         %input#age{:type => 'checkbox'}
         %label{:for => 'age'} I am at least 13 years of age
-        = f.submit
+
+        %p.submit
+          = f.submit 'Sign up'
     .cl
 
   %script#tmpl-request-invite{:type => 'text/x-jquery-tmpl'}
@@ -124,7 +126,9 @@
         :html   => {:'data-type' => 'json', |
                     :class => 'register'} do |f|
       = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
-      = f.submit
+
+      %p.submit
+        = f.submit 'Submit'
 
   %script#tmpl-request-invite-sent{:type => 'text/x-jquery-tmpl'}
     .invite-sent
@@ -141,6 +145,9 @@
 
     %div
       %input.input{:name => 'access_code', :placeholder => t('login.register.code')}
+
+    %p.submit.via-email
+      %input{:type => 'button', :value => 'Submit'}
 
     %p.request-via-email
       %a{:href => '#request-invite-email'} Request Invite via email
@@ -159,7 +166,9 @@
         = f.check_box :remember_me
         = f.label :remember_me
         = link_to t("login.sign_in.forgot_password"), '#', :id => 'forgot_password'
-        = f.submit t('devise.buttons.login')
+
+        %p.submit
+          = f.submit t('devise.buttons.login')
     .cl
 
   %script#tmpl-forgot-password{:type => 'text/x-jquery-tmpl'}
