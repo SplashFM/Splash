@@ -78,19 +78,22 @@
       %a{:href => '#request-invite-email'} Request Invite via email
 
   %script#tmpl-request-invite-confirmed{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.beta_warning')
+    %h2= t('login.register.request_invite')
+    .cl
 
     %p
       You've been successfully added to the Public Beta request list! Not a fan
       of waiting in long lines? We love enthusiastic users:
 
-    %p
+    %p.do-share
       Share with 3 friends! Copy and paste the URL below into Twitter,
       Facebook, or in an email, or use the social links contained in this
       window to share and climb the list.
 
     %p
-      %span ${referralURL}
+      %input.referral-url{:value => '${referralURL}'}
+      %a.share-fb Share
+      %a.share-tw Share
 
   %script#tmpl-request-invite-registering{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.register.request_invite')

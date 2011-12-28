@@ -158,7 +158,7 @@
         line-height: 1.2
     .signup
       float: left
-      width: 283px
+      width: 330px
 
       form
         margin-top: 15px
@@ -183,6 +183,9 @@
       p
         margin-top: 10px
 
+        &.do-share
+          font-size: 10px
+          color: #c3c9cc
         &.title
           margin: 0 0 0.5em 0
           font-size: 20px
@@ -200,6 +203,35 @@
         a
           background: url(/css/images/request-invite.png) no-repeat
           padding-left: 25px
+
+        input.referral-url
+          color: #26374d
+          font: 12px Georgia,serif
+          font-style: italic
+          background: url(/css/images/referral-url.png) no-repeat 0 5px
+          border: none
+          height: 32px
+          padding: 3px 5px
+          width: 150px
+          margin-left: -3px
+
+        a
+          &.share-fb, &.share-tw
+            color: #fff
+            font-size: 12px
+            display: inline-block
+            height: 30px
+            width: 53px
+            line-height: 29px
+
+          &.share-fb
+            background: url(/css/images/facebook-share.png) no-repeat 0
+
+          &.share-tw
+            line-height: 29px
+            padding-left: 30px
+            background: url(/css/images/twitter-share.png) no-repeat
+
 
       a
         color: #6283a3
