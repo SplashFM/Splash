@@ -1,4 +1,5 @@
 class AccessRequest < ActiveRecord::Base
+  ADMIN_KEY         = '23ef4tt33'
   ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
 
   validates :email,
