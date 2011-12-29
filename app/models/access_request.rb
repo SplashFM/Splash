@@ -25,7 +25,12 @@ class AccessRequest < ActiveRecord::Base
   end
 
   def self.code?(code)
-    codes.include?(code) || find_by_code(code)
+    codes.include?(code) || find_by_code_and_user_id(code, nil)
+  end
+
+  def self.reserve(code, user)
+    # no access request will be returned for generic codes
+    find_by_code(code).try :update_attribute, :user_id, user.id
   end
 
   def as_json(options = {})
