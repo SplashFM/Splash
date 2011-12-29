@@ -36,6 +36,8 @@ class AccessRequest < ActiveRecord::Base
     UserMailer.delay.invite self, code
 
     mark_invited
+
+    save!
   end
 
   private
@@ -49,7 +51,7 @@ class AccessRequest < ActiveRecord::Base
   end
 
   def mark_invited
-    update_attribute :granted, true
+    self.granted = true
   end
 
   def reset_granted
