@@ -24,26 +24,32 @@ class AccessRequest < ActiveRecord::Base
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
   end
 
+  def self.code?(code)
+    codes.include?(code) || find_by_code(code)
+  end
+
   def as_json(options = {})
     super.merge!(:referral_url => options[:url_builder].call(referral_code))
   end
 
-  def code
-    self.class.codes.first
-  end
+  def invite
+    transaction {
+      generate_code
+      mark_invited
+      save!
 
-  def invite(code)
-    UserMailer.delay.invite self, code
-
-    mark_invited
-
-    save!
+      UserMailer.delay.invite self, code
+    }
   end
 
   private
 
   def confirm_inclusion
     UserMailer.delay.confirm_access_request self
+  end
+
+  def generate_code
+    self.code = rand(36**8).to_s(36)
   end
 
   def generate_referral_code

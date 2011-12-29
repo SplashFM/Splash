@@ -5,7 +5,7 @@ class AccessRequestsController < ApplicationController
 
   def approve
     if params[:code] == AccessRequest::ADMIN_KEY
-      AccessRequest.find(params[:id]).invite AccessRequest.codes.first
+      AccessRequest.find(params[:id]).invite
     end
 
     render :text => 'User invited.'
@@ -17,7 +17,7 @@ class AccessRequestsController < ApplicationController
   end
 
   def verify
-    if AccessRequest.codes.include?(params[:code])
+    if AccessRequest.code?(params[:code])
       head :ok
     else
       head :not_found

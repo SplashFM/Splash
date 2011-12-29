@@ -77,9 +77,8 @@ class User < ActiveRecord::Base
                       :message => "can only be alphanumeric with no spaces",
                       :on => :update
   validates :tagline, :length => { :maximum => 60 }
-  validates :access_code,
-            :inclusion => {:in => AccessRequest.codes},
-            :on => :create
+
+  validate  :validate_access_code, :on => :create
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",
@@ -593,5 +592,11 @@ class User < ActiveRecord::Base
 
   def to_slug(string)
     string.strip.gsub(/@.*/, "").gsub(/\W+/, '_').downcase if string.present?
+  end
+
+  def validate_access_code
+    unless AccessRequest.code?(access_code)
+      errors.add(:access_code, 'is invalid')
+    end
   end
 end
