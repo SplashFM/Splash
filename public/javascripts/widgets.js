@@ -280,39 +280,6 @@ Widgets.Notification = {
   }
 }
 
-Widgets.SuggestedUsers = {
-  init: function(){
-    $w('suggested-users').live('follow', function() {
-      console.log("here?");
-      $.ajax({
-        type: 'GET',
-        url: Routes.suggested_splashers_path(),
-        success: function(data){
-          $w('suggested-users').html(data);
-        }
-      });
-    });
-
-    $w('next-suggested-users').live('ajax:success', function(_, data) {
-        $w("suggested-users").html(data);
-    });
-
-    suggested_widgets = [$w('delete-suggested-user'), $w('follow-suggested-user')]
-
-    $.each(suggested_widgets, function(i, e){
-      e.live('ajax:success', function() {
-        $.ajax({
-          type: 'GET',
-          url: Routes.suggested_splashers_path(),
-          success: function(data){
-            $w('suggested-users').html(data);
-          }
-        });
-      });
-    });
-  }
-}
-
 Widgets.ToolTip = {
   init: function(){
     $w("tip").live("mouseover", function() {
@@ -330,8 +297,6 @@ $(document).ready(function() {
   Widgets.SplashAction.init();
   Widgets.Notification.init();
   Widgets.Paginate.init();
-  Widgets.SuggestedUsers.init();
   Widgets.ToolTip.init();
   new SPLASH.Widgets.waterNums('.waterNum');
 });
-

@@ -66,6 +66,14 @@ $(function() {
     extend(Paginated).
     extend(HasMoreResults);
 
+  window.SuggestedSplasher  = Backbone.Model.extend({
+    urlRoot: '/suggested_splashers',
+  });
+  window.SuggestedSplashers = Backbone.Collection.extend({
+    model: SuggestedSplasher,
+    url: '/suggested_splashers',
+  })
+
   window.Comment     = Backbone.Model.extend({
     url: "/comments"
   });

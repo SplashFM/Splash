@@ -1,19 +1,13 @@
 class SuggestedSplashersController < ApplicationController
-  before_filter :load_user, :only => :destroy
+  respond_to :json
 
   def index
-    render :partial => "shared/suggested_splashers"
+    respond_with current_user.recommended_users(current_page)
   end
 
- def destroy
-    current_user.ignore_suggested(@user.id)
+  def destroy
+    current_user.ignore_suggested(params[:id])
 
-    render :partial => "users/suggested_splasher", :collection => current_user.recommended_users, :as => :user
-  end
-
-private
-
-  def load_user
-    @user = User.find_by_slug(params[:id]) || User.find(params[:id])
+    respond_with true
   end
 end

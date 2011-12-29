@@ -277,5 +277,98 @@ $(function() {
   });
 
   window.SuggestedSplashersView = Backbone.View.extend({
+    events: {
+      'click [data-widget = "next-suggested-users"]': 'viewMore',
+      'ignore:splasher': 'reset',
+      'follow': 'reset'
+    },
+    template: $('#tmpl-suggested-splashers').template(),
+
+    initialize: function() {
+      this.page = 1;
+
+      this.collection.bind('reset', this.renderSuggestions, this);
+    },
+
+    load: function() {
+      this.collection.fetch({data: {page: this.page}});
+    },
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template));
+
+      this.renderSuggestions();
+
+      return this;
+    },
+
+    renderSuggestions: function() {
+      this.$('li').remove();
+
+      var followerID = this.options.followerID;
+      var ul         = this.$('ul');
+
+      this.collection.each(function(ss) {
+        ul.append(new SuggestedSplasherView({
+          followerID: followerID,
+          model:      ss,
+        }).render().el);
+      })
+    },
+
+    reset: function() {
+      this.page = 1
+
+      this.load();
+    },
+
+    viewMore: function() {
+      this.page++;
+
+      this.load();
+    },
   });
+
+  window.SuggestedSplasherView = Backbone.View.extend({
+    events: {
+      'click [data-widget = "delete-suggested-user"]': 'ignore'
+    },
+    tagName: 'li',
+    template: $('#tmpl-suggested-splasher').template(),
+
+    initialize: function() {
+      this.model.bind('destroy', this.ignored, this);
+    },
+
+    ignore: function() {
+      this.model.destroy();
+    },
+
+    ignored: function() {
+      $(this.el).trigger('ignore:splasher');
+    },
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template, this.model.toJSON()));
+
+      this.$('.wrap').append(this.renderRelationship());
+
+      return this;
+    },
+
+    renderRelationship: function() {
+      var r = new Relationship({
+        follower_id: this.options.followerID,
+        followed_id: this.model.id,
+      });
+
+      return new RelationshipView({
+        model:    r,
+        refresh:  false,
+        tagName:  'span',
+        template: $('#tmpl-suggested-relationship').template(),
+      }).render().el;
+    },
+  });
+
 });

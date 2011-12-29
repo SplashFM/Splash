@@ -1,11 +1,4 @@
-:javascript
-  $(function() {
-    window.SuggestedSplashers = new SuggestedSplashersView({
-      el: $('[data-widget = "suggested-splashers"]')
-    })
-  });
+%script#tmpl-suggested-splashers{:type => 'text/x-jquery-tmpl'}
+  %ul
 
-%ul{:data => {:widget => 'suggested-splashers'}}
-  = render :partial => "users/suggested_splasher", :collection => current_user.recommended_users(current_page), :as => :user
-
-= view_more_suggested_users
+  = view_more_suggested_users
