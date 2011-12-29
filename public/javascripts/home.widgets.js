@@ -279,8 +279,8 @@ $(function() {
   window.SuggestedSplashersView = Backbone.View.extend({
     events: {
       'click [data-widget = "next-suggested-users"]': 'viewMore',
-      'ignore:splasher': 'reset',
-      'follow': 'reset'
+      'ignore:splasher': 'load',
+      'follow': 'load'
     },
     template: $('#tmpl-suggested-splashers').template(),
 
@@ -314,12 +314,6 @@ $(function() {
           model:      ss,
         }).render().el);
       })
-    },
-
-    reset: function() {
-      this.page = 1
-
-      this.load();
     },
 
     viewMore: function() {
