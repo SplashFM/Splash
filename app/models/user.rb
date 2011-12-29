@@ -260,7 +260,9 @@ class User < ActiveRecord::Base
     order('name_rank desc')
   end
 
-  def as_json(opts = {})
+  def as_json(opts = nil)
+    opts ||= {}
+
     method_names = Array.wrap(opts[:methods]).map { |n| n if respond_to?(n.to_s) }.compact
     method_hash = method_names.map { |n| [n, send(n)] }
 
