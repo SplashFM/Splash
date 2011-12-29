@@ -275,4 +275,7 @@ $(function() {
       this.$('[data-widget = "complete-upload"]').show();
     },
   });
+
+  window.SuggestedSplashersView = Backbone.View.extend({
+  });
 });
