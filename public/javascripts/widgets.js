@@ -28,80 +28,6 @@ Widgets.Tabs = {
   }
 }
 
-Widgets.Upload = {
-  init: function() {
-    var self = this;
-
-    $w('upload-toggle').live('click', function(e) {
-      e.preventDefault();
-
-      $($(this).attr('href')).toggle();
-    });
-
-    self.reload();
-
-    $w('upload-cancel').live('ajax:success', function(_, data) {
-      $w('upload-container').replaceWith(data);
-    });
-
-    $($ws('upload-container') + ' form').
-      live('ajax:success', function(_, data) {
-        $w('upload-container').replaceWith(data);
-
-        $w('upload-container').trigger('splash:uploaded');
-        $w('upload').hide();
-
-        self.reload();
-      }).live('ajax:error', function(_, data) {
-        if (data.status === 409) {
-          Widgets.FlashTemplate.error(I18n.t("upload.already_splashed"));
-        }
-
-        $w('upload-container').html(data.responseText);
-
-        self.reload();
-      });
-  },
-
-  reload: function () {
-    var self   = this;
-    var upload = $w('upload');
-    var form   = $w('upload-container').find('form');
-
-    form.fileupload({
-      // this will be removed soon, so no i18n needed
-      fail:  function(e, data, xhr) {
-        $w('upload-container').html(data.jqXHR.responseText)
-        self.reload();
-
-        $w('upload').show();
-      },
-      start: function()        { form.hide(); upload.text('Uploading.'); },
-      done:  function(e, data) {
-        $w('upload').html(data.result);
-      }
-    });
-  }
-}
-
-Widgets.SplashAction = {
-  init: function() {
-    $w("splash-action").live('ajax:success', function() {
-      $(':submit', this).
-        attr('disabled', true).
-        val(I18n.t('tracks.widget.splashed'));
-
-      $(this).trigger('splash:splash').hide();
-    });
-
-    $w("splash-toggle").live('click', function(e) {
-      e.preventDefault();
-
-      $($(this).attr('href')).toggle();
-    });
-  }
-}
-
 Widgets.FlashTemplate = {
   success: function(value){
     $("#flash_notice, #flash_error").remove();
@@ -291,10 +217,8 @@ Widgets.ToolTip = {
 
 $(document).ready(function() {
   Widgets.Scroll.init();
-  Widgets.Upload.init();
   Widgets.Editable.init();
   Widgets.UserProfile.init();
-  Widgets.SplashAction.init();
   Widgets.Notification.init();
   Widgets.Paginate.init();
   Widgets.ToolTip.init();
