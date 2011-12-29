@@ -13,6 +13,12 @@ class AccessRequest < ActiveRecord::Base
   scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
   scope :pending, where(:granted => false)
 
+  def self.email(date)
+    requests = requested_on(date).pending
+
+    AdminMailer.list_access_requests(requests).deliver if requests.present?
+  end
+
   def self.codes
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
   end
