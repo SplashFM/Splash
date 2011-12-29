@@ -8,7 +8,7 @@ class Notification < ActiveRecord::Base
   scope :unread, where(:read_at => nil)
   scope :by_recency, order('created_at desc')
 
-  after_create :email_notification
+  after_create :email_notification, :if => :receiver_email_notification_enabled?
 
   def self.for(user)
     where(:notified_id => user)
@@ -33,8 +33,11 @@ class Notification < ActiveRecord::Base
   end
 
   private
-
   def email_notification
     UserMailer.delay.notification(self)
+  end
+
+  def receiver_email_notification_enabled?
+    notified.email_preference(self.class.name.parameterize)
   end
 end
