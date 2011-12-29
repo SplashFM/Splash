@@ -18,6 +18,7 @@ $(function() {
   });
 
   window.CodeTest = Backbone.View.extend({
+    className: 'code-test',
     events: {
       'keyup input': 'verify',
       'click p.submit.via-email input': 'verify',
