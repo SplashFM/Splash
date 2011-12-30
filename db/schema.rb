@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(:version => 20111229205551) do
     t.text     "avatar_meta"
     t.boolean  "active"
     t.string   "referral_code"
+    t.text     "email_preferences"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

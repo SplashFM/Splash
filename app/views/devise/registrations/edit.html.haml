@@ -25,6 +25,16 @@
 
       %li
         = link_to_social_site(:facebook, 'fb-logo.png')
+      %hr
+
+    %ul
+      %li
+        %label= 'Email preferences'
+      = email_preference('following')
+      = email_preference('mention')
+      = email_preference('splash_comment', true)
+      = email_preference('response_comment', true)
+      = email_preference('newsletter', true)
 
     %ul.actions
       %li= link_to t('.cancel'), "#", :class => "buttonStyle2"
