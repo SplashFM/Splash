@@ -123,8 +123,8 @@ $(function() {
     },
 
     twitterPost: function() {
-      text = encodeURIComponent("Check out http://www.Splash.FM, a new website for social music discovery - " + this.shareUrl());
-      window.open("http://twitter.com/intent/tweet?text="+text+"&via=splash.fm&text=","tweet_window","channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
+      text = encodeURIComponent("Check out Splash.FM, a new website for social music discovery - " + this.shareUrl());
+      window.open("http://twitter.com/intent/tweet?text="+text+"&via=splashfm&text=","tweet_window","channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
     },
 
     render: function(data) {
