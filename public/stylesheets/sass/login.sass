@@ -40,10 +40,24 @@
     color: #333
 
 .user-signin
-  background: url('/css/images/login-background.jpg') repeat-x center top #0f1b29
+  background-color: #0b141e
   color: #6283a3
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.898)
   height: 100%
+
+  .main-wrap
+    background: url('/css/images/login-background-gradient.png') repeat-x
+
+  .main-wrap, .bottom-wrap
+    width: 100%
+
+  .bottom-wrap
+    background: url('/css/images/login-background-bottom-gradient.png') repeat-x #0b141e
+
+    .ruler
+      width: 100%
+      height: 6px
+      background: url(/css/images/login-ruler.png) repeat-x 0 0
 
   p.submit
     margin-top: 10px
@@ -56,7 +70,7 @@
       +round-borders(7px)
 
   .main
-
+    background: url('/css/images/login-background-top.png') no-repeat center top
     position: relative
     width: 100%
     height: 350px
@@ -142,6 +156,7 @@
       color: #a94d4d
 
   .bottom
+    background: url('/css/images/login-background-bottom.png') no-repeat center top
     width: 100%
     height: 260px
     .wrap
@@ -330,7 +345,7 @@
   position: relative
   margin: 0px auto
   height: 282px
-  bottom: -68px
+  bottom: -70px
   .p
     position: absolute
     width: 100%
