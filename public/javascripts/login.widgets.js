@@ -96,7 +96,7 @@ $(function() {
     },
 
     renderInviteConfirmation: function(data) {
-      $(this.el).html($.tmpl(this.templateConfirmed, data));
+      $(this.el).html(new SocialShare().render(data).el);
     },
 
     renderRegistrationInfo: function() {
@@ -111,6 +111,29 @@ $(function() {
       this.renderInviteConfirmation(data);
     },
   });
+
+  window.SocialShare = Backbone.View.extend({
+    events: {
+      'click [href = "#twitter-share"]': 'twitterPost',
+    },
+    templateConfirmed: $('#tmpl-request-invite-confirmed').template(),
+
+    shareUrl: function() {
+      return $(".referral-url").val();
+    },
+
+    twitterPost: function() {
+      text = encodeURIComponent("Check out http://www.Splash.FM, a new website for social music discovery - " + this.shareUrl());
+      window.open("http://twitter.com/intent/tweet?text="+text+"&via=splash.fm&text=","tweet_window","channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
+    },
+
+    render: function(data) {
+      $(this.el).html($.tmpl(this.templateConfirmed, data));
+
+      return this;
+    },
+  });
+
 
   window.RequestInviteEmail = Backbone.View.extend({
     events: {
