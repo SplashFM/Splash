@@ -263,7 +263,8 @@ class User < ActiveRecord::Base
     q = connection.quote_string(name)
     select("users.*, ts_rank(to_tsvector('english', users.name),
             plainto_tsquery('english', '#{q}')) name_rank").
-    where('users.name ilike ?', "#{name}%").
+    where('users.name ilike :nn or
+                users.nickname ilike :nn', :nn => "#{name}%").
     order('name_rank desc')
   end
 
