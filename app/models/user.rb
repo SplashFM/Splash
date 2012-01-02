@@ -1,11 +1,9 @@
 require 'redis_record'
-require 'testable_search'
 require 'open-uri'
 require 'cropper'
 
 class User < ActiveRecord::Base
   include RedisRecord
-  extend TestableSearch
 
   ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
 

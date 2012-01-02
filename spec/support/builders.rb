@@ -2,14 +2,6 @@ user_seq  = 0
 track_seq = 0
 
 Bricks do
-  builder Artist do
-    name 'Yes'
-  end
-
-  builder Album do
-    name 'Going for the one'
-  end
-
   builder Relationship do
     follower.with_required_info!
     followed.with_required_info!

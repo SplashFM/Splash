@@ -1,5 +1,4 @@
 require 'redis_record'
-require 'testable_search'
 
 class Track < ActiveRecord::Base
   paginates_per 5
@@ -7,14 +6,11 @@ class Track < ActiveRecord::Base
   DEFAULT_ARTWORK_URL = "/images/no_album_art.png"
 
   include RedisRecord
-  extend TestableSearch
 
   redis_base_key :track
   redis_counter :splash_count
 
   acts_as_taggable
-
-  has_and_belongs_to_many :genres, :join_table => :track_genres
 
   scope :splashed, where('id in (select s.track_id from splashes s)')
 
@@ -169,4 +165,3 @@ end
 
 require_dependency 'undiscovered_track'
 require_dependency 'discovered_track'
-
