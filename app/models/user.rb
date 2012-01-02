@@ -82,7 +82,9 @@ class User < ActiveRecord::Base
                       :on => :update
   validates :tagline, :length => { :maximum => 60 }
 
-  validate  :validate_access_code, :on => :create
+  validate  :validate_access_code,
+            :on     => :create,
+            :if     => :access_code_required?
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",
@@ -582,6 +584,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def access_code_required?
+    ! Rails.env.test?
+  end
 
   def check_existence(name)
     User.exists?(:nickname => name) ? nil : name
