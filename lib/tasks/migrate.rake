@@ -1,5 +1,3 @@
-task :migrate => 'avatars:fix_content_type'
-
 namespace :migrate do
   task :refresh_avatars => :environment do
     require 'aws/s3'
