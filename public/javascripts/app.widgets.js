@@ -138,6 +138,7 @@ $(function() {
 
     finishSplash: function() {
       this.toggle.toggle();
+      this.toggle.disable();
       // FIXME: neither of these seem to actually trigger a rerender of the single view.
       this.broadcastSplash();
       this.model.change();
@@ -467,6 +468,10 @@ $(function() {
     initialize: function() {
       this.$target   = $(this.options.target);
       this.isEnabled = this.options.isEnabled;
+    },
+
+    disable: function() {
+      this.isEnabled = false;
     },
 
     toggle: function() {
