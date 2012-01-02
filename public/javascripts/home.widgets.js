@@ -287,7 +287,7 @@ $(function() {
     initialize: function() {
       this.page = 1;
 
-      this.collection.bind('reset', this.renderSuggestions, this);
+      this.collection.bind('reset', this.resetSuggestions, this);
     },
 
     load: function() {
@@ -297,23 +297,27 @@ $(function() {
     render: function() {
       $(this.el).html($.tmpl(this.template));
 
-      this.renderSuggestions();
+      this.renderSuggestions(this.collection);
 
       return this;
     },
 
-    renderSuggestions: function() {
-      this.$('li').remove();
-
+    renderSuggestions: function(collection) {
       var followerID = this.options.followerID;
       var ul         = this.$('ul');
 
-      this.collection.each(function(ss) {
+      collection.each(function(ss) {
         ul.append(new SuggestedSplasherView({
           followerID: followerID,
           model:      ss,
         }).render().el);
       })
+    },
+
+    resetSuggestions: function() {
+      this.$('li').remove();
+
+      this.renderSuggestions(this.collection);
     },
 
     viewMore: function() {
