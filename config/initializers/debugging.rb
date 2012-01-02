@@ -1,4 +1,4 @@
-if Rails.env != 'production'
+if %(development test).include?(Rails.env)
   require 'ruby-debug'
   Debugger.settings[:autolist] = 1
   Debugger.settings[:autoeval] = 1
