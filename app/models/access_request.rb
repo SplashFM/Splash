@@ -8,6 +8,7 @@ class AccessRequest < ActiveRecord::Base
             :format     => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}
 
   before_create :reset_granted
+  before_create :generate_code
   before_create :generate_referral_code
   after_create  :confirm_inclusion
 
@@ -39,7 +40,6 @@ class AccessRequest < ActiveRecord::Base
 
   def invite
     transaction {
-      generate_code
       mark_invited
       save!
 
