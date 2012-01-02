@@ -119,6 +119,8 @@ $(function() {
     splash: function(e) {
       e.preventDefault();
 
+      this.$('input[type = "submit"]').attr('disabled', true);
+
       new Splash().save({
         comment:  this.comment.comment(),
         track_id: this.model.get('id'),
