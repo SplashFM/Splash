@@ -16,6 +16,8 @@ $(function() {
     },
 
     changed: function() {
+      this.running = false;
+
       $(this.el).trigger(this.currentAction());
     },
 
@@ -33,15 +35,19 @@ $(function() {
     toggle: function(e) {
       e.preventDefault();
 
-      if (this.model.isNew()) {
-        this.model.save();
+      if (! this.running) {
+        this.running = true;
 
-        this.nextAction = 'unfollow';
-      } else {
-        this.model.destroy();
-        this.model.id = null; // clear id to force creation
+        if (this.model.isNew()) {
+          this.model.save();
 
-        this.nextAction = 'follow';
+          this.nextAction = 'unfollow';
+        } else {
+          this.model.destroy();
+          this.model.id = null; // clear id to force creation
+
+          this.nextAction = 'follow';
+        }
       }
     },
   });
