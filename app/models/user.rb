@@ -5,6 +5,11 @@ require 'cropper'
 class User < ActiveRecord::Base
   include RedisRecord
 
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable, :lockable and :timeoutable
+  devise :database_authenticatable, :registerable, :omniauthable,
+         :recoverable, :rememberable, :trackable, :validatable
+
   ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
 
   MAX_SCORE       = 99
@@ -20,26 +25,17 @@ class User < ActiveRecord::Base
                                 'response_comment' => '',
                                 'newsletter' => 'true' }
 
-  scope :followed_by, lambda { |user|
-    joins(:followers).where(:relationships => {:follower_id => user.id})
-  }
-  scope :ignore,  lambda { |users| where("id not in (?)", users) unless users.blank? }
-  scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
-
-  scope :registered_around, lambda { |date|
-    where('date(created_at) = ?', date)
-  }
-  scope :pending, where(:active => false)
-
   redis_sorted_field :influence
   redis_counter :ripple_count
   redis_counter :splash_count
   redis_hash :splashed_tracks
+
   serialize :ignore_suggested_users, Array
   serialize :suggested_users, Array
   serialize :email_preferences, Hash
 
   attr_accessor :access_code
+  attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
   has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
   # The users I am following.
@@ -59,32 +55,6 @@ class User < ActiveRecord::Base
   has_many :social_connections,
            :after_add => :maybe_fetch_avatar,
            :dependent => :destroy
-
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :registerable, :omniauthable,
-         :recoverable, :rememberable, :trackable, :validatable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,
-                  :name, :uid, :provider, :tagline, :avatar, :initial_provider,
-                  :nickname, :access_code, :email_preferences
-
-  before_validation :generate_nickname, :on => :create
-
-  validates :nickname,
-            :presence => true,
-            :uniqueness => true,
-            :on => :update
-  validates_format_of :nickname,
-                      :with => /\A#{NICKNAME_REGEXP}\Z/,
-                      :message => "can only be alphanumeric with no spaces",
-                      :on => :update
-  validates :tagline, :length => { :maximum => 60 }
-
-  validate  :validate_access_code,
-            :on     => :create,
-            :if     => :access_code_required?
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",
@@ -113,18 +83,42 @@ class User < ActiveRecord::Base
     has_attached_file :avatar, ATTACHMENT_OPTS
   end
 
-  validates_attachment_content_type :avatar, :content_type => /image/
-
-  before_save :possibly_delete_avatar
-
-  attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me,
+                  :name, :uid, :provider, :tagline, :avatar, :initial_provider,
+                  :nickname, :access_code, :email_preferences
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
-  before_update :reprocess_avatar, :if => :cropping?
+  validates_attachment_content_type :avatar, :content_type => /image/
+  validates :nickname,
+            :presence => true,
+            :uniqueness => true,
+            :on => :update
+  validates_format_of :nickname,
+                      :with => /\A#{NICKNAME_REGEXP}\Z/,
+                      :message => "can only be alphanumeric with no spaces",
+                      :on => :update
+  validates :tagline, :length => { :maximum => 60 }
+  validate  :validate_access_code,
+            :on     => :create,
+            :if     => :access_code_required?
 
+  before_validation :generate_nickname, :on => :create
+  before_save :possibly_delete_avatar
+  before_update :reprocess_avatar, :if => :cropping?
   after_create :reserve_access_code
 
   scope :nicknamed,  lambda { |*nicknames| where(:nickname => nicknames) }
+  scope :followed_by, lambda { |user|
+    joins(:followers).where(:relationships => {:follower_id => user.id})
+  }
+  scope :ignore,  lambda { |users| where("id not in (?)", users) unless users.blank? }
+  scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
+
+  scope :registered_around, lambda { |date|
+    where('date(created_at) = ?', date)
+  }
+  scope :pending, where(:active => false)
 
   def self.access_code
     allowed_access_codes.first
