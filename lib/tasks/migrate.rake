@@ -62,4 +62,11 @@ namespace :migrate do
       a.save!
     }
   end
+
+  task :regenerate_suggested_splashers => :environment do
+    User.all { |u|
+      u.update_suggestions
+      u.save
+    }
+  end
 end
