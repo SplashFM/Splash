@@ -57,4 +57,11 @@ namespace :migrate do
       }
     }
   end
+
+  task :generate_access_codes => :environment do
+    AccessRequest.where(:code => nil).each { |a|
+      a.send :generate_code
+      a.save!
+    }
+  end
 end
