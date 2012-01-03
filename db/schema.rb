@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111230140238) do
+ActiveRecord::Schema.define(:version => 20120103191534) do
 
   create_table "access_requests", :force => true do |t|
     t.string   "email"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20111230140238) do
     t.string   "referral_code"
     t.string   "code"
     t.integer  "user_id"
+    t.integer  "inviter_id"
   end
 
   create_table "album_tracks", :id => false, :force => true do |t|
