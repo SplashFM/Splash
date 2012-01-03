@@ -137,6 +137,9 @@ $(function() {
 
     hide: function(args) {
       $(this.el).hide();
+
+      this.metadata.reset();
+
       $(this.el).trigger("hiding");
 
       return this;
@@ -252,6 +255,12 @@ $(function() {
       this.$('[data-widget = "complete-upload"]').hide();
 
       return this;
+    },
+
+    reset: function() {
+      $(this.el).empty();
+
+      this.render();
     },
 
     setModel: function(model, mode) {
