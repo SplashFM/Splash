@@ -419,6 +419,7 @@ $(function() {
   window.InviteUserView = Backbone.View.extend({
     events:       {
       'ajax:success': 'reload',
+      'focus  [data-widget = "email"]' : "clearText",
     },
 
     template: $('#tmpl-email-invitation').template(),
@@ -432,6 +433,10 @@ $(function() {
     reload: function(_, data) {
       $("[data-widget = 'remaining_count']").html(data.remaining_count);
       $("[data-widget = 'email']").val('');
+    },
+
+    clearText: function(){
+      this.$("[data-widget = 'email']").val('');
     },
   });
 });
