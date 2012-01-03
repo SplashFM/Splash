@@ -7,7 +7,6 @@ $(function() {
     events: {
       'keyup :text': 'maybeSearch',
       'click [data-widget = "load-more"]': 'loadMoreResults',
-      'submit': 'maybeSearch',
     },
 
     initialize: function(opts) {
@@ -116,4 +115,3 @@ $(function() {
     }
   });
 });
-
