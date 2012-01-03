@@ -14,7 +14,7 @@ class AccessRequest < ActiveRecord::Base
   before_create :generate_code
   before_create :generate_referral_code
   before_create :mark_invited, :if => :inviter
-  after_create  :confirm_inclusion
+  after_create  :notify
 
   scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
   scope :pending, where(:granted => false)
@@ -59,9 +59,10 @@ class AccessRequest < ActiveRecord::Base
   end
 
   private
+  def notify
+    mailer = inviter ? 'send_invitation' : 'confirm_access_request'
 
-  def confirm_inclusion
-    UserMailer.delay.confirm_access_request self
+    UserMailer.delay.send(mailer, self)
   end
 
   def generate_code
