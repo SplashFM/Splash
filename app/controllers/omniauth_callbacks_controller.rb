@@ -90,8 +90,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def signup_code
-    query = URI.parse(env["omniauth.origin"]).query
+    if env['omniauth.origin'].present?
+      query = URI.parse(env["omniauth.origin"]).query
 
-    CGI.parse(query)['code'].first if query && query['code']
+      CGI.parse(query)['code'].first if query && query['code']
+    end
   end
 end
