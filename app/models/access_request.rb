@@ -1,5 +1,6 @@
 class AccessRequest < ActiveRecord::Base
   ADMIN_KEY         = '23ef4tt33'
+  INVITATION_COUNT  = 4
   ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
 
   validates :email,
@@ -27,6 +28,10 @@ class AccessRequest < ActiveRecord::Base
 
   def self.code?(code)
     codes.include?(code) || find_by_code_and_user_id(code, nil)
+  end
+
+  def self.remaining(user)
+    INVITATION_COUNT - where(:inviter_id => user.id).count
   end
 
   def self.reserve(code, user)
