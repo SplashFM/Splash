@@ -311,10 +311,12 @@ $(function() {
 
         this.share      = new Events.Splash.SocialSitePost({model: this.model});
 
-        this.loadThumbnails();
+          this.loadThumbnails();
       }
 
-      $(this.el).find(".expand").each(function(){$(this).TextAreaExpander(20)});
+      $(this.el).find(".expand").each(function(){
+        $(this).hasClass('comment-text-area') ? $(this).TextAreaExpander(12) : $(this).TextAreaExpander(70);
+      });
 
       return this;
     },
