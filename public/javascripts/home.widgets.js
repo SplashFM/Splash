@@ -279,12 +279,14 @@ $(function() {
   window.SuggestedSplashersView = Backbone.View.extend({
     events: {
       'click [data-widget = "next-suggested-users"]': 'viewMore',
-      'ignore:splasher': 'load',
-      'follow': 'load'
+      'ignore:splasher': 'triggerUpdate',
+      'follow': 'triggerUpdate'
     },
     template: $('#tmpl-suggested-splashers').template(),
 
     initialize: function() {
+      _.bindAll(this, 'update');
+
       this.page = 1;
 
       this.suggestions = this.makeSuggestions(this.collection);
@@ -292,8 +294,8 @@ $(function() {
       this.collection.bind('reset', this.resetSuggestions, this);
     },
 
-    load: function() {
-      this.collection.fetch({data: {page: this.page}});
+    load: function(opts) {
+      this.collection.fetch(_.extend({data: {page: this.page}}, opts));
     },
 
     makeSuggestions: function(collection) {
@@ -329,6 +331,27 @@ $(function() {
       this.renderSuggestions(this.suggestions);
     },
 
+    triggerUpdate: function() {
+      this.load({silent: true, success: this.update});
+    },
+
+    update: function(newModels) {
+      var newIds     = newModels.pluck('id');
+      var removed    = _(this.suggestions).
+        chain().
+        reject(function(v) { return _.include(newIds, v.model.id);}).
+        first().
+        value();
+      var removedIdx = _.indexOf(this.suggestions, removed);
+      var newSugg    = this.makeSuggestions([newModels.last()])
+
+      this.renderSuggestions(newSugg);
+
+      this.suggestions.push(_.first(newSugg));
+
+      _.first(this.suggestions.splice(removedIdx, 1)).remove(true);
+    },
+
     viewMore: function() {
       this.page++;
 
@@ -353,6 +376,23 @@ $(function() {
 
     ignored: function() {
       $(this.el).trigger('ignore:splasher');
+    },
+
+    remove: function(animate) {
+      var self = this;
+
+      if (animate) {
+        $(this.el).animate({height: 0}, {
+          duration: 500,
+          complete: function() {
+            $(self.el).remove();
+          }
+        });
+      } else {
+        $(this.el).remove();
+      }
+
+      return this;
     },
 
     render: function() {
