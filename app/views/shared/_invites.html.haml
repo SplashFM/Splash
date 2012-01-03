@@ -2,39 +2,8 @@
   .head.avan-bold
     %p.right
       Invites Remaining:
-      %span 4
+      %span= AccessRequest.remaining(current_user)
     %p Invite Friends
-  %ul
-    %li
-      .wrap
-        %a.avatar.left{:href => "#"}
-          %img{:alt => "", :height => "45", :src => "/css/images/avatar-45x45.png", :width => "45"}/
-        .info.left
-          %p.name.avan-bold
-            %a{:href => "#"} Dan Zhang
-            %img{:alt => "", :src => "/css/images/ico-invitelist-twitter.png"}/
-          %a.btn{:href => "#"} Invite me!
-        %a.delete{:href => "#"}
-    %li
-      .wrap
-        %a.avatar.left{:href => "#"}
-          %img{:alt => "", :height => "45", :src => "/css/images/avatar-45x45.png", :width => "45"}/
-        .info.left
-          %p.name.avan-bold
-            %a{:href => "#"} Dan Zhang
-            %img{:alt => "", :src => "/css/images/ico-invitelist-facebook.png"}/
-          %a.btn{:href => "#"} Invite me!
-        %a.delete{:href => "#"}
-    %li.last
-      .wrap
-        %a.avatar.left{:href => "#"}
-          %img{:alt => "", :height => "45", :src => "/css/images/avatar-45x45.png", :width => "45"}/
-        .info.left
-          %p.name.avan-bold
-            %a{:href => "#"} Dan Zhang
-            %img{:alt => "", :src => "/css/images/ico-invitelist-twitter.png"}/
-          %a.btn{:href => "#"} Invite me!
-        %a.delete{:href => "#"}
 / /invite friends
 .send-invite
   %form{:action => "#", :method => "post"}
