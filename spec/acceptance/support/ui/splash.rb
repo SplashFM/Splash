@@ -13,7 +13,7 @@ module UI
 
     module Actions
       def add_splash_comment(comment)
-        find('.commentArea').set(comment)
+        find('.splash-comment').set(comment)
       end
 
       def resplash
