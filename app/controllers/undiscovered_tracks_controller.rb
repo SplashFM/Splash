@@ -10,9 +10,7 @@ class UndiscoveredTracksController < ApplicationController
       canonical = track.replace_with_canonical
 
       if ! Splash.for?(current_user, canonical)
-        respond_with canonical, :status => :ok do |want|
-          want.json { render :json => canonical }
-        end
+        respond_with_canonical canonical
       else
         head :forbidden
       end
@@ -56,5 +54,11 @@ class UndiscoveredTracksController < ApplicationController
 
   def current_track
     @track ||= Track.find(params[:id])
+  end
+
+  def respond_with_canonical(canonical)
+    respond_with canonical, :status => :ok do |want|
+      want.json { render :json => canonical }
+    end
   end
 end
