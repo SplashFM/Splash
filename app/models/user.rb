@@ -225,6 +225,9 @@ class User < ActiveRecord::Base
 
     find_each(:batch_size => 100) { |u|
       u.reset_splashed_tracks_hash!
+    }
+
+    find_each(:batch_size => 100) { |u|
       u.recompute_splashboard
     }
   end
