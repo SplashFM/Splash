@@ -30,24 +30,23 @@ class UndiscoveredTracksController < ApplicationController
   end
 
   def update
-    track      = current_user.uploaded_tracks.find(params[:id])
-    splashable = if track.update_attributes(params.slice(:albums, :title, :performers))
-                   track
-                 elsif track.taken?
-                   track.replace_with_canonical
-                 else
-                   nil
-                 end
+    track = current_user.uploaded_tracks.find(params[:id])
 
-    if splashable
+    if track.update_attributes(params.slice(:albums, :title, :performers))
+      respond_with track
+    elsif track.taken?
       begin
-        splash_and_post(params.slice(:comment), splashable)
+        c = track.replace_with_canonical
+
+        splash_and_post params.slice(:comment), c
+
+        respond_with_canonical c
       rescue ActiveRecord::RecordInvalid => e
         respond_with e.record, :status => :forbidden
       end
+    else
+      respond_with track
     end
-
-    respond_with track
   end
 
   protected
