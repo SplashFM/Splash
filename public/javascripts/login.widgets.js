@@ -115,6 +115,7 @@ $(function() {
   window.SocialShare = Backbone.View.extend({
     events: {
       'click [href = "#twitter-share"]': 'twitterPost',
+      'click [href = "#facebook-share"]': 'facebookPost',
     },
     templateConfirmed: $('#tmpl-request-invite-confirmed').template(),
 
@@ -127,13 +128,16 @@ $(function() {
       window.open("http://twitter.com/intent/tweet?text="+text+"&via=splashfm&text=","tweet_window","channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
     },
 
+    facebookPost: function() {
+      window.open("https://www.facebook.com/sharer.php?u="+this.shareUrl()+"&t=Splash.fm","fbshare_window","channelmode=no,directories=no,location=no,menubar=no,scrollbars=no,toolbar=no,status=no,width=500,height=375,left=300,top=200");
+    },
+
     render: function(data) {
       $(this.el).html($.tmpl(this.templateConfirmed, data));
 
       return this;
     },
   });
-
 
   window.RequestInviteEmail = Backbone.View.extend({
     events: {
