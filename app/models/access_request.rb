@@ -3,6 +3,8 @@ class AccessRequest < ActiveRecord::Base
   INVITATION_COUNT  = 4
   ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
 
+  belongs_to :inviter, :class_name => 'User'
+
   validates :email,
             :presence   => true,
             :uniqueness => true,
@@ -40,7 +42,10 @@ class AccessRequest < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super.merge!(:referral_url => options[:url_builder].call(referral_code))
+    hash = super
+    hash[:referral_url] = options[:url_builder].call(referral_code) if options[:url_builder].present?
+    hash[:remaining_count] = AccessRequest.remaining(inviter) if inviter
+    hash
   end
 
   def invite
