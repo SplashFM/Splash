@@ -12,8 +12,13 @@ class AccessRequestsController < ApplicationController
   end
 
   def create
-    respond_with AccessRequest.create(params[:user]),
-                 :url_builder => lambda { |code| r_url(code) }
+    if current_user
+      respond_with current_user.invitations.create(params[:user])
+
+    else
+      respond_with AccessRequest.create(params[:user]),
+                   :url_builder => lambda { |code| r_url(code) }
+    end
   end
 
   def verify

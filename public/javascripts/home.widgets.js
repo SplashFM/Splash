@@ -416,4 +416,22 @@ $(function() {
     },
   });
 
+  window.InviteUserView = Backbone.View.extend({
+    events:       {
+      'ajax:success': 'reload',
+    },
+
+    template: $('#tmpl-email-invitation').template(),
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template, {invitations_count: this.options.remaining_invitations}));
+
+      return this;
+    },
+
+    reload: function(_, data) {
+      $("[data-widget = 'remaining_count']").html(data.remaining_count);
+      $("[data-widget = 'email']").val('');
+    },
+  });
 });

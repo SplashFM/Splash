@@ -1,0 +1,18 @@
+%script#tmpl-email-invitation{:type => 'text/x-jquery-tmpl'}
+  .invite-friends
+    .head.avan-bold
+      %p.right
+        Invites Remaining:
+        %span{:data => {:widget => 'remaining_count'}}= "${invitations_count}"
+      %p Invite Friends
+  / /invite friends
+  .send-invite
+    = form_for(:user, :url    => access_requests_path,
+                      :html   => {:method => :post, :'data-type' => 'json'},
+                      :remote => true) do |f|
+      = f.text_field :email,
+                      :class => 'field left',
+                      :value => "Enter a friend's email",
+                      :"data-widget" => 'email'
+      = f.submit 'Send Invite', :class => 'submit left'
+  / /send invite

@@ -30,6 +30,11 @@
       followerID: #{current_user.id},
       splashersCount: #{User::SUGGESTED_USERS_PER_PAGE},
     }).render();
+
+    window.invitations = new InviteUserView({
+      el: $('[data-widget = "invitation"]').get(0),
+      remaining_invitations: #{AccessRequest.remaining(current_user)},
+    }).render();
   });
 
 .home

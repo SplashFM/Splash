@@ -13,6 +13,7 @@ class AccessRequest < ActiveRecord::Base
   before_create :reset_granted
   before_create :generate_code
   before_create :generate_referral_code
+  before_create :mark_invited, :if => :inviter
   after_create  :confirm_inclusion
 
   scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
@@ -48,7 +49,7 @@ class AccessRequest < ActiveRecord::Base
     hash
   end
 
-  def invite
+  def invite(email=nil)
     transaction {
       mark_invited
       save!
