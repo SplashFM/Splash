@@ -287,6 +287,8 @@ $(function() {
     initialize: function() {
       this.page = 1;
 
+      this.suggestions = this.makeSuggestions(this.collection);
+
       this.collection.bind('reset', this.resetSuggestions, this);
     },
 
@@ -294,30 +296,37 @@ $(function() {
       this.collection.fetch({data: {page: this.page}});
     },
 
+    makeSuggestions: function(collection) {
+      var followerID = this.options.followerID;
+
+      return collection.map(function(e) {
+        return new SuggestedSplasherView({
+          followerID: followerID,
+          model:      e,
+        })
+      })
+    },
+
     render: function() {
       $(this.el).html($.tmpl(this.template));
 
-      this.renderSuggestions(this.collection);
+      this.renderSuggestions(this.suggestions);
 
       return this;
     },
 
-    renderSuggestions: function(collection) {
-      var followerID = this.options.followerID;
-      var ul         = this.$('ul');
+    renderSuggestions: function(suggestions) {
+      var ul = this.$('ul');
 
-      collection.each(function(ss) {
-        ul.append(new SuggestedSplasherView({
-          followerID: followerID,
-          model:      ss,
-        }).render().el);
-      })
+      _.each(suggestions, function(ss) { ul.append(ss.render().el); });
     },
 
     resetSuggestions: function() {
-      this.$('li').remove();
+      _.invoke(this.suggestions, 'remove');
 
-      this.renderSuggestions(this.collection);
+      this.suggestions = this.makeSuggestions(this.collection);
+
+      this.renderSuggestions(this.suggestions);
     },
 
     viewMore: function() {
