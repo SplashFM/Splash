@@ -179,7 +179,9 @@
     = form_for(:user, :url    => password_path(:user),
                       :html   => {:method => :post, :'data-type' => 'json'},
                       :remote => true) do |f|
-      = f.text_field :email, :class => 'input'
+      = f.text_field :email, :class => 'input',
+                             :placeholder => t('login.sign_in.email')
+
 
       %p.submit
         = f.submit t('devise.buttons.password_reset')
