@@ -312,7 +312,7 @@ $(function() {
     },
 
     triggerForgotPassword: function() {
-      $(this.el).trigger('forgotpassword');
+      this.$('.signin').html(new ForgotPassword().render().el);
     },
 
     onLogin: function() {
