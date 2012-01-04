@@ -402,24 +402,28 @@ class User < ActiveRecord::Base
   end
 
   def merge_account(user)
-    Notification.for(user).update_all :notified_id => self.id
-    Notification.from(user).update_all :notifier_id => self.id
-    Notification.from(user).for(user).map(&:destroy)
+    if self != user
+      Notification.for(user).update_all :notified_id => self.id
+      Notification.from(user).update_all :notifier_id => self.id
+      Notification.from(user).for(user).map(&:destroy)
 
-    Splash.for(user).update_all :user_id => self.id
+      Splash.for(user).update_all :user_id => self.id
 
-    user.comments.update_all :author_id => self.id
+      user.comments.update_all :author_id => self.id
 
-    Relationship.with_followers(user)
-                .ignore(following.map(&:id) << self.id)
-                .update_all(:follower_id => self.id)
-    Relationship.with_following(user)
-                .ignore_followers(followers.map(&:id) << self.id)
-                .update_all(:followed_id => self.id)
+      Relationship.with_followers(user)
+        .ignore(following.map(&:id) << self.id)
+        .update_all(:follower_id => self.id)
+      Relationship.with_following(user)
+        .ignore_followers(followers.map(&:id) << self.id)
+        .update_all(:followed_id => self.id)
 
-    user.social_connections.update_all :user_id => self.id
-    user.destroy
-    save!
+      user.social_connections.update_all :user_id => self.id
+      user.destroy
+      save!
+    else
+      raise "Trying to merge a user's account with itself: #{id}"
+    end
   end
 
   def splashed?(track)
