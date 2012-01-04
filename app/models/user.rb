@@ -37,13 +37,13 @@ class User < ActiveRecord::Base
   attr_accessor :access_code
   attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
-  has_many :relationships, :foreign_key => 'follower_id', :dependent => :destroy
+  has_many :relationships, :foreign_key => 'follower_id'
   # The users I am following.
   has_many :following, :through => :relationships, :source => :followed
 
   has_many :reverse_relationships, :foreign_key => 'followed_id',
-                                   :class_name => 'Relationship',
-                                   :dependent => :destroy
+                                   :class_name => 'Relationship'
+
 
   # The users who are following me.
   has_many :followers, :through => :reverse_relationships
@@ -53,8 +53,7 @@ class User < ActiveRecord::Base
 
   has_many :comments, :foreign_key => :author_id
   has_many :social_connections,
-           :after_add => :maybe_fetch_avatar,
-           :dependent => :destroy
+           :after_add => :maybe_fetch_avatar
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",
