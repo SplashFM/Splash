@@ -2,11 +2,19 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_filter :require_user
 
   def facebook
-    current_user ? link_site('Facebook') : authorize_facebook
+    if current_user
+      link_or_redirect 'facebook'
+    else
+      authorize_facebook
+    end
   end
 
   def twitter
-    current_user ? link_site('Twitter') : authorize_twitter
+    if current_user
+      link_or_redirect 'twitter'
+    else
+      authorize_twitter
+    end
   end
 
   def passthru
@@ -52,6 +60,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       else
         redirect_to root_path
       end
+    end
+  end
+
+  def link_or_redirect(provider)
+    if ! current_user.has_social_connection?(provider)
+      link_site(provider.capitalize)
+    else
+      redirect_to home_path
     end
   end
 
