@@ -176,11 +176,13 @@
     .cl
 
   %script#tmpl-forgot-password{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.forgot_password')
     = form_for(:user, :url    => password_path(:user),
                       :html   => {:method => :post, :'data-type' => 'json'},
                       :remote => true) do |f|
       = f.text_field :email, :class => 'input'
+
+      %p.submit
+        = f.submit t('devise.buttons.password_reset')
 
 .user-signin
   .main-wrap
