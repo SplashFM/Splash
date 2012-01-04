@@ -2,9 +2,14 @@ $(function() {
   window.ForgotPassword = Backbone.View.extend({
     events: {
       'ajax:success form': 'passwordReset',
+      'ajax:error form': 'error',
     },
 
     template: $('#tmpl-forgot-password').template(),
+
+    error: function() {
+      this.$(':text').addClass('error');
+    },
 
     passwordReset: function() {
       $(this.el).html(I18n.t('devise.passwords.send_instructions'));
