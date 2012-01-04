@@ -105,7 +105,8 @@ class UsersController < ApplicationController
   end
 
   def load_user
-    @user = params[:id].blank? ? current_user : User.find_by_slug(params[:id])
+    @user = params[:id].blank? ? current_user : User.find_by_slug(params[:id]) \
+      or raise ActionController::RoutingError.new('User Not Found')
   end
 
   helper_method :own_profile?
