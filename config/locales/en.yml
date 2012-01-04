@@ -75,7 +75,7 @@ en:
       password: password
       request_invite: Request Invite
     sign_in:
-      email: enter your email address...
+      email: email
       facebook: Sign In with Facebook
       forgot_password: Forgot It?
       header: Welcome Back
