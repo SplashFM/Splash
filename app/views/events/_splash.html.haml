@@ -35,14 +35,18 @@
     .container{:data => {:widget => 'more-info'}}
       .left{:data => {:widget => 'thumbnails'}}
       .aside.left
-        %a.share-btn.avan-bold.right{:href => "#"} Share
-        .share_pane
-          .inner
-            .social_link.facebook.left
-              <iframe src="//www.facebook.com/plugins/like.php?href=${track.preview_url}&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
-            .social_link.twitter.left{:data => {:widget => 'social-site-post', :id => "${id}", :site => 'twitter'}}
-              %a{:href => "https://twitter.com/share?url=${track.preview_url}"}
-                = image_tag 'https://si0.twimg.com/a/1321466386/images/goodies/tweetn.png'
+        .shares
+          .right.facebook
+            %a{ :name => 'fb_share', :type => 'button', :share_url => "${track.preview_url}" }
+            <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript">
+            {{html "</scr" + "ipt>" }}
+          .right.twitter
+            %a{ :href => "https://twitter.com/share", :class => "twitter-share-button", :data => {:url => "${track.preview_url}", :text => "${track.preview_url}", :count => 'none', :via => 'splashfm' } }
+              Tweet
+              <script>
+              !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+              {{html "</scr" + "ipt>" }}
+          .clear
           .arrow
         {{if track.download_url}}
         %a.report-song.right{:data => {:widget => 'flag'}} Report song
