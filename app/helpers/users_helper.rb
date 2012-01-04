@@ -53,12 +53,15 @@ module UsersHelper
     if current_user.has_social_connection? site
       content_tag(:div,
                     image_tag(image) + "#{site.to_s.capitalize} Account linked",
-                    :class => 'buttonStyle2')
+                    :class => 'socialButton')
     else
       link_label = image_tag(image) + "Link your #{site.to_s.capitalize} Account"
       url = user_omniauth_authorize_path(site)
 
-      link_to link_label, url, :'data-skip-pjax' => true, :class => 'buttonStyle2'
+      link_to link_label,
+              url,
+              :'data-skip-pjax' => true,
+              :class => 'socialButton highlighted'
     end
   end
 
