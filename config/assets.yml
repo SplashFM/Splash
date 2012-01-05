@@ -40,6 +40,7 @@ javascripts:
     - public/javascripts/profile.widgets.js
     - public/javascripts/splashboard.widgets.js
     - public/javascripts/login.widgets.js
+    - public/javascripts/settings.widgets.js
     - public/javascripts/iphone-style-checkboxes.js
     - public/javascripts/jquery.clickout.js
     - public/javascripts/itmsCheck.js
