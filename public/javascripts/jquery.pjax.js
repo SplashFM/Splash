@@ -419,6 +419,7 @@
     $.event.props.push('state');
 
   if (window.location.hash === "#_=_") window.location.hash = "";
+  if (window.location.hash =~ /^#base_domain/) window.location.hash = "";
 
   // While page is loading, we should handle different URL types
   var hash = window.location.hash.toString();
