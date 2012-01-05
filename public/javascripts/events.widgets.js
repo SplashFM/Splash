@@ -328,6 +328,7 @@ $(function() {
     renderThumbnails: function() {
       var ul   = $('<ul/>');
       var self = this;
+      var header = '<div class="header_label avan-demi">Splash Lineage:</div>';
 
       this.siblings.each(function(s) {
         var li = $('<li/>').html($.tmpl(self.thumbTemplate, s.get('user')));
@@ -337,8 +338,8 @@ $(function() {
 
         ul.append(li);
       });
-
       this.$('[data-widget = "thumbnails"]').html(ul).removeClass('loading');
+      this.$('[data-widget = "thumbnails"]').prepend(header);
     },
   }).mixin(Purchase);
 
