@@ -1,7 +1,12 @@
+:javascript
+  $(function () {
+    window.userSettings = new UserSettings({});
+  });
+
 #edit-user-form{:data => {:widget => 'settings'}}
   %h2 Settings
-  = devise_error_messages!
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }, :remote => true) do |f|
+  .notification{:'data-widget' => 'errors'}
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :'data-type' => 'json' }, :remote => true) do |f|
     %ul
       %li
         = f.label :email
