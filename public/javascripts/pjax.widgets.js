@@ -14,7 +14,6 @@ Widgets.Pjax = {
     $w('pjax').pjax("[data-pjax-container]", {timeout: 2500});
 
     $('body').bind('success.pjax', function() {
-      Widgets.Upload.reload();
       Widgets.Editable.reload();
       Scaphandrier.Fancybox.init();
       new SPLASH.Widgets.waterNums('.waterNum');
