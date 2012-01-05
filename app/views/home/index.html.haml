@@ -28,6 +28,7 @@
       }),
       el: $('[data-widget = "suggested-users"]').get(0),
       followerID: #{current_user.id},
+      splashersCount: #{User::SUGGESTED_USERS_PER_PAGE},
     }).render();
   });
 

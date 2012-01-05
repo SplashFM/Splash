@@ -452,9 +452,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def recommended_users(page=0)
+  def recommended_users
     User.where("id IN (?)", suggested_users)
-        .limited(page, SUGGESTED_USERS_PER_PAGE)
   end
 
   def recompute_splashboard(operation = nil, followed = nil)

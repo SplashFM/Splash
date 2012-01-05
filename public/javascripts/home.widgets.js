@@ -289,76 +289,68 @@ $(function() {
     events: {
       'click [data-widget = "next-suggested-users"]': 'viewMore',
       'ignore:splasher': 'triggerUpdate',
-      'follow': 'triggerUpdate'
+      'follow:splasher': 'triggerUpdate'
     },
     template: $('#tmpl-suggested-splashers').template(),
 
     initialize: function() {
-      _.bindAll(this, 'update');
-
-      this.page = 1;
-
-      this.suggestions = this.makeSuggestions(this.collection);
-
-      this.collection.bind('reset', this.resetSuggestions, this);
+      this.page        = 1;
+      this.suggestions = [];
     },
 
-    load: function(opts) {
-      this.collection.fetch(_.extend({data: {page: this.page}}, opts));
+    $ul: function() {
+      return this._$ul = this.$('ul');
     },
 
-    makeSuggestions: function(collection) {
+    appendSuggestion: function(s) {
+      this.$ul().append(s.render().el);
+    },
+
+    currentSlice: function() {
+      var start = (this.page - 1) * this.options.splashersCount;
+      var end   = start + this.options.splashersCount
+
+      return this.collection.models.slice(start, end);
+    },
+
+    makeSuggestion: function(model) {
       var followerID = this.options.followerID;
 
-      return collection.map(function(e) {
-        return new SuggestedSplasherView({
-          followerID: followerID,
-          model:      e,
-        })
-      })
+      return new SuggestedSplasherView({followerID: followerID, model: model});
     },
 
     render: function() {
       $(this.el).html($.tmpl(this.template));
 
-      this.renderSuggestions(this.suggestions);
+      this.resetSuggestions();
 
       return this;
-    },
-
-    renderSuggestions: function(suggestions) {
-      var ul = this.$('ul');
-
-      _.each(suggestions, function(ss) { ul.append(ss.render().el); });
     },
 
     resetSuggestions: function() {
       _.invoke(this.suggestions, 'remove');
 
-      this.suggestions = this.makeSuggestions(this.collection);
+      this.suggestions = _.map(this.currentSlice(), this.makeSuggestion, this);
 
-      this.renderSuggestions(this.suggestions);
+      console.log(this.currentSlice());
+
+      _.each(this.suggestions, this.appendSuggestion, this);
     },
 
-    triggerUpdate: function() {
-      this.load({silent: true, success: this.update});
-    },
+    triggerUpdate: function(e, data) {
+      this.collection.remove(data.view.model);
 
-    update: function(newModels) {
-      var newIds     = newModels.pluck('id');
-      var removed    = _(this.suggestions).
-        chain().
-        reject(function(v) { return _.include(newIds, v.model.id);}).
-        first().
-        value();
-      var removedIdx = _.indexOf(this.suggestions, removed);
-      var newSugg    = this.makeSuggestions([newModels.last()])
+      if (this.collection.length > this.options.splashersCount) {
+        var replacement = this.makeSuggestion(_.last(this.currentSlice()));
 
-      this.renderSuggestions(newSugg);
+        this.suggestions.push(replacement);
+        this.suggestions.splice(this.suggestions.indexOf(data.view), 1);
 
-      this.suggestions.push(_.first(newSugg));
+        this.appendSuggestion(replacement);
+      }
 
-      _.first(this.suggestions.splice(removedIdx, 1)).remove(true);
+      data.view.model.destroy();
+      data.view.remove(true);
     },
 
     viewMore: function() {
@@ -370,21 +362,14 @@ $(function() {
 
   window.SuggestedSplasherView = Backbone.View.extend({
     events: {
-      'click [data-widget = "delete-suggested-user"]': 'ignore'
+      'click [data-widget = "delete-suggested-user"]': 'triggerIgnore',
+      'follow': 'triggerFollow',
     },
     tagName: 'li',
     template: $('#tmpl-suggested-splasher').template(),
 
     initialize: function() {
-      this.model.bind('destroy', this.ignored, this);
-    },
-
-    ignore: function() {
-      this.model.destroy();
-    },
-
-    ignored: function() {
-      $(this.el).trigger('ignore:splasher');
+      _.bindAll(this, 'remove');
     },
 
     remove: function(animate) {
@@ -393,15 +378,13 @@ $(function() {
       if (animate) {
         $(this.el).animate({height: 0}, {
           duration: 500,
-          complete: function() {
-            $(self.el).remove();
-          }
+          complete: this.remove
         });
-      } else {
-        $(this.el).remove();
-      }
 
-      return this;
+        return this;
+      } else {
+        return Backbone.View.prototype.remove.call(this);
+      }
     },
 
     render: function() {
@@ -424,6 +407,14 @@ $(function() {
         tagName:  'span',
         template: $('#tmpl-suggested-relationship').template(),
       }).render().el;
+    },
+
+    triggerFollow: function() {
+      $(this.el).trigger('follow:splasher', {view: this})
+    },
+
+    triggerIgnore: function() {
+      $(this.el).trigger('ignore:splasher', {view: this})
     },
   });
 
