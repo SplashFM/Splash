@@ -332,8 +332,6 @@ $(function() {
 
       this.suggestions = _.map(this.currentSlice(), this.makeSuggestion, this);
 
-      console.log(this.currentSlice());
-
       _.each(this.suggestions, this.appendSuggestion, this);
     },
 
