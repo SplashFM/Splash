@@ -368,3 +368,28 @@
     background: url('/css/images/p3.png') no-repeat transparent
   .p4
     background: url('/css/images/p4.png') no-repeat transparent
+
+body.small .user-signin .main
+  padding: 30px 0px 0px 0px!important
+  height: 300px
+body.medium .user-signin .main
+  padding: 60px 0px 0px 0px!important
+  height: 325px
+body.small .user-signin .main .wrap
+  left: -120px
+body.medium .user-signin .main .wrap
+  left: 0px
+body.large .user-signin .main .wrap
+  left: 0px
+html body .user-signin .main, html body .user-signin .main .wrap, .user-signin .bottom .wrap
+  -webkit-transition: all 500ms ease-in-out
+  -moz-transition: all 500ms ease-in-out
+  -o-transition: all 500ms ease-in-out
+  -ms-transition: all 500ms ease-in-out
+  transition: all 500ms ease-in-out
+.signin p.submit
+  opacity: 0
+  filter: alpha(opacity=0)
+
+.small .user-signin .bottom .wrap
+  padding: 18px 60px 30px 30px
