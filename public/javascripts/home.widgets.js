@@ -354,7 +354,7 @@ $(function() {
     viewMore: function() {
       this.page++;
 
-      this.load();
+      this.resetSuggestions();
     },
   });
 
