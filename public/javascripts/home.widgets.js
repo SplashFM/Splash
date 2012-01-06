@@ -294,7 +294,7 @@ $(function() {
     template: $('#tmpl-suggested-splashers').template(),
 
     initialize: function() {
-      this.page        = 1;
+      this.cursor      = 0;
       this.suggestions = [];
     },
 
@@ -302,13 +302,17 @@ $(function() {
       return this._$ul = this.$('ul');
     },
 
+    advanceCursor: function() {
+      this.cursor = this.nextPosition(this.cursor);
+    },
+
     appendSuggestion: function(s) {
       this.$ul().append(s.render().el);
     },
 
     currentSlice: function() {
-      var start = (this.page - 1) * this.options.splashersCount;
-      var end   = start + this.options.splashersCount
+      var start = this.cursor;
+      var end   = this.nextPosition(start);
 
       return this.collection.models.slice(start, end);
     },
@@ -317,6 +321,16 @@ $(function() {
       var followerID = this.options.followerID;
 
       return new SuggestedSplasherView({followerID: followerID, model: model});
+    },
+
+    nextPosition: function(cursor) {
+      var nextCursor = cursor + this.options.splashersCount;
+
+      if (nextCursor >= this.collection.length) {
+        return nextCursor - this.collection.length;
+      } else {
+        return nextCursor;
+      }
     },
 
     render: function() {
@@ -354,7 +368,7 @@ $(function() {
     viewMore: function(e) {
       e.preventDefault();
 
-      this.page++;
+      this.advanceCursor();
 
       this.resetSuggestions();
     },
