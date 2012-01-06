@@ -521,7 +521,7 @@ class User < ActiveRecord::Base
   end
 
   def suggest_users
-    ignore = following.map(&:id) + ignore_suggested_users
+    ignore = following_ids + ignore_suggested_users
 
     facebook_suggestions(ignore)
     splash_suggestions(ignore)
