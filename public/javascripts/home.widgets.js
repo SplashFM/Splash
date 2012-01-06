@@ -351,7 +351,9 @@ $(function() {
       data.view.remove(true);
     },
 
-    viewMore: function() {
+    viewMore: function(e) {
+      e.preventDefault();
+
       this.page++;
 
       this.resetSuggestions();
@@ -407,11 +409,15 @@ $(function() {
       }).render().el;
     },
 
-    triggerFollow: function() {
+    triggerFollow: function(e) {
+      e.preventDefault();
+
       $(this.el).trigger('follow:splasher', {view: this})
     },
 
-    triggerIgnore: function() {
+    triggerIgnore: function(e) {
+      e.preventDefault();
+
       $(this.el).trigger('ignore:splasher', {view: this})
     },
   });
