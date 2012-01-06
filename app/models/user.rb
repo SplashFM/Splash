@@ -306,14 +306,13 @@ class User < ActiveRecord::Base
     social_connections.first
   end
 
-  def facebook_suggestions(ignore=[])
+  def facebook_suggestions(ignore = [])
     if has_social_connection?('facebook')
       facebook_friends = FbGraph::User.me(social_connection('facebook').token).friends
-      ids = User.where(:name => facebook_friends.map(&:name))
-                .ignore(ignore)
-                .map(&:id)
 
-      write_attribute(:suggested_users, suggested_users | ids) unless ids.blank?
+      User.where(:name => facebook_friends.map(&:name)).ignore(ignore).map(&:id)
+    else
+      []
     end
   end
 
@@ -484,14 +483,12 @@ class User < ActiveRecord::Base
     :user
   end
 
-  def splash_suggestions(ignore=[])
+  def splash_suggestions(ignore = [])
     # the users followed by people I am following, but whom I am not already following.
-    relationships = Relationship.select('DISTINCT relationships.followed_id')
-                            .with_followers(following.map(&:id))
-                            .ignore(ignore + [self.id])
-    ids = relationships.map(&:followed_id)
-
-    write_attribute(:suggested_users, suggested_users | ids)
+    Relationship.select('DISTINCT relationships.followed_id')
+      .with_followers(following.map(&:id))
+      .ignore(ignore + [self.id])
+      .map(&:followed_id)
   end
 
   def slow_ripple_count
@@ -523,8 +520,9 @@ class User < ActiveRecord::Base
   def suggest_users
     ignore = following_ids + ignore_suggested_users
 
-    facebook_suggestions(ignore)
-    splash_suggestions(ignore)
+    self.suggested_users = facebook_suggestions(ignore) |
+                           splash_suggestions(ignore)
+
     save!
   end
 
