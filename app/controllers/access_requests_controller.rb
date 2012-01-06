@@ -13,7 +13,8 @@ class AccessRequestsController < ApplicationController
 
   def create
     if current_user
-      respond_with current_user.invitations.create(params[:user])
+      respond_with AccessRequest.
+        create(params[:user].merge!(:inviter => current_user))
 
     else
       respond_with AccessRequest.create(params[:user]),
