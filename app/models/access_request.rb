@@ -16,6 +16,8 @@ class AccessRequest < ActiveRecord::Base
   before_create :mark_invited, :if => :inviter
   after_create  :notify
 
+  validate :ensure_invites_available, :if => :inviter
+
   scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
   scope :pending, where(:granted => false)
 
@@ -59,6 +61,12 @@ class AccessRequest < ActiveRecord::Base
   end
 
   private
+  def ensure_invites_available
+    unless self.class.remaining(inviter) > 0
+      errors.add(:inviter, 'has no invites left')
+    end
+  end
+
   def notify
     mailer = inviter ? 'send_invitation' : 'confirm_access_request'
 
