@@ -313,8 +313,16 @@ $(function() {
     currentSlice: function() {
       var start = this.cursor;
       var end   = this.nextPosition(start);
+      var ms    = this.collection.models;
 
-      return this.collection.models.slice(start, end);
+      if (start < end) {
+        return ms.slice(start, end);
+      } else {
+        var before = ms.slice(start, this.collection.length);
+        var after  = ms.slice(0, end);
+
+        return before.concat(after);
+      }
     },
 
     makeSuggestion: function(model) {
@@ -345,6 +353,8 @@ $(function() {
 
     triggerUpdate: function(e, data) {
       this.collection.remove(data.view.model);
+
+      this.cursor = this.wrappedCursor(this.cursor);
 
       if (this.collection.length > this.options.splashersCount) {
         var replacement = this.makeSuggestion(_.last(this.currentSlice()));
