@@ -144,7 +144,7 @@ en:
     already_splashed: This track exists and you already splashed it.
     cancel: Cancel Upload
     done: Check file metadata
-    error: Upload failed
+    error: Sorry dude... can't take that file.
     exists: Upload complete
     metadata: Saving metadata...
     save: Save and Splash
