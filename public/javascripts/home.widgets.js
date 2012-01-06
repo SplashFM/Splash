@@ -433,6 +433,10 @@ $(function() {
     reload: function(_, data) {
       $("[data-widget = 'remaining_count']").html(data.remaining_count);
       $("[data-widget = 'email']").val('');
+
+      if (data.remaining_count < 1) {
+        this.$('input').attr('disabled', true);
+      }
     },
 
     clearText: function(){
