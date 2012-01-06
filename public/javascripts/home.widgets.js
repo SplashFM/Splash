@@ -324,13 +324,7 @@ $(function() {
     },
 
     nextPosition: function(cursor) {
-      var nextCursor = cursor + this.options.splashersCount;
-
-      if (nextCursor >= this.collection.length) {
-        return nextCursor - this.collection.length;
-      } else {
-        return nextCursor;
-      }
+      return this.wrappedCursor(cursor + this.options.splashersCount);
     },
 
     render: function() {
@@ -371,6 +365,14 @@ $(function() {
       this.advanceCursor();
 
       this.resetSuggestions();
+    },
+
+    wrappedCursor: function(cursor) {
+      if (cursor >= this.collection.length) {
+        return cursor - this.collection.length;
+      } else {
+        return cursor;
+      }
     },
   });
 
