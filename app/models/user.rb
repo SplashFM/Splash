@@ -491,7 +491,7 @@ class User < ActiveRecord::Base
                             .ignore(ignore + [self.id])
     ids = relationships.map(&:followed_id)
 
-    write_attribute(:suggested_users, suggested_users | ids) unless ids.blank?
+    write_attribute(:suggested_users, suggested_users | ids)
   end
 
   def slow_ripple_count
