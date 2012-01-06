@@ -210,6 +210,7 @@ $(function() {
       var cCount = I18n.t('comments', {count: this.model.comments().length});
 
       this.$('[data-widget = "comments-count"]').text(cCount);
+      this.$('[data-widget = "comment-text-area"]').css('height', 19);
     },
 
     onHover: function() {
