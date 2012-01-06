@@ -33,6 +33,8 @@ class UndiscoveredTracksController < ApplicationController
     track = current_user.uploaded_tracks.find(params[:id])
 
     if track.update_attributes(params.slice(:albums, :title, :performers))
+      splash_and_post params.slice(:comment), track
+
       respond_with track
     elsif track.taken?
       begin
