@@ -99,7 +99,7 @@ Scaphandrier::Application.routes.draw do
   resources :relationships
   post '/relationships/:id' => 'relationships#create'
   match '/:id' => 'users#show', :as => 'user_slug',
-    :constraints => { :id => /\w+[\.]?\w*/ }
+    :constraints => { :id => /\w.+\w/ }
   get ':id/followers' => 'relationships#followers', :as => 'followers'
   get ':id/following' => 'relationships#following', :as => 'following'
 
