@@ -91,12 +91,10 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /image/
   validates :nickname,
             :presence => true,
-            :uniqueness => true,
-            :on => :update
+            :uniqueness => true
   validates_format_of :nickname,
                       :with => /\A#{NICKNAME_REGEXP}\Z/,
-                      :message => "can only be alphanumeric with no spaces",
-                      :on => :update
+                      :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
   validate  :validate_access_code,
             :on     => :create,
