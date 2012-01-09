@@ -47,12 +47,12 @@ describe User, :adapter => :postgresql do
   end
 
   describe "nicknames" do
-    it "generates a nickname from the name" do
+    it "are generated from the name" do
       create(User).name!('Adam Constantinides').nickname.
         should == 'adam_constantinides'
     end
 
-    it "forbids creating nicknames with spaces" do
+    it "can't contain spaces" do
       lambda {
         create(User).
           name('Adam Constantinides').
