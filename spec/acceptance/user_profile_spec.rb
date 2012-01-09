@@ -72,11 +72,11 @@ feature "User Profile", :js => true do
       friends_friend = create(User).with_required_info!
 
       # include
-      user.follow friend
+      user.follow friend.id
       create(Comment).author!(user)
 
       # exclude
-      friend.follow friends_friend
+      friend.follow friends_friend.id
       create(Comment).author!(friend)
       create(Comment).author!(friend)
       create(Splash).user!(user)

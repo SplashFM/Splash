@@ -47,7 +47,7 @@ feature "Homepage", :js => true do
       friend = create!(User)
 
       # exclude
-      user.follow friend
+      user.follow friend.id
       create!(Splash)
 
       # include
@@ -67,7 +67,7 @@ feature "Homepage", :js => true do
       friends_friend = create(User).with_required_info!
 
       # include
-      user.follow friend
+      user.follow friend.id
       friend.follow friends_friend
       create(Comment).author!(user)
 
@@ -86,7 +86,7 @@ feature "Homepage", :js => true do
 
     scenario "Show mentions only" do
       u = create!(User)
-      user.follow u
+      user.follow u.id
 
       s = create(Splash).user(u).mention!(user)
 
@@ -120,4 +120,3 @@ feature "Homepage", :js => true do
     end
   end
 end
-

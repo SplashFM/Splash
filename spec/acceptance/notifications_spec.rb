@@ -7,7 +7,7 @@ feature "Notifications", :js => true do
 
   scenario "Go to mentions tab when we click a mention notification" do
     u = create!(User)
-    user.follow u
+    user.follow u.id
 
     s = create(Splash).user(u).mention!(user)
 
