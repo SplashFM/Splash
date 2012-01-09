@@ -69,4 +69,12 @@ namespace :migrate do
       u.save
     }
   end
+
+  task :fix_username_requirements => :environment do
+    User.where("nickname similar to '[.-]%' or
+                nickname similar to '%[.-]'").each { |u|
+
+      u.update_attribute :nickname, u.nickname.gsub(/(^[.-]|[.-]$)/) { |m| '_' }
+    }
+  end
 end
