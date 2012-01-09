@@ -26,10 +26,6 @@ module UI
 
         click_button t('splashes.splash.splash')
       end
-
-      def with_splash(splash, &do_stuff)
-        within(w('splash') + "[data-track_id = '#{splash.track_id}']", &do_stuff)
-      end
     end
 
     module Collections

@@ -40,14 +40,19 @@ module UI
         page.execute_script "window.App.eventFeed.checkForUpdates();"
       end
 
-      def with_splash(index, &do_stuff)
+      def with_splash(selector, &do_stuff)
         with_feed {
-          i = case index
-              when Integer; index
-              when :first; 1
-              end
-
-          within w('splash') + ":nth-of-type(#{i})", &do_stuff
+          case selector
+          when Integer
+            within w('splash') + ":nth-of-type(#{selector})", &do_stuff
+          when :first
+            within w('splash') + ":nth-of-type(1)", &do_stuff
+          when ::Splash
+            within w('splash') + "[data-track_id = '#{selector.track_id}']",
+                   &do_stuff
+          else
+            raise "Unknown selector: #{selector}"
+          end
         }
       end
 
