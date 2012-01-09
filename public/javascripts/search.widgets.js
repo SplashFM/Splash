@@ -7,6 +7,11 @@ $(function() {
     events: {
       'keyup :text': 'maybeSearch',
       'click [data-widget = "load-more"]': 'loadMoreResults',
+      'submit': 'cancel',
+    },
+
+    cancel: function(e){
+      e.preventDefault();
     },
 
     initialize: function(opts) {
