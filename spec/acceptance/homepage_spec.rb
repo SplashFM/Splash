@@ -103,7 +103,7 @@ feature "Homepage", :js => true do
       RedisRecord.reset_all
 
       f1 = create!(User)
-      f2 = create!(User) and user.following = [f1]
+      f2 = create!(User) and user.follow f1.id
       t  = create!(Track)
       s1 = create(Splash).track(t).user!(f1)
       s2 = create(Splash).track(t).user!(f2)
