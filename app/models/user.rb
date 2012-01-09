@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
 
   MAX_SCORE       = 99
-  NICKNAME_REGEXP = '[A-Za-z\d_\-.]+'
+  NICKNAME_REGEXP = '\w[A-Za-z\d_.-]+\w'
 
   DEFAULT_AVATAR_URL = '/images/dummy_user_:style.png'
   AVATAR_WIDTH = 125

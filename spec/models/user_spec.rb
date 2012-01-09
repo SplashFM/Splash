@@ -59,6 +59,30 @@ describe User, :adapter => :postgresql do
           nickname!('Adam Constantinides')
       }.should raise_error(ActiveRecord::RecordInvalid)
     end
+
+    it "can't start with a dot" do
+      lambda {
+        create(User).nickname!('.alexander')
+      }.should raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "can't start with a dash" do
+      lambda {
+        create(User).nickname!('-alexander')
+      }.should raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "can't end with a dot" do
+      lambda {
+        create(User).nickname!('alexander.')
+      }.should raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "can't end with a dash" do
+      lambda {
+        create(User).nickname!('alexander-')
+      }.should raise_error(ActiveRecord::RecordInvalid)
+    end
   end
 
   it "calculates the splash count from the DB" do
