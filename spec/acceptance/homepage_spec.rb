@@ -13,7 +13,7 @@ feature "Homepage", :js => true do
     scenario "See updates" do
       friend = create(User).followers!([user])
 
-      friend.follow create!(User)
+      friend.follow create!(User).id
       create(Splash).user! friend
       create(Splash).user! user
 
@@ -26,7 +26,7 @@ feature "Homepage", :js => true do
       friend = create!(User)
 
       # exclude
-      user.follow friend
+      user.follow friend.id
 
       # include
       2.times { create(Splash).user!(user) }
