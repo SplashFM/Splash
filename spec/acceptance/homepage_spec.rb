@@ -102,8 +102,8 @@ feature "Homepage", :js => true do
     scenario "Resplashing" do
       RedisRecord.reset_all
 
-      f1 = create!(User)
-      f2 = create!(User) and user.follow f1.id
+      f1 = create!(User) and user.follow f1.id
+      f2 = create!(User)
       t  = create!(Track)
       s1 = create(Splash).track(t).user!(f1)
       s2 = create(Splash).track(t).user!(f2)
