@@ -176,6 +176,8 @@ en:
       title: 'User profile'
       unfollow: Unfollow
       unfollow_detail: You are already following this Splasher.
+    follows:
+      view_more: view more
     vcard:
       edit: Edit
       edit_avatar: Change image

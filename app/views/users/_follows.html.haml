@@ -24,12 +24,16 @@
     #followers
       = render 'follows_avatar_samples', :collection => followers
       .cl.line &nbsp;
-      = link_to "view more", followers_url(user), :class => 'viewmore-btn vspace fancybox'
+      = link_to t('.view_more'),
+                followers_url(user),
+                :class => 'viewmore-btn vspace fancybox'
 
 
     #following
       = render 'follows_avatar_samples', :collection => following
       .cl.line &nbsp;
-      = link_to "view more", following_url(user), :class => 'viewmore-btn vspace fancybox'
+      = link_to t('.view_more'),
+                following_url(user),
+                :class => 'viewmore-btn vspace fancybox'
 
     .cl.border.vspace &nbsp;

@@ -2,7 +2,37 @@ require 'acceptance/acceptance_helper'
 require 'acceptance/shared/feed'
 
 feature "User Profile", :js => true do
+  include UI::Profile
+
   subject { page }
+
+  scenario "See followers" do
+    follower = create!(User)
+    follower.follow user.id
+
+    following = create!(User)
+    user.follow following.id
+
+    go_to 'profile'
+
+    view_followers
+
+    follower_window { should have(1).follower }
+  end
+
+  scenario "See followings" do
+    follower = create!(User)
+    follower.follow user.id
+
+    following = create!(User)
+    user.follow following.id
+
+    go_to 'profile'
+
+    view_followings
+
+    following_window { should have(1).following }
+  end
 
   scenario "Follow User" do
     pending
