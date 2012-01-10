@@ -254,7 +254,7 @@ class User < ActiveRecord::Base
   #
   # @return a (possibly empty) list of users
   def self.with_text(name)
-    q  = connection.quote_string(name).strip.gsub(' ', ' | ')
+    q  = connection.quote_string(name).gsub(/\W/, ' ').strip.gsub(/\s+/, '|')
     ts = "to_tsquery('english', '#{q}:*')"
 
     select("users.*,
