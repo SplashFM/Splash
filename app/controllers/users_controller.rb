@@ -108,8 +108,7 @@ class UsersController < ApplicationController
     @user = if params[:id].blank?
               current_user
             else
-              User.find_by_slug(params[:id]) or
-                raise ActionController::RoutingError.new('User Not Found')
+              User.find_by_slug(params[:id]) || User.find(params[:id])
             end
   end
 
