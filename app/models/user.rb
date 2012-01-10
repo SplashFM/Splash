@@ -257,8 +257,8 @@ class User < ActiveRecord::Base
     q  = connection.quote_string(name).strip.sub(' ', ' | ')
     ts = "to_tsquery('english', '#{q}:*')"
 
-    select("users.*, ts_rank(to_tsvector('english', users.name),
-            plainto_tsquery('english', '#{q}')) name_rank").
+    select("users.*,
+            ts_rank(to_tsvector('english', users.name), #{ts}) name_rank").
     where("to_tsvector('english', users.name || users.nickname) @@ #{ts}").
     order('name_rank desc')
   end
