@@ -254,12 +254,12 @@ class User < ActiveRecord::Base
   #
   # @return a (possibly empty) list of users
   def self.with_text(name)
-    q = connection.quote_string(name).strip.sub(' ', ' | ')
+    q  = connection.quote_string(name).strip.sub(' ', ' | ')
+    ts = "to_tsquery('english', '#{q}:*')"
 
     select("users.*, ts_rank(to_tsvector('english', users.name),
             plainto_tsquery('english', '#{q}')) name_rank").
-    where("to_tsvector('english', users.name || users.nickname)
-            @@ to_tsquery('english', '#{q}:*')").
+    where("to_tsvector('english', users.name || users.nickname) @@ #{ts}").
     order('name_rank desc')
   end
 
