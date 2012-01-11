@@ -45,6 +45,7 @@ javascripts:
     - public/javascripts/jquery.clickout.js
     - public/javascripts/itmsCheck.js
     - public/javascripts/jquery.tools.min.js
+    - public/javascripts/jquery.cycle.all.js
     - public/javascripts/SPLASH.Widgets.pulsars.js
     - public/javascripts/SPLASH.Widgets.sticky.js
     - public/javascripts/SPLASH.Widgets.homepage.js
