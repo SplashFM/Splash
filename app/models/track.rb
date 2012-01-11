@@ -99,7 +99,14 @@ class Track < ActiveRecord::Base
 
     # prefer exact matching, but only in title or performers
     exact = Track.send(:sanitize_sql, ["(title || performers) ilike ? as exact", "%#{query}%"])
-    select("*, #{rank}, #{exact}").where("#{tsv} @@ #{tsq}").order("exact DESC, rank DESC")
+    q     = select("*, #{rank}, #{exact}")
+    q     = q.where('tracks.popularity_rank < 1000') if force_popular_search?
+    q     = q.where("#{tsv} @@ #{tsq}")
+    q.order("exact DESC, rank DESC")
+  end
+
+  def self.force_popular_search?
+    File.exist?(File.join(Rails.root, %w(tmp force_popular_search.txt)))
   end
 
   def artwork_url
