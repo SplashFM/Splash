@@ -51,4 +51,10 @@ module ApplicationHelper
       user.name
     end
   end
+
+  def once(name)
+    unless executed?(name)
+      yield.tap { executed name }
+    end
+  end
 end

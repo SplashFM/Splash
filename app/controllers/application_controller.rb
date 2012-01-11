@@ -170,4 +170,14 @@ class ApplicationController < ActionController::Base
   def preview?
     AppConfig.preview_host && request.host =~ /#{AppConfig.preview_host}$/
   end
+
+  helper_method :executed
+  def executed(name)
+    cookies[name] = {:value => '1', :expires => 200.years.from_now}
+  end
+
+  helper_method :executed?
+  def executed?(name)
+    cookies[name] == '1'
+  end
 end
