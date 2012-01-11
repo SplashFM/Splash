@@ -349,6 +349,18 @@ $(function() {
       this.suggestions = _.map(this.currentSlice(), this.makeSuggestion, this);
 
       _.each(this.suggestions, this.appendSuggestion, this);
+
+      this.suggestionsChanged();
+    },
+
+    suggestionsChanged: function() {
+      var su = this.$('[data-widget = "next-suggested-users"]');
+
+      if (this.collection.length <= this.options.splashersCount) {
+        su.hide();
+      } else {
+        su.show();
+      }
     },
 
     triggerUpdate: function(e, data) {
@@ -364,6 +376,8 @@ $(function() {
 
         this.appendSuggestion(replacement);
       }
+
+      this.suggestionsChanged();
 
       data.view.model.destroy();
       data.view.remove(true);
