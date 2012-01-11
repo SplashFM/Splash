@@ -501,8 +501,20 @@ $(function() {
       this.$content = this.$('.tutorial-content');
     },
 
+    center: function() {
+      var $el  = $(this.el);
+      var $w   = $(window);
+      var top  = ($w.height() - $el.outerHeight()) / 2 + $w.scrollTop() + "px";
+      var left = ($w.width() - $el.outerWidth()) / 2 + $w.scrollLeft() + "px";
+
+      $el.css("position","absolute");
+      $el.css("top", top);
+      $el.css("left", left);
+    },
+
     render: function() {
       this.setupSlideShow();
+      this.center();
       this.show();
 
       return this;
