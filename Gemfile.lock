@@ -80,8 +80,13 @@ GEM
       xpath (~> 0.1.4)
     childprocess (0.2.3)
       ffi (~> 1.0.6)
+    chunky_png (1.2.5)
     cocaine (0.2.0)
     columnize (0.3.5)
+    compass (0.11.7)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
     crack (0.1.8)
     daemons (1.0.10)
     database_cleaner (0.6.7)
@@ -115,6 +120,7 @@ GEM
     formtastic (2.0.0.rc5)
       rails (~> 3.0)
     friendly_id (4.0.0.beta8)
+    fssm (0.2.8.1)
     geokit (1.5.0)
     geokit-rails3 (0.1.3)
       geokit (~> 1.5.0)
@@ -367,6 +373,7 @@ DEPENDENCIES
   bricks
   capistrano
   capybara (~> 1.0)
+  compass
   daemons (= 1.0.10)
   database_cleaner (~> 0.6.0)
   declarative_authorization (>= 0.5.1)
