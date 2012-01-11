@@ -3,7 +3,9 @@
     = render :partial => "users/vcard", :locals => {:user => current_user}
     .contact-sep-shadow
     = render 'users/points_container', :user => current_user
-    - unless defined?(omit_splashboards)
+    - if defined?(omit_splashboards)
+      = render "shared/invitations"
+    - else
       .splashers-widgets
         .suggested-splashers
           %a.see-all.right{:href => "#"}
