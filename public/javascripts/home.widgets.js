@@ -495,4 +495,17 @@ $(function() {
       this.$("[data-widget = 'email']").val('');
     },
   });
+
+  window.Tutorial = Backbone.View.extend({
+    render: function() {
+      this.show();
+
+      return this;
+    },
+
+    show: function() {
+      $(this.el).show();
+    },
+  });
+
 });

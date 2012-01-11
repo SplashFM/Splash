@@ -59,4 +59,13 @@
       .loading-spinner-container
   .cl &nbsp;
 
+= once(:first_time_splasher) do
+  :javascript
+    $(function() {
+      new Tutorial({el: $('.tutorial').get(0)}).render();
+    });
+
+  #tutorial.tutorial
+    Hi, I'm the tutorial.
+
 /= render "user_list"
