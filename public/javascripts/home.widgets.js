@@ -497,15 +497,23 @@ $(function() {
   });
 
   window.Tutorial = Backbone.View.extend({
+    initialize: function() {
+      this.$content = this.$('.tutorial-content');
+    },
+
     render: function() {
+      this.setupSlideShow();
       this.show();
 
       return this;
+    },
+
+    setupSlideShow: function() {
+      this.$content.cycle({fx: 'scrollLeft'});
     },
 
     show: function() {
       $(this.el).show();
     },
   });
-
 });
