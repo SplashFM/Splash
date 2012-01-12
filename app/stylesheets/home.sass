@@ -72,6 +72,48 @@ $tutorial-dot-h: 15px
     @extend .tutorial-content-pane
     background: url(/images/welcome-tutorial.png)
 
+    .tutorial-pager-relative
+      left: $tutorial-c-pad-left
+
   .tutorial-one
     @extend .tutorial-inner-content-pane
     background: url(/images/one-tutorial.png) no-repeat
+
+  .tutorial-pager-relative
+    $sprite-image-default-width: 37px
+    $sprite-image-default-height: 37px
+
+    color: #597693
+    font: 16px AvantGardeMediumBT,arial,sans-serif
+    line-height: 32px
+    bottom: 13px
+    position: absolute
+    text-align: center
+    vertical-align: middle
+    width: $tutorial-w - $tutorial-c-pad-left - $tutorial-c-pad-right
+    z-index: 500
+
+    a
+      +hide-text
+      display: inline-block
+      +sprite-background("nav-arrows-tutorial.png")
+      height: 32px
+      width: 32px
+
+      &.tutorial-pager-prev
+        +sprite-position(1, 2)
+        float: left
+
+        &:hover
+          +sprite-position(1, 1)
+        &:active
+          +sprite-position(1, 3)
+
+      &.tutorial-pager-next
+        +sprite-position(2, 2)
+        float: right
+
+        &:hover
+          +sprite-position(2, 1)
+        &:active
+          +sprite-position(2, 3)
