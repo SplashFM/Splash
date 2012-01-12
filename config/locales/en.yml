@@ -144,6 +144,12 @@ en:
     welcome:
       title: Welcome to Splash.FM
       sub: A few things you should know before diving in
+    one:
+      title: This is the title!
+      body: |
+        This is p1
+
+        This is p2
     pager:
       next: Next
       of: of
