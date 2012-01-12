@@ -141,6 +141,9 @@ en:
       splash: Splash
 
   tutorial:
+    welcome:
+      title: Welcome to Splash.FM
+      sub: A few things you should know before diving in
     pager:
       next: Next
       of: of

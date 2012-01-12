@@ -71,6 +71,19 @@ $tutorial-dot-h: 15px
   .tutorial-welcome
     @extend .tutorial-content-pane
     background: url(/images/welcome-tutorial.png)
+    color: #666
+
+    .stretch-and-center
+      width: $tutorial-w
+      text-align: center
+
+    h2
+      @extend .stretch-and-center
+      font: 24px AvantGardeBold,arial,sans-serif
+
+    p.sub
+      @extend .stretch-and-center
+      font: 14px AvantGardeBookBT,arial,sans-serif
 
     .tutorial-pager-relative
       left: $tutorial-c-pad-left
