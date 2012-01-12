@@ -1,4 +1,5 @@
 @import compass/css3
+@import compass/typography/text/replacement
 
 $tutorial-w: 493px
 $tutorial-h: 376px
@@ -17,8 +18,12 @@ $tutorial-header-offset: 2px
   +border-radius(8px)
 
   .tutorial-header
-    height: $tutorial-header-h
+    height: $tutorial-header-h + $tutorial-header-offset
     width: $tutorial-w
+
+    h1
+      +replace-text-with-dimensions("logo-tutorial.png")
+      margin: -$tutorial-header-offset 0 0 -20px
 
   .tutorial-footer
     height: $tutorial-footer-h
