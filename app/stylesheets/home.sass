@@ -1,0 +1,49 @@
+@import compass/css3
+
+$tutorial-w: 493px
+$tutorial-h: 376px
+$tutorial-c-pad-top: 27px
+$tutorial-c-pad-right: 21px
+$tutorial-c-pad-left: 333px
+$tutorial-header-h: 52px
+$tutorial-footer-h: 31px
+$tutorial-header-offset: 2px
+
+.tutorial
+  background: url(/images/background-tutorial.png) transparent
+  display: none
+  height: $tutorial-h
+  width: $tutorial-w
+  +border-radius(8px)
+
+  .tutorial-header
+    height: $tutorial-header-h
+    width: $tutorial-w
+
+  .tutorial-footer
+    height: $tutorial-footer-h
+    width: $tutorial-w
+
+  .tutorial-content, .tutorial-content-pane
+    height: $tutorial-h - $tutorial-header-h - $tutorial-footer-h
+    width: $tutorial-w
+
+  .tutorial-content, .tutorial-content-pane
+    height: $tutorial-h - $tutorial-header-h - $tutorial-footer-h
+    width: $tutorial-w
+
+  .tutorial-content-pane
+    +box-sizing(border-box)
+    padding: $tutorial-c-pad-top $tutorial-c-pad-right 0 0
+
+  .tutorial-inner-content-pane
+    @extend .tutorial-content-pane
+    padding-left: $tutorial-c-pad-left
+
+  .tutorial-welcome
+    @extend .tutorial-content-pane
+    background: url(/images/welcome-tutorial.png)
+
+  .tutorial-one
+    @extend .tutorial-inner-content-pane
+    background: url(/images/one-tutorial.png) no-repeat
