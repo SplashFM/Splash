@@ -523,6 +523,7 @@ $(function() {
 
     setupSlideShow: function() {
       this.$content.cycle({
+        activePagerClass: 'active',
         fx: 'scrollLeft',
         next: this.$('.tutorial-pager-next'),
         pager: this.$('.tutorial-pager-absolute'),

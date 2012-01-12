@@ -1,5 +1,6 @@
 @import compass/css3
 @import compass/typography/text/replacement
+@import compass/utilities/sprites/sprite-img
 
 $tutorial-w: 493px
 $tutorial-h: 376px
@@ -9,6 +10,7 @@ $tutorial-c-pad-left: 333px
 $tutorial-header-h: 52px
 $tutorial-footer-h: 31px
 $tutorial-header-offset: 2px
+$tutorial-dot-h: 15px
 
 .tutorial
   background: url(/images/background-tutorial.png) transparent
@@ -36,6 +38,27 @@ $tutorial-header-offset: 2px
   .tutorial-content, .tutorial-content-pane
     height: $tutorial-h - $tutorial-header-h - $tutorial-footer-h
     width: $tutorial-w
+
+  .tutorial-pager-absolute
+    $sprite-image-default-width: 20px
+    $sprite-image-default-height: 15px
+
+    height: $tutorial-dot-h
+    padding: ($tutorial-dot-h / 2) 0 0 12px
+
+    a
+      +hide-text
+      display: inline-block
+      +sprite-background("page-dots-tutorial.png")
+      +sprite-position(2)
+      height: $tutorial-dot-h
+      width: 20px
+
+      &.active
+        +sprite-position(1)
+
+      &:hover
+        +sprite-position(3)
 
   .tutorial-content-pane
     +box-sizing(border-box)
