@@ -527,6 +527,7 @@ $(function() {
         next: this.$('.tutorial-pager-next'),
         pager: this.$('.tutorial-pager-absolute'),
         prev: this.$('.tutorial-pager-prev'),
+        timeout: 0,
       });
     },
 
