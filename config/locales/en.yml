@@ -140,6 +140,11 @@ en:
       splashed: Splashed
       splash: Splash
 
+  tutorial:
+    pager:
+      next: Next
+      prev: Previous
+
   upload:
     already_splashed: This track exists and you already splashed it.
     cancel: Cancel Upload
