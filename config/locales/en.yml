@@ -143,6 +143,7 @@ en:
   tutorial:
     pager:
       next: Next
+      of: of
       prev: Previous
 
   upload:

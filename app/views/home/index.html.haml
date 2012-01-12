@@ -75,7 +75,10 @@
         Hi, I'm an inner page!
     .tutorial-footer
       .tutorial-pager-absolute
-      .tutorial-pager-relative
-        %a.tutorial-pager-prev= t('tutorial.pager.prev')
-        %a.tutorial-pager-next= t('tutorial.pager.next')
-/= render "user_list"
+
+  %script#tmpl-tutorial-relative-pager{:type => 'text/x-jquery-tmpl'}
+    %a.tutorial-pager-prev= t('tutorial.pager.prev')
+    %span.current-page
+    = t('tutorial.pager.of')
+    %span.total-pages
+    %a.tutorial-pager-next= t('tutorial.pager.next')

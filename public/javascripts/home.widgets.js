@@ -513,6 +513,7 @@ $(function() {
     },
 
     render: function() {
+      this.setupRelativePager();
       this.setupSlideShow();
       this.center();
       this.show();
@@ -532,5 +533,35 @@ $(function() {
     show: function() {
       $(this.el).show();
     },
+
+    setupRelativePager: function() {
+      var children = this.$content.children();
+      var total    = children.length;
+
+      children.each(function(i, e) {
+        var p = new Tutorial.RelativePager({
+          totalPages: total,
+          currentIdx: i
+        })
+
+        $(e).append(p.render().el);
+      })
+    },
   });
+
+  window.Tutorial.RelativePager = Backbone.View.extend({
+    className: 'tutorial-pager-relative',
+    template: $('#tmpl-tutorial-relative-pager').template(),
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template));
+
+      this.$('.total-pages').text(this.options.totalPages);
+      this.$('.current-page').text(this.options.currentIdx + 1);
+
+      return this;
+    },
+  });
+
+
 });
