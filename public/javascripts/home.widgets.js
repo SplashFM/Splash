@@ -521,7 +521,10 @@ $(function() {
     },
 
     setupSlideShow: function() {
-      this.$content.cycle({fx: 'scrollLeft'});
+      this.$content.cycle({
+        fx: 'scrollLeft',
+        pager: this.$('.tutorial-pager-absolute'),
+      });
     },
 
     show: function() {
