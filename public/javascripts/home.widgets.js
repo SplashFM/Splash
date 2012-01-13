@@ -562,7 +562,7 @@ $(function() {
     setupSlideShow: function() {
       this.$('.tutorial-content').cycle({
         activePagerClass: 'active',
-        delay: -5000,
+        delay: -6000,
         fit: true,
         fx: 'scrollHorz',
         next: this.$('.tutorial-pager-next'),
