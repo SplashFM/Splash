@@ -87,11 +87,7 @@
         .tutorial-inner-content-pane{:style => bgstyle}
           %h2= content[:title]
 
-          - first, *rest = *content[:body].split(/\n\n/)
-          %p.first= first
-
-          - rest.each do |p|
-            %p= p
+          = simpler_format(content[:body], :first_class => 'first')
 
     .tutorial-footer
       .tutorial-pager-absolute

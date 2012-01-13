@@ -57,4 +57,17 @@ module ApplicationHelper
       yield.tap { executed name }
     end
   end
+
+  def simpler_format(text, opts = {})
+    ps  = text.split("\n\n")
+    tag = opts[:tag] || 'p'
+    out = ps.inject('') { |a, p|
+      o = {}
+      o[:class] = opts[:first_class] if a.empty?
+
+      a << content_tag(tag, raw(p.split("\n").join("<br />")), o)
+    }
+
+    raw(out)
+  end
 end
