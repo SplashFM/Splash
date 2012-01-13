@@ -155,6 +155,7 @@ en:
       next: Next
       of: of
       prev: Previous
+    sub: Social music discovery
 
   upload:
     already_splashed: This track exists and you already splashed it.

@@ -12,6 +12,10 @@ $tutorial-footer-h: 31px
 $tutorial-header-offset: 2px
 $tutorial-dot-h: 15px
 
+.stretch-and-center
+  width: $tutorial-w
+  text-align: center
+
 .tutorial-wrap
   background-color: #000
   left: 0
@@ -42,6 +46,13 @@ $tutorial-dot-h: 15px
       a
         display: inline-block
         +replace-text-with-dimensions("close-tutorial.png")
+
+    .sub
+      @extend .stretch-and-center
+      bottom: 33px
+      color: #81a6cc
+      font: 14px AvantGardeBookBT,arial,sans-serif
+      position: relative
 
   .tutorial-footer
     height: $tutorial-footer-h
@@ -100,10 +111,6 @@ $tutorial-dot-h: 15px
     @extend .tutorial-content-pane
     background: url(/images/welcome-tutorial.png)
     color: #666
-
-    .stretch-and-center
-      width: $tutorial-w
-      text-align: center
 
     h2
       @extend .stretch-and-center
