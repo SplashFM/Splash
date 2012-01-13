@@ -12,11 +12,20 @@ $tutorial-footer-h: 31px
 $tutorial-header-offset: 2px
 $tutorial-dot-h: 15px
 
+.tutorial-wrap
+  background-color: #000
+  left: 0
+  position: absolute
+  opacity: 0.6
+  top: 0
+  z-index: 450
+
 .tutorial
   background: url(/images/background-tutorial.png) transparent
   height: $tutorial-h
   width: $tutorial-w
   +border-radius(8px)
+  z-index: 500
 
   .tutorial-header
     height: $tutorial-header-h + $tutorial-header-offset

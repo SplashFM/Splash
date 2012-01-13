@@ -62,7 +62,10 @@
 = once(:first_time_splasher) do
   :javascript
     $(function() {
-      $('body').append(new Tutorial().render().el);
+      var t = new Tutorial().render();
+
+      $('body').append(t.shadeEl);
+      $('body').append(t.el);
     });
 
   %script#tmpl-tutorial{:type => 'text/x-jquery-tmpl'}
