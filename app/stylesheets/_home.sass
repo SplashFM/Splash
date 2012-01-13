@@ -33,7 +33,6 @@ $tutorial-dot-h: 15px
 
   .tutorial-header
     height: $tutorial-header-h + $tutorial-header-offset
-    width: $tutorial-w
 
     h1
       +replace-text-with-dimensions("logo-tutorial.png")
@@ -54,17 +53,17 @@ $tutorial-dot-h: 15px
       font: 14px AvantGardeBookBT,arial,sans-serif
       position: relative
 
+  .tutorial-footer, .tutorial-content, .tutorial-content-pane, .tutorial-header
+    width: $tutorial-w
+
   .tutorial-footer
     height: $tutorial-footer-h
-    width: $tutorial-w
 
   .tutorial-content, .tutorial-content-pane
     height: $tutorial-h - $tutorial-header-h - $tutorial-footer-h
-    width: $tutorial-w
 
   .tutorial-content, .tutorial-content-pane
     height: $tutorial-h - $tutorial-header-h - $tutorial-footer-h
-    width: $tutorial-w
 
   .tutorial-pager-absolute
     $sprite-image-default-width: 20px
