@@ -501,6 +501,11 @@ $(function() {
     events: {'click .close a': 'hide'},
     template: $('#tmpl-tutorial').template(),
 
+    initialize: function() {
+      this.shadeEl   = $('<div class="tutorial-wrap"></div>').get(0);
+      this.firstShow = true;
+    },
+
     blockBody: function() {
       $('body').css({overflow: 'hidden'});
     },
@@ -534,8 +539,7 @@ $(function() {
     },
 
     renderShade: function() {
-      this.shadeEl =
-        $('<div class="tutorial-wrap"></div>').
+      $(this.shadeEl).
         width($(window).width()).
         height($(window).height()).get(0);
     },
@@ -568,9 +572,16 @@ $(function() {
     },
 
     show: function() {
-      this.center();
-      this.setupRelativePager();
-      this.setupSlideShow();
+      $(this.shadeEl).show();
+      $(this.el).show();
+
+      if (this.firstShow) {
+        this.center();
+        this.setupRelativePager();
+        this.setupSlideShow();
+
+        this.firstShow = false;
+      }
     },
   });
 
