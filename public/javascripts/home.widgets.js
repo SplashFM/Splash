@@ -526,6 +526,9 @@ $(function() {
     hide: function() {
       $(this.el).hide();
       $(this.shadeEl).hide();
+
+      this.resetSlideShow();
+      this.pauseSlideShow();
     },
 
     render: function() {
@@ -544,6 +547,14 @@ $(function() {
       $(this.shadeEl).
         width($(window).width()).
         height($(window).height()).get(0);
+    },
+
+    resetSlideShow: function() {
+      this.$('.tutorial-content').cycle(0);
+    },
+
+    resumeSlideShow: function() {
+      this.$('.tutorial-content').cycle('resume');
     },
 
     setupSlideShow: function() {
@@ -586,6 +597,8 @@ $(function() {
         this.setupSlideShow();
 
         this.firstShow = false;
+      }  else {
+        this.resumeSlideShow();
       }
     },
 
