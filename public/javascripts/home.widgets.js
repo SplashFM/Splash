@@ -525,9 +525,6 @@ $(function() {
       this.blockBody();
       this.renderShade();
       this.renderEl();
-      this.setupRelativePager();
-      this.setupSlideShow();
-      this.center();
 
       return this;
     },
@@ -546,11 +543,13 @@ $(function() {
     setupSlideShow: function() {
       this.$('.tutorial-content').cycle({
         activePagerClass: 'active',
+        fit: true,
         fx: 'scrollLeft',
         next: this.$('.tutorial-pager-next'),
         pager: this.$('.tutorial-pager-absolute'),
         prev: this.$('.tutorial-pager-prev'),
         timeout: 0,
+        width: $(this.el).width(),
       });
     },
 
@@ -566,6 +565,12 @@ $(function() {
 
         $(e).append(p.render().el);
       })
+    },
+
+    show: function() {
+      this.center();
+      this.setupRelativePager();
+      this.setupSlideShow();
     },
   });
 
