@@ -62,10 +62,10 @@
 = once(:first_time_splasher) do
   :javascript
     $(function() {
-      new Tutorial({el: $('.tutorial').get(0)}).render();
+      $('body').append(new Tutorial().render().el);
     });
 
-  #tutorial.tutorial
+  %script#tmpl-tutorial{:type => 'text/x-jquery-tmpl'}
     .tutorial-header
       %h1 Splash.FM
     .tutorial-content

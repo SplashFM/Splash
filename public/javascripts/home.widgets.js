@@ -497,9 +497,8 @@ $(function() {
   });
 
   window.Tutorial = Backbone.View.extend({
-    initialize: function() {
-      this.$content = this.$('.tutorial-content');
-    },
+    className: 'tutorial',
+    template: $('#tmpl-tutorial').template(),
 
     center: function() {
       var $el  = $(this.el);
@@ -513,16 +512,20 @@ $(function() {
     },
 
     render: function() {
+      this.renderEl();
       this.setupRelativePager();
       this.setupSlideShow();
       this.center();
-      this.show();
 
       return this;
     },
 
+    renderEl: function() {
+      $(this.el).html($.tmpl(this.template));
+    },
+
     setupSlideShow: function() {
-      this.$content.cycle({
+      this.$('.tutorial-content').cycle({
         activePagerClass: 'active',
         fx: 'scrollLeft',
         next: this.$('.tutorial-pager-next'),
@@ -532,12 +535,8 @@ $(function() {
       });
     },
 
-    show: function() {
-      $(this.el).show();
-    },
-
     setupRelativePager: function() {
-      var children = this.$content.children();
+      var children = this.$('.tutorial-content').children();
       var total    = children.length;
 
       children.each(function(i, e) {
