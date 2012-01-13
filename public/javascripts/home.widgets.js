@@ -502,9 +502,11 @@ $(function() {
     template: $('#tmpl-tutorial').template(),
 
     initialize: function() {
-      _.bindAll(this, 'pauseSlideShow');
+      _.bindAll(this, 'hide', 'pauseSlideShow');
 
       this.shadeEl   = $('<div class="tutorial-wrap"></div>').get(0);
+      $(this.shadeEl).click(this.hide);
+
       this.firstShow = true;
     },
 
