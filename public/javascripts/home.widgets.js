@@ -548,7 +548,7 @@ $(function() {
       this.$('.tutorial-content').cycle({
         activePagerClass: 'active',
         fit: true,
-        fx: 'scrollLeft',
+        fx: 'scrollHorz',
         next: this.$('.tutorial-pager-next'),
         pager: this.$('.tutorial-pager-absolute'),
         prev: this.$('.tutorial-pager-prev'),
