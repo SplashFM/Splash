@@ -78,14 +78,19 @@
       .tutorial-welcome
         %h2= t('tutorial.welcome.title')
         %p.sub= t('tutorial.welcome.sub')
-      .tutorial-one
-        %h2= t('tutorial.one.title')
 
-        - first, *rest = *t('tutorial.one.body').split(/\n\n/)
-        %p.first= first
+      - t('tutorial.inner').each do |k, content|
+        - bgstyle = "background: url(/images/#{k}-tutorial.png) no-repeat"
 
-        - rest.each do |p|
-          %p= p
+        .tutorial-inner-content-pane{:style => bgstyle}
+          %h2= content[:title]
+
+          - first, *rest = *content[:body].split(/\n\n/)
+          %p.first= first
+
+          - rest.each do |p|
+            %p= p
+
     .tutorial-footer
       .tutorial-pager-absolute
 
