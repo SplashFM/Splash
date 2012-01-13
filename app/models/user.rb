@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
   serialize :ignore_suggested_users, Array
   serialize :suggested_users, Array
   serialize :email_preferences, Hash
+  serialize :settings, Hash
 
   attr_accessor :access_code
   attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
@@ -577,6 +578,17 @@ class User < ActiveRecord::Base
     end
 
     update_attributes(attrs)
+  end
+
+  def setting(name)
+    (settings || {})[name]
+  end
+
+  def update_setting(name, value)
+    self.settings       ||= {}
+    self.settings[name]   = value
+
+    update_attribute :settings, self.settings
   end
 
   private
