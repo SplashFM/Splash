@@ -173,11 +173,11 @@ class ApplicationController < ActionController::Base
 
   helper_method :executed
   def executed(name)
-    cookies[name] = {:value => '1', :expires => 200.years.from_now}
+    current_user.update_setting "executed_#{name}", true
   end
 
   helper_method :executed?
   def executed?(name)
-    cookies[name] == '1'
+    current_user.setting("executed_#{name}").present?
   end
 end
