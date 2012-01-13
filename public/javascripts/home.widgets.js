@@ -547,12 +547,13 @@ $(function() {
     setupSlideShow: function() {
       this.$('.tutorial-content').cycle({
         activePagerClass: 'active',
+        delay: -5000,
         fit: true,
         fx: 'scrollHorz',
         next: this.$('.tutorial-pager-next'),
         pager: this.$('.tutorial-pager-absolute'),
         prev: this.$('.tutorial-pager-prev'),
-        timeout: 0,
+        timeout: 10000,
         width: $(this.el).width(),
       });
     },
