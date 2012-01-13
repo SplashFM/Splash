@@ -71,6 +71,8 @@
   %script#tmpl-tutorial{:type => 'text/x-jquery-tmpl'}
     .tutorial-header
       %h1 Splash.FM
+      .close
+        %a{:href => '#'}= t('tutorial.close')
     .tutorial-content
       .tutorial-welcome
         %h2= t('tutorial.welcome.title')

@@ -498,6 +498,7 @@ $(function() {
 
   window.Tutorial = Backbone.View.extend({
     className: 'tutorial',
+    events: {'click .close a': 'hide'},
     template: $('#tmpl-tutorial').template(),
 
     blockBody: function() {
@@ -513,6 +514,11 @@ $(function() {
       $el.css("position","absolute");
       $el.css("top", top);
       $el.css("left", left);
+    },
+
+    hide: function() {
+      $(this.el).hide();
+      $(this.shadeEl).hide();
     },
 
     render: function() {

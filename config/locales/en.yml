@@ -141,6 +141,7 @@ en:
       splash: Splash
 
   tutorial:
+    close: close
     welcome:
       title: Welcome to Splash.FM
       sub: A few things you should know before diving in
