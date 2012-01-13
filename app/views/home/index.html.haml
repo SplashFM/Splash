@@ -85,8 +85,7 @@
         - bgstyle = "background: url(/images/#{k}-tutorial.png) no-repeat"
 
         .tutorial-inner-content-pane{:style => bgstyle}
-          %h2= content[:title]
-
+          = simpler_format(content[:title], :tag => 'h2')
           = simpler_format(content[:body], :first_class => 'first')
 
     .tutorial-footer
