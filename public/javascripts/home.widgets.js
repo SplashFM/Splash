@@ -502,6 +502,8 @@ $(function() {
     template: $('#tmpl-tutorial').template(),
 
     initialize: function() {
+      _.bindAll(this, 'pauseSlideShow');
+
       this.shadeEl   = $('<div class="tutorial-wrap"></div>').get(0);
       this.firstShow = true;
     },
@@ -551,6 +553,8 @@ $(function() {
         fit: true,
         fx: 'scrollHorz',
         next: this.$('.tutorial-pager-next'),
+        onPagerEvent: this.pauseSlideShow,
+        onPrevNextEvent: this.pauseSlideShow,
         pager: this.$('.tutorial-pager-absolute'),
         prev: this.$('.tutorial-pager-prev'),
         timeout: 10000,
@@ -583,6 +587,10 @@ $(function() {
 
         this.firstShow = false;
       }
+    },
+
+    pauseSlideShow: function() {
+      this.$('.tutorial-content').cycle('pause');
     },
   });
 
