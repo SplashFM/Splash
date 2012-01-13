@@ -526,6 +526,8 @@ $(function() {
     },
 
     hide: function() {
+      this.unblockBody();
+
       $(this.el).hide();
       $(this.shadeEl).hide();
 
@@ -534,8 +536,6 @@ $(function() {
     },
 
     render: function() {
-      this.blockBody();
-      this.renderShade();
       this.renderEl();
 
       return this;
@@ -590,6 +590,9 @@ $(function() {
     },
 
     show: function() {
+      this.blockBody();
+      this.renderShade();
+
       $(this.shadeEl).show();
       $(this.el).show();
 
@@ -606,6 +609,10 @@ $(function() {
 
     pauseSlideShow: function() {
       this.$('.tutorial-content').cycle('pause');
+    },
+
+    unblockBody: function() {
+      $('body').css({overflow: 'auto'});
     },
   });
 
