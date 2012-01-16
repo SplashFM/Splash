@@ -71,7 +71,7 @@ en:
       confirm_password: confirm password
       email: enter email
       header: Create an Account
-      name: name
+      name: first and last name
       password: password
       request_invite: Request Invite
     sign_in:
