@@ -77,4 +77,18 @@ namespace :migrate do
       u.update_attribute :nickname, u.nickname.gsub(/(^[.-]|[.-]$)/) { |m| '_' }
     }
   end
+
+  task :fix_track_file_names => :environment do
+    UndiscoveredTrack.all.each { |t|
+      next unless t.data.file?
+
+      begin
+        t.data = t.data.to_file(:original)
+        t.send :set_data_content_disposition
+        t.save
+      rescue => e
+        puts e.message
+      end
+    }
+  end
 end
