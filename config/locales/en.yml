@@ -152,31 +152,19 @@ en:
 
           Upload new songs, Search existing, or Splash from a friend's Live Feed.
       two:
-        title: Join the conversation
-        body: |
-          Everyone has an opinion about what music is in rotation.
-
-          Click on a Splash within any Live Feed and leave comments and Splash@ notes to point at friends.
-      three:
-        title: Find friends and fellow Splashers
-        body: |
-          See who’s causing Ripples out there!
-
-          Search for your friends or follow the taste-makers who influence the Splash.FM listening population.
-      four:
         title: Search, Splash and listen to your favorite music
         body: |
           Search for songs by keyword, artist or song title.
 
           Once Splashed, music is available to listen, share, download or purchase.
-      five:
+      three:
         title: Upload your own music, and get it out there!
         body: |
           If a song isn’t in our library yet, upload a track from your personal stash.
 
           Upload, add a com&shy;ment, and Splash
           that new find.
-      six:
+      four:
         title: |
           Build your
           Splash Score
@@ -184,6 +172,18 @@ en:
           The Splash Score is
           a measure of your influence.  Each time
           a user Splashes from your Live Feed you earn a Ripple. The bigger your listening following, the bigger your Splashes.
+      five:
+        title: Find friends and fellow Splashers
+        body: |
+          See who’s causing Ripples out there!
+
+          Search for your friends or follow the taste-makers who influence the Splash.FM listening population.
+      six:
+        title: Join the conversation
+        body: |
+          Everyone has an opinion about what music is in rotation.
+
+          Click on a Splash within any Live Feed and leave comments and Splash@ notes to point at friends.
     welcome:
       title: Welcome to Splash.FM
       sub: Here are a few things you should know before diving in
