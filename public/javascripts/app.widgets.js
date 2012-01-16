@@ -69,6 +69,7 @@ $(function() {
 
   window.BaseApp = Backbone.View.extend({
     initialize: function() {
+      this.globalSearch  = new BaseApp.GlobalSearch;
       this.userSearch    = new BaseApp.UserSearch;
       this.quickSplash   = new BaseApp.QuickSplash;
       this.notifications = new BaseApp.Notifications({
@@ -291,6 +292,30 @@ $(function() {
       if (box.is(':visible')) $(':text', box).focus();
     }
   });
+
+  window.BaseApp.GlobalSearch = Backbone.View.extend({
+    el: '[data-widget = "global-search"]',
+    events: {
+      'blur .field': 'collapse',
+      'focus .field': 'expand',
+    },
+
+    collapse: function() {
+      this.change('opened', 'closed', '120px')
+    },
+
+    expand: function() {
+      this.change('closed', 'opened', '235px')
+    },
+
+    change: function(from, to, size) {
+      $(this.el).
+        removeClass(from).
+        addClass(to).
+        animate({width: size}, 'fast');
+    },
+  });
+
 
   window.BaseApp.UserSearch = Search.extend({
     collection: new UserList,

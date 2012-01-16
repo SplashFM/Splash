@@ -175,23 +175,6 @@ SPLASH.Widgets.stepFontSize = function (selector,maxH) {
   }
 }
 
-SPLASH.Widgets.setHeadSearch = function () {
-  $('.head-search').live('click',function(){
-    _t = $(this);
-    _f = _t.find('.field');
-    _t.removeClass('closed').addClass('opened');
-    _f.bind('blur',revert);
-    _t.animate({"width" : "235px"},"fast");
-  });
-
-  function revert(e) {
-    $(e.target).unbind('blur',revert);
-    $(e.target).parent().animate({"width" : "120px"},"fast");
-    $(e.target).parent().removeClass('opened').addClass('closed');
-  }
-
-}
-
 // onLoad
 jQuery(document).ready(function() {
   Scaphandrier.Fancybox.init();
@@ -203,7 +186,6 @@ jQuery(document).ready(function() {
   SPLASH.Widgets.sticky("#header .shell");
   SPLASH.Widgets.SetDrops();
   SPLASH.Widgets.pulsars();
-  SPLASH.Widgets.setHeadSearch();
   SPLASH.Widgets.ScrollBubble('.followed-box','.following-container');
   SPLASH.Widgets.stepFontSize('.actor_name',62);
 });
