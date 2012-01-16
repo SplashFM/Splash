@@ -256,12 +256,17 @@ class User < ActiveRecord::Base
   # @return a (possibly empty) list of users
   def self.with_text(name)
     q  = connection.quote_string(name).gsub(/\W/, ' ').strip.gsub(/\s+/, '|')
-    ts = "to_tsquery('english', '#{q}:*')"
 
-    select("users.*,
+    if q.blank?
+      where('1 = 0')
+    else
+      ts = "to_tsquery('english', '#{q}:*')"
+
+      select("users.*,
             ts_rank(to_tsvector('english', users.name), #{ts}) name_rank").
-    where("to_tsvector('english', users.name || users.nickname) @@ #{ts}").
-    order('name_rank desc')
+        where("to_tsvector('english', users.name || users.nickname) @@ #{ts}").
+        order('name_rank desc')
+    end
   end
 
   def as_json(opts = nil)

@@ -1,17 +1,20 @@
 require 'spec_helper'
 
 describe User, :adapter => :postgresql do
-  it "is found by name" do
-    create(User).with_name!('Jack Johnson')
+  describe "searching" do
+    it "finds results by name" do
+      create(User).with_name!('Jack Johnson')
 
-    User.with_text('Jack Johnson').should have(1).result
-  end
+      User.with_text('Jack Johnson').should have(1).result
+    end
 
-  it "searched by name, accepts special characters" do
-    create(User).email('jack@mojotech.com').
-                 name!('Jack Johnson (parenthesis)')
+    it "handles special characters" do
+      create(User).email('jack@mojotech.com').
+        name!('Jack Johnson (parenthesis)')
 
-    User.with_text('Jack Johnson (parenthesis)').should have(1).result
+      User.with_text('Jack Johnson (parenthesis)').should have(1).result
+      User.with_text('!@#$!#@%$%').should be_empty
+    end
   end
 
   it "may not be found" do
