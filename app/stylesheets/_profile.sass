@@ -1,0 +1,53 @@
+.following-container
+  display: block
+  background: transparent url(/css/images/head-search-dd.png) repeat 0 0
+  +background-size(100% auto)
+  z-index: 99
+  padding: 10px
+  font-size: 11px
+  line-height: 15px
+  position: absolute
+  height: 480px
+  width: 460px
+
+  .wrap
+    height: 460px
+    width: 440px
+    +box-sizing(border-box)
+    +border-radius(5px)
+    background-color: #E4EFF7
+    display: block
+    padding: 5px 10px 5px 20px
+    color: #252525
+
+  .contents
+    height: 440px
+    width: 410px
+    overflow-y: scroll
+
+.followed-box
+  margin: 15px
+  width: 160px
+  float: left
+  .avatar
+    float: left
+    padding-top: 4px
+    img
+      float: left
+      width: 50px
+  & .meta
+    float: left
+    .link
+      padding-left: 10px
+      overflow: hidden
+      text-overflow: ellipsis
+      width: 110px
+      height: 25px
+      white-space: nowrap
+    .following-button
+      margin: 10px
+      span
+        display: none
+    padding-left: 10px
+    width: 100px
+    text-overflow: ellipsis

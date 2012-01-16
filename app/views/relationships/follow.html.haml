@@ -1,33 +1,35 @@
 .following-container
-  - users.each do |user|
-    :javascript
-      $(function() {
-        $('[data-widget = "relationship"][data-user_id = "#{user.id}"] .meta').
-          append(
-            new RelationshipView({
-              className: 'following-button',
-              model:     new Relationship(#{
-                           {:follower_id => current_user.id,
-                            :followed_id => user.id,
-                            :id          => current_user.followed(user).try(:id)
-                           }.to_json
-                         }),
-              template:  $('#tmpl-relationship-list').template(),
-            }).render().el
-          );
-      });
+  .wrap
+    .contents
+      - users.each do |user|
+        :javascript
+          $(function() {
+            $('[data-widget = "relationship"][data-user_id = "#{user.id}"] .meta').
+              append(
+                new RelationshipView({
+                  className: 'following-button',
+                  model:     new Relationship(#{
+                               {:follower_id => current_user.id,
+                                :followed_id => user.id,
+                                :id          => current_user.followed(user).try(:id)
+                               }.to_json
+                             }),
+                  template:  $('#tmpl-relationship-list').template(),
+                }).render().el
+              );
+          });
 
-    .followed-box{:data => {:widget => 'relationship', :user_id => user.id}}
-      .avatar
-        = avatar(user)
+        .followed-box{:data => {:widget => 'relationship', :user_id => user.id}}
+          .avatar
+            = avatar(user)
 
-      .meta
-        .link.avan-demi
-          = link_to user.name, user_link(user), :'data-widget' => 'pjax'
-        %span.number.avan-bold
-          .outer
-            = user.splash_score
-          .inner
-            = user.splash_score
-      .clear
+          .meta
+            .link.avan-demi
+              = link_to user.name, user_link(user), :'data-widget' => 'pjax'
+            %span.number.avan-bold
+              .outer
+                = user.splash_score
+              .inner
+                = user.splash_score
+          .clear
 .clear
