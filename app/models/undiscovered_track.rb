@@ -100,7 +100,7 @@ class UndiscoveredTrack < Track
   end
 
   def display_file_name(title, ext)
-    title + '.' + ext
+    title.gsub(/\W+/, ' ').squeeze(' ').strip + '.' + ext
   end
 
   def full_validation?
