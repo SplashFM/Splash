@@ -89,7 +89,7 @@ class UndiscoveredTrack < Track
   private
 
   def data_content_disposition(filename)
-    {"Content-Disposition" => "attachment; filename=#{filename}"}
+    {"Content-Disposition" => "attachment; filename=#{filename.inspect}"}
   end
 
   def extract_metadata
