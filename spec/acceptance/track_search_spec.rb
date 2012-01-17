@@ -23,6 +23,15 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     end
   end
 
+  scenario "Show \"View All Result\" link" do
+    10.times { |i| create(DiscoveredTrack).title!("Track #{i}") }
+
+    search_tracks_for('Track') { load_more_results }
+
+    track_results { should have_view_all_results_link }
+  end
+
+
   scenario "Paginated results" do
     pending
 
@@ -43,4 +52,3 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     end
   end
 end
-

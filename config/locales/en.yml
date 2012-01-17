@@ -106,6 +106,7 @@ en:
     feed_search:
       load_more: Load More Results
       search_for_song: Search for a song to Splash
+      view_all_results: View All Results
 
   simple_navigation:
     menus:

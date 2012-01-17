@@ -12,6 +12,14 @@ module UI
     end
 
     module Actions
+      def load_more_results
+        wait_until {
+          page.has_css?(w('load-more'), :visible => true)
+        }
+
+        click_link t('shared.feed_search.load_more')
+      end
+
       def track_results(&do_stuff)
         within w('results'), &do_stuff
       end
@@ -34,6 +42,9 @@ module UI
     end
 
     module Matchers
+      def has_view_all_results_link?
+        has_link?(t('shared.feed_search.view_all_results'))
+      end
     end
   end
 end
