@@ -595,6 +595,7 @@ $(function() {
         onPrevNextEvent: this.pauseSlideShow,
         pager: this.$('.tutorial-pager-absolute'),
         prev: this.$('.tutorial-pager-prev'),
+        speed: 200,
         timeout: 10000,
         width: $(this.el).width(),
       });
