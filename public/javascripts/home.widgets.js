@@ -512,13 +512,16 @@ $(function() {
     template: $('#tmpl-tutorial').template(),
 
     initialize: function() {
-      _.bindAll(this, 'hide', 'pauseSlideShow', 'center', 'renderShade');
+      _.bindAll(this, 'hide', 'pauseSlideShow', 'center', 'centerShade',
+                      'renderShade');
 
       this.shadeEl   = $('<div class="tutorial-wrap"></div>').get(0);
       $(this.shadeEl).click(this.hide);
 
       $(window).bind('resize', this.renderShade);
       $(window).bind('resize', this.center);
+      $(window).bind('scroll', this.center);
+      $(window).bind('scroll', this.centerShade);
 
       this.firstShow = true;
     },
@@ -536,6 +539,15 @@ $(function() {
       $el.css("position","absolute");
       $el.css("top", top);
       $el.css("left", left);
+    },
+
+    centerShade: function() {
+      var $el = $(this.shadeEl);
+      var $w   = $(window);
+
+      $el.css("position","absolute");
+      $el.css("top", $w.scrollTop());
+      $el.css("left", $w.scrollLeft());
     },
 
     hide: function() {
