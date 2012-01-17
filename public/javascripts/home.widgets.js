@@ -512,10 +512,13 @@ $(function() {
     template: $('#tmpl-tutorial').template(),
 
     initialize: function() {
-      _.bindAll(this, 'hide', 'pauseSlideShow');
+      _.bindAll(this, 'hide', 'pauseSlideShow', 'center', 'renderShade');
 
       this.shadeEl   = $('<div class="tutorial-wrap"></div>').get(0);
       $(this.shadeEl).click(this.hide);
+
+      $(window).bind('resize', this.renderShade);
+      $(window).bind('resize', this.center);
 
       this.firstShow = true;
     },
