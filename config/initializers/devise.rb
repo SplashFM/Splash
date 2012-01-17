@@ -147,3 +147,14 @@ Devise.setup do |config|
 
   config.omniauth :twitter, AppConfig.twitter['key'], AppConfig.twitter['secret']
 end
+
+module Devise::Controllers::InternalHelpers
+  alias_method :require_no_authentication_skip_json, :require_no_authentication
+
+  def require_no_authentication
+    respond_to { |f|
+      f.json { render :json => true if warden.authenticated?(:user) }
+      f.html { require_no_authentication_skip_json }
+    }
+  end
+end
