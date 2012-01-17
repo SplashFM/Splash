@@ -18,7 +18,8 @@
     .dd{:data => {:widget => 'results'}}
       %span{:data => {:widget => 'empty'}}= t('searches.empty')
       %ul.top_search_results
-      %a.load-more{:href => "#", :data => {:widget => 'load-more'}}
-        = t('.load_more')
+      .controls
+        %a.load-more{:href => "#", :data => {:widget => 'load-more'}}
+          = t('.load_more')
   %a.upload.right{:href => "#", :data => {:widget => 'toggle-upload'}}= t('upload.upload')
   .cl &nbsp;

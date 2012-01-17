@@ -24,7 +24,7 @@ $(function() {
       this.searching = {readyState: 4};
 
       _.bindAll(this, 'hide', 'search', 'loadMoreResults',
-                      'renderItem', 'renderLoadMoreResults');
+                      'renderItem', 'renderControls');
 
       this.$(':text').attr('autocomplete', 'off');
 
@@ -41,7 +41,7 @@ $(function() {
     },
 
     hide: function() {
-      this.$('[data-widget = "load-more"]').hide();
+      this.$('.controls').hide();
       this.$('[data-widget = "empty"]').hide();
       $(this.container).hide();
     },
@@ -59,7 +59,7 @@ $(function() {
 
       this.page++;
 
-      this.$('[data-widget = "load-more"]').hide();
+      this.$('.controls').hide();
 
       this.toggleLoading();
 
@@ -88,7 +88,7 @@ $(function() {
 
       this.toggleLoading();
 
-      this.renderLoadMoreResults();
+      this.renderControls();
       this.container.show();
       Widgets.Scroll.init();
     },
@@ -97,11 +97,11 @@ $(function() {
       return $($.tmpl(this.template, i.toJSON())).appendTo(this.menu);
     },
 
-    renderLoadMoreResults: function() {
+    renderControls: function() {
       if (this.collection.hasFullPages(this.options.perPage)) {
-        this.$('[data-widget = "load-more"]').show();
+        this.$('.controls').show();
       } else {
-        this.$('[data-widget = "load-more"]').hide();
+        this.$('.controls').hide();
       }
     },
 
