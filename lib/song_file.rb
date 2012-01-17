@@ -40,6 +40,10 @@ class SongFile
             pic = Tempfile.new('artwork')
             pic.syswrite(p.picture)
           end
+
+          if t.title.blank? && f.id3v1_tag.title.present?
+            t = f.id3v1_tag
+          end
         else
           f = TagLib::FileRef.new(path)
           t = f.tag
@@ -55,4 +59,3 @@ class SongFile
     format.to_sym
   end
 end
-
