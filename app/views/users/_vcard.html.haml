@@ -14,11 +14,16 @@
               .waterNum= user.splash_score
           .cl &nbsp;
           %span.badge
-          %a.expand{:href => "#", :data => {:widget => 'first-aid'}}
-            %span.tip
-              %span.top
-              %span.contents
-                The Splash Score measures your influence in music. It's based on how often you splash, the users that follow you, and the number of times users ripple (or re-splash) your splashes. Check out the Top Splashers chart to see where you stand in the Crowd.
+          .expand{:href => "#", :data => {:widget => 'first-aid'}}
+            .tip
+              .top
+              .contents
+                The Splash Score measures your influence in music. It's based
+                on how often you splash, the users that follow you, and the
+                number of times users ripple (or re-splash) your splashes. Want
+                to learn more about Splash? Check out the
+                %a{:href => "#", :data => {:widget => 'first-aid'}} tutorial.
+
         .score-text.avan-bold
           splash score
         .blurb
