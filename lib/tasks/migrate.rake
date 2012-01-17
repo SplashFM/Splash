@@ -91,4 +91,14 @@ namespace :migrate do
       end
     }
   end
+
+  task :clean_up_missing_avatars => :environment do
+    User.find_each(batch_size: 100) { |u|
+      begin
+        u.avatar.to_file(:original)
+      rescue
+        u.update_attribute :avatar, nil
+      end
+    }
+  end
 end
