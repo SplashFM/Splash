@@ -49,7 +49,7 @@ class SongFile
           t = f.tag
         end
 
-        Metadata.new(t.title, t.artist, t.album, pic)
+        Metadata.new(t.try(:title), t.try(:artist), t.try(:album), pic)
       ensure
         f.close
       end
