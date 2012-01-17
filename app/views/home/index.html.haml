@@ -30,17 +30,6 @@
       followerID: #{current_user.id},
       splashersCount: #{User::SUGGESTED_USERS_PER_PAGE},
     }).render();
-
-    var t = new Tutorial({
-      trigger: $('[data-widget = "first-aid"]')
-    }).render();
-
-    $('body').append(t.shadeEl);
-    $('body').append(t.el);
-
-    $('[data-widget = "first-aid"]').click(function() { t.show(); });
-
-    #{once(:first_time_splasher) { "t.show();"} }
   });
 
 .home
