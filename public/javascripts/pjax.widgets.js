@@ -9,9 +9,9 @@ Widgets.Pjax = {
       ":not([data-widget = 'purchase'])";
 
     $("#header a" + skip + ", #main a[href]" + skip).
-      pjax('[data-pjax-container]', {timeout: 2500});
+      pjax('[data-pjax-container]', {timeout: 60000});
 
-    $w('pjax').pjax("[data-pjax-container]", {timeout: 2500});
+    $w('pjax').pjax("[data-pjax-container]", {timeout: 60000});
 
     $('body').bind('success.pjax', function() {
       Widgets.Editable.reload();
