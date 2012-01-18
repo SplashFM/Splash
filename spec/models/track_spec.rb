@@ -28,25 +28,25 @@ describe Track, :adapter => :postgresql do
   end
 
   describe "searching", :adapter => :postgresql do
-    it "is found by title" do
+    it "finds tracks by title" do
       create(Track).title!('Close to the edge')
 
       Track.with_text('Close to the edge').should have(1).result
     end
 
-    it "is found by performer" do
+    it "finds tracks by performer" do
       create(Track).with_performer!('Yes')
 
       Track.with_text('Yes').should have(1).result
     end
 
-    it "is found by album" do
+    it "finds tracks by album" do
       create(Track).albums!('Relayer')
 
       Track.with_text('Relayer').should have(1).result
     end
 
-    it "may not be found" do
+    it "finds nothing if there's nothing to find" do
       create(Track).
         title('And you and I').
         albums(['Close to the edge']).
