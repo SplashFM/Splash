@@ -42,7 +42,7 @@ $(function() {
     fetchResults: function() {
       var data = {page: this.page, with_text: this.term()};
 
-      return this.collection.fetch({data: data});
+      return this.collection.fetch({data: _.extend(data, this.extraParams)});
     },
 
     hide: function() {
