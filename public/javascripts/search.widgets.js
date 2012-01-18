@@ -101,13 +101,13 @@ $(function() {
       if (this.collection.hasFullPages(this.options.perPage)) {
         var mbp = this.maxBrowseablePages;
 
-        this.$('.controls').show();
-
         if (mbp && this.page > mbp) {
           this.$('[data-widget = "load-more"]').hide();
         } else {
           this.$('[data-widget = "load-more"]').show();
         }
+
+        this.$('.controls').show();
       } else {
         this.$('.controls').hide();
       }
