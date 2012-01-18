@@ -41,4 +41,17 @@ feature "Track search box", :adapter => :postgresql, :js => true do
 
     track_results { should have_no_load_more_results_link }
   end
+
+  scenario "View all results" do
+    15.times { |i| create(DiscoveredTrack).title!("Track #{i}") }
+
+    search_tracks_for('Track') {
+      load_more_results
+      view_all_results
+    }
+
+    expanded_track_results {
+      should have(15).expanded_track_results
+    }
+  end
 end

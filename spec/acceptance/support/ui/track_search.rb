@@ -12,12 +12,26 @@ module UI
     end
 
     module Actions
+      def expanded_track_results(&do_stuff)
+        within '.all-results', &do_stuff
+      end
+
       def load_more_results
         wait_until {
           page.has_css?(w('load-more'), :visible => true)
         }
 
         click_link t('shared.feed_search.load_more')
+      end
+
+      def view_all_results
+        wait_until {
+          has_css?('a',
+                   :content => t('shared.feed_search.view_all_results'),
+                   :visible => true)
+        }
+
+        click_link t('shared.feed_search.view_all_results')
       end
 
       def track_results(&do_stuff)
@@ -36,6 +50,10 @@ module UI
     end
 
     module Collections
+      def expanded_track_results
+        wait_until { all('tbody tr').presence }
+      end
+
       def track_results
         wait_until { all(w('track-result')).presence }
       end
