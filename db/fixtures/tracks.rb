@@ -42,9 +42,10 @@ if ! Rails.env.production? || ENV['FORCE_SEED'] == '1'
 
   1.upto(30) { |i|
     DiscoveredTrack.seed :title do |s|
-      s.title       = "Track #{i}"
-      s.albums      = ['Album']
-      s.performers  = ['Artist']
+      s.title           = "Track #{i}"
+      s.albums          = ['Album']
+      s.performers      = ['Artist']
+      s.popularity_rank = 999
     end
   }
 end
