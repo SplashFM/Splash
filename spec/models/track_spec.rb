@@ -54,6 +54,22 @@ describe Track, :adapter => :postgresql do
 
       Track.with_text('Fragile').should be_empty
     end
+
+    it "allows finding popular tracks only" do
+      popular = create(DiscoveredTrack).
+        albums(['Close to the edge']).
+        popularity_rank(999).
+        title!('And you And I')
+      unpopular = create(DiscoveredTrack).
+        albums(['Close to the edge']).
+        popularity_rank(1000).
+        title!('Siberian Kathru')
+
+      results = Track.with_text('Close to the edge').popular
+
+      results.should include(popular)
+      results.should_not include(unpopular)
+    end
   end
 
   it "always has an artwork url" do
