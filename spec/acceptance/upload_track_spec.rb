@@ -15,6 +15,9 @@ feature "Upload track", :js => true do
            track,
            'This is my comment!'
 
+    # So we can find the track in the search results
+    Track.first.update_attribute(:popularity_rank, 999)
+
     search_tracks_for 'Steady as she goes' do
       track_results { should have(1).track_result }
     end
@@ -113,4 +116,3 @@ feature "Upload track", :js => true do
     should have_content("This is my comment!")
   end
 end
-
