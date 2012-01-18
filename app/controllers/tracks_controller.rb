@@ -5,6 +5,7 @@ class TracksController < ApplicationController
   respond_to :json
 
   has_scope :with_text
+  has_scope :popular
 
   def index
     if params[:user_id] && user = User.find(params[:user_id])

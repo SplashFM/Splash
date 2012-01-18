@@ -36,6 +36,7 @@ Bricks do
     title  { "Turn of the century #{track_seq}" }
     albums ["Going for the one"]
     performers ["Yes"]
+    popularity_rank 999
 
     trait :with_performer do |name|
       performers [name]

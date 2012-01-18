@@ -15,8 +15,8 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     end
   end
 
-  scenario "Song found" do
-    track = create!(Track)
+  scenario "Popular song found" do
+    track = create(DiscoveredTrack).popularity_rank!(999)
 
     search_tracks_for track.title do
       track_results { should have(1).track_result }
