@@ -1,6 +1,8 @@
 class TracksController < ApplicationController
-  TRACKS_PER_PAGE = 10
-  TRACK_TAB       = 1
+  TRACKS_PER_SEARCH_PAGE      = 5
+  TRACKS_PER_ALL_RESULTS_PAGE = 50
+  TRACKS_PER_PAGE             = 10
+  TRACK_TAB                   = 1
 
   respond_to :json
 
@@ -13,7 +15,13 @@ class TracksController < ApplicationController
     elsif params[:top]
       results = Track.top_splashed(current_page, TRACKS_PER_PAGE)
     else
-      results = apply_scopes(Track).page(current_page)
+      per = if params[:popular].present?
+              TRACKS_PER_SEARCH_PAGE
+            else
+              TRACKS_PER_ALL_RESULTS_PAGE
+            end
+
+      results = apply_scopes(Track).page(current_page).per(per)
     end
 
     respond_with results.map { |t|
