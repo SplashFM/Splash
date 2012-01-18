@@ -7,6 +7,7 @@ $(function() {
     el: '[data-widget = "track-search"]',
     events: _.extend({
       'click [data-widget = "toggle-upload"]': 'showUpload',
+      'click [data-widget = "view-all-results"]': 'viewAllResults',
       'hiding': 'removeUploadProgressForm',
       'showing': 'prepareUploadProgressForm',
       'upload:done': 'onUploadDone',
@@ -107,6 +108,10 @@ $(function() {
 
       this.upload.show();
     },
+
+    viewAllResults: function() {
+      $(this.el).trigger('search:expand', {terms: this.term()});
+    },
   });
 
   TrackSearch.Track = Backbone.View.extend({
@@ -133,6 +138,62 @@ $(function() {
       });
 
       return this;
+    },
+  });
+
+  window.TrackSearch.AllResults = Backbone.View.extend({
+    className: 'all-results',
+
+    initialize: function() {
+      this.table = new TrackSearch.AllResults.Results;
+    },
+
+    load: function(searchTerms) {
+      this.table.load(searchTerms);
+
+      return this;
+    },
+
+    render: function() {
+      $(this.el).append(this.table.el);
+
+      return this;
+    },
+  });
+
+  window.TrackSearch.AllResults.Results = Backbone.View.extend({
+    tagName: 'table',
+    template: $('#tmpl-track-search-all-results-table').template(),
+
+    initialize: function() {
+      this.collection = new TrackList;
+      this.collection.bind('reset', this.reset, this);
+    },
+
+    data: function() {
+      var idxs = _.range(this.collection.length);
+
+      return _(this.collection.toJSON()).
+        chain().
+        zip(idxs).
+        map(function(mi) { return _.extend(mi[0], {rank: mi[1] + 1}); }).
+        value();
+    },
+
+    load: function(searchTerms) {
+      this.collection.fetch({data: {with_text: searchTerms}});
+    },
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template, {results: this.data()}));
+
+      return this;
+    },
+
+    reset: function() {
+      $(this.el).empty();
+
+      this.render();
     },
   });
 
@@ -657,6 +718,4 @@ $(function() {
       return this;
     },
   });
-
-
 });

@@ -30,6 +30,11 @@
       followerID: #{current_user.id},
       splashersCount: #{User::SUGGESTED_USERS_PER_PAGE},
     }).render();
+
+    window.allResults = new TrackSearch.AllResults().render();
+    $('body').bind('search:expand', function(_, data) {
+      $('[data-widget = "events"]').prepend(allResults.load(data.terms).el);
+    })
   });
 
 .home

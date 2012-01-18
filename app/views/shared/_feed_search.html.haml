@@ -21,6 +21,7 @@
       .controls
         %a.load-more{:href => "#", :data => {:widget => 'load-more'}}
           = t('.load_more')
-        %a.view-all{:href => "#"}= t('.view_all_results')
+        %a.view-all{:href => "#", :data => {:widget => 'view-all-results'}}
+          = t('.view_all_results')
   %a.upload.right{:href => "#", :data => {:widget => 'toggle-upload'}}= t('upload.upload')
   .cl &nbsp;

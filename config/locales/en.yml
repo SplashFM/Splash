@@ -12,6 +12,12 @@ en:
       messages:
         invalid_attachment: is invalid. Use one of %{allowed}
 
+  all_results:
+    album: Album
+    rank: Rank
+    title: Title
+    performers: Artist
+
   comments:
     comments:
       comment_number: View all %{number} comments

@@ -1,0 +1,16 @@
+%script#tmpl-track-search-all-results-table{:type => 'text/x-jquery-tmpl'}
+  %thead
+    %tr
+      %th.rank       ${I18n.t("all_results.rank")}
+      %th.title      ${I18n.t("all_results.title")}
+      %th.album      ${I18n.t("all_results.album")}
+      %th.performers ${I18n.t("all_results.performers")}
+
+  %tbody
+    {{each results}}
+    %tr
+      %td ${$value.rank}
+      %td ${$value.title}
+      %td ${$value.album}
+      %td ${$value.performers}
+    {{/each}}
