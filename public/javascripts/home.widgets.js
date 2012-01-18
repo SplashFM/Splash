@@ -15,7 +15,8 @@ $(function() {
       'upload:metadata': 'onMetadataSave',
       'upload:progress': 'onUploadProgress',
       'upload:splash': 'onUploadSplash',
-      'upload:start': 'onUploadStart'
+      'upload:start': 'onUploadStart',
+      'search:expand': 'hide',
     }, Search.prototype.events),
     extraParams: {popular: true},
     maxBrowseablePages: 2,
