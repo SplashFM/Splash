@@ -88,7 +88,7 @@ namespace :migrate do
                t.send(:display_file_name, t.title, t.song_file.extension)
         t.save
       rescue => e
-        puts e.message
+        puts "#{e.message}: #{t.title} (#{t.id})"
       end
     }
   end
