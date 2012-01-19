@@ -32,11 +32,11 @@ $(function() {
     },
 
     renderControls: function() {
-      /* if (this.page > 1) {
+      if (this.page > 1) {
         $('.view-all').show();
-      } else { */
+      } else {
         $('.view-all').hide();
-      // }
+      }
 
       Search.prototype.renderControls.call(this);
     },
