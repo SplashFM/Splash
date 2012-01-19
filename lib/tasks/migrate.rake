@@ -84,7 +84,8 @@ namespace :migrate do
 
       begin
         t.data = t.data.to_file(:original)
-        t.send :set_data_content_disposition, t.title
+        t.send :set_data_content_disposition,
+               t.display_file_name(t.title, t.song_file.extension)
         t.save
       rescue => e
         puts e.message
