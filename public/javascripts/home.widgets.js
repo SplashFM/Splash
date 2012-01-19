@@ -1,8 +1,10 @@
 $(function() {
   window.HomeController = Backbone.View.extend({
-    initialize: function() {
-      _.bindAll(this, 'showAllResults');
+    events: {
+      'search:expand': 'searchExpanded'
+    },
 
+    initialize: function() {
       this.trackSearch = new TrackSearch({perPage: this.options.tracksPerPage});
 
       this.eventFeed   = new Events({
@@ -36,14 +38,15 @@ $(function() {
       });
 
       this.allResults = new TrackSearch.AllResults();
-
-      $(this.el).bind('search:expand', this.showAllResults);
     },
 
+    searchExpanded: function(_, data) {
+      this.showAllResults(data.terms);
+    },
 
-    showAllResults: function(_, data) {
+    showAllResults: function(searchTerms) {
       this.$('[data-widget = "events"]').
-        prepend(this.allResults.load(data.terms).el);
+        prepend(this.allResults.load(searchTerms).el);
     },
 
     render: function() {
