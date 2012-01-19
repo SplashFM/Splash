@@ -82,6 +82,10 @@ module UI
     module Matchers
       include Base::Helpers
 
+      def has_disabled_filters?
+        has_css?(w('filter-following', 'li.disabled'), :count => 4)
+      end
+
       def has_update_counter?(opts)
         has_css?(w('update-count'), :visible => true) &&
           has_content?(t('events.updates', opts))

@@ -2,6 +2,7 @@ require 'acceptance/acceptance_helper'
 
 feature "Track search box", :adapter => :postgresql, :js => true do
   include UI::TrackSearch
+  include UI::Feed
 
   subject { page }
 
@@ -53,5 +54,20 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     expanded_track_results {
       should have(15).expanded_track_results
     }
+  end
+
+  scenario "Disable controls when viewing all results" do
+    10.times { |i| create(DiscoveredTrack).title!("Track #{i}") }
+
+    search_tracks_for('Track') {
+      load_more_results
+      view_all_results
+    }
+
+    track_search  {
+      should have_disabled_search
+      should have_disabled_upload
+    }
+    feed { should have_disabled_filters }
   end
 end

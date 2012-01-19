@@ -41,6 +41,9 @@ $(function() {
     },
 
     searchExpanded: function(_, data) {
+      this.eventFeed.disable();
+      this.trackSearch.disable();
+
       this.showAllResults(data.terms);
     },
 
@@ -91,6 +94,13 @@ $(function() {
 
       this.upload = new Upload().render();
       this.$('.wrap').append(this.upload.hide().el);
+    },
+
+    disable: function() {
+      $(this.el).block({message: null});
+
+      this.$('input.field').attr('disabled', true);
+      this.$('[data-widget = "toggle-upload"]').addClass('disabled');
     },
 
     renderControls: function() {

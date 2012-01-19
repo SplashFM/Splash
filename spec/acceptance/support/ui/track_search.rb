@@ -38,6 +38,10 @@ module UI
         within w('results'), &do_stuff
       end
 
+      def track_search(&do_stuff)
+        within w('track-search'), &do_stuff
+      end
+
       def search_tracks_for(terms, &do_stuff)
         find(w('track-search', 'input')).set(terms)
 
@@ -60,6 +64,14 @@ module UI
     end
 
     module Matchers
+      def has_disabled_search?
+        has_css?('input[disabled = "disabled"]')
+      end
+
+      def has_disabled_upload?
+        has_css?(w('toggle-upload') + '.disabled')
+      end
+
       def has_no_load_more_results_link?
         wait_until { has_visible_controls? }
 

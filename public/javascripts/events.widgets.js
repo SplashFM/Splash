@@ -40,6 +40,12 @@ $(function() {
       this.feed.updateCount(this.updateCounterFilters(), this.renderUpdateCount);
     },
 
+    disable: function() {
+      this.settings.disable();
+
+      $(this.el).block({baseZ: 50, message: null});
+    },
+
     fetch: function(add) {
       this.feed.fetch({
         add:     add,
@@ -397,6 +403,14 @@ $(function() {
         // TODO: Find a better way to do this.
         $('[data-widget = "filter-following"] a[href = "#mentions"]').click();
       }
+    },
+
+    disable: function() {
+      var ff = $('[data-widget = "filter-following"]');
+
+      $('li', ff).addClass('disabled');
+
+      $(ff).block({message: null});
     },
 
     filters: function() {
