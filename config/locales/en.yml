@@ -15,6 +15,7 @@ en:
   all_results:
     header: All songs for "%{terms}"
     album: Album
+    close: Close
     rank: Rank
     title: Title
     performers: Artist

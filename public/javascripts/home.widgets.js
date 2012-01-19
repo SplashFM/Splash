@@ -144,10 +144,17 @@ $(function() {
 
   window.TrackSearch.AllResults = Backbone.View.extend({
     className: 'all-results',
+    events: {
+      'click [data-widget = "close"]': 'close'
+    },
     template: $('#tmpl-track-search-all-results').template(),
 
     initialize: function() {
       this.table = new TrackSearch.AllResults.Results;
+    },
+
+    close: function() {
+      $(this.el).detach();
     },
 
     load: function(searchTerms) {
