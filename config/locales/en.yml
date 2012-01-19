@@ -13,6 +13,7 @@ en:
         invalid_attachment: is invalid. Use one of %{allowed}
 
   all_results:
+    header: All songs for "%{terms}"
     album: Album
     rank: Rank
     title: Title

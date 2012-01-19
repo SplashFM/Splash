@@ -169,13 +169,23 @@ $tutorial-dot-h: 15px
           +sprite-position(2, 3)
 
 .all-results
+  $all-results-border: 3px solid #e0e0e1
+
   background: $feed-bg
-  border-right: 3px solid #e0e0e1
+  border-right: $all-results-border
   height: 100%
   margin-top: -$feed-events-padding-top
   position: absolute
   width: 96%
   z-index: 100
+
+  .all-results-header
+    padding: 21px 7px 18px 21px
+    border-bottom: $all-results-border
+
+  h2
+    color: #999
+    font: 16px bold AvantGardeBold,arial,sans-serif
 
   table
     width: 100%

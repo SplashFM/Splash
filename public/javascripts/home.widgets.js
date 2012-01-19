@@ -144,21 +144,29 @@ $(function() {
 
   window.TrackSearch.AllResults = Backbone.View.extend({
     className: 'all-results',
+    template: $('#tmpl-track-search-all-results').template(),
 
     initialize: function() {
       this.table = new TrackSearch.AllResults.Results;
     },
 
     load: function(searchTerms) {
+      this.setHeader(searchTerms)
+
       this.table.load(searchTerms);
 
       return this;
     },
 
     render: function() {
+      $(this.el).html($.tmpl(this.template));
       $(this.el).append(this.table.el);
 
       return this;
+    },
+
+    setHeader: function(searchTerms) {
+      this.$('h2').text(I18n.t('all_results.header', {terms: searchTerms}));
     },
   });
 
