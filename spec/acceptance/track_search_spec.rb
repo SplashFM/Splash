@@ -31,6 +31,16 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     track_results { should have_view_all_results_link }
   end
 
+  scenario "Hide \"Load More Results\" link after seing 10 more results" do
+    20.times { |i| create(DiscoveredTrack).title!("Track #{i}") }
+
+    search_tracks_for('Track') {
+      load_more_results
+      load_more_results
+    }
+
+    track_results { should have_no_load_more_results_link }
+  end
 
   scenario "Paginated results" do
     pending

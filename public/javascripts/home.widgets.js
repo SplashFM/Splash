@@ -16,6 +16,7 @@ $(function() {
       'upload:splash': 'onUploadSplash',
       'upload:start': 'onUploadStart'
     }, Search.prototype.events),
+    maxBrowseablePages: 2,
     menuContainer: 'ul',
 
     initialize: function() {

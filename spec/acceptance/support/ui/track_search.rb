@@ -42,8 +42,20 @@ module UI
     end
 
     module Matchers
+      def has_no_load_more_results_link?
+        wait_until { has_visible_controls? }
+
+        within('.controls') {
+          has_no_css?('a[data-widget = "load-more"]', :visible => true)
+        }
+      end
+
       def has_view_all_results_link?
         has_link?(t('shared.feed_search.view_all_results'))
+      end
+
+      def has_visible_controls?
+        has_css?('.controls', :visible => true)
       end
     end
   end
