@@ -104,4 +104,11 @@ namespace :migrate do
       end
     }
   end
+
+  task :set_undiscovered_tracks_rank => :environment do
+    ActiveRecord::Base.connection.
+      execute "update tracks
+               set popularity_rank = -1
+               where type = 'UndiscoveredTrack' and popularity_rank is null"
+  end
 end
