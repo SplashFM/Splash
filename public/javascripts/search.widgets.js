@@ -20,7 +20,6 @@ $(function() {
       this.container = this.$(this.container);
       this.menu      = this.$(this.menuContainer || this.container);
       this.template  = $(this.template).template();
-      this.page      = 1;
       this.searching = {readyState: 4};
 
       _.bindAll(this, 'hide', 'search', 'loadMoreResults',
@@ -38,6 +37,12 @@ $(function() {
 
     cancelPreviousSearch: function() {
       if (this.searching.readyState < 4) this.searching.abort();
+    },
+
+    fetchResults: function() {
+      var data = {page: this.page, with_text: this.term()};
+
+      return this.collection.fetch({data: data});
     },
 
     hide: function() {
@@ -63,7 +68,7 @@ $(function() {
 
       this.toggleLoading();
 
-      this.collection.fetch({data: {page: this.page, with_text: this.term()}});
+      this.fetchResults();
     },
 
     maybeSearch: function() {
@@ -118,8 +123,9 @@ $(function() {
         this.cancelPreviousSearch();
         this.toggleLoading();
 
+        this.page      = 1;
         this.lastTerm  = this.term();
-        this.searching = this.collection.fetch({data: {with_text: this.term()}});
+        this.searching = this.fetchResults();
       }
     },
 
