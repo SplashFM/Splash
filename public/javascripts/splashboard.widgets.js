@@ -1,4 +1,60 @@
 $(function() {
+  window.SplashboardController = Backbone.View.extend({
+    initialize: function() {
+      this.topTracks = new Splashboard.Items({
+        template: '#tmpl-event-splash',
+        feed: new TrackList,
+        extraClass: 'live-feed',
+        numFlipper: true,
+      });
+      this.topTracksScroll = new EndlessScroll({
+        data: this.topTracks,
+        spinnerContainer: $('#tab-top-tracks .loading-spinner-container'),
+        noMoreResults: $('<p/>').
+          text(I18n.t('splashboards.all_loaded')).
+          addClass('loaded'),
+      });
+
+      this.myTopTracks = new Splashboard.Items({
+        template: '#tmpl-event-splash',
+        feed: new TrackList,
+        app: window.App,
+        filters: {user_id: this.options.userID},
+        extraClass: 'live-feed',
+        numFlipper: true,
+      });
+      this.myTopTracksScroll = new EndlessScroll({
+        data: this.myTopTracks,
+        spinnerContainer: $('#tab-my-top-tracks .loading-spinner-container'),
+        noMoreResults: $('<p/>').
+          text(I18n.t('splashboards.all_loaded')).
+          addClass('loaded'),
+      });
+
+      this.topUsers = new Splashboard.Items({
+        template: '#tmpl-user',
+        feed: new UserList,
+        app: window.App,
+        extraClass: 'live-feed',
+        waterNums: true,
+      });
+      this.topUsersScroll = new EndlessScroll({
+        data: this.topUsers,
+        spinnerContainer: $('#tab-top-users .loading-spinner-container'),
+        noMoreResults: $('<p/>').
+          text(I18n.t('splashboards.all_loaded')).
+          addClass('loaded'),
+      });
+    },
+
+    render: function() {
+      $('#tab-top-tracks').prepend(this.topTracks.el);
+      $('#tab-my-top-tracks').prepend(this.myTopTracks.el);
+      $('#tab-top-users').prepend(this.topUsers.el);
+
+      $('.splashboard .tabs').tabs('select', this.options.selectedTab)
+    },
+  });
 
   window.Splashboard = {}
   Splashboard.Items = Backbone.View.extend({
@@ -9,8 +65,6 @@ $(function() {
       _.extend(this, opts);
 
       _.bindAll(this, 'fetchDone', 'renderItem');
-
-      this.app         = opts.app;
 
       this.template = $(this.template).template();
       this.feed.bind('reset', this.render, this);

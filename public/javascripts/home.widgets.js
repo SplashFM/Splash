@@ -1,4 +1,60 @@
 $(function() {
+  window.HomeController = Backbone.View.extend({
+    initialize: function() {
+      _.bindAll(this, 'showAllResults');
+
+      this.trackSearch = new TrackSearch({perPage: this.options.tracksPerPage});
+
+      this.eventFeed   = new Events({
+        currentUserID: this.options.userID,
+        filters:       _.extend(
+          {
+            user:     this.options.userID,
+            follower: this.options.userID
+          },
+          this.options.queryString
+        ),
+        updateFilters: {
+          follower: this.options.userID,
+          splashes: 1,
+        },
+      });
+
+      this.scroll = new EndlessScroll({
+        data: this.eventFeed,
+        noMoreResults: $('<p/>').
+          text(I18n.t('events.all_loaded')).
+          addClass('loaded'),
+        spinnerContainer: this.$('.loading-spinner-container'),
+      });
+
+      this.suggestedSplashers = new SuggestedSplashersView({
+        collection: new SuggestedSplashers(this.options.recommendedUsers),
+        el: this.$('[data-widget = "suggested-users"]').get(0),
+        followerID: this.options.userID,
+        splashersCount: this.options.suggestedUsersPerPage,
+      });
+
+      this.allResults = new TrackSearch.AllResults();
+
+      $(this.el).bind('search:expand', this.showAllResults);
+    },
+
+
+    showAllResults: function(_, data) {
+      this.$('[data-widget = "events"]').
+        prepend(this.allResults.load(data.terms).el);
+    },
+
+    render: function() {
+      this.suggestedSplashers.render();
+      this.allResults.render();
+
+      return this;
+    }
+  });
+
+
   TrackSearch = Search.extend({
     UPLOAD_BEGIN_POS: -625,
     UPLOAD_END_POS: -25,

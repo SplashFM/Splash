@@ -1,55 +1,9 @@
 :javascript
   $(function () {
-    var topTracks = new Splashboard.Items({
-      template: '#tmpl-event-splash',
-      feed: new TrackList,
-      app: window.App,
-      extraClass: 'live-feed',
-      numFlipper: true,
-    })
-    $('#tab-top-tracks').prepend(topTracks.el)
-    var topTracksScroll = new EndlessScroll({
-      data: topTracks,
-      spinnerContainer: $('#tab-top-tracks .loading-spinner-container'),
-      noMoreResults: $('<p/>').
-        text(I18n.t('splashboards.all_loaded')).
-        addClass('loaded'),
-    });
-
-    var myTopTracks = new Splashboard.Items({
-      template: '#tmpl-event-splash',
-      feed: new TrackList,
-      app: window.App,
-      filters: {user_id: #{current_user.id}},
-      extraClass: 'live-feed',
-      numFlipper: true,
-    })
-    $('#tab-my-top-tracks').prepend(myTopTracks.el)
-    var myTopTracksScroll = new EndlessScroll({
-      data: myTopTracks,
-      spinnerContainer: $('#tab-my-top-tracks .loading-spinner-container'),
-      noMoreResults: $('<p/>').
-        text(I18n.t('splashboards.all_loaded')).
-        addClass('loaded'),
-    });
-
-    var topUsers = new Splashboard.Items({
-      template: '#tmpl-user',
-      feed: new UserList,
-      app: window.App,
-      extraClass: 'live-feed',
-      waterNums: true,
-    })
-    $('#tab-top-users').prepend(topUsers.el)
-    var topUsersScroll = new EndlessScroll({
-      data: topUsers,
-      spinnerContainer: $('#tab-top-users .loading-spinner-container'),
-      noMoreResults: $('<p/>').
-        text(I18n.t('splashboards.all_loaded')).
-        addClass('loaded'),
-    });
-
-    $('.splashboard .tabs').tabs('select', #{@selected_tab.to_i})
+    window.Splashboards = new SplashboardController({
+      userID: #{current_user.id},
+      selectedTab: #{@selected_tab.to_i}
+    }).render();
   });
 
 .splashboard
@@ -79,4 +33,3 @@
       #tab-my-top-tracks
         .loading-spinner-container
     .cl &nbsp;
-

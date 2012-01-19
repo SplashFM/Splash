@@ -1,37 +1,17 @@
 :javascript
   $(function () {
-    window.App.trackSearch = new TrackSearch({perPage: #{Track.default_per_page}})
-    window.App.eventFeed = new Events({
-      app:           window.App,
-      currentUserID: #{@user.id},
-      filters:       {user: #{@user.id}},
-      updateFilters: {user: #{@user.id}, splashes: 1},
-    });
-    window.Scroll = new EndlessScroll({
-      data: App.eventFeed,
-      noMoreResults: $('<p/>').
-        text(I18n.t('events.all_loaded')).
-        addClass('loaded'),
-      spinnerContainer: $('.loading-spinner-container'),
-    });
+    window.Profile = new ProfileController({
+      el: $('body'),
+      isOwner: #{owner?.inspect},
+      relationship: #{
+        {:follower_id => current_user.id,
+         :followed_id => @user.id,
+         :id          => current_user.followed(@user).try(:id)}.to_json
+      },
+      tracksPerPage: #{Track.default_per_page},
+      userID: #{@user.id},
+    }).render();
   });
-
-- unless owner?
-  :javascript
-    $(function() {
-      $('.user-vcard > div').append(
-        new RelationshipView({
-          className: 'follow-container',
-          model:     new Relationship(#{
-                       {:follower_id => current_user.id,
-                        :followed_id => @user.id,
-                        :id          => current_user.followed(@user).try(:id)
-                       }.to_json
-                     }),
-          template:  $('#tmpl-profile-relationship').template(),
-        }).render().el
-      );
-    });
 
 .users-show
   = render "sidebar"

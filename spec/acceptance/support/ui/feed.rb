@@ -37,7 +37,7 @@ module UI
       end
 
       def fetch_feed_updates
-        page.execute_script "window.App.eventFeed.checkForUpdates();"
+        page.execute_script "window.Home.eventFeed.checkForUpdates();"
       end
 
       def with_splash(selector, &do_stuff)

@@ -1,40 +1,13 @@
 :javascript
   $(function () {
-    var qs = #{request.query_string.inspect};
-    window.App.trackSearch = new TrackSearch({perPage: #{Track.default_per_page}})
-    window.App.eventFeed = new Events({
-      app:           window.App,
-      currentUserID: #{current_user.id},
-      filters:       _.extend({
-        user:     #{current_user.id},
-        follower: #{current_user.id}
-      },
-      $.deparam.querystring(qs)),
-      updateFilters: {
-        follower: #{current_user.id},
-        splashes: 1,
-      },
-    });
-    window.Scroll = new EndlessScroll({
-      data: App.eventFeed,
-      noMoreResults: $('<p/>').
-        text(I18n.t('events.all_loaded')).
-        addClass('loaded'),
-      spinnerContainer: $('.loading-spinner-container'),
-    });
-    window.suggestedSplashers = new SuggestedSplashersView({
-      collection: new SuggestedSplashers(#{
-        current_user.recommended_users.to_json
-      }),
-      el: $('[data-widget = "suggested-users"]').get(0),
-      followerID: #{current_user.id},
-      splashersCount: #{User::SUGGESTED_USERS_PER_PAGE},
-    }).render();
-
-    window.allResults = new TrackSearch.AllResults().render();
-    $('body').bind('search:expand', function(_, data) {
-      $('[data-widget = "events"]').prepend(allResults.load(data.terms).el);
-    })
+    window.Home = new HomeController({
+      el: $('body').get(0),
+      queryString: $.deparam.querystring(#{request.query_string.inspect}),
+      recommendedUsers: #{current_user.recommended_users.to_json},
+      suggestedUsersPerPage: #{User::SUGGESTED_USERS_PER_PAGE},
+      tracksPerPage: #{Track.default_per_page},
+      userID: #{current_user.id},
+    }).render()
   });
 
 .home
