@@ -46,6 +46,12 @@ $(function() {
       $(this.el).block({baseZ: 50, message: null});
     },
 
+    enable: function() {
+      this.settings.enable();
+
+      $(this.el).unblock();
+    },
+
     fetch: function(add) {
       this.feed.fetch({
         add:     add,
@@ -411,6 +417,14 @@ $(function() {
       $('li', ff).addClass('disabled');
 
       $(ff).block({message: null});
+    },
+
+    enable: function() {
+      var ff = $('[data-widget = "filter-following"]');
+
+      $('li', ff).removeClass('disabled');
+
+      $(ff).unblock();
     },
 
     filters: function() {

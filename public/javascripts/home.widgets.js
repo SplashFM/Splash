@@ -1,7 +1,8 @@
 $(function() {
   window.HomeController = Backbone.View.extend({
     events: {
-      'search:expand': 'searchExpanded'
+      'search:expand': 'searchExpanded',
+      'search:collapse': 'searchCollapsed',
     },
 
     initialize: function() {
@@ -38,6 +39,11 @@ $(function() {
       });
 
       this.allResults = new TrackSearch.AllResults();
+    },
+
+    searchCollapsed: function() {
+      this.eventFeed.enable();
+      this.trackSearch.enable();
     },
 
     searchExpanded: function(_, data) {
@@ -101,6 +107,13 @@ $(function() {
 
       this.$('input.field').attr('disabled', true);
       this.$('[data-widget = "toggle-upload"]').addClass('disabled');
+    },
+
+    enable: function() {
+      this.$('input.field').attr('disabled', false);
+      this.$('[data-widget = "toggle-upload"]').removeClass('disabled');
+
+      $(this.el).unblock();
     },
 
     renderControls: function() {
@@ -222,6 +235,8 @@ $(function() {
     },
 
     close: function() {
+      $(this.el).trigger('search:collapse');
+
       $(this.el).detach();
     },
 
