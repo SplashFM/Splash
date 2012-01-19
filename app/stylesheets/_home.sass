@@ -180,8 +180,25 @@ $tutorial-dot-h: 15px
   z-index: 100
 
   .all-results-header
-    padding: 21px 7px 18px 21px
+    $all-results-padding-bottom: 18px
+    $all-results-padding-right: 7px
+
     border-bottom: $all-results-border
+    padding: 21px $all-results-padding-right $all-results-padding-bottom 21px
+    position: relative
+
+    .close
+      $all-results-close-button-size: 18px
+
+      background: url(/images/all-results-close.png) no-repeat right 50%
+      bottom: $all-results-padding-bottom
+      color: #c3c9cc
+      font: 10px/18px AvantGardeBook,arial,sans-serif
+      height: $all-results-close-button-size
+      display: inline-block
+      padding-right: $all-results-close-button-size + 7px
+      position: absolute
+      right: $all-results-padding-right
 
   h2
     color: #999
