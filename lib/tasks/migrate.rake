@@ -84,7 +84,7 @@ namespace :migrate do
 
       begin
         t.data = t.data.to_file(:original)
-        t.send :set_data_content_disposition
+        t.send :set_data_content_disposition, t.title
         t.save
       rescue => e
         puts e.message
