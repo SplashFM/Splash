@@ -2,6 +2,9 @@
 @import compass/typography/text/replacement
 @import compass/utilities/sprites/sprite-img
 
+$feed-bg: #fff
+$feed-events-padding-top: 20px
+
 $tutorial-w: 493px
 $tutorial-h: 376px
 $tutorial-c-pad-top: 27px
@@ -164,3 +167,35 @@ $tutorial-dot-h: 15px
           +sprite-position(2, 1)
         &:active
           +sprite-position(2, 3)
+
+.all-results
+  background: $feed-bg
+  border-right: 3px solid #e0e0e1
+  height: 100%
+  margin-top: -$feed-events-padding-top
+  position: absolute
+  width: 96%
+  z-index: 100
+
+  table
+    width: 100%
+
+    td
+      font: 10px AvantGardeBook,arial,sans-serif
+    th
+      background: #e0edf7
+      font: 10px bold AvantGardeBold,arial,sans-serif
+
+    th, td
+      color: #516c88
+      padding: 9px
+
+    .rank
+      width: 5%
+
+    tr
+      border-bottom: 1px solid #e0e0e1
+
+    tbody tr
+      &:hover
+        background: #ecf4fa
