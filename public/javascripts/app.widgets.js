@@ -296,8 +296,13 @@ $(function() {
   window.BaseApp.GlobalSearch = Backbone.View.extend({
     el: '[data-widget = "global-search"]',
     events: {
-      'blur .field': 'collapse',
       'focus .field': 'expand',
+    },
+
+    initialize: function() {
+      _.bindAll(this, 'collapse');
+
+      $(this.el).clickout(this.collapse);
     },
 
     collapse: function() {
