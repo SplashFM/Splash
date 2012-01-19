@@ -3,7 +3,6 @@
 @import compass/utilities/sprites/sprite-img
 
 $feed-bg: #fff
-$feed-events-padding-top: 20px
 
 $tutorial-w: 493px
 $tutorial-h: 376px
@@ -168,13 +167,15 @@ $tutorial-dot-h: 15px
         &:active
           +sprite-position(2, 3)
 
+.events-wrap
+  position: relative
+
 .all-results
   $all-results-border: 3px solid #e0e0e1
 
   background: $feed-bg
   border-right: $all-results-border
   height: 100%
-  margin-top: -$feed-events-padding-top
   position: absolute
   width: 96%
   z-index: 100

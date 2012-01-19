@@ -45,8 +45,7 @@ $(function() {
     },
 
     showAllResults: function(searchTerms) {
-      this.$('[data-widget = "events"]').
-        prepend(this.allResults.load(searchTerms).el);
+      this.$('.events-wrap').prepend(this.allResults.load(searchTerms).el);
     },
 
     render: function() {
