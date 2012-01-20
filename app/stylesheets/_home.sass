@@ -219,6 +219,10 @@ $tutorial-dot-h: 15px
       background: #e0edf7
       font: 10px bold AvantGardeBold,arial,sans-serif
 
+      &.rank
+        +replace-text-with-dimensions("all-results-rank.png")
+        background-position: 70% 50%
+
     th, td
       color: #516c88
       padding: 9px 9px 9px $all-results-padding-left
