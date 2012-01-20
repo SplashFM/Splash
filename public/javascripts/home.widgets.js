@@ -809,6 +809,9 @@ $(function() {
       this.renderShade();
 
       $(this.shadeEl).show();
+
+      if (this.firstShow) this.renderEl();
+
       $(this.el).show();
 
       if (this.firstShow) {
