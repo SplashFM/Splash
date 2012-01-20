@@ -72,6 +72,7 @@ $(function() {
     UPLOAD_BEGIN_POS: -625,
     UPLOAD_END_POS: -25,
 
+    animation: new Animation('slide', {direction: 'up'}, 200),
     collection: new TrackList,
     el: '[data-widget = "track-search"]',
     events: _.extend({
