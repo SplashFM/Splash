@@ -172,6 +172,7 @@ $tutorial-dot-h: 15px
 
 .all-results
   $all-results-border: 3px solid #e0e0e1
+  $all-results-padding-left: 21px
 
   background: $feed-bg
   border-right: $all-results-border
@@ -185,7 +186,11 @@ $tutorial-dot-h: 15px
     $all-results-padding-right: 7px
 
     border-bottom: $all-results-border
-    padding: 21px $all-results-padding-right $all-results-padding-bottom 21px
+    padding:
+      top: 21px
+      right: $all-results-padding-right
+      bottom: $all-results-padding-bottom
+      left: $all-results-padding-left
     position: relative
 
     .close
