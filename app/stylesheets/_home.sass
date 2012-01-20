@@ -234,5 +234,17 @@ $tutorial-dot-h: 15px
       border-bottom: 1px solid #e0e0e1
 
     tbody tr
+      .rank
+        text-align: right
+
+        span
+          display: inline-block
+          height: 18px
+          width: 100%
+
       &:hover
         background: #ecf4fa
+
+        .rank
+          +replace-text-with-dimensions("all-results-play-up.png")
+          background-position: 70% 50%
