@@ -83,7 +83,9 @@ namespace :migrate do
       next unless t.data.file?
 
       begin
-        t.data = t.data.to_file(:original)
+        f = t.data.to_file(:original)
+
+        t.data = f
 
         t.send :extract_metadata unless t.title.present?
         t.send :set_data_content_disposition,
@@ -91,6 +93,8 @@ namespace :migrate do
         t.save
       rescue => e
         puts "#{e.message}: #{t.title} (#{t.id})"
+      ensure
+        f.close! if f
       end
     }
   end
