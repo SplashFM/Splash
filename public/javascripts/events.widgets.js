@@ -43,7 +43,11 @@ $(function() {
     disable: function() {
       this.settings.disable();
 
-      $(this.el).block({baseZ: 50, message: null});
+      $(this.el).block({
+        baseZ: 50,
+        message: null,
+        overlayCSS: {opacity: 0}
+      });
     },
 
     enable: function() {
@@ -416,7 +420,10 @@ $(function() {
 
       $('li', ff).addClass('disabled');
 
-      $(ff).block({message: null});
+      $(ff).block({
+        message: null,
+        overlayCSS: {opacity: 0}
+      });
     },
 
     enable: function() {

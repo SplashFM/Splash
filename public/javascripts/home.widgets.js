@@ -105,7 +105,10 @@ $(function() {
     },
 
     disable: function() {
-      $(this.el).block({message: null});
+      $(this.el).block({
+        message: null,
+        overlayCSS: {opacity: 0}
+      });
 
       this.$('input.field').attr('disabled', true);
       this.$('[data-widget = "toggle-upload"]').addClass('disabled');
