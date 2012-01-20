@@ -9,7 +9,13 @@ $(function() {
     }
 
     function animate(el, mode, callback) {
-      $(el).effect(effect, _.extend(options, {mode: mode}, speed, callback))
+      if (effect) {
+        $(el).effect(effect, _.extend(options, {mode: mode}, speed, callback))
+      } else {
+        $(el)[mode]();
+
+        if (callback) callback();
+      }
     }
 
     function maybe(callback, context) {
@@ -22,4 +28,6 @@ $(function() {
       // undefined when no callback was passed
     }
   }
+
+  window.NilAnimation = new Animation;
 });
