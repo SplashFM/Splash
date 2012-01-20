@@ -1,5 +1,7 @@
 $(function() {
   window.Search = Backbone.View.extend({
+    animation: NilAnimation,
+
     container: '[data-widget = "results"]',
 
     delay: 500,
@@ -46,9 +48,11 @@ $(function() {
     },
 
     hide: function() {
-      this.$('.controls').hide();
-      this.$('[data-widget = "empty"]').hide();
-      $(this.container).hide();
+      if (this.container.is(':visible')) {
+        this.$('.controls').hide();
+        this.$('[data-widget = "empty"]').hide();
+        this.animation.hide(this.container);
+      }
     },
 
     isSearchable: function() {
@@ -94,7 +98,10 @@ $(function() {
       this.toggleLoading();
 
       this.renderControls();
-      this.container.show();
+      if (! $(this.container).is(':visible')) {
+        this.animation.show(this.container);
+      }
+
       Widgets.Scroll.init();
     },
 
