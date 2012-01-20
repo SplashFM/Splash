@@ -305,8 +305,14 @@ $(function() {
   });
 
   window.TrackSearch.AllResults.Result = Backbone.View.extend({
+    events: {'click': 'play'},
     tagName: 'tr',
     template: $('#tmpl-track-search-all-results-table-row').template(),
+
+    play: function() {
+      $(this.el).trigger('request:play',
+                         {track: this.model.toJSON()});
+    },
 
     render: function() {
       $(this.el).html($.tmpl(this.template, this.model.toJSON()));
