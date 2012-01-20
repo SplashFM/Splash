@@ -54,7 +54,9 @@ $(function() {
     },
 
     showAllResults: function(searchTerms) {
-      this.$('.events-wrap').prepend(this.allResults.load(searchTerms).el);
+      this.$('.events-wrap').prepend(this.allResults.el);
+
+      this.allResults.load(searchTerms);
     },
 
     render: function() {
@@ -232,18 +234,24 @@ $(function() {
 
     initialize: function() {
       this.table = new TrackSearch.AllResults.Results;
+
+      $(this.el).hide();
+
+      this.animation = new Animation('slide', {direction: 'left'}, 200);
     },
 
     close: function() {
       $(this.el).trigger('search:collapse');
 
-      $(this.el).detach();
+      this.animation.hide(this.el, function() { $(this.el).detach(); }, this);
     },
 
     load: function(searchTerms) {
       this.setHeader(searchTerms)
 
       this.table.load(searchTerms);
+
+      this.animation.show(this.el);
 
       return this;
     },
