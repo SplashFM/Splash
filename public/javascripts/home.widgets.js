@@ -266,17 +266,17 @@ $(function() {
 
     initialize: function() {
       this.collection = new TrackList;
+      this.collection.bind('reset', this.addRanks, this);
       this.collection.bind('reset', this.reset, this);
     },
 
-    data: function() {
-      var idxs = _.range(this.collection.length);
+    addRanks: function(collection) {
+      var idxs = _.range(collection.length);
 
-      return _(this.collection.toJSON()).
+      _(collection.toArray()).
         chain().
         zip(idxs).
-        map(function(mi) { return _.extend(mi[0], {rank: mi[1] + 1}); }).
-        value();
+        each(function(mi) { mi[0].set({rank: mi[1] + 1}); });
     },
 
     load: function(searchTerms) {
@@ -284,7 +284,15 @@ $(function() {
     },
 
     render: function() {
-      $(this.el).html($.tmpl(this.template, {results: this.data()}));
+      $(this.el).html($.tmpl(this.template));
+
+      var $tbody = this.$('tbody');
+
+      this.collection.each(function(m) {
+        var v = new TrackSearch.AllResults.Result({model: m});
+
+        $tbody.append(v.render().el);
+      }, this);
 
       return this;
     },
@@ -295,6 +303,19 @@ $(function() {
       this.render();
     },
   });
+
+  window.TrackSearch.AllResults.Result = Backbone.View.extend({
+    tagName: 'tr',
+    template: $('#tmpl-track-search-all-results-table-row').template(),
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template, this.model.toJSON()));
+
+      return this;
+    }
+  });
+
+
 
   Upload = Backbone.View.extend({
     className: 'uploadForm',
