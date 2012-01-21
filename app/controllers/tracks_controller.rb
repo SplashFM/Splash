@@ -6,9 +6,6 @@ class TracksController < ApplicationController
 
   respond_to :json
 
-  has_scope :with_text
-  has_scope :popular
-
   def index
     if params[:user_id] && user = User.find(params[:user_id])
       results = user.top_tracks(current_page, TRACKS_PER_PAGE)
@@ -21,7 +18,8 @@ class TracksController < ApplicationController
               TRACKS_PER_ALL_RESULTS_PAGE
             end
 
-      results = apply_scopes(Track).page(current_page).per(per)
+      parent  = params[:popular].present? ? Track.popular : Track
+      results = parent.with_text(params[:with_text]).page(current_page).per(per)
     end
 
     respond_with results.map { |t|
