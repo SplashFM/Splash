@@ -6,7 +6,6 @@ $(function() {
 
     events: {
       'keyup :text': 'maybeSearch',
-      'click [data-widget = "load-more"]': 'loadMoreResults',
       'submit': 'cancel',
     },
 
@@ -22,13 +21,11 @@ $(function() {
       this.template  = $(this.template).template();
       this.searching = {readyState: 4};
 
-      _.bindAll(this, 'hide', 'search', 'loadMoreResults',
-                      'renderItem', 'renderControls');
+      _.bindAll(this, 'hide', 'search', 'renderItem', 'renderControls');
 
       this.$(':text').attr('autocomplete', 'off');
 
       this.collection.bind('reset', this.render, this);
-      this.collection.bind('add', this.renderItem, this);
 
       $(this.el).clickout(this.hide);
 
@@ -46,8 +43,7 @@ $(function() {
     fetchResults: function() {
       this.loading();
 
-      var data = {page: this.page, with_text: this.term()};
-
+      var data = {with_text: this.term()};
       return this.collection.fetch({data: _.extend(data, this.extraParams)});
     },
 
@@ -65,16 +61,6 @@ $(function() {
 
     loading: function() {
       this.$(':text').addClass('loading');
-    },
-
-    loadMoreResults: function(e) {
-      e.preventDefault();
-
-      this.page++;
-
-      this.$('.controls').hide();
-
-      this.fetchResults();
     },
 
     maybeSearch: function() {
@@ -113,14 +99,6 @@ $(function() {
 
     renderControls: function() {
       if (this.collection.hasFullPages(this.options.perPage)) {
-        var mbp = this.maxBrowseablePages;
-
-        if (mbp && this.page > mbp) {
-          this.$('[data-widget = "load-more"]').hide();
-        } else {
-          this.$('[data-widget = "load-more"]').show();
-        }
-
         this.$('.controls').show();
       } else {
         this.$('.controls').hide();
@@ -131,7 +109,6 @@ $(function() {
       if (this.isSearchable()) {
         if (this.cancelableSearch) this.cancelPreviousSearch();
 
-        this.page      = 1;
         this.lastTerm  = this.term();
         this.searching = this.fetchResults();
       }
