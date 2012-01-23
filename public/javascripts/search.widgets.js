@@ -39,7 +39,13 @@ $(function() {
       if (this.searching.readyState < 4) this.searching.abort();
     },
 
+    doneLoading: function() {
+      this.$(':text').removeClass('loading');
+    },
+
     fetchResults: function() {
+      this.loading();
+
       var data = {page: this.page, with_text: this.term()};
 
       return this.collection.fetch({data: _.extend(data, this.extraParams)});
@@ -57,8 +63,8 @@ $(function() {
       return this.term().length > 0 && this.lastTerm !== this.term();
     },
 
-    toggleLoading: function() {
-      this.$(':text').toggleClass('loading');
+    loading: function() {
+      this.$(':text').addClass('loading');
     },
 
     loadMoreResults: function(e) {
@@ -67,8 +73,6 @@ $(function() {
       this.page++;
 
       this.$('.controls').hide();
-
-      this.toggleLoading();
 
       this.fetchResults();
     },
@@ -93,7 +97,7 @@ $(function() {
 
       if (this.open) this.open.call(this);
 
-      this.toggleLoading();
+      this.doneLoading();
 
       this.renderControls();
       if (! $(this.container).is(':visible')) {
@@ -126,7 +130,6 @@ $(function() {
     search: function() {
       if (this.isSearchable()) {
         this.cancelPreviousSearch();
-        this.toggleLoading();
 
         this.page      = 1;
         this.lastTerm  = this.term();
