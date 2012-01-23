@@ -122,16 +122,6 @@ $(function() {
       $(this.el).unblock();
     },
 
-    renderControls: function() {
-      if (this.page > 1) {
-        $('.view-all').show();
-      } else {
-        $('.view-all').hide();
-      }
-
-      Search.prototype.renderControls.call(this);
-    },
-
     onUploadError: function() {
       this.uploadBar.addClass('error');
       this.uploadBar.val(I18n.t('upload.error'));
