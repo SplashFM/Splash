@@ -16,12 +16,13 @@ $(function() {
     initialize: function(opts) {
       _.extend(this, opts);
 
-      this.container = this.$(this.container);
-      this.menu      = this.$(this.menuContainer || this.container);
-      this.template  = $(this.template).template();
-      this.searching = {readyState: 4};
+      this.container       = this.$(this.container);
+      this.menu            = this.$(this.menuContainer || this.container);
+      this.template        = $(this.template).template();
+      this.searching       = [];
 
-      _.bindAll(this, 'hide', 'search', 'renderItem', 'renderControls');
+      _.bindAll(this, 'hide', 'search', 'renderItem', 'renderControls',
+                      'resultsLoaded');
 
       this.$(':text').attr('autocomplete', 'off');
 
@@ -33,7 +34,8 @@ $(function() {
     },
 
     cancelPreviousSearch: function() {
-      if (this.searching.readyState < 4) this.searching.abort();
+      if (this.searching.readyState < 4)
+        _.each(this.searching, function(s) { s.abort(); });
     },
 
     doneLoading: function() {
@@ -43,11 +45,17 @@ $(function() {
     fetchResults: function() {
       this.loading();
 
-      var data = {with_text: this.term()};
-      return this.collection.fetch({data: _.extend(data, this.extraParams)});
+      var data = _.extend({with_text: this.term()}, this.extraParams);
+      var xhr  = this.collection.fetch({data: data, silent: true});
+
+      xhr.done(this.resultsLoaded);
+
+      this.searching.push(xhr);
     },
 
     hide: function() {
+      this.searching = [];
+
       if (this.container.is(':visible')) {
         this.$('.controls').hide();
         this.$('[data-widget = "empty"]').hide();
@@ -110,7 +118,8 @@ $(function() {
         if (this.cancelableSearch) this.cancelPreviousSearch();
 
         this.lastTerm  = this.term();
-        this.searching = this.fetchResults();
+
+        this.fetchResults();
       }
     },
 
