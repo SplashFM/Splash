@@ -60,49 +60,7 @@ class Track < ActiveRecord::Base
   #
   # @return a (possibly empty) list of tracks
   def self.with_text(query)
-    return with_weighted_text(query)
-    where(["to_tsvector('english',
-                        coalesce(title, '') || ' ' ||
-                        coalesce(performers, '') || ' ' ||
-                        coalesce(albums, '')) @@
-              plainto_tsquery('english', ?)",
-       query
-    ]).order(:popularity_rank)
-  end
-
-  def self.with_weighted_text(query)
-   tsv = <<-SQL
-      (setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
-       setweight(to_tsvector('english', coalesce(performers, '')), 'B') ||
-       setweight(to_tsvector('english', coalesce(albums, '')), 'C')
-      )
-    SQL
-    tsq = Track.send(:sanitize_sql, ["plainto_tsquery('english', ?)", query])
-
-    # order of weights: D, C, B, A - meaning: (nothing), albums, performers, title
-    weights = '{0.0, 0.1, 0.3, 1}'
-
-    # 8 divides the rank by the number of unique words in document
-    # 32 divides the rank by itself + 1
-    normalization = "8|32"
-
-    # the ts_rank values vary from 0 to 1
-    # popularity_rank values vary from 1 to 1000
-
-    # how much to weight popularity relative to FTS rank
-    popularity_weight = 0.25
-
-    pop_rank = "#{popularity_weight}*(1 - coalesce(popularity_rank, #{UNDISCOVERED_POPULARITY}) / 1000)"
-    ts_rank = "ts_rank('#{weights}', #{tsv}, #{tsq}, #{normalization})"
-
-    rank = "(#{ts_rank} + #{pop_rank}) as rank"
-
-    # prefer exact matching, but only in title or performers
-    exact = Track.send(:sanitize_sql, ["(title || performers) ilike ? as exact", "%#{query}%"])
-
-    select("*, #{rank}, #{exact}").
-      where("#{tsv} @@ #{tsq}").
-      order("exact DESC, rank DESC")
+    where("(title || performers) ilike ?", '%' + query.gsub(/\s+/, '%') + '%')
   end
 
   def artwork_url
