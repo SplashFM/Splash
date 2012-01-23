@@ -16,6 +16,7 @@ class Track < ActiveRecord::Base
 
   scope :splashed, where('id in (select s.track_id from splashes s)')
   scope :popular, where("popularity_rank < 1000")
+  scope :by_popularity, order('popularity_rank asc')
 
   attr_accessor :scoped_splash_count
 

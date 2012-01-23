@@ -19,7 +19,11 @@ class TracksController < ApplicationController
             end
 
       parent  = params[:popular].present? ? Track.popular : Track
-      results = parent.with_text(params[:with_text]).page(current_page).per(per)
+      results = parent.
+        with_text(params[:with_text]).
+        page(current_page).
+        per(per).
+        by_popularity
     end
 
     respond_with results.map { |t|
