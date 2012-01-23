@@ -3,9 +3,6 @@
     window.Home = new HomeController({
       el: $('body').get(0),
       queryString: $.deparam.querystring(#{request.query_string.inspect}),
-      recommendedUsers: #{
-        current_user.recommended_users.page(1).per(100).to_json
-      },
       suggestedUsersPerPage: #{User::SUGGESTED_USERS_PER_PAGE},
       tracksPerPage: #{Track.default_per_page},
       userID: #{current_user.id},

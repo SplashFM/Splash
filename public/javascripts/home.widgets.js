@@ -32,7 +32,6 @@ $(function() {
       });
 
       this.suggestedSplashers = new SuggestedSplashersView({
-        collection: new SuggestedSplashers(this.options.recommendedUsers),
         el: this.$('[data-widget = "suggested-users"]').get(0),
         followerID: this.options.userID,
         splashersCount: this.options.suggestedUsersPerPage,
@@ -495,6 +494,10 @@ $(function() {
     template: $('#tmpl-suggested-splashers').template(),
 
     initialize: function() {
+      this.collection = new SuggestedSplashers;
+      this.collection.bind('reset', this.render, this);
+      this.collection.fetch();
+
       this.cursor      = 0;
       this.suggestions = [];
     },
