@@ -253,9 +253,9 @@ $(function() {
     load: function(searchTerms) {
       this.setHeader(searchTerms)
 
-      this.table.load(searchTerms);
-
-      this.animation.show(this.el);
+      this.animation.show(this.el, _.bind(function() {
+        this.table.load(searchTerms);
+      }, this));
 
       return this;
     },
