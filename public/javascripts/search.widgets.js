@@ -4,8 +4,6 @@ $(function() {
 
     container: '[data-widget = "results"]',
 
-    delay: 500,
-
     events: {
       'keyup :text': 'maybeSearch',
       'click [data-widget = "load-more"]': 'loadMoreResults',
