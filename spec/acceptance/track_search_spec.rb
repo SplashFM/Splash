@@ -24,45 +24,18 @@ feature "Track search box", :adapter => :postgresql, :js => true do
     end
   end
 
-  scenario "Show \"View All Result\" link" do
-    10.times { |i| create(DiscoveredTrack).title!("Track #{i}") }
-
-    search_tracks_for('Track') { load_more_results }
-
-    track_results { should have_view_all_results_link }
-  end
-
-  scenario "Hide \"Load More Results\" link after seing 10 more results" do
-    20.times { |i| create(DiscoveredTrack).title!("Track #{i}") }
-
-    search_tracks_for('Track') {
-      load_more_results
-      load_more_results
-    }
-
-    track_results { should have_no_load_more_results_link }
-  end
-
   scenario "View all results" do
     15.times { |i| create(DiscoveredTrack).title!("Track #{i}") }
 
-    search_tracks_for('Track') {
-      load_more_results
-      view_all_results
-    }
+    search_tracks_for('Track') { view_all_results }
 
-    expanded_track_results {
-      should have(15).expanded_track_results
-    }
+    expanded_track_results { should have(15).expanded_track_results }
   end
 
   scenario "Disable controls when viewing all results" do
     10.times { |i| create(DiscoveredTrack).title!("Track #{i}") }
 
-    search_tracks_for('Track') {
-      load_more_results
-      view_all_results
-    }
+    search_tracks_for('Track') { view_all_results }
 
     track_search  {
       should have_disabled_search
