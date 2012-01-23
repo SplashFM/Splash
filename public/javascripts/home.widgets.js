@@ -241,7 +241,7 @@ $(function() {
 
       $(this.el).hide();
 
-      this.animation = new Animation('slide', {direction: 'left'}, 200);
+      this.animation = new Animation('slide', {direction: 'left'}, 500);
     },
 
     close: function() {
