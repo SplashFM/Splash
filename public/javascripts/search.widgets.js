@@ -129,7 +129,7 @@ $(function() {
 
     search: function() {
       if (this.isSearchable()) {
-        this.cancelPreviousSearch();
+        if (this.cancelableSearch) this.cancelPreviousSearch();
 
         this.page      = 1;
         this.lastTerm  = this.term();
