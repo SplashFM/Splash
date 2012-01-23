@@ -10,7 +10,7 @@ $(function() {
 
     function animate(el, mode, callback) {
       if (effect) {
-        $(el).effect(effect, _.extend(options, {mode: mode}, speed, callback))
+        $(el).effect(effect, _.extend(options, {mode: mode}), speed, callback)
       } else {
         $(el)[mode]();
 
