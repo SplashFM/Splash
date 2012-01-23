@@ -306,6 +306,8 @@ $(function() {
     },
 
     collapse: function() {
+      this.$(':text').val('');
+
       this.change('opened', 'closed', '120px')
     },
 
