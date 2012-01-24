@@ -88,6 +88,7 @@ $(function() {
       'search:expand': 'hide',
     }, Search.prototype.events),
     extraParams: {popular: true},
+    keepResults: true,
     maxBrowseablePages: 2,
     menuContainer: 'ul',
 
