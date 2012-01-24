@@ -85,13 +85,7 @@ $(function() {
     render: function() {
       this.menu.empty();
 
-      if (this.collection.length !== 0) {
-        this.$('[data-widget = "empty"]').hide();
-
-        this.collection.each(this.renderItem);
-      } else {
-        this.$('[data-widget = "empty"]').show();
-      }
+      this.collection.each(this.renderItem);
 
       if (this.open) this.open.call(this);
 
