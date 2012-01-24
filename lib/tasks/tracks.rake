@@ -116,8 +116,8 @@ namespace :tracks do
     FTS
     popular_fts = <<-PFTS
       USING gin((
-        setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
-        setweight(to_tsvector('english', coalesce(performers, '')), 'B')
+        setweight(to_tsvector('songs', coalesce(title, '')), 'A') ||
+        setweight(to_tsvector('songs', coalesce(performers, '')), 'B')
       )) where popularity_rank < 1000
     PFTS
     INDEXES = [['index_tracks_for_search', fts, 'tracks'],
