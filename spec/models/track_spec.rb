@@ -40,12 +40,6 @@ describe Track, :adapter => :postgresql do
       Track.with_text('Yes').should have(1).result
     end
 
-    it "finds tracks by album" do
-      create(Track).albums!('Relayer')
-
-      Track.with_text('Relayer').should have(1).result
-    end
-
     it "finds nothing if there's nothing to find" do
       create(Track).
         title('And you and I').
