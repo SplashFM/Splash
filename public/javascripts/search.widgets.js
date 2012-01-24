@@ -63,6 +63,10 @@ $(function() {
       }
     },
 
+    isRefinement: function() {
+      return this.term().indexOf(this.lastTerm) == 0;
+    },
+
     isSearchable: function() {
       return this.term().length > 0 && this.lastTerm !== this.term();
     },
@@ -113,11 +117,23 @@ $(function() {
       }
     },
 
+    resultsLoaded: function(models) {
+      var r = _.find(this.searching.slice(0).reverse(), function(e) {
+        return e.readyState == 4 &&
+               (this.keepResults ? $.parseJSON(e.responseText).length > 0 : 1);
+      }, this);
+
+      if (r) this.useResults($.parseJSON(r.responseText));
+
+      this.render();
+    },
+
     search: function() {
       if (this.isSearchable()) {
         if (this.cancelableSearch) this.cancelPreviousSearch();
+        if (! this.isRefinement()) this.searching = [];
 
-        this.lastTerm  = this.term();
+        this.lastTerm = this.term();
 
         this.fetchResults();
       }
@@ -125,6 +141,10 @@ $(function() {
 
     term: function() {
       return this.$(':text').val();
-    }
+    },
+
+    useResults: function(models) {
+      this.collection.reset(models);
+    },
   });
 });
