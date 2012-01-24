@@ -110,11 +110,7 @@ $(function() {
     },
 
     renderControls: function() {
-      if (this.collection.hasFullPages(this.options.perPage)) {
-        this.$('.controls').show();
-      } else {
-        this.$('.controls').hide();
-      }
+      this.$('.controls').show();
     },
 
     resultsLoaded: function(models) {
