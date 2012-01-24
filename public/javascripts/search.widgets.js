@@ -129,6 +129,8 @@ $(function() {
     },
 
     search: function() {
+      this.$(':text').attr('autocomplete', 'off');
+
       if (this.isSearchable()) {
         if (this.cancelableSearch) this.cancelPreviousSearch();
         if (! this.isRefinement()) this.searching = [];
