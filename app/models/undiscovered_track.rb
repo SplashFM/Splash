@@ -58,6 +58,7 @@ class UndiscoveredTrack < Track
 
   before_validation :extract_metadata, :on => :create, :if => :data?
   before_create :set_data_content_disposition, :if => :file_name_from_metadata
+  before_create :set_default_popularity_rank
   before_update :update_data_content_disposition, :if => :title_changed?
 
   def artwork_url
@@ -116,6 +117,10 @@ class UndiscoveredTrack < Track
 
   def set_data_content_disposition(filename = file_name_from_metadata)
     data.instance_variable_set :@s3_headers, data_content_disposition(filename)
+  end
+
+  def set_default_popularity_rank
+    self.popularity_rank ||= Track::UNDISCOVERED_POPULARITY
   end
 
   def update_data_content_disposition

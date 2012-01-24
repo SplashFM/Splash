@@ -5,7 +5,7 @@ class Track < ActiveRecord::Base
 
   DEFAULT_ARTWORK_URL     = "/images/no_album_art.png"
   # what popularity value to use for UndiscoveredTracks
-  UNDISCOVERED_POPULARITY = 1
+  UNDISCOVERED_POPULARITY = -1
 
   include RedisRecord
 
@@ -80,7 +80,7 @@ class Track < ActiveRecord::Base
     # how much to weight popularity relative to FTS rank
     popularity_weight = 0.25
 
-    pop_rank = "#{popularity_weight}*(1 - coalesce(popularity_rank, #{UNDISCOVERED_POPULARITY}) / 1000)"
+    pop_rank = "#{popularity_weight}*(1 - popularity_rank / 1000)"
     ts_rank = "ts_rank('#{weights}', #{tsv}, #{tsq}, #{normalization})"
 
     rank = "(#{ts_rank} + #{pop_rank}) as rank"
