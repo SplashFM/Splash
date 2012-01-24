@@ -17,6 +17,7 @@ $(function() {
       _.extend(this, opts);
 
       this.container       = this.$(this.container);
+      this.lastTerm        = "";
       this.menu            = this.$(this.menuContainer || this.container);
       this.template        = $(this.template).template();
       this.searching       = [];
@@ -63,8 +64,9 @@ $(function() {
       }
     },
 
-    isRefinement: function() {
-      return this.term().indexOf(this.lastTerm) == 0;
+    isRelated: function() {
+      return this.term().indexOf(this.lastTerm) == 0 ||
+             this.lastTerm.indexOf(this.term()) == 0;
     },
 
     isSearchable: function() {
@@ -123,7 +125,7 @@ $(function() {
 
       if (this.isSearchable()) {
         if (this.cancelableSearch) this.cancelPreviousSearch();
-        if (! this.isRefinement()) this.searching = [];
+        if (! this.isRelated()) this.searching = [];
 
         this.lastTerm = this.term();
 
