@@ -327,6 +327,7 @@ $(function() {
   window.BaseApp.UserSearch = Search.extend({
     collection: new UserList,
     el: '[data-widget = "global-search"]',
+    cancelableSearch: true,
     menuContainer: '[data-widget = "users"] ul',
     template: '#tmpl-global-search-user',
     templateRelationship: $('#tmpl-relationship-list').template(),
