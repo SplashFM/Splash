@@ -318,7 +318,7 @@ $(function() {
     },
 
     reset: function() {
-      $(this.el).empty();
+      this.$('tbody').empty();
 
       this.render();
 
