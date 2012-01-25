@@ -1,9 +1,3 @@
 %div{:data => {:widget => 'full-splash-action'}}
   %a.icon.right.splash-btn{:href => "#", :data => {:widget => 'toggle-splash'}}
-  %form.new-splash{:action => '#'}
-    .inner
-      = render 'shared/comment_area'
-      .right
-        %input.submit.splash{:type => 'submit',
-                             :value => t('splashes.splash.splash')}
-      .clear
+  = render 'shared/splash_form'
