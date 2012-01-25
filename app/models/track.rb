@@ -16,7 +16,6 @@ class Track < ActiveRecord::Base
 
   scope :splashed, where('id in (select s.track_id from splashes s)')
   scope :popular, where("popularity_rank < 1000")
-  scope :by_popularity, order('popularity_rank asc')
 
   attr_accessor :scoped_splash_count
 
@@ -60,12 +59,14 @@ class Track < ActiveRecord::Base
   # @param [String] query the query used to filter tracks
   #
   # @return a (possibly empty) list of tracks
-  def self.with_text(query)
-   tsv = <<-SQL
-      (setweight(to_tsvector('songs', coalesce(title, '')), 'A') ||
-       setweight(to_tsvector('songs', coalesce(performers, '')), 'B'))
+  def self.with_text(query, popular = false)
+    cfg = popular ? 'songs' : 'english'
+
+    tsv = <<-SQL
+      (setweight(to_tsvector('#{cfg}', coalesce(title, '')), 'A') ||
+       setweight(to_tsvector('#{cfg}', coalesce(performers, '')), 'B'))
     SQL
-    tsq = Track.send(:sanitize_sql, ["plainto_tsquery('songs', ?)", query])
+    tsq = Track.send(:sanitize_sql, ["plainto_tsquery('#{cfg}', ?)", query])
 
     # order of weights: D, C, B, A - meaning: (nothing), performers, title
     weights = '{0.0, 0.1, 0.3, 1}'
@@ -85,7 +86,10 @@ class Track < ActiveRecord::Base
 
     rank = "(#{ts_rank} + #{pop_rank}) as rank"
 
-    select("*, #{rank}").where("#{tsv} @@ #{tsq}").order("rank DESC")
+    q = select("*, #{rank}")
+    q = q.where('popularity_rank < 1000') if popular
+
+    q.where("#{tsv} @@ #{tsq}").order('rank DESC')
   end
 
   def artwork_url
