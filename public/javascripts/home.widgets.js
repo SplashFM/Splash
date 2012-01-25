@@ -307,9 +307,15 @@ $(function() {
   });
 
   window.TrackSearch.AllResults.Result = Backbone.View.extend({
-    events: {'click': 'play'},
+    events: {
+      'click': 'clicked',
+    },
     tagName: 'tr',
     template: $('#tmpl-track-search-all-results-table-row').template(),
+
+    clicked: function(e) {
+      if (! $(e.target).is('[data-widget = "toggle-splash"]')) this.play();
+    },
 
     play: function() {
       $(this.el).trigger('request:play',
