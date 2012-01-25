@@ -110,8 +110,7 @@ namespace :tracks do
     fts = <<-FTS
       USING gin((
         setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
-        setweight(to_tsvector('english', coalesce(performers, '')), 'B') ||
-        setweight(to_tsvector('english', coalesce(albums, '')), 'C')
+        setweight(to_tsvector('english', coalesce(performers, '')), 'B')
       ))
     FTS
     popular_fts = <<-PFTS
