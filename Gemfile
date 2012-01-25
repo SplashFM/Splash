@@ -69,6 +69,7 @@ group :development do
   gem "awesome_print", :require => "ap"  # pretty print objects in console via `ap my_object`
   gem "wirble"
   gem "engineyard"
+  gem "active_reload"
 end
 
 # Put Gems used by your application, but not by scap, here:
