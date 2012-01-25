@@ -509,8 +509,12 @@ $(function() {
       this.isEnabled = false;
     },
 
+    doToggle: function() {
+      this.$target.toggle();
+    },
+
     toggle: function() {
-      if (this.isEnabled) this.$target.toggle();
+      if (this.isEnabled) this.doToggle();
 
       this.triggerToggled();
     },
