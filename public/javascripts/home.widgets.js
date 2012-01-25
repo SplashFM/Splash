@@ -249,7 +249,11 @@ $(function() {
     close: function() {
       $(this.el).trigger('search:collapse');
 
-      this.animation.hide(this.el, function() { $(this.el).detach(); }, this);
+      this.animation.hide(this.el, function() {
+        $(this.el).detach();
+
+        this.table.clear();
+      }, this);
     },
 
     load: function(searchTerms) {
