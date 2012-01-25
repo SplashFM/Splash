@@ -299,6 +299,10 @@ $(function() {
         each(function(mi) { mi[0].set({rank: mi[1] + 1}); });
     },
 
+    clear: function() {
+      this.$('tbody').empty();
+    },
+
     load: function(searchTerms) {
       this.collection.fetch({data: {with_text: searchTerms}});
     },
@@ -318,7 +322,7 @@ $(function() {
     },
 
     reset: function() {
-      this.$('tbody').empty();
+      this.clear();
 
       this.render();
 
