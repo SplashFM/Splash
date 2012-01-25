@@ -503,6 +503,8 @@ $(function() {
     initialize: function() {
       this.$target   = $(this.options.target);
       this.isEnabled = this.options.isEnabled;
+
+      if (this.options.doToggle) this.doToggle = this.options.doToggle;
     },
 
     disable: function() {
