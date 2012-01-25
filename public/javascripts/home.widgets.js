@@ -331,6 +331,8 @@ $(function() {
         el: $.tmpl(this.templateSplash).get(0),
       });
 
+      $(this.splash.el).live('splash:splash', _.bind(this.toggleSplash, this));
+
       this.toggle   = new Toggle({
         el:        this.$('[data-widget = "toggle-splash"]'),
         target:    this.splash.el,
