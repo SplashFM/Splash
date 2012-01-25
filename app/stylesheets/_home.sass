@@ -225,7 +225,8 @@ $tutorial-dot-h: 15px
 
     th, td
       color: #516c88
-      padding: 9px 9px 9px $all-results-padding-left
+      padding: 1px 9px 1px $all-results-padding-left
+      height: 35px
 
     .rank
       width: 1%
@@ -234,6 +235,7 @@ $tutorial-dot-h: 15px
       border-bottom: 1px solid #e0e0e1
 
     tbody tr
+
       .rank
         text-align: right
 
@@ -248,3 +250,13 @@ $tutorial-dot-h: 15px
         .rank
           +replace-text-with-dimensions("all-results-play-up.png")
           background-position: 70% 50%
+
+        .splash-toggle
+          display: inline-block
+
+  .actions
+    width: 18px
+
+  .splash-toggle
+    display: none
+    +replace-text-with-dimensions("mini-splash.png")
