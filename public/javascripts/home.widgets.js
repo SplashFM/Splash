@@ -365,8 +365,10 @@ $(function() {
 
     toggleSplash: function() {
       if ($(this.splash.el).is(':visible')) {
+        $(this.el).removeClass('splashing');
         $(this.splash.el).detach();
       } else {
+        $(this.el).addClass('splashing');
         $(this.el).after(this.splash.el);
       }
     },

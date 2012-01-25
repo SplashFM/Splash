@@ -244,7 +244,10 @@ $tutorial-dot-h: 15px
           height: 18px
           width: 100%
 
-      &:hover
+      &.splashing
+        border-bottom: none
+
+      &:hover, &.splashing, td.splash
         background: #ecf4fa
 
         .rank
@@ -254,9 +257,22 @@ $tutorial-dot-h: 15px
         .splash-toggle
           display: inline-block
 
+  td.splash
+    padding-right: 21px
+    padding-bottom: 9px
+
   .actions
     width: 18px
 
   .splash-toggle
     display: none
     +replace-text-with-dimensions("mini-splash.png")
+
+  .new-splash
+    width: 100%
+
+    .inner
+      width: 100%
+
+    textarea
+      width: 98%
