@@ -312,6 +312,7 @@ $(function() {
     },
     tagName: 'tr',
     template: $('#tmpl-track-search-all-results-table-row').template(),
+    templateSplash: $('#tmpl-all-results-splash').template(),
 
     clicked: function(e) {
       if (! $(e.target).is('[data-widget = "toggle-splash"]')) this.play();
@@ -325,8 +326,28 @@ $(function() {
     render: function() {
       $(this.el).html($.tmpl(this.template, this.model.toJSON()));
 
+      this.splash = new FullSplashAction({
+        model: this.model,
+        el: $.tmpl(this.templateSplash).get(0),
+      });
+
+      this.toggle   = new Toggle({
+        el:        this.$('[data-widget = "toggle-splash"]'),
+        target:    this.splash.el,
+        isEnabled: this.model.get('splashable'),
+        doToggle:  _.bind(this.toggleSplash, this),
+      });
+
       return this;
-    }
+    },
+
+    toggleSplash: function() {
+      if ($(this.splash.el).is(':visible')) {
+        $(this.splash.el).detach();
+      } else {
+        $(this.el).after(this.splash.el);
+      }
+    },
   });
 
 
