@@ -222,7 +222,8 @@ $(function() {
   window.TrackSearch.AllResults = Backbone.View.extend({
     className: 'all-results',
     events: {
-      'click [data-widget = "close"]': 'close'
+      'click [data-widget = "close"]': 'close',
+      'splash:splash': 'close'
     },
     template: $('#tmpl-track-search-all-results').template(),
 
