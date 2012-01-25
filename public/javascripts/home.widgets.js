@@ -3,6 +3,7 @@ $(function() {
     events: {
       'search:expand': 'searchExpanded',
       'search:collapse': 'searchCollapsed',
+      'search:loaded': 'checkSize'
     },
 
     initialize: function() {
@@ -38,6 +39,15 @@ $(function() {
       });
 
       this.allResults = new TrackSearch.AllResults();
+    },
+
+    checkSize: function() {
+      var off = $(this.allResults.el).offset();
+      var arh = off.top + $(this.allResults.el).height();
+
+      if ($(this.el).height() < arh) {
+        $(this.el).height($(this.el).height() + arh - $(this.el).height());
+      }
     },
 
     searchCollapsed: function() {
@@ -223,7 +233,8 @@ $(function() {
     className: 'all-results',
     events: {
       'click [data-widget = "close"]': 'close',
-      'splash:splash': 'close'
+      'splash:splash': 'close',
+      'search:loaded': 'resize',
     },
     template: $('#tmpl-track-search-all-results').template(),
 
@@ -256,6 +267,12 @@ $(function() {
       $(this.el).append(this.table.el);
 
       return this;
+    },
+
+    resize: function() {
+      if (this.$('table').height() > $(this.el).height()) {
+        $(this.el).css('height', 'auto');
+      }
     },
 
     setHeader: function(searchTerms) {
@@ -304,6 +321,8 @@ $(function() {
       $(this.el).empty();
 
       this.render();
+
+      $(this.el).trigger('search:loaded');
     },
   });
 
