@@ -259,11 +259,11 @@ $(function() {
     load: function(searchTerms) {
       this.setHeader(searchTerms)
 
+      $(this.el).css('height', '100%');
+
       this.animation.show(this.el, _.bind(function() {
         this.table.load(searchTerms);
       }, this));
-
-      $(this.el).css('height', '100%');
 
       return this;
     },
