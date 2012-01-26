@@ -126,6 +126,10 @@ class User < ActiveRecord::Base
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
   end
 
+  def self.by_score
+    scoped.sort_by(&:splash_score).reverse
+  end
+
   def self.create_with_social_connection(params)
     transaction {
       user_params = params.slice(:access_code, :email, :name, :nickname).

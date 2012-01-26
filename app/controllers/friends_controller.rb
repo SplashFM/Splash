@@ -3,6 +3,8 @@ class FriendsController < ApplicationController
     token   = current_user.social_connection('facebook').token
     friends = FbGraph::User.me(token).friends
 
-    @users  = User.with_social_connection('facebook', friends.map(&:identifier))
+    @users  = User.
+      with_social_connection('facebook', friends.map(&:identifier)).
+      by_score
   end
 end
