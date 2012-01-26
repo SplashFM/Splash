@@ -1,4 +1,6 @@
 Scaphandrier::Application.routes.draw do
+  match '/invite_friends' => 'users#invite_friends'
+  
   namespace :admin do
     basic_admin_scaffolds = [:users]
     basic_admin_scaffolds.each { |a|

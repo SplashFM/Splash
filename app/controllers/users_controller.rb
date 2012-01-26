@@ -69,7 +69,9 @@ class UsersController < ApplicationController
 
     render :template => 'splashboards/index'
   end
-
+  def invite_friends
+    render :template => 'users/invite_friends'
+  end
   def merge
     connection = SocialConnection.find_by_provider_and_uid(session["devise.provider"],
                                                            session["devise.uid"])

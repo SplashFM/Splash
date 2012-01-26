@@ -1236,6 +1236,12 @@ a.nav-username:hover
     border-top: 1px solid #cacfd1
     border-bottom: 1px solid #b7b7b8
 
+.invite_friends #stream-feed .line
+  height: 5px
+  background: url(/css/images/types-line-bg.png) repeat-x 0 0
+  position: relative
+  border-top: 1px solid #cacfd1
+  border-bottom: 1px solid #b7b7b8
 .feed-updates-count
   height: 28px
   background: url(/css/images/newfeed-items-countbg.png) repeat-x 0 0
@@ -1884,7 +1890,7 @@ input.splash:active, .buttonStyle2:active, .tag-line.edit button:active
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#536b84', endColorstr='#33465b',GradientType=0 )
   text-shadow: 0px -1px 0px #5d5d5d
 
-.splashboard
+.splashboard, .invite_friends
   #stream-feed
     .art
       height: 73px
@@ -1938,6 +1944,14 @@ input.splash:active, .buttonStyle2:active, .tag-line.edit button:active
         margin-left: 10px
         top: 6px
 
+.buttonStyle2.invited
+  color: #363636 !important
+  background-color: #DDD
+  border: solid 1px #BDBDBD
+  &:hover
+    color: #363636 !important
+    background: #DDD !important
+    border: solid 1px #BDBDBD !important
 .buttonStyle2
   min-width: 80px
   position: relative
@@ -2498,7 +2512,7 @@ html
   border-radius: 8px
   border: solid 1px transparent
   box-shadow: 0px 1px 1px #FFF
-  color: #8f969a
+  color: #FFF
   text-shadow: 0px 0px 0px transparent !important
 .buttonStyle2:hover
   color: #000
@@ -2658,3 +2672,6 @@ li.expanded .header_label
     padding-left: 10px
     position: relative
     top: 1px
+.invite_friends
+  .line
+    margin-top: 10px
