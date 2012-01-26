@@ -23,7 +23,7 @@ $(function() {
     },
 
     render: function() {
-      if (this.options.isOwner) {
+      if (! this.options.isOwner) {
         this.$('.user-vcard > div').append(this.relationship.render().el);
       }
 
