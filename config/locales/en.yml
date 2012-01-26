@@ -118,6 +118,7 @@ en:
 
   simple_navigation:
     menus:
+      friends: Friends
       home: Home
       profile: Profile
       splashboard: Splashboard

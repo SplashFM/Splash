@@ -26,6 +26,7 @@ Scaphandrier::Application.routes.draw do
       get :verify
     end
   end
+  resources :friends
   resources :comments
   resources :events, :only => :index
   resources :tags

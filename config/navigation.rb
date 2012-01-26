@@ -12,6 +12,7 @@ SimpleNavigation::Configuration.run do |navigation|
                    t('simple_navigation.menus.splashboard'),
                    splashboards_path
       primary.item :profile, t('simple_navigation.menus.profile'), profile_url
+      primary.item :friends, t('simple_navigation.menus.friends'), friends_path
     end
   end
 end
