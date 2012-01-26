@@ -1,5 +1,6 @@
 user_seq  = 0
 track_seq = 0
+social_uid_seq = '123456789'
 
 Bricks do
   builder Relationship do
@@ -64,6 +65,16 @@ Bricks do
 
     before :save do
       user_seq  += 1
+    end
+  end
+
+  builder SocialConnection do
+    user
+    uid   { social_uid_seq }
+    token '123'
+
+    before :save do
+      social_uid_seq.succ!
     end
   end
 end
