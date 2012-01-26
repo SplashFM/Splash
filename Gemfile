@@ -95,6 +95,7 @@ group :test do
   gem "spork", "~> 0.9.0.rc"
   gem "rspec-instafail"
   gem "timecop"
+  gem "webmock"
 end
 
 gem "itunes-search-api"
