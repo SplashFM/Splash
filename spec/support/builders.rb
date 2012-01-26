@@ -2,6 +2,9 @@ user_seq  = 0
 track_seq = 0
 social_uid_seq = '123456789'
 
+fpath       = File.join(Rails.root, %w(spec support files avatar.jpg))
+temp_avatar = Tempfile.new('avatar') and temp_avatar.write IO.read(fpath)
+
 Bricks do
   builder Relationship do
     follower.with_required_info!
@@ -53,6 +56,7 @@ Bricks do
     password     'testing'
     confirmed_at 1.day.ago
     name         { "Mojo User #{user_seq}" }
+    avatar       temp_avatar
 
     trait :with_required_info do
       name "Mojo User #{user_seq}"
