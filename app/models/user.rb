@@ -243,10 +243,15 @@ class User < ActiveRecord::Base
   end
 
   def self.with_social_connection(provider, uid)
-    joins(:social_connections)
+    users = joins(:social_connections)
       .where(:social_connections => {:provider => provider, :uid => uid})
       .readonly(false)
-      .first
+
+    if Array === uid
+      users
+    else
+      users.first
+    end
   end
 
   # Search for users matching the given name.
