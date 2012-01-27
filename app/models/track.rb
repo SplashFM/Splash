@@ -126,10 +126,6 @@ class Track < ActiveRecord::Base
     self.class.update_splash_count(id, Splash.for_tracks(self).count)
   end
 
-  def search_result_type
-    :track
-  end
-
   def taken?
     canonical_version.present? && canonical_version != self
   end

@@ -489,10 +489,6 @@ class User < ActiveRecord::Base
     roles
   end
 
-  def search_result_type
-    :user
-  end
-
   def splash_suggestions(ignore = [])
     # the users followed by people I am following, but whom I am not already following.
     Relationship.select('DISTINCT relationships.followed_id')
