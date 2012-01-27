@@ -514,7 +514,7 @@ class User < ActiveRecord::Base
   end
 
   def social_connection(provider)
-    social_connections.with_provider provider
+    social_connections.detect { |s| s.provider == provider.to_s }
   end
 
   def splash_score
