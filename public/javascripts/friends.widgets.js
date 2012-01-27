@@ -18,7 +18,14 @@ $(function() {
     },
 
     renderFriend: function(f) {
-      $(this.el).append(new RegisteredFriendView({model: f}).render().el);
+      switch (f.get('origin')) {
+      case 'facebook':
+        $(this.el).append(new UnregisteredFriendView({model: f}).render().el);
+
+        break;
+      default:
+        $(this.el).append(new RegisteredFriendView({model: f}).render().el);
+      }
     },
   });
 
@@ -68,4 +75,12 @@ $(function() {
     },
   });
 
+  window.UnregisteredFriendView = FriendView.extend({
+    json: function() {
+      return _.extend(this.model.toJSON(), {unregistered: true});
+    },
+
+    renderAction: function() {
+    },
+  });
 });

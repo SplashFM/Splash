@@ -8,6 +8,8 @@ class FriendsController < ApplicationController
       with_social_connection('facebook', fsh.keys).
       by_score
 
+    missing = fsh.keys - users.map { |u| u.social_connection('facebook').uid }
+
     rels = current_user.relationships.with_following(users.map(&:id))
     relh = Hash[*rels.map { |r| [r.followed_id, r] }.flatten]
 
@@ -19,6 +21,16 @@ class FriendsController < ApplicationController
                            :followed_id => u.id}).as_json
 
       j
+    } + friend_hashes(fsh.values_at(*missing))
+  end
+
+  private
+
+  def friend_hashes(friends)
+    friends.map { |f|
+      {:name             => f.name,
+       :avatar_micro_url => f.picture('square'),
+       :origin           => 'facebook'}
     }
   end
 end
