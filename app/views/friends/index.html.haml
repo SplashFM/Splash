@@ -1,3 +1,11 @@
+:javascript
+  $(function () {
+    window.Friends = new FriendsView({
+      el: $('body').get(0),
+      friends: new FriendsList(#{@users.to_json})
+    }).render();
+  });
+
 .friends
   = render 'shared/sidebar'
   #stream-wrap.left

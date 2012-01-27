@@ -194,4 +194,8 @@ $(function() {
       $.ajax(this.url, {data: {count: 1}}).done(opts.success);
     },
   });
+
+  window.FriendsList = Backbone.Collection.extend({
+    url: '/friends'
+  })
 });
