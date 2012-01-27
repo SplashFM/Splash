@@ -3,8 +3,9 @@ class FriendsController < ApplicationController
     token   = current_user.social_connection('facebook').token
     friends = FbGraph::User.me(token).friends
 
+    fsh   = Hash[*friends.map { |f| [f.identifier, f] }.flatten]
     users = User.
-      with_social_connection('facebook', friends.map(&:identifier)).
+      with_social_connection('facebook', fsh.keys).
       by_score
 
     rels = current_user.relationships.with_following(users.map(&:id))
