@@ -26,8 +26,12 @@ $(function() {
     tagName: 'li',
     template: $('#tmpl-user').template(),
 
+    json: function() {
+      return this.model.toJSON();
+    },
+
     render: function() {
-      $(this.el).html($.tmpl(this.template, this.model.toJSON()));
+      $(this.el).html($.tmpl(this.template, this.json()));
 
       this.renderAction();
 
