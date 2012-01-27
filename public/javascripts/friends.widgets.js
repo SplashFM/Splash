@@ -18,20 +18,30 @@ $(function() {
     },
 
     renderFriend: function(f) {
-      $(this.el).append(new FriendView({model: f}).render().el);
+      $(this.el).append(new RegisteredFriendView({model: f}).render().el);
     },
   });
 
   window.FriendView = Backbone.View.extend({
     tagName: 'li',
     template: $('#tmpl-user').template(),
-    templateRelationship: $('#tmpl-relationship-list').template(),
 
     render: function() {
       $(this.el).html($.tmpl(this.template, this.model.toJSON()));
 
-      this.renderLeft();
       this.renderAction();
+
+      return this;
+    },
+  });
+
+  window.RegisteredFriendView = FriendView.extend({
+    templateRelationship: $('#tmpl-relationship-list').template(),
+
+    render: function() {
+      FriendView.prototype.render.call(this);
+
+      this.renderLeft();
 
       return this;
     },
@@ -53,4 +63,5 @@ $(function() {
       this.$('.splash-score').replaceWith(span.html(outer));
     },
   });
+
 });
