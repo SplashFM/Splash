@@ -27,7 +27,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     ft = social_token
 
     if user = User.with_social_connection(ft[:provider], ft[:uid])
-      user.social_connections.with_provider(ft[:provider]).
+      user.social_connection(ft[:provider]).
         refresh ft.slice(:token)
 
       sign_in_and_redirect user, :event => :authentication
@@ -47,7 +47,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = User.with_social_connection(tt[:provider], tt[:uid])
 
     if user
-      user.social_connections.with_provider(tt[:provider]).
+      user.social_connection(tt[:provider]).
         refresh tt.slice(:token, :token_secret)
 
       sign_in_and_redirect user, :event => :authentication
