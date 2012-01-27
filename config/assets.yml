@@ -36,6 +36,7 @@ javascripts:
     - public/javascripts/animations.widgets.js
     - public/javascripts/search.widgets.js
     - public/javascripts/app.widgets.js
+    - public/javascripts/friends.widgets.js
     - public/javascripts/events.widgets.js
     - public/javascripts/home.widgets.js
     - public/javascripts/profile.widgets.js

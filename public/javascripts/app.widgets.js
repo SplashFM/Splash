@@ -32,6 +32,8 @@ $(function() {
 
     loaded: function() {
       this.spinner.remove();
+
+      return this;
     },
 
     loading: function() {

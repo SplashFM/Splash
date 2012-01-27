@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
 
   has_many :comments, :foreign_key => :author_id
   has_many :social_connections,
-           :after_add => :maybe_fetch_avatar
+           :after_add => [Suggestions.new, SocialAvatar.new]
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",
@@ -110,7 +110,9 @@ class User < ActiveRecord::Base
   scope :followed_by, lambda { |user|
     joins(:followers).where(:relationships => {:follower_id => user.id})
   }
-  scope :ignore,  lambda { |users| where("id not in (?)", users) unless users.blank? }
+  scope :ignore,  lambda { |users|
+    where("users.id not in (?)", users) unless users.blank?
+  }
   scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
 
   scope :registered_around, lambda { |date|
@@ -124,6 +126,10 @@ class User < ActiveRecord::Base
 
   def self.allowed_access_codes
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
+  end
+
+  def self.by_score
+    scoped.sort_by(&:splash_score).reverse
   end
 
   def self.create_with_social_connection(params)
@@ -243,10 +249,15 @@ class User < ActiveRecord::Base
   end
 
   def self.with_social_connection(provider, uid)
-    joins(:social_connections)
+    users = joins(:social_connections)
       .where(:social_connections => {:provider => provider, :uid => uid})
       .readonly(false)
-      .first
+
+    if Array === uid
+      users
+    else
+      users.first
+    end
   end
 
   # Search for users matching the given name.
@@ -267,6 +278,10 @@ class User < ActiveRecord::Base
         where("to_tsvector('english', users.name || users.nickname) @@ #{ts}").
         order('name_rank desc')
     end
+  end
+
+  def self.only(field)
+    select("users.#{field}")
   end
 
   def as_json(opts = nil)
@@ -311,31 +326,20 @@ class User < ActiveRecord::Base
     social_connections.first
   end
 
-  def facebook_suggestions(ignore = [])
-    if has_social_connection?('facebook')
-      facebook_friends = FbGraph::User.me(social_connection('facebook').token).friends
+  def facebook_suggestions
+    if social_connection('facebook')
+      friends = FbGraph::User.me(social_connection('facebook').token).friends
 
-      User.where(:name => facebook_friends.map(&:name)).ignore(ignore).map(&:id)
+      User.with_social_connection('facebook', friends.map(&:identifier)).
+        only(:id).
+        map(&:id)
     else
       []
     end
-  end
+  rescue FbGraph::InvalidToken => e
+    logger.debug(e)
 
-  def fetch_avatar(social_connection = nil)
-    begin
-      Tempfile.open('avatar') { |f|
-        f.binmode
-        f.write open(URI.encode(provider_avatar_url)).read
-
-        self.update_attribute(:avatar, f)
-      }
-    rescue OpenURI::HTTPError => e
-      logger.error e
-    end
-  end
-
-  def fetch_avatar_needed?
-    !avatar? && has_social_connections?
+    []
   end
 
   def follow(followed_id)
@@ -354,10 +358,6 @@ class User < ActiveRecord::Base
 
   def following?(followed)
     !!followed(followed)
-  end
-
-  def has_social_connection?(provider)
-    social_connection provider
   end
 
   def has_social_connections?
@@ -401,10 +401,6 @@ class User < ActiveRecord::Base
     destroy if social_connections.length.zero?
   end
 
-  def maybe_fetch_avatar(_ = nil)
-    fetch_avatar if fetch_avatar_needed?
-  end
-
   def merge_account(user)
     if self != user
       Notification.for(user).update_all :notified_id => self.id
@@ -443,19 +439,6 @@ class User < ActiveRecord::Base
     initial_provider.blank? && super
   end
 
-  def provider_avatar_url
-    sc = default_social_connection
-
-    case sc.try(:provider)
-    when 'facebook'
-      "http://graph.facebook.com/#{sc.uid}/picture?type=large"
-    when 'twitter'
-      "http://api.twitter.com/1/users/profile_image/#{sc.uid}.json?size=original"
-    else
-      nil
-    end
-  end
-
   def recommended_users
     User.where("id IN (?)", suggested_users)
   end
@@ -484,15 +467,10 @@ class User < ActiveRecord::Base
     roles
   end
 
-  def search_result_type
-    :user
-  end
-
-  def splash_suggestions(ignore = [])
+  def splash_suggestions
     # the users followed by people I am following, but whom I am not already following.
     Relationship.select('DISTINCT relationships.followed_id')
       .with_followers(following.map(&:id))
-      .ignore(ignore + [self.id])
       .map(&:followed_id)
   end
 
@@ -509,7 +487,7 @@ class User < ActiveRecord::Base
   end
 
   def social_connection(provider)
-    social_connections.with_provider provider
+    social_connections.detect { |s| s.provider == provider.to_s }
   end
 
   def splash_score
@@ -522,13 +500,20 @@ class User < ActiveRecord::Base
     splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
   end
 
-  def suggest_users
-    ignore = following_ids + ignore_suggested_users
+  def add_suggestions(user_ids)
+    suggest_users(Array(user_ids) | suggested_users)
+  end
 
-    self.suggested_users = facebook_suggestions(ignore) |
-                           splash_suggestions(ignore)
+  def suggest_users(user_ids = default_user_suggestions)
+    update_attribute :suggested_users, user_ids - ignored_user_ids
+  end
 
-    save!
+  def ignored_user_ids
+    following_ids + ignore_suggested_users + [id]
+  end
+
+  def default_user_suggestions
+    facebook_suggestions | splash_suggestions
   end
 
   def suggested_users
@@ -553,7 +538,7 @@ class User < ActiveRecord::Base
 
     if scores.present?
       ids, _ = *scores.transpose
-      cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
+      cache = Track.where(:id => ids).hash_by(&:id)
 
       scores.map { |(id, score)|
         cache[id.to_i].tap { |t| t.scoped_splash_count = score }

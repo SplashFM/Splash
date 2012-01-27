@@ -5,7 +5,7 @@ $(function() {
     container: '[data-widget = "results"]',
 
     events: {
-      'keyup :text': 'maybeSearch',
+      'keyup :text': 'termsChanged',
       'submit': 'cancel',
     },
 
@@ -28,6 +28,7 @@ $(function() {
       this.$(':text').attr('autocomplete', 'off');
 
       this.collection.bind('reset', this.render, this);
+      this.collection.bind('reset', this.doneLoading, this);
 
       $(this.el).clickout(this.hide);
 
@@ -70,17 +71,30 @@ $(function() {
     },
 
     isSearchable: function() {
-      return this.term().length > 0 && this.lastTerm !== this.term();
+      return this.term().length > 0 && ! this.sameTerms();
     },
 
     loading: function() {
       this.$(':text').addClass('loading');
     },
 
-    maybeSearch: function() {
+    termsChanged: function() {
       if (this.timeout) clearTimeout(this.timeout);
 
-      this.timeout  = setTimeout(this.search, this.delay);
+      if (this.sameTerms()) return false;
+
+      if (this.term().length === 0) {
+        this.trigger('reset');
+
+        return false;
+      }
+
+      if (this.isSearchable()) {
+        this.lastTerm = this.term()
+
+        this.timeout = setTimeout(this.search, this.delay);
+      }
+
       return false;
     },
 
@@ -90,8 +104,6 @@ $(function() {
       this.collection.each(this.renderItem);
 
       if (this.open) this.open.call(this);
-
-      this.doneLoading();
 
       this.renderControls();
       if (! $(this.container).is(':visible')) {
@@ -120,21 +132,21 @@ $(function() {
       this.render();
     },
 
+    sameTerms: function() {
+      return this.term() === this.lastTerm;
+    },
+
     search: function() {
       this.$(':text').attr('autocomplete', 'off');
 
-      if (this.isSearchable()) {
-        if (this.cancelableSearch) this.cancelPreviousSearch();
-        if (! this.isRelated()) this.searching = [];
+      if (this.cancelableSearch) this.cancelPreviousSearch();
+      if (! this.isRelated()) this.searching = [];
 
-        this.lastTerm = this.term();
-
-        this.fetchResults();
-      }
+      this.fetchResults();
     },
 
     term: function() {
-      return this.$(':text').val();
+      return $.trim(this.$(':text').val());
     },
 
     useResults: function(models) {

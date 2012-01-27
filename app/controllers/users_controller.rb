@@ -69,7 +69,9 @@ class UsersController < ApplicationController
 
     render :template => 'splashboards/index'
   end
-
+  def invite_friends
+    render :template => 'users/invite_friends'
+  end
   def merge
     connection = SocialConnection.find_by_provider_and_uid(session["devise.provider"],
                                                            session["devise.uid"])
@@ -91,8 +93,7 @@ class UsersController < ApplicationController
 
   def inline_relationships(results, current_user)
     relationships = current_user.relationships.with_following(results)
-    rh            =
-      Hash[*relationships.map { |r| [r.followed_id, r] }.flatten]
+    rh            = relationships.hash_by(&:followed_id)
 
     results.map { |u|
       r  = rh[u.id] || current_user.relationships.build(:followed_id => u.id)

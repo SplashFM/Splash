@@ -49,6 +49,18 @@ en:
       one: 1 new update
       other: %{count} new updates
 
+  friends:
+    all_loaded: No friends left. Bummer.
+    connect:
+      link: Connect your Facebook
+      words: %{link} to find Friends already on Splash.FM.
+    header: Discover music with friends you trust
+    invite:
+      invite: Invite
+      invited: Invited
+      title: "Splash.FM: Jump In"
+      description: Splash.FM is a music discovery community that scores your influence in music. Discover and share the latest music with friends and those whose music taste you trust.
+
   home:
     search:
       load_more: Load More Results
@@ -118,6 +130,7 @@ en:
 
   simple_navigation:
     menus:
+      friends: Friends
       home: Home
       profile: Profile
       splashboard: Splashboard

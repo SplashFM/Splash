@@ -161,4 +161,20 @@ describe User, :adapter => :postgresql do
       User.filter('bartm').should == [User.find_by_name('Bart Simpson')]
     end
   end
+
+  describe "is found by social connection" do
+    it "when passed a list of uids" do
+      uids = %w(1 2).each { |n|
+        create(SocialConnection).provider('facebook').uid!(n.to_s)
+      }
+
+      User.with_social_connection('facebook', uids).should have(2).users
+    end
+
+    it "when passed a single uid" do
+      create(SocialConnection).provider('facebook').uid!('1')
+
+      User.with_social_connection('facebook', '1').should == User.first
+    end
+  end
 end

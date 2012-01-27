@@ -16,6 +16,10 @@ $(function() {
     },
   }
 
+  window.AccessRequest = Backbone.Model.extend({
+    urlRoot: '/access_requests'
+  });
+
   window.Relationship = Backbone.Model.extend({
     urlRoot: '/relationships',
   });
@@ -194,4 +198,11 @@ $(function() {
       $.ajax(this.url, {data: {count: 1}}).done(opts.success);
     },
   });
+
+  window.FriendsList = Backbone.Collection.extend({
+    url: '/friends'
+  })
+
+  window.SocialConnection = Backbone.Model.extend({
+  })
 });

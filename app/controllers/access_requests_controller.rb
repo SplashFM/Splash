@@ -13,9 +13,18 @@ class AccessRequestsController < ApplicationController
 
   def create
     if current_user
-      respond_with AccessRequest.
-        create(params[:user].merge!(:inviter => current_user))
+      attrs  = params[:user].merge!(:inviter => current_user)
+      ar     = AccessRequest.new(attrs)
 
+      if ar.save
+        social = {:uid   => params[:user][:uid],
+                  :url   => new_user_registration_url(:code => ar.code)}
+
+        render :json => ar.as_json.merge!(:social => social)
+      else
+        render :json => ar.errors,
+               :status => :unprocessable_entity
+      end
     else
       respond_with AccessRequest.create(params[:user]),
                    :url_builder => lambda { |code| r_url(code) }

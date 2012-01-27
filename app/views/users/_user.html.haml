@@ -3,13 +3,19 @@
   %div{:data => {:user_id => '${id}'}}
     .holder
       .left
+        {{if $data.unregistered}}
+        %span.number.avan-bold.invite.left
+          %img{:src => '/images/${origin}_64.png'}
+        {{else}}
         .splash-score.left ${score}
+        {{/if}}
         .user_wrap.left
           = avatar_js(:class => 'avatar left')
           .left
             .names
               %a.avan-demi.user-name.left{:href => "${url}"} ${name}
               %span.left.nickname ${nickname}
+            {{if ! $data.unregistered}}
             .sub
               .splashes.left
                 Splashes
@@ -18,9 +24,7 @@
                 Ripples
                 .num.avan-demi ${ripple_count}
               .clear
+            {{/if}}
       .right
         .follow-links
-          .buttonStyle2.follow
-            %span
-            Follow
       .clear

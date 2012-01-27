@@ -279,6 +279,8 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     redis (2.2.2)
+    redis-store (1.0.0.1)
+      redis (~> 2.2.1)
     render_component (3.0.4)
       railties (~> 3.0.0)
     responders (0.6.4)
@@ -363,6 +365,9 @@ GEM
     warden (1.0.4)
       rack (>= 1.0)
     watchr (0.7)
+    webmock (1.7.10)
+      addressable (~> 2.2, > 2.2.5)
+      crack (>= 0.1.7)
     whenever (0.6.8)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
@@ -419,6 +424,7 @@ DEPENDENCIES
   pg
   rails (>= 3.0.1)
   redis
+  redis-store
   rr (~> 1.0)
   rspec-instafail
   rspec-rails (>= 2.0.0)
@@ -438,5 +444,6 @@ DEPENDENCIES
   twitter
   uuidtools
   watchr
+  webmock
   whenever
   wirble

@@ -23,6 +23,8 @@ Spork.each_run do
     config.include UI::Queries
 
     config.before :type => :request do
+      WebMock.disable_net_connect!(:allow => 'http://127.0.0.1:8888')
+
       page.driver.options[:resynchronize] = true
 
       fast_login(user) unless example.metadata[:logout]

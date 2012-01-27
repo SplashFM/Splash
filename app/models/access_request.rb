@@ -8,15 +8,20 @@ class AccessRequest < ActiveRecord::Base
   validates :email,
             :presence   => true,
             :uniqueness => true,
-            :format     => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}
+            :format     => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i},
+            :unless     => :uid?
+  validates :uid,
+            :presence   => true,
+            :uniqueness => {:scope => :provider},
+            :unless     => :email?
 
   before_create :reset_granted
   before_create :generate_code
   before_create :generate_referral_code
   before_create :mark_invited, :if => :inviter
-  after_create  :notify
+  after_create  :notify, :if => :email?
 
-  validate :ensure_invites_available, :if => :inviter
+  validate :ensure_invites_available, :if => :invites_constrained?
 
   scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
   scope :pending, where(:granted => false)
@@ -36,7 +41,9 @@ class AccessRequest < ActiveRecord::Base
   end
 
   def self.remaining(user)
-    INVITATION_COUNT - where(:inviter_id => user.id).count
+    INVITATION_COUNT -
+      where(:inviter_id => user.id).
+        where('access_requests.email is not null').count
   end
 
   def self.reserve(code, user)
@@ -61,10 +68,15 @@ class AccessRequest < ActiveRecord::Base
   end
 
   private
+
   def ensure_invites_available
     unless self.class.remaining(inviter) > 0
       errors.add(:inviter, 'has no invites left')
     end
+  end
+
+  def invites_constrained?
+    inviter && email?
   end
 
   def notify
