@@ -42,4 +42,34 @@ class SplashesController < ApplicationController
   def current_splash
     @splash ||= Splash.find(params[:id])
   end
+
+  def facebook_post(splash)
+    if current_user.has_social_connection? 'facebook'
+      host = Rails.env.development? ? 'splash.test' : AppConfig.preferred_host
+
+      fb_user = FbGraph::User.me(current_user.social_connection('facebook').token)
+      link = fb_user.link!(:link => splash_url(splash, :host => host),
+                          :message => "#{splash.user.name} splashed #{splash.track.title}. #{splash.comments.first.body}")
+    end
+  end
+
+  def twitter_post(splash)
+    if current_user.has_social_connection? 'twitter'
+      twitter = current_user.social_connection('twitter')
+      Twitter.configure do |config|
+        config.oauth_token = twitter.token
+        config.oauth_token_secret = twitter.token_secret
+      end
+
+      begin
+        Twitter.update(truncate([splashboards_url,
+                                  splash.user.name,
+                                  'splashed',
+                                  splash.track.title,
+                                  splash.comments.first.body].join(' ')))
+      rescue Twitter::NotFound, Twitter::Forbidden => e
+        notify_hoptoad(e)
+      end
+    end
+  end
 end
