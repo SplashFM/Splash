@@ -50,7 +50,7 @@ module UsersHelper
   end
 
   def link_to_social_site(site, image)
-    if current_user.has_social_connection? site
+    if current_user.social_connection(site)
       content_tag(:div,
                     image_tag(image) + "#{site.to_s.capitalize} Account linked",
                     :class => 'socialButton')

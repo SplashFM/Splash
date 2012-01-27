@@ -44,7 +44,7 @@ class SplashesController < ApplicationController
   end
 
   def facebook_post(splash)
-    if current_user.has_social_connection? 'facebook'
+    if current_user.social_connection('facebook')
       host = Rails.env.development? ? 'splash.test' : AppConfig.preferred_host
 
       fb_user = FbGraph::User.me(current_user.social_connection('facebook').token)
@@ -54,7 +54,7 @@ class SplashesController < ApplicationController
   end
 
   def twitter_post(splash)
-    if current_user.has_social_connection? 'twitter'
+    if current_user.social_connection('twitter')
       twitter = current_user.social_connection('twitter')
       Twitter.configure do |config|
         config.oauth_token = twitter.token

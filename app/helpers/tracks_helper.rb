@@ -25,7 +25,7 @@ module TracksHelper
   end
 
   def post_to_site_widget(site, form)
-    if current_user.has_social_connection? site
+    if current_user.social_connection(site)
       form.label(site.to_sym, I18n.t("splashes.splash.post_to_#{site}")) \
         + check_box_tag("splash[#{site}_post]")
     end

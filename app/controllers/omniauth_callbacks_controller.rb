@@ -64,7 +64,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def link_or_redirect(provider)
-    if ! current_user.has_social_connection?(provider)
+    if ! current_user.social_connection(provider)
       link_site(provider.capitalize)
     else
       redirect_to home_path
