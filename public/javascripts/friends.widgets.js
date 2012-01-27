@@ -23,12 +23,14 @@ $(function() {
   });
 
   window.FriendView = Backbone.View.extend({
+    tagName: 'li',
     template: $('#tmpl-user').template(),
     templateRelationship: $('#tmpl-relationship-list').template(),
 
     render: function() {
       $(this.el).html($.tmpl(this.template, this.model.toJSON()));
 
+      this.renderLeft();
       this.renderAction();
 
       return this;
@@ -40,6 +42,15 @@ $(function() {
         model:    new Relationship(this.model.get('relationship')),
         template: this.templateRelationship,
       }).render();
+    },
+
+    renderLeft: function() {
+      var score = this.model.get('score');
+      var inner = $('<div/>').addClass('inner').text(score);
+      var outer = $('<div/>').addClass('outer').text(score).append(inner);
+      var span  = $('<span/>').addClass('number avan-bold invite left');
+
+      this.$('.splash-score').replaceWith(span.html(outer));
     },
   });
 });
