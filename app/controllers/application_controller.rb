@@ -31,13 +31,10 @@ class ApplicationController < ActionController::Base
   end
 
   def splash_and_post(attrs, track, parent=nil)
-    splash = Splash.create!(:track => track,
-                            :user => current_user,
-                            :comment => attrs[:comment],
-                            :parent_id => parent)
-    facebook_post(splash) if attrs[:facebook_post] == '1'
-    twitter_post(splash) if attrs[:twitter_post] == '1'
-    splash
+    Splash.create!(:track => track,
+                   :user => current_user,
+                   :comment => attrs[:comment],
+                   :parent_id => parent)
   end
 
   def facebook_post(splash)
