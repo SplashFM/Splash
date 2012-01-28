@@ -75,7 +75,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @site_connection = current_user.social_connections.build(social_meta_token)
 
     if @site_connection.save
-      redirect_to root_path, :notice => I18n.t('devise.omniauth.site_link', :site => site)
+      redirect_to stored_location_for(:user) || root_path,
+                  :notice => I18n.t('devise.omniauth.site_link', :site => site)
     else
       session["devise.provider"] = env["omniauth.auth"]["provider"]
       session["devise.uid"] = env["omniauth.auth"]["uid"]
