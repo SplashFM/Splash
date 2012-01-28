@@ -8,7 +8,12 @@ class AccessRequest < ActiveRecord::Base
   validates :email,
             :presence   => true,
             :uniqueness => true,
-            :format     => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i}
+            :format     => {:with => /^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i},
+            :unless     => :uid?
+  validates :uid,
+            :presence   => true,
+            :uniqueness => {:scope => :provider},
+            :unless     => :email?
 
   before_create :reset_granted
   before_create :generate_code
