@@ -84,6 +84,8 @@ $(function() {
       if (this.sameTerms()) return false;
 
       if (this.isSearchable()) {
+        this.lastTerm = this.term()
+
         this.timeout = setTimeout(this.search, this.delay);
       }
 
@@ -133,8 +135,6 @@ $(function() {
 
       if (this.cancelableSearch) this.cancelPreviousSearch();
       if (! this.isRelated()) this.searching = [];
-
-      this.lastTerm = this.term();
 
       this.fetchResults();
     },
