@@ -80,7 +80,9 @@ $(function() {
     termsChanged: function() {
       if (this.timeout) clearTimeout(this.timeout);
 
-      this.timeout = setTimeout(this.search, this.delay);
+      if (this.isSearchable()) {
+        this.timeout = setTimeout(this.search, this.delay);
+      }
 
       return false;
     },
@@ -124,14 +126,12 @@ $(function() {
     search: function() {
       this.$(':text').attr('autocomplete', 'off');
 
-      if (this.isSearchable()) {
-        if (this.cancelableSearch) this.cancelPreviousSearch();
-        if (! this.isRelated()) this.searching = [];
+      if (this.cancelableSearch) this.cancelPreviousSearch();
+      if (! this.isRelated()) this.searching = [];
 
-        this.lastTerm = this.term();
+      this.lastTerm = this.term();
 
-        this.fetchResults();
-      }
+      this.fetchResults();
     },
 
     term: function() {
