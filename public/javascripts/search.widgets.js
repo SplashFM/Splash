@@ -83,6 +83,12 @@ $(function() {
 
       if (this.sameTerms()) return false;
 
+      if (this.term().length === 0) {
+        this.trigger('reset');
+
+        return false;
+      }
+
       if (this.isSearchable()) {
         this.lastTerm = this.term()
 
