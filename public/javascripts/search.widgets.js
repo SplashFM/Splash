@@ -140,7 +140,7 @@ $(function() {
     },
 
     term: function() {
-      return this.$(':text').val();
+      return $.trim(this.$(':text').val());
     },
 
     useResults: function(models) {
