@@ -71,7 +71,7 @@ $(function() {
     },
 
     isSearchable: function() {
-      return this.term().length > 0 && this.lastTerm !== this.term();
+      return this.term().length > 0 && ! this.sameTerms();
     },
 
     loading: function() {
@@ -120,6 +120,10 @@ $(function() {
       if (r) this.useResults($.parseJSON(r.responseText));
 
       this.render();
+    },
+
+    sameTerms: function() {
+      return this.term() === this.lastTerm;
     },
 
     search: function() {
