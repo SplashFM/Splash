@@ -5,19 +5,21 @@ $(function() {
     },
 
     render: function() {
-      this.friendsList = new FriendsListView({
-        collection: this.options.friends,
-        el: this.$('ul.live-feed').get(0),
-        social: new SocialConnection(this.options.social)
-      }).render();
+      if (this.options.social) {
+        this.friendsList = new FriendsListView({
+          collection: this.options.friends,
+          el: this.$('ul.live-feed').get(0),
+          social: new SocialConnection(this.options.social)
+        }).render();
 
-      this.friendsScroll = new EndlessScroll({
-        data: this.friendsList,
-        spinnerContainer: $('.loading-spinner-container'),
-        noMoreResults: $('<p/>').
-          text(I18n.t('friends.all_loaded')).
-          addClass('loaded'),
-      }).loaded();
+        this.friendsScroll = new EndlessScroll({
+          data: this.friendsList,
+          spinnerContainer: $('.loading-spinner-container'),
+          noMoreResults: $('<p/>').
+            text(I18n.t('friends.all_loaded')).
+            addClass('loaded'),
+        }).loaded();
+      }
 
       this.search = new FriendSearch({
         collection: this.options.friends

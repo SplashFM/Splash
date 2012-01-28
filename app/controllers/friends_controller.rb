@@ -2,7 +2,17 @@ class FriendsController < ApplicationController
   PER_PAGE = 10
 
   def index
-    sc      = current_user.social_connection('facebook')
+    sc = current_user.social_connection('facebook')
+
+    unless sc
+      @social = nil
+      @users  = []
+
+      session[:user_return_to] = request.url
+
+      render and return
+    end
+
     token   = sc.token
     friends = FbGraph::User.me(token).friends
     filter  = params[:with_text]

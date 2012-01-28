@@ -51,6 +51,9 @@ en:
 
   friends:
     all_loaded: No friends left. Bummer.
+    connect:
+      link: Connect your Facebook
+      words: %{link} to find Friends already on Splash.FM.
     header: Discover music with friends you trust
     invite:
       invite: Invite

@@ -20,6 +20,12 @@
               .search
                 %input.field{:autocomplete => "off", :name => "f", :placeholder => "Search For Friends", :type => "text"}/
           .line
+      - unless @social
+        %p.connect= t('friends.connect.words',
+                      :link => link_to(t('friends.connect.link'),
+                               user_omniauth_authorize_path('facebook'),
+                               'data-skip-pjax' => true)).html_safe
+
       %ul.splashboard-items-live-feed.live-feed
       .loading-spinner-container
 
