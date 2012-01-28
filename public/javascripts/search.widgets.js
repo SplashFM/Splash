@@ -5,7 +5,7 @@ $(function() {
     container: '[data-widget = "results"]',
 
     events: {
-      'keyup :text': 'maybeSearch',
+      'keyup :text': 'termsChanged',
       'submit': 'cancel',
     },
 
@@ -77,10 +77,11 @@ $(function() {
       this.$(':text').addClass('loading');
     },
 
-    maybeSearch: function() {
+    termsChanged: function() {
       if (this.timeout) clearTimeout(this.timeout);
 
-      this.timeout  = setTimeout(this.search, this.delay);
+      this.timeout = setTimeout(this.search, this.delay);
+
       return false;
     },
 
