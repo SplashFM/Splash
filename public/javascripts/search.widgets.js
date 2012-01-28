@@ -28,6 +28,7 @@ $(function() {
       this.$(':text').attr('autocomplete', 'off');
 
       this.collection.bind('reset', this.render, this);
+      this.collection.bind('reset', this.doneLoading, this);
 
       $(this.el).clickout(this.hide);
 
@@ -93,8 +94,6 @@ $(function() {
       this.collection.each(this.renderItem);
 
       if (this.open) this.open.call(this);
-
-      this.doneLoading();
 
       this.renderControls();
       if (! $(this.container).is(':visible')) {
