@@ -30,6 +30,16 @@ $(function() {
   window.FriendSearch = Search.extend({
     el: '[data-widget = "friend-search"]',
 
+    initialize: function() {
+      Search.prototype.initialize.call(this);
+
+      this.bind('reset', this.cleared, this);
+    },
+
+    cleared: function() {
+      this.collection.fetch();
+    },
+
     render: function() {
       // no need
     },
