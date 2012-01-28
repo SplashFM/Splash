@@ -19,18 +19,33 @@ $(function() {
           addClass('loaded'),
       }).loaded();
 
+      this.search = new FriendSearch({
+        collection: this.options.friends
+      });
+
       return this;
     }
+  });
+
+  window.FriendSearch = Search.extend({
+    el: '[data-widget = "friend-search"]',
+
+    render: function() {
+      // no need
+    },
   });
 
   window.FriendsListView = Backbone.View.extend({
     initialize: function() {
       this.collection.bind('add', this.renderFriend, this);
+      this.collection.bind('reset', this.render, this);
 
       this.page = 1;
     },
 
     render: function() {
+      $(this.el).empty();
+
       this.collection.each(this.renderFriend, this);
 
       return this;

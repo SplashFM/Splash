@@ -5,6 +5,9 @@ class FriendsController < ApplicationController
     sc      = current_user.social_connection('facebook')
     token   = sc.token
     friends = FbGraph::User.me(token).friends
+    filter  = params[:with_text]
+
+    friends.select! { |f| f.name.match(/#{filter}/i) } if filter
 
     fsh   = Hash[*friends.map { |f| [f.identifier, f] }.flatten]
     users = User.
