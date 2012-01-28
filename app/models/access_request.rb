@@ -19,7 +19,7 @@ class AccessRequest < ActiveRecord::Base
   before_create :generate_code
   before_create :generate_referral_code
   before_create :mark_invited, :if => :inviter
-  after_create  :notify
+  after_create  :notify, :if => :email?
 
   validate :ensure_invites_available, :if => :inviter
 
