@@ -11,11 +11,25 @@ $(function() {
         social: new SocialConnection(this.options.social)
       }).render();
 
+      this.friendsScroll = new EndlessScroll({
+        data: this.friendsList,
+        spinnerContainer: $('.loading-spinner-container'),
+        noMoreResults: $('<p/>').
+          text(I18n.t('friends.all_loaded')).
+          addClass('loaded'),
+      }).loaded();
+
       return this;
     }
   });
 
   window.FriendsListView = Backbone.View.extend({
+    initialize: function() {
+      this.collection.bind('add', this.renderFriend, this);
+
+      this.page = 1;
+    },
+
     render: function() {
       this.collection.each(this.renderFriend, this);
 
@@ -34,6 +48,31 @@ $(function() {
       default:
         $(this.el).append(new RegisteredFriendView({model: f}).render().el);
       }
+    },
+
+    scroll: function(e) {
+      if (this.keepScrolling == undefined) this.keepScrolling = true;
+      if (! this.keepScrolling) return false;
+
+      this.page++;
+
+      var length = this.collection.length;
+
+      this.collection.fetch({
+        add: true,
+        data: {page: this.page},
+        success: _.bind(function(c) {
+          if (c.length != length) {
+            this.trigger('scroll:loaded');
+          } else {
+            this.keepScrolling = false;
+
+            this.trigger('scroll:done');
+          }
+        }, this)
+      });
+
+      return true;
     },
   });
 

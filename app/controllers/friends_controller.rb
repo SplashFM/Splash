@@ -1,4 +1,6 @@
 class FriendsController < ApplicationController
+  PER_PAGE = 10
+
   def index
     sc      = current_user.social_connection('facebook')
     token   = sc.token
@@ -15,7 +17,7 @@ class FriendsController < ApplicationController
     relh = Hash[*rels.map { |r| [r.followed_id, r] }.flatten]
 
     @social = sc.as_json(:only => [:token])
-    @users = users.map { |u|
+    @users = paginate(users.map { |u|
       j = u.as_json
 
       j[:relationship] = (relh[u.id] ||
@@ -23,7 +25,12 @@ class FriendsController < ApplicationController
                            :followed_id => u.id}).as_json
 
       j
-    } + friend_hashes(fsh.values_at(*missing))
+    } + friend_hashes(fsh.values_at(*missing)))
+
+    respond_to { |f|
+      f.html { render }
+      f.json { render :json => @users }
+    }
   end
 
   private
@@ -35,5 +42,11 @@ class FriendsController < ApplicationController
        :uid              => f.identifier,
        :origin           => 'facebook'}
     }
+  end
+
+  def paginate(list)
+    start = (current_page - 1) * PER_PAGE
+
+    list[start, PER_PAGE] || []
   end
 end

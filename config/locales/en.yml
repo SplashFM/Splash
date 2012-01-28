@@ -50,6 +50,7 @@ en:
       other: %{count} new updates
 
   friends:
+    all_loaded: No friends left. Bummer.
     header: Discover music with friends you trust
     invite:
       invite: Invite
