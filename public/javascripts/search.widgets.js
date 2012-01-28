@@ -81,6 +81,8 @@ $(function() {
     termsChanged: function() {
       if (this.timeout) clearTimeout(this.timeout);
 
+      if (this.sameTerms()) return false;
+
       if (this.isSearchable()) {
         this.timeout = setTimeout(this.search, this.delay);
       }
