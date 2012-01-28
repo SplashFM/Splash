@@ -1,6 +1,7 @@
 :javascript
   $(function () {
     window.Friends = new FriendsView({
+      appID: "#{AppConfig.facebook['key']}",
       el: $('body').get(0),
       friends: new FriendsList(#{@users.to_json})
     }).render();
@@ -83,3 +84,5 @@
                     .clear
 
   =render "shared/sidebar"
+
+#fb-root

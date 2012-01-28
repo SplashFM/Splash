@@ -1,5 +1,9 @@
 $(function() {
   window.FriendsView = Backbone.View.extend({
+    initialize: function() {
+      FB.init({appId: this.options.appID, xfbml: true, cookie: true});
+    },
+
     render: function() {
       this.friendsList = new FriendsListView({
         collection: this.options.friends,
