@@ -7,7 +7,8 @@ $(function() {
     render: function() {
       this.friendsList = new FriendsListView({
         collection: this.options.friends,
-        el: this.$('ul.live-feed').get(0)
+        el: this.$('ul.live-feed').get(0),
+        social: new SocialConnection(this.options.social)
       }).render();
 
       return this;
@@ -24,7 +25,10 @@ $(function() {
     renderFriend: function(f) {
       switch (f.get('origin')) {
       case 'facebook':
-        $(this.el).append(new UnregisteredFriendView({model: f}).render().el);
+        $(this.el).append(new UnregisteredFriendView({
+          model: f,
+          social: this.options.social
+        }).render().el);
 
         break;
       default:
@@ -85,6 +89,50 @@ $(function() {
     },
 
     renderAction: function() {
+      return new UnregisteredFriendView.Invite({
+        el: this.$('.right .follow-links'),
+        model: this.model,
+        social: this.options.social
+      }).render();
     },
+  });
+
+  window.UnregisteredFriendView.Invite = Backbone.View.extend({
+    events: {'click a': 'createRequest'},
+    template: $('#tmpl-friends-invite').template(),
+
+    createRequest: function(e) {
+      e.preventDefault();
+
+      new AccessRequest({user: this.json()}).save({}, {
+        success: _.bind(this.inviteCreated, this)
+      });
+    },
+
+    inviteCreated: function(data) {
+      FB.ui({
+        to: data.get('social').uid,
+        method: 'send',
+        display: 'iframe',
+        name: I18n.t('friends.invite.title'),
+        description: I18n.t('friends.invite.description'),
+        link: data.get('social').url,
+        access_token: this.options.social.get('token')
+      }, function(response) {
+      });
+    },
+
+    json: function() {
+      return {
+        uid: this.model.get('uid'),
+        provider: this.model.get('origin')
+      };
+    },
+
+    render: function() {
+      $(this.el).html($.tmpl(this.template, {state: 'invite'}));
+
+      return this;
+    }
   });
 });

@@ -15,12 +15,11 @@ class AccessRequestsController < ApplicationController
     if current_user
       attrs  = params[:user].merge!(:inviter => current_user)
       ar     = AccessRequest.new(attrs)
-      code   = ar.code
-      social = {:uid   => params[:user][:uid],
-                :url   => new_user_registration_url(:code => code),
-                :token => current_user.social_connection('facebook').token}
 
       if ar.save
+        social = {:uid   => params[:user][:uid],
+                  :url   => new_user_registration_url(:code => ar.code)}
+
         render :json => ar.as_json.merge!(:social => social)
       else
         render :json => ar.errors,
