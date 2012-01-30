@@ -1,0 +1,27 @@
+%script#tmpl-tutorial{:type => 'text/x-jquery-tmpl'}
+  .tutorial-header
+    %h1 Splash.FM
+    %p.sub= t('tutorial.sub')
+    .close
+      %a{:href => '#'}= t('tutorial.close')
+  .tutorial-content
+    .tutorial-welcome
+      %h2= t('tutorial.welcome.title')
+      %p.sub= t('tutorial.welcome.sub')
+
+    - t('tutorial.inner').each do |k, content|
+      - bgstyle = "background: url(/images/#{k}-tutorial.png) no-repeat"
+
+      .tutorial-inner-content-pane{:style => bgstyle}
+        = simpler_format(content[:title], :tag => 'h2')
+        = simpler_format(content[:body], :first_class => 'first')
+
+  .tutorial-footer
+    .tutorial-pager-absolute
+
+%script#tmpl-tutorial-relative-pager{:type => 'text/x-jquery-tmpl'}
+  %a.tutorial-pager-prev= t('tutorial.pager.prev')
+  %span.current-page
+  = t('tutorial.pager.of')
+  %span.total-pages
+  %a.tutorial-pager-next= t('tutorial.pager.next')
