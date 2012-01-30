@@ -5,9 +5,11 @@ $(function() {
     },
 
     render: function() {
+      var friends = new FriendsList;
+
       if (this.options.social) {
         this.friendsList = new FriendsListView({
-          collection: this.options.friends,
+          collection: friends,
           el: this.$('ul.live-feed').get(0),
           social: new SocialConnection(this.options.social)
         }).render();
@@ -18,11 +20,13 @@ $(function() {
           noMoreResults: $('<p/>').
             text(I18n.t('friends.all_loaded')).
             addClass('loaded'),
-        }).loaded();
+        });
+
+        friends.fetch();
       }
 
       this.search = new FriendSearch({
-        collection: this.options.friends
+        collection: friends
       });
 
       return this;
