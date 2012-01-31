@@ -53,11 +53,16 @@ class FriendsController < ApplicationController
   end
 
   def friends(token, filter = nil)
-    friends = FbGraph::User.me(token).friends
+    key     = "facebook/friends/#{current_user.id}"
+    friends = Rails.cache.fetch(key, :expires_in => 24.hours) {
+      fs = FbGraph::User.me(token).friends
 
-    friends.select! { |f| f.name.match(/#{filter}/i) } if filter
+      fs.map { |f| {:name => f.name, :identifier => f.identifier} }
+    }
 
-    friends.hash_by(&:identifier)
+    (filter ? friends.select { |f| f[:name].match(/#{filter}/i) } : friends).
+      map { |f| FbGraph::User.new(f[:identifier], f) }.
+      hash_by(&:identifier)
   end
 
   def paginate(list)
