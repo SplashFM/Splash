@@ -3,7 +3,9 @@
     window.Friends = new FriendsView({
       appID: "#{AppConfig.facebook['key']}",
       el: $('body').get(0),
-      social: #{@social.to_json}
+      social: #{@social.to_json},
+      suggestedUsersPerPage: #{User::SUGGESTED_USERS_PER_PAGE},
+      userID: #{current_user.id}
     }).render();
   });
 

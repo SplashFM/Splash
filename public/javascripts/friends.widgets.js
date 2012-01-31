@@ -25,6 +25,12 @@ $(function() {
         friends.fetch();
       }
 
+      this.suggestedSplashers = new SuggestedSplashersView({
+        el: this.$('[data-widget = "suggested-users"]').get(0),
+        followerID: this.options.userID,
+        splashersCount: this.options.suggestedUsersPerPage,
+      });
+
       this.search = new FriendSearch({
         collection: friends
       });
