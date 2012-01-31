@@ -21,7 +21,7 @@ class AccessRequest < ActiveRecord::Base
   before_create :mark_invited, :if => :inviter
   after_create  :notify, :if => :email?
 
-  validate :ensure_invites_available, :if => :inviter
+  validate :ensure_invites_available, :if => :invites_constrained?
 
   scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
   scope :pending, where(:granted => false)
@@ -41,7 +41,9 @@ class AccessRequest < ActiveRecord::Base
   end
 
   def self.remaining(user)
-    INVITATION_COUNT - where(:inviter_id => user.id).count
+    INVITATION_COUNT -
+      where(:inviter_id => user.id).
+        where('access_requests.email is not null').count
   end
 
   def self.reserve(code, user)
@@ -70,6 +72,10 @@ class AccessRequest < ActiveRecord::Base
     unless self.class.remaining(inviter) > 0
       errors.add(:inviter, 'has no invites left')
     end
+  end
+
+  def invites_constrained?
+    inviter && email?
   end
 
   def notify
