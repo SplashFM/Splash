@@ -24,7 +24,7 @@ class FriendsController < ApplicationController
 
         friends.select! { |f| f.name.match(/#{filter}/i) } if filter
 
-        fsh   = Hash[*friends.map { |f| [f.identifier, f] }.flatten]
+        fsh   = friends.hash_by(&:identifier)
         users = User.
           with_social_connection('facebook', fsh.keys).
           by_score
@@ -32,7 +32,7 @@ class FriendsController < ApplicationController
         missing = fsh.keys - users.map { |u| u.social_connection('facebook').uid }
 
         rels = current_user.relationships.with_following(users.map(&:id))
-        relh = Hash[*rels.map { |r| [r.followed_id, r] }.flatten]
+        relh = rels.hash_by(&:followed_id)
 
         @users = paginate(users.map { |u|
           j = u.as_json

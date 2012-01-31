@@ -554,7 +554,7 @@ class User < ActiveRecord::Base
 
     if scores.present?
       ids, _ = *scores.transpose
-      cache = Hash[*Track.where(:id => ids).map { |t| [t.id, t] }.flatten]
+      cache = Track.where(:id => ids).hash_by(&:id)
 
       scores.map { |(id, score)|
         cache[id.to_i].tap { |t| t.scoped_splash_count = score }

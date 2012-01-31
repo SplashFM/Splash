@@ -33,7 +33,7 @@ module RedisRecord
 
         def sorted_by_#{name}(page, num_records)
           ids   = sorted_#{name.to_s.pluralize}(page, num_records).map(&:to_i)
-          cache = Hash[*where(:id => ids).map { |t| [t.id, t] }.flatten]
+          cache = where(:id => ids).hash_by(&:id)
 
           ids.map { |id| cache[id] }
         end
