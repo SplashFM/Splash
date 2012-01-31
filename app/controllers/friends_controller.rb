@@ -25,9 +25,7 @@ class FriendsController < ApplicationController
         friends.select! { |f| f.name.match(/#{filter}/i) } if filter
 
         fsh   = friends.hash_by(&:identifier)
-        users = User.
-          with_social_connection('facebook', fsh.keys).
-          by_score
+        users = User.with_social_connection('facebook', fsh.keys).by_score
 
         missing = fsh.keys - users.map { |u| u.social_connection('facebook').uid }
 
