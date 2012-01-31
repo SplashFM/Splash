@@ -68,6 +68,7 @@ class AccessRequest < ActiveRecord::Base
   end
 
   private
+
   def ensure_invites_available
     unless self.class.remaining(inviter) > 0
       errors.add(:inviter, 'has no invites left')
