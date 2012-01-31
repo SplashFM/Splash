@@ -324,9 +324,11 @@ class User < ActiveRecord::Base
 
   def facebook_suggestions(ignore = [])
     if social_connection('facebook')
-      facebook_friends = FbGraph::User.me(social_connection('facebook').token).friends
+      friends = FbGraph::User.me(social_connection('facebook').token).friends
 
-      User.where(:name => facebook_friends.map(&:name)).ignore(ignore).map(&:id)
+      User.with_social_connection('facebook', friends.map(&:identifier)).
+        ignore(ignore).
+        map(&:id)
     else
       []
     end
