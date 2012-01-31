@@ -110,7 +110,9 @@ class User < ActiveRecord::Base
   scope :followed_by, lambda { |user|
     joins(:followers).where(:relationships => {:follower_id => user.id})
   }
-  scope :ignore,  lambda { |users| where("id not in (?)", users) unless users.blank? }
+  scope :ignore,  lambda { |users|
+    where("users.id not in (?)", users) unless users.blank?
+  }
   scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
 
   scope :registered_around, lambda { |date|
