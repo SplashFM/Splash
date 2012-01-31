@@ -185,6 +185,8 @@ $(function() {
     createRequest: function(e) {
       e.preventDefault();
 
+      if (this.isInvited) return;
+
       new AccessRequest({user: this.json()}).save({}, {
         success: _.bind(this.inviteCreated, this)
       });
@@ -199,8 +201,18 @@ $(function() {
         description: I18n.t('friends.invite.description'),
         link: data.get('social').url,
         access_token: this.options.social.get('token')
-      }, function(response) {
-      });
+      }, _.bind(this.invited, this));
+    },
+
+    invited: function(response) {
+      if (response) {
+        this.isInvited = true;
+
+        this.$('a').
+          removeClass('follow').
+          addClass('invited').
+          text(I18n.t('friends.invite.invited'));
+      }
     },
 
     json: function() {
