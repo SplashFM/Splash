@@ -55,8 +55,13 @@ $(function() {
     initialize: function() {
       this.collection.bind('add', this.renderFriend, this);
       this.collection.bind('reset', this.render, this);
+      this.collection.bind('reset', this.loaded, this);
 
       this.page = 1;
+    },
+
+    loaded: function() {
+      this.trigger('scroll:loaded');
     },
 
     render: function() {
