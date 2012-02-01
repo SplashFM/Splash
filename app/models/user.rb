@@ -534,9 +534,8 @@ class User < ActiveRecord::Base
     splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
   end
 
-  def suggest_users
-    update_attribute :suggested_users,
-                     default_user_suggestions - ignored_user_ids
+  def suggest_users(user_ids = default_user_suggestions)
+    update_attribute :suggested_users, user_ids - ignored_user_ids
   end
 
   def ignored_user_ids
