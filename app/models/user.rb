@@ -535,15 +535,17 @@ class User < ActiveRecord::Base
   end
 
   def suggest_users
-    ignore = ignored_user_ids
-
-    self.suggested_users = (facebook_suggestions | splash_suggestions) - ignore
+    self.suggested_users = default_user_suggestions - ignored_user_ids
 
     save!
   end
 
   def ignored_user_ids
     following_ids + ignore_suggested_users + [id]
+  end
+
+  def default_user_suggestions
+    facebook_suggestions | splash_suggestions
   end
 
   def suggested_users
