@@ -342,11 +342,11 @@ class User < ActiveRecord::Base
     []
   end
 
-  def fetch_avatar(social_connection = nil)
+  def fetch_avatar(social_connection)
     begin
       Tempfile.open('avatar') { |f|
         f.binmode
-        f.write open(URI.encode(provider_avatar_url)).read
+        f.write open(URI.encode(social_connection.avatar_url)).read
 
         self.update_attribute(:avatar, f)
       }
@@ -418,8 +418,8 @@ class User < ActiveRecord::Base
     destroy if social_connections.length.zero?
   end
 
-  def maybe_fetch_avatar(_ = nil)
-    fetch_avatar if fetch_avatar_needed?
+  def maybe_fetch_avatar(social_connection = nil)
+    fetch_avatar social_connection if fetch_avatar_needed?
   end
 
   def merge_account(user)
@@ -458,19 +458,6 @@ class User < ActiveRecord::Base
 
   def password_required?
     initial_provider.blank? && super
-  end
-
-  def provider_avatar_url
-    sc = default_social_connection
-
-    case sc.try(:provider)
-    when 'facebook'
-      "http://graph.facebook.com/#{sc.uid}/picture?type=large"
-    when 'twitter'
-      "http://api.twitter.com/1/users/profile_image/#{sc.uid}.json?size=original"
-    else
-      nil
-    end
   end
 
   def recommended_users

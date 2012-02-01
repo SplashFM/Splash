@@ -3,7 +3,7 @@ class SocialConnection < ActiveRecord::Base
 
   belongs_to :user
 
-  def_delegators :remote, :friends
+  def_delegators :remote, :friends, :avatar_url
 
   validates :uid, :uniqueness => true
 
@@ -22,6 +22,10 @@ class SocialConnection < ActiveRecord::Base
       @me = FbGraph::User.new(connection.uid, :access_token => connection.token)
     end
 
+    def avatar_url
+      @me.picture(:large)
+    end
+
     def friends
       @me.friends
     end
@@ -37,7 +41,11 @@ class SocialConnection < ActiveRecord::Base
 
   class Twitter
     def initialize(connection)
-      @connection = connection
+      @uid = connection.uid
+    end
+
+    def avatar_url
+      "http://api.twitter.com/1/users/profile_image/#{@uid}.json?size=original"
     end
 
     def friends
