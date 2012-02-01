@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
 
   has_many :comments, :foreign_key => :author_id
   has_many :social_connections,
-           :after_add => :maybe_fetch_avatar
+           :after_add => [Suggestions.new, :maybe_fetch_avatar]
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",
