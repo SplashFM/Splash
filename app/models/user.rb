@@ -322,12 +322,11 @@ class User < ActiveRecord::Base
     social_connections.first
   end
 
-  def facebook_suggestions(ignore = [])
+  def facebook_suggestions
     if social_connection('facebook')
       friends = FbGraph::User.me(social_connection('facebook').token).friends
 
       User.with_social_connection('facebook', friends.map(&:identifier)).
-        ignore(ignore).
         map(&:id)
     else
       []
@@ -497,11 +496,10 @@ class User < ActiveRecord::Base
     roles
   end
 
-  def splash_suggestions(ignore = [])
+  def splash_suggestions
     # the users followed by people I am following, but whom I am not already following.
     Relationship.select('DISTINCT relationships.followed_id')
       .with_followers(following.map(&:id))
-      .ignore(ignore + [self.id])
       .map(&:followed_id)
   end
 
@@ -534,14 +532,13 @@ class User < ActiveRecord::Base
   def suggest_users
     ignore = ignored_user_ids
 
-    self.suggested_users = facebook_suggestions(ignore) |
-                           splash_suggestions(ignore)
+    self.suggested_users = (facebook_suggestions | splash_suggestions) - ignore
 
     save!
   end
 
   def ignored_user_ids
-    following_ids + ignore_suggested_users
+    following_ids + ignore_suggested_users + [id]
   end
 
   def suggested_users
