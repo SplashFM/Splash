@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
 
   has_many :comments, :foreign_key => :author_id
   has_many :social_connections,
-           :after_add => [Suggestions.new, :maybe_fetch_avatar]
+           :after_add => [Suggestions.new, SocialAvatar.new]
 
   ATTACHMENT_OPTS = {
     :hash_secret => ":class/:attachment/:id",
@@ -342,23 +342,6 @@ class User < ActiveRecord::Base
     []
   end
 
-  def fetch_avatar(social_connection)
-    begin
-      Tempfile.open('avatar') { |f|
-        f.binmode
-        f.write open(URI.encode(social_connection.avatar_url)).read
-
-        self.update_attribute(:avatar, f)
-      }
-    rescue OpenURI::HTTPError => e
-      logger.error e
-    end
-  end
-
-  def fetch_avatar_needed?
-    !avatar? && has_social_connections?
-  end
-
   def follow(followed_id)
     suggested_users.delete(followed_id)
     write_attribute(:suggested_users, suggested_users)
@@ -416,10 +399,6 @@ class User < ActiveRecord::Base
     UserMailer.delay.invite self, code
 
     destroy if social_connections.length.zero?
-  end
-
-  def maybe_fetch_avatar(social_connection = nil)
-    fetch_avatar social_connection if fetch_avatar_needed?
   end
 
   def merge_account(user)
