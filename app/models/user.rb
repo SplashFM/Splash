@@ -535,9 +535,8 @@ class User < ActiveRecord::Base
   end
 
   def suggest_users
-    self.suggested_users = default_user_suggestions - ignored_user_ids
-
-    save!
+    update_attribute :suggested_users,
+                     default_user_suggestions - ignored_user_ids
   end
 
   def ignored_user_ids
