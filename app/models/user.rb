@@ -331,6 +331,7 @@ class User < ActiveRecord::Base
       friends = FbGraph::User.me(social_connection('facebook').token).friends
 
       User.with_social_connection('facebook', friends.map(&:identifier)).
+        only(:id).
         map(&:id)
     else
       []
