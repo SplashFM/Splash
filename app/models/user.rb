@@ -280,6 +280,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.only(field)
+    select("users.#{field}")
+  end
+
   def as_json(opts = nil)
     opts ||= {}
 
