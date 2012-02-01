@@ -332,6 +332,10 @@ class User < ActiveRecord::Base
     else
       []
     end
+  rescue FbGraph::InvalidToken => e
+    logger.debug(e)
+
+    []
   end
 
   def fetch_avatar(social_connection = nil)
