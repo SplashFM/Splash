@@ -244,7 +244,7 @@ class User < ActiveRecord::Base
     scs    = splash_counts(ids) || []
     rcs    = ripple_counts(ids) || []
     ids.zip(scs, rcs).each { |(id, s, r)|
-      update_sorted_influence(id, s.to_i + r.to_i)
+      update_sorted_influence(id, s.to_i + (r.to_i * 2))
     }
   end
 
@@ -385,7 +385,7 @@ class User < ActiveRecord::Base
     total_users = User.count
 
     if influence_rank
-      (90 * (((total_users - influence_rank) / total_users.to_f) ** 2)).floor
+      (90 * (((total_users - influence_rank) / total_users.to_f) ** 4)).floor
     else
       0
     end
