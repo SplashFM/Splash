@@ -470,7 +470,7 @@ $(function() {
     template: $('#tmpl-upload-metadata').template(),
 
     initialize: function() {
-      _.bindAll(this, 'onComplete', 'onSubmit');
+      _.bindAll(this, 'onComplete', 'onError', 'onSubmit');
     },
 
     onComplete: function() {
@@ -483,6 +483,10 @@ $(function() {
 
       this.$('[data-widget = "metadata"]').hide();
       this.$('[data-widget = "complete-upload"]').hide();
+    },
+
+    onError: function() {
+      $(this.el).trigger('upload:error');
     },
 
     onSubmit: function(e) {
@@ -498,7 +502,10 @@ $(function() {
 
         $(this.el).trigger('upload:metadata');
 
-        this.model.save(attrs, {success: this.onComplete});
+        this.model.save(attrs, {
+          error: this.onError,
+          success: this.onComplete
+        });
       } else {
         new Splash().save({
           comment:  this.comment.comment(),
