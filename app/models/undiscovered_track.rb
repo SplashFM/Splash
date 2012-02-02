@@ -21,25 +21,21 @@ class UndiscoveredTrack < Track
     :path          => "#{PREFIX}/:class/:attachment/:id/:hash.:extension"
   }
 
+  S3_OPTS = {
+    :storage        => :s3,
+    :s3_credentials => {
+      :access_key_id     => AppConfig.aws['access_key_id'],
+      :secret_access_key => AppConfig.aws['secret_access_key'],
+      :bucket            => AppConfig.aws['bucket']
+    },
+  }
+
   if AppConfig.aws && ! Rails.env.test?
     has_attached_file :data,
-      {:storage => :s3,
-       :s3_credentials => {
-         :access_key_id => AppConfig.aws['access_key_id'],
-         :secret_access_key => AppConfig.aws['secret_access_key'],
-         :bucket => AppConfig.aws['bucket']
-        },
-       :s3_headers => {"Content-Disposition" => "attachment"},
-     }.merge!(ATTACHMENT_OPTS)
-
-    has_attached_file :artwork, {
-      :storage => :s3,
-      :s3_credentials => {
-        :access_key_id => AppConfig.aws['access_key_id'],
-        :secret_access_key => AppConfig.aws['secret_access_key'],
-        :bucket => AppConfig.aws['bucket']
-      },
-    }.merge!(ARTWORK_OPTS)
+      S3_OPTS.
+        merge(ATTACHMENT_OPTS).
+        merge(:s3_headers => {"Content-Disposition" => "attachment"})
+    has_attached_file :artwork, S3_OPTS.merge(ARTWORK_OPTS)
   else
     has_attached_file :data,    ATTACHMENT_OPTS
     has_attached_file :artwork, ARTWORK_OPTS
