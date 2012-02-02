@@ -53,9 +53,8 @@ class UndiscoveredTrack < Track
   validate :validate_track_uniqueness,   :if => :full_validation?
 
   before_validation :extract_metadata, :on => :create, :if => :data?
-  before_create :set_data_content_disposition, :if => :file_name_from_metadata
   before_create :set_default_popularity_rank
-  before_update :update_data_content_disposition, :if => :title_changed?
+  before_update :publish, :if => :local_data?
 
   def artwork_url
     artwork.url
@@ -74,6 +73,16 @@ class UndiscoveredTrack < Track
 
   def downloadable?
     data.file?
+  end
+
+  def publish
+    f = local_data.to_file(:original)
+
+    self.data       = f
+    self.local_data = nil
+
+    set_data_content_disposition(data,
+                                 display_file_name(title, File.extname(f.path)))
   end
 
   def song_file
@@ -105,24 +114,12 @@ class UndiscoveredTrack < Track
     ! new_record? || title.present? || performers.present?
   end
 
-  def file_name_from_metadata
-    if song_file.title.present? && song_file.extension.present?
-      display_file_name(song_file.title, song_file.extension)
-    end
-  end
-
-  def set_data_content_disposition(filename = file_name_from_metadata)
+  def set_data_content_disposition(data, filename)
     data.instance_variable_set :@s3_headers, data_content_disposition(filename)
   end
 
   def set_default_popularity_rank
     self.popularity_rank ||= Track::UNDISCOVERED_POPULARITY
-  end
-
-  def update_data_content_disposition
-    self.data = self.data.to_file(:original)
-
-    set_data_content_disposition display_file_name(title, song_file.extension)
   end
 
   def validate_attachment_type
