@@ -2,11 +2,9 @@ class UndiscoveredTracksController < ApplicationController
   respond_to :json
 
   def create
-    track = current_user.uploaded_tracks.build(params.slice(:local_data))
+    track = current_user.uploaded_tracks.create(params.slice(:local_data))
 
-    if track.save
-      respond_with track
-    elsif track.taken?
+    if track.taken?
       canonical = track.replace_with_canonical
 
       if ! Splash.for?(current_user, canonical)
