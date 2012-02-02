@@ -46,7 +46,8 @@ class UndiscoveredTrack < Track
 
   belongs_to :uploader, :class_name => 'User'
 
-  validate :validate_attachment_type
+  validate :validate_local_data_type,    :if => :local_data?
+  validate :validate_data_type,          :if => :data?
 
   validates_presence_of :title,          :if => :full_validation?
   validate :validate_performer_presence, :if => :full_validation?
@@ -61,8 +62,8 @@ class UndiscoveredTrack < Track
     artwork.url
   end
 
-  def preview_type
-    File.extname(data_file_name).split('.').last
+  def preview_type(name = data_file_name)
+    name and File.extname(name).split('.').last
   end
 
   def preview_url
@@ -126,12 +127,18 @@ class UndiscoveredTrack < Track
     self.popularity_rank ||= Track::UNDISCOVERED_POPULARITY
   end
 
-  def validate_attachment_type
-    if data.file?
-      unless ALLOWED_ATTACHMENT_EXTS.include?(preview_type)
-        errors.add(:data_content_type,
-                   I18n.t(INVALID_ATTACHMENT, :allowed => ALLOWED_ATTACHMENTS))
-      end
+  def validate_data_type
+    validate_type data_file_name
+  end
+
+  def validate_local_data_type
+    validate_type local_data_file_name
+  end
+
+  def validate_type(name)
+    unless ALLOWED_ATTACHMENT_EXTS.include?(preview_type(name))
+      errors.add(:data_content_type,
+                 I18n.t(INVALID_ATTACHMENT, :allowed => ALLOWED_ATTACHMENTS))
     end
   end
 
