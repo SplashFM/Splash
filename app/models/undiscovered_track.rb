@@ -52,7 +52,8 @@ class UndiscoveredTrack < Track
   validate :validate_performer_presence, :if => :full_validation?
   validate :validate_track_uniqueness,   :if => :full_validation?
 
-  before_validation :extract_metadata, :on => :create, :if => :data?
+  before_create :extract_artwork
+  after_create  :extract_metadata
   before_create :set_default_popularity_rank
   before_update :publish, :if => :local_data?
 
@@ -99,11 +100,14 @@ class UndiscoveredTrack < Track
     {"Content-Disposition" => "attachment; filename=#{filename.inspect}"}
   end
 
+  def extract_artwork
+    self.artwork = song_file.artwork
+  end
+
   def extract_metadata
     self.title      = song_file.title
     self.albums     = song_file.album
     self.performers = song_file.artist
-    self.artwork    = song_file.artwork
   end
 
   def display_file_name(title, ext)
