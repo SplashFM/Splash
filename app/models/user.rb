@@ -435,8 +435,19 @@ class User < ActiveRecord::Base
     initial_provider.blank? && super
   end
 
-  def recommended_users
-    User.where("id IN (?)", suggested_users)
+  def recommended_users(max)
+    social = social_connections.inject([]) { |a, c|
+      users = User.
+        where(:id => suggested_users).
+        with_social_connection(c.provider, c.friends.map(&:uid)).
+        limit(max)
+
+      a.concat(users)
+    }
+
+    others = User.where(:id => suggested_users - social.map(&:id)).limit(max)
+
+    social.concat(others).first(max)
   end
 
   def recompute_splashboard(operation = nil, followed = nil)

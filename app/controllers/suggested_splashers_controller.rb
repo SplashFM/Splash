@@ -2,7 +2,7 @@ class SuggestedSplashersController < ApplicationController
   respond_to :json
 
   def index
-    respond_with current_user.recommended_users.page(1).per(100)
+    respond_with current_user.recommended_users(100)
   end
 
   def destroy
