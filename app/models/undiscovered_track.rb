@@ -86,8 +86,8 @@ class UndiscoveredTrack < Track
                                  display_file_name(title, File.extname(f.path)))
   end
 
-  def song_file
-    @song_file ||= SongFile.new(data.to_file.path)
+  def local_song_file
+    @song_file ||= SongFile.new(local_data.to_file(:original).path)
   end
 
   def replace_with_canonical
@@ -101,13 +101,13 @@ class UndiscoveredTrack < Track
   end
 
   def extract_artwork
-    self.artwork = song_file.artwork
+    self.artwork = local_song_file.artwork
   end
 
   def extract_metadata
-    self.title      = song_file.title
-    self.albums     = song_file.album
-    self.performers = song_file.artist
+    self.title      = local_song_file.title
+    self.albums     = local_song_file.album
+    self.performers = local_song_file.artist
   end
 
   def display_file_name(title, ext)
