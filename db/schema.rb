@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120127184249) do
+ActiveRecord::Schema.define(:version => 20120202152715) do
 
   create_table "access_requests", :force => true do |t|
     t.string   "email"
@@ -157,14 +157,14 @@ ActiveRecord::Schema.define(:version => 20120127184249) do
   end
 
   create_table "tracks", :force => true do |t|
-    t.string   "title",                :limit => 1000
+    t.string   "title",                   :limit => 1000
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "data_file_name"
     t.string   "data_content_type"
     t.integer  "data_file_size"
     t.datetime "data_updated_at"
-    t.string   "purchase_url_raw",     :limit => 1024
+    t.string   "purchase_url_raw",        :limit => 1024
     t.string   "type"
     t.string   "artwork_url"
     t.integer  "external_id"
@@ -178,6 +178,10 @@ ActiveRecord::Schema.define(:version => 20120127184249) do
     t.string   "artwork_content_type"
     t.integer  "artwork_file_size"
     t.datetime "artwork_updated_at"
+    t.string   "local_data_file_name"
+    t.string   "local_data_content_type"
+    t.integer  "local_data_file_size"
+    t.datetime "local_data_updated_at"
   end
 
   create_table "users", :force => true do |t|
