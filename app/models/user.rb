@@ -322,10 +322,6 @@ class User < ActiveRecord::Base
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?
   end
 
-  def default_social_connection
-    social_connections.first
-  end
-
   def facebook_suggestions
     if social_connection('facebook')
       friends = FbGraph::User.me(social_connection('facebook').token).friends
