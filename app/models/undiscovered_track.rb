@@ -6,21 +6,24 @@ class UndiscoveredTrack < Track
     to_sentence(:two_words_connector => ', ', :last_word_connector => ', ')
   INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
 
+  PREFIX = Rails.env.development? || Rails.env.test? ? "#{Rails.root}/tmp" : ""
+
   ATTACHMENT_OPTS = {
-    :hash_secret => ":class/:attachment/:id"
+    :hash_secret => ":class/:attachment/:id",
+    :path        => "#{PREFIX}/:class/:attachment/:id/:hash.:extension"
   }
 
   ARTWORK_OPTS = {
     :default_style => :normal,
     :styles        => {:normal => '100x100>'},
     :default_url   => DEFAULT_ARTWORK_URL,
-    :hash_secret   => ":class/:attachment/:id"
+    :hash_secret   => ":class/:attachment/:id",
+    :path          => "#{PREFIX}/:class/:attachment/:id/:hash.:extension"
   }
 
   if AppConfig.aws && ! Rails.env.test?
     has_attached_file :data,
-      {:path   => "/:class/:attachment/:id/:hash.:extension",
-       :storage => :s3,
+      {:storage => :s3,
        :s3_credentials => {
          :access_key_id => AppConfig.aws['access_key_id'],
          :secret_access_key => AppConfig.aws['secret_access_key'],
@@ -30,7 +33,6 @@ class UndiscoveredTrack < Track
      }.merge!(ATTACHMENT_OPTS)
 
     has_attached_file :artwork, {
-      :path    => "/:class/:attachment/:id/:hash",
       :storage => :s3,
       :s3_credentials => {
         :access_key_id => AppConfig.aws['access_key_id'],
@@ -39,13 +41,8 @@ class UndiscoveredTrack < Track
       },
     }.merge!(ARTWORK_OPTS)
   else
-    has_attached_file :data,
-      {:path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension"}.
-        merge!(ATTACHMENT_OPTS)
-
-    has_attached_file :artwork, {
-      :path => "#{Rails.root}/tmp/:class/:attachment/:id/:hash.:extension",
-    }.merge!(ARTWORK_OPTS)
+    has_attached_file :data,    ATTACHMENT_OPTS
+    has_attached_file :artwork, ARTWORK_OPTS
   end
 
   belongs_to :uploader, :class_name => 'User'
