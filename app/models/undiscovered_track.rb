@@ -49,9 +49,9 @@ class UndiscoveredTrack < Track
   validate :validate_local_data_type,    :if => :local_data?
   validate :validate_data_type,          :if => :data?
 
-  validates_presence_of :title,          :if => :full_validation?
-  validate :validate_performer_presence, :if => :full_validation?
-  validate :validate_track_uniqueness,   :if => :full_validation?
+  validates_presence_of :title,          :on => :update
+  validate :validate_performer_presence, :on => :update
+  validate :validate_track_uniqueness,   :on => :update
 
   before_create :extract_artwork
   after_create  :extract_metadata
@@ -113,10 +113,6 @@ class UndiscoveredTrack < Track
 
   def display_file_name(title, ext)
     title.gsub(/\W+/, ' ').squeeze(' ').strip + '.' + ext.sub(/^\./, '')
-  end
-
-  def full_validation?
-    ! new_record? || title.present? || performers.present?
   end
 
   def set_data_content_disposition(data, filename)
