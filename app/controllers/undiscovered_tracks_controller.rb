@@ -2,7 +2,7 @@ class UndiscoveredTracksController < ApplicationController
   respond_to :json
 
   def create
-    track = current_user.uploaded_tracks.build(params.slice(:data))
+    track = current_user.uploaded_tracks.build(params.slice(:local_data))
 
     if track.save
       respond_with track
