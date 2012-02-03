@@ -23,6 +23,15 @@ feature "Notifications", :js => true do
     notifications.should have_no_mentions
   end
 
+  scenario "are sent when someone comments on one of my splashes" do
+    s = create(Splash).user!(user)
+    c = create(Comment).splash!(s)
+
+    go_to 'home'
+
+    notifications.should have(1).comment_for_splasher
+  end
+
   scenario "Go to mentions tab when we click a mention notification" do
     u = create!(User)
     user.follow u.id

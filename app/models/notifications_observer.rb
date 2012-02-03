@@ -17,5 +17,7 @@ class NotificationsObserver < ActiveRecord::Observer
     }
 
     notifiables.each { |n| Mention.notify n, comment }
+
+    CommentForSplasher.notify comment.splash.user, comment
   end
 end

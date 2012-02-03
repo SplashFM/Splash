@@ -244,6 +244,7 @@ $(function() {
 
         break;
       case 'mention':
+      case 'comment_for_splasher':
         $.pjax({
           url: Routes.home_path({mentions: 1}),
           container: '[data-pjax-container]',

@@ -46,6 +46,12 @@ module UI
         has_no_css?('.item.mention')
       end
 
+      def comment_for_splashers
+        wait_until {
+          all(w('list-notifications', '.item.commentforsplasher')).presence
+        }
+      end
+
       def mentions
         wait_until { all(w('list-notifications', '.item.mention')).presence }
       end
