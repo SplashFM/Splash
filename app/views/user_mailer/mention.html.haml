@@ -1,11 +1,3 @@
-%p
-  = link_to(@notification.notifier.name, |
-            user_slug_url(@notification.notifier.slug))
-  = @notification.action
-  on Splash.FM:
-
-  "#{@notification.target.splash.track.title}"  by "#{@notification.target.splash.track.performers.join(', ')}"
-
-%blockquote= ActionView::Base.new.simple_format(@notification.target.body)
+= render :template => 'user_mailer/comment_notification'
 
 %p= link_to('View Splash', home_url(:mentions => 1))

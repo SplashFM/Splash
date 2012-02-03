@@ -1,7 +1,3 @@
-<%= @notification.notifier.name %> <%= @notification.action %> on Splash.FM:
-
-"<%= @notification.target.splash.track.title %>" by "<%= @notification.target.splash.track.performers.join(', ') %>"
-
-"<%= @notification.target.body %>"
+<%= render :template => 'user_mailer/comment_notification' %>
 
 View Splash at <%= home_url(:mentions => 1) %>
