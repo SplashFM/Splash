@@ -13,6 +13,7 @@ Bricks do
   end
 
   builder Comment do
+    author
     splash
     body "This is a comment!"
   end

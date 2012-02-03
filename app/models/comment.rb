@@ -4,7 +4,8 @@ class Comment < ActiveRecord::Base
   belongs_to :author, :class_name => 'User'
   belongs_to :splash, :counter_cache => true
 
-  validates :body,      :presence => true
+  validates :body,   :presence => true
+  validates :author, :presence => true
 
   before_create :set_skip_feed
 
