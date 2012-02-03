@@ -12,6 +12,10 @@ class NotificationsObserver < ActiveRecord::Observer
   end
 
   def notify_comment(comment)
-    Mention.notify comment
+    notifiables = comment.mentioned_users.select { |u|
+      u.following?(comment.author)
+    }
+
+    notifiables.each { |n| Mention.notify n, comment }
   end
 end

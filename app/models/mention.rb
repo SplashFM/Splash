@@ -1,12 +1,8 @@
 class Mention < Notification
-  def self.notify(comment)
-    comment.mentioned_users.each { |recipient|
-      if recipient.following?(comment.author)
-        create!(:target   => comment,
-                :notifier => comment.author,
-                :notified => recipient)
-      end
-    }
+  def self.notify(recipient, comment)
+    create!(:target   => comment,
+            :notifier => comment.author,
+            :notified => recipient)
   end
 
   def title
