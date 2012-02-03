@@ -31,7 +31,7 @@ class UndiscoveredTrack < Track
   }
 
   has_attached_file :local_data,
-    :path => "#{PREFIX}/:class/:attachment/:id/:filename"
+    :path => "#{PREFIX}/mnt/uploads/:class/:attachment/:id/:filename"
 
   if AppConfig.aws && ! Rails.env.test?
     has_attached_file :data,
