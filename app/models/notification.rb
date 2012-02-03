@@ -28,6 +28,10 @@ class Notification < ActiveRecord::Base
     read_at == nil
   end
 
+  def template
+    self.class.name.underscore
+  end
+
   def self.mark_as_read(user)
     self.for(user).update_all :read_at => Time.now
   end
