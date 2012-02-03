@@ -32,6 +32,15 @@ feature "Notifications", :js => true do
     notifications.should have(1).comment_for_splasher
   end
 
+  scenario "are not sent to me when I'm the author of a comment" do
+    s = create(Splash).user!(user)
+    c = create(Comment).author(user).splash!(s)
+
+    go_to 'home'
+
+    notifications.should be_empty
+  end
+
   scenario "Go to mentions tab when we click a mention notification" do
     u = create!(User)
     user.follow u.id

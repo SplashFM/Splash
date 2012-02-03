@@ -42,6 +42,10 @@ module UI
       include Base::Helpers
       include Capybara::DSL
 
+      def empty?
+        has_no_css?(w('list-notifications', '.item'))
+      end
+
       def has_no_mentions?
         has_no_css?('.item.mention')
       end
