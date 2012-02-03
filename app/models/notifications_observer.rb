@@ -18,9 +18,10 @@ class NotificationsObserver < ActiveRecord::Observer
 
     notifiables.each { |n| Mention.notify n, comment }
 
-    splasher = comment.splash.user
+    ignorables = notifiables + [comment.author]
+    splasher   = comment.splash.user
 
-    if comment.author != splasher
+    unless ignorables.include?(splasher)
       CommentForSplasher.notify splasher, comment
     end
   end

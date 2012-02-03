@@ -46,6 +46,10 @@ module UI
         has_no_css?(w('list-notifications', '.item'))
       end
 
+      def has_no_comment_for_splasher?
+        has_no_css?('.item.commentforsplasher')
+      end
+
       def has_no_mentions?
         has_no_css?('.item.mention')
       end
