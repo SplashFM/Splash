@@ -112,6 +112,7 @@ en:
     following: "is now following you"
     mention: "splashed a song at you"
     comment_for_splasher: "also commented on your Splash"
+    comment_notification: "also commented on %{user}'s splash"
 
   searches:
     empty: No results found.

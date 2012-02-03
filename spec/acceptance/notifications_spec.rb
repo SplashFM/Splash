@@ -52,6 +52,16 @@ feature "Notifications", :js => true do
     notifications.should have_no_comment_for_splasher
   end
 
+  scenario "are sent to all users participating in a conversation" do
+    s  = create!(Splash)
+    c1 = create(Comment).author(user).splash!(s)
+    c2 = create(Comment).splash!(s)
+
+    go_to 'home'
+
+    notifications.should have(1).comment
+  end
+
   scenario "Go to mentions tab when we click a mention notification" do
     u = create!(User)
     user.follow u.id

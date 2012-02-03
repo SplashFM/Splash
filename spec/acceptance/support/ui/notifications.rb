@@ -42,6 +42,12 @@ module UI
       include Base::Helpers
       include Capybara::DSL
 
+      def comments
+        wait_until {
+          all(w('list-notifications', '.item.commentnotification')).presence
+        }
+      end
+
       def empty?
         has_no_css?(w('list-notifications', '.item'))
       end
