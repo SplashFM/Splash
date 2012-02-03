@@ -16,6 +16,12 @@ Bricks do
     author
     splash
     body "This is a comment!"
+
+    trait :mention do |*users|
+      mentions = "@" << users.map(&:nickname).join(" @")
+
+      body "Hey, I'm mentioning #{mentions}!"
+    end
   end
 
   builder Splash do
