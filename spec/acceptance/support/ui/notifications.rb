@@ -37,5 +37,22 @@ module UI
 
     module Matchers
     end
+
+    class NotificationsWidget
+      include Base::Helpers
+      include Capybara::DSL
+
+      def has_no_mentions?
+        has_no_css?('.item.mention')
+      end
+
+      def mentions
+        wait_until { all(w('list-notifications', '.item.mention')).presence }
+      end
+    end
+
+    def notifications
+      NotificationsWidget.new
+    end
   end
 end
