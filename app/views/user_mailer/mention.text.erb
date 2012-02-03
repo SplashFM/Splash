@@ -1,4 +1,4 @@
-<%= @notification.notifier.name %> splashed a song at you on Splash.FM:
+<%= @notification.notifier.name %> <%= @notification.action %> on Splash.FM:
 
 "<%= @notification.target.splash.track.title %>" by "<%= @notification.target.splash.track.performers.join(', ') %>"
 

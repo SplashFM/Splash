@@ -18,8 +18,12 @@ class Notification < ActiveRecord::Base
     where(:notifier_id => user)
   end
 
+  def action
+    I18n.t("notifications.#{self.class.name.underscore}")
+  end
+
   def as_json(opts = {})
-    {:title    => title,
+    {:title    => "#{notifier.name} #{action}",
      :type     => self.class.name.parameterize,
      :notifier => notifier.as_json}
   end

@@ -1,7 +1,8 @@
 %p
   = link_to(@notification.notifier.name, |
             user_slug_url(@notification.notifier.slug))
-  splashed a song at you on Splash.FM:
+  = @notification.action
+  on Splash.FM:
 
   "#{@notification.target.splash.track.title}"  by "#{@notification.target.splash.track.performers.join(', ')}"
 

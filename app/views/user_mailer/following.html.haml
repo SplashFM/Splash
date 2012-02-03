@@ -1,7 +1,8 @@
 %p
   = link_to(@notification.notifier.name, |
             user_slug_url(@notification.notifier.slug))
-  is now following you on
+  = @notification.action
+  on
   = link_to('Splash.FM', root_url) << "."
 
 %p

@@ -109,8 +109,8 @@ en:
     title: Social music discovery
 
   notifications:
-    following: "%{user} is following you"
-    mention: "%{user} splashed a song at you"
+    following: "is now following you"
+    mention: "splashed a song at you"
 
   searches:
     empty: No results found.

@@ -24,8 +24,7 @@ class UserMailer < ActionMailer::Base
     @notification = notification
 
     mail :to            => notification.notified.email,
-         :subject       => t("notifications.#{notification.class.name.underscore}",
-                             :user => notification.notifier.name),
+         :subject       => "#{notification.notifier.name} #{notification.action}",
          :template_name => notification.template
   end
 end
