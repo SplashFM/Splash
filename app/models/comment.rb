@@ -31,6 +31,10 @@ class Comment < ActiveRecord::Base
      :splash     => splash.active_model_serializer.new(splash, nil, opts)}
   end
 
+  def mentioned_users
+    User.nicknamed(*body.scan(/@(#{User::NICKNAME_REGEXP})/))
+  end
+
   private
 
   def set_skip_feed
