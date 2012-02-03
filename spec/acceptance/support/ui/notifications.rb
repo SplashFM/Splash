@@ -56,6 +56,10 @@ module UI
         has_no_css?('.item.commentforsplasher')
       end
 
+      def has_no_comment_notifications?
+        has_no_css?('.item.commentnotification')
+      end
+
       def has_no_mentions?
         has_no_css?('.item.mention')
       end

@@ -62,6 +62,16 @@ feature "Notifications", :js => true do
     notifications.should have(1).comment
   end
 
+  scenario "comments for splasher are more important than comments" do
+    s = create(Splash).user!(user)
+    c = create(Comment).splash!(s)
+
+    go_to 'home'
+
+    notifications.should have(1).comment_for_splasher
+    notifications.should have_no_comment_notifications
+  end
+
   scenario "Go to mentions tab when we click a mention notification" do
     u = create!(User)
     user.follow u.id
