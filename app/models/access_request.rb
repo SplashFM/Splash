@@ -32,6 +32,10 @@ class AccessRequest < ActiveRecord::Base
     AdminMailer.list_access_requests(requests).deliver if requests.present?
   end
 
+  def self.for_attributes(attrs)
+    where(attrs.slice(:uid, :email)).first || new(attrs)
+  end
+
   def self.codes
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
   end

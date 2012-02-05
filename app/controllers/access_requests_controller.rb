@@ -14,7 +14,7 @@ class AccessRequestsController < ApplicationController
   def create
     if current_user
       attrs  = params[:user].merge!(:inviter => current_user)
-      ar     = AccessRequest.new(attrs)
+      ar     = AccessRequest.for_attributes(attrs)
 
       if ar.save
         social = {:uid   => params[:user][:uid],
