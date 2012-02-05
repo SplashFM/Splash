@@ -46,6 +46,6 @@ class Notification < ActiveRecord::Base
   end
 
   def receiver_email_notification_enabled?
-    notified.email_preference(self.class.name.parameterize)
+    notified.email_preference(self.class.name.underscore)
   end
 end
