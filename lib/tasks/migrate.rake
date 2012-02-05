@@ -122,4 +122,13 @@ namespace :migrate do
                set    type = 'CommentForParticipants'
                where  type = 'CommentNotification'"
   end
+
+  task :add_default_comment_email_settings => :environment do
+    User.find_each(:batch_size => 100) { |u|
+      u.update_attribute(:email_preferences,
+                         u.email_preferences.merge(
+                           'comment_for_splasher' => 'true',
+                           'comment_for_participants' => 'true'))
+    }
+  end
 end
