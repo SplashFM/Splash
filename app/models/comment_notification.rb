@@ -5,8 +5,7 @@ class CommentNotification < Notification
             :notified => recipient)
   end
 
-  def action
-    I18n.t('notifications.comment_notification',
-           :user => target.splash.user.name)
+  def template
+    'comment_notification'
   end
 end

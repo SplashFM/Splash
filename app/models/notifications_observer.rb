@@ -28,7 +28,7 @@ class NotificationsObserver < ActiveRecord::Observer
     ignorables << splasher
 
     (comment.splash.comments.map(&:author).uniq - ignorables).each { |u|
-      CommentNotification.notify u, comment
+      CommentForParticipants.notify u, comment
     }
   end
 end

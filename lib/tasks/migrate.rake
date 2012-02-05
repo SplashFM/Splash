@@ -115,4 +115,11 @@ namespace :migrate do
                set popularity_rank = -1
                where type = 'UndiscoveredTrack' and popularity_rank is null"
   end
+
+  task :rename_comment_notifications => :environment do
+    ActiveRecord::Base.connection.
+      execute "update notifications
+               set    type = 'CommentForParticipants'
+               where  type = 'CommentNotification'"
+  end
 end

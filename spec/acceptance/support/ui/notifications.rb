@@ -44,7 +44,7 @@ module UI
 
       def comments
         wait_until {
-          all(w('list-notifications', '.item.commentnotification')).presence
+          all(w('list-notifications', '.item.commentforparticipants')).presence
         }
       end
 
@@ -57,7 +57,7 @@ module UI
       end
 
       def has_no_comment_notifications?
-        has_no_css?('.item.commentnotification')
+        has_no_css?('.item.commentforparticipants')
       end
 
       def has_no_mentions?
