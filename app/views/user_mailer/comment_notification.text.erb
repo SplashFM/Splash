@@ -2,4 +2,4 @@
 
 "<%= @notification.target.splash.track.title %>" by "<%= @notification.target.splash.track.performers.join(', ') %>"
 
-"<%= @notification.target.body %>"
+"<%= strip_tags(@notification.target.body) %>"
