@@ -42,7 +42,7 @@ en:
           following: ' New user following you'
           mention: ' Songs splashed @ you'
           comment_for_splasher: ' Comments on your splash'
-          response_comment: ' Comments make in response to your comment'
+          comment_for_participants: ' Comments on splashes you commented on'
           newsletter: ' Splash newsletter'
       destroyed: 'Bye! Your account was successfully cancelled. We hope to see you again soon.'
       sign_up: 'Sign up'
