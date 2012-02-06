@@ -103,7 +103,7 @@ $(function() {
   window.Event       = Backbone.Model.extend();
   window.Splash      = Event.extend({
     initialize: function(attrs) {
-      this._comments = new CommentList().parent(this);
+      this._comments = new CommentList(attrs.comments).parent(this);
 
       this.bind('change', this.resetComments, this);
     },
