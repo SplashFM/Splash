@@ -7,3 +7,5 @@
   "#{@notification.target.splash.track.title}"  by "#{@notification.target.splash.track.performers.join(', ')}"
 
 %blockquote= ActionView::Base.new.simple_format(@notification.target.body)
+
+%p= link_to('View Splash', splash_url(@notification.target.splash_id))
