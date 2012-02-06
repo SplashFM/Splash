@@ -247,7 +247,7 @@ $(function() {
       case 'commentforsplasher':
       case 'commentforparticipants':
         $.pjax({
-          url: Routes.home_path({mentions: 1}),
+          url: Routes.splash_path(this.model.get('splash_id')),
           container: '[data-pjax-container]',
           timeout: 30000,
         });

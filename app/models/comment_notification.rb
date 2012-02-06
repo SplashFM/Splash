@@ -8,4 +8,8 @@ class CommentNotification < Notification
   def template
     'comment_notification'
   end
+
+  def as_json(options = {})
+    super(options).merge!(:splash_id => target.splash_id)
+  end
 end
