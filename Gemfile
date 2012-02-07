@@ -87,6 +87,7 @@ gem "aws-s3"
 gem "active_model_serializers", :git => 'git://github.com/david/active_model_serializers.git'
 gem "compass"
 gem "redis-store"
+gem "redis-objects", :require => 'redis/objects', :git => 'git://github.com/david/redis-objects.git'
 
 group :test do
   gem "rr", "~> 1.0"

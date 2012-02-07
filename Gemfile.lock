@@ -5,6 +5,13 @@ GIT
     active_model_serializers (0.1.0)
       activemodel (~> 3.0)
 
+GIT
+  remote: git://github.com/david/redis-objects.git
+  revision: 98d6af9e4a3ac727e22e2b64f55ae28812ec1971
+  specs:
+    redis-objects (0.5.2)
+      redis (>= 2.1.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -424,6 +431,7 @@ DEPENDENCIES
   pg
   rails (>= 3.0.1)
   redis
+  redis-objects!
   redis-store
   rr (~> 1.0)
   rspec-instafail
