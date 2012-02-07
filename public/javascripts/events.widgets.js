@@ -1,4 +1,66 @@
 $(function() {
+  // TODO: Remove this disgusting copy-paste once this is moved
+  // to BB routers
+  window.SingleSplashController = Backbone.View.extend({
+    events: {
+      'search:expand': 'searchExpanded',
+      'search:collapse': 'searchCollapsed',
+      'search:loaded': 'checkSize'
+    },
+
+    initialize: function() {
+      this.trackSearch = new TrackSearch({perPage: this.options.tracksPerPage});
+
+      this.splash = new Events.Splash({
+        model: this.options.splash,
+        disableToggling: true,
+        currentUserID: this.options.userID,
+      });
+
+      this.suggestedSplashers = new SuggestedSplashersView({
+        el: this.$('[data-widget = "suggested-users"]').get(0),
+        followerID: this.options.userID,
+        splashersCount: this.options.suggestedUsersPerPage,
+      });
+
+      this.allResults = new TrackSearch.AllResults();
+    },
+
+    checkSize: function() {
+      var off = $(this.allResults.el).offset();
+      var arh = off.top + $(this.allResults.el).height();
+
+      if ($(this.el).height() < arh) {
+        $(this.el).height($(this.el).height() + arh - $(this.el).height());
+      }
+    },
+
+    searchCollapsed: function() {
+      this.trackSearch.enable();
+    },
+
+    searchExpanded: function(_, data) {
+      this.trackSearch.disable();
+
+      this.showAllResults(data.terms);
+    },
+
+    showAllResults: function(searchTerms) {
+      this.$('.events-wrap').prepend(this.allResults.el);
+
+      this.allResults.load(searchTerms);
+    },
+
+    render: function() {
+      this.suggestedSplashers.render();
+      this.allResults.render();
+
+      $('[data-widget = "events"]').append(this.splash.render().el);
+
+      return this;
+    }
+  });
+
   window.Events = Backbone.View.extend({
     el: '[data-widget = "events"]',
     updateInterval: 60000, // 1 minute
@@ -238,6 +300,8 @@ $(function() {
     },
 
     toggleExpanded: function(e) {
+      if (this.options.disableToggling) return;
+
       if (this.expand &&
         (!e ||
           (($(e.target).closest('[data-widget = "expand"]').length > 0 ||

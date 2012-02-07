@@ -1,0 +1,35 @@
+:javascript
+  $(function () {
+    new SingleSplashController({
+      el: $('body').get(0),
+      splash: new Splash(#{@splash.to_json}),
+      suggestedUsersPerPage: #{User::SUGGESTED_USERS_PER_PAGE},
+      tracksPerPage: #{Track.default_per_page},
+      userID: #{current_user.id}
+    }).render();
+  });
+
+.home
+  = render "shared/sidebar"
+  #stream-wrap.left
+    #stream-feed{:data => {:widget => 'feed'}}
+      .streamfeed-top
+        .container
+          = render "shared/feed_search"
+        .feed-settings-tabs
+          .avan-bold
+            %ul{:data => {:widget => 'filter-following'}}
+              %li
+                %a{:href => "/home"}= t('events.filters.following')
+              %li
+                %a{:href => "/home?everyone=1"}= t('events.filters.everyone')
+              %li
+                %a{:href => "/home?mentions=1"}= '@' + current_user.nickname
+              %li
+                %a{:href => "/home"}= t('events.filters.social')
+          .line
+            %span
+      %div.events-wrap
+        %ul.live-feed{:data => {:widget => 'events'}}
+      .loading-spinner-container
+  .cl &nbsp;

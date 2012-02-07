@@ -1,5 +1,6 @@
 class SplashesController < ApplicationController
   respond_to :json
+  respond_to :html, :only => :show
 
   def create
     splash = splash_and_post(params.slice(:track_id, :comment),
@@ -22,7 +23,13 @@ class SplashesController < ApplicationController
   end
 
   def show
-    respond_with Splash.find(params[:id]), :full => params[:summary].blank?
+    full = request.format =~ /html/ || params[:summary].blank?
+
+    @splash = SplashSerializer.new(Splash.find(params[:id]),
+                                   current_user,
+                                   :full => full)
+
+    respond_with @splash
   end
 
   def share
