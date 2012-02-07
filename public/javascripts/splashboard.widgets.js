@@ -15,22 +15,6 @@ $(function() {
           addClass('loaded'),
       });
 
-      this.myTopTracks = new Splashboard.Items({
-        template: '#tmpl-event-splash',
-        feed: new TrackList,
-        app: window.App,
-        filters: {user_id: this.options.userID},
-        extraClass: 'live-feed',
-        numFlipper: true,
-      });
-      this.myTopTracksScroll = new EndlessScroll({
-        data: this.myTopTracks,
-        spinnerContainer: $('#tab-my-top-tracks .loading-spinner-container'),
-        noMoreResults: $('<p/>').
-          text(I18n.t('splashboards.all_loaded')).
-          addClass('loaded'),
-      });
-
       this.topUsers = new Splashboard.Items({
         template: '#tmpl-user',
         feed: new UserList,
@@ -49,7 +33,6 @@ $(function() {
 
     render: function() {
       $('#tab-top-tracks').prepend(this.topTracks.el);
-      $('#tab-my-top-tracks').prepend(this.myTopTracks.el);
       $('#tab-top-users').prepend(this.topUsers.el);
 
       $('.splashboard .tabs').tabs('select', this.options.selectedTab)
