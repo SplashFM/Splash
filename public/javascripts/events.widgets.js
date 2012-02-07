@@ -476,6 +476,8 @@ $(function() {
       if (this.options.filters.mentions) {
         // TODO: Find a better way to do this.
         $('[data-widget = "filter-following"] a[href = "#mentions"]').click();
+      } else if (this.options.filters.everyone) {
+        $('[data-widget = "filter-following"] a[href = "#everyone"]').click();
       }
     },
 
