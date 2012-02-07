@@ -5,6 +5,7 @@ namespace :redis do
 
   task :recompute => :environment do
     Track.recompute_splash_counts
+    Track.recompute_splash_counts_time_bound
 
     User.recompute_splash_counts
     User.recompute_ripple_counts

@@ -12,7 +12,9 @@ class Track < ActiveRecord::Base
 
   acts_as_taggable
 
-  scope :splashed, where('id in (select s.track_id from splashes s)')
+  has_many :splashes
+
+  scope :splashed, joins(:splashes)
   scope :popular, where("popularity_rank < 1000")
 
   attr_accessor :scoped_splash_count

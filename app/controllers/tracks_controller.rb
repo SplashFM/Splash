@@ -8,14 +8,13 @@ class TracksController < ApplicationController
 
   def index
     following = params[:following].present?
+    week      = params[:week].present?
 
     if params[:top]
       results = if following
-                   current_user.top_tracks(params[:week].present?,
-                                           current_page,
-                                           TRACKS_PER_PAGE)
+                   current_user.top_tracks(week, current_page, TRACKS_PER_PAGE)
                 else
-                  Track.top_splashed(current_page, TRACKS_PER_PAGE)
+                  Track.top_splashed(week, current_page, TRACKS_PER_PAGE)
                 end
     else
       per = if params[:popular].present?
@@ -31,7 +30,9 @@ class TracksController < ApplicationController
     end
 
     respond_with results.map { |t|
-      t.active_model_serializer.new(t, current_user, :scoped_score => following)
+      t.active_model_serializer.new(t,
+                                    current_user,
+                                    :scoped_score => following || week)
     }
   end
 
