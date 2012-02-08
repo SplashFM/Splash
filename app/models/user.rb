@@ -4,6 +4,7 @@ require 'cropper'
 
 class User < ActiveRecord::Base
   include RedisRecord
+  include User::Stats
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
@@ -12,7 +13,6 @@ class User < ActiveRecord::Base
 
   ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
 
-  MAX_SCORE       = 99
   NICKNAME_REGEXP = '\w[A-Za-z\d_.-]+\w'
 
   DEFAULT_AVATAR_URL = '/images/dummy_user_:style.png'
@@ -24,11 +24,6 @@ class User < ActiveRecord::Base
                                 'splash_comment' => '',
                                 'response_comment' => '',
                                 'newsletter' => 'true' }
-
-  redis_sorted_field :influence
-  redis_counter :ripple_count
-  redis_counter :splash_count
-  redis_hash :splashed_tracks
 
   serialize :ignore_suggested_users, Array
   serialize :suggested_users, Array
@@ -128,10 +123,6 @@ class User < ActiveRecord::Base
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
   end
 
-  def self.by_score
-    scoped.sort_by(&:splash_score).reverse
-  end
-
   def self.create_with_social_connection(params)
     transaction {
       user_params = params.slice(:access_code, :email, :name, :nickname).
@@ -196,56 +187,6 @@ class User < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def self.recompute_all_splashboards
-    User.find_each(:batch_size => 100) {|u| u.recompute_splashboard }
-  end
-
-  def self.recompute_influence
-    reset_sorted_influence
-
-    update_influences(User.select(:id).map(&:id))
-  end
-
-  def self.recompute_ripple_counts
-    reset_ripple_counts
-
-    find_each(:batch_size => 100) {|u|
-      update_ripple_count u.id, u.slow_ripple_count
-    }
-  end
-
-  def self.recompute_splash_counts
-    reset_splash_counts
-
-    find_each(:batch_size => 100) {|u|
-      update_splash_count u.id, u.slow_splash_count
-    }
-  end
-
-  def self.recompute_splashed_tracks
-    reset_splashed_tracks
-
-    find_each(:batch_size => 100) { |u|
-      u.reset_splashed_tracks_hash!
-    }
-
-    find_each(:batch_size => 100) { |u|
-      u.recompute_splashboard
-    }
-  end
-
-  def self.top_splashers(page, num_records)
-    sorted_by_influence(page, num_records)
-  end
-
-  def self.update_influences(ids)
-    scs    = splash_counts(ids) || []
-    rcs    = ripple_counts(ids) || []
-    ids.zip(scs, rcs).each { |(id, s, r)|
-      update_sorted_influence(id, s.to_i + (r.to_i * 2))
-    }
   end
 
   def self.with_social_connection(provider, uid)
@@ -381,16 +322,6 @@ class User < ActiveRecord::Base
     email_preferences[key] == 'true'
   end
 
-  def influence_score
-    total_users = User.count
-
-    if influence_rank
-      (90 * (((total_users - influence_rank) / total_users.to_f) ** 4)).floor
-    else
-      0
-    end
-  end
-
   def invite(code)
     UserMailer.delay.invite self, code
 
@@ -450,22 +381,6 @@ class User < ActiveRecord::Base
     social.concat(others).first(max)
   end
 
-  def recompute_splashboard(operation = nil, followed = nil)
-    # TODO: there is a more efficient way to add or subtract the other users history,
-    # but this works for now.
-    reset_top_tracks!
-  end
-
-  def reset_splashed_tracks_hash!
-    Splash.for_users(id).select(:track_id).map(&:track_id).each{|i|
-      record_splashed_track(i)
-    }
-  end
-
-  def reset_top_tracks!
-    replace_summed_splashed_tracks(following_ids)
-  end
-
   # Declarative Authorization user roles
   DEFAULT_ROLES = [:guest, :user].freeze
   def role_symbols
@@ -481,30 +396,12 @@ class User < ActiveRecord::Base
       .map(&:followed_id)
   end
 
-  def slow_ripple_count
-    Splash.for_users(id).map(&:ripple_count).sum
-  end
-
-  def slow_splash_count
-    Splash.for_users(id).count
-  end
-
   def slug
     nickname
   end
 
   def social_connection(provider)
     social_connections.detect { |s| s.provider == provider.to_s }
-  end
-
-  def splash_score
-    s = influence_score + 10
-
-    s > MAX_SCORE ? MAX_SCORE : s
-  end
-
-  def splashed_tracks_hash
-    splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
   end
 
   def add_suggestions(user_ids)
@@ -538,21 +435,6 @@ class User < ActiveRecord::Base
 
   def to_params
     slug || super
-  end
-
-  def top_tracks(page=1, num_records=20)
-    scores = summed_splashed_tracks(page, num_records)
-
-    if scores.present?
-      ids, _ = *scores.transpose
-      cache = Track.where(:id => ids).hash_by(&:id)
-
-      scores.map { |(id, score)|
-        cache[id.to_i].tap { |t| t.scoped_splash_count = score }
-      }
-    else
-      []
-    end
   end
 
   def unfollow(followed_id)
