@@ -18,7 +18,7 @@ class UndiscoveredTrack < Track
     :styles        => {:normal => '100x100>'},
     :default_url   => DEFAULT_ARTWORK_URL,
     :hash_secret   => ":class/:attachment/:id",
-    :path          => "#{PREFIX}/:class/:attachment/:id/:hash.:extension"
+    :path          => "#{PREFIX}/:class/:attachment/:id/:hash"
   }
 
   S3_OPTS = {
