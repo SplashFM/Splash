@@ -88,6 +88,7 @@ gem "active_model_serializers", :git => 'git://github.com/david/active_model_ser
 gem "compass"
 gem "redis-store"
 gem "redis-objects", :require => 'redis/objects', :git => 'git://github.com/david/redis-objects.git'
+gem "valium"
 
 group :test do
   gem "rr", "~> 1.0"
