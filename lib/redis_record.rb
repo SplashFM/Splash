@@ -107,6 +107,10 @@ module RedisRecord
         def #{name}
           RedisRecord.redis.hget(key(#{name.to_s.inspect}), id.to_s).to_i
         end
+
+        def reset_#{name}
+          RedisRecord.redis.hdel(key(#{name.to_s.inspect}), id.to_s).to_i
+        end
       RUBY
     end
 
