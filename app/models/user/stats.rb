@@ -9,6 +9,7 @@ class User
       redis_counter :ripple_count
       redis_counter :splash_count
       redis_hash :splashed_tracks
+      redis_hash :splashed_track_weeks
     end
 
     module ClassMethods
@@ -17,6 +18,11 @@ class User
       end
 
       def recompute_all_splashboards
+        User.find_each(:batch_size => 100) {|u|
+          u.reset_splashed_track_weeks
+          u.reset_splashed_track_weeks_hash!
+        }
+
         User.find_each(:batch_size => 100) {|u| u.recompute_splashboard }
       end
 
@@ -44,9 +50,11 @@ class User
 
       def recompute_splashed_tracks
         reset_splashed_tracks
+        reset_splashed_track_weeks
 
         find_each(:batch_size => 100) { |u|
           u.reset_splashed_tracks_hash!
+          u.reset_splashed_track_weeks_hash!
         }
 
         find_each(:batch_size => 100) { |u|
@@ -90,8 +98,19 @@ class User
     }
   end
 
+  def reset_splashed_track_weeks_hash!
+    # TODO: this is slow and ugly
+    Splash.
+      for_users(id).
+      where('created_at > ?', 7.days.ago).
+      select(:track_id).
+      map(&:track_id).
+      each {|i| record_splashed_track_week(i) }
+  end
+
   def reset_top_tracks!
     replace_summed_splashed_tracks(following_ids)
+    replace_summed_splashed_track_weeks(following_ids)
   end
 
   def slow_ripple_count
@@ -112,8 +131,12 @@ class User
     splashed_tracks.inject({}) {|m, i| m[i.to_i] = true; m}
   end
 
-  def top_tracks(page=1, num_records=20)
-    scores = summed_splashed_tracks(page, num_records)
+  def top_tracks(following, page=1, num_records=20)
+    scores = if following
+               summed_splashed_track_weeks(page, num_records)
+             else
+               summed_splashed_tracks(page, num_records)
+             end
 
     if scores.present?
       ids, _ = *scores.transpose

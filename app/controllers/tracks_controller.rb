@@ -7,10 +7,16 @@ class TracksController < ApplicationController
   respond_to :json
 
   def index
-    if params[:user_id] && user = User.find(params[:user_id])
-      results = user.top_tracks(current_page, TRACKS_PER_PAGE)
-    elsif params[:top]
-      results = Track.top_splashed(current_page, TRACKS_PER_PAGE)
+    following = params[:following].present?
+
+    if params[:top]
+      results = if following
+                   current_user.top_tracks(params[:week].present?,
+                                           current_page,
+                                           TRACKS_PER_PAGE)
+                else
+                  Track.top_splashed(current_page, TRACKS_PER_PAGE)
+                end
     else
       per = if params[:popular].present?
               TRACKS_PER_SEARCH_PAGE
@@ -25,7 +31,7 @@ class TracksController < ApplicationController
     end
 
     respond_with results.map { |t|
-      t.active_model_serializer.new(t, current_user, :scoped_score => !! user)
+      t.active_model_serializer.new(t, current_user, :scoped_score => following)
     }
   end
 
