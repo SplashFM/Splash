@@ -162,6 +162,10 @@ module RedisRecord
           other_keys = other_ids.map {|i| key("#{name.to_s}/") + i.to_s}
           RedisRecord.redis.zunionstore(k, other_keys)
         end
+
+        def reset_#{name}
+          RedisRecord.redis.del(key("#{name}/\#{id}")) rescue nil
+        end
       RUBYI
     end
   end
