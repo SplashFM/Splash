@@ -14,7 +14,12 @@ class UsersController < ApplicationController
 
   def index
     if params[:top] == 'true'
-      render :json => User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
+      if params[:following].present?
+        render :json =>
+          current_user.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
+      else
+        render :json => User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
+      end
     else
       results = apply_scopes(User).page(current_page).per(PER_SEARCH)
 

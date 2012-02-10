@@ -11,5 +11,6 @@ namespace :redis do
     User.recompute_ripple_counts
     User.recompute_influence
     User.recompute_splashed_tracks
+    User.recompute_top_following
   end
 end

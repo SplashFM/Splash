@@ -4,6 +4,7 @@ require 'cropper'
 
 class User < ActiveRecord::Base
   include RedisRecord
+  include Redis::Objects
   include User::Stats
 
   # Include default devise modules. Others available are:

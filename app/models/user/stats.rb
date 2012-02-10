@@ -5,6 +5,9 @@ class User
     MAX_SCORE = 99
 
     included do
+      sorted_set :sorted_following
+      sorted_set :top_following
+
       redis_sorted_field :influence
       redis_counter :ripple_count
       redis_counter :splash_count
@@ -15,6 +18,10 @@ class User
     module ClassMethods
       def by_score
         scoped.sort_by(&:splash_score).reverse
+      end
+
+      def recompute_top_following
+        User.find_each(:batch_size => 100) {|u| u.recompute_top_following }
       end
 
       def recompute_all_splashboards
@@ -92,6 +99,20 @@ class User
     reset_top_tracks!
   end
 
+  def recompute_top_following
+    sorted_following.clear if sorted_following.exists?
+    top_following.clear    if top_following.exists?
+
+    sorted_following.add(id, 0)
+    following.value_of(:id).each { |id| sorted_following.add(id, 0) }
+
+    influence = Redis::SortedSet.new("#{Rails.env}/user/sorted_influence")
+
+    puts top_following.key.inspect
+
+    influence.interstore(top_following.key, sorted_following)
+  end
+
   def reset_splashed_tracks_hash!
     Splash.for_users(id).select(:track_id).map(&:track_id).each{|i|
       record_splashed_track(i)
@@ -148,5 +169,16 @@ class User
     else
       []
     end
+  end
+
+  def top_splashers(page, num_records)
+    page  = page.to_i <= 1 ? 1 : page.to_i
+    start = (page - 1) * num_records
+    stop  = start + num_records - 1
+    ids   = top_following.revrange(start, stop).map { |id| id.to_i }
+
+    cache = self.class.where(:id => ids).index_by(&:id)
+
+    ids.map { |id| cache[id] }
   end
 end
