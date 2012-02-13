@@ -2412,23 +2412,42 @@ html body #main.sessions
     width: 319px !important
     padding: 5px
 
-.terms, .privacy
+.about
+  dl
+    margin-top: 8px
+
+  dd
+    margin: 0 0 4px 8px
+
+  .term
+    @extend .avan-bold
+    font-size: 14px
+
+  .function
+    @extend .avan-demi
+
+  .related
+    font-style: italic
+
+.terms, .privacy, .about
   background: white
+  padding: 15px
+
   h1
-    margin: 0 0 0.5em 0
+    margin: 0.5em 0 0.5em 0
     font-size: 20px
     line-height: 1.2
     font-weight: bold
   h2
     margin: 0.7em 0 0.2em 0
-    font-size: 12px
+    font-size: 16px
     font-weight: bold
   p
-    margin: 0 0 8px 8px
+    margin: 4px 0
   ul
     padding-top: 8px
     li
-      padding: 0 0 8px 8px
+      padding: 4px 0
 
 a.suggested_follow_link
   color: #5092CC

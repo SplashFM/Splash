@@ -1,0 +1,56 @@
+:javascript
+  $(function() {
+    var t = new Tutorial({
+      trigger: $('[data-widget = "first-aid"]')
+    });
+
+    $('body').append(t.shadeEl);
+    $('body').append(t.el);
+
+    $('[data-widget = "first-aid"]').click(function() { t.show(); });
+
+    #{once(:first_time_splasher) { "t.show();"} }
+  });
+
+.about
+  %h1 About Splash.FM
+
+  %p The fastest, simplest and most social way to discover music.
+
+  %p Everyone loves to discover that next great song. That’s what Splash.FM is all about.
+
+  %p Follow your friends and others whose music taste you trust, and we’ll give you a real-time feed and Billboard-like chart of all the latest tracks they are Splashing.
+
+  %p Don’t just follow others; prove your taste to the Crowd by Splashing the songs you love.  The more people that Ripple (i.e. Re-Splash) your music, the higher your Splash Score will be!
+
+  %p
+    For more info, check out the
+    %a{:href => "#", :data => {:widget => 'first-aid'}} Tutorial.
+
+  %h2 Splash 101: “Terms of Use”
+
+  %dl
+    %dt
+      %span.term Splash
+      %span.pronounce [splash]
+      %span.function verb / noun;
+      %span.related splash, splashed, splashing, splashes, splasher.
+    %dd To share a song you love.  By Splashing, you are promoting a song for all of your friends, followers and the site’s users to check out. You are also asserting your music taste and place as a discoverer of that song. (i.e. “This song is awesome! I need to splash this ASAP, my friends are going to love it.” “I know, I splashed that song a week ago. Get with it…”)
+    %dt
+      %span.term Ripple
+      %span.pronounce [rip-uhl]
+      %span.function verb / noun;
+      %span.related ripple, rippled, rippling, ripples.
+    %dd A ripple is created whenever a user likes a song that you have “splashed” and “re-splashes” it. (Verb: i.e. “I rippled that song you Splashed last night.”) (Noun: i.e. “Check it! That song I splashed last night already has 32 ripples.
+    %dt
+      %span.term Splash Score
+      %span.pronounce [splash-skohr]
+      %span.function noun.
+    %dd The Splash Score is a measure of your taste in music, which reflects how many people appreciate and value your music recommendations.  The Splash Score ranges from 0-99, and the more ripples you get, the higher your Splash Score will be. (Noun: i.e. I don’t know why we are using Bryan’s iPod for the pregame, my Splash score is 15 higher than his.”)
+    %dt
+      %span.term SplashBoard
+      %span.pronounce [splash-bohrd]
+      %span.function noun.
+    %dd Your SplashBoard is a Billboard-like chart based on the splash activity of the users you follow. Essentially, the SplashBoard is the quickest and smartest way to stay on top of trending songs based on popularity amongst your friends, as well as on the site overall. (Noun: i.e. I had 20 minutes before I had to leave for the airport so I just grabbed all the latest off the Splashboard.”)
+
+= render 'shared/footer'

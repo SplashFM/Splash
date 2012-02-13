@@ -12,8 +12,7 @@
         %a{:href => edit_user_registration_path,:class => "fancybox"}
           = t('lifesaver.settings')
       .tip
-    %a.nav-username.right{:href => user_link(current_user)}
-      = current_user.try(:name)
+    %a.nav-username.right{:href => about_path} About
     .nav-notifications.right{:data => {:widget => 'notifications'}}
       %a.avan-demi.count{:href => "#", :data => {:widget => 'toggle-notifications'}}
       .dropDown{:data => {:widget => 'list-notifications'}}
