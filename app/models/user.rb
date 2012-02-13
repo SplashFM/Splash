@@ -41,7 +41,6 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, :foreign_key => 'followed_id',
                                    :class_name => 'Relationship'
 
-
   # The users who are following me.
   has_many :followers, :through => :reverse_relationships
   has_many :uploaded_tracks,
@@ -242,7 +241,13 @@ class User < ActiveRecord::Base
      :splash_count     => splash_count,
      :slug             => slug,
      :referral_url     => "#{AppConfig.preferred_host}/r/#{referral_code}",
-     :score            => splash_score}.merge(Hash[method_hash])
+     :score            => splash_score}.merge(Hash[method_hash]).tap { |h|
+
+     if respond_to?(:relationship) &&
+        ! Array(opts[:except]).include?(:relationship)
+       h[:relationship] = relationship.as_json
+     end
+    }
   end
 
   def avatar_exists_or_able_to_download?

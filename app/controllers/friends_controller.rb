@@ -20,20 +20,11 @@ class FriendsController < ApplicationController
           fsh   = sc.friends(params[:with_text]).index_by(&:identifier)
           users = User.with_social_connection('facebook', fsh.keys).by_score
 
-          missing = fsh.keys - users.map { |u| u.social_connection('facebook').uid }
+          missing  = fsh.keys - users.map { |u| u.social_connection('facebook').uid }
+          withrels = Relationship.relate_to_follower(users, current_user)
 
-          rels = current_user.relationships.with_following(users.map(&:id))
-          relh = rels.hash_by(&:followed_id)
-
-          @users = paginate(users.map { |u|
-                              j = u.as_json
-
-                              j[:relationship] = (relh[u.id] ||
-                                {:follower_id => current_user.id,
-                                  :followed_id => u.id}).as_json
-
-                              j
-                            } + friend_hashes(fsh.values_at(*missing)))
+          @users = paginate(withrels.map(&:as_json) +
+            friend_hashes(fsh.values_at(*missing)))
 
           render :json => @users
         else

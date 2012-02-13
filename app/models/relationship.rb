@@ -12,12 +12,40 @@ class Relationship < ActiveRecord::Base
   scope :with_following, lambda { |users| where(:followed_id => users) }
   scope :limited, lambda { |page, count| page(page).per(count) unless page.nil? }
 
+  ##
+  # Attach the relationship with `follower` to each person in the list.
+  #
+  # If no relationship exists, initialize one without saving it, even if the
+  # followee is the same as the follower.
+  #
+  # Modifies the list in place.
+  #
+  # @param people a list of people to attach the relationship to
+  # @param follower the person in the other end of the relationship
+  #
+  # @return the modified list of people
+  def self.relate_to_follower(people, follower)
+    rs =
+      with_following(people.map(&:id)).
+      with_followers(follower).
+      index_by(&:followed_id)
+
+    people.map { |p|
+      relationship = rs[p.id] ||
+                     Relationship.new(:followed => p, :follower => follower)
+
+      p.class_eval { define_method(:relationship) { relationship } }
+
+      p
+    }
+  end
+
   def as_json(opts = {})
     {:type        => 'relationship',
      :id          => id,
-     :follower    => follower.as_json,
+     :follower    => follower.as_json(:except => :relationship),
      :follower_id => follower_id,
-     :followed    => followed.as_json,
+     :followed    => followed.as_json(:except => :relationship),
      :followed_id => followed_id}
   end
 
