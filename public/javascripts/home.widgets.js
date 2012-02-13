@@ -776,7 +776,7 @@ $(function() {
 
     initialize: function() {
       _.bindAll(this, 'hide', 'pauseSlideShow', 'center', 'centerShade',
-                      'renderShade');
+                      'renderShade', 'updateNavigation');
 
       this.shadeEl   = $('<div class="tutorial-wrap"></div>').get(0);
       $(this.shadeEl).click(this.hide);
@@ -849,6 +849,7 @@ $(function() {
 
     setupSlideShow: function() {
       this.$('.tutorial-content').cycle({
+        after: this.updateNavigation,
         activePagerClass: 'active',
         delay: -6000,
         fit: true,
@@ -905,6 +906,20 @@ $(function() {
 
     unblockBody: function() {
       $('body').css({overflow: 'auto'});
+    },
+
+    updateNavigation: function(elem) {
+      var idx = this.$('.tutorial-pager-absolute .active').
+        index('.tutorial-pager-absolute a');
+
+      if (idx == 4) {
+        var tpn = this.$('.tutorial-pager-next');
+
+        this.$('.total-pages').css({marginRight: tpn.hide().width()});
+      } else {
+        this.$('.tutorial-pager-next').show();
+        this.$('.total-pages').css({marginRight: 0});
+      }
     },
   });
 
