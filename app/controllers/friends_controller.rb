@@ -18,7 +18,7 @@ class FriendsController < ApplicationController
       f.json {
         render :json => [], :status => :unauthorized unless sc
 
-        fsh   = friends(sc.token, params[:with_text])
+        fsh   = sc.friends(params[:with_text]).index_by(&:identifier)
         users = User.with_social_connection('facebook', fsh.keys).by_score
 
         missing = fsh.keys - users.map { |u| u.social_connection('facebook').uid }
@@ -50,19 +50,6 @@ class FriendsController < ApplicationController
        :uid              => f.identifier,
        :origin           => 'facebook'}
     }
-  end
-
-  def friends(token, filter = nil)
-    key     = "facebook/friends/#{current_user.id}"
-    friends = Rails.cache.fetch(key, :expires_in => 24.hours) {
-      fs = FbGraph::User.me(token).friends
-
-      fs.map { |f| {:name => f.name, :identifier => f.identifier} }
-    }
-
-    (filter ? friends.select { |f| f[:name].match(/#{filter}/i) } : friends).
-      map { |f| FbGraph::User.new(f[:identifier], f) }.
-      hash_by(&:identifier)
   end
 
   def paginate(list)

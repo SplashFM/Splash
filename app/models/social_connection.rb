@@ -26,8 +26,14 @@ class SocialConnection < ActiveRecord::Base
       @me.picture(:large)
     end
 
-    def friends
-      @me.friends
+    def friends(filter = nil, cache = Rails.cache)
+      key     = "facebook:friends:#{@me.identifier}"
+      friends = cache.fetch(key, :expires_in => 24.hours) {
+        @me.friends.map { |f| {:name => f.name, :identifier => f.identifier} }
+      }
+
+      (filter ? friends.select { |f| f[:name].match(/#{filter}/i) } : friends).
+        map { |f| FbGraph::User.new(f[:identifier], f) }
     end
 
     module FriendAttributes
@@ -48,7 +54,7 @@ class SocialConnection < ActiveRecord::Base
       "http://api.twitter.com/1/users/profile_image/#{@uid}.json?size=original"
     end
 
-    def friends
+    def friends(filter = nil, cache = Rails.cache)
       []
     end
   end
