@@ -367,12 +367,16 @@ class User < ActiveRecord::Base
 
   def recommended_users(max)
     social = social_connections.inject([]) { |a, c|
-      users = User.
-        where(:id => suggested_users).
-        with_social_connection(c.provider, c.friends.map(&:uid)).
-        limit(max)
+      begin
+        users = User.
+          where(:id => suggested_users).
+          with_social_connection(c.provider, c.friends.map(&:uid)).
+          limit(max)
 
-      a.concat(users)
+        a.concat(users)
+      rescue FbGraph::InvalidToken
+        a
+      end
     }
 
     others = User.where(:id => suggested_users - social.map(&:id)).limit(max)
