@@ -1442,6 +1442,10 @@ a.nav-username:hover
     .container
       display: none
 
+.splash-action
+  a
+    display: block
+
 .live-feed
   list-style: none outside none
   padding-top: 20px
@@ -1453,6 +1457,11 @@ a.nav-username:hover
     border-bottom: 2px solid #dbdee0
     padding: 12px 22px
     height: 100%
+
+    &:hover
+      .splash-action span
+        display: inline
+
   .art
     width: 71px
     height: 71px
@@ -1511,11 +1520,16 @@ a.nav-username:hover
           color: #000
       .time
         color: #adb3b6
-  .splash-btn
+  .splash-action
     position: absolute
-    top: 23px
+    top: 17px
     right: 29px
+    text-align: center
+    span
+      display: none
+  .splash-action, .splash-btn
     width: 51px
+  .splash-btn
     height: 52px
     background: url(/css/images/feed-splash-btn.png) no-repeat 0 0
   .splash-btn[style]
@@ -2322,10 +2336,18 @@ input.splash:active, .buttonStyle2:active, .tag-line.edit button:active
   opacity: 0.3
 
 .top_search_results
-  li:hover
-    a.art
-      span
-        display: block !important
+  li
+    .splash-action
+      a
+        width: 42px
+        margin-left: 5px
+    &:hover
+      a.art
+        span
+          display: block !important
+      .splash-action
+        span
+          display: inline
   .meta
     display: none
   .art
@@ -2333,10 +2355,14 @@ input.splash:active, .buttonStyle2:active, .tag-line.edit button:active
     img
       width: 71px !important
       height: 71px !important
-  .icon
+  .splash-action
+    @extend .right
+    width: 51px
     position: relative
     top: 2px
-
+    text-align: center
+    span
+      display: none
 .settings-drop
   display: none
   position: absolute
