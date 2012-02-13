@@ -188,13 +188,6 @@ en:
           Search for songs by keyword, artist or song title.
 
           Once Splashed, music is available to listen, share, download or purchase.
-      three:
-        title: Upload your own music, and get it out there!
-        body: |
-          If a song isn’t in our library yet, upload a track from your personal stash.
-
-          Upload, add a com&shy;ment, and Splash
-          that new find.
       four:
         title: |
           Build your
@@ -209,12 +202,6 @@ en:
           See who’s causing Ripples out there!
 
           Search for your friends or follow the taste-makers who influence the Splash.FM listening population.
-      six:
-        title: Join the conversation
-        body: |
-          Everyone has an opinion about what music is in rotation.
-
-          Click on a Splash within any Live Feed and leave comments and Splash@ notes to point at friends.
     welcome:
       title: Welcome to Splash.FM
       sub: Here are a few things you should know before diving in
