@@ -175,33 +175,21 @@ en:
     close: close
     inner:
       one:
-        title: |
-          Splash the
-          songs you love
         body: |
-          Splashing songs creates a running history of your listening favorites.
+          When you Splash a song, you are telling all of your friends and followers, "This song is awesome. Check it out!"
 
-          Upload new songs, Search existing, or Splash from a friend's Live Feed.
+          Whenever a friend or follower re-Splashes that song, you earn a Ripple.
       two:
-        title: Search, Splash and listen to your favorite music
         body: |
-          Search for songs by keyword, artist or song title.
-
-          Once Splashed, music is available to listen, share, download or purchase.
-      four:
-        title: |
-          Build your
-          Splash Score
-        body: |
-          The Splash Score is
-          a measure of your influence.  Each time
-          a user Splashes from your Live Feed you earn a Ripple. The bigger your listening following, the bigger your Splashes.
+          You can Splash by simply clicking the droplet next to any song, searching for a song you already know, or uploading from your personal stash.
       five:
-        title: Find friends and fellow Splashers
         body: |
-          See who’s causing Ripples out there!
+          Follow your friends whose music taste you trust to see the tracks they are Splashing. Re-Splash the songs you discover and love.
+      four:
+        body: |
+          The more people re-Splash your music, the higher your Splash Score will be. In other words, your Splash Score measures your influence in music.
 
-          Search for your friends or follow the taste-makers who influence the Splash.FM listening population.
+          That's it! You're ready to start Splashing...
     welcome:
       title: Welcome to Splash.FM
       sub: Here are a few things you should know before diving in

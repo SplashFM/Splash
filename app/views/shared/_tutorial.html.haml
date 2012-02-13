@@ -6,14 +6,12 @@
       %a{:href => '#'}= t('tutorial.close')
   .tutorial-content
     .tutorial-welcome
-      %h2= t('tutorial.welcome.title')
       %p.sub= t('tutorial.welcome.sub')
 
     - t('tutorial.inner').each do |k, content|
       - bgstyle = "background: url(/images/#{k}-tutorial.png) no-repeat"
 
       .tutorial-inner-content-pane{:style => bgstyle}
-        = simpler_format(content[:title], :tag => 'h2')
         = simpler_format(content[:body], :first_class => 'first')
 
   .tutorial-footer
