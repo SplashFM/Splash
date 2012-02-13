@@ -98,20 +98,6 @@ class UsersController < ApplicationController
 
   private
 
-  def inline_relationships(results, current_user)
-    relationships = current_user.relationships.with_following(results)
-    rh            = relationships.hash_by(&:followed_id)
-
-    results.map { |u|
-      r  = rh[u.id] || current_user.relationships.build(:followed_id => u.id)
-      rj = {:id          => r.id,
-           :follower_id => r.follower_id,
-           :followed_id => r.followed_id}
-
-      u.as_json.merge!(:relationship => rj)
-    }
-  end
-
   def load_user
     @user = if params[:id].blank?
               current_user
