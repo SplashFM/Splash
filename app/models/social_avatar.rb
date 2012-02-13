@@ -2,7 +2,7 @@ class SocialAvatar
   def after_add(user, c)
     fetch_avatar(c.avatar_url) { |a|
       user.update_attributes! :avatar => a
-    } unless user.avatar?
+    } unless user.avatar? || c.invalid?
   end
 
   def fetch_avatar(url, &block)
