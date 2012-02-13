@@ -87,7 +87,7 @@ class User
     total_users = User.count
 
     if influence_rank
-      (90 * (((total_users - influence_rank) / total_users.to_f) ** 4)).floor
+      (90 * (((total_users - influence_rank) / total_users.to_f) ** 7)).floor
     else
       0
     end
