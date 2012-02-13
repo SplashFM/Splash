@@ -13,22 +13,24 @@ class UsersController < ApplicationController
   has_scope :filter
 
   def index
-    if params[:top] == 'true'
-      if params[:following].present?
-        render :json =>
+    users =
+      if params[:top] == 'true'
+        if params[:following].present?
           current_user.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
+        else
+          User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
+        end
       else
-        render :json => User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
-      end
-    else
-      results = apply_scopes(User).page(current_page).per(PER_SEARCH)
+        results = apply_scopes(User).page(current_page).per(PER_SEARCH)
 
-      if params[:following].present?
-        render :json => results.followed_by(current_user)
-      else
-        render :json => inline_relationships(results, current_user)
+        if params[:following].present?
+          results.followed_by(current_user)
+        else
+          results
+        end
       end
-    end
+
+    render :json => Relationship.relate_to_follower(users, current_user)
   end
 
   def avatar
