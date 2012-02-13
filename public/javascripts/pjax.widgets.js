@@ -1,6 +1,7 @@
 Widgets.Pjax = {
   init: function() {
     var skip =
+      ":not([data-bb])" +
       ":not([data-remote])" +
       ":not([data-skip-pjax])" +
       ":not(.fancybox)" +

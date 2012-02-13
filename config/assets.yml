@@ -33,6 +33,11 @@ javascripts:
     - public/javascripts/underscore.js
     - public/javascripts/backbone.js
     - public/javascripts/models.js
+    - public/javascripts/client/application.js
+    - public/javascripts/client/models/*.js
+    - public/javascripts/client/util/*.js
+    - public/javascripts/client/views/*.js
+    - public/javascripts/client/routes.js
     - public/javascripts/animations.widgets.js
     - public/javascripts/search.widgets.js
     - public/javascripts/app.widgets.js
@@ -55,6 +60,7 @@ javascripts:
     - public/javascripts/SPLASH.Widgets.waterNums.js
     - public/javascripts/SPLASH.Widgets.numFlipper.js
     - public/javascripts/SPLASH.Widgets.JPlayerSeekable.js
+    - public/javascripts/client/**/*.js
   pjax:
     - public/javascripts/jquery.pjax.js
     - public/javascripts/pjax.widgets.js

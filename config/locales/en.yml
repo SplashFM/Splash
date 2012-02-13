@@ -141,6 +141,13 @@ en:
 
   splashboards:
     all_loaded: No more Splashboard data.
+    index:
+      alltime: All-time
+      everyone: Everyone
+      following: Following
+      sevenday: Last 7 Days
+      top_splashes: Top Tracks
+      top_splashers: Top Splashers
 
   splashes:
     splash:

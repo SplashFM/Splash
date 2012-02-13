@@ -1,6 +1,6 @@
 Scaphandrier::Application.routes.draw do
   match '/invite_friends' => 'users#invite_friends'
-  
+
   namespace :admin do
     basic_admin_scaffolds = [:users]
     basic_admin_scaffolds.each { |a|
@@ -59,6 +59,8 @@ Scaphandrier::Application.routes.draw do
   resource :visitor
 
   match 'home' => 'home#index', :as =>'home'
+  match 'top/users/:sample'  => 'users#top'
+  match 'top/tracks/:sample/:period' => 'tracks#top', :as => 'top_tracks'
   match '/splashboards' => 'home#splashboards', :as =>'splashboards'
   match 'dashboard' => 'home#index', :as => 'dashboard'
   match 'home/events' => 'home#events'

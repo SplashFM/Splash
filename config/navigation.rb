@@ -11,7 +11,7 @@ SimpleNavigation::Configuration.run do |navigation|
       primary.item :profile, t('simple_navigation.menus.profile'), profile_url
       primary.item :top_songs,
                    t('simple_navigation.menus.splashboard'),
-                   splashboards_path
+                   top_tracks_path(:sample => 'following', :period => '7d')
       primary.item :friends, t('simple_navigation.menus.friends'), friends_path
     end
   end

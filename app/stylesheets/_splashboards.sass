@@ -1,0 +1,73 @@
+@import compass/typography/lists/inline-block-list
+@import compass/css3/transition
+
+.splashboard
+  h1
+    font: 26px ITCAvantGardeGothicBold,arial,sans-serif
+    color: #2D4C6A
+    display: block
+    line-height: 1
+    padding-bottom: 12px
+    margin-left: 5px
+    margin-top: 15px
+    margin-bottom: 10px
+
+.splashboard-period
+  cursor: pointer
+  overflow: hidden
+  position: absolute
+  top: 20px
+  right: 30px
+
+  input
+    display: none
+
+  & > label
+    color: #2d4c6a
+    display: inline-block
+    font: 12px ITCAvantGardeGothicBookRg,arial,sans-serif
+
+    &:first-child
+      background: url(/images/slide-toggle-background.png) no-repeat right
+      padding-right: 60px
+
+  input
+    & + label
+      background: url(/images/slide-toggle-handle.png) no-repeat 6px 50%
+      margin-left: -60px
+      padding-left: 64px
+      +single-transition('background-position', '0.3s', 'ease-in-out')
+
+    &:checked + label
+      background-position: 28px 50%
+
+.inner-nav-tabs
+  +inline-block-list
+  margin-bottom: -3px
+  position: relative
+
+  li
+    background-image: url(/images/inner-nav-tab.png)
+    font: 18px ITCAvantGardeGothicBookRg,arial,sans-serif
+    height: 35px
+    margin: 0 -30px
+    padding-left: -10px
+    position: relative
+    width: 235px
+
+    &.selected
+      z-index: 10
+
+      a
+        color: #2d4c6a
+
+    a
+      margin-left: 53px
+      line-height: 35px
+      color: #c3c9cc
+
+.inner-nav
+  .feed-settings-tabs
+    background-image: url(/images/inner-nav-background.png)
+    padding-top: 30px
+    z-index: 0

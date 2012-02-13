@@ -632,7 +632,7 @@ a.nav-username:hover
     color: #666
   button
     margin-right: 5px
-.users
+.users.show
   .top-splashboards
     background-color: #E4E4E4
     padding: 25px 0 15px
@@ -1056,7 +1056,7 @@ a.nav-username:hover
 .right .streamfeed-top
   border-radius: 0 7px 0 0
 
-.splashboards .main-search, .splashboards .main-panel
+.splashboard .main-search, .splashboard .main-panel
   label
     display: block
 
@@ -1263,10 +1263,13 @@ a.nav-username:hover
     background: #d1d1d3
 
 .feed-settings-toggles
+  position: absolute
+  right: 0
+  top: 9px
+
   .field.iphone-checkbox
     opacity: 0
   .toggle
-    display: none
     height: 26px
     background: #fff
     border: 2px solid #eaeaea
@@ -2013,7 +2016,7 @@ input.splash:active, .buttonStyle2:active, .tag-line.edit button:active
       position: relative
       right: 11px
 
-.users
+.users.show
   #side-bar
     background: #efeeed
     border-right: solid 1px #CCC
@@ -2082,10 +2085,10 @@ input.splash:active, .buttonStyle2:active, .tag-line.edit button:active
   position: relative
   z-index: 10
 
-.users .numHolder
+.users.show .numHolder
   background-position: 0px 80px
 
-.users
+.users.show
   .waterNumHolder
     .noise-overlay
       display: none
@@ -2572,7 +2575,7 @@ body
     margin-left: 20px
     margin-top: 5px
     letter-spacing: 2px
-.home.index , .home.splashboards, .invite_friends
+.home.index , .splashboard, .invite_friends
   .user-vcard
     .score-text
       color: white

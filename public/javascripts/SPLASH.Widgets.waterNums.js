@@ -21,7 +21,7 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
       var randX =  Math.floor(Math.random()*maxWaterWidth)+20;
 
       for(var i = 0; i < sigFig; ++i) {
-        var numOffsetV  = selector.parents('.users').length ? 1 : 0;
+        var numOffsetV  = selector.parents('.users.show').length ? 1 : 0;
         numOffsetV      = selector.hasClass('splash-score') ? 2 : numOffsetV;
         var sSub        = theString.charAt(i);
         firstNum        = firstNum || sSub != "0" ? true : false;
