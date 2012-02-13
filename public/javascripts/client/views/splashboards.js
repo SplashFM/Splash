@@ -81,9 +81,20 @@ $(function() {
   splash.board.User = Backbone.View.extend({
     tagName: 'li',
     template: $('#tmpl-user').template(),
+    templateRelationship: $('#tmpl-relationship-list').template(),
 
     render: function() {
       $($.tmpl(this.template, this.model.toJSON())).appendTo(this.el);
+
+      var r = this.model.get('relationship');
+
+      if (r.follower_id != r.followed_id) {
+        this.relationship = new RelationshipView({
+          el: this.$('.right .follow-links'),
+          model:    new Relationship(r),
+          template: this.templateRelationship,
+        }).render();
+      }
 
       SPLASH.Widgets.waterNums($('.splash-score',this.el));
 
