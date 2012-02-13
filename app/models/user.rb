@@ -274,9 +274,7 @@ class User < ActiveRecord::Base
     else
       []
     end
-  rescue FbGraph::InvalidToken => e
-    logger.debug(e)
-
+  rescue FbGraph::InvalidToken
     []
   end
 
