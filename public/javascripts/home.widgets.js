@@ -916,9 +916,15 @@ $(function() {
         var tpn = this.$('.tutorial-pager-next');
 
         this.$('.total-pages').css({marginRight: tpn.hide().width()});
+      } else if ([-1, 0].indexOf(idx) > -1) {
+        var tpp = this.$('.tutorial-pager-prev');
+
+        this.$('.current-page').css({marginLeft: tpp.hide().width()});
       } else {
         this.$('.tutorial-pager-next').show();
+        this.$('.tutorial-pager-prev').show();
         this.$('.total-pages').css({marginRight: 0});
+        this.$('.current-page').css({marginLeft: 0});
       }
     },
   });
