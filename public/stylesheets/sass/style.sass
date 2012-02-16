@@ -142,7 +142,7 @@ textarea
   background: url(/css/images/username-divider.png) no-repeat 0 0
   width: 111px
   padding-left: 7px
-  text-align: right
+  text-align: center
   color: #c3c9cc
   line-height: 33px
   white-space: nowrap
@@ -2441,18 +2441,33 @@ html body #main.sessions
   dl
     margin-top: 8px
 
+  dt
+    margin-top: 4px
+
   dd
-    margin: 0 0 4px 8px
+    margin: 0 0 8px 8px
+
+    p
+      margin: 4px 0 0 8px
+
+      &.usage
+        color: #adb3b6
+        margin-left: 16px
+
+  p.more-info
+    text-align: right
+
+    a
+      @extend .avan-bold
+      text-decoration: underline
 
   .term
     @extend .avan-bold
     font-size: 14px
 
-  .function
-    @extend .avan-demi
-
-  .related
+  .pronounce, .function, .related
     font-style: italic
+    color: #adb3b6
 
 .terms, .privacy, .about
   background: white
@@ -2468,7 +2483,7 @@ html body #main.sessions
     font-size: 16px
     font-weight: bold
   p
-    margin: 4px 0
+    margin: 8px 0
   ul
     padding-top: 8px
     li
