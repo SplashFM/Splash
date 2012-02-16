@@ -23,10 +23,12 @@
           {{else}}
           %a{:href => "/undiscovered_tracks/${track.id}/download", :'data-skip-pjax' => true} Download track
           {{/if}}
+        {{if comment_count}}
         %li.comment-link
           %span &bull;
           %a{:href => "#", :data => {:widget => 'comments-count'}} ${comment_count}
         %li.time ${created_at}
+        {{/if}}
     .cl &nbsp;
     .numbers
       .the_splash_count ${track.splash_count}
