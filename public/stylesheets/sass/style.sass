@@ -36,6 +36,12 @@ textarea
   overflow: auto
   resize: none
 
+.live-feed, .main-search
+  .unsplashable
+    .splash-btn
+      opacity: 0.5
+      filter: alpha(opacity = 50)
+
 .home, .splashboard, .invite_friends
   & > #side-bar-wrap
     .points-container
@@ -1534,10 +1540,6 @@ a.nav-username:hover
     background: url(/css/images/feed-splash-btn.png) no-repeat 0 0
   .splash-btn[style]
     z-index: 0 !important
-  .unsplashable
-    .splash-btn
-      opacity: 0.5
-      filter: alpha(opacity = 50)
   .numbers
     position: absolute
     top: 19px
