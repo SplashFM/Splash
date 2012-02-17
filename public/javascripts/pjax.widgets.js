@@ -17,12 +17,14 @@ Widgets.Pjax = {
     $('body').bind('success.pjax', function() {
       Widgets.Editable.reload();
       Scaphandrier.Fancybox.init();
-      new SPLASH.Widgets.waterNums('.waterNum');
       SPLASH.Widgets.sticky("#header .shell");
       Scaphandrier.PreventHeaderLinksDefault.init();
       SPLASH.Widgets.SettingsButton();
       SPLASH.Widgets.stepFontSize('.actor_name',62);
       $('.tooltip').hide();
+      $('#header').
+        css('background-image', $('#header').css('background-image'));
+      new SPLASH.Widgets.waterNums('.waterNum');
     });
   }
 }
