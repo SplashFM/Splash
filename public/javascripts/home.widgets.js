@@ -1,11 +1,40 @@
 $(function() {
-  window.HomeController = Backbone.View.extend({
+  window.WithAllResults = {
     events: {
       'search:expand': 'searchExpanded',
       'search:collapse': 'searchCollapsed',
       'search:loaded': 'checkSize'
     },
 
+    checkSize: function() {
+      var off = $(this.allResults.el).offset();
+      var arh = off.top + $(this.allResults.el).height();
+
+      if ($(this.el).height() < arh) {
+        $(this.el).height($(this.el).height() + arh - $(this.el).height());
+      }
+    },
+
+    searchCollapsed: function() {
+      this.eventFeed.enable();
+      this.trackSearch.enable();
+    },
+
+    searchExpanded: function(_, data) {
+      this.eventFeed.disable();
+      this.trackSearch.disable();
+
+      this.showAllResults(data.terms);
+    },
+
+    showAllResults: function(searchTerms) {
+      this.$('.events-wrap').prepend(this.allResults.el);
+
+      this.allResults.load(searchTerms);
+    },
+  };
+
+  window.HomeController = Backbone.View.extend({
     initialize: function() {
       this.trackSearch = new TrackSearch({perPage: this.options.tracksPerPage});
 
@@ -41,40 +70,13 @@ $(function() {
       this.allResults = new TrackSearch.AllResults();
     },
 
-    checkSize: function() {
-      var off = $(this.allResults.el).offset();
-      var arh = off.top + $(this.allResults.el).height();
-
-      if ($(this.el).height() < arh) {
-        $(this.el).height($(this.el).height() + arh - $(this.el).height());
-      }
-    },
-
-    searchCollapsed: function() {
-      this.eventFeed.enable();
-      this.trackSearch.enable();
-    },
-
-    searchExpanded: function(_, data) {
-      this.eventFeed.disable();
-      this.trackSearch.disable();
-
-      this.showAllResults(data.terms);
-    },
-
-    showAllResults: function(searchTerms) {
-      this.$('.events-wrap').prepend(this.allResults.el);
-
-      this.allResults.load(searchTerms);
-    },
-
     render: function() {
       this.suggestedSplashers.render();
       this.allResults.render();
 
       return this;
     }
-  });
+  }).extend(WithAllResults);
 
 
   TrackSearch = Search.extend({

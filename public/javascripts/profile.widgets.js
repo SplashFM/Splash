@@ -20,6 +20,8 @@ $(function() {
         model:     new Relationship(this.options.relationship),
         template:  $('#tmpl-profile-relationship').template(),
       });
+
+      this.allResults = new TrackSearch.AllResults();
     },
 
     render: function() {
@@ -27,9 +29,11 @@ $(function() {
         this.$('.user-vcard > div').append(this.relationship.render().el);
       }
 
+      this.allResults.render();
+
       return this;
     }
-  });
+  }).extend(WithAllResults);
 
   window.RelationshipView = Backbone.View.extend({
     events: {'click a': 'toggle'},

@@ -35,7 +35,8 @@
             %span
           %span.feed-updates-count.left{:data => {:widget => 'update-count'}}
       = render "shared/feed_filter"
-      %ul.live-feed{:data => {:widget => 'events'}}
+      %div.events-wrap
+        %ul.live-feed{:data => {:widget => 'events'}}
       .loading-spinner-container
   .cl &nbsp;
 
