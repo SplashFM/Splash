@@ -398,6 +398,11 @@ $(function() {
                      jPlayer('play');
                  }});
 
+      new BaseApp.QuickSplashAction({
+        el:     this.$('.splash-btn'),
+        model:  new Track(data.track),
+      });
+
       this.delegateEvents(this.events);
     },
   }).mixin(Purchase);
