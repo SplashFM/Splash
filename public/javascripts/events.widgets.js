@@ -253,7 +253,7 @@ $(function() {
       this.siblings = new SplashList();
       this.siblings.bind('reset', this.renderThumbnails, this);
 
-      $('body').bind('splash:resplash', this.splashed);
+      $('body').bind('splash:resplash splash:quick', this.splashed);
     },
 
     checkKeyDown: function(e) {
