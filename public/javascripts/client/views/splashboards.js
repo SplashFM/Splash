@@ -16,6 +16,8 @@ $(function() {
 
     activate: function() {
       this.scroll.activate();
+
+      fixBG(this.$('.the_water, .noise-overlay, .numHolder, .numHolderCount'));
     },
 
     deactivate: function() {
