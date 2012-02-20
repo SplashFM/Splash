@@ -36,11 +36,10 @@ textarea
   overflow: auto
   resize: none
 
-.live-feed, .main-search
-  .unsplashable
-    .splash-btn
-      opacity: 0.5
-      filter: alpha(opacity = 50)
+.live-feed .unsplashable, .main-search .unsplashable, #player-container
+  .splash-btn
+    opacity: 0.5
+    filter: alpha(opacity = 50)
 
 .home, .splashboard, .invite_friends
   & > #side-bar-wrap
@@ -1749,6 +1748,9 @@ a.nav-username:hover
   background: url(/css/images/playerbg.jpg) repeat-x center 0
   height: 48px
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.5)
+  .splashable
+    opacity: 1
+    filter: alpha(opacity = 1)
   .container
     width: 930px
     height: 48px

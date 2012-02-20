@@ -154,6 +154,10 @@ $(function() {
   window.BaseApp.QuickSplashAction = BaseApp.SplashAction.extend({
     events: {'click' : 'splash'},
 
+    broadcastSplash: function() {
+      $(this.el).trigger('splash:quick', {track: this.model});
+    },
+
     splash: function() {
       new Splash().save({track_id: this.model.get('id')},
                       {success: this.broadcastSplash});
@@ -372,12 +376,22 @@ $(function() {
   });
 
   window.PlayerView = Backbone.View.extend({
+    events: {'splash:quick': 'disableSplashButton'},
+
     template: $('#tmpl-player').template(),
 
     initialize: function() {
       _.bindAll(this, 'play');
 
       $('body').bind('request:play', this.play);
+    },
+
+    disableSplashButton: function() {
+      this.$('.splash-btn').removeClass('splashable').addClass('unsplashable');
+    },
+
+    enableSplashButton: function() {
+      this.$('.splash-btn').removeClass('unsplashable').addClass('splashable');
     },
 
     play: function(_, data) {
@@ -402,6 +416,12 @@ $(function() {
         el:     this.$('.splash-btn'),
         model:  new Track(data.track),
       });
+
+      if (data.track.splashable) {
+        this.enableSplashButton();
+      } else {
+        this.disableSplashButton();
+      }
 
       this.delegateEvents(this.events);
     },
