@@ -2,7 +2,6 @@
   #side-bar
     = render :partial => "users/vcard", :locals => {:user => current_user}
     .contact-sep-shadow
-    = render 'users/points_container', :user => current_user
     - if defined?(omit_splashboards)
       = render "shared/invitations"
     - else
