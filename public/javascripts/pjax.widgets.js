@@ -22,8 +22,7 @@ Widgets.Pjax = {
       SPLASH.Widgets.SettingsButton();
       SPLASH.Widgets.stepFontSize('.actor_name',62);
       $('.tooltip').hide();
-      $('#header').
-        css('background-image', $('#header').css('background-image'));
+      fixBG($('#header'));
       new SPLASH.Widgets.waterNums('.waterNum');
     });
   }

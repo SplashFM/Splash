@@ -31,8 +31,7 @@ SPLASH.Widgets.numFlipper = function (the_selector) {
 
       var numHolderCount = $('.numHolderCount', current);
 
-      numHolderCount.
-        css('background-image', numHolderCount.css('background-image'));
+      fixBG(numHolderCount);
     });
   }
 

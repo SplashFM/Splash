@@ -50,13 +50,10 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
       current.html(newContents);
       var water = $('.the_water', current);
       water.css({'background-position': randX + "px " +  getBackgroundPositionY(water)+ "px"});
-      water.css('background-image', water.css('background-image'))
 
-      var noise = $('.noise-overlay', current);
-      noise.css('background-image', noise.css('background-image'));
-
-      var numHolder = $('.numHolder', current);
-      numHolder.css('background-image', numHolder.css('background-image'));
+      fixBG(water);
+      fixBG($('.noise-overlay', current));
+      fixBG($('.numHolder', current));
 
       rollWater(current);
     });
