@@ -399,6 +399,10 @@ $(function() {
         $(this).hasClass('comment-text-area') ? $(this).TextAreaExpander(12) : $(this).TextAreaExpander(70);
       });
 
+      setTimeout(function() {
+        fixBG(this.$('.the_water, .noise-overlay, .numHolder, .numHolderCount'));
+      }, 600);
+
       return this;
     },
 
