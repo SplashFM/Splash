@@ -28,9 +28,14 @@ SPLASH.Widgets.numFlipper = function (the_selector) {
       newContents+="<div class='clear'></div>";
       current.data({number:theString});
       current.html(newContents);
+
+      var numHolderCount = $('.numHolderCount', current);
+
+      numHolderCount.
+        css('background-image', numHolderCount.css('background-image'));
     });
   }
-  
+
   // UTIL FUNCTIONS
   function digitStyle(number,i) {
     var bgP         = "background-position:"+getBackgroundPosition(number)+"px "+-numOffset.y+"px;";
