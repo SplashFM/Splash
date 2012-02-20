@@ -424,6 +424,8 @@ $(function() {
       }
 
       this.delegateEvents(this.events);
+
+      fixBG(this.$('#player-container'));
     },
   }).mixin(Purchase);
 
