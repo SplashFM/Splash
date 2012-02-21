@@ -17,9 +17,7 @@ $(function() {
     activate: function() {
       this.scroll.activate();
 
-      setTimeout(function() {
-        fixBG(this.$('.the_water, .noise-overlay, .numHolder, .numHolderCount'));
-      }, 600);
+      fixBG(this.$('.the_water, .noise-overlay, .numHolder, .numHolderCount'));
     },
 
     deactivate: function() {
