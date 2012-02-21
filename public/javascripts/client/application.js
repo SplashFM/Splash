@@ -6,5 +6,5 @@ function fixBG(elements) {
     elements.each(function() {
       $(this).css('background-image', $(this).css('background-image'));
     });
-  }, 600);
+  }, 1000);
 };
