@@ -36,8 +36,6 @@ $(function() {
 
   window.HomeController = Backbone.View.extend({
     initialize: function() {
-      this.trackSearch = new TrackSearch({perPage: this.options.tracksPerPage});
-
       this.eventFeed   = new Events({
         currentUserID: this.options.userID,
         filters:       _.extend(
@@ -66,18 +64,14 @@ $(function() {
         followerID: this.options.userID,
         splashersCount: this.options.suggestedUsersPerPage,
       });
-
-      this.allResults = new TrackSearch.AllResults();
     },
 
     render: function() {
       this.suggestedSplashers.render();
-      this.allResults.render();
 
       return this;
     }
-  }).extend(WithAllResults);
-
+  });
 
   TrackSearch = Search.extend({
     UPLOAD_BEGIN_POS: -625,
