@@ -85,6 +85,7 @@ gem "redis-objects", :require => 'redis/objects', :git => 'git://github.com/davi
 gem "valium"
 gem "omniauth-facebook"
 gem "omniauth-twitter"
+gem "sass-rails"
 
 group :test do
   gem "rr", "~> 1.0"
