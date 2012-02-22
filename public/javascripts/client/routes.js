@@ -40,7 +40,7 @@ $(function () {
 
     Backbone.history.start({pushState: true});
 
-    $('body').delegate('a[data-bb]', 'click', function(e) {
+    $('body').delegate('a', 'click', function(e) {
       e.preventDefault();
 
       app.routes.navigate($(e.target).attr('href').substr(1), {trigger: true});
