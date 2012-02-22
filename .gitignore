@@ -20,3 +20,4 @@ public/blank.html
 /config/initializers/developer.rb
 dump.rdb
 /config/access_codes.yml
+/app/assets/javascripts/routes.js

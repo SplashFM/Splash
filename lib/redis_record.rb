@@ -9,15 +9,19 @@ module RedisRecord
   end
 
   module ClassMethods
+    def self.extended(base)
+      base.class_attribute :base_key
+    end
+
     def key(field)
       "#{Rails.env}/#{redis_base_key}/#{field}"
     end
 
     def redis_base_key(key = nil)
       if key
-        write_inheritable_attribute(:base_key, key)
+        self.base_key = key
       else
-        read_inheritable_attribute(:base_key) || name.underscore
+        base_key || name.underscore
       end
     end
 

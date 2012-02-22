@@ -101,9 +101,9 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     t = env['omniauth.auth']
 
     social_meta_token.merge!({:access_code => signup_code,
-                              :email       => t['user_info']['email'],
-                              :name        => t['user_info']['name'],
-                              :nickname    => t['user_info']['nickname']})
+                              :email       => t['info']['email'],
+                              :name        => t['info']['name'],
+                              :nickname    => t['info']['nickname']})
   end
 
   def signup_code

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '>=3.0.1'
+gem 'rails', '~> 3.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -20,9 +20,8 @@ gem 'capistrano'
 # To minimize merge conflicts, keep this list sorted alphabetically
 # gem "braintree"
 gem "daemons", "1.0.10"
-gem "declarative_authorization", ">= 0.5.1"
 gem "delayed_job"
-gem "devise", ">=1.1.7"
+gem "devise", "~> 2.0.0"
 gem "formtastic", "~> 2.0.0.rc1"
 gem "haml", ">= 3.0.18"
 gem "sass", ">= 3.1.7"
@@ -40,7 +39,7 @@ gem 'whenever', :require => false
 #gem "will_paginate", ">=3.0.pre"
 gem "js-routes", :require => 'js_routes'
 gem "inherited_resources"
-gem 'omniauth', "~> 0.3.0"
+gem 'omniauth', "~> 1.0.0"
 gem "friendly_id", "~> 4.0.0.beta8"
 gem 'fb_graph'
 gem "twitter"
@@ -62,11 +61,9 @@ end
 
 group :development do
   gem "thin" # webrick is SO slow.
-  gem "ruby_parser" # soft dependency of declarative_authorization browser
   gem "awesome_print", :require => "ap"  # pretty print objects in console via `ap my_object`
   gem "wirble"
   gem "engineyard"
-  gem "active_reload"
 end
 
 # Put Gems used by your application, but not by scap, here:
@@ -86,6 +83,8 @@ gem "compass"
 gem "redis-store"
 gem "redis-objects", :require => 'redis/objects', :git => 'git://github.com/david/redis-objects.git'
 gem "valium"
+gem "omniauth-facebook"
+gem "omniauth-twitter"
 
 group :test do
   gem "rr", "~> 1.0"
