@@ -60,9 +60,6 @@ javascripts:
     - public/javascripts/SPLASH.Widgets.numFlipper.js
     - public/javascripts/SPLASH.Widgets.JPlayerSeekable.js
     - public/javascripts/client/**/*.js
-  pjax:
-    - public/javascripts/jquery.pjax.js
-    - public/javascripts/pjax.widgets.js
 
 stylesheets:
   base:

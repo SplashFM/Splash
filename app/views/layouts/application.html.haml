@@ -6,7 +6,6 @@
     %link{:href => "/css/images/favicon.ico", :rel => "shortcut icon"}/
     = javascript_include_tag "application"
     = include_javascripts :base
-    = include_javascripts :pjax if logged_in?
     - if logged_in?
       = javascript_include_tag "http://connect.facebook.net/en_US/all.js"
     = include_stylesheets :base, :media => 'all'
