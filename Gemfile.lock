@@ -137,6 +137,9 @@ GEM
       rails (~> 3.0)
     friendly_id (4.0.0.beta8)
     fssm (0.2.8.1)
+    guard (0.10.0)
+      ffi (>= 0.5.0)
+      thor (~> 0.14.6)
     haml (3.1.4)
     has_scope (0.5.1)
     hashie (1.2.0)
@@ -172,6 +175,7 @@ GEM
       railties (>= 3.0.0)
     launchy (2.0.5)
       addressable (~> 2.2.6)
+    libnotify (0.7.2)
     linecache19 (0.5.12)
       ruby_core_source (>= 0.1.4)
     lucy (0.2.1)
@@ -379,6 +383,7 @@ DEPENDENCIES
   fb_graph
   formtastic (~> 2.0.0.rc1)
   friendly_id (~> 4.0.0.beta8)
+  guard
   haml (>= 3.0.18)
   has_scope
   hipchat (= 0.4.0)
@@ -389,6 +394,7 @@ DEPENDENCIES
   jquery-rails
   js-routes
   kaminari
+  libnotify
   newrelic_rpm
   nokogiri
   omniauth (~> 1.0.0)
