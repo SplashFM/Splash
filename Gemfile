@@ -90,6 +90,7 @@ gem "omniauth-twitter"
 gem "sass-rails"
 gem "coffee-rails"
 gem "uglifier-rails"
+gem "haml_coffee_assets"
 
 group :test do
   gem "rr", "~> 1.0"
