@@ -24,7 +24,6 @@ gem "declarative_authorization", ">= 0.5.1"
 gem "delayed_job"
 gem "devise", ">=1.1.7"
 gem "formtastic", "~> 2.0.0.rc1"
-gem "geokit-rails3"
 gem "haml", ">= 3.0.18"
 gem "sass", ">= 3.1.7"
 gem "hipchat", '0.4.0'
