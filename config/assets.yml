@@ -45,7 +45,6 @@ javascripts:
     - public/javascripts/events.widgets.js
     - public/javascripts/home.widgets.js
     - public/javascripts/profile.widgets.js
-    - public/javascripts/splashboard.widgets.js
     - public/javascripts/login.widgets.js
     - public/javascripts/settings.widgets.js
     - public/javascripts/iphone-style-checkboxes.js
