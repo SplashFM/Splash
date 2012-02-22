@@ -87,6 +87,7 @@ gem "omniauth-facebook"
 gem "omniauth-twitter"
 gem "sass-rails"
 gem "coffee-rails"
+gem "uglifier-rails"
 
 group :test do
   gem "rr", "~> 1.0"
