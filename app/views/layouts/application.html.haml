@@ -8,7 +8,6 @@
     = include_javascripts :pjax if logged_in?
     - if logged_in?
       = javascript_include_tag "http://connect.facebook.net/en_US/all.js"
-    = active_scaffold_includes if active_scaffold?
     = include_stylesheets :base, :media => 'all'
     = csrf_meta_tag
     = render "shared/ga"

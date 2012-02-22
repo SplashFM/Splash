@@ -1,21 +1,6 @@
 Scaphandrier::Application.routes.draw do
   match '/invite_friends' => 'users#invite_friends'
 
-  namespace :admin do
-    basic_admin_scaffolds = [:users]
-    basic_admin_scaffolds.each { |a|
-      resources(a) { as_routes }
-    }
-    resources :users do
-      member do
-        post :impersonate
-      end
-      collection do
-        post :deimpersonate
-      end
-    end
-  end
-
   # Uncomment to turn on the landing page with email collect for the private release.
   #root :to => 'visitors#new'
   root :to => 'home#index'
