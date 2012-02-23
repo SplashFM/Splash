@@ -1,1 +1,2 @@
-//= require routes
+#= require lib
+#= require routes
