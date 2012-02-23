@@ -1,4 +1,3 @@
-var app    = {};
 var splash = {};
 
 function fixBG(elements) {
