@@ -41,9 +41,11 @@ $(function () {
     Backbone.history.start({pushState: true});
 
     $('body').delegate('a', 'click', function(e) {
+      if (_(['/', '#']).include($(e.target).attr('href')[0])) return;
+
       e.preventDefault();
 
-      app.routes.navigate($(e.target).attr('href').substr(1), {trigger: true});
+      app.routes.navigate($(e.target).attr('href'), {trigger: true});
     })
   };
 
