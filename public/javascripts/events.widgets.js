@@ -374,9 +374,7 @@ $(function() {
           parent: this.el
         });
 
-        this.share      = new Events.Splash.SocialSitePost({model: this.model});
-
-          this.loadThumbnails();
+        this.loadThumbnails();
       }
 
       $(this.el).find(".expand").each(function(){
@@ -429,20 +427,6 @@ $(function() {
 
       $(this.el).append($.tmpl(this.template, json));
     },
-  });
-
-  window.Events.Splash.SocialSitePost = Backbone.View.extend({
-    el: '[data-widget = "social-site-post"]',
-
-    events: {
-      'click': 'share'
-    },
-
-    share: function(){
-      var splash = this.model;
-
-      splash.share($(this.el).attr('data-site'));
-    }
   });
 
   window.Events.Settings = Backbone.View.extend({
