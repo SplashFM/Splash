@@ -1,0 +1,4 @@
+%ul{:class => @class}
+  - for l in @links
+    %li{:class => (@active == l.label and 'active')}
+      %a{:href => l.href}= I18n.t(l.label) || l.label

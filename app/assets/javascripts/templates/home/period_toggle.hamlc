@@ -1,0 +1,3 @@
+%label{:for => 'alltime'}= I18n.t('top_tracks.period.sevenday')
+%input{:id  => 'alltime', :type => 'checkbox', :value => 1}
+%label{:for => 'alltime'}= I18n.t('top_tracks.period.alltime')

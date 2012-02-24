@@ -43,9 +43,9 @@ Scaphandrier::Application.routes.draw do
 
   resource :visitor
 
+  get 'top/*top' => 'home#index'
+
   match 'home' => 'home#index', :as =>'home'
-  match 'top/users/:sample'  => 'users#top'
-  match 'top/tracks/:sample/:period' => 'tracks#top', :as => 'top_tracks'
   match '/splashboards' => 'home#splashboards', :as =>'splashboards'
   match 'dashboard' => 'home#index', :as => 'dashboard'
   match 'home/events' => 'home#events'

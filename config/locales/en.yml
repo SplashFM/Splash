@@ -66,6 +66,8 @@ en:
       load_more: Load More Results
       search_for_song: Search for a song to Splash
       upload: Upload
+    top_splashes: Popular Tracks
+    latest_splashes: Latest Splashes
 
   jeditable:
     labels:
@@ -142,10 +144,6 @@ en:
   splashboards:
     all_loaded: No more Splashboard data.
     index:
-      alltime: All-time
-      everyone: Everyone
-      following: Following
-      sevenday: Last 7 Days
       top_splashes: Top Tracks
       top_splashers: Top Splashers
 
@@ -161,6 +159,15 @@ en:
       purchase: Purchase on iTunes
       resplash: Resplash
       splash: Splash
+
+  top:
+    everyone: Everyone
+    following: Following
+
+  top_tracks:
+    period:
+      alltime: All-time
+      sevenday: Last 7 Days
 
   tracks:
     actions:
