@@ -10,7 +10,7 @@ class Home extends Page
       active: content.label)
 
   renderSidebar: ($container) ->
-    suggestedSplashers = new SuggestedSplashersView(followerID: @app.userID)
+    suggestedSplashers = new SuggestedSplashersView(followerID: @app.user.id)
 
     $container.append suggestedSplashers.render().el
 

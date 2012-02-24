@@ -52,10 +52,7 @@
         Constants.AVATAR_WIDTH = #{User::AVATAR_WIDTH};
         Constants.AVATAR_HEIGHT = #{User::AVATAR_HEIGHT};
 
-        window.app = new Application({
-          userID: #{current_user.id},
-          userNickname: #{current_user.nickname.inspect}
-        });
+        window.app = new Application({user: #{current_user.to_json}});
       });
   %body
     = render "shared/ie6_banner"

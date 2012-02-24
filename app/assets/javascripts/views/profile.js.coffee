@@ -14,7 +14,7 @@ class Profile.Content extends Page.Content
   renderTop: ($top) ->
     $top.append JST['profile/search']()
 
-    mention = '@' + @app.userNickname
+    mention = '@' + @app.user.nickname
 
     $top.append JST['shared/nav_list'](
       links: [{
@@ -28,14 +28,14 @@ class Profile.Content extends Page.Content
 
   renderMain: ($main) ->
     o =
-      follower: if @section == 'mentions' then @app.userID else ''
+      follower: if @section == 'mentions' then @app.user.id else ''
       mentions: if @section == 'mentions' then 1 else ''
       splashes: if @section == 'splashes' then 1 else ''
-      user:     @app.userID
+      user:     @app.user.id
     p = Paginate(c = new EventList, 10, o)
 
     l = _(new BoundList(className: 'live-feed', collection: c)).extend
-      newItem: (i) => new Feed.Splash(model: i, currentUserID: @app.userID)
+      newItem: (i) => new Feed.Splash(model: i, currentUserID: @app.user.id)
 
     p.fetchNext()
 

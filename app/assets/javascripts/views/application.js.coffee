@@ -5,8 +5,7 @@ class Application extends Backbone.View
     'click a': '_routeLink'
 
   initialize: ->
-    @userID       = @options.userID
-    @userNickname = @options.userNickname
+    @user = @options.user
 
     @_initializeRoutes()
     @_initializeScroll()
