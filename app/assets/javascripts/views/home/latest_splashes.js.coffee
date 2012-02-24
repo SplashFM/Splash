@@ -21,13 +21,9 @@ class LatestSplashes extends Page.Content
     )
 
   renderMain: ($main) ->
-    $main.append Feed
-      collection: new EventList
-      className: 'live-feed'
-      filters:
-        follower: if @sample == 'following' then @app.user.id else ''
-        splashes: 1
-        user:     if @sample == 'following' then @app.user.id else ''
-      newItem: (i) => new Feed.Splash(model: i, currentUserID: @app.user.id)
+    $main.append EventFeed
+      follower: if @sample == 'following' then @app.user.id else ''
+      splashes: 1
+      user:     if @sample == 'following' then @app.user.id else ''
 
 window.Home.LatestSplashes = LatestSplashes

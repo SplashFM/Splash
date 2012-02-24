@@ -7,3 +7,11 @@ window.Feed = (args) ->
   p.fetchNext()
 
   l.el
+
+
+window.EventFeed = (filters) ->
+  Feed
+    collection: new EventList
+    className:  'live-feed'
+    filters:    filters
+    newItem:    (i) => new Feed.Splash(model: i, currentUserID: @app.user.id)
