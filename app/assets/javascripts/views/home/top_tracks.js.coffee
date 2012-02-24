@@ -39,4 +39,35 @@ class TopTracks extends Page.Content
 
   renderMain: ($main) ->
 
+
+class TopTrack extends Backbone.View
+  tagName: "li"
+  events:
+    'click [data-widget = "play"]': 'play'
+
+  render: ->
+    json = {track: @model.toJSON(), user: false}
+
+    $($.tmpl(@template, json)).appendTo(@el)
+
+    SPLASH.Widgets.numFlipper $('.the_splash_count', @el)
+
+    new FullSplashAction
+      model: @model
+      el: @$('[data-widget = "full-splash-action"]').get(0),
+
+    @$('[data-widget = "play"]').hover(@togglePlay, @togglePlay)
+
+    this
+
+  play: (e) ->
+    e.preventDefault()
+
+    @$el.trigger 'request:play', track: @model.toJSON()
+
+  togglePlay: => @$el.toggleClass 'playable'
+
 window.Home.TopTracks = TopTracks
+
+$ ->
+  TopTrack.prototype.template = $('#tmpl-event-splash').template()
