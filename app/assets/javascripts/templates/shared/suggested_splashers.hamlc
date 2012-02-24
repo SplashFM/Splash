@@ -1,0 +1,9 @@
+.suggested-splashers
+  %a.see-all.right{:href => "#"}
+    %span &bull;
+    See All
+  %h3 Suggested Splashers
+  .cl &nbsp;
+  %ul
+  %a.viewmore-btn{:href => '#', :data => {:widget => 'next-suggested-users'}}
+    = I18n.t('shared.suggested_splashers.view_more')

@@ -1,4 +1,6 @@
 window.SuggestedSplashersView = Backbone.View.extend({
+  className: 'splashers-widgets',
+
   events: {
     'click [data-widget = "next-suggested-users"]': 'viewMore',
     'ignore:splasher': 'triggerUpdate',
@@ -54,7 +56,7 @@ window.SuggestedSplashersView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html($.tmpl(this.template));
+    $(this.el).html(JST['shared/suggested_splashers']());
 
     this.resetSuggestions();
 
@@ -180,8 +182,6 @@ window.SuggestedSplasherView = Backbone.View.extend({
 });
 
 $(function() {
-  SuggestedSplashersView.prototype.template =
-    $('#tmpl-suggested-splashers').template();
   SuggestedSplasherView.prototype.template  =
     $('#tmpl-suggested-splasher').template();
 })

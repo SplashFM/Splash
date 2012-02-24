@@ -5,13 +5,5 @@
     - if defined?(omit_splashboards)
       = render "shared/invitations"
     - else
-      .splashers-widgets
-        .suggested-splashers
-          %a.see-all.right{:href => "#"}
-            %span &bull;
-            See All
-          %h3 Suggested Splashers
-          .cl &nbsp;
-          %div{:data => {:widget => 'suggested-users'}}
-        = render "shared/invitations"
+      = render "shared/invitations"
     = render "shared/footer"
