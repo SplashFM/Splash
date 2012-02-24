@@ -1,6 +1,6 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
+---
 en:
   activerecord:
     attributes:
@@ -10,243 +10,219 @@ en:
         performers: Artist
     errors:
       messages:
-        invalid_attachment: is invalid. Use one of %{allowed}
-
+        invalid_attachment: "is invalid. Use one of %{allowed}"
+  afirmative: "yes"
   all_results:
-    header: All songs for "%{terms}"
     album: Album
     close: Close
+    header: "All songs for \"%{terms}\""
+    performers: Artist
     rank: Rank
     title: Title
-    performers: Artist
-
   comments:
     comments:
-      comment_number: View all %{number} comments
+      comment_number: "View all %{number} comments"
     index:
-      add_comment: Add comment
-    one: 1 Comment
-    other: %{count} Comments
-
+      add_comment: "Add comment"
+    one: "1 Comment"
+    other: "%{count} Comments"
   errors:
     user:
       attributes:
         name:
-          blank: 'You need set an user name to use site'
-
+          blank: "You need set an user name to use site"
   events:
-    all_loaded: No more Splash activity.
+    all_loaded: "No more Splash activity."
     filters:
       everyone: Everyone
-      mentions: @Mentions
-      social: Activity
-      my_social: My Activity
       following: Following
+      mentions: "@Mentions"
+      my_social: "My Activity"
+      my_splashes: "My Splashes"
+      social: Activity
       splashes: Splashes
-      my_splashes: My Splashes
-    following: %{follower} is now following %{followed}
+    following: "%{follower} is now following %{followed}"
     updates:
-      one: 1 new update
-      other: %{count} new updates
-
+      one: "1 new update"
+      other: "%{count} new updates"
   friends:
-    all_loaded: No friends left. Bummer.
+    all_loaded: "No friends left. Bummer."
     connect:
-      link: Connect your Facebook
-      words: %{link} to find Friends already on Splash.FM.
-    header: Discover music with friends you trust
+      link: "Connect your Facebook"
+      words: "%{link} to find Friends already on Splash.FM."
+    header: "Discover music with friends you trust"
     invite:
+      description: "Splash.FM is a music discovery community that scores your influence in music. Discover and share the latest music with friends and those whose music taste you trust."
       invite: Invite
       invited: Invited
       title: "Splash.FM: Jump In"
-      description: Splash.FM is a music discovery community that scores your influence in music. Discover and share the latest music with friends and those whose music taste you trust.
-
   home:
+    latest_splashes: "Latest Splashes"
     search:
-      load_more: Load More Results
-      search_for_song: Search for a song to Splash
+      load_more: "Load More Results"
+      search_for_song: "Search for a song to Splash"
       upload: Upload
-    top_splashes: Popular Tracks
-    latest_splashes: Latest Splashes
-
+    top_splashes: "Popular Tracks"
   jeditable:
     labels:
-      cancel: 'Cancel'
-      submit: 'Change'
-      tooltip: 'Click to edit...'
-
+      cancel: Cancel
+      submit: Change
+      tooltip: "Click to edit..."
   lifesaver:
     logout: Logout
     settings: Settings
-
   login:
-    beta_warning: We're currently in Private Beta
-    blurb: Share, compare and curate your listening favorites in the first music discovery community for listeners and taste-makers.
+    beta_warning: "We're currently in Private Beta"
+    blurb: "Share, compare and curate your listening favorites in the first music discovery community for listeners and taste-makers."
     choice:
-      creating_account: A new account is being created for
-      mistyped: Oops. I mistyped it
-      new_user: I'm new
-      registered_user: I've Splashed
-      title: New to Splash.FM?
+      creating_account: "A new account is being created for"
+      mistyped: "Oops. I mistyped it"
+      new_user: "I'm new"
+      registered_user: "I've Splashed"
+      title: "New to Splash.FM?"
     register:
-      code: enter code
-      confirm_password: confirm password
-      email: enter email
-      header: Create an Account
-      name: first and last name
+      code: "enter code"
+      confirm_password: "confirm password"
+      email: "enter email"
+      header: "Create an Account"
+      name: "first and last name"
       password: password
-      request_invite: Request Invite
+      request_invite: "Request Invite"
     sign_in:
       email: email
-      facebook: Sign In with Facebook
-      forgot_password: Forgot It?
-      header: Welcome Back
+      facebook: "Sign In with Facebook"
+      forgot_password: "Forgot It?"
+      header: "Welcome Back"
       password: password
-      twitter: Sign In with Twitter
+      twitter: "Sign In with Twitter"
     sign_up:
-      blurb: Logging in with your Facebook and Twitter accounts make Splashing with friends easy.  Splash.FM finds your friends for you so you can start Splashing your newest finds with friends instantly.
-      facebook:
-      title: Sign Up
-      twitter:
-    title: Social music discovery
-
+      blurb: "Logging in with your Facebook and Twitter accounts make Splashing with friends easy.  Splash.FM finds your friends for you so you can start Splashing your newest finds with friends instantly."
+      facebook: ~
+      title: "Sign Up"
+      twitter: ~
+    title: "Social music discovery"
   notifications:
+    comment_for_participants: "also commented on %{user}'s splash"
+    comment_for_splasher: "commented on your Splash"
     following: "is now following you"
     mention: "splashed a song at you"
-    comment_for_splasher: "commented on your Splash"
-    comment_for_participants: "also commented on %{user}'s splash"
-
   searches:
-    empty: No results found.
+    empty: "No results found."
     page:
-      see_more: See more
-
+      see_more: "See more"
   shared:
-    search:
-      global: Search for songs or users
-      track: Enter a song to splash
-    suggested_splashers:
-      view_more: View More
     feed_search:
-      load_more: Load More Results
-      search_for_song: Search for a song to Splash
-      view_all_results: View All Results
-
+      load_more: "Load More Results"
+      search_for_song: "Search for a song to Splash"
+      view_all_results: "View All Results"
+    search:
+      global: "Search for songs or users"
+      track: "Enter a song to splash"
+    suggested_splashers:
+      view_more: "View More"
   simple_navigation:
     menus:
       friends: Friends
       home: Home
       profile: Profile
       splashboard: Splashboard
-      top_songs: Top Songs
-      top_users: Top Splashers
-
+      top_songs: "Top Songs"
+      top_users: "Top Splashers"
   splashboards:
-    all_loaded: No more Splashboard data.
+    all_loaded: "No more Splashboard data."
     index:
-      top_splashes: Top Tracks
-      top_splashers: Top Splashers
-
+      top_splashers: "Top Splashers"
+      top_splashes: "Top Tracks"
   splashes:
     splash:
-      by: Splashed by %{user}
+      by: "Splashed by %{user}"
       comment: "Optional: Splash @ User or Comment"
       download: Download
       expand: Expand
       play: Play
-      post_to_facebook: Post to Facebook?
-      post_to_twitter: Post to Twitter?
-      purchase: Purchase on iTunes
+      post_to_facebook: "Post to Facebook?"
+      post_to_twitter: "Post to Twitter?"
+      purchase: "Purchase on iTunes"
       resplash: Resplash
       splash: Splash
-
   top:
     everyone: Everyone
     following: Following
-
   top_tracks:
     period:
       alltime: All-time
-      sevenday: Last 7 Days
-
+      sevenday: "Last 7 Days"
   tracks:
     actions:
-      complete_upload: Upload and Splash
-    download: Download track
-    purchase: Purchase track
+      complete_upload: "Upload and Splash"
+    download: "Download track"
+    purchase: "Purchase track"
     widget:
-      splashed: Splashed
       splash: Splash
-
+      splashed: Splashed
   tutorial:
     close: close
     inner:
-      one:
-        body: |
-          When you Splash a song, you are telling all of your friends and followers, "This song is awesome. Check it out!"
-
-          Whenever a friend or follower re-Splashes that song, you earn a Ripple.
-      two:
-        body: |
-          You can Splash by simply clicking the droplet next to any song, searching for a song you already know, or uploading from your personal stash.
       five:
-        body: |
-          Follow your friends whose music taste you trust to see the tracks they are Splashing. Re-Splash the songs you discover and love.
+        body: "Follow your friends whose music taste you trust to see the tracks they are Splashing. Re-Splash the songs you discover and love.\n"
       four:
         body: |
-          The more people re-Splash your music, the higher your Splash Score will be. In other words, your Splash Score measures your influence in music.
+            The more people re-Splash your music, the higher your Splash Score will be. In other words, your Splash Score measures your influence in music.
 
-          That's it! You're ready to start Splashing...
-    welcome:
-      title: Welcome to Splash.FM
-      sub: Here are a few things you should know before diving in
+            That's it! You're ready to start Splashing...
+      one:
+        body: |
+            When you Splash a song, you are telling all of your friends and followers, "This song is awesome. Check it out!"
+
+            Whenever a friend or follower re-Splashes that song, you earn a Ripple.
+      two:
+        body: "You can Splash by simply clicking the droplet next to any song, searching for a song you already know, or uploading from your personal stash.\n"
     pager:
       next: Next
       of: of
       prev: Previous
-    sub: Social music discovery
-
+    sub: "Social music discovery"
+    welcome:
+      sub: "Here are a few things you should know before diving in"
+      title: "Welcome to Splash.FM"
   upload:
-    already_splashed: This track exists and you already splashed it.
-    cancel: Cancel Upload
-    done: Check file metadata
-    error: Sorry dude... can't take that file.
-    exists: Upload complete
-    metadata: Saving metadata...
-    save: Save and Splash
+    already_splashed: "This track exists and you already splashed it."
+    cancel: "Cancel Upload"
+    done: "Check file metadata"
+    error: "Sorry dude... can't take that file."
+    exists: "Upload complete"
+    metadata: "Saving metadata..."
+    save: "Save and Splash"
     splash: Splash
-    start: Uploading file...
+    start: "Uploading file..."
     upload: Upload
-    waiting: Choose a file to upload
-
+    waiting: "Choose a file to upload"
   users:
     avatar:
-      title: Update Avatar Picture
       errors:
-        dimension: Width or height must be at least %{dimension}px
+        dimension: "Width or height must be at least %{dimension}px"
+      title: "Update Avatar Picture"
     crop:
       cancel: Cancel
       crop: Crop
-      fetch_error: Sorry your image can not be downloaded for edition
+      fetch_error: "Sorry your image can not be downloaded for edition"
     edit:
-      basic_settings: Basic settings
-      site_connected: %{site} connected
-      social_connect: Social Connect
-      title: 'User profile'
+      basic_settings: "Basic settings"
+      site_connected: "%{site} connected"
+      social_connect: "Social Connect"
+      title: "User profile"
+    follows:
+      view_more: "view more"
     show:
       follow: Follow
-      follow_detail: Follow this Splasher...
+      follow_detail: "Follow this Splasher..."
       followers: Followers
       following: Following
       tagline: TAGLINE
-      title: 'User profile'
+      title: "User profile"
       unfollow: Unfollow
-      unfollow_detail: You are already following this Splasher.
-    follows:
-      view_more: view more
+      unfollow_detail: "You are already following this Splasher."
     vcard:
       edit: Edit
-      edit_avatar: Change image
-
+      edit_avatar: "Change image"
   you: you
-  afirmative: "yes"
