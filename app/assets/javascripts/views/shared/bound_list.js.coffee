@@ -5,8 +5,6 @@ class BoundList extends Backbone.View
     @collection.bind 'reset', @reset
     @collection.bind 'add', @addItem
 
-    @itemConstructor = @options.itemConstructor
-
   addItem: (item) =>
     @$el.append @renderItem(item)
 
@@ -15,8 +13,7 @@ class BoundList extends Backbone.View
 
     return this
 
-  renderItem: (item) ->
-    return @itemConstructor(item).render().el
+  renderItem: (item) -> @newItem(item).render().el
 
   reset: =>
     @$el.empty()
