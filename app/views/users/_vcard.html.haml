@@ -1,16 +1,3 @@
-:javascript
-  $(function() {
-    var t = new Tutorial({
-      trigger: $('[data-widget = "first-aid"]')
-    });
-
-    $('body').append(t.shadeEl);
-    $('body').append(t.el);
-
-    $('[data-widget = "first-aid"]').click(function() { t.show(); });
-
-    #{once(:first_time_splasher) { "t.show();"} }
-  });
 .user-vcard
   %div{:class => controller_path}
     .container

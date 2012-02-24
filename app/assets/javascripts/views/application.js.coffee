@@ -2,13 +2,22 @@ class Application extends Backbone.View
   el: 'body'
 
   events:
-    'click a': '_routeLink'
+    'click a':                           '_routeLink'
+    'click [data-widget = "first-aid"]': 'showTutorial'
 
   initialize: ->
     @user = @options.user
 
     @_initializeRoutes()
     @_initializeScroll()
+
+  showTutorial: ->
+    unless @tutorial
+      @tutorial = new Tutorial
+
+      @$el.append(@tutorial.shadeEl).append(@tutorial.el)
+
+    @tutorial.show()
 
   _initializeRoutes: ->
     new Application.Router

@@ -53,6 +53,8 @@
         Constants.AVATAR_HEIGHT = #{User::AVATAR_HEIGHT};
 
         window.app = new Application({user: #{current_user.to_json}});
+
+        #{once(:first_time_splasher) { "app.showTutorial();"} }
       });
   %body
     = render "shared/ie6_banner"
