@@ -22,7 +22,7 @@ class Page extends Backbone.View
 
     this
 
-  renderContent: (content)    -> content.render()
+  renderContent: (content)    -> @$('#stream-wrap').html content.render().el
   renderSidebar: ($container) ->
   renderTop:     (content)    ->
 
@@ -35,12 +35,14 @@ class Page extends Backbone.View
     @renderContent @content
 
 class Content extends Backbone.View
-  el:   '#stream-feed'
+  id:   'stream-feed'
   main: '.events-wrap'
   top:  '.streamfeed-top'
 
   initialize: ->
     @app   = @options.app
+
+    @$el.html(JST['shared/content']())
 
     @$top  = @$(@top)
     @$main = @$(@main)
@@ -48,6 +50,8 @@ class Content extends Backbone.View
   render: ->
     @renderTop  @$top.find('.feed-settings-tabs')
     @renderMain @$main
+
+    this
 
 Page.Content = Content
 
