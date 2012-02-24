@@ -21,18 +21,13 @@ class LatestSplashes extends Page.Content
     )
 
   renderMain: ($main) ->
-    o =
-      follower: if @sample == 'following' then @app.user.id else ''
-      splashes: 1
-      user:     if @sample == 'following' then @app.user.id else ''
-    p = Paginate(c = new EventList, 10, o)
-
-    l = _(new BoundList(className: 'live-feed', collection: c)).extend
+    $main.append Feed
+      collection: new EventList
+      className: 'live-feed'
+      filters:
+        follower: if @sample == 'following' then @app.user.id else ''
+        splashes: 1
+        user:     if @sample == 'following' then @app.user.id else ''
       newItem: (i) => new Feed.Splash(model: i, currentUserID: @app.user.id)
-
-    p.fetchNext()
-
-    $main.append l.el
-
 
 window.Home.LatestSplashes = LatestSplashes

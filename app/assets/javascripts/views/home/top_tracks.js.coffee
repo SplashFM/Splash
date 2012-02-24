@@ -48,20 +48,14 @@ class TopTracks extends Page.Content
     )
 
   renderMain: ($main) ->
-    o =
-      top:       true
-      following: if @sample == 'following' then 1 else ''
-      week:      if @period == '7d' then 1 else ''
-    p = Paginate(c = new TrackList, 10, o)
-    l = new L(className: 'splashboard-items live-feed', collection: c)
-
-    p.fetchNext()
-
-    $main.append l.el
-
-
-class L extends BoundList
-  newItem: (i) -> new TopTrack(model: i)
+    $main.append Feed
+      collection: new TrackList
+      className: 'splashboard-items live-feed'
+      filters:
+        top:       true
+        following: if @sample == 'following' then 1 else ''
+        week:      if @period == '7d' then 1 else ''
+      newItem: (i) -> new TopTrack(model: i)
 
 
 class TopTrack extends Backbone.View

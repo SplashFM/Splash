@@ -27,18 +27,14 @@ class Profile.Content extends Page.Content
     )
 
   renderMain: ($main) ->
-    o =
-      follower: if @section == 'mentions' then @app.user.id else ''
-      mentions: if @section == 'mentions' then 1 else ''
-      splashes: if @section == 'splashes' then 1 else ''
-      user:     @app.user.id
-    p = Paginate(c = new EventList, 10, o)
-
-    l = _(new BoundList(className: 'live-feed', collection: c)).extend
+    $main.append Feed
+      collection: new EventList
+      className: 'live-feed'
+      filters:
+        follower: if @section == 'mentions' then @app.user.id else ''
+        mentions: if @section == 'mentions' then 1 else ''
+        splashes: if @section == 'splashes' then 1 else ''
+        user:     @app.user.id
       newItem: (i) => new Feed.Splash(model: i, currentUserID: @app.user.id)
-
-    p.fetchNext()
-
-    $main.append l.el
 
 window.Profile = Profile
