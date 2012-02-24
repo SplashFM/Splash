@@ -73,7 +73,6 @@ $(function() {
     initialize: function() {
       this.globalSearch  = new BaseApp.GlobalSearch;
       this.userSearch    = new BaseApp.UserSearch;
-      this.quickSplash   = new BaseApp.QuickSplash;
       this.notifications = new BaseApp.Notifications({
         el: $('[data-widget = "notifications"]')
       });
@@ -257,48 +256,6 @@ $(function() {
         });
       }
     },
-  });
-
-
-  window.BaseApp.QuickSplash = Search.extend({
-    collection: new TrackList,
-    el: '[data-widget = "quick-splash"]',
-    events: _.extend({
-      'click [data-widget = "toggle"]' : 'toggle',
-    }, Search.prototype.events),
-    template: '#tmpl-quick-splash-track',
-
-    hide: function() {
-      Search.prototype.hide.call(this);
-
-      this.$('[data-widget = "box"]').hide();
-    },
-
-    hideResults: function() {
-      this.menu.hide();
-    },
-
-    renderItem: function(i) {
-      var trackEl = Search.prototype.renderItem.call(this, i);
-
-      new BaseApp.QuickSplashAction({
-        model: i,
-        el: $('[data-widget = "quick-splash-action"]', trackEl)
-      });
-    },
-
-    toggle: function() {
-      this.hideResults();
-      this.toggleInput();
-    },
-
-    toggleInput: function() {
-      var box = this.$('[data-widget = "box"]');
-
-      box.toggle();
-
-      if (box.is(':visible')) $(':text', box).focus();
-    }
   });
 
   window.BaseApp.GlobalSearch = Backbone.View.extend({
