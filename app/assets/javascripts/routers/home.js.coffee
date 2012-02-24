@@ -15,6 +15,9 @@ class Router extends Backbone.Router
       period: period
       sample: sample
 
+    @_renderHome content
+
+  _renderHome: (content) ->
     if @app.current
       if @app.current.constructor == Home
         @app.current.setContent content
