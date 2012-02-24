@@ -80,17 +80,19 @@ gem "silent-postgres"
 gem "has_scope"
 gem "aws-s3"
 gem "active_model_serializers", :git => 'git://github.com/david/active_model_serializers.git'
-gem "compass"
 gem "redis-store"
 gem "redis-objects", :require => 'redis/objects', :git => 'git://github.com/david/redis-objects.git'
 gem "valium"
 gem "omniauth-facebook"
 gem "omniauth-twitter"
-gem "sass-rails"
-gem "coffee-rails"
-gem "uglifier-rails"
 gem "haml_coffee_assets"
-gem "compass-rails"
+
+group :assets do
+  gem "sass-rails"
+  gem "coffee-rails"
+  gem "uglifier-rails"
+  gem "compass-rails"
+end
 
 group :test do
   gem "rr", "~> 1.0"
