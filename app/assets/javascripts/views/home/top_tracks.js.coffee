@@ -1,7 +1,10 @@
 class PeriodToggle extends Backbone.View
   className: 'splashboard-period'
+  events:
+    'change input': '_periodToggled'
 
   initialize: ->
+    @sample = @options.sample
     @period = @options.period
 
   render: ->
@@ -10,6 +13,13 @@ class PeriodToggle extends Backbone.View
     @$('input').attr('checked', @period == 'alltime')
 
     this
+
+  _periodToggled: (e) ->
+    period = if @period == '7d' then 'alltime' else '7d'
+    route  = Home.Router.routes.topTracks(period, @sample)
+
+    Backbone.history.navigate route, trigger: true
+
 
 
 class TopTracks extends Page.Content
@@ -24,7 +34,7 @@ class TopTracks extends Page.Content
     @routes       = Home.Router.routes
 
   renderTop: ($top) ->
-    periodToggle = new PeriodToggle(period: @period)
+    periodToggle = new PeriodToggle(period: @period, sample: @sample)
 
     $top.append periodToggle.render().el
     $top.append JST['shared/nav_list'](
