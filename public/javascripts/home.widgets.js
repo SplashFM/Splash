@@ -61,8 +61,7 @@ $(function() {
 
       this.suggestedSplashers = new SuggestedSplashersView({
         el: this.$('[data-widget = "suggested-users"]').get(0),
-        followerID: this.options.userID,
-        splashersCount: this.options.suggestedUsersPerPage,
+        followerID: this.options.userID
       });
     },
 
@@ -565,6 +564,8 @@ $(function() {
 
       this.cursor      = 0;
       this.suggestions = [];
+
+      this.splashersCount = 3;
     },
 
     $ul: function() {
@@ -601,7 +602,7 @@ $(function() {
     },
 
     nextPosition: function(cursor) {
-      return this.wrappedCursor(cursor + this.options.splashersCount);
+      return this.wrappedCursor(cursor + this.splashersCount);
     },
 
     render: function() {
@@ -625,7 +626,7 @@ $(function() {
     suggestionsChanged: function() {
       var su = this.$('[data-widget = "next-suggested-users"]');
 
-      if (this.collection.length <= this.options.splashersCount) {
+      if (this.collection.length <= this.splashersCount) {
         su.hide();
       } else {
         su.show();
@@ -637,7 +638,7 @@ $(function() {
 
       this.cursor = this.wrappedCursor(this.cursor);
 
-      if (this.collection.length > this.options.splashersCount) {
+      if (this.collection.length > this.splashersCount) {
         var replacement = this.makeSuggestion(_.last(this.currentSlice()));
 
         this.suggestions.push(replacement);
