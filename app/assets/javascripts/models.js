@@ -37,19 +37,7 @@ window.UndiscoveredTrack = Track.extend({
 window.TrackList         = Backbone.Collection.extend({
   model: Track,
   url: '/tracks',
-
-  initialize: function() {
-    this.setHasMoreResults(true);
-  },
-
-  parse: function(response) {
-    this.setHasMoreResults(response);
-
-    return Backbone.Collection.prototype.parse.call(this, response);
-  },
-}).
-  extend(Paginated).
-  extend(HasMoreResults);
+});
 
 window.User     = Backbone.Model.extend();
 window.UserList = Backbone.Collection.extend({
