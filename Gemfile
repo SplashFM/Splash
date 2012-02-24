@@ -90,6 +90,7 @@ gem "sass-rails"
 gem "coffee-rails"
 gem "uglifier-rails"
 gem "haml_coffee_assets"
+gem "compass-rails"
 
 group :test do
   gem "rr", "~> 1.0"
