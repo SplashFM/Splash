@@ -9,12 +9,16 @@ class Application extends Backbone.View
     @userNickname = @options.userNickname
 
     @_initializeRoutes()
+    @_initializeScroll()
 
   _initializeRoutes: ->
     new Application.Router
     new Home.Router(app: this)
 
     Backbone.history.start({pushState: true})
+
+  _initializeScroll: ->
+    @scroll = new EndlessScroll
 
   _routeLink: (e) ->
     $t = $(e.target)
@@ -27,5 +31,13 @@ class Application extends Backbone.View
     e.preventDefault();
 
     Backbone.history.navigate $t.attr('href'), trigger: true
+
+
+class EndlessScroll extends Backbone.View
+  initialize: ->
+    $(document).endlessScroll({callback: @triggerScroll});
+
+  triggerScroll: => @trigger 'scroll'
+
 
 window.Application = Application
