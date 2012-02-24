@@ -49,36 +49,3 @@ splash.EndlessScroll = Backbone.View.extend({
     return this;
   }
 });
-
-BoundList = Backbone.View.extend({
-  tagName: 'ul',
-
-  initialize: function() {
-    _.bindAll(this, 'renderItem');
-
-    this.collection.bind('reset', this.reset, this);
-    this.collection.bind('add', this.addItem, this)
-
-    this.itemConstructor = this.options.itemConstructor;
-  },
-
-  addItem: function(item) {
-    $(this.el).append(this.renderItem(item));
-  },
-
-  render: function() {
-    this.collection.each(this.addItem);
-
-    return this;
-  },
-
-  renderItem: function(item) {
-    return this.itemConstructor(item).render().el;
-  },
-
-  reset: function() {
-    $(this.el).empty();
-
-    this.render();
-  },
-});
