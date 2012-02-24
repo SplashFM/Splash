@@ -55,7 +55,23 @@
   %body
     = render "shared/ie6_banner"
     #wrapper{'data-pjax-container' => ''}
-      = render :template => 'layouts/pjax'
+      -  if logged_in?
+        = render 'shared/header'
+        #main
+          #side-bar-wrap.right
+            #side-bar
+              = render :partial => "users/vcard", :locals => {:user => current_user}
+              .var
+              = render 'shared/footer'
+          #stream-wrap.left
+            #stream-feed{:data => {:widget => 'feed'}}
+              .streamfeed-top
+              .events-wrap
+              .loading-spinner-container
+          .cl &nbsp;
+      - else
+        = yield
+
     / /- if logged_in?
     #player-area
     = render "shared/olark"

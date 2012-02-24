@@ -5,7 +5,5 @@
     Widgets.Tabs.init();
   });
 
-- if logged_in?
-  = render 'shared/header'
 #main{:class => "#{controller_name} #{action_name}"}
   = yield

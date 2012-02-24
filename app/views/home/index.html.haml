@@ -8,27 +8,3 @@
       userID: #{current_user.id},
     }).render()
   });
-
-.home
-  = render "shared/sidebar"
-  #stream-wrap.left
-    #stream-feed{:data => {:widget => 'feed'}}
-      .streamfeed-top
-        .feed-settings-tabs
-          .avan-bold
-            %ul{:data => {:widget => 'filter-following'}}
-              %li.ui-tabs-selected
-                %a.active{:href => "#following"}= t('events.filters.following')
-              %li
-                %a{:href => "#everyone"}= t('events.filters.everyone')
-              %li
-                %a{:href => "#mentions"}= '@' + current_user.nickname
-              %li
-                %a{:href => "#social"}= t('events.filters.social')
-          .line
-            %span
-          %a.feed-updates-count.no-new.left{:data => {:widget => 'update-count'}}
-      %div.events-wrap
-        %ul.live-feed{:data => {:widget => 'events'}}
-      .loading-spinner-container
-  .cl &nbsp;
