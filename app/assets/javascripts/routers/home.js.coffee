@@ -15,6 +15,14 @@ class Router extends Backbone.Router
       period: period
       sample: sample
 
-    new Home(content: content, app: @app).render()
+    if @app.current
+      if @app.current.constructor == Home
+        @app.current.setContent content
+      else
+        @app.current.remove()
+
+        @app.current = new Home(content: content, app: @app).render()
+    else
+      @app.current = new Home(content: content, app: @app).render()
 
 Home.Router = Router

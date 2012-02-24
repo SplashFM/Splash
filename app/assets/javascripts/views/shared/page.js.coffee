@@ -26,6 +26,13 @@ class Page extends Backbone.View
   renderSidebar: ($container) ->
   renderTop:     (content)    ->
 
+  setContent: (content) ->
+    if @content then @content.remove()
+
+    @content = content
+
+    @renderTop     @content
+    @renderContent @content
 
 class Content extends Backbone.View
   el:   '#stream-feed'
