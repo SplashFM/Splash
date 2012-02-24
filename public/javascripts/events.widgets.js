@@ -196,22 +196,6 @@ $(function() {
     },
   });
 
-  window.Events.Social = Backbone.View.extend({
-    tagName: 'li',
-    className: 'feed-socials',
-    templates: {
-      relationship: $('#tmpl-event-relationship').template(),
-      comment: $('#tmpl-event-comment').template(),
-    },
-
-    render: function() {
-      $(this.el).html($.tmpl(this.templates[this.model.get('type')],
-                             this.model.toJSON()));
-
-      return this;
-    },
-  });
-
   var HEIGHT_WHEN_OPEN = 62;
 
   window.BaseApp.ReSplashAction = BaseApp.SplashAction.extend({
