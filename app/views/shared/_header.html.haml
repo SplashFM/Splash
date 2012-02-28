@@ -58,7 +58,7 @@
       %li
         %a{:href => 'top/tracks/7d/following'}= t('simple_navigation.menus.home')
       %li
-        %a{:href => 'profile'}= t('simple_navigation.menus.profile')
+        %a{:href => "#{current_user.nickname}"}= current_user.name
       %li
         %a{:href => 'top/tracks/following/7d'}
           = t('simple_navigation.menus.splashboard')
