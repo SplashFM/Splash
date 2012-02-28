@@ -14,6 +14,12 @@ Widgets.Pjax = {
 
     $w('pjax').pjax("[data-pjax-container]", {timeout: 60000});
 
+    $('body').bind('start.pjax', function() {
+      $('body').
+        undelegate('#stream-feed', 'search:expand').
+        undelegate('#stream-feed', 'search:collapse').
+        undelegate('#stream-feed', 'search:loaded');
+    });
     $('body').bind('success.pjax', function() {
       Widgets.Editable.reload();
       Scaphandrier.Fancybox.init();

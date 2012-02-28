@@ -1,9 +1,9 @@
 $(function() {
   window.WithAllResults = {
     events: {
-      'search:expand': 'searchExpanded',
-      'search:collapse': 'searchCollapsed',
-      'search:loaded': 'checkSize'
+      'search:expand #stream-feed': 'searchExpanded',
+      'search:collapse #stream-feed': 'searchCollapsed',
+      'search:loaded #stream-feed': 'checkSize'
     },
 
     checkSize: function() {
