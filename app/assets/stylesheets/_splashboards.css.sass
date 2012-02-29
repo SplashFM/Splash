@@ -1,4 +1,3 @@
-@import compass/typography/lists/inline-block-list
 @import compass/css3/transition
 
 .splashboard
@@ -40,35 +39,3 @@
 
     &:checked + label
       background-position: 28px 50%
-
-.inner-nav-tabs
-  +inline-block-list
-  padding-top: 5px
-  margin-bottom: -3px
-  position: relative
-
-  li
-    background-image: url(/images/inner-nav-tab.png)
-    font: 18px ITCAvantGardeGothicBookRg,arial,sans-serif
-    height: 35px
-    margin: 0 -30px
-    padding-left: -10px
-    position: relative
-    width: 235px
-
-    &.selected
-      z-index: 10
-
-      a
-        color: #2d4c6a
-
-    a
-      margin-left: 53px
-      line-height: 35px
-      color: #c3c9cc
-
-.inner-nav
-  .feed-settings-tabs
-    background-image: url(/images/inner-nav-background.png)
-    padding-top: 30px
-    z-index: 0
