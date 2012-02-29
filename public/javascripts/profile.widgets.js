@@ -75,14 +75,14 @@ $(function() {
         this.running = true;
 
         if (this.model.isNew()) {
-          this.model.save();
-
           this.nextAction = 'unfollow';
+
+          this.model.save();
         } else {
+          this.nextAction = 'follow';
+
           this.model.destroy();
           this.model.id = null; // clear id to force creation
-
-          this.nextAction = 'follow';
         }
       }
     },
