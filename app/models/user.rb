@@ -239,6 +239,7 @@ class User < ActiveRecord::Base
      :avatar_thumb_url => avatar.url(:thumb),
      :ripple_count     => ripple_count,
      :splash_count     => splash_count,
+     :splash_score     => splash_score,
      :slug             => slug,
      :referral_url     => "#{AppConfig.preferred_host}/r/#{referral_code}",
      :score            => splash_score}.merge(Hash[method_hash]).tap { |h|

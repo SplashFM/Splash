@@ -8,6 +8,7 @@ class Application extends Backbone.View
   initialize: ->
     @user = @options.user
 
+    @_initializeVcard()
     @_initializeRoutes()
     @_initializeScroll()
 
@@ -29,6 +30,9 @@ class Application extends Backbone.View
   _initializeScroll: ->
     @scroll = new EndlessScroll
 
+  _initializeVcard: ->
+    @vcard = new Profile.Vcard(app: this, user: @user).render()
+
   _routeLink: (e) ->
     $t = $(e.target)
 
@@ -40,7 +44,6 @@ class Application extends Backbone.View
     e.preventDefault();
 
     Backbone.history.navigate $t.attr('href'), trigger: true
-
 
 class EndlessScroll extends Backbone.View
   initialize: ->

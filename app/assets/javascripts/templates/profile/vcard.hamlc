@@ -1,0 +1,32 @@
+.container
+  .picture.left
+    .style
+      %img{:src => @user.avatar_thumb_url}
+    - if @editable?
+      .upload-avatar-link{:'data-widget' => 'edit-avatar-link'}
+        %a.fancybox{:href => Routes.user_avatar_path(@user)}
+          = I18n.t('users.vcard.edit_avatar')
+  .info.left
+    %h2.avan-bold.actor_name= @user.name
+    .score
+      .score-digits
+        .waterNumHolder
+          .waterNum= @user.splash_score
+      .cl &nbsp;
+      %span.badge
+      .expand{:href => "#", :data => {:widget => 'first-aid'}}
+        .tip
+          .top
+          .contents
+            The Splash Score measures your influence in music. It's based
+            on how often you splash, the users that follow you, and the
+            number of times users ripple (or re-splash) your splashes. Want
+            to learn more about Splash? Check out the
+            %a{:href => "#", :data => {:widget => 'first-aid'}} tutorial.
+
+    .score-text.avan-bold
+      splash score
+    .blurb
+      .tag-line.edit{:data-action => Routes.user_path(@user), :data-widget => if @editable? then 'editable'}
+        = @user.tagline
+  .cl &nbsp;
