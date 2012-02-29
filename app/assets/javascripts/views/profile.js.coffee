@@ -1,7 +1,8 @@
 class Profile extends Page
   className: 'users show'
-  streamClassName: 'right'
-  sidebarClassName: 'left'
+  streamWrapClass: 'right'
+  sidebarWrapClass: 'left'
+  sidebarClass:     'users show'
 
   renderTop: (content) ->
     content.$top.append('<div class="feed-settings-tabs"></div>')

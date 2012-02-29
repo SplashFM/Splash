@@ -1,14 +1,14 @@
 class Page extends Backbone.View
-  el: '#main'
-  streamClassName: 'left'
-  sidebarClassName: 'right'
+  el:               '#main'
+  streamWrapClass:  'left'
+  sidebarWrapClass: 'right'
 
   initialize: ->
     @app     = @options.app
     @content = @options.content
     @user    = @options.user or @app.user
 
-    @sidebar = new Sidebar(app: @app, user: @user)
+    @sidebar = new Sidebar(app: @app, user: @user, className: @sidebarClass)
 
   remove: ->
     @content.remove()
@@ -24,12 +24,12 @@ class Page extends Backbone.View
     this
 
   renderContent: (content) ->
-    @$('#stream-wrap').attr 'class', @streamClassName
+    @$('#stream-wrap').attr 'class', @streamWrapClass
 
     @$('#stream-wrap').html content.render().el
 
   renderSidebar: (sidebar) ->
-    @$('#side-bar-wrap').attr 'class', @sidebarClassName
+    @$('#side-bar-wrap').attr 'class', @sidebarWrapClass
 
     @$('#side-bar-wrap').prepend sidebar.render().el
 

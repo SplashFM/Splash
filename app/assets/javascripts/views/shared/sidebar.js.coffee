@@ -8,7 +8,10 @@ class Sidebar extends Backbone.View
     @widgets = []
 
   render: ->
-    @$el.append Profile.Vcard.get(@app, @user).render().el
+    # taking implementation of waternums into account
+    vcard = Profile.Vcard.get(@app, @user)
+    @$el.append vcard.el
+    vcard.render()
 
     _(@widgets).each (w) => @$el.append w.render().el
 
