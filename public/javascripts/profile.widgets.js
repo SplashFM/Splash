@@ -39,7 +39,7 @@ $(function() {
     events: {'click a': 'toggle'},
 
     initialize: function() {
-      _.bindAll(this, 'render');
+      _.bindAll(this, 'relabel', 'render');
 
       this.refresh = this.options.refresh == false ? false : true
 
@@ -48,7 +48,7 @@ $(function() {
       this.model.bind('destroy', this.changed, this);
       this.model.bind('change',  this.changed, this);
 
-      if (this.refresh) $(this.el).bind('follow unfollow', this.render);
+      if (this.refresh) $(this.el).bind('follow unfollow', this.relabel);
     },
 
     changed: function() {
@@ -59,6 +59,10 @@ $(function() {
 
     currentAction: function() {
       return this.nextAction == 'follow' ? 'unfollow' : 'follow';
+    },
+
+    relabel: function() {
+      this.$('a').text(I18n.t('users.show.' + this.nextAction))
     },
 
     render: function() {
