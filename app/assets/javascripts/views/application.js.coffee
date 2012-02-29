@@ -13,6 +13,7 @@ class Application extends Backbone.View
 
   _initializeRoutes: ->
     new Application.Router
+    new Profile.Router(app: this)
     new Home.Router(app: this)
 
     Backbone.history.start({pushState: true})

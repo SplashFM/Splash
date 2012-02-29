@@ -106,6 +106,8 @@ en:
     comment_for_splasher: "commented on your Splash"
     following: "is now following you"
     mention: "splashed a song at you"
+  profile:
+    my_splashes: "My Splashes"
   searches:
     empty: "No results found."
     page:
