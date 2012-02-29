@@ -21,6 +21,8 @@ class Page extends Backbone.View
     @renderContent @content
     @renderSidebar @sidebar
 
+    @runPlugins()
+
     this
 
   renderContent: (content) ->
@@ -34,6 +36,9 @@ class Page extends Backbone.View
     @$('#side-bar-wrap').prepend sidebar.render().el
 
   renderTop:     (content) ->
+
+  runPlugins: ->
+    @$('.fancybox').fancybox Scaphandrier.Fancybox.params.customizations
 
   setContent: (content) ->
     if @content then @content.remove()

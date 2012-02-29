@@ -8,7 +8,6 @@ class Follows extends Backbone.View
     @$el.html JST['profile/follows'](user: @user)
 
     @$('.tabs').tabs()
-    @$('.fancybox').fancybox Scaphandrier.Fancybox.params.customizations
 
     this
 
