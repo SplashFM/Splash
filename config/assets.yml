@@ -33,7 +33,6 @@ javascripts:
     - public/javascripts/client/models/*.js
     - public/javascripts/client/util/*.js
     - public/javascripts/client/views/*.js
-    - public/javascripts/client/routes.js
     - public/javascripts/animations.widgets.js
     - public/javascripts/search.widgets.js
     - public/javascripts/app.widgets.js

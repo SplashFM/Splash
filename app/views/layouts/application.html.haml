@@ -51,6 +51,11 @@
         Constants.SPLASHBOARD_ITEMS_PER_PAGE = 10; // TODO: Get from server
         Constants.AVATAR_WIDTH = #{User::AVATAR_WIDTH};
         Constants.AVATAR_HEIGHT = #{User::AVATAR_HEIGHT};
+
+        window.app = new Application({
+          userID: #{current_user.id},
+          userNickname: #{current_user.nickname.inspect}
+        });
       });
   %body
     = render "shared/ie6_banner"

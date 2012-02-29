@@ -1,4 +1,5 @@
+#= require hamlcoffee
 #= require lib
 #= require routes
-
-window.app = {}
+#= require views
+#= require_tree ./routers
