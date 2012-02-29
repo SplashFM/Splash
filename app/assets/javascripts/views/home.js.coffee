@@ -9,9 +9,9 @@ class Home extends Page
         label: 'home.latest_splashes'}]
       active: content.label)
 
-  renderSidebar: ($container) ->
-    suggestedSplashers = new SuggestedSplashersView(followerID: @app.user.id)
+  renderSidebar: (sidebar) ->
+    sidebar.widgets.push new SuggestedSplashersView(followerID: @app.user.id)
 
-    $container.append suggestedSplashers.render().el
+    super(sidebar)
 
 window.Home = Home
