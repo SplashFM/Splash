@@ -49,13 +49,6 @@ gem "twitter"
 group :development, :test do
   # gem 'webrat'
   gem "rspec-rails", ">= 2.0.0"
-  if RUBY_VERSION < "1.9"
-    gem "ruby-debug"
-  else
-    gem "ruby-debug19"
-  end
-  gem "factory_girl_rails"
-  gem "watchr"
 end
 
 group :development do
