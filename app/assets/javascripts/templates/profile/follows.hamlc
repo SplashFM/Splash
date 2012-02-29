@@ -1,0 +1,35 @@
+.tabs
+  %ul
+    %li.ui-tabs-selected
+      %strong.avan-demi
+        %a{:href => "#followers"}
+          .relationship-count= @user.followers_count
+          .relationship-label= I18n.t('users.show.followers')
+          .active_underline
+    .v-space
+    %li.following-count
+      %strong.avan-demi
+        %a{:href => "#following"}
+          .relationship-count= @user.following_count
+          .relationship-label= I18n.t('users.show.following')
+          .active_underline
+  .line
+  .cl &nbsp;
+
+  #followers
+    .avatars
+      - for user in @user.followers
+        != JST['shared/avatar'](user: user)
+    .cl.line &nbsp;
+    %a.viewmore-btn.vspace.fancybox{:href => Routes.followers_path(id: @user.nickname)}
+      = I18n.t('users.follows.view_more')
+
+  #following
+    .avatars
+      - for user in @user.following
+        != JST['shared/avatar'](user: user)
+    .cl.line &nbsp;
+    %a.viewmore-btn.vspace.fancybox{:href => Routes.following_path(id: @user.nickname)}
+      = I18n.t('users.follows.view_more')
+
+  .cl.border.vspace &nbsp;

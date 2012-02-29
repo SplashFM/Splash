@@ -4,9 +4,13 @@ class Profile extends Page
   sidebarWrapClass: 'left'
   sidebarClass:     'users show'
 
+  renderSidebar: (sidebar) ->
+    sidebar.widgets.push new Profile.Follows(user: @app.user)
+
+    super
+
   renderTop: (content) ->
     content.$top.append(JST['shared/top']())
-
 
 class Profile.Content extends Page.Content
   initialize: ->

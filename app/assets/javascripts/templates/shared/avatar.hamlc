@@ -1,0 +1,2 @@
+%a{:href => @user.url}
+  %img{:src => @user.avatar_micro_url, :title => @user.nickname, :data-widget => 'tip'}/
