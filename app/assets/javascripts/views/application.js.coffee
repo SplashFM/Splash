@@ -13,6 +13,7 @@ class Application extends Backbone.View
     @_initializeSearch()
     @_initializeNotifications()
     @_initializeScroll()
+    @_initializePlayer()
 
   setPage: (content, constructor, constructorArgs = {}) ->
     args = _(content: content, app: this).extend constructorArgs
@@ -37,6 +38,9 @@ class Application extends Backbone.View
 
   _initializeNotifications: ->
       new BaseApp.Notifications el: $('[data-widget = "notifications"]')
+
+  _initializePlayer: ->
+    new PlayerView
 
   _initializeRoutes: ->
     new Application.Router
