@@ -50,9 +50,10 @@ class Page extends Backbone.View
 
 
 class Content extends Backbone.View
-  id:   'stream-feed'
-  main: '.events-wrap'
-  top:  '.streamfeed-top'
+  id:       'stream-feed'
+  main:     '.events-wrap'
+  top:      '.streamfeed-top'
+  spinner: '.loading-spinner-container'
 
   initialize: ->
     @app   = @options.app
