@@ -10,6 +10,7 @@ class Application extends Backbone.View
 
     @_initializeVcard()
     @_initializeRoutes()
+    @_initializeSearch()
     @_initializeScroll()
 
   setPage: (content, constructor, constructorArgs = {}) ->
@@ -42,6 +43,10 @@ class Application extends Backbone.View
 
   _initializeScroll: ->
     @scroll = new EndlessScroll
+
+  _initializeSearch: ->
+    new BaseApp.GlobalSearch
+    new BaseApp.UserSearch
 
   _initializeVcard: ->
     @vcard = new Profile.Vcard(app: this, user: @user).render()
