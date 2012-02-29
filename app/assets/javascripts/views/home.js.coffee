@@ -1,4 +1,6 @@
 class Home extends Page
+  className: 'home index'
+
   renderTop: (content) ->
     content.$top.append JST['shared/tabbed_top'](
       links: [{
