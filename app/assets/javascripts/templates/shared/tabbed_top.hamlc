@@ -1,6 +1,3 @@
 .inner-nav
   != JST['shared/nav_list'](class: 'inner-nav-tabs', links: @links, active: @active)
-
-  .feed-settings-tabs
-
-  .line
+  != JST['shared/top']()
