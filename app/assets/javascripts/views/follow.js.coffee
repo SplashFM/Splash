@@ -14,6 +14,7 @@ class Follow extends Page
 
   renderSidebar: (sidebar) ->
     sidebar.widgets.push new SuggestedSplashersView(followerID: @app.user.id)
+    sidebar.widgets.push new InviteUserView
 
     super(sidebar)
 
