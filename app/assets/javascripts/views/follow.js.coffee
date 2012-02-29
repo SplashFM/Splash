@@ -6,6 +6,9 @@ class Follow extends Page
       links: [{
         href:  Follow.Router.routes.topSplashers()
         label: 'follow.top_splashers'
+      }, {
+        href:  Follow.Router.routes.friends()
+        label: 'follow.friends'
       }]
       active: content.label)
 
