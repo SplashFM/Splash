@@ -18,7 +18,6 @@ window.Search = Backbone.View.extend({
     this.container       = this.$(this.container);
     this.lastTerm        = "";
     this.menu            = this.$(this.menuContainer || this.container);
-    this.template        = $(this.template).template();
     this.searching       = [];
 
     _.bindAll(this, 'hide', 'search', 'renderItem', 'renderControls',
