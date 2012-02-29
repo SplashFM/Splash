@@ -7,6 +7,14 @@ class Page extends Backbone.View
     @app     = @options.app
     @content = @options.content
 
+  remove: ->
+    @content.remove()
+
+    @removeSidebar()
+
+  removeSidebar: ->
+    @$sidebar.empty()
+
   render: ->
     @renderTop     @content
     @renderContent @content
