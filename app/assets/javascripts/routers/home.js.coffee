@@ -28,14 +28,6 @@ class Router extends Backbone.Router
     @_renderHome content
 
   _renderHome: (content) ->
-    if @app.current
-      if @app.current.constructor == Home
-        @app.current.setContent content
-      else
-        @app.current.remove()
-
-        @app.current = new Home(content: content, app: @app).render()
-    else
-      @app.current = new Home(content: content, app: @app).render()
+    @app.setPage content, Home
 
 Home.Router = Router

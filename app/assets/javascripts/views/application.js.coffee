@@ -12,6 +12,19 @@ class Application extends Backbone.View
     @_initializeRoutes()
     @_initializeScroll()
 
+  setPage: (content, constructor, constructorArgs = {}) ->
+    args = _(content: content, app: this).extend constructorArgs
+
+    if @current
+      if @current.constructor == constructor
+        @current.setContent content
+      else
+        @current.remove()
+
+        @current = new constructor(args).render()
+    else
+      @current = new constructor(args).render()
+
   showTutorial: ->
     unless @tutorial
       @tutorial = new Tutorial
