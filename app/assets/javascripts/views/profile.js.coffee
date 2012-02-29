@@ -5,7 +5,7 @@ class Profile extends Page
   sidebarClass:     'users show'
 
   renderTop: (content) ->
-    content.$top.append('<div class="feed-settings-tabs"></div>')
+    content.$top.append(JST['shared/top']())
 
 
 class Profile.Content extends Page.Content
