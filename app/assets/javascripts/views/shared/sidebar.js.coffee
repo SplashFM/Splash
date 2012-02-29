@@ -12,6 +12,7 @@ class Sidebar extends Backbone.View
     vcard = Profile.Vcard.get(@app, @user)
     @$el.append vcard.el
     vcard.render()
+    @$el.append '<div class="contact-sep-shadow"></div>'
 
     _(@widgets).each (w) => @$el.append w.render().el
 
