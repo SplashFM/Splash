@@ -1,15 +1,3 @@
-window.Paginated =
-  hasFullPages: (perPage) ->
-    return @length > 0 && @length % perPage == 0
-
-HasMoreResults =
-  hasMoreResults: ->
-    return @_hasMoreResults
-
-  setHasMoreResults: (results) ->
-    @_hasMoreResults = results.length >=
-      Constants.SPLASHBOARD_ITEMS_PER_PAGE
-
 class window.AccessRequest extends Backbone.Model
   urlRoot: '/access_requests'
 
@@ -102,13 +90,8 @@ class window.EventList extends Backbone.Collection
   model: Event
   url: '/events'
 
-  initialize: ->
-    @setHasMoreResults(true)
-
   parse: (response) ->
     @recordUpdate(response)
-
-    @setHasMoreResults(response.results)
 
     _.map response.results, (e) ->
       switch e.type
@@ -127,9 +110,6 @@ class window.EventList extends Backbone.Collection
         self.recordUpdate(response)
 
         resultFunc.call(this, response.results)
-
-_(EventList.prototype).extend(Paginated)
-_(EventList.prototype).extend(HasMoreResults)
 
 class window.Notification extends Backbone.Model
 
