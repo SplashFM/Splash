@@ -55,11 +55,11 @@
           / /colum
     / /head search
     %ul#navigation.right.avan-demi
-      %li
+      %li.navigation-home
         %a{:href => 'top/tracks/7d/following'}= t('simple_navigation.menus.home')
-      %li
+      %li.navigation-profile
         %a{:href => "#{current_user.nickname}"}= current_user.name
-      %li
+      %li.navigation-follow
         %a{:href => 'follow'}= t('simple_navigation.menus.friends')
   / /shell
 / /header

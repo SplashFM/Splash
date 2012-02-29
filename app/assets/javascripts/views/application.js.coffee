@@ -36,6 +36,10 @@ class Application extends Backbone.View
 
     @tutorial.show()
 
+  _highlightPage: (page) =>
+    @$('#navigation li').removeClass 'current-page'
+    @$("#navigation li.navigation-#{page}").addClass 'current-page'
+
   _initializeNotifications: ->
       new BaseApp.Notifications el: $('[data-widget = "notifications"]')
 
@@ -44,9 +48,13 @@ class Application extends Backbone.View
 
   _initializeRoutes: ->
     new Application.Router
-    new Profile.Router(app: this)
-    new Home.Router(app: this)
-    new Follow.Router(app: this)
+    profile = new Profile.Router(app: this)
+    home    = new Home.Router(app: this)
+    follow  = new Follow.Router(app: this)
+
+    profile.bind 'all', => @_highlightPage 'profile'
+    home.bind    'all', => @_highlightPage 'home'
+    follow.bind  'all', => @_highlightPage 'follow'
 
     Backbone.history.start({pushState: true})
 
