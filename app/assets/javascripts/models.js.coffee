@@ -52,8 +52,8 @@ class window.CommentList extends Backbone.Collection
 class window.Event extends Backbone.Model
 
 class window.Splash extends Event
-  initialize: (attrs) ->
-    @_comments = new CommentList(attrs.comments).parent(this)
+  initialize: ->
+    @_comments = new CommentList(@get('comments') or []).parent(this)
 
     @bind('change', @resetComments, this)
 
