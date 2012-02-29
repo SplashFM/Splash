@@ -2,29 +2,26 @@ class Page extends Backbone.View
   el: '#main'
 
   initialize: ->
-    @$sidebar = @$('#side-bar .var')
-
     @app     = @options.app
     @content = @options.content
+    @user    = @options.user or @app.user
+
+    @sidebar = new Sidebar(app: @app, user: @user)
 
   remove: ->
     @content.remove()
-
-    @removeSidebar()
-
-  removeSidebar: ->
-    @$sidebar.empty()
+    @sidebar.remove()
 
   render: ->
     @renderTop     @content
     @renderContent @content
-    @renderSidebar @$sidebar
+    @renderSidebar @sidebar
 
     this
 
-  renderContent: (content)    -> @$('#stream-wrap').html content.render().el
-  renderSidebar: ($container) ->
-  renderTop:     (content)    ->
+  renderContent: (content) -> @$('#stream-wrap').html content.render().el
+  renderSidebar: (sidebar) -> @$('#side-bar-wrap').prepend sidebar.render().el
+  renderTop:     (content) ->
 
   setContent: (content) ->
     if @content then @content.remove()
