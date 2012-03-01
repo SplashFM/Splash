@@ -42,6 +42,7 @@ class Application extends Backbone.View
     new Application.Router
     new Profile.Router(app: this)
     new Home.Router(app: this)
+    new Follow.Router(app: this)
 
     Backbone.history.start({pushState: true})
 

@@ -56,6 +56,8 @@ en:
       invite: Invite
       invited: Invited
       title: "Splash.FM: Jump In"
+  follow:
+    top_splashers: "Top Splashers"
   home:
     latest_splashes: "Latest Splashes"
     search:
