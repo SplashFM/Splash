@@ -11,6 +11,7 @@ class Application extends Backbone.View
     @_initializeVcard()
     @_initializeRoutes()
     @_initializeSearch()
+    @_initializeNotifications()
     @_initializeScroll()
 
   setPage: (content, constructor, constructorArgs = {}) ->
@@ -33,6 +34,9 @@ class Application extends Backbone.View
       @$el.append(@tutorial.shadeEl).append(@tutorial.el)
 
     @tutorial.show()
+
+  _initializeNotifications: ->
+      new BaseApp.Notifications el: $('[data-widget = "notifications"]')
 
   _initializeRoutes: ->
     new Application.Router
