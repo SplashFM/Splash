@@ -21,7 +21,7 @@ class LatestSplashes extends Page.Content
     )
 
   renderMain: ($main) ->
-    $main.append EventFeed
+    $main.append @eventFeed
       follower: if @sample == 'following' then @app.user.id else ''
       splashes: 1
       user:     if @sample == 'following' then @app.user.id else ''

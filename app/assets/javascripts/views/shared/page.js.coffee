@@ -68,6 +68,8 @@ class Content extends Backbone.View
 
     this
 
+_.extend(Content.prototype, Feed)
+
 Page.Content = Content
 
 window.Page = Page

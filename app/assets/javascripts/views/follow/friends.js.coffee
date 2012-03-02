@@ -13,7 +13,7 @@ class Friends extends Page.Content
     $top.append new FriendSearch(collection: @collection).el
 
   renderMain: ($main) ->
-    $main.append Feed
+    $main.append @feed
       collection: @collection
       className: 'live-feed'
       newItem: (i) ->

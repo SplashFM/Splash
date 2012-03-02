@@ -48,7 +48,7 @@ class TopTracks extends Page.Content
     )
 
   renderMain: ($main) ->
-    $main.append Feed
+    $main.append @feed
       collection: new TrackList
       className: 'splashboard-items live-feed'
       filters:

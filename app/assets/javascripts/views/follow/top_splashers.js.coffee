@@ -20,7 +20,7 @@ class TopSplashers extends Page.Content
     )
 
   renderMain: ($main) ->
-    $main.append Feed
+    $main.append @feed
       collection: new UserList
       className: 'splashboard-items live-feed'
       filters:

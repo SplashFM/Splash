@@ -37,7 +37,7 @@ class Profile.Content extends Page.Content
     )
 
   renderMain: ($main) ->
-    $main.append EventFeed
+    $main.append @eventFeed
       follower: if @section == 'mentions' then @app.user.id else ''
       mentions: if @section == 'mentions' then 1 else ''
       splashes: if @section == 'splashes' then 1 else ''
