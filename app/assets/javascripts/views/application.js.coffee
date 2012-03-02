@@ -9,11 +9,11 @@ class Application extends Backbone.View
     @user = @options.user
 
     @_initializeVcard()
-    @_initializeRoutes()
     @_initializeSearch()
     @_initializeNotifications()
     @_initializeScroll()
     @_initializePlayer()
+    @_initializeRoutes()
 
   setPage: (content, constructor, constructorArgs = {}) ->
     args = _(content: content, app: this).extend constructorArgs
