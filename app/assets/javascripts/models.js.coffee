@@ -18,6 +18,7 @@ class window.TrackList extends Backbone.Collection
   url: '/tracks'
 
 class window.User extends Backbone.Model
+  urlRoot: '/users'
 
 class window.UserList extends Backbone.Collection
   model: User

@@ -56,7 +56,7 @@
     - if logged_in?
       :javascript
         $(function() {
-          window.app = new Application({user: #{current_user.to_json}});
+          window.app = new Application({user: new User(#{current_user.to_json})});
 
           #{once(:first_time_splasher) { "app.showTutorial();" }}
         });

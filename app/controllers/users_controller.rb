@@ -50,6 +50,8 @@ class UsersController < ApplicationController
   def show
     @following = @user.following.take(SIDEBAR_THUMB_COUNT)
     @followers = @user.followers.take(SIDEBAR_THUMB_COUNT)
+
+    respond_with @user
   end
 
   def update

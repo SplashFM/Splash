@@ -9,7 +9,7 @@ class Profile.Vcard extends Backbone.View
     @editable = @options.editable
 
   render: ->
-    @$el.html JST['profile/vcard'](user: @user, editable: @editable)
+    @$el.html JST['profile/vcard'](user: @user.toJSON(), editable: @editable)
 
     SPLASH.Widgets.waterNums @$('.waterNum')
 

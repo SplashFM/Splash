@@ -5,7 +5,7 @@ class Follows extends Backbone.View
     @user = @options.user
 
   render:  ->
-    @$el.html JST['profile/follows'](user: @user)
+    @$el.html JST['profile/follows'](user: @user.toJSON())
 
     @$('.tabs').tabs()
 

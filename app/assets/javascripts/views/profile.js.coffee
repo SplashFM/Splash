@@ -4,8 +4,14 @@ class Profile extends Page
   sidebarWrapClass: 'left'
   sidebarClass:     'users show'
 
+  initialize: ->
+    super
+
+    @user = @options.user
+
+
   renderSidebar: (sidebar) ->
-    sidebar.widgets.push new Profile.Follows(user: @app.user)
+    sidebar.widgets.push new Profile.Follows(user: @user)
 
     super
 
@@ -17,31 +23,31 @@ class Profile.Content extends Page.Content
     super
 
     @section  = @options.section
-    @nickname = @options.nickname
+    @user     = @options.user
 
     @routes   = Profile.Router.routes
 
   renderTop: ($top) ->
     new Searchable(el: @el, top: $top).render()
 
-    mention = '@' + @app.user.nickname
+    mention = '@' + @user.get('nickname')
 
     $top.append JST['shared/nav_list'](
       links: [{
-        href:  @routes.profile(@nickname, 'splashes')
+        href:  @routes.profile(@user.get('nickname'), 'splashes')
         label: 'profile.my_splashes'
       }, {
-        href:  @routes.profile(@nickname, 'mentions')
+        href:  @routes.profile(@user.get('nickname'), 'mentions')
         label: mention}]
       active:  if @section == 'mentions' then mention else 'profile.my_splashes'
     )
 
   renderMain: ($main) ->
     $main.append @eventFeed
-      follower: if @section == 'mentions' then @app.user.id else ''
+      follower: if @section == 'mentions' then @user.id else ''
       mentions: if @section == 'mentions' then 1 else ''
       splashes: if @section == 'splashes' then 1 else ''
-      user:     @app.user.id
+      user:     @user.id
 
 
 class Searchable extends Backbone.View
