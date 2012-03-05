@@ -10,6 +10,8 @@ window.Feed =
         unless coll.hasNext()
           $spin.html $('<p class="loaded"/>').text I18n.t('events.all_loaded')
 
+      coll.bind 'paginate:error', -> $spin.html ''
+
     bindScroll = =>
       f = -> if coll.hasNext() then coll.fetchNext()
 
