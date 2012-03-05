@@ -15,6 +15,8 @@ class Application extends Backbone.View
     @_initializePlayer()
     @_initializeRoutes()
 
+  setContent: (content) -> @current.setContent content
+
   setPage: (content, constructor, constructorArgs = {}) ->
     args = _(content: content, app: this).extend constructorArgs
 
@@ -56,10 +58,12 @@ class Application extends Backbone.View
     @routers.profile     = new Profile.Router(app: this)
     @routers.home        = new Home.Router(app: this)
     @routers.follow      = new Follow.Router(app: this)
+    @routers.splash      = new SingleSplash.Router(app: this)
 
     @routers.profile.bind 'all', => @_highlightPage 'profile'
     @routers.home.bind    'all', => @_highlightPage 'home'
     @routers.follow.bind  'all', => @_highlightPage 'follow'
+    @routers.splash.bind  'all', => @_clearHighlight()
 
     Backbone.history.start({pushState: true})
 
