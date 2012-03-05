@@ -3,6 +3,8 @@ Paginate = function(collection, elemsPerPage, fetchData) {
 
   var data = _({}).extend(fetchData, {page: 0});
 
+  elemsPerPage = elemsPerPage || 10;
+
   return _({
     collection: function() {
       return collection;

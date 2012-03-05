@@ -1,0 +1,3 @@
+%p.connect
+  %a{:href => ""}= I18n.t('friends.connect.link')
+  = I18n.t('friends.connect.words')
