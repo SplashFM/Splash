@@ -16,6 +16,8 @@ Paginate = function(collection, elemsPerPage, fetchData) {
       data.page  = data.page + 1;
       lastLength = collection.length;
 
+      this.trigger('fetch');
+
       return collection.fetch({
         add:     true,
         data:    data,
