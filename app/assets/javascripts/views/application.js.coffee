@@ -47,14 +47,16 @@ class Application extends Backbone.View
     new PlayerView
 
   _initializeRoutes: ->
-    new Application.Router
-    profile = new Profile.Router(app: this)
-    home    = new Home.Router(app: this)
-    follow  = new Follow.Router(app: this)
+    @routers = {}
 
-    profile.bind 'all', => @_highlightPage 'profile'
-    home.bind    'all', => @_highlightPage 'home'
-    follow.bind  'all', => @_highlightPage 'follow'
+    @routers.application = new Application.Router
+    @routers.profile     = new Profile.Router(app: this)
+    @routers.home        = new Home.Router(app: this)
+    @routers.follow      = new Follow.Router(app: this)
+
+    @routers.profile.bind 'all', => @_highlightPage 'profile'
+    @routers.home.bind    'all', => @_highlightPage 'home'
+    @routers.follow.bind  'all', => @_highlightPage 'follow'
 
     Backbone.history.start({pushState: true})
 
