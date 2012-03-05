@@ -54,8 +54,8 @@ class Application extends Backbone.View
   _initializeRoutes: ->
     @routers = {}
 
-    @routers.application = new Application.Router
     @routers.profile     = new Profile.Router(app: this)
+    @routers.application = new Application.Router
     @routers.home        = new Home.Router(app: this)
     @routers.follow      = new Follow.Router(app: this)
     @routers.splash      = new SingleSplash.Router(app: this)
