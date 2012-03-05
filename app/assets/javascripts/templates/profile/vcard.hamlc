@@ -1,7 +1,7 @@
 .container
   .picture.left
     .style
-      %img{:src => @user.avatar_thumb_url}
+      %img#user-avatar{:src => @user.avatar_thumb_url}
     - if @editable?
       .upload-avatar-link{:'data-widget' => 'edit-avatar-link'}
         %a.fancybox{:href => Routes.user_avatar_path(@user)}
