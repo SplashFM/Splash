@@ -36,8 +36,11 @@ class Application extends Backbone.View
 
     @tutorial.show()
 
-  _highlightPage: (page) =>
+  _clearHighlight: ->
     @$('#navigation li').removeClass 'current-page'
+
+  _highlightPage: (page) =>
+    @_clearHighlight()
     @$("#navigation li.navigation-#{page}").addClass 'current-page'
 
   _initializeNotifications: ->
