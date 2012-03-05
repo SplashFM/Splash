@@ -19,11 +19,17 @@ window.Feed =
         scroll.unbind 'scroll', f
         remove()
 
+    if args.collection.fetchNext?
+      coll    = args.collection
+      rawColl = args.collection.collection()
+    else
+      coll    = Paginate(args.collection, 10, args.filters)
+      rawColl = args.collection
+
     l = _.extend(
-      new BoundList(className: args.className, collection: args.collection),
+      new BoundList(className: args.className, collection: rawColl),
       newItem: args.newItem)
 
-    coll   = Paginate(args.collection, 10, args.filters)
     $spin  = @$(@spinner)
     scroll = @app.scroll
 
