@@ -6,7 +6,11 @@ class LatestSplashes extends Page.Content
 
     @app    = @options.app
     @sample = @options.sample
-
+    # force follower and user to be sent so we can get a 401 if that's the case
+    @feed   = Feed.eventFeed this,
+      follower: if @sample == 'following' then @app.user.id or 0 else ''
+      splashes: 1
+      user:     if @sample == 'following' then @app.user.id or 0 else ''
     @routes = @app.routers.home.builder
 
   renderTop: ($top) ->
@@ -19,12 +23,5 @@ class LatestSplashes extends Page.Content
         label: 'top.everyone'}]
       active:  "top.#{@sample}"
     )
-
-  renderMain: ($main) ->
-    # force follower and user to be sent so we can get a 401 if that's the case
-    $main.append @eventFeed
-      follower: if @sample == 'following' then @app.user.id or 0 else ''
-      splashes: 1
-      user:     if @sample == 'following' then @app.user.id or 0 else ''
 
 window.Home.LatestSplashes = LatestSplashes

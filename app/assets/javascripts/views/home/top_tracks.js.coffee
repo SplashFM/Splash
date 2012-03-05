@@ -22,7 +22,6 @@ class PeriodToggle extends Backbone.View
     Backbone.history.navigate route, trigger: true
 
 
-
 class TopTracks extends Page.Content
   label: 'home.top_splashes'
 
@@ -31,6 +30,14 @@ class TopTracks extends Page.Content
 
     @period = @options.period
     @sample = @options.sample
+    @feed   = Feed.feed this,
+      collection: new TrackList
+      className: 'splashboard-items live-feed'
+      filters:
+        top:       true
+        following: if @sample == 'following' then 1 else ''
+        week:      if @period == '7d' then 1 else ''
+      newItem: (i) -> new TopTrack(model: i)
 
     @routes = @app.routers.home.builder
 
@@ -47,16 +54,6 @@ class TopTracks extends Page.Content
         label: 'top.everyone'}]
       active:  "top.#{@sample}"
     )
-
-  renderMain: ($main) ->
-    $main.append @feed
-      collection: new TrackList
-      className: 'splashboard-items live-feed'
-      filters:
-        top:       true
-        following: if @sample == 'following' then 1 else ''
-        week:      if @period == '7d' then 1 else ''
-      newItem: (i) -> new TopTrack(model: i)
 
 
 class TopTrack extends Backbone.View

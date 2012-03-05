@@ -70,7 +70,9 @@ class Content extends Backbone.View
 
     this
 
-_.extend(Content.prototype, Feed)
+  renderTop:  ($top)  ->
+  renderMain: ($main) ->
+
 
 Page.Content = Content
 

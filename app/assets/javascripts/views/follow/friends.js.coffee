@@ -6,22 +6,20 @@ class Friends extends Page.Content
     super
 
     @collection = new FriendsList
+    @feed       = Feed.feed this,
+      collection: @collection
+      className:  'live-feed'
+      newItem:    (i) ->
+        fb = window.app.user.get('facebook_token')
+
+        switch i.get('origin')
+          when 'facebook' then new UnregisteredFriendView(model: i, social: fb)
+          else                 new RegisteredFriendView(model: i)
 
     @routes = Follow.Router.routes
 
   renderTop: ($top) ->
     $top.append new FriendSearch(collection: @collection).el
-
-  renderMain: ($main) ->
-    fb   = @app.user.get('facebook_token')
-
-    $main.append @collection
-      collection: coll
-      className:  'live-feed'
-      newItem: (i) =>
-        switch i.get('origin')
-          when 'facebook' then new UnregisteredFriendView(model: i, social: fb)
-          else                 new RegisteredFriendView(model: i)
 
 
 window.Follow.Friends = Friends

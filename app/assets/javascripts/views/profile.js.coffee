@@ -9,7 +9,6 @@ class Profile extends Page
 
     @user = @options.user
 
-
   renderSidebar: (sidebar) ->
     super
 
@@ -18,12 +17,18 @@ class Profile extends Page
   renderTop: (content) ->
     content.$top.append(JST['shared/top']())
 
+
 class Profile.Content extends Page.Content
   initialize: ->
     super
 
     @section  = @options.section
     @user     = @options.user
+    @feed     = Feed.eventFeed this,
+      follower: if @section == 'mentions' then @user.id else ''
+      mentions: if @section == 'mentions' then 1 else ''
+      splashes: if @section == 'splashes' then 1 else ''
+      user:     @user.id
 
     @routes   = Profile.Router.routes
 
@@ -41,13 +46,6 @@ class Profile.Content extends Page.Content
         label: mention}]
       active:  if @section == 'mentions' then mention else 'profile.my_splashes'
     )
-
-  renderMain: ($main) ->
-    $main.append @eventFeed
-      follower: if @section == 'mentions' then @user.id else ''
-      mentions: if @section == 'mentions' then 1 else ''
-      splashes: if @section == 'splashes' then 1 else ''
-      user:     @user.id
 
 
 class Searchable extends Backbone.View
