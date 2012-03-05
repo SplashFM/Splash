@@ -165,7 +165,8 @@ window.BaseApp.QuickSplashAction = BaseApp.SplashAction.extend({
 
 window.BaseApp.Notifications = Backbone.View.extend({
   events: {
-    'click [data-widget = "toggle-notifications"]': 'toggle'
+    'click [data-widget = "toggle-notifications"]': 'toggle',
+    'click div.item': 'toggle'
   },
 
   initialize: function() {
