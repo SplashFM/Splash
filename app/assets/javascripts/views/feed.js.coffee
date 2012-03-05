@@ -1,9 +1,9 @@
 window.Feed =
   feed: (args) ->
-    load       = ->
+    load = (fetch) ->
       $spin.html $('<div id="loading-spinner" class="loading-spinner" />')
 
-      coll.fetchNext()
+      if fetch then coll.fetchNext()
 
     bindLoaded =  ->
       coll.bind 'loaded', ->
@@ -29,7 +29,7 @@ window.Feed =
 
     bindScroll()
     bindLoaded()
-    load()
+    load(if args.fetch? then args.fetch else true)
 
     l.el
 
