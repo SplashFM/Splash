@@ -3,8 +3,6 @@ window.Feed =
     $main = @$main
 
     load = ->
-      $spin.html $('<div id="loading-spinner" class="loading-spinner" />')
-
       coll.fetchNext().fail (xhr) ->
         if xhr.status == 401
           $main.prepend JST['shared/facebook_required']()
@@ -33,6 +31,9 @@ window.Feed =
 
     $spin  = @$(@spinner)
     scroll = @app.scroll
+
+    coll.bind 'fetch', ->
+      $spin.html $('<div id="loading-spinner" class="loading-spinner" />')
 
     bindScroll()
     bindLoaded()
