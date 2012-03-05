@@ -14,7 +14,11 @@ class TracksController < ApplicationController
 
     if params[:top]
       results = if following
-                   current_user.top_tracks(week, current_page, TRACKS_PER_PAGE)
+                  if current_user
+                    current_user.top_tracks(week, current_page, TRACKS_PER_PAGE)
+                  else
+                    head :unauthorized and return
+                  end
                 else
                   Track.top_splashed(week, current_page, TRACKS_PER_PAGE)
                 end

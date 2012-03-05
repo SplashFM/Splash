@@ -21,9 +21,10 @@ class LatestSplashes extends Page.Content
     )
 
   renderMain: ($main) ->
+    # force follower and user to be sent so we can get a 401 if that's the case
     $main.append @eventFeed
-      follower: if @sample == 'following' then @app.user.id else ''
+      follower: if @sample == 'following' then @app.user.id or 0 else ''
       splashes: 1
-      user:     if @sample == 'following' then @app.user.id else ''
+      user:     if @sample == 'following' then @app.user.id or 0 else ''
 
 window.Home.LatestSplashes = LatestSplashes

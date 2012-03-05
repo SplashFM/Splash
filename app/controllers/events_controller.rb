@@ -4,6 +4,8 @@ class EventsController < ApplicationController
   skip_before_filter :require_user
 
   def index
+    head :unauthorized and return if params[:follower].present? && ! current_user
+
     events = Event.scope_by(params)
 
     unless params[:count]
