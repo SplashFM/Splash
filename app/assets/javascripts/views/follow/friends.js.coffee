@@ -13,13 +13,19 @@ class Friends extends Page.Content
     $top.append new FriendSearch(collection: @collection).el
 
   renderMain: ($main) ->
+    coll = Paginate(@collection)
+
     $main.append @feed
-      collection: @collection
-      className: 'live-feed'
+      collection: coll
+      className:  'live-feed'
+      fetch:      false
       newItem: (i) ->
         switch i.get('origin')
           when 'facebook' then new UnregisteredFriendView(model: i)
           else                 new RegisteredFriendView(model: i)
+
+    coll.fetchNext().fail => $main.prepend JST['shared/facebook_required']()
+
 
 window.Follow.Friends = Friends
 

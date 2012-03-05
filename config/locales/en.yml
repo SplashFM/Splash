@@ -49,7 +49,7 @@ en:
     all_loaded: "No friends left. Bummer."
     connect:
       link: "Connect your Facebook"
-      words: "%{link} to find Friends already on Splash.FM."
+      words: "to find Friends already on Splash.FM."
     header: "Discover music with friends you trust"
     invite:
       description: "Splash.FM is a music discovery community that scores your influence in music. Discover and share the latest music with friends and those whose music taste you trust."
