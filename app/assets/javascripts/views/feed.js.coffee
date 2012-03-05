@@ -2,13 +2,12 @@ window.Feed =
   feed: (args) ->
     $main = @$main
 
-    load = (fetch) ->
+    load = ->
       $spin.html $('<div id="loading-spinner" class="loading-spinner" />')
 
-      if fetch
-        coll.fetchNext().fail (xhr) ->
-          if xhr.status == 401
-            $main.prepend JST['shared/facebook_required']()
+      coll.fetchNext().fail (xhr) ->
+        if xhr.status == 401
+          $main.prepend JST['shared/facebook_required']()
 
     bindLoaded =  ->
       coll.bind 'loaded', ->
@@ -26,15 +25,10 @@ window.Feed =
         scroll.unbind 'scroll', f
         remove()
 
-    if args.collection.fetchNext?
-      coll    = args.collection
-      rawColl = args.collection.collection()
-    else
-      coll    = Paginate(args.collection, 10, args.filters)
-      rawColl = args.collection
+    coll = Paginate(args.collection, 10, args.filters)
 
     l = _.extend(
-      new BoundList(className: args.className, collection: rawColl),
+      new BoundList(className: args.className, collection: args.collection),
       newItem: args.newItem)
 
     $spin  = @$(@spinner)
@@ -42,7 +36,7 @@ window.Feed =
 
     bindScroll()
     bindLoaded()
-    load(if args.fetch? then args.fetch else true)
+    load()
 
     l.el
 
