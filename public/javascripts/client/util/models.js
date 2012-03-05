@@ -17,7 +17,8 @@ Paginate = function(collection, elemsPerPage, fetchData) {
       collection.fetch({
         add:     true,
         data:    data,
-        success: _.bind(function() { this.trigger('loaded'); }, this)
+        success: _.bind(function() { this.trigger('loaded'); }, this), // TODO: change this
+        error:   _.bind(function() { this.trigger('paginate:error'); }, this)
       });
     },
 
