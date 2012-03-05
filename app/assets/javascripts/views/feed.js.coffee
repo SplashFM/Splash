@@ -1,9 +1,14 @@
 window.Feed =
   feed: (args) ->
+    $main = @$main
+
     load = (fetch) ->
       $spin.html $('<div id="loading-spinner" class="loading-spinner" />')
 
-      if fetch then coll.fetchNext()
+      if fetch
+        coll.fetchNext().fail (xhr) ->
+          if xhr.status == 401
+            $main.prepend JST['shared/facebook_required']()
 
     bindLoaded =  ->
       coll.bind 'loaded', ->
