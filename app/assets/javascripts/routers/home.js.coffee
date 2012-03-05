@@ -19,7 +19,7 @@ class Router extends Backbone.Router
 
     @_renderHome content
 
-  topTracks: (period, sample) ->
+  topTracks: (period = '7d', sample = 'following') ->
     content = new Home.TopTracks
       app:    @app
       period: period

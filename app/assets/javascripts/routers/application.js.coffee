@@ -3,6 +3,6 @@ class Router extends Backbone.Router
     '' : 'default'
 
   default: ->
-    Backbone.history.navigate('top/tracks/7d/following', trigger: true)
+    Backbone.history.navigate(Home.Router.routes.topTracks(), trigger: true)
 
 Application.Router = Router
