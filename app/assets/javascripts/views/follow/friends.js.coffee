@@ -14,14 +14,15 @@ class Friends extends Page.Content
 
   renderMain: ($main) ->
     coll = Paginate(@collection)
+    fb   = @app.user.get('facebook_token')
 
     $main.append @feed
       collection: coll
       className:  'live-feed'
       fetch:      false
-      newItem: (i) ->
+      newItem: (i) =>
         switch i.get('origin')
-          when 'facebook' then new UnregisteredFriendView(model: i)
+          when 'facebook' then new UnregisteredFriendView(model: i, social: fb)
           else                 new RegisteredFriendView(model: i)
 
     coll.fetchNext().fail => $main.prepend JST['shared/facebook_required']()
@@ -111,7 +112,7 @@ class UnregisteredFriendView.Invite extends Backbone.View
       name: I18n.t('friends.invite.title')
       description: I18n.t('friends.invite.description')
       link: data.get('social').url
-      access_token: @options.social.get('token')
+      access_token: @options.social
     }, @invited)
 
   invited: (response) =>

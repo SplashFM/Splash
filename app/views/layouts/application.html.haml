@@ -56,7 +56,12 @@
     - if logged_in?
       :javascript
         $(function() {
-          window.app = new Application({user: new User(#{current_user.to_json})});
+          window.app = new Application({user: new User(#{
+            current_user.as_json.merge(
+              :facebook_token =>
+                current_user.social_connection('facebook').try(:token)
+            ).to_json
+          }), facebookAppID: "#{AppConfig.facebook['key']}"});
 
           #{once(:first_time_splasher) { "app.showTutorial();" }}
         });
@@ -77,3 +82,4 @@
     / /- if logged_in?
     #player-area
     = render "shared/olark"
+    #fb-root

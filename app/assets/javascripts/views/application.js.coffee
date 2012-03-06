@@ -6,8 +6,10 @@ class Application extends Backbone.View
     'click [data-widget = "first-aid"]': 'showTutorial'
 
   initialize: ->
-    @user = @options.user
+    @user          = @options.user
+    @facebookAppID = @options.facebookAppID
 
+    @_initializeFacebook()
     @_initializeSearch()
     @_initializeNotifications()
     @_initializeScroll()
@@ -36,6 +38,9 @@ class Application extends Backbone.View
   _highlightPage: (page) =>
     @_clearHighlight()
     @$("#navigation li.navigation-#{page}").addClass 'current-page'
+
+  _initializeFacebook: ->
+    FB.init appId: @facebookAppID, xfbml: true, cookie: true
 
   _initializeNotifications: ->
       new BaseApp.Notifications el: $('[data-widget = "notifications"]')
