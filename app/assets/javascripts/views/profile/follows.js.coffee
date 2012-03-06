@@ -3,11 +3,12 @@ class Follows extends Backbone.View
 
   initialize: ->
     @user = @options.user
+    @full = @options.full
 
   render:  ->
-    @$el.html JST['profile/follows'](user: @user.toJSON())
+    @$el.html JST['profile/follows'](user: @user.toJSON(), full: @full)
 
-    @$('.tabs').tabs()
+    if @full then @$('.tabs').tabs()
 
     this
 

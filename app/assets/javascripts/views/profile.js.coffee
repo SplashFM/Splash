@@ -13,7 +13,7 @@ class Profile extends Page
   renderSidebar: (sidebar) ->
     super
 
-    sidebar.add new Profile.Follows(user: @user)
+    sidebar.add new Profile.Follows(user: @user, full: true)
 
   renderTop: (content) ->
     content.$top.append(JST['shared/top']())
