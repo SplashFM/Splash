@@ -5,6 +5,8 @@ Paginate = function(collection, elemsPerPage, fetchData) {
 
   elemsPerPage = elemsPerPage || 10;
 
+  collection.bind('reset', function() { data.page = 1 });
+
   return _({
     collection: function() {
       return collection;
