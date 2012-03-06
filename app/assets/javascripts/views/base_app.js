@@ -238,11 +238,7 @@ window.BaseApp.Notifications.Notification = Backbone.View.extend({
   showTarget: function() {
     switch (this.model.get('type')) {
     case 'following':
-      $.pjax({
-        url: this.model.get('notifier').url,
-        container: '[data-pjax-container]',
-        timeout: 30000,
-      });
+      Backbone.history.navigate(this.model.get('notifier').url, {trigger: true});
 
       break;
     case 'mention':
