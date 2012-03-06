@@ -42,8 +42,49 @@ window.Feed =
     l.el
 
   eventFeed: (filters) ->
+    coll = new EventList
+
+    update = new Feed.Updateable collection: coll, filters: filters
+
+    @$top.append update.render().el
+
+    @remove = _.wrap _.bind(@remove, this), (remove) ->
+      update.remove()
+      remove()
+
     @feed
-      collection: new EventList
+      collection: coll
       className:  'live-feed'
       filters:    filters
       newItem:    (i) => new Feed.Splash(model: i, currentUserID: @app.user.id)
+
+
+class Feed.Updateable extends Backbone.View
+  events:
+    click: 'reload'
+
+  className:      'feed-updates-count no-new left'
+  tagName:        'a'
+  updateInterval: 60000
+
+  initialize: ->
+    @filters  = @options.filters
+    @interval = setInterval @checkForUpdates, @updateInterval
+
+  checkForUpdates: =>
+    @collection.updateCount @filters, @renderUpdateCount
+
+  reload: ->
+    @renderUpdateCount 0
+
+    @collection.fetch data: @filters
+
+  remove: ->
+    clearInterval @interval
+
+    @$el.remove()
+
+  renderUpdateCount: (count) =>
+    @$el.text I18n.t('events.updates', count: count)
+
+    if count == 0 then @$el.addClass 'no-new' else @$el.removeClass 'no-new'

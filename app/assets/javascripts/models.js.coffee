@@ -105,14 +105,11 @@ class window.EventList extends Backbone.Collection
     @lastUpdate = resp.last_update_at
 
   updateCount: (filters, resultFunc) ->
-    self = this
-    f    = _.extend({count: true, last_update_at: @lastUpdate}, filters)
+    return unless @lastUpdate
 
-    $.get(@url, f).
-      done (response) ->
-        self.recordUpdate(response)
+    f = _.extend({count: true, last_update_at: @lastUpdate}, filters)
 
-        resultFunc.call(this, response.results)
+    $.get(@url, f).done (response) => resultFunc.call(this, response.results)
 
 class window.Notification extends Backbone.Model
 
