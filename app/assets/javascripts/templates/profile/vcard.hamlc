@@ -27,6 +27,5 @@
     .score-text.avan-bold
       splash score
     .blurb
-      .tag-line.edit{:data-action => Routes.user_path(@user), :data-widget => if @editable? then 'editable'}
-        = @user.tagline
+      .tag-line.edit= @user.tagline
   .cl &nbsp;
