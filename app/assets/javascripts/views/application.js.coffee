@@ -8,7 +8,6 @@ class Application extends Backbone.View
   initialize: ->
     @user = @options.user
 
-    @_initializeVcard()
     @_initializeSearch()
     @_initializeNotifications()
     @_initializeScroll()
@@ -73,9 +72,6 @@ class Application extends Backbone.View
   _initializeSearch: ->
     new BaseApp.GlobalSearch
     new BaseApp.UserSearch
-
-  _initializeVcard: ->
-    @vcard = new Profile.Vcard(app: this, user: @user).render()
 
   _routeLink: (e) ->
     $t = $(e.target)
