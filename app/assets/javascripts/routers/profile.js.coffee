@@ -11,7 +11,7 @@ class Router extends Backbone.Router
     ':nickname/:section': 'profile'
 
   profile: (nickname, section = 'splashes') ->
-    if nickname != @app.user.nickname
+    if nickname != @app.user.get('nickname')
       user = new User(id: nickname)
       user.fetch().then => @_setProfile user, section
     else
