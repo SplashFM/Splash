@@ -261,6 +261,7 @@ window.BaseApp.GlobalSearch = Backbone.View.extend({
   el: '[data-widget = "global-search"]',
   events: {
     'focus .field': 'expand',
+    'click a:not(.follow)': 'collapse'
   },
 
   initialize: function() {
