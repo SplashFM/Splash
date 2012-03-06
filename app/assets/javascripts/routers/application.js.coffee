@@ -7,6 +7,6 @@ class Router extends Backbone.Router
     '_=_': 'default'
 
   default: ->
-    Backbone.history.navigate(Home.Router.routes.topTracks(), trigger: true)
+    Backbone.history.navigate(@app.routers.home.builder.topTracks(), trigger: true)
 
 Application.Router = Router

@@ -1,12 +1,8 @@
 class Router extends Backbone.Router
-  @routes:
-    topTracks: (period = '7d', sample = 'following') ->
-      "top/tracks/#{period}/#{sample}"
-    latestSplashes: (sample = 'following') ->
-      "latest/#{sample}"
-
   initialize: (opts) ->
     @app = opts.app
+
+    @builder = new Router.Builder
 
   routes:
     'top/tracks/:period/:sample': 'topTracks'
@@ -29,5 +25,11 @@ class Router extends Backbone.Router
     else
       @app.setPage new Home(content: content, app: @app)
 
+class Router.Builder
+  topTracks: (period = '7d', sample = 'following') ->
+    "top/tracks/#{period}/#{sample}"
+
+  latestSplashes: (sample = 'following') ->
+    "latest/#{sample}"
 
 Home.Router = Router

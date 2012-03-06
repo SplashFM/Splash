@@ -7,7 +7,7 @@ class LatestSplashes extends Page.Content
     @app    = @options.app
     @sample = @options.sample
 
-    @routes = Home.Router.routes
+    @routes = @app.routers.home.builder
 
   renderTop: ($top) ->
     $top.append JST['shared/nav_list'](

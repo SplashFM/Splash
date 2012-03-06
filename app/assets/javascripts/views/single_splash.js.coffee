@@ -2,7 +2,7 @@ class SingleSplash extends Page.Content
   initialize: ->
     super
 
-    @routes = Home.Router.routes
+    @routes = @app.routers.home.builder
 
   renderTop: ($top) ->
     Home.TopTracks::renderTop.call(this, $top)

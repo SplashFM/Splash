@@ -4,6 +4,7 @@ class PeriodToggle extends Backbone.View
     'change input': '_periodToggled'
 
   initialize: ->
+    @app    = @options.app
     @sample = @options.sample
     @period = @options.period
 
@@ -16,7 +17,7 @@ class PeriodToggle extends Backbone.View
 
   _periodToggled: (e) ->
     period = if @period == '7d' then 'alltime' else '7d'
-    route  = Home.Router.routes.topTracks(period, @sample)
+    route  = @app.routers.home.builder.topTracks(period, @sample)
 
     Backbone.history.navigate route, trigger: true
 
@@ -31,10 +32,10 @@ class TopTracks extends Page.Content
     @period = @options.period
     @sample = @options.sample
 
-    @routes       = Home.Router.routes
+    @routes = @app.routers.home.builder
 
   renderTop: ($top) ->
-    periodToggle = new PeriodToggle(period: @period, sample: @sample)
+    periodToggle = new PeriodToggle(app: @app, period: @period, sample: @sample)
 
     $top.append periodToggle.render().el
     $top.append JST['shared/nav_list'](

@@ -4,7 +4,7 @@ class SingleSplash extends Page.Content
 
     @app    = @options.app
 
-    @routes = Home.Router.routes
+    @routes = @app.routers.home.builder
 
   renderTop: ($top) ->
     $top.append JST['shared/nav_list'](
