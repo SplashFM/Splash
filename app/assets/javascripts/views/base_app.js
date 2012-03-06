@@ -307,6 +307,8 @@ window.BaseApp.UserSearch = Search.extend({
       template: this.templateRelationship,
     });
 
+    $i.delegate('a:not(.follow)', 'click', _.bind(this.hide, this));
+
     rv.render()
 
     return $i;
