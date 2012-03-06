@@ -234,7 +234,7 @@ class User < ActiveRecord::Base
     {:id               => id,
      :name             => name,
      :nickname         => nickname,
-     :url              => "/#{slug}",
+     :url              => url,
      :avatar_micro_url => avatar.url(:micro),
      :avatar_thumb_url => avatar.url(:thumb),
      :followers_count  => followers.count,
@@ -484,6 +484,10 @@ class User < ActiveRecord::Base
     update_attribute :settings, self.settings
   end
 
+  def url
+    "/#{slug}"
+  end
+
   private
 
   def access_code_required?
@@ -504,7 +508,6 @@ class User < ActiveRecord::Base
     nickname.blank? && active?
   end
 
-  private
   def possibly_delete_avatar
     self.avatar = nil if self.delete_avatar == "1" && !self.avatar.dirty?
   end
