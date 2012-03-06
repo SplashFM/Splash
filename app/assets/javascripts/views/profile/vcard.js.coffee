@@ -1,6 +1,6 @@
 class Profile.Vcard extends Backbone.View
   @get: (app, user) ->
-    new Profile.Vcard(user: user, editable: user == app.user)
+    new Profile.Vcard(user: user, editable: user.isEqual(app.user))
 
   className: 'user-vcard'
 

@@ -20,6 +20,8 @@ class window.TrackList extends Backbone.Collection
 class window.User extends Backbone.Model
   urlRoot: '/users'
 
+  isEqual: (user) -> user? && user.constructor is User && @id == user.id
+
 class window.UserList extends Backbone.Collection
   model: User
   url: '/users'
