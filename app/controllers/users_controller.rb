@@ -51,7 +51,14 @@ class UsersController < ApplicationController
     @following = @user.following.take(SIDEBAR_THUMB_COUNT)
     @followers = @user.followers.take(SIDEBAR_THUMB_COUNT)
 
-    respond_with @user
+    with_relationship =
+      if @user == current_user
+        @user
+      else
+        Relationship.relate_to_follower([@user], current_user).first
+      end
+
+    respond_with with_relationship
   end
 
   def update

@@ -15,6 +15,13 @@ class Sidebar extends Backbone.View
     vcard = Profile.Vcard.get(@app, @user)
     @$el.append vcard.el
     vcard.render()
+
+    unless @app.user.isEqual(@user)
+      @add new RelationshipView
+        className: 'follow-container'
+        model:     new Relationship(@user.get('relationship'))
+        template:  $('#tmpl-profile-relationship').template()
+
     @$el.append '<div class="contact-sep-shadow"></div>'
 
     this
