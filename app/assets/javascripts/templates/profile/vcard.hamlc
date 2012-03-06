@@ -2,7 +2,7 @@
   .picture.left
     .style
       %img#user-avatar{:src => @user.avatar_thumb_url}
-    - if @editable?
+    - if @editable
       .upload-avatar-link{:'data-widget' => 'edit-avatar-link'}
         %a.fancybox{:href => Routes.user_avatar_path(@user)}
           = I18n.t('users.vcard.edit_avatar')
