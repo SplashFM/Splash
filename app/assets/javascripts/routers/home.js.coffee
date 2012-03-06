@@ -13,21 +13,21 @@ class Router extends Backbone.Router
     'latest/:sample':             'latestSplashes'
 
   latestSplashes: (sample) ->
-    content = new Home.LatestSplashes
+    @setPage new Home.LatestSplashes
       app:    @app
       sample: sample
 
-    @_renderHome content
-
   topTracks: (period = '7d', sample = 'following') ->
-    content = new Home.TopTracks
+    @setPage new Home.TopTracks
       app:    @app
       period: period
       sample: sample
 
-    @_renderHome content
+  setPage: (content) ->
+    if @app.current?.constructor == Home
+      @app.setContent content
+    else
+      @app.setPage new Home(content: content, app: @app)
 
-  _renderHome: (content) ->
-    @app.setPage content, Home
 
 Home.Router = Router

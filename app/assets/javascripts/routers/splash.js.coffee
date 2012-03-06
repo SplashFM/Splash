@@ -10,6 +10,6 @@ class Router extends Backbone.Router
     splash.fetch().then =>
       content = new SingleSplash(app: @app, model: splash)
 
-      @app.setPage content, Home
+      @app.setPage new Home(content: content, app: @app)
 
 SingleSplash.Router = Router

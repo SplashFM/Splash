@@ -13,13 +13,18 @@ class Router extends Backbone.Router
     'top/splashers/:sample': 'topSplashers'
 
   friends: ->
-    @app.setPage new Follow.Friends(app: @app), Follow
+    @setPage new Follow.Friends(app: @app)
 
   topSplashers: (sample = 'following') ->
-    content = new Follow.TopSplashers
+    @setPage new Follow.TopSplashers
       app:    @app
       sample: sample
 
-    @app.setPage content, Follow
+  setPage: (content) ->
+    if @app.current?.constructor == Follow
+      @app.setContent content
+    else
+      @app.setPage new Follow(content: content, app: @app)
+
 
 Follow.Router = Router

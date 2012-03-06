@@ -16,18 +16,10 @@ class Application extends Backbone.View
 
   setContent: (content) -> @current.setContent content
 
-  setPage: (content, constructor, constructorArgs = {}) ->
-    args = _(content: content, app: this).extend constructorArgs
+  setPage: (page) ->
+    if @current then @current.remove()
 
-    if @current
-      if @current.constructor == constructor
-        @current.setContent content
-      else
-        @current.remove()
-
-        @current = new constructor(args).render()
-    else
-      @current = new constructor(args).render()
+    @current = page.render()
 
   showTutorial: ->
     unless @tutorial
