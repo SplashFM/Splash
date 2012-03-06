@@ -42,7 +42,7 @@ class window.CommentList extends Backbone.Collection
   create: (c, opts) ->
     c.splash_id = @parent().get('id')
 
-    super this, c, opts
+    super c, opts
 
   parent: (p) ->
     if p
