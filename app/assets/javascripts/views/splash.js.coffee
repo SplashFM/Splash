@@ -31,8 +31,10 @@ class Splash extends Backbone.View
 
     @model.comments().create({
       body: @mentions.commentWithMentions()
+    }, {
       success: @onCommentAdded
-    }, {wait: true})
+      wait: true
+    })
 
   disableExpansion: =>
     @expand = false
