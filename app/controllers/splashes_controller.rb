@@ -29,7 +29,9 @@ class SplashesController < ApplicationController
                                    current_user,
                                    :full => full)
 
-    respond_with @splash
+    respond_with @splash do |f|
+      f.html { render :layout => 'home' }
+    end
   end
 
   def share

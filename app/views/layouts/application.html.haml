@@ -63,13 +63,7 @@
   %body
     = render "shared/ie6_banner"
     #wrapper{'data-pjax-container' => ''}
-      = render 'shared/header'
-      #main
-        #side-bar-wrap.right
-          = render 'shared/footer'
-        #stream-wrap.left
-          #stream-feed{:data => {:widget => 'feed'}}
-        .cl &nbsp;
+      = yield
 
     / /- if logged_in?
     #player-area

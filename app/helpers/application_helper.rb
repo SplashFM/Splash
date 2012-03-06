@@ -17,6 +17,11 @@ module ApplicationHelper
   def flash_error_messages
     join_flash_messages :error, :failure, :warning, :alert
   end
+
+  def inside_layout(layout = 'application', &block)
+    render :inline => capture_haml(&block), :layout => "layouts/#{layout}"
+  end
+
   def join_flash_messages *messages
     found = []
     for msg in messages

@@ -1,0 +1,8 @@
+= inside_layout do
+  = render 'shared/header'
+  #main
+    #side-bar-wrap.right
+      = render 'shared/footer'
+    #stream-wrap.left
+      #stream-feed{:data => {:widget => 'feed'}}
+    .cl &nbsp;

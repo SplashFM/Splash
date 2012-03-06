@@ -58,7 +58,9 @@ class UsersController < ApplicationController
         Relationship.relate_to_follower([@user], current_user).first
       end
 
-    respond_with with_relationship
+    respond_with with_relationship do |f|
+      f.html { render :layout => 'home' }
+    end
   end
 
   def update

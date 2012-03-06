@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
-  layout Proc.new { |c| pjax_request? ? 'pjax' : request.xhr? ? false : 'application'}
-
   protected
 
   def pjax_request?
