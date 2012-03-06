@@ -244,11 +244,8 @@ window.BaseApp.Notifications.Notification = Backbone.View.extend({
     case 'mention':
     case 'commentforsplasher':
     case 'commentforparticipants':
-      $.pjax({
-        url: Routes.splash_path(this.model.get('splash_id')),
-        container: '[data-pjax-container]',
-        timeout: 30000,
-      });
+      r = SingleSplash.Router.routes.splashes(this.model.get('splash_id'));
+      Backbone.history.navigate(r, {trigger: true});
     }
   },
 });

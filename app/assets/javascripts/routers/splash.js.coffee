@@ -1,4 +1,7 @@
 class Router extends Backbone.Router
+  @routes:
+    splashes: (id) -> "splashes/#{id}"
+
   initialize: (opts) ->
     @app = opts.app
 
