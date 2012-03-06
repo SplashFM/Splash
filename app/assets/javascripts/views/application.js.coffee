@@ -59,7 +59,11 @@ class Application extends Backbone.View
     @routers.follow      = new Follow.Router(app: this)
     @routers.splash      = new SingleSplash.Router(app: this)
 
-    @routers.profile.bind 'all', => @_highlightPage 'profile'
+    @routers.profile.bind 'all', (_, nickname) =>
+      if nickname == @user.get('nickname')
+        @_highlightPage 'profile'
+      else
+        @_clearHighlight()
     @routers.home.bind    'all', => @_highlightPage 'home'
     @routers.follow.bind  'all', => @_highlightPage 'follow'
     @routers.splash.bind  'all', => @_clearHighlight()
