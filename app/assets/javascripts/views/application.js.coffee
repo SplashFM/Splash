@@ -12,6 +12,7 @@ class Application extends Backbone.View
     @_initializeNotifications()
     @_initializeScroll()
     @_initializePlayer()
+    @_initializePlugins()
     @_initializeRoutes()
 
   setContent: (content) -> @current.setContent content
@@ -41,6 +42,9 @@ class Application extends Backbone.View
 
   _initializePlayer: ->
     new PlayerView
+
+  _initializePlugins: ->
+    @$('.fancybox-large').fancybox Scaphandrier.Fancybox.Large.params.customizations
 
   _initializeRoutes: ->
     @routers = {}

@@ -39,6 +39,7 @@ class Page extends Backbone.View
 
   runPlugins: ->
     @$('.fancybox').fancybox Scaphandrier.Fancybox.params.customizations
+    @$('.fancybox-large').fancybox Scaphandrier.Fancybox.Large.params.customizations
 
   setContent: (content) ->
     if @content then @content.remove()

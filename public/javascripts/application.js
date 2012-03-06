@@ -44,6 +44,16 @@ Scaphandrier.Fancybox = {
   }
 };
 
+Scaphandrier.Fancybox.Large = {
+  params: {
+    customizations: _.extend({}, Scaphandrier.Fancybox.params.customizations, {
+      'width':  760,
+      'height': 600,
+      'scrolling' : 'auto',
+    })
+  },
+};
+
 // inline labels
 // http://www.zurb.com/playground/inline-form-labels
 Scaphandrier.InlineLabels = {
