@@ -6,6 +6,8 @@ class TracksController < ApplicationController
 
   respond_to :json
 
+  skip_before_filter :require_user, :only => :index
+
   def index
     following = params[:following].present?
     week      = params[:week].present?
