@@ -79,7 +79,7 @@ class Application extends Backbone.View
     new BaseApp.UserSearch
 
   _routeLink: (e) ->
-    $t = $(e.target)
+    $t = $(e.target).closest('a')
 
     if not $t.is('a') or
        not $t.attr('href') or
