@@ -14,6 +14,9 @@
             = t('lifesaver.settings')
         .tip
 
+    - unless logged_in?
+      %a.nav-username.right{:href => new_user_session_path} Login
+
     %a.nav-username.right.fancybox-large{:href => about_path} About
 
     - if logged_in?
