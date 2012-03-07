@@ -55,7 +55,7 @@ class Application extends Backbone.View
     @routers = {}
 
     @routers.profile     = new Profile.Router(app: this)
-    @routers.application = new Application.Router
+    @routers.application = new Application.Router(app: this)
     @routers.home        = new Home.Router(app: this)
     @routers.follow      = new Follow.Router(app: this)
     @routers.splash      = new SingleSplash.Router(app: this)

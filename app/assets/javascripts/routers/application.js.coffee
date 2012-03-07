@@ -1,4 +1,7 @@
 class Router extends Backbone.Router
+  initialize: (opts) ->
+    @app = opts.app
+
   routes:
     '':    'default'
     '_=_': 'default'
