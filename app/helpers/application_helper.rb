@@ -66,4 +66,16 @@ module ApplicationHelper
 
     raw(out)
   end
+
+  def user_json
+    hash = if current_user
+             token = current_user.social_connection('facebook').try(:token)
+
+             current_user.as_json.merge(:facebook_token => token)
+           else
+             {}
+           end
+
+    hash.to_json
+  end
 end

@@ -7,41 +7,39 @@
     = javascript_include_tag "application"
     = stylesheet_link_tag "application"
     = include_javascripts :base
-    - if logged_in?
-      = javascript_include_tag "http://connect.facebook.net/en_US/all.js"
+    = javascript_include_tag "http://connect.facebook.net/en_US/all.js"
     = include_stylesheets :base, :media => 'all'
     = csrf_meta_tag
     = render "shared/ga"
     = yield :head
-    - if logged_in?
-      = render "events/comment"
-      = render "events/relationship"
-      = render "events/splash"
-      = render "friends/invite"
-      = render "home/suggested_relationship"
-      = render "home/track"
-      = render "relationships/relationship"
-      = render "shared/flash_messages"
-      = render "shared/notification"
-      = render "shared/player"
-      = render "shared/quick_splash_track"
-      = render "shared/track"
-      = render 'shared/tutorial'
-      = render "shared/upload"
-      = render "shared/upload_metadata"
-      = render "shared/user"
-      = render "splashes/comment"
-      = render "tracks/all_results"
-      = render "tracks/all_results_table"
-      = render "tracks/all_results_table_row"
-      = render "tracks/all_results_splash"
-      = render "tracks/track_summary"
-      = render "users/relationship"
-      = render "users/suggested_splasher"
-      = render "users/thumbnail"
-      = render "users/user"
-      = render "users/user_summary"
-      = render "users/invite"
+    = render "events/comment"
+    = render "events/relationship"
+    = render "events/splash"
+    = render "friends/invite"
+    = render "home/suggested_relationship"
+    = render "home/track"
+    = render "relationships/relationship"
+    = render "shared/flash_messages"
+    = render "shared/notification"
+    = render "shared/player"
+    = render "shared/quick_splash_track"
+    = render "shared/track"
+    = render 'shared/tutorial'
+    = render "shared/upload"
+    = render "shared/upload_metadata"
+    = render "shared/user"
+    = render "splashes/comment"
+    = render "tracks/all_results"
+    = render "tracks/all_results_table"
+    = render "tracks/all_results_table_row"
+    = render "tracks/all_results_splash"
+    = render "tracks/track_summary"
+    = render "users/relationship"
+    = render "users/suggested_splasher"
+    = render "users/thumbnail"
+    = render "users/user"
+    = render "users/user_summary"
+    = render "users/invite"
     :javascript
       var Constants = {};
 
@@ -53,31 +51,25 @@
         Constants.AVATAR_HEIGHT = #{User::AVATAR_HEIGHT};
       });
 
-    - if logged_in?
-      :javascript
-        $(function() {
-          window.app = new Application({user: new User(#{
-            current_user.as_json.merge(
-              :facebook_token =>
-                current_user.social_connection('facebook').try(:token)
-            ).to_json
-          }), facebookAppID: "#{AppConfig.facebook['key']}"});
-
-          #{once(:first_time_splasher) { "app.showTutorial();" }}
+    :javascript
+      $(function() {
+        window.app = new Application({
+          user: new User(#{user_json}),
+          facebookAppID: "#{AppConfig.facebook['key']}"
         });
+
+        #{once(:first_time_splasher) { "app.showTutorial();" } if logged_in?}
+      });
   %body
     = render "shared/ie6_banner"
     #wrapper{'data-pjax-container' => ''}
-      -  if logged_in?
-        = render 'shared/header'
-        #main
-          #side-bar-wrap.right
-            = render 'shared/footer'
-          #stream-wrap.left
-            #stream-feed{:data => {:widget => 'feed'}}
-          .cl &nbsp;
-      - else
-        = yield
+      = render 'shared/header'
+      #main
+        #side-bar-wrap.right
+          = render 'shared/footer'
+        #stream-wrap.left
+          #stream-feed{:data => {:widget => 'feed'}}
+        .cl &nbsp;
 
     / /- if logged_in?
     #player-area

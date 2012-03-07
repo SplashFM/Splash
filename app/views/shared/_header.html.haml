@@ -3,63 +3,67 @@
   .shell
     %a{:href => home_url}
       %img#logo-interior{:src => '/css/images/logo-interior.png'}
-    %a.nav-user-settings.right{:href => "#", :data => {:widget => 'lifesaver'}}
-    .settings-drop{:data => {:widget => 'lifesaver-menu'}}
-      .inner
-        %a{:href => destroy_user_session_path,
-           :data => {:'skip-pjax' => true}}= t('lifesaver.logout')
-        .cl
-        %a{:href => edit_user_registration_path,:class => "fancybox"}
-          = t('lifesaver.settings')
-      .tip
-    %a.nav-username.right.fancybox-large{:href => about_path} About
-    .nav-notifications.right{:data => {:widget => 'notifications'}}
-      %a.avan-demi.count{:href => "#", :data => {:widget => 'toggle-notifications'}}
-      .dropDown{:data => {:widget => 'list-notifications'}}
-        .arrow
-        .label
-          .span.avan-demi Notifications
-        .load_more
-          .text
-            %a{:href => '#', :class => 'avan-demi' } load more
+    - if logged_in?
+      %a.nav-user-settings.right{:href => "#", :data => {:widget => 'lifesaver'}}
+      .settings-drop{:data => {:widget => 'lifesaver-menu'}}
+        .inner
+          %a{:href => destroy_user_session_path,
+             :data => {:'skip-pjax' => true}}= t('lifesaver.logout')
+          .cl
+          %a{:href => edit_user_registration_path,:class => "fancybox"}
+            = t('lifesaver.settings')
+        .tip
 
-    .quick-splash.right{:data => {:widget => 'quick-splash'}}
-      %a.trigger{:href => "#", :data => {:widget => 'toggle'}}
-      %form{:action => "#", :method => "post", :data => {:widget => 'box'}}
-        %span.arrow
-        %label.avan-bold Quick Splash
-        .wrap
-          %input.submit{:type => "submit", :value => "Search"}/
-          %input.field{:type => "text"}/
-          %ul{:data => {:widget => 'results'}}
-    / /quick splash
-    %form.head-search.closed.right{:action => "#", |
-                                   :method => "post", |
-                                   :data   => {:widget => 'global-search'}}
-      %input.field{:type => "text"}/
-      %input.submit{:type => "submit", :value => "Search"}/
-      .dd{:data => {:widget => 'results'}}
-        %span.arrow
-        .container
-          .col.left{:data => {:widget => 'users'}}
-            %h4
-              %span users
-            .scroll-area
-              %ul.splashers
-          / /colum
-          .col.right{:data => {:widget => 'tracks'}}
-            %h4
-              %span Tracks
-            .scroll-area
-              %ul.tracks
-          / /colum
-    / /head search
-    %ul#navigation.right.avan-demi
-      %li.navigation-home
-        %a{:href => 'top/tracks/7d/following'}= t('simple_navigation.menus.home')
-      %li.navigation-profile
-        %a{:href => "#{current_user.nickname}"}= current_user.nickname
-      %li.navigation-follow
-        %a{:href => 'follow'}= t('simple_navigation.menus.friends')
+    %a.nav-username.right.fancybox-large{:href => about_path} About
+
+    - if logged_in?
+      .nav-notifications.right{:data => {:widget => 'notifications'}}
+        %a.avan-demi.count{:href => "#", :data => {:widget => 'toggle-notifications'}}
+        .dropDown{:data => {:widget => 'list-notifications'}}
+          .arrow
+          .label
+            .span.avan-demi Notifications
+          .load_more
+            .text
+              %a{:href => '#', :class => 'avan-demi' } load more
+
+      .quick-splash.right{:data => {:widget => 'quick-splash'}}
+        %a.trigger{:href => "#", :data => {:widget => 'toggle'}}
+        %form{:action => "#", :method => "post", :data => {:widget => 'box'}}
+          %span.arrow
+          %label.avan-bold Quick Splash
+          .wrap
+            %input.submit{:type => "submit", :value => "Search"}/
+            %input.field{:type => "text"}/
+            %ul{:data => {:widget => 'results'}}
+      / /quick splash
+      %form.head-search.closed.right{:action => "#", |
+                                     :method => "post", |
+                                     :data   => {:widget => 'global-search'}}
+        %input.field{:type => "text"}/
+        %input.submit{:type => "submit", :value => "Search"}/
+        .dd{:data => {:widget => 'results'}}
+          %span.arrow
+          .container
+            .col.left{:data => {:widget => 'users'}}
+              %h4
+                %span users
+              .scroll-area
+                %ul.splashers
+            / /colum
+            .col.right{:data => {:widget => 'tracks'}}
+              %h4
+                %span Tracks
+              .scroll-area
+                %ul.tracks
+            / /colum
+      / /head search
+      %ul#navigation.right.avan-demi
+        %li.navigation-home
+          %a{:href => 'top/tracks/7d/following'}= t('simple_navigation.menus.home')
+        %li.navigation-profile
+          %a{:href => "#{current_user.nickname}"}= current_user.nickname
+        %li.navigation-follow
+          %a{:href => 'follow'}= t('simple_navigation.menus.friends')
   / /shell
 / /header
