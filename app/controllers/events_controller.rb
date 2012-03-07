@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
   respond_to :json
 
+  skip_before_filter :require_user
+
   def index
     events = Event.scope_by(params)
 
