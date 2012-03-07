@@ -2,7 +2,7 @@ class Router extends Backbone.Router
   initialize: (opts) ->
     @app = opts.app
 
-    @builder = new Router.Builder
+    @builder = new Router.Builder(@app.user)
 
   routes:
     'top/tracks/:period/:sample': 'topTracks'
@@ -13,7 +13,7 @@ class Router extends Backbone.Router
       app:    @app
       sample: sample
 
-  topTracks: (period = '7d', sample = 'following') ->
+  topTracks: (period = '7d', sample = @builder.defaultSample()) ->
     @setPage new Home.TopTracks
       app:    @app
       period: period
@@ -26,10 +26,16 @@ class Router extends Backbone.Router
       @app.setPage new Home(content: content, app: @app)
 
 class Router.Builder
-  topTracks: (period = '7d', sample = 'following') ->
+  constructor: (user) ->
+    @user = user
+
+  defaultSample: ->
+    if @user.isNew() then 'everyone' else 'following'
+
+  topTracks: (period = '7d', sample = @defaultSample()) ->
     "top/tracks/#{period}/#{sample}"
 
-  latestSplashes: (sample = 'following') ->
+  latestSplashes: (sample = @defaultSample()) ->
     "latest/#{sample}"
 
 Home.Router = Router
