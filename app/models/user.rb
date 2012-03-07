@@ -485,7 +485,7 @@ class User < ActiveRecord::Base
   end
 
   def url
-    "/#{slug}"
+    nickname
   end
 
   private
