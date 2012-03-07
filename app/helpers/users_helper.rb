@@ -66,7 +66,7 @@ module UsersHelper
   end
 
   def user_link(user)
-    user_slug_path(user.slug)
+    user.url
   end
 
   def user_avatar(user)
