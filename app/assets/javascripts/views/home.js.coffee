@@ -14,6 +14,8 @@ class Home extends Page
   renderSidebar: (sidebar) ->
     super
 
+    if @app.user.isNew() then return
+
     sidebar.add new SuggestedSplashersView(followerID: @app.user.id)
     sidebar.add new InviteUserView
 

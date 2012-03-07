@@ -11,6 +11,8 @@ class Sidebar extends Backbone.View
     @$el.append widget.render().el
 
   render: ->
+    if @app.user.isNew() then return this
+
     # taking implementation of waternums into account
     vcard = Profile.Vcard.get(@app, @user)
     @$el.append vcard.el
