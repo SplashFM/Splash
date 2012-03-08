@@ -12,47 +12,6 @@ Scaphandrier.PreventHeaderLinksDefault = {
     });
   }
 }
-Scaphandrier.Fancybox = {
-  params: {
-    customizations: {
-      'type' : 'ajax',
-      'width' : 460,
-      'height': 480,
-      'autoScale' : false,
-      'autoDimensions' : false,
-      'titleShow' : false,
-      'overlayShow' : true,
-      'overlayColor' : '#000',
-      'overlayOpacity' : 0.5,
-      'transitionIn' : 'none',
-      'transitionOut' : 'none',
-      'padding' : 0,
-      'margin' : 0,
-      'scrolling' : 'no',
-      'onComplete' : function() {
-        Widgets.AvatarUpload.init();
-        Widgets.Avatar.init();
-        $w('pjax').click(function() {
-          $.fancybox.close();
-        });
-      }
-    }
-  },
-
-  init: function() {
-    $(".fancybox").fancybox(this.params.customizations);
-  }
-};
-
-Scaphandrier.Fancybox.Large = {
-  params: {
-    customizations: _.extend({}, Scaphandrier.Fancybox.params.customizations, {
-      'width':  760,
-      'height': 600,
-      'scrolling' : 'auto',
-    })
-  },
-};
 
 // inline labels
 // http://www.zurb.com/playground/inline-form-labels
@@ -187,7 +146,6 @@ SPLASH.Widgets.stepFontSize = function (selector,maxH) {
 
 // onLoad
 jQuery(document).ready(function() {
-  Scaphandrier.Fancybox.init();
   Scaphandrier.InlineLabels.init();
   Scaphandrier.Console.init();
   Scaphandrier.Flash.init();
