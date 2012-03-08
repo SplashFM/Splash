@@ -84,7 +84,8 @@ class Application extends Backbone.View
     if not $t.is('a') or
        not $t.attr('href') or
        $t.attr('href') in ['#', ''] or
-       $t.attr('href')[0] == '/' then return
+       $t.attr('href')[0] == '/' or
+       $t.attr('href').match /^http:/ then return
 
     e.preventDefault();
 
