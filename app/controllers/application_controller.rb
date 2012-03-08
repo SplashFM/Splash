@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  layout :pick_default_layout
+
   protect_from_forgery
   before_filter :require_user
 
@@ -149,5 +151,13 @@ class ApplicationController < ActionController::Base
   helper_method :executed?
   def executed?(name)
     current_user.setting("executed_#{name}").present?
+  end
+
+  def pick_default_layout
+    if controller_name == 'registrations' && action_name == 'edit'
+      nil
+    else
+      'application'
+    end
   end
 end

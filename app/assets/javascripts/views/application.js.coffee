@@ -50,6 +50,7 @@ class Application extends Backbone.View
 
   _initializePlugins: ->
     @$('.fancybox-large').fancybox Scaphandrier.Fancybox.Large.params.customizations
+    @$('.fancybox').fancybox Scaphandrier.Fancybox.params.customizations
 
   _initializeRoutes: ->
     @routers = {}
