@@ -57,6 +57,8 @@ group :development do
   gem "wirble"
   gem "engineyard"
   gem "guard"
+  gem "guard-livereload"
+  gem "rack-livereload"
   gem "libnotify"
 end
 
