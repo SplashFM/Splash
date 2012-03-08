@@ -12,9 +12,15 @@ class HomeController < ApplicationController
     render :template => 'splashboards/index'
   end
 
+  def about
+    render :layout => nil
+  end
+
   def privacy
+    render :layout => nil
   end
 
   def terms
+    render :layout => nil
   end
 end
