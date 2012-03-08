@@ -31,12 +31,6 @@
       }
 
       $('.main').append(topView.render().el);
-      $('.bottom .wrap').
-        append(new RequestInvite({
-          invitePath: "#{invite_created_path}",
-          referralURL: "#{session['splash.referral_url']}",
-          registering: registering,
-        }).render().el);
 
       $('body').bind('register:code', function(_, data) {
         $(topView.el).replaceWith(new Registration({
@@ -205,6 +199,3 @@
     .ruler
     .bottom
       .wrap
-        .description
-          %h2= t('login.title')
-          %p.text= t('login.blurb')
