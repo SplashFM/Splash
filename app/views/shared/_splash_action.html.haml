@@ -2,4 +2,8 @@
   .splash-action
     %a.icon.splash-btn{:href => "#", :data => {:widget => 'toggle-splash'}}
     %span Splash!
-  = render 'shared/splash_form'
+  - if current_user
+    = render 'shared/splash_form'
+  - else
+    %form
+      {{html JST['shared/facebook_required']()}}
