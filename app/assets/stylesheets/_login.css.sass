@@ -301,22 +301,6 @@
       width: 231px
       height: 50px
       float: right
-      a
-        display: block
-        padding: 7px 0 0 35px
-        width: 206px
-        height: 55px
-        line-height: 24px
-        color: #fff
-        font-size: 11px
-        font-weight: bold
-        text-shadow: transparentize(#000, 0.2) 0 1px 2px
-        &:hover
-          text-decoration: none
-      &.fb a
-        background: url('/css/images/facebook-button.png') no-repeat 0 0
-      &.tw a
-        background: url('/css/images/twitter-button.png') no-repeat 0 0
 
   .confirm-new
     .title
@@ -371,6 +355,25 @@
     background: url('/css/images/p3.png') no-repeat transparent
   .p4
     background: url('/css/images/p4.png') no-repeat transparent
+
+.fb a
+  background: url('/css/images/facebook-button.png') no-repeat 0 0
+.tw a
+  background: url('/css/images/twitter-button.png') no-repeat 0 0
+
+.fb, .tw
+  a
+    display: block
+    padding: 7px 0 0 35px
+    width: 206px
+    height: 55px
+    line-height: 24px
+    color: #fff
+    font-size: 11px
+    font-weight: bold
+    text-shadow: transparentize(#000, 0.2) 0 1px 2px
+    &:hover
+      text-decoration: none
 
 body.small .user-signin .main
   padding: 30px 0px 0px 0px!important

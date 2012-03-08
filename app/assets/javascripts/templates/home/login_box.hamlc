@@ -1,0 +1,8 @@
+.container
+  %h2.avan-bold= I18n.t('login.box.header')
+
+  %p.fb
+    %a{:href => '/users/auth/facebook'}= I18n.t('login.sign_in.facebook')
+
+  %p.other
+    %a{:href => '/users/sign_in'}= I18n.t('login.box.other')
