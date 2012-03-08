@@ -1,0 +1,23 @@
+%h2 In the Press
+
+%blockquote.rm
+  %p
+    "Splash.fm &mdash; the 'Twitter' of music discovery."
+
+  %p.author
+    %a{:href => 'http://rhythmobile.com/2012/02/20/splash-fm-the-twitter-of-music-discovery'} RhythmMobile
+
+%blockquote.tc
+  %p
+    "Oh, you liked that band since before they were cool? Now you can prove it
+    with Splash.fm"
+  %p.author
+    %a{:href => 'http://techcrunch.com/2012/01/16/splash-fm'} TechCrunch
+
+%blockquote.bb
+  %p
+    "The result, a simple product...
+    %br/
+    a Twitter for music."
+  %p.author
+    %span Billboard

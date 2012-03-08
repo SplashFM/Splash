@@ -1,3 +1,6 @@
+@import compass/typography/lists/inline-block-list
+@import compass/utilities/text/replacement
+
 .users.show
   #side-bar
     background: #efeeed
@@ -174,6 +177,15 @@
 .left #side-bar
   border-radius: 7px 0 0 7px
 
+.user-vcard, .login-box, .in-the-press
+  h2
+    @extend .avan-bold
+    font-size: 24px
+    font-weight: normal
+    color: #fff
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
+    min-height: 62px
+
 .user-vcard, .login-box
   background: #6384a4 url(/css/images/profile-vcard-bg.png) repeat-x 0 bottom
   .container
@@ -193,12 +205,6 @@
     width: 140px
     padding: 0px 0 0 10px
     margin-top: -6px
-  h2
-    font-size: 24px
-    font-weight: normal
-    color: #fff
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
-    min-height: 62px
   .score
     height: 73px
     position: relative
@@ -415,3 +421,37 @@ ul.social-like-buttons
     padding: 5px
     &.facebook
       margin: -3px 0 0 0
+
+.in-the-press
+  padding: 20px 10px
+  color: #b7d5ea
+
+  h2
+    clear: both
+    min-height: 0
+    overflow: auto
+
+  blockquote
+    margin-top: 15px
+    clear: both
+    overflow: auto
+
+  p.author
+    margin-top: 5px
+    a, span
+      display: block
+      float: right
+
+  .rm a
+    +replace-text-with-dimensions("rhythm-mobile-logo.png")
+
+  .tc a
+    +replace-text-with-dimensions("techcrunch_logo.png")
+
+  .bb
+    margin-top: 20px
+    border: 2px dashed #516c88
+    padding: 3px
+
+    span
+      +replace-text-with-dimensions("billboard-logo.png")
