@@ -14,9 +14,12 @@ class Home extends Page
   renderSidebar: (sidebar) ->
     super
 
-    if @app.user.isNew() then return
-
-    sidebar.add new SuggestedSplashersView(followerID: @app.user.id)
-    sidebar.add new InviteUserView
+    if @app.user.isNew()
+      sidebar.add new TemplateView
+        className: 'facepile'
+        template:  JST['home/facepile']
+    else
+      sidebar.add new SuggestedSplashersView(followerID: @app.user.id)
+      sidebar.add new InviteUserView
 
 window.Home = Home
