@@ -18,6 +18,9 @@ class Home extends Page
       sidebar.add new TemplateView
         className: 'facepile'
         template:  JST['home/facepile']
+      sidebar.add new TemplateView
+        className: 'social-buttons'
+        template:  JST['home/social_buttons']
     else
       sidebar.add new SuggestedSplashersView(followerID: @app.user.id)
       sidebar.add new InviteUserView
