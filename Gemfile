@@ -13,9 +13,6 @@ gem 'pg'
 # Use unicorn as the web server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-gem 'capistrano'
-
 # Gem used by scap:
 # To minimize merge conflicts, keep this list sorted alphabetically
 # gem "braintree"
