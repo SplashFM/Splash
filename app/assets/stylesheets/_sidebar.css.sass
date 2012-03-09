@@ -406,13 +406,15 @@
     text-align: right
     padding-right: 15px
 
-.facepile
+div.social-buttons
   @extend .widget
   background: #b7d5ea
 
-div.social-buttons
-  @extend .widget
-  background: #516c88
+  .fb-like
+    margin: 7px 0 0 -1px
+
+  .twitter-follow-button
+    margin: -2px 0 0 -1px
 
 ul.social-like-buttons
   +inline-block-list

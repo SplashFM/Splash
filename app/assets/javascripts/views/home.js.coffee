@@ -16,9 +16,6 @@ class Home extends Page
 
     if @app.user.isNew()
       sidebar.add new TemplateView
-        className: 'facepile'
-        template:  JST['home/facepile']
-      sidebar.add new TemplateView
         className: 'social-buttons'
         template:  JST['home/social_buttons']
       sidebar.add new TemplateView
