@@ -6,7 +6,6 @@ gem 'rails', '~> 3.2.0'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Databases
-gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem "mysql2", "~> 0.2.0"
 gem 'pg'
 
@@ -45,6 +44,7 @@ gem "twitter"
 group :development, :test do
   # gem 'webrat'
   gem "rspec-rails", ">= 2.0.0"
+  gem 'sqlite3-ruby', :require => 'sqlite3'
 end
 
 group :development do
