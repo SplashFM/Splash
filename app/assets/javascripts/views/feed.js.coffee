@@ -1,12 +1,23 @@
 class Feed
   @eventFeed: (content, filters) ->
-    @feed content,
+    feed = @feed content,
       collection: new EventList
       className:  'live-feed'
       filters:    filters
       newItem:    (i) ->
         new Feed.Splash(model: i, currentUserID: window.app.user.id)
       refresh:    true
+
+    splashed       = _.bind(feed.splashed, feed)
+    content.events ?= {}
+
+    _.extend content.events,
+      'splash:splash':   splashed
+      'upload:complete': splashed
+
+    content.delegateEvents()
+
+    feed
 
   @feed: (content, args) ->
     $spin = content.$(content.spinner)
@@ -57,6 +68,9 @@ class Feed
         $main.prepend JST['shared/facebook_required']()
 
     this
+
+  splashed: ->
+    @paginated.refetch()
 
   renderTop: ($top) ->
     if @updates then $top.append @updates.render().el

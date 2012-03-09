@@ -30,5 +30,13 @@ Paginate = function(collection, elemsPerPage, fetchData) {
       return lastLength == null ||
              collection.length == (lastLength + elemsPerPage);
     },
+
+    refetch: function() {
+      collection.reset()
+
+      data.page = 0
+
+      return this.fetchNext();
+    }
   }).extend(Backbone.Events);
 };
