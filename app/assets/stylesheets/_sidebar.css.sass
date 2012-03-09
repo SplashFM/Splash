@@ -27,6 +27,9 @@
     span
       text-shadow: 0px -1px 0px #000
 
+  .widget
+    padding: 14px 13px
+
 .home, .follow
   & > #side-bar-wrap
     .points-container
@@ -389,11 +392,10 @@
 
 .login-box
   .container
-    padding: 10px
+    @extend .widget
 
   h2
     margin-bottom: 30px
-    margin-left: 3px
 
   p
     margin: 0
@@ -405,11 +407,11 @@
     padding-right: 15px
 
 .facepile
+  @extend .widget
   background: #b7d5ea
-  padding: 10px
 
 div.social-buttons
-  padding: 10px
+  @extend .widget
   background: #516c88
 
 ul.social-like-buttons
@@ -423,13 +425,14 @@ ul.social-like-buttons
       margin: -3px 0 0 0
 
 .in-the-press
-  padding: 20px 10px
+  @extend .widget
   color: #b7d5ea
 
   h2
     clear: both
+    line-height: 24px
     min-height: 0
-    overflow: auto
+    overflow: none
 
   blockquote
     margin-top: 15px
