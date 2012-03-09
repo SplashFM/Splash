@@ -7,9 +7,10 @@ class Friends extends Page.Content
 
     @collection = new FriendsList
     @feed       = Feed.feed this,
-      collection: @collection
-      className:  'live-feed'
-      newItem:    (i) ->
+      authErrorTemplate: 'shared/facebook_required'
+      collection:        @collection
+      className:         'live-feed'
+      newItem:           (i) ->
         fb = window.app.user.get('facebook_token')
 
         switch i.get('origin')

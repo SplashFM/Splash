@@ -42,12 +42,13 @@ class Feed
     feed
 
   constructor: (options) ->
-    @app        = options.app
-    @collection = options.collection
-    @filters    = options.filters
-    @paginated  = Paginate(@collection, 10, @filters)
-    @newItem    = options.newItem
-    @className  = options.className
+    @app               = options.app
+    @collection        = options.collection
+    @filters           = options.filters
+    @paginated         = Paginate(@collection, 10, @filters)
+    @newItem           = options.newItem
+    @className         = options.className
+    @authErrorTemplate = options.authErrorTemplate or 'shared/login_required'
 
     @$spinner = options.$spinner
 
@@ -63,9 +64,9 @@ class Feed
     @scroll  = new Feed.EndlessScroll(app: @app, collection: @paginated)
 
   load: ($main) ->
-    @paginated.fetchNext().fail (xhr) ->
+    @paginated.fetchNext().fail (xhr) =>
       if xhr.status == 401
-        $main.prepend JST['shared/facebook_required']()
+        $main.prepend JST[@authErrorTemplate]()
 
     this
 

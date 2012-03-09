@@ -1,0 +1,6 @@
+%p.connect
+  Sign in with
+  %a{:href => "/users/auth/facebook"} Facebook
+  or
+  %a{:href => "/users/sign_in"} email
+  to Splash.
