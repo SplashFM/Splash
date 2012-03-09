@@ -122,7 +122,9 @@ class Feed.Spinner extends Backbone.View
     @$el.html $('<div id="loading-spinner" class="loading-spinner" />')
 
   stop: =>
-    unless @collection.hasNext()
+    if @collection.hasNext()
+      @clear()
+    else
       @$el.html $('<p class="loaded"/>').text I18n.t('events.all_loaded')
 
 
