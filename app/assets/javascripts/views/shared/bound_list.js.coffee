@@ -3,13 +3,13 @@ class BoundList extends Backbone.View
 
   initialize: ->
     @collection.bind 'reset', @reset
-    @collection.bind 'add', @addItem
+    @collection.bind 'add', @appendItem
 
-  addItem: (item) =>
+  appendItem: (item) =>
     @$el.append @renderItem(item)
 
   render: ->
-    @collection.each(@addItem)
+    @collection.each @appendItem
 
     return this
 
