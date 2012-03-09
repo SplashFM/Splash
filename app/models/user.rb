@@ -92,9 +92,6 @@ class User < ActiveRecord::Base
                       :with => /\A#{NICKNAME_REGEXP}\Z/,
                       :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
-  validate  :validate_access_code,
-            :on     => :create,
-            :if     => :access_code_required?
 
   before_validation :generate_nickname, :on => :create
   before_save :possibly_delete_avatar
@@ -524,11 +521,5 @@ class User < ActiveRecord::Base
 
   def to_slug(string)
     string.strip.gsub(/@.*/, "").gsub(/\W+/, '_').downcase if string.present?
-  end
-
-  def validate_access_code
-    unless AccessRequest.code?(access_code)
-      errors.add(:access_code, 'is invalid')
-    end
   end
 end

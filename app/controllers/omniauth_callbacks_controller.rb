@@ -54,12 +54,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       session['devise.provider_data'] = tt
 
-      # for Beta
-      if AccessRequest.code?(signup_code)
-        redirect_to new_sn_registration_path
-      else
-        redirect_to root_path
-      end
+      redirect_to new_sn_registration_path
     end
   end
 
