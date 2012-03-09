@@ -368,7 +368,6 @@ DEPENDENCIES
   capybara (~> 1.0)
   coffee-rails
   compass-rails
-  daemons (= 1.0.10)
   database_cleaner (~> 0.6.0)
   delayed_job
   devise (~> 2.0.0)
