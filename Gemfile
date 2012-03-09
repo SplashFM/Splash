@@ -27,7 +27,6 @@ gem "newrelic_rpm"
 gem "paperclip"
 gem "paperclip-meta"
 gem "seed-fu", ">=1.2.3"
-gem "state_machine"
 gem "uuidtools"
 gem 'whenever', :require => false
 #gem "will_paginate", ">=3.0.pre"
