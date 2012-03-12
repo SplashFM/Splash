@@ -19,16 +19,7 @@
 
   :javascript
     $(function () {
-      var topView;
-      var registering = location.pathname == "#{new_user_registration_path}";
-
-      if (registering) {
-        topView = new Registration({
-          accessCode: $.deparam.querystring().code,
-        });
-      } else {
-        topView = new SignIn;
-      }
+      var topView = new SignIn;
 
       $('.main').append(topView.render().el);
 
@@ -50,101 +41,12 @@
         = f.text_field :name, :class => 'input', :placeholder => t('login.register.name')
         = f.password_field :password, :class => 'input', :placeholder => t('login.register.password')
         = f.password_field :password_confirmation, :class => 'input', :placeholder => t('login.register.confirm_password')
-        = f.hidden_field :access_code, :value => "${accessCode}"
         %input#age{:type => 'checkbox'}
         %label{:for => 'age'} I am at least 13 years of age
 
         %p.submit
           = f.submit 'Sign up'
     .cl
-
-  %script#tmpl-request-invite{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.register.request_invite')
-
-    %a#has-code{:href => '#code-test'} Submit Entry Code
-
-    .cl
-
-    %p.bigger
-      Splash.FM is currently in private Beta. You may request an invite below,
-      and we will notify you by email when a spot becomes available.
-
-
-    %p.request-via-email
-      %a{:href => '#request-invite-email'} Request Invite via email
-
-  %script#tmpl-request-invite-confirmed{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.register.request_invite')
-    .cl
-
-    %p.bigger
-      You've been successfully added to the Private Beta request list! Not a fan
-      of waiting in long lines? We love enthusiastic users:
-
-    %p.do-share
-      Share with 3 friends! Copy and paste the URL below into Twitter,
-      Facebook, or in an email, or use the social links contained in this
-      window to share and climb the list.
-
-    %p
-      %input.referral-url{:value => '${referralURL}'}
-      %a.share-fb{:href => '#facebook-share'} Share
-      %a.share-tw{:href => '#twitter-share'} Share
-
-  %script#tmpl-request-invite-registering{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.register.request_invite')
-    .cl
-
-    %p.bigger
-      Your Entry Code has been accepted.
-
-    %p.bigger
-      Create your new account by filling out the forms above, or by signing in
-      with Facebook or Twitter.
-
-  %script#tmpl-request-invite-email{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.register.request_invite')
-
-    %a#has-code{:href => '#code-test'} Submit Entry Code
-
-    .cl
-
-    %p
-      Create your account and start splashing instantly. Want to increase your
-      influence later? Link your social accounts to invite friends and bolster
-      your listening audience.
-
-    = form_for :user, |
-        :remote => true, |
-        :url    => access_requests_path, |
-        :html   => {:'data-type' => 'json', |
-                    :class => 'register'} do |f|
-      = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
-
-      %p.submit
-        = f.submit 'Submit'
-
-  %script#tmpl-request-invite-sent{:type => 'text/x-jquery-tmpl'}
-    .invite-sent
-      %h2 We've added you to the invite list.
-
-      %p Look out for an email with your invite.
-
-  %script#tmpl-code-test{:type => 'text/x-jquery-tmpl'}
-    %h2= t('login.register.request_invite')
-    .cl
-
-    %p.lucky
-      OOoooo. Lucky you! ;)
-
-    %div
-      %input.input{:name => 'access_code', :placeholder => t('login.register.code')}
-
-    %p.submit.via-email
-      %input{:type => 'button', :value => 'Submit'}
-
-    %p.request-via-email
-      %a{:href => '#request-invite-email'} Request Invite via email
 
   %script#tmpl-sign-in{:type => 'text/x-jquery-tmpl'}
     %h2= t('login.sign_in.header')
