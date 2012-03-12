@@ -328,8 +328,7 @@ $(function() {
     },
 
     onLoginFailed: function() {
-      this.$("#user_password").addClass('error');
-      this.$("#forgot_password").show();
-    },
+      this.$el.trigger('signin:unregistered');
+    }
   });
 });
