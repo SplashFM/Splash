@@ -24,7 +24,11 @@
       $('.main').append(topView.render().el);
 
       $('body').bind('signin:unregistered', function(_, data) {
-        $(topView.el).replaceWith(new Registration(data).render().el);
+        var r = new Registration(data).render()
+
+        $(topView.el).replaceWith(r.el);
+
+        r.focus();
       });
     });
 
