@@ -27,7 +27,8 @@ $(function() {
     events: {
       'ajax:before form': 'validate',
       'ajax:success form': 'onRegister',
-      'ajax:error form': 'onErrors'
+      'ajax:error form': 'onErrors',
+      'click .login-toggle': 'toggleLogin'
     },
     template: $('#tmpl-registration').template(),
 
@@ -75,6 +76,10 @@ $(function() {
       });
 
       return this;
+    },
+
+    toggleLogin: function() {
+      this.$el.trigger('signin:close', {email: this.$('#user_email').val()});
     },
 
     validate: function() {
