@@ -95,6 +95,10 @@ $(function() {
     className: 'wrap',
     template: $('#tmpl-sign-in').template(),
 
+    events: {
+      'click .signup-toggle': 'toggleSignup'
+    },
+
     initialize: function() {
       _.bindAll(this, 'onLogin', 'onLoginFailed', 'onNewUser',
                       'onRegisteredUser', 'triggerForgotPassword');
@@ -129,6 +133,10 @@ $(function() {
       this.$('#forgot_password').click(this.triggerForgotPassword)
 
       return this;
+    },
+
+    toggleSignup: function() {
+      this.$el.trigger('signin:unregistered');
     },
 
     triggerForgotPassword: function() {
