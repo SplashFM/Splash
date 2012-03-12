@@ -54,9 +54,10 @@ $(function() {
     },
 
     render: function() {
+      var email      = this.options.email;
       var accessCode = this.options.accessCode;
 
-      $(this.el).html($.tmpl(this.template));
+      $(this.el).html($.tmpl(this.template, {email: email}));
 
       this.$('.omniauth-links a').each(function() {
         var orig = $.param.querystring(window.location.href,
@@ -131,7 +132,7 @@ $(function() {
     },
 
     onLoginFailed: function() {
-      this.$el.trigger('signin:unregistered');
+      this.$el.trigger('signin:unregistered', {email: this.emailField.val()});
     }
   });
 });

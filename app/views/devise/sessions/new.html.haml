@@ -24,7 +24,7 @@
       $('.main').append(topView.render().el);
 
       $('body').bind('signin:unregistered', function(_, data) {
-        $(topView.el).replaceWith(new Registration().render().el);
+        $(topView.el).replaceWith(new Registration(data).render().el);
       });
     });
 
@@ -37,7 +37,7 @@
           :url  => registration_path(:user), |
           :html => {:'data-type' => 'json', |
                     :class => 'register'} do |f|
-        = f.text_field :email, :class => 'input', :placeholder => t('login.register.email')
+        = f.text_field :email, :class => 'input', :placeholder => t('login.register.email'), :value => '${email}'
         = f.text_field :name, :class => 'input', :placeholder => t('login.register.name')
         = f.password_field :password, :class => 'input', :placeholder => t('login.register.password')
         = f.password_field :password_confirmation, :class => 'input', :placeholder => t('login.register.confirm_password')
