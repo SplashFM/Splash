@@ -32,12 +32,6 @@ $(function() {
     },
     template: $('#tmpl-registration').template(),
 
-    focus: function() {
-      this.$('#user_email').focus();
-
-      return this;
-    },
-
     onErrors: function(_, xhr) {
       var errors = $.parseJSON(xhr.responseText);
 
