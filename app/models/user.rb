@@ -287,23 +287,22 @@ class User < ActiveRecord::Base
   end
 
   def follow(followed_id)
-    suggested_users.delete(followed_id)
-    write_attribute(:suggested_users, suggested_users)
-    r = relationships.create(:followed_id => followed_id)
-    recompute_splashboard(:add, followed_id)
-    self.delay.update_suggestions
-    save!
-    r
+    follow_all([followed_id]).first
   end
 
   ##
   # Public: Follow all given users.
   #
-  # users - an ActiveRecord::Relation working as a user filter
+  # users - an ActiveRecord::Relation working as a user filter,
+  #         or a list of user ids
   #
   # Returns the relationships that were created.
   def follow_all(users)
-    ids = users.value_of(:id)
+    ids = if users.respond_to?(:value_of)
+            users.value_of(:id)
+          else
+            users
+          end
 
     rs = ids.map { |id| relationships.create(followed_id: id) }
 
