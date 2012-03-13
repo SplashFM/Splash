@@ -296,6 +296,28 @@ class User < ActiveRecord::Base
     r
   end
 
+  ##
+  # Public: Follow all given users.
+  #
+  # users - an ActiveRecord::Relation working as a user filter
+  #
+  # Returns the relationships that were created.
+  def follow_all(users)
+    ids = users.value_of(:id)
+
+    rs = ids.map { |id| relationships.create(followed_id: id) }
+
+    recompute_splashboard :add, ids
+
+    ids.each { |id| suggested_users.delete id }
+    write_attribute :suggested_users, suggested_users
+    delay.update_suggestions
+
+    save!
+
+    rs
+  end
+
   def followed(followed_id)
     relationships.find_by_followed_id(followed_id)
   end
