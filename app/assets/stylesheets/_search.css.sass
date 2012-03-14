@@ -1,27 +1,18 @@
 .head-search
-  .container
-    width: 215px
-  .splashers
-    .info
-      small
-        color: #a8a8a8
-      a
-        font-size: 11px
   .dd
+    display: none
+    margin-left: -100px
+    width: 550px
+    top: 32px
+    border-radius: 7px
+
+    .col
+      width: 100%
+
     .jspVerticalBar
       width: 9px
     .col.right
       display: none
-    .col.left
-      h4
-        font-size: 11px
-        color: #5092CC
-        font-style: italic
-        font-weight: normal
-        font-family: georgia
-        background: url(/css/images/head-search-titlebg.png?1320530523) repeat-x 0 6px
-        height: 14px
-        margin-bottom: 6px
     .single_user_result
       margin-bottom: 10px
       .search-follow
@@ -94,41 +85,6 @@
     .field
       padding: 8px 6px 7px 32px
       width: 197px
-  .dd
-    position: absolute
-    top: 37px
-    left: 0px
-    height: 229px
-    background: url(/css/images/head-search-dd.png) repeat-x 0 0
-    border-radius: 0 6px 6px 6px
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5)
-    padding: 10px
-    display: block
-  .arrow
-    position: absolute
-    top: -12px
-    left: 0
-    width: 12px
-    height: 12px
-    background: url(/css/images/head-search-arrow.png) no-repeat 0 0
-  .container
-    width: 336px
-    height: 229px
-    background: #e4eff7
-    border-radius: 7px
-    padding: 0 10px
-  .col
-    width: 210px
-    padding-top: 6px
-  h4
-    color: #FFF
-    height: 18px
-  .scroll-area
-    width: 210px
-    height: 185px
-    position: relative
-    overflow-x: hidden
-    overflow-y: auto
   ul
     list-style: none outside none
   .splashers
@@ -176,6 +132,12 @@
   padding: 5px 20px 0
   position: relative
   z-index: 100
+
+  .dd
+    width: 589px
+    padding-top: 8px
+    top: 48px
+    border-radius: 0 0 7px 7px
 
   label
     font-size: 24px
@@ -235,18 +197,15 @@
       text-decoration: none
     &.disabled
       background: url(/css/images/upload-btn.png) no-repeat 0 0
+
+.head-search, .main-search
   .dd
     background: white
     position: absolute
-    top: 48px
     left: 2px
-    width: 589px
     border: 1px solid #B1B1B1
     border-top: 0
-    border-radius: 0 0 7px 7px
-    display: block
     z-index: 1
-    padding-top: 8px
     ul
       list-style: none outside none
     li
@@ -296,17 +255,26 @@
       &.last
         background: none
         padding-bottom: 0
-    .controls
+    h4
+      padding-left: 14px
+
+    .col:first-of-type
+      h4:first-of-type
+        border-radius: 7px 7px 0px 0px
+
+    .controls, h4
       background: #e4e4e4
-      border-radius: 0 0 6px 6px
       height: 30px
       position: relative
+      color: #788d99
+      font-size: 13px
+      line-height: 30px
+
+    .controls
+      border-radius: 0 0 6px 6px
 
       .view-all
-        color: #788d99
         display: block
-        font-size: 13px
         height: 30px
-        line-height: 30px
         text-align: center
         vertical-align: middle

@@ -36,13 +36,11 @@
         %input.field{:type => "text"}/
         %input.submit{:type => "submit", :value => "Search"}/
         .dd{:data => {:widget => 'results'}}
-          %span.arrow
           .container
             .col.left{:data => {:widget => 'users'}}
               %h4
-                %span users
-              .scroll-area
-                %ul.splashers
+                %span Users
+              %ul.splashers
             / /colum
             .col.right{:data => {:widget => 'tracks'}}
               %h4

@@ -245,18 +245,7 @@ window.BaseApp.UserSearch = Search.extend({
   },
 
   renderItem: function(i) {
-    var $i = Search.prototype.renderItem.call(this, i);
-    var rv = new RelationshipView({
-      el:       $i.find('[data-widget = "follow"]'),
-      model:    new Relationship(i.get('relationship')),
-      template: this.templateRelationship,
-    });
-
-    $i.delegate('a:not(.follow)', 'click', _.bind(this.hide, this));
-
-    rv.render()
-
-    return $i;
+    return new UserView({model: i}).render().$el.appendTo(this.menu);
   },
 });
 
@@ -467,7 +456,7 @@ $(function() {
   BaseApp.Notifications.Notification.prototype.template =
     $('#tmpl-notification').template();
   BaseApp.UserSearch.prototype.template =
-    $('#tmpl-global-search-user').template();
+    $('#tmpl-user').template();
   BaseApp.UserSearch.prototype.templateRelationship =
     $('#tmpl-relationship-list').template();
   PlayerView.prototype.template = $('#tmpl-player').template();

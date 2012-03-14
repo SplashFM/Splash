@@ -1266,16 +1266,6 @@ input.splash:active, .buttonStyle2:active, .tag-line.edit button:active
     .splash-score
       position: relative
       margin-right: 20px
-    .avatar
-      display: block
-      padding-right: 10px
-      margin-top: 5px
-    .num
-      color: #34c3f2
-      font-size: 15px
-    .name
-      color: #242424
-      font-size: 18px
     .ripples
       font-size: 11px
       color: #666
@@ -1283,13 +1273,6 @@ input.splash:active, .buttonStyle2:active, .tag-line.edit button:active
       font-size: 11px
       padding-right: 20px
       color: #666
-    .names
-      position: relative
-      height: 26px
-      .nickname
-        position: relative
-        margin-left: 10px
-        top: 6px
 
 .buttonStyle2.invited
   color: #363636 !important
@@ -1748,7 +1731,7 @@ html
 .buttonStyle2
   span
     display: inline-block !important
-.following-container, .follow
+.following-container, .follow, .head-search
   .number
     color: #34c3f2
     font-size: 18px
@@ -1878,19 +1861,22 @@ li.expanded .header_label
     padding-left: 10px
     position: relative
     top: 1px
+
+.follow .invite.number, .splashers .number
+  float: left
+  font-size: 40px
+  margin-left: -1px
+  position: relative
+  top: 10px
+  margin-right: 15px
+  .inner
+    height: 36px
+
 .follow
   .invite.number
-    float: left
-    font-size: 40px
-    margin-left: -1px
-    position: relative
-    top: 10px
-    margin-right: 15px
     img
       height: 48px
       position: relative
       right: 3px
-    .inner
-      height: 36px
   a.buttonStyle2
     display: block

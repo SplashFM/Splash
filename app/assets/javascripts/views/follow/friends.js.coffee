@@ -128,6 +128,8 @@ class UnregisteredFriendView.Invite extends Backbone.View
 
     this
 
+window.UserView = RegisteredFriendView
+
 $ ->
   FriendView::template = $('#tmpl-user').template()
   RegisteredFriendView::templateRelationship =
