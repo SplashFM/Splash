@@ -5,56 +5,6 @@ Backbone.View.mixin = function(module) {
   return this;
 }
 
-EndlessScroll = Backbone.View.extend({
-  el: document,
-
-  initialize: function() {
-    _.bindAll(this, 'triggerScroll');
-
-    this.spinner = $('<div/>').
-      attr('id', 'loading-spinner').
-      addClass('loading-spinner');
-
-    this.setSpinnerContainer(this.options.spinnerContainer);
-    this.setData(this.options.data);
-
-    this.loading();
-
-    $(document).endlessScroll({
-      callback: this.triggerScroll,
-    });
-  },
-
-  done: function() {
-    this.spinnerContainer.html(this.options.noMoreResults);
-  },
-
-  loaded: function() {
-    this.spinner.remove();
-
-    return this;
-  },
-
-  loading: function() {
-    this.spinnerContainer.html(this.spinner);
-  },
-
-  setData: function(data) {
-    this.data = data;
-
-    this.data.bind('scroll:loaded', this.loaded, this);
-    this.data.bind('scroll:done', this.done, this);
-  },
-
-  setSpinnerContainer: function(el) {
-    this.spinnerContainer = $(el);
-  },
-
-  triggerScroll: function () {
-    if (this.data.scroll()) this.loading();
-  }
-});
-
 Purchase = {
   events: {
     'click [data-widget = "purchase"]': 'purchase'
