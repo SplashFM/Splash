@@ -2,20 +2,12 @@ class FriendsController < ApplicationController
   PER_PAGE = 10
 
   def index
-    sc = current_user.social_connection('facebook')
-
     respond_to { |f|
-      f.html {
-        if sc
-          @social = sc.as_json(:only => [:token])
-        else
-          @social = nil
-
-          session[:user_return_to] = request.url
-        end
-      }
+      f.html { render layout: 'home' }
 
       f.json {
+        sc = current_user.social_connection('facebook')
+
         if sc
           fsh   = sc.friends(params[:with_text]).index_by(&:identifier)
           users = User.with_social_connection('facebook', fsh.keys).by_score
