@@ -37,15 +37,15 @@
         %input.submit{:type => "submit", :value => "Search"}/
         .dd{:data => {:widget => 'results'}}
           .container
-            .col.left{:data => {:widget => 'users'}}
-              %h4
-                %span Users
-              %ul.splashers
-            / /colum
-            .col.right{:data => {:widget => 'tracks'}}
+            .col.left{:data => {:widget => 'tracks'}}
               %h4
                 %span Tracks
               %ul.tracks
+            / /colum
+            .col.right{:data => {:widget => 'users'}}
+              %h4
+                %span Users
+              %ul.splashers
             / /colum
       / /head search
       %ul#navigation.right.avan-demi
