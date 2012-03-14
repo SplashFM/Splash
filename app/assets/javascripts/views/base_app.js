@@ -249,6 +249,23 @@ window.BaseApp.UserSearch = Search.extend({
   },
 });
 
+window.BaseApp.TrackSearch = Search.extend({
+  el: '[data-widget = "global-search"]',
+  cancelableSearch: true,
+  menuContainer: '[data-widget = "tracks"] ul',
+  extraParams: {popular: true},
+
+  initialize: function(opts) {
+    this.collection = new TrackList;
+
+    Search.prototype.initialize.call(this, opts)
+  },
+
+  renderItem: function(i) {
+    return new TrackSearch.Track({model: i}).render().$el.appendTo(this.menu);
+  },
+});
+
 window.PlayerView = Backbone.View.extend({
   events: {'splash:quick': 'disableSplashButton'},
 

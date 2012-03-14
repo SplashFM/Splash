@@ -78,6 +78,7 @@ class Application extends Backbone.View
   _initializeSearch: ->
     new BaseApp.GlobalSearch
     new BaseApp.UserSearch
+    new BaseApp.TrackSearch
 
   _routeLink: (e) ->
     $t = $(e.target).closest('a')

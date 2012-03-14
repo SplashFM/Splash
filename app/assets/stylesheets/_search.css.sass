@@ -11,8 +11,6 @@
 
     .jspVerticalBar
       width: 9px
-    .col.right
-      display: none
     .single_user_result
       margin-bottom: 10px
       .search-follow
@@ -111,23 +109,6 @@
         font-size: 20px
         line-height: 1.1
         color: #5092cc
-  .tracks
-    li
-      min-height: 24px
-      width: 134px
-      padding: 0 7px
-      line-height: 24px
-      text-overflow: ellipsis
-      white-space: nowrap
-      overflow: hidden
-      height: 25px
-      &.even
-        background: #dee6ec
-    a
-      color: #4b6482
-      span
-        color: #788d99
-
 .main-search, .main-panel
   padding: 5px 20px 0
   position: relative
@@ -278,3 +259,31 @@
         height: 30px
         text-align: center
         vertical-align: middle
+.top_search_results, .head-search ul.tracks
+  li
+    .splash-action
+      a
+        width: 42px
+        margin-left: 5px
+    &:hover
+      a.art
+        span
+          display: block !important
+      .splashable .splash-action
+        span
+          display: inline
+  .meta
+    display: none
+  .art
+    border: solid 1px #CCC
+    img
+      width: 71px !important
+      height: 71px !important
+  .splash-action
+    @extend .right
+    width: 51px
+    position: relative
+    top: 2px
+    text-align: center
+    span
+      display: none
