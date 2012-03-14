@@ -391,7 +391,7 @@ window.UserMentions = Backbone.View.extend({
 });
 
 UserMentions.linkMentions = function(text) {
-  return text.replace(Constants.NICKNAME_REGEXP, '<a href="/$1">$1</a>');
+  return text.replace(Constants.NICKNAME_REGEXP, '<a href="$1">$1</a>');
 };
 
 window.Player = new PlayerView;
