@@ -40,4 +40,8 @@ Scaphandrier::Application.configure do
   config.assets.debug = true
 
   config.middleware.insert_before(Rack::Lock, Rack::LiveReload)
+
+  config.to_prepare do
+    Social
+  end
 end
