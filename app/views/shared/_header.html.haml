@@ -30,16 +30,6 @@
             .text
               %a{:href => '#', :class => 'avan-demi' } load more
 
-      .quick-splash.right{:data => {:widget => 'quick-splash'}}
-        %a.trigger{:href => "#", :data => {:widget => 'toggle'}}
-        %form{:action => "#", :method => "post", :data => {:widget => 'box'}}
-          %span.arrow
-          %label.avan-bold Quick Splash
-          .wrap
-            %input.submit{:type => "submit", :value => "Search"}/
-            %input.field{:type => "text"}/
-            %ul{:data => {:widget => 'results'}}
-      / /quick splash
       %form.head-search.closed.right{:action => "#", |
                                      :method => "post", |
                                      :data   => {:widget => 'global-search'}}
