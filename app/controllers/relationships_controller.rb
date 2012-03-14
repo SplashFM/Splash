@@ -3,11 +3,11 @@ class RelationshipsController < ApplicationController
   before_filter :load_user, :only => [:following, :followers]
 
   def following
-    render 'follow', :locals => {:users => @user.following}
+    render 'follow', :locals => {:users => @user.following}, :layout => nil
   end
 
   def followers
-    render 'follow', :locals => {:users => @user.followers}
+    render 'follow', :locals => {:users => @user.followers}, :layout => nil
   end
 
   def create
