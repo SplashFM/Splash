@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   TOP_SPLASHERS_PER_PAGE = 10
-  PER_SEARCH             = 10
+  PER_SEARCH             = 3
   USER_TAB               = 2
   SIDEBAR_THUMB_COUNT    = 10
 
