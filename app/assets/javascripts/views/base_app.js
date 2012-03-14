@@ -253,7 +253,7 @@ window.BaseApp.TrackSearch = Search.extend({
   el: '[data-widget = "global-search"]',
   cancelableSearch: true,
   menuContainer: '[data-widget = "tracks"] ul',
-  extraParams: {popular: true},
+  extraParams: {popular: true, short: true},
 
   initialize: function(opts) {
     this.collection = new TrackList;
