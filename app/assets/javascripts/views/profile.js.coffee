@@ -33,7 +33,8 @@ class Profile.Content extends Page.Content
     @routes   = Profile.Router.routes
 
   renderTop: ($top) ->
-    new Searchable(el: @el, top: $top).render()
+    $top.append JST['profile/search']()
+    @trackSearch = new TrackSearch el: @$('[data-widget = "track-search"]')
 
     mention = '@' + @user.get('nickname')
 
@@ -55,8 +56,6 @@ class Searchable extends Backbone.View
     'search:loaded':   'checkSize'
 
   initialize: ->
-    @$top = @options.top
-
     @allResults  = new TrackSearch.AllResults()
 
   checkSize: ->
@@ -67,17 +66,11 @@ class Searchable extends Backbone.View
       @$el.height(@$el.height() + arh - @$el.height())
 
   render: ->
-    @$top.append JST['profile/search']()
-
-    @trackSearch = new TrackSearch el: @$('[data-widget = "track-search"]')
     @allResults.render()
 
   searchCollapsed: ->
-    @trackSearch.enable()
 
   searchExpanded: (_, data) ->
-    @trackSearch.disable()
-
     @showAllResults(data.terms)
 
   showAllResults: (searchTerms) ->
