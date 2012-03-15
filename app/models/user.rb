@@ -218,10 +218,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.only(field)
-    select("users.#{field}")
-  end
-
   def as_json(opts = nil)
     opts ||= {}
 
@@ -277,8 +273,7 @@ class User < ActiveRecord::Base
       friends = FbGraph::User.me(social_connection('facebook').token).friends
 
       User.with_social_connection('facebook', friends.map(&:identifier)).
-        only(:id).
-        map(&:id)
+        value_of(:id)
     else
       []
     end
