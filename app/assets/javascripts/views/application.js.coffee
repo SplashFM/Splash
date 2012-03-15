@@ -11,6 +11,7 @@ class Application extends Backbone.View
 
     @_initializeFacebook()
     @_initializeSearch()
+    @_initializeAllResultsSearch()
     @_initializeNotifications()
     @_initializeScroll()
     @_initializePlayer()
@@ -38,6 +39,9 @@ class Application extends Backbone.View
   _highlightPage: (page) =>
     @_clearHighlight()
     @$("#navigation li.navigation-#{page}").addClass 'current-page'
+
+  _initializeAllResultsSearch: ->
+    new Searchable(el: @el, $container: $(Page.Content::main)).render()
 
   _initializeFacebook: ->
     FB.init appId: @facebookAppID, xfbml: true, cookie: true
