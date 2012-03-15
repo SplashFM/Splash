@@ -7,7 +7,6 @@ TrackSearch = Search.extend({
   el: '[data-widget = "track-search"]',
   events: _.extend({
     'click [data-widget = "toggle-upload"]': 'showUpload',
-    'click [data-widget = "view-all-results"]': 'viewAllResults',
     'hiding': 'removeUploadProgressForm',
     'showing': 'prepareUploadProgressForm',
     'upload:done': 'onUploadDone',
@@ -16,7 +15,6 @@ TrackSearch = Search.extend({
     'upload:progress': 'onUploadProgress',
     'upload:splash': 'onUploadSplash',
     'upload:start': 'onUploadStart',
-    'search:expand': 'hide',
   }, Search.prototype.events),
   extraParams: {popular: true},
   keepResults: true,
@@ -116,10 +114,6 @@ TrackSearch = Search.extend({
     e.stopPropagation();
 
     this.upload.show();
-  },
-
-  viewAllResults: function() {
-    $(this.el).trigger('search:expand', {terms: this.term()});
   },
 });
 
@@ -299,6 +293,8 @@ window.TrackSearch.AllResults.Result = Backbone.View.extend({
     }
   },
 });
+
+ViewAllResults.addTo(TrackSearch)
 
 $(function() {
   TrackSearch.Track.prototype.template = $('#tmpl-home-track').template();
