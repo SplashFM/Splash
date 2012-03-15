@@ -61,6 +61,8 @@ window.Search = Backbone.View.extend({
       this.$('[data-widget = "empty"]').hide();
       this.animation.hide(this.container);
     }
+
+    this.$el.trigger('search:hide');
   },
 
   isRelated: function() {
