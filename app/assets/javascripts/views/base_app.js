@@ -266,6 +266,8 @@ window.BaseApp.TrackSearch = Search.extend({
   },
 });
 
+ViewAllResults.addTo(BaseApp.TrackSearch)
+
 window.PlayerView = Backbone.View.extend({
   events: {'splash:quick': 'disableSplashButton'},
 

@@ -46,6 +46,7 @@
           height: 15px
           height: 19px
           color: #34C3F2
+
 .head-search
   height: 30px
   background: url(/css/images/tsearch-normal-bg.png) repeat-x 0 0
@@ -234,7 +235,7 @@
       &:active .holder
         box-shadow: 1px 1px 3px #ababab inset
     h4
-      padding-left: 14px
+      padding: 0 14px
 
     .col:first-of-type
       h4:first-of-type
@@ -256,6 +257,18 @@
         height: 30px
         text-align: center
         vertical-align: middle
+
+    p.controls
+      border-radius: 0
+      font-size: 12px
+      background: #fff
+
+      .view-all
+        display: block
+        height: 20px
+        text-align: center
+        vertical-align: top
+
 .top_search_results, .head-search ul.tracks
   li
     .splash-action
@@ -283,9 +296,10 @@
     span
       display: none
 
-.main-search, .head-search
+.main-search
   li:last-of-type
     background: none
 
+.main-search, .head-search
   .meta
     margin-top: 23px
