@@ -1,0 +1,33 @@
+.uploadForm
+  @extend .drop-down-panel
+
+  input
+    @extend .customInputStyle
+    width: 360px
+
+.main-search
+  .upload
+    width: 95px
+    height: 18px
+    background: url(/css/images/upload-btn.png) no-repeat 0 -28px
+    text-align: right
+    color: #fff
+    font-style: italic
+    font-size: 11px
+    font-family: georgia
+    padding: 10px 7px 0 0
+    position: relative
+    margin: -7px 7px 0 0
+    z-index: 0
+    &:hover
+      background-position: 0 bottom
+      text-decoration: none
+    &.disabled
+      background: url(/css/images/upload-btn.png) no-repeat 0 0
+
+  .field.uploading
+    background: url("/css/images/upload_progress.png") #FFFFFF no-repeat -160px 0px
+    color: #000
+    text-shadow: 0px 1px 0px #FFF
+    text-align: center
+    font-size: 20px

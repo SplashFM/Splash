@@ -115,7 +115,7 @@
   position: relative
   z-index: 100
 
-  .dd
+  .drop-down-panel
     width: 589px
     padding-top: 8px
     top: 48px
@@ -161,33 +161,11 @@
       background: url("/css/images/loading-spinner.gif") no-repeat scroll 550px 10px #fff
       margin-top: 0
 
-  .upload
-    width: 95px
-    height: 18px
-    background: url(/css/images/upload-btn.png) no-repeat 0 -28px
-    text-align: right
-    color: #fff
-    font-style: italic
-    font-size: 11px
-    font-family: georgia
-    padding: 10px 7px 0 0
-    position: relative
-    margin: -7px 7px 0 0
-    z-index: 0
-    &:hover
-      background-position: 0 bottom
-      text-decoration: none
-    &.disabled
-      background: url(/css/images/upload-btn.png) no-repeat 0 0
-
 .head-search, .main-search
   .dd
-    background: white
-    position: absolute
-    left: 2px
-    border: 1px solid #B1B1B1
-    border-top: 0
-    z-index: 1
+    @extend .drop-down-panel
+
+  .drop-down-panel
     ul
       list-style: none outside none
     li
@@ -195,10 +173,6 @@
       overflow: hidden
       background: url(/css/images/main-search-dd-divider.png) no-repeat center bottom
       padding-bottom: 3px
-    .holder
-      position: relative
-      overflow: hidden
-      padding: 5px 22px
     .art
       width: 71px
       height: 71px
