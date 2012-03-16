@@ -1,18 +1,38 @@
 class window.Upload extends Backbone.View
-  className: 'uploadForm'
-  tagName: 'div'
+  events:
+    'click [data-widget = "toggle-upload"]': 'toggle',
+    'upload:complete': 'remove'
 
   initialize: ->
-    @$el.clickout @hide
+    @$input = @$('input.field')
 
-  hide: (args) =>
-    @$el.hide()
+    @$el.clickout @remove
 
-    @metadata.reset()
+  render: =>
+    @rendered = true
 
-    @$el.trigger "hiding"
+    @uploader = new Upload.Uploader()
+    @feedback = new Upload.Feedback(el: @el, $input: @$input)
+    @progress = new Upload.Feedback.Progress(el: @el, $progress: @$input)
+    @status   = new Upload.Feedback.Status(el: @el, $status: @$input)
 
-    this
+    @$('.wrap').append @uploader.render().el
+
+    w.render() for w in [@feedback, @progress, @status]
+
+  remove: =>
+    if @rendered
+      w.remove() for w in [@uploader, @feedback, @progress, @status]
+
+      @rendered = false
+
+  toggle: ->
+    if @rendered then @remove() else @render()
+
+
+class window.Upload.Uploader extends Backbone.View
+  className: 'uploadForm'
+  tagName: 'div'
 
   onProgress: (_, data) =>
     @$el.trigger('upload:progress', {
@@ -49,13 +69,6 @@ class window.Upload extends Backbone.View
     @metadata = new Upload.Metadata(model: @model)
 
     @$el.append @metadata.render().el
-
-    this
-
-  show: ->
-    @$el.show()
-
-    @$el.trigger 'showing'
 
     this
 
@@ -135,6 +148,91 @@ class Upload.Metadata extends Backbone.View
 
     @$('[data-widget = "complete-upload"]').show()
 
+
+class Upload.Feedback extends Backbone.View
+  events:
+    'upload:error': 'onError'
+    'upload:start': 'onStart'
+
+  initialize: ->
+    @$input = @options.$input
+
+  onError: ->
+    @$input.addClass 'error'
+
+  onStart: ->
+    @$input.removeClass 'error'
+
+  remove: ->
+    @$input.removeClass('error').removeClass('uploading').removeAttr 'disabled'
+
+  render: ->
+    @$input.removeClass('error').addClass('uploading').attr 'disabled', true
+
+
+class Upload.Feedback.Status extends Backbone.View
+  events:
+    'upload:done':     'onDone',
+    'upload:error':    'onError',
+    'upload:metadata': 'onMetadataSave',
+    'upload:splash':   'onSplash',
+    'upload:start':    'onStart',
+
+  initialize: ->
+    @$status = @options.$status
+
+  onError: ->
+    @$status.val I18n.t('upload.error')
+
+  onMetadataSave: ->
+    @$status.val I18n.t('upload.metadata')
+
+  onDone: (e) ->
+    @$status.val I18n.t('upload.done')
+
+  onSplash: ->
+    @$status.val I18n.t('upload.exists')
+
+  onStart: ->
+    @$status.val I18n.t('upload.start')
+
+  remove: ->
+    @$status.attr 'value', ''
+
+  render: ->
+    @$status.attr 'value', I18n.t('upload.waiting')
+
+
+class Upload.Feedback.Progress extends Backbone.View
+  events:
+    'upload:start':    'onStart',
+    'upload:progress': 'onProgress',
+
+  progressBeginPos: -625,
+  progressEndPos:   -25,
+
+  initialize: ->
+    @uploadStep = Math.abs(parseInt((@progressEndPos + @progressBeginPos) / 100))
+
+    @$progress = @options.$progress
+
+  onProgress: (_, data) ->
+    @setUploadProgress data.percent
+
+  onStart: ->
+    @setUploadProgress 0
+
+  remove: ->
+
+  render: ->
+    @onStart()
+
+  setUploadProgress: (percent) ->
+    pos = @progressBeginPos + percent * @uploadStep;
+
+    @$progress.css('background-position', pos + 'px 0');
+
+
 $ ->
-  Upload::template = $('#tmpl-upload').template()
+  Upload.Uploader::template = $('#tmpl-upload').template()
   Upload.Metadata::template = $('#tmpl-upload-metadata').template()

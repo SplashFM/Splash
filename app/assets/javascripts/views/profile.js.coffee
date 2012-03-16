@@ -35,6 +35,7 @@ class Profile.Content extends Page.Content
   renderTop: ($top) ->
     $top.append JST['profile/search']()
     @trackSearch = new TrackSearch el: @$('[data-widget = "track-search"]')
+    @upload      = new Upload(el: @$('[data-widget = "track-search"]'))
 
     mention = '@' + @user.get('nickname')
 

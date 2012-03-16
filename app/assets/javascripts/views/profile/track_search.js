@@ -1,38 +1,11 @@
 TrackSearch = Search.extend({
-  UPLOAD_BEGIN_POS: -625,
-  UPLOAD_END_POS: -25,
-
   animation: new Animation('slide', {direction: 'up'}, 200),
   collection: new TrackList,
   el: '[data-widget = "track-search"]',
-  events: _.extend({
-    'click [data-widget = "toggle-upload"]': 'showUpload',
-    'hiding': 'removeUploadProgressForm',
-    'showing': 'prepareUploadProgressForm',
-    'upload:done': 'onUploadDone',
-    'upload:error': 'onUploadError',
-    'upload:metadata': 'onMetadataSave',
-    'upload:progress': 'onUploadProgress',
-    'upload:splash': 'onUploadSplash',
-    'upload:start': 'onUploadStart',
-  }, Search.prototype.events),
   extraParams: {popular: true},
   keepResults: true,
   maxBrowseablePages: 2,
   menuContainer: 'ul',
-
-  initialize: function() {
-    Search.prototype.initialize.call(this);
-
-    this.input     = this.$('input.field');
-    this.uploadBar = this.input;
-
-    this.uploadStep =
-      Math.abs(parseInt((this.UPLOAD_END_POS + this.UPLOAD_BEGIN_POS) / 100));
-
-    this.upload = new Upload().render();
-    this.$('.wrap').append(this.upload.hide().el);
-  },
 
   disable: function() {
     $(this.el).block({
@@ -51,34 +24,6 @@ TrackSearch = Search.extend({
     $(this.el).unblock();
   },
 
-  onUploadError: function() {
-    this.uploadBar.addClass('error');
-    this.uploadBar.val(I18n.t('upload.error'));
-  },
-
-  onMetadataSave: function() {
-    this.uploadBar.val(I18n.t('upload.metadata'));
-  },
-
-  onUploadDone: function(e) {
-    this.uploadBar.val(I18n.t('upload.done'));
-  },
-
-  onUploadProgress: function(_, data) {
-    this.setUploadProgress(data.percent);
-  },
-
-  onUploadSplash: function() {
-    this.uploadBar.val(I18n.t('upload.exists'));
-  },
-
-  onUploadStart: function() {
-    this.uploadBar.removeClass('error');
-    this.uploadBar.val(I18n.t('upload.start'));
-
-    this.setUploadProgress(0);
-  },
-
   open: function() {
     this.menu.find('li:last').addClass('last');
   },
@@ -87,33 +32,6 @@ TrackSearch = Search.extend({
     var opts = {model: i};
 
     $(new TrackSearch.Track(opts).render().el).appendTo(this.menu);
-  },
-
-  prepareUploadProgressForm: function() {
-    this.uploadBar.removeClass('error');
-    this.uploadBar.addClass('uploading')
-    this.uploadBar.attr('disabled','true');
-    this.uploadBar.attr('value', I18n.t('upload.waiting'));
-
-    this.setUploadProgress(0);
-  },
-
-  removeUploadProgressForm: function() {
-    this.uploadBar.removeClass('uploading')
-    this.uploadBar.removeAttr('disabled','disabled');
-    this.uploadBar.attr('value','');
-  },
-
-  setUploadProgress: function(percent) {
-    var pos = this.UPLOAD_BEGIN_POS + percent * this.uploadStep;
-
-    this.uploadBar.css('background-position', pos + 'px 0');
-  },
-
-  showUpload: function(e) {
-    e.stopPropagation();
-
-    this.upload.show();
   },
 });
 
