@@ -213,12 +213,9 @@ class Upload.Feedback.Progress extends Backbone.View
     'upload:start':    'onStart',
     'upload:progress': 'onProgress',
 
-  progressBeginPos: -625,
-  progressEndPos:   -25,
+  progressBeginPos: -622,
 
   initialize: ->
-    @uploadStep = Math.abs(parseInt((@progressEndPos + @progressBeginPos) / 100))
-
     @$progress = @options.$progress
 
   onProgress: (_, data) ->
@@ -233,7 +230,8 @@ class Upload.Feedback.Progress extends Backbone.View
     @onStart()
 
   setUploadProgress: (percent) ->
-    pos = @progressBeginPos + percent * @uploadStep;
+    increment = Math.ceil(@$progress.width() * percent / 100)
+    pos       = @progressBeginPos + increment
 
     @$progress.css('background-position', pos + 'px 0');
 
