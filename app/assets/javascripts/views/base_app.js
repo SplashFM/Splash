@@ -217,17 +217,11 @@ window.BaseApp.GlobalSearch = Backbone.View.extend({
   collapse: function() {
     this.$(':text').val('');
 
-    this.change('opened', 'closed')
+    this.$el.removeClass('opened')
   },
 
   expand: function() {
-    this.change('closed', 'opened')
-  },
-
-  change: function(from, to) {
-    $(this.el).
-      removeClass(from).
-      addClass(to);
+    this.$el.addClass('opened')
   },
 });
 
