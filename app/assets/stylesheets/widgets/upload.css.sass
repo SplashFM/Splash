@@ -5,6 +5,33 @@
     @extend .customInputStyle
     width: 360px
 
+.head-search
+  &.uploading
+    @extend .opened
+
+    background: url("/css/images/upload_progress.png") #FFFFFF no-repeat -625px 0px
+
+    .search
+      display: none
+
+    .field
+      background: none
+      color: #000
+      text-shadow: 0px 1px 0px #FFF
+      padding-left: 8px
+      text-align: center
+
+  .uploadForm
+    margin-left: -100px
+    width: 500px
+
+  .toggle-upload
+    @extend .avan-bold
+    font-size: 12px
+    position: absolute
+    right: -60px
+    top: 8px
+
 .main-search
   .upload
     width: 95px
@@ -26,7 +53,7 @@
       background: url(/css/images/upload-btn.png) no-repeat 0 0
 
   &.uploading .field
-    background: url("/css/images/upload_progress.png") #FFFFFF no-repeat -160px 0px
+    background: url("/css/images/upload_progress.png") #FFFFFF no-repeat -625px 0px
     color: #000
     text-shadow: 0px 1px 0px #FFF
     text-align: center
