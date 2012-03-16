@@ -15,4 +15,6 @@
             {{else}}
             %a{:href => "/undiscovered_tracks/${id}/download", :'data-skip-pjax' => true} Download track
             {{/if}}
+      .numbers
+        .the_splash_count ${splash_count}
       = render 'shared/splash_action'

@@ -139,6 +139,8 @@ TrackSearch.Track = Backbone.View.extend({
       el: this.$('[data-widget = "full-splash-action"]').get(0),
     });
 
+    SPLASH.Widgets.numFlipper($('.the_splash_count', this.el))
+
     return this;
   },
 });

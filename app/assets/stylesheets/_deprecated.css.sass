@@ -847,19 +847,6 @@ a.nav-username:hover
     background: url(/css/images/feed-splash-btn.png) no-repeat 0 0
   .splash-btn[style]
     z-index: 0 !important
-  .numbers
-    position: absolute
-    top: 19px
-    right: 93px
-    height: 53px
-    > span
-      float: right
-      height: 53px
-      position: relative
-      overflow: hidden
-      margin-left: 4px
-      img
-        display: block
   > li
     &:hover, &.expanded
       background: #e0edf7
@@ -1855,3 +1842,23 @@ li.expanded .header_label
       padding-left: 15px
       a
         color: #000
+
+.live-feed, .main-search, .head-search
+  .numbers
+    position: absolute
+    top: 17px
+    right: 93px
+    height: 53px
+    > span
+      float: right
+      height: 53px
+      position: relative
+      overflow: hidden
+      margin-left: 4px
+      img
+        display: block
+
+.main-search, .heaad-search
+  .numbers
+    right: 82px
+    top: 14px
