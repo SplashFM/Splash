@@ -14,12 +14,12 @@ TrackSearch = Search.extend({
     });
 
     this.$('input.field').attr('disabled', true);
-    this.$('[data-widget = "toggle-upload"]').addClass('disabled');
+    this.$('.toggle-upload').addClass('disabled');
   },
 
   enable: function() {
     this.$('input.field').attr('disabled', false);
-    this.$('[data-widget = "toggle-upload"]').removeClass('disabled');
+    this.$('.toggle-upload').removeClass('disabled');
 
     $(this.el).unblock();
   },

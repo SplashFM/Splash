@@ -1,6 +1,6 @@
 class window.Upload extends Backbone.View
   events:
-    'click [data-widget = "toggle-upload"]': 'toggle',
+    'click .toggle-upload': 'toggle',
     'upload:complete': 'remove'
 
   initialize: ->

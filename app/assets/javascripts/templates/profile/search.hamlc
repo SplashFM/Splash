@@ -20,6 +20,6 @@
       .controls
         %a.view-all{:href => "#", :data => {:widget => 'view-all-results'}}
           = I18n.t('shared.feed_search.view_all_results')
-  %a.upload.right{:href => "#", :data => {:widget => 'toggle-upload'}}
+  %a.upload.toggle-upload.right{:href => "#"}
     = I18n.t('upload.upload')
   .cl &nbsp;
