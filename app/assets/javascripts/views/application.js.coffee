@@ -15,6 +15,7 @@ class Application extends Backbone.View
     @_initializeNotifications()
     @_initializeScroll()
     @_initializePlayer()
+    @_initializeUpload()
     @_initializePlugins()
     @_initializeRoutes()
 
@@ -83,6 +84,12 @@ class Application extends Backbone.View
     new BaseApp.GlobalSearch
     new BaseApp.UserSearch
     new BaseApp.TrackSearch
+
+  _initializeUpload: ->
+    $w       = @$('[data-widget = "global-search"]')
+    progress = new Upload.Feedback.Progress(el: $w.get(0), $progress: $w)
+
+    @upload  = new Upload(el: $w.get(0), progress: progress)
 
   _routeLink: (e) ->
     $t = $(e.target).closest('a')

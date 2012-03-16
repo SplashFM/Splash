@@ -13,7 +13,8 @@ class window.Upload extends Backbone.View
 
     @uploader = new Upload.Uploader()
     @feedback = new Upload.Feedback(el: @el, $input: @$input)
-    @progress = new Upload.Feedback.Progress(el: @el, $progress: @$input)
+    @progress = @options.progress or
+      new Upload.Feedback.Progress(el: @el, $progress: @$input)
     @status   = new Upload.Feedback.Status(el: @el, $status: @$input)
 
     @$('.wrap').append @uploader.render().el
