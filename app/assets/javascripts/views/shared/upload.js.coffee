@@ -164,10 +164,14 @@ class Upload.Feedback extends Backbone.View
     @$input.removeClass 'error'
 
   remove: ->
-    @$input.removeClass('error').removeClass('uploading').removeAttr 'disabled'
+    @$el.removeClass('error').removeClass 'uploading'
+
+    @$input.removeAttr 'disabled'
 
   render: ->
-    @$input.removeClass('error').addClass('uploading').attr 'disabled', true
+    @$el.removeClass('error').addClass 'uploading'
+
+    @$input.attr 'disabled', true
 
 
 class Upload.Feedback.Status extends Backbone.View
