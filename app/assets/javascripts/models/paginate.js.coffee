@@ -18,11 +18,14 @@ window.Paginate = (collection, elemsPerPage, fetchData) ->
       collection.fetch
         add:     true
         data:    data
-        success: => @trigger "loaded"
+        success: @loaded
         error:   => @trigger "paginate:error"
 
     hasNext: ->
       not lastLength? or collection.length == (lastLength + elemsPerPage)
+
+    loaded: =>
+      @trigger "loaded"
 
     refetch: ->
       collection.reset()
