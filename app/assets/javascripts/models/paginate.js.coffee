@@ -6,6 +6,18 @@ window.Paginate = (collection, elemsPerPage, fetchData) ->
   collection.bind "reset", -> data.page = 1
 
   _(
+    at: (index, callback) ->
+      if index >= collection.length
+        n = @pageFor(index) - data.page
+
+        @fetchNext n, -> if callback? then callback collection.at(index)
+
+        undefined
+      else
+        if callback? then callback collection.at(index)
+
+        collection.at(index)
+
     collection: ->
       collection
 
@@ -37,6 +49,9 @@ window.Paginate = (collection, elemsPerPage, fetchData) ->
       data.page = data.page + 1
 
       @trigger "loaded"
+
+    pageFor: (index) ->
+      parseInt(index / elemsPerPage) + 1
 
     refetch: ->
       collection.reset()
