@@ -9,7 +9,7 @@ window.Paginate = (collection, elemsPerPage, fetchData) ->
     collection: ->
       collection
 
-    fetchNext: ->
+    fetchNext: (n = 1) ->
       lastLength = collection.length
 
       @trigger "fetch"
@@ -19,7 +19,12 @@ window.Paginate = (collection, elemsPerPage, fetchData) ->
       collection.fetch
         add:     true
         data:    d
-        success: @loaded
+        success: =>
+          @loaded()
+
+          n = n - 1
+
+          if n > 0 then @fetchNext n
         error:   => @trigger "paginate:error"
 
     hasNext: ->
