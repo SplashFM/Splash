@@ -261,58 +261,6 @@ window.BaseApp.TrackSearch = Search.extend({
 
 ViewAllResults.addTo(BaseApp.TrackSearch)
 
-window.PlayerView = Backbone.View.extend({
-  events: {'splash:quick': 'disableSplashButton'},
-
-  initialize: function() {
-    _.bindAll(this, 'play');
-
-    $('body').bind('request:play', this.play);
-  },
-
-  disableSplashButton: function() {
-    this.$('.splash-btn').removeClass('splashable').addClass('unsplashable');
-  },
-
-  enableSplashButton: function() {
-    this.$('.splash-btn').removeClass('unsplashable').addClass('splashable');
-  },
-
-  play: function(_, data) {
-    var media = {};
-    media[data.track.preview_type] = data.track.preview_url;
-
-    this.el = $('#player-area').get(0);
-
-    $(this.el).html($.tmpl(this.template, data.track));
-
-    $("[data-widget = 'player']").
-      jPlayer({cssSelectorAncestor: '[data-widget = "player-ui"]',
-               swfPath:             '/Jplayer.swf',
-               supplied:            data.track.preview_type,
-               ready: function() {
-                 $(this).
-                   jPlayer('setMedia', media).
-                   jPlayer('play');
-               }});
-
-    new BaseApp.QuickSplashAction({
-      el:     this.$('.splash-btn'),
-      model:  new Track(data.track),
-    });
-
-    if (data.track.splashable) {
-      this.enableSplashButton();
-    } else {
-      this.disableSplashButton();
-    }
-
-    this.delegateEvents(this.events);
-
-    fixBG(this.$('#player-container'));
-  },
-}).mixin(Purchase);
-
 window.UserMentions = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, 'find', 'isSearchable', 'onClose', 'onSelect');
@@ -388,8 +336,6 @@ window.UserMentions = Backbone.View.extend({
 UserMentions.linkMentions = function(text) {
   return text.replace(Constants.NICKNAME_REGEXP, '<a href="$1">$1</a>');
 };
-
-window.Player = new PlayerView;
 
 window.List = Backbone.View.extend({
   tagName: 'ul',
@@ -471,5 +417,4 @@ $(function() {
     $('#tmpl-user').template();
   BaseApp.UserSearch.prototype.templateRelationship =
     $('#tmpl-relationship-list').template();
-  PlayerView.prototype.template = $('#tmpl-player').template();
 });

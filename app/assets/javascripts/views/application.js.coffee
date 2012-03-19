@@ -51,7 +51,7 @@ class Application extends Backbone.View
       new BaseApp.Notifications el: $('[data-widget = "notifications"]')
 
   _initializePlayer: ->
-    new PlayerView
+    new Player
 
   _initializePlugins: ->
     @$('.fancybox-large').fancybox Scaphandrier.Fancybox.Large.params.customizations
