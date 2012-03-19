@@ -14,7 +14,7 @@ class Router extends Backbone.Router
       app:    @app
       sample: sample
 
-  topTracks: (period = '7d', sample = @builder.defaultSample()) ->
+  topTracks: (period = '7d', sample = 'everyone') ->
     @setPage new Home.TopTracks
       app:    @app
       period: period
@@ -33,7 +33,7 @@ class Router.Builder
   defaultSample: ->
     if @user.isNew() then 'everyone' else 'following'
 
-  topTracks: (period = '7d', sample = @defaultSample()) ->
+  topTracks: (period = '7d', sample = 'everyone') ->
     "top/tracks/#{period}/#{sample}"
 
   latestSplashes: (sample = @defaultSample()) ->
