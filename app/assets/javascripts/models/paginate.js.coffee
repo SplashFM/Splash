@@ -10,14 +10,15 @@ window.Paginate = (collection, elemsPerPage, fetchData) ->
       collection
 
     fetchNext: ->
-      data.page  = data.page + 1
       lastLength = collection.length
 
       @trigger "fetch"
 
+      d = _.extend({}, data, page: data.page + 1)
+
       collection.fetch
         add:     true
-        data:    data
+        data:    d
         success: @loaded
         error:   => @trigger "paginate:error"
 
@@ -25,6 +26,8 @@ window.Paginate = (collection, elemsPerPage, fetchData) ->
       not lastLength? or collection.length == (lastLength + elemsPerPage)
 
     loaded: =>
+      data.page = data.page + 1
+
       @trigger "loaded"
 
     refetch: ->
