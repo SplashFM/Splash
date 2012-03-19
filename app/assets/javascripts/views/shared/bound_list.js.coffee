@@ -17,6 +17,9 @@ class BoundList extends Backbone.View
   appendItem: (item) =>
     @$el.append @renderItem(item)
 
+  indexOf: (item) ->
+    @$el.children().index(item)
+
   render: ->
     @collection.each @appendItem
 
