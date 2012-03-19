@@ -7,8 +7,9 @@ class Router extends Backbone.Router
   routes:
     'top/tracks/:period/:sample': 'topTracks'
     'latest/:sample':             'latestSplashes'
+    'home':                       'latestSplashes'
 
-  latestSplashes: (sample) ->
+  latestSplashes: (sample = @builder.defaultSample()) ->
     @setPage new Home.LatestSplashes
       app:    @app
       sample: sample
@@ -37,5 +38,7 @@ class Router.Builder
 
   latestSplashes: (sample = @defaultSample()) ->
     "latest/#{sample}"
+
+  home: -> @latestSplashes()
 
 Home.Router = Router

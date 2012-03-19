@@ -10,7 +10,7 @@ class Router extends Backbone.Router
     builder = if @app.user.isNew()
                 @app.routers.home.builder.topTracks()
               else
-                @app.routers.home.builder.latestSplashes()
+                @app.routers.home.builder.home()
 
     Backbone.history.navigate(builder, trigger: true)
 
