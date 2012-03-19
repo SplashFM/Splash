@@ -22,6 +22,11 @@ class Home extends Page
         className: 'in-the-press'
         template:  JST['home/in_the_press']
     else
+      if (@app.user.isEqual(@user))
+        sidebar.add new TemplateView
+          template: JST['profile/points']
+          args: @user.toJSON()
+
       sidebar.add new SuggestedSplashersView(followerID: @app.user.id)
       sidebar.add new InviteUserView
 
