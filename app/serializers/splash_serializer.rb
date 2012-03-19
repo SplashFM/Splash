@@ -16,6 +16,10 @@ class SplashSerializer < ActiveModel::Serializer
       h[:type]       = 'splash'
       h[:splashable] = ! scope.try(:splashed?, splash.track_id)
 
+      if splash.comments.first.try(:splash_comment)
+        h[:comment] = splash.comments.first.body
+      end
+
       if @options[:full]
         h[:unsplashable] = splash.user_id == scope.try(:id)
         h[:expanded]     = true
@@ -24,6 +28,10 @@ class SplashSerializer < ActiveModel::Serializer
   end
 
   def comments
-    @options[:full] ? splash.comments : []
+    if @options[:full]
+      splash.comments.reject(&:splash_comment)
+    else
+      []
+    end
   end
 end
