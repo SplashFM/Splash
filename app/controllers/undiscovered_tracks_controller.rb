@@ -1,6 +1,8 @@
 class UndiscoveredTracksController < ApplicationController
   respond_to :json
 
+  skip_before_filter :require_user, :only => :download
+
   def create
     track = current_user.uploaded_tracks.create(params.slice(:local_data))
 
