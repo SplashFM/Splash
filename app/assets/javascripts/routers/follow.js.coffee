@@ -15,7 +15,7 @@ class Router extends Backbone.Router
   friends: ->
     @setPage new Follow.Friends(app: @app)
 
-  topSplashers: (sample = 'following') ->
+  topSplashers: (sample = 'everyone') ->
     @setPage new Follow.TopSplashers
       app:    @app
       sample: sample
