@@ -51,7 +51,8 @@ class Application extends Backbone.View
       new BaseApp.Notifications el: $('[data-widget = "notifications"]')
 
   _initializePlayer: ->
-    @mediaCenter = new MediaCenter(el: @el, player: @player = new Player)
+    @player      = new Player(el: @el)
+    @mediaCenter = new MediaCenter(el: @el, player: @player)
 
   _initializePlugins: ->
     @$('.fancybox-large').fancybox Scaphandrier.Fancybox.Large.params.customizations

@@ -1,5 +1,6 @@
 #= require hamlcoffee
 #= require lib
+#= require_tree ./util
 #= require routes
 #= require models
 #= require_tree ./models

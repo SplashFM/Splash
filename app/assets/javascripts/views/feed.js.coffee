@@ -1,4 +1,16 @@
 class Feed
+  @playable: (content, feed, collection, filters) ->
+    content.events ?= {}
+
+    playing         = (e, data) ->
+      _.extend data,
+        index:      feed.list.indexOf(e.target)
+        collection: collection
+
+    _.extend content.events, 'play': playing
+
+    content.delegateEvents()
+
   @eventFeed: (content, filters) ->
     feed = @feed content,
       collection: new EventList
@@ -8,7 +20,7 @@ class Feed
         new Feed.Splash(model: i, currentUserID: window.app.user.id)
       refresh:    true
 
-    splashed       = _.bind(feed.splashed, feed)
+    splashed        = _.bind(feed.splashed, feed)
     content.events ?= {}
 
     _.extend content.events,
@@ -16,6 +28,12 @@ class Feed
       'upload:complete': splashed
 
     content.delegateEvents()
+
+    @playable content,
+              feed,
+              Mapper(Paginate(new EventList, 10, filters),
+                              (e) -> if e? then e.get('track') else e),
+              filters
 
     feed
 
@@ -78,7 +96,7 @@ class Feed
 
   renderMain: ($main) ->
     $main.append _.extend(
-      new BoundList(className: @className, collection: @collection),
+      @list = new BoundList(className: @className, collection: @collection),
       newItem: @newItem).el
 
     @load $main

@@ -19,6 +19,7 @@ class Player extends Backbone.View
       supplied: track.preview_type
       ready: ->
         $(this).jPlayer("setMedia", media).jPlayer "play"
+      ended: => @$el.trigger 'play:done'
 
     # TODO: move this out
     new BaseApp.QuickSplashAction(
