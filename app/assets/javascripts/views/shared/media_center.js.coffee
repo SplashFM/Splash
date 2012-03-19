@@ -39,9 +39,10 @@ class Cursor
   getNew = (collection, at, callback) ->
     collection.at at, (track) ->
       if track?
-        callback new Cursor(collection, at)
-      else
-        callback new Cursor.Null()
+        if track.download_url?
+          callback new Cursor(collection, at)
+        else
+          getNew collection, at + 1, callback
 
 
 class Cursor.Null
