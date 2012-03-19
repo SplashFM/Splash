@@ -11,14 +11,15 @@ class Feed
 
     content.delegateEvents()
 
-  @eventFeed: (content, filters) ->
-    feed = @feed content,
-      collection: new EventList
-      className:  'live-feed'
-      filters:    filters
-      newItem:    (i) ->
-        new Feed.Splash(model: i, currentUserID: window.app.user.id)
-      refresh:    true
+  @eventFeed: (content, options) ->
+    params =
+      _({
+        collection: new EventList,
+        className:  'live-feed',
+        newItem:    (i) ->
+          new Feed.Splash(model: i, currentUserID: window.app.user.id)
+        , refresh:    true}).extend(options)
+    feed   = @feed content, params
 
     splashed        = _.bind(feed.splashed, feed)
     content.events ?= {}
@@ -31,9 +32,9 @@ class Feed
 
     @playable content,
               feed,
-              Mapper(Paginate(new EventList, 10, filters),
+              Mapper(Paginate(new EventList, 10, params.filters),
                               (e) -> if e? then e.get('track') else e),
-              filters
+              params.filters
 
     feed
 

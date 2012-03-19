@@ -42,10 +42,11 @@ class Profile.Content extends Page.Content
     @label    = if @section == 'mentions' then @mention else 'profile.my_splashes'
 
     @feed     = Feed.eventFeed this,
-      follower: if @section == 'mentions' then @user.id else ''
-      mentions: if @section == 'mentions' then 1 else ''
-      splashes: if @section == 'splashes' then 1 else ''
-      user:     @user.id
+      filters:
+        follower: if @section == 'mentions' then @user.id else ''
+        mentions: if @section == 'mentions' then 1 else ''
+        splashes: if @section == 'splashes' then 1 else ''
+        user:     @user.id
 
     @routes   = Profile.Router.routes
 
