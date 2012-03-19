@@ -2,33 +2,30 @@ class Player extends Backbone.View
   events:
     "splash:quick": "disableSplashButton"
 
-  initialize: ->
-    _.bindAll this, "play"
-    $("body").bind "play", @play
-
   disableSplashButton: ->
     @$(".splash-btn").removeClass("splashable").addClass "unsplashable"
 
   enableSplashButton: ->
     @$(".splash-btn").removeClass("unsplashable").addClass "splashable"
 
-  play: (_, data) ->
+  play: (track) ->
     media = {}
-    media[data.track.preview_type] = data.track.preview_url
+    media[track.preview_type] = track.preview_url
     @el = $("#player-area").get(0)
-    $(@el).html $.tmpl(@template, data.track)
+    $(@el).html $.tmpl(@template, track)
     $("[data-widget = 'player']").jPlayer
       cssSelectorAncestor: "[data-widget = \"player-ui\"]"
       swfPath: "/Jplayer.swf"
-      supplied: data.track.preview_type
+      supplied: track.preview_type
       ready: ->
         $(this).jPlayer("setMedia", media).jPlayer "play"
 
+    # TODO: move this out
     new BaseApp.QuickSplashAction(
       el: @$(".splash-btn")
-      model: new Track(data.track)
+      model: new Track(track)
     )
-    if data.track.splashable
+    if track.splashable
       @enableSplashButton()
     else
       @disableSplashButton()
