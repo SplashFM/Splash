@@ -27,4 +27,10 @@ class UserMailer < ActionMailer::Base
          :subject       => "#{notification.notifier.name} #{notification.action}",
          :template_name => notification.template
   end
+
+  def welcome(user)
+    @user = user
+
+    mail to: user.email, subject: 'Welcome to Splash.FM!'
+  end
 end

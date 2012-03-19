@@ -281,6 +281,10 @@ class User < ActiveRecord::Base
     []
   end
 
+  def first_name
+    name.split(/\s+/).first
+  end
+
   def follow(followed_id)
     follow_all([followed_id]).first
   end
