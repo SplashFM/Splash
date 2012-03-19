@@ -75,6 +75,9 @@ gem "valium"
 gem "omniauth-facebook"
 gem "omniauth-twitter"
 gem "haml_coffee_assets"
+gem "astrails-clicktale",
+    :require => nil,
+    :git => 'git://github.com/railsware/clicktale-client.git'
 
 group :assets do
   gem "sass-rails"

@@ -57,6 +57,7 @@
         #{once(:first_time_splasher) { "app.showTutorial();" } if logged_in?}
       });
   %body
+    = clicktale_top
     = render 'shared/ribbon' unless logged_in?
     = render 'shared/facebook_init'
     = render 'shared/twitter_init'
@@ -68,3 +69,5 @@
     #player-area
     = render "shared/olark"
     #fb-root
+
+    = clicktale_bottom

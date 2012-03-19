@@ -12,6 +12,12 @@ GIT
     redis-objects (0.5.2)
       redis (>= 2.1.1)
 
+GIT
+  remote: git://github.com/railsware/clicktale-client.git
+  revision: 198a0cb646ea42be2cd8fd20c7fcfcf0bd5d4de8
+  specs:
+    astrails-clicktale (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -346,6 +352,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers!
   acts-as-taggable-on (~> 2.1.0)
+  astrails-clicktale!
   awesome_print
   aws-s3
   babilu
