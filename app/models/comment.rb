@@ -7,7 +7,7 @@ class Comment < ActiveRecord::Base
   validates :body,   :presence => true
   validates :author, :presence => true
 
-  before_create :set_skip_feed
+  before_create :set_splash_comment
 
   scope :for_users, lambda { |user_ids|
     user_ids.blank? ? scoped : where(:author_id => user_ids)
@@ -22,7 +22,7 @@ class Comment < ActiveRecord::Base
     user_ids.blank? ? scoped : where('author_id not in (?)', user_ids)
   }
   scope :as_event, select("comments.created_at, comments.id target_id, 'Comment' target_type").
-                     where(:skip_feed => false)
+                     where(:splash_comment => false)
 
   def as_json(opts = {})
     {:body       => body,
@@ -38,8 +38,8 @@ class Comment < ActiveRecord::Base
 
   private
 
-  def set_skip_feed
-    write_attribute(:skip_feed, !! skip_feed)
+  def set_splash_comment
+    write_attribute(:splash_comment, !! splash_comment)
 
     nil
   end

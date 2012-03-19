@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120202152715) do
+ActiveRecord::Schema.define(:version => 20120319231014) do
 
   create_table "access_requests", :force => true do |t|
     t.string   "email"
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20120202152715) do
     t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "skip_feed"
+    t.boolean  "splash_comment"
   end
 
   add_index "comments", ["author_id"], :name => "index_comments_on_author_id"

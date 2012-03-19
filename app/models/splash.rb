@@ -115,7 +115,7 @@ class Splash < ActiveRecord::Base
 
   def set_comment
     if @comment
-      comments.build(:body => @comment, :author => user, :skip_feed => true)
+      comments.build(:body => @comment, :author => user, :splash_comment => true)
     end
   end
 end
