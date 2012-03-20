@@ -10,6 +10,4 @@ if cron_instances.include?(node[:instance_role])
 end
 
 run "cd #{release_path} && bundle exec rails runner -e #{environment} 'Babilu.generate'"
-run "cd #{release_path} && bundle exec rake RAILS_ENV=#{environment} sass:compile"
-run "cd #{release_path} && bundle exec compass compile -e production"
 run "cd #{release_path} && RAILS_ENV=#{environment} bundle exec jammit  --base-url http://ec2-107-20-221-189.compute-1.amazonaws.com"
