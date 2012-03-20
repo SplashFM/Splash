@@ -1,4 +1,4 @@
-class window.Upload extends Backbone.View
+class Upload extends Backbone.View
   events:
     'click .toggle-upload': 'toggle',
     'upload:complete': 'remove'
@@ -31,7 +31,7 @@ class window.Upload extends Backbone.View
     if @rendered then @remove() else @render()
 
 
-class window.Upload.Uploader extends Backbone.View
+class Upload.Uploader extends Backbone.View
   className: 'uploadForm'
   tagName: 'div'
 
@@ -236,6 +236,7 @@ class Upload.Feedback.Progress extends Backbone.View
 
     @$progress.css('background-position', pos + 'px 0');
 
+window.Upload = Upload
 
 $ ->
   Upload.Uploader::template = $('#tmpl-upload').template()
