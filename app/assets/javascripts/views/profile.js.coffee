@@ -20,7 +20,16 @@ class Profile extends Page
     sidebar.add new Profile.Follows(user: @user, full: true)
 
   renderTop: (content) ->
-    content.$top.append(JST['shared/top']())
+    routes  = Profile.Router.routes
+
+    content.$top.append JST['shared/tabbed_top'](
+      links: [{
+        href:  routes.profile(@user.get('nickname'), 'splashes')
+        label: 'profile.my_splashes'
+      }, {
+        href:  routes.profile(@user.get('nickname'), 'mentions')
+        label: content.mention}]
+      active:  content.label)
 
 
 class Profile.Content extends Page.Content
@@ -29,6 +38,9 @@ class Profile.Content extends Page.Content
 
     @section  = @options.section
     @user     = @options.user
+    @mention  = '@' + @user.get('nickname')
+    @label    = if @section == 'mentions' then @mention else 'profile.my_splashes'
+
     @feed     = Feed.eventFeed this,
       follower: if @section == 'mentions' then @user.id else ''
       mentions: if @section == 'mentions' then 1 else ''
@@ -36,18 +48,5 @@ class Profile.Content extends Page.Content
       user:     @user.id
 
     @routes   = Profile.Router.routes
-
-  renderTop: ($top) ->
-    mention = '@' + @user.get('nickname')
-
-    $top.append JST['shared/nav_list'](
-      links: [{
-        href:  @routes.profile(@user.get('nickname'), 'splashes')
-        label: 'profile.my_splashes'
-      }, {
-        href:  @routes.profile(@user.get('nickname'), 'mentions')
-        label: mention}]
-      active:  if @section == 'mentions' then mention else 'profile.my_splashes'
-    )
 
 window.Profile = Profile
