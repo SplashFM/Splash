@@ -73,8 +73,10 @@ Scaphandrier::Application.routes.draw do
   resources :notifications do
     put 'reset_read', :on => :collection
   end
+
   match '/profile' => 'users#show'
-  resources :users do
+
+  resources :users, :constraints => {id: %r{\w[A-Za-z0-9_.-]*\w}} do
     get 'avatar'
     get 'crop'
 
