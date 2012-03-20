@@ -30,7 +30,7 @@ class SplashesController < ApplicationController
                                    :full => full)
 
     respond_with @splash do |f|
-      f.html { render :layout => 'home' }
+      f.html { render text: '', :layout => 'home' }
     end
   end
 

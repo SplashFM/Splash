@@ -3,7 +3,7 @@ class FriendsController < ApplicationController
 
   def index
     respond_to { |f|
-      f.html { render layout: 'home' }
+      f.html { render text: '', layout: 'home' }
 
       f.json {
         sc = current_user.social_connection('facebook')

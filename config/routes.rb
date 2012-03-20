@@ -50,10 +50,7 @@ Scaphandrier::Application.routes.draw do
   get 'follow' => 'home#index'
 
   match '' => 'home#index', :as =>'home'
-  match '/splashboards' => 'home#splashboards', :as =>'splashboards'
   match 'dashboard' => 'home#index', :as => 'dashboard'
-  match 'home/events' => 'home#events'
-  match 'home/event_updates' => 'home#event_updates'
   match 'about' => 'home#about'
   match 'privacy' => 'home#privacy'
   match 'terms' => 'home#terms'
@@ -83,8 +80,6 @@ Scaphandrier::Application.routes.draw do
     get 'crop'
 
     member do
-      get :events
-      get :event_updates
       get :invite
     end
 

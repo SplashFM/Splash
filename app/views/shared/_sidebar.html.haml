@@ -1,9 +1,0 @@
-#side-bar-wrap.right
-  #side-bar
-    = render :partial => "users/vcard", :locals => {:user => current_user}
-    .contact-sep-shadow
-    - if defined?(omit_splashboards)
-      = render "shared/invitations"
-    - else
-      = render "shared/invitations"
-    = render "shared/footer"

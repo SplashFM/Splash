@@ -1,9 +1,0 @@
-#side-bar-wrap.left
-  #side-bar
-    = render :partial => "users/vcard", :locals => {:user => @user}
-
-    .contact-sep-shadow
-    = render "follows", :followers => @followers,
-                        :following => @following,
-                        :user      => @user
-    = render "shared/footer"

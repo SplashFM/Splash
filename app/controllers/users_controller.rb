@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   inherit_resources
   respond_to :html, :json
 
-  before_filter      :load_user, :only => [:show, :events, :event_updates]
+  before_filter      :load_user, :only => [:show]
 
   has_scope :with_text
   has_scope :filter

@@ -2,14 +2,11 @@ class HomeController < ApplicationController
   skip_before_filter :require_user
 
   def index
+    render text: '', layout: 'home'
   end
 
   def r
     redirect_to :action => :index
-  end
-
-  def splashboards
-    render :template => 'splashboards/index'
   end
 
   def about

@@ -8,14 +8,6 @@ function $w(name) {
   return $($ws(name));
 }
 
-Widgets.Paginate = {
-  init: function() {
-    $w('next-page').live('ajax:success', function(_, data) {
-      $(this).replaceWith(data);
-    });
-  }
-}
-
 Widgets.Scroll = {
   init: function() {
     $(".scroll-area").jScrollPane();
@@ -220,7 +212,6 @@ $(document).ready(function() {
   Widgets.Editable.init();
   Widgets.UserProfile.init();
   Widgets.Notification.init();
-  Widgets.Paginate.init();
   Widgets.ToolTip.init();
   new SPLASH.Widgets.waterNums('.waterNum');
 });
