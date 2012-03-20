@@ -57,6 +57,7 @@
         #{once(:first_time_splasher) { "app.showTutorial();" } if logged_in?}
       });
   %body
+    = render 'shared/ribbon' unless logged_in?
     = render 'shared/facebook_init'
     = render 'shared/twitter_init'
     = render "shared/ie6_banner"
