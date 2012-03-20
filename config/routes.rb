@@ -97,6 +97,8 @@ Scaphandrier::Application.routes.draw do
   match '/:id'       => 'users#show',
         :as          => 'user_slug',
         :constraints => { :id => %r{\w[A-Za-z\d_.-]*\w} }
+  match '/:id/*path' => 'users#show',
+        :constraints => { :id => %r{\w[A-Za-z\d_.-]*\w} }
   get ':id/followers' => 'relationships#followers', :as => 'followers'
   get ':id/following' => 'relationships#following', :as => 'following'
 
