@@ -38,10 +38,6 @@ class Profile.Content extends Page.Content
     @routes   = Profile.Router.routes
 
   renderTop: ($top) ->
-    $top.append JST['profile/search']()
-    @trackSearch = new TrackSearch el: @$('[data-widget = "track-search"]')
-    @upload      = new Upload(el: @$('[data-widget = "track-search"]'))
-
     mention = '@' + @user.get('nickname')
 
     $top.append JST['shared/nav_list'](
