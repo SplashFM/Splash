@@ -12,6 +12,11 @@ class Profile extends Page
   renderSidebar: (sidebar) ->
     super
 
+    if (@app.user.isEqual(@user))
+      sidebar.add new TemplateView
+        template: JST['profile/points']
+        args: @user.toJSON()
+
     sidebar.add new Profile.Follows(user: @user, full: true)
 
   renderTop: (content) ->

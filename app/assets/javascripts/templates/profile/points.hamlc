@@ -1,0 +1,19 @@
+.points-container
+  .ripples.left{:data => {:widget => 'ripples'}}
+    %span.label.avan-bold Ripples
+    %span.v-divider
+    %span.number.avan-bold
+      .outer
+        = @ripple_count
+        .inner
+          = @ripple_count
+  .splashes.left
+    %span.label.avan-bold Splashes
+    %span.v-divider
+    %span.number.avan-bold
+      .outer
+        = @splash_count
+        .inner
+          = @splash_count
+
+  %div{:class => "cl #{defined?(border) && 'border'}"} &nbsp;
