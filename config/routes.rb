@@ -1,4 +1,6 @@
 Scaphandrier::Application.routes.draw do
+  USER_ID_CONSTRAINT = %r{\w[A-Za-z0-9_.-]*\w}
+
   match '/invite_friends' => 'users#invite_friends'
 
   # Uncomment to turn on the landing page with email collect for the private release.
@@ -76,7 +78,7 @@ Scaphandrier::Application.routes.draw do
 
   match '/profile' => 'users#show'
 
-  resources :users, :constraints => {id: %r{\w[A-Za-z0-9_.-]*\w}} do
+  resources :users, :constraints => {id: USER_ID_CONSTRAINT} do
     get 'avatar'
     get 'crop'
 
@@ -96,9 +98,9 @@ Scaphandrier::Application.routes.draw do
   post '/relationships/:id' => 'relationships#create'
   match '/:id'       => 'users#show',
         :as          => 'user_slug',
-        :constraints => { :id => %r{\w[A-Za-z\d_.-]*\w} }
+        :constraints => {:id => USER_ID_CONSTRAINT}
   match '/:id/*path' => 'users#show',
-        :constraints => { :id => %r{\w[A-Za-z\d_.-]*\w} }
+        :constraints => {:id => USER_ID_CONSTRAINT}
   get ':id/followers' => 'relationships#followers', :as => 'followers'
   get ':id/following' => 'relationships#following', :as => 'following'
 
