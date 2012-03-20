@@ -13,7 +13,11 @@
       {{/if}}
       %p.songname.avan-demi ${track.title}
       %p.songauthor ${track.performers}
-      %p.comment    ${comment}
+      {{if comment}}
+      .splash-comment
+        .tip
+        %p {{html UserMentions.linkMentions(comment)}}
+      {{/if}}
       %ul.meta
         %li.download
           {{if track.purchase_url}}

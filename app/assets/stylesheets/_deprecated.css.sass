@@ -940,7 +940,7 @@ a.nav-username:hover
     .avatar
       width: 34px
       height: 34px
-    .entry
+    .comment-entry
       width: 275px
       padding-left: 7px
       font-size: 10px
@@ -1116,6 +1116,7 @@ a.nav-username:hover
         background: url(/css/images/pin.png) no-repeat right top
         padding-right: 17px
         height: 19px
+
   .splash-btn
     width: 35px
     height: 36px
@@ -1145,7 +1146,7 @@ a.nav-username:hover
     font-size: 10px
     margin: 10px 0px
 
-.splash-comment
+textarea.splash-comment-area
   @extend .customInputStyle
   margin-top: 5px
   height: 60px
@@ -1707,13 +1708,6 @@ body
   margin-left: -5px
 .inner-comment-text
   color: #000
-  a
-    color: #4B6482!important
-    text-shadow: 0px 1px 0px
-    font-size: 11px
-    background-color: rgba(255, 255, 255, 0.3)
-    margin: 0px 3px
-    padding: 0px 2px
 .author-name
   text-transform: capitalize
   margin-right: 2px
@@ -1721,6 +1715,15 @@ body
   width: 570px
 .jp-seek-bar, jp-seek-bar:active
   cursor: pointer
+
+.inner-comment-text, .splash-comment
+  a
+    color: #4B6482!important
+    text-shadow: 0px 1px 0px
+    font-size: 11px
+    background-color: rgba(255, 255, 255, 0.3)
+    margin: 0px 3px
+    padding: 0px 2px
 
 .drop
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.898)
@@ -1849,3 +1852,38 @@ li.expanded .header_label
   .numbers
     right: 82px
     top: 14px
+
+div.splash-comment
+  +border-radius(7px)
+  background: #cfe4f4
+  color: #333
+  font: 12px Georgia
+  font-style: italic
+  margin: 10px 0 15px
+  padding: 10px
+  position: relative
+  width: 320px
+
+  .tip
+    border:
+      color: #cfe4f4 #fff #fff #fff
+      width: 10px 0 0 10px
+      style: solid
+    height: 0
+    position: absolute
+    right: 7px
+    bottom: -10px
+    width: 0
+
+.live-feed > li
+  &:hover, &.expanded
+    div.splash-comment .tip
+      border-color: #cfe4f4 #e0edf7 #e0edf7 #e0edf7
+
+.full-splash-action
+  height: 51px
+  margin-top: -25px
+  position: absolute
+  right: 15px
+  top: 50%
+  width: 51px
