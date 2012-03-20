@@ -21,8 +21,6 @@ class AccessRequest < ActiveRecord::Base
   before_create :mark_invited, :if => :inviter
   after_create  :notify, :if => :email?
 
-  validate :ensure_invites_available, :if => :invites_constrained?
-
   scope :requested_on, lambda { |date| where('date(created_at) = ?', date) }
   scope :pending, where(:granted => false)
 
@@ -44,12 +42,6 @@ class AccessRequest < ActiveRecord::Base
     codes.include?(code) || find_by_code_and_user_id(code, nil)
   end
 
-  def self.remaining(user)
-    INVITATION_COUNT -
-      where(:inviter_id => user.id).
-        where('access_requests.email is not null').count
-  end
-
   def self.reserve(code, user)
     # no access request will be returned for generic codes
     find_by_code(code).try :update_attribute, :user_id, user.id
@@ -58,7 +50,6 @@ class AccessRequest < ActiveRecord::Base
   def as_json(options = {})
     hash = super
     hash[:referral_url] = options[:url_builder].call(referral_code) if options[:url_builder].present?
-    hash[:remaining_count] = AccessRequest.remaining(inviter) if inviter
     hash
   end
 
@@ -72,16 +63,6 @@ class AccessRequest < ActiveRecord::Base
   end
 
   private
-
-  def ensure_invites_available
-    unless self.class.remaining(inviter) > 0
-      errors.add(:inviter, 'has no invites left')
-    end
-  end
-
-  def invites_constrained?
-    inviter && email?
-  end
 
   def notify
     mailer = inviter ? 'send_invitation' : 'confirm_access_request'

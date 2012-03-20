@@ -10,19 +10,14 @@ window.InviteUserView = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html($.tmpl(this.template, {invitations_count: this.options.remaining_invitations}));
+    $(this.el).html($.tmpl(this.template));
 
     return this;
   },
 
   reload: function(_, data) {
-    $("[data-widget = 'remaining_count']").html(data.remaining_count);
     $("[data-widget = 'email']").val('');
     this.$("[data-widget = 'email']").removeClass('error');
-
-    if (data.remaining_count < 1) {
-      this.$('input').attr('disabled', true);
-    }
   },
 
   clearText: function(){
