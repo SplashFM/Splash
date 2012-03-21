@@ -4,7 +4,7 @@ class Player extends Backbone.View
 
   initialize: ->
     _.bindAll this, "play"
-    $("body").bind "request:play", @play
+    $("body").bind "play", @play
 
   disableSplashButton: ->
     @$(".splash-btn").removeClass("splashable").addClass "unsplashable"

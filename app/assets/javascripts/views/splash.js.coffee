@@ -77,7 +77,7 @@ class Splash extends Backbone.View
   play: (e) ->
     e.preventDefault()
 
-    $(@el).trigger('request:play', track: @model.get('track'))
+    $(@el).trigger('play', track: @model.get('track'))
 
   splashed: (_, data) =>
     if data.track.id == @model.get('track').id

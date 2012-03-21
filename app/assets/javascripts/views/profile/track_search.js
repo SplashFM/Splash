@@ -44,8 +44,7 @@ TrackSearch.Track = Backbone.View.extend({
   play: function(e) {
     e.preventDefault();
 
-    $(this.el).trigger('request:play',
-                       {track: this.model.toJSON()});
+    $(this.el).trigger('play', {track: this.model.toJSON()});
   },
 
   render: function() {
@@ -179,8 +178,7 @@ window.TrackSearch.AllResults.Result = Backbone.View.extend({
   },
 
   play: function() {
-    $(this.el).trigger('request:play',
-                       {track: this.model.toJSON()});
+    $(this.el).trigger('play', {track: this.model.toJSON()});
   },
 
   render: function() {

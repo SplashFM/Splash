@@ -79,7 +79,7 @@ class TopTrack extends Backbone.View
   play: (e) ->
     e.preventDefault()
 
-    @$el.trigger 'request:play', track: @model.toJSON()
+    @$el.trigger 'play', track: @model.toJSON()
 
   togglePlay: => @$el.toggleClass 'playable'
 
