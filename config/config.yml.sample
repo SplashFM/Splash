@@ -29,6 +29,7 @@ common: &common
   facebook:
     key:
     secret:
+    namespace:
   twitter:
     key:
     secret:
@@ -47,4 +48,3 @@ test_pg:
 
 production:
   <<: *common
-
