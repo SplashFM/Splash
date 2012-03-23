@@ -3,7 +3,7 @@ class SocialConnection < ActiveRecord::Base
 
   belongs_to :user
 
-  def_delegators :remote, :friends, :avatar_url
+  def_delegators :remote, :friends, :avatar_url, :splashed
 
   validates :uid, :uniqueness => true
 
@@ -18,6 +18,10 @@ class SocialConnection < ActiveRecord::Base
   end
 
   class Facebook
+    def self.app
+      @app ||= FbGraph::Application.new(AppConfig.facebook['key'])
+    end
+
     def initialize(connection)
       @me = FbGraph::User.new(connection.uid, :access_token => connection.token)
     end
@@ -34,6 +38,11 @@ class SocialConnection < ActiveRecord::Base
 
       (filter ? friends.select { |f| f[:name].match(/#{filter}/i) } : friends).
         map { |f| FbGraph::User.new(f[:identifier], f) }
+    end
+
+    def splashed(splash, router)
+      @me.og_action! self.class.app.og_action(:splash),
+                     :song => router.splash_url(splash)
     end
 
     module FriendAttributes

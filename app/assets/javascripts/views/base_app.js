@@ -73,6 +73,9 @@ window.FullSplashAction = BaseApp.SplashAction.extend({
     this.$('input[type = "submit"]').attr('disabled', true);
 
     new Splash().save({
+      share: {
+        facebook: this.$('input[name = "post_to_fb"]').attr('checked')
+      },
       comment:  this.comment.comment(),
       track_id: this.model.get('id'),
       parent_id: this.options.parent && this.options.parent.get('id'),

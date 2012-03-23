@@ -31,10 +31,17 @@ class ApplicationController < ActionController::Base
   end
 
   def splash_and_post(attrs, track, parent=nil)
-    Splash.create!(:track => track,
-                   :user => current_user,
-                   :comment => attrs[:comment],
-                   :parent_id => parent)
+    Splash.create!(:track     => track,
+                   :user      => current_user,
+                   :comment   => attrs[:comment],
+                   :parent_id => parent).tap { |splash|
+
+      if attrs[:share][:facebook].present? &&
+         (fb = current_user.social_connection(:facebook))
+
+        fb.delay.splashed(splash, self)
+      end
+    }
   end
 
   def truncate(text, length = 136, end_string = '...')
