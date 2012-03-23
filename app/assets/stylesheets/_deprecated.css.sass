@@ -1895,3 +1895,19 @@ div.splash-comment
     p
       font-size: 14px
       padding: 10px 70px
+
+label.post-to-tw, label.post-to-fb
+  display: inline-block
+
+.post-to-tw, .post-to-fb
+  position: relative
+  top: 3px
+
+label.post-to-tw
+  +replace-text-with-dimensions("post-to-twitter.png")
+  top: 11px
+  margin-right: 10px
+
+label.post-to-fb
+  +replace-text-with-dimensions("post-to-facebook.png")
+  top: 10px
