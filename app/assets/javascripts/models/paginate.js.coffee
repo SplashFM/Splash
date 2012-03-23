@@ -1,63 +1,62 @@
 window.Paginate = (collection, elemsPerPage, fetchData) ->
-  lastLength   = undefined
-  data         = _({}).extend(fetchData, page: 0)
-  elemsPerPage = elemsPerPage or 10
+  new Paginate(collection, elemsPerPage, fetchData)
 
-  collection.bind "reset", -> data.page = 1
+class Paginate
+  constructor: (collection, elemsPerPage, fetchData) ->
+    @collection   = collection
+    @elemsPerPage = elemsPerPage
+    @data         = _({}).extend(fetchData, page: 0)
 
-  _(
-    at: (index, callback) ->
-      if index >= collection.length
-        n = @pageFor(index) - data.page
+    @collection.bind 'reset', => @data.page = 1
 
-        @fetchNext n, -> if callback? then callback collection.at(index)
+  at: (index, callback) ->
+    if index >= @collection.length
+      @fetchNext @pageFor(index) - @data.page,
+                 => if callback? then callback @collection.at(index)
 
-        undefined
-      else
-        if callback? then callback collection.at(index)
+      undefined
+    else
+      if callback? then callback @collection.at(index)
 
-        collection.at(index)
+      @collection.at(index)
 
-    collection: ->
-      collection
+  fetchNext: (n = 1, callback) ->
+    @lastLength = @collection.length
 
-    fetchNext: (n = 1, callback) ->
-      lastLength = collection.length
+    data = _.extend({}, @data, page: @data.page + 1)
 
-      @trigger "fetch"
+    @trigger "fetch"
 
-      d = _.extend({}, data, page: data.page + 1)
+    @collection.fetch
+      add:     true
+      data:    data
+      success: =>
+        @loaded()
 
-      collection.fetch
-        add:     true
-        data:    d
-        success: =>
-          @loaded()
+        n = n - 1
 
-          n = n - 1
+        if n > 0
+          @fetchNext n, callback
+        else if callback?
+          callback()
+      error:   => @trigger "paginate:error"
 
-          if n > 0
-            @fetchNext n, callback
-          else if callback?
-            callback()
-        error:   => @trigger "paginate:error"
+  hasNext: ->
+    not @lastLength? or @collection.length == (@lastLength + @elemsPerPage)
 
-    hasNext: ->
-      not lastLength? or collection.length == (lastLength + elemsPerPage)
+  loaded: ->
+    @data.page = @data.page + 1
 
-    loaded: =>
-      data.page = data.page + 1
+    @trigger "loaded"
 
-      @trigger "loaded"
+  pageFor: (index) ->
+    parseInt(index / @elemsPerPage) + 1
 
-    pageFor: (index) ->
-      parseInt(index / elemsPerPage) + 1
+  refetch: ->
+    @collection.reset()
 
-    refetch: ->
-      collection.reset()
+    @data.page = 0
 
-      data.page = 0
+    @fetchNext()
 
-      @fetchNext()
-
-  ).extend Backbone.Events
+_.extend(Paginate.prototype, Backbone.Events)
