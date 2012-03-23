@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   serialize :email_preferences, Hash
   serialize :settings, Hash
 
-  attr_accessor :access_code
+  attr_accessor :signup_code
   attr_accessor :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
   has_many :relationships, :foreign_key => 'follower_id'
@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider,
-                  :nickname, :access_code, :email_preferences
+                  :nickname, :access_code, :email_preferences, :signup_code
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
   validates_attachment_content_type :avatar, :content_type => /image/
@@ -92,6 +92,8 @@ class User < ActiveRecord::Base
                       :with => /\A#{NICKNAME_REGEXP}\Z/,
                       :message => "can only be alphanumeric with no spaces"
   validates :tagline, :length => { :maximum => 60 }
+
+  validate :signup_code_required, :on => :create
 
   before_validation :generate_nickname, :on => :create
   before_save :possibly_delete_avatar
@@ -508,6 +510,10 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def signup_code_required
+    errors.add(:signup_code, :invalid) unless signup_code == 'RIPPLE'
+  end
 
   def access_code_required?
     ! Rails.env.test?

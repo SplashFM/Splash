@@ -46,6 +46,8 @@ $(function() {
           this.$('[name = "user[password_confirmation]"]').addClass('error');
 
           break;
+        case 'signup_code':
+          this.$('[name = "user[signup_code]"]').addClass('error');
         }
       }
     },
