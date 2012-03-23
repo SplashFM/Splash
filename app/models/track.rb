@@ -3,7 +3,8 @@ require 'redis_record'
 class Track < ActiveRecord::Base
   paginates_per 5
 
-  DEFAULT_ARTWORK_URL     = "/images/no_album_art.png"
+  # FIXME: wrong! wrong! wrong!
+  DEFAULT_ARTWORK_URL     = "http://splash.fm/images/no_album_art.png"
   # what popularity value to use for UndiscoveredTracks
   UNDISCOVERED_POPULARITY = -1
 
