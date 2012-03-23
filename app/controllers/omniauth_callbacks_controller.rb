@@ -32,6 +32,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       sign_in_and_redirect user, :event => :authentication
     else
+      redirect_to root_path and return
+
       user = User.create_with_social_connection(ft)
 
       if user.persisted?
@@ -52,6 +54,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       sign_in_and_redirect user, :event => :authentication
     else
+      redirect_to root_path and return
+
       session['devise.provider_data'] = tt
 
       redirect_to new_sn_registration_path
