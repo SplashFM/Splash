@@ -5,7 +5,7 @@ class SplashesController < ApplicationController
   skip_before_filter :require_user, :only => :show
 
   def create
-    splash = splash_and_post(params.slice(:track_id, :comment),
+    splash = splash_and_post(params,
                              Track.find(params[:track_id]), params[:parent_id])
 
     respond_with splash

@@ -33,14 +33,14 @@ class UndiscoveredTracksController < ApplicationController
     track = current_user.uploaded_tracks.find(params[:id])
 
     if track.update_attributes(params.slice(:albums, :title, :performers))
-      splash_and_post params.slice(:comment), track
+      splash_and_post params, track
 
       respond_with track
     elsif track.taken?
       begin
         c = track.replace_with_canonical
 
-        splash_and_post params.slice(:comment), c
+        splash_and_post params, c
 
         respond_with_canonical c
       rescue ActiveRecord::RecordInvalid => e
