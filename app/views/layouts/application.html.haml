@@ -53,8 +53,6 @@
           user: new User(#{user_json}),
           facebookAppID: "#{AppConfig.facebook['key']}"
         });
-
-        #{once(:first_time_splasher) { "app.showTutorial();" } if logged_in?}
       });
   %body
     = clicktale_top
