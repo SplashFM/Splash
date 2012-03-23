@@ -26,12 +26,31 @@
     margin-left: -100px
     width: 500px
 
-  .toggle-upload
-    @extend .avan-bold
-    font-size: 12px
+  .toggle-upload-bg, .toggle-upload
+    +border-radius(0 5px 5px 0)
     position: absolute
     right: -60px
-    top: 8px
+    top: 3px
+  .toggle-upload-bg
+    +box-shadow(0 0 1px #38a0e8)
+    background: image-url("toggle-upload-bg.png") repeat 0 -3px
+    height: 24px
+    width: 100px
+    z-index: -1
+
+  .toggle-upload
+    color: #fff
+    display: block
+    font: italic 11px Georgia
+    line-height: 24px
+    text-align: center
+    vertical-align: middle
+    width: 60px
+
+    &:hover
+      text-decoration: none
+      +box-shadow(0 0 3px #38a0e8)
+
 
 .main-search
   .upload
