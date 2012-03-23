@@ -1,4 +1,10 @@
 class Feed
+  @emptiable: (sample, options) ->
+    if sample == 'following'
+      _.extend(options, empty: JST['shared/empty_feed']())
+    else
+      options
+
   @playable: (content, feed, collection, filters) ->
     content.events ?= {}
 
@@ -68,6 +74,7 @@ class Feed
     @newItem           = options.newItem
     @className         = options.className
     @authErrorTemplate = options.authErrorTemplate or 'shared/login_required'
+    @empty             = options.empty
 
     @$spinner = options.$spinner
 
@@ -79,14 +86,18 @@ class Feed
     @spinner = new Feed.Spinner
       collection: @paginated
       el:         @$spinner
+      empty:      @empty
 
     @scroll  = new Feed.EndlessScroll(app: @app, collection: @paginated)
 
   load: ($main) ->
-    @paginated.fetchNext().fail (xhr) =>
-      if xhr.status == 401
-        $main.prepend JST[@authErrorTemplate]()
-
+    @paginated.fetchNext().
+      fail((xhr) =>
+        if xhr.status == 401
+          $main.prepend JST[@authErrorTemplate]()).
+      done =>
+        if @empty && @collection.isEmpty()
+          $main.prepend @empty
     this
 
   splashed: ->
@@ -131,6 +142,8 @@ class Feed.EndlessScroll extends Backbone.View
 
 class Feed.Spinner extends Backbone.View
   initialize: ->
+    @empty = @options.empty
+
     @collection.bind 'fetch',          @start
     @collection.bind 'loaded',         @stop
     @collection.bind 'paginate:error', @clear
@@ -143,6 +156,8 @@ class Feed.Spinner extends Backbone.View
 
   stop: =>
     if @collection.hasNext()
+      @clear()
+    else if @collection.collection.isEmpty() && @empty
       @clear()
     else
       @$el.html $('<p class="loaded"/>').text I18n.t('events.all_loaded')

@@ -4,6 +4,7 @@ class Application extends Backbone.View
   events:
     'click a':                           '_routeLink'
     'click [data-widget = "first-aid"]': 'showTutorial'
+    'click .show-tutorial':              'showTutorial'
 
   initialize: ->
     @user          = @options.user

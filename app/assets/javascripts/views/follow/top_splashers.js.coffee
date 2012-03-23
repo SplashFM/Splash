@@ -7,12 +7,13 @@ class TopSplashers extends Page.Content
     @sample = @options.sample
 
     @feed   = Feed.feed this,
-      collection: new UserList
-      className: 'splashboard-items live-feed'
-      filters:
-        top:       true
-        following: if @sample == 'following' then 1 else ''
-      newItem: (i) -> new TopUser(model: i)
+      Feed.emptiable @sample,
+        collection: new UserList
+        className: 'splashboard-items live-feed'
+        filters:
+          top:       true
+          following: if @sample == 'following' then 1 else ''
+        newItem: (i) -> new TopUser(model: i)
 
     @routes = Follow.Router.routes
 

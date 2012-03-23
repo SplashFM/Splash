@@ -35,10 +35,11 @@ class TopTracks extends Page.Content
       following: if @sample == 'following' then 1 else ''
       week:      if @period == '7d' then 1 else ''
     @feed   = Feed.feed this,
-      collection: new TrackList
-      className: 'splashboard-items live-feed'
-      filters: filters
-      newItem: (i) -> new TopTrack(model: i)
+      Feed.emptiable @sample,
+        collection: new TrackList
+        className: 'splashboard-items live-feed'
+        filters: filters
+        newItem: (i) -> new TopTrack(model: i)
 
     Feed.playable this,
                   @feed,
