@@ -130,7 +130,7 @@ en:
       view_more: "View More"
   simple_navigation:
     menus:
-      friends: Follow
+      friends: "Who to Follow"
       home: Home
       profile: Profile
       splashboard: Splashboard
