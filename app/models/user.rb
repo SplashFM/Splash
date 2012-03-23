@@ -98,7 +98,6 @@ class User < ActiveRecord::Base
   before_validation :generate_nickname, :on => :create
   before_save :possibly_delete_avatar
   before_update :reprocess_avatar, :if => :cropping?
-  after_create :reserve_access_code
 
   scope :nicknamed,  lambda { |*nicknames| where(:nickname => nicknames) }
   scope :followed_by, lambda { |user|
@@ -539,12 +538,6 @@ class User < ActiveRecord::Base
 
   def reprocess_avatar
     avatar.reprocess!
-  end
-
-  def reserve_access_code
-    AccessRequest.reserve access_code, self
-
-    nil
   end
 
   def to_slug(string)
