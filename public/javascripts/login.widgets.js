@@ -33,7 +33,7 @@ $(function() {
     template: $('#tmpl-registration').template(),
 
     onErrors: function(_, xhr) {
-      var errors = $.parseJSON(xhr.responseText);
+      var errors = $.parseJSON(xhr.responseText).errors;
 
       for (var k in errors) {
         switch (k) {
