@@ -83,4 +83,8 @@ module ApplicationHelper
 
     hash.to_json
   end
+
+  def facebook_namespace
+    AppConfig.facebook['namespace']
+  end
 end

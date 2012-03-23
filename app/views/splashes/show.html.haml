@@ -1,0 +1,6 @@
+- content_for :head do
+  %meta{:property => "fb:app_id", :content => AppConfig.facebook['key']}
+  %meta{:property => "og:type", :content => facebook_namespace + ":song"}
+  %meta{:property => "og:url", :content => request.url}
+  %meta{:property => "og:title", :content => @splash.track.title}
+  %meta{:property => "og:image", :content => @splash.track.artwork_url}
