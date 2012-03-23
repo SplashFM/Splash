@@ -86,8 +86,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     {:provider     => t['provider'],
      :uid          => t['uid'],
      :token        => t['credentials']['token']}.tap { |st|
-      if t['credentials']['token_secret']
-        st[:token_secret] = t['credentials']['token_secret']
+      if t['credentials']['secret']
+        st[:token_secret] = t['credentials']['secret']
       end
     }
   end
