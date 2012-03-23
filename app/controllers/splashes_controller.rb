@@ -1,6 +1,6 @@
 class SplashesController < ApplicationController
-  respond_to :json
   respond_to :html, :only => :show
+  respond_to :json
 
   def create
     splash = splash_and_post(params.slice(:track_id, :comment),
@@ -30,7 +30,8 @@ class SplashesController < ApplicationController
                                    :full => full)
 
     respond_with @splash do |f|
-      f.html { render text: '', :layout => 'home' }
+      f.html { render :layout => 'home' }
+      f.all  { render :layout => 'home' }
     end
   end
 
