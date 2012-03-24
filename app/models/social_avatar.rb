@@ -13,7 +13,7 @@ class SocialAvatar
       block.call f
     }
   rescue OpenURI::HTTPError => e
-    logger.error e
+    Rails.logger.error e
 
     nil
   end
