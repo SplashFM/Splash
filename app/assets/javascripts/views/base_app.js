@@ -74,7 +74,8 @@ window.FullSplashAction = BaseApp.SplashAction.extend({
 
     new Splash().save({
       share: {
-        facebook: this.$('input[name = "post_to_fb"]').attr('checked')
+        facebook: this.$('input[name = "post_to_fb"]').attr('checked'),
+        twitter: this.$('input[name = "post_to_tw"]').attr('checked')
       },
       comment:  this.comment.comment(),
       track_id: this.model.get('id'),

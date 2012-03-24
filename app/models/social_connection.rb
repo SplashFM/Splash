@@ -56,11 +56,20 @@ class SocialConnection < ActiveRecord::Base
 
   class Twitter
     def initialize(connection)
-      @uid = connection.uid
+      @client = ::Twitter::Client.new(oauth_token:      connection.token,
+                                    oauth_token_secret: connection.token_secret)
+      @uid    = connection.uid
     end
 
     def avatar_url
       "http://api.twitter.com/1/users/profile_image/#{@uid}.json?size=original"
+    end
+
+    def splashed(splash, router)
+      @client.update 'I just splashed "' <<
+                     splash.track.title + '" by ' <<
+                     splash.track.performers.to_sentence << ': ' <<
+                     router.splash_url(splash)
     end
 
     def friends(filter = nil, cache = Rails.cache)

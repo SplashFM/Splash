@@ -36,11 +36,13 @@ class ApplicationController < ActionController::Base
                    :comment   => attrs[:comment],
                    :parent_id => parent).tap { |splash|
 
-      if attrs[:share][:facebook].present? &&
-         (fb = current_user.social_connection(:facebook))
+      [:facebook, :twitter].each { |network|
+        if attrs[:share][network].present? &&
+           (n = current_user.social_connection(network))
 
-        fb.delay.splashed(splash, self)
-      end
+          n.delay.splashed(splash, self)
+        end
+      }
     }
   end
 
