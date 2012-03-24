@@ -176,8 +176,10 @@ class User < ActiveRecord::Base
             user.name             = data[:name]
             user.nickname         = data[:nickname]
 
-            user.social_connections.
-              build data.slice(:provider, :uid, :token, :token_secret)
+            if user.valid?
+              user.social_connections.
+                build data.slice(:provider, :uid, :token, :token_secret)
+            end
           end
         else
           raise "Don't know how to handle #{data.inspect}"
