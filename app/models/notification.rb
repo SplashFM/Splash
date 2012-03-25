@@ -1,4 +1,12 @@
 class Notification < ActiveRecord::Base
+  module Target
+    extend ActiveSupport::Concern
+
+    included do
+      has_many :notifications, :as => :target, :dependent => :destroy
+    end
+  end
+
   paginates_per 5
 
   belongs_to :notified, :class_name => 'User'
