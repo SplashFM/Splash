@@ -131,4 +131,10 @@ namespace :migrate do
                            'comment_for_participants' => 'true'))
     }
   end
+
+  task :create_splash_admins => :environment do
+    %w(agatof@gmail.com fieds21@gmail.com david@mojotech.com user@mojotech.com).each { |e|
+      User.find_by_email(e).try :update_attribute, :superuser, true
+    }
+  end
 end
