@@ -30,7 +30,7 @@ class UndiscoveredTracksController < ApplicationController
   end
 
   def flag
-    @track = UndiscoveredTrack.find(params[:track_id])
+    @track = UndiscoveredTrack.find(params[:id])
 
     AdminMailer.delay.flag(@track, current_user)
 
