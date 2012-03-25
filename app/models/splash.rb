@@ -5,7 +5,7 @@ class Splash < ActiveRecord::Base
   belongs_to :user
   belongs_to :parent, :class_name => 'Splash'
 
-  has_many :comments, :order => 'created_at asc'
+  has_many :comments, :order => 'created_at asc', :dependent => :destroy
   has_many :resplashes, :class_name => 'Splash', :foreign_key => 'parent_id'
 
   validates :user_id,  :presence => true
