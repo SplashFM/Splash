@@ -15,6 +15,11 @@
             .names
               %a.avan-demi.user-name.left{:href => "${url}"} ${name}
               %span.left.nickname ${nickname}
+            {{if tagline}}
+            .tagline
+              .tip
+              %p ${tagline}
+            {{/if}}
       .right
         .follow-links
       .clear

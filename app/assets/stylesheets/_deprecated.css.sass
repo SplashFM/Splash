@@ -1853,7 +1853,7 @@ li.expanded .header_label
     right: 82px
     top: 14px
 
-div.splash-comment
+div.splash-comment, div.tagline
   +border-radius(7px)
   background: #cfe4f4
   color: #333
@@ -1862,6 +1862,8 @@ div.splash-comment
   margin: 10px 0 15px
   padding: 10px
   position: relative
+
+div.splash-comment
   width: 320px
 
   .tip
@@ -1875,10 +1877,27 @@ div.splash-comment
     bottom: -10px
     width: 0
 
+div.tagline
+  margin-top: 10px
+  width: 280px
+
+  .tip
+    border:
+      color: #fff #fff #cfe4f4 #fff
+      width: 0 10px 10px 0
+      style: solid
+    height: 0
+    position: absolute
+    left: 7px
+    top: -10px
+    width: 0
+
 .live-feed > li
   &:hover, &.expanded
     div.splash-comment .tip
       border-color: #cfe4f4 #e0edf7 #e0edf7 #e0edf7
+    div.tagline .tip
+      border-color: #e0edf7 #e0edf7 #cfe4f4 #e0edf7
 
 .full-splash-action
   height: 51px
