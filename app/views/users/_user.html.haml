@@ -1,6 +1,6 @@
 / ADD .following .follow .unfollow to .buttonStyle2 with an inner span to display the icon
 %script#tmpl-user{:type => 'text/x-jquery-tmpl'}
-  %div{:data => {:user_id => '${id}'}}
+  %div.user{:data => {:user_id => '${id}'}}
     .holder
       .left
         {{if $data.unregistered}}
@@ -11,7 +11,7 @@
         {{/if}}
         .user_wrap.left
           = avatar_js(:class => 'avatar left')
-          .left
+          .left.meta
             .names
               %a.avan-demi.user-name.left{:href => "${url}"} ${name}
               %span.left.nickname ${nickname}
