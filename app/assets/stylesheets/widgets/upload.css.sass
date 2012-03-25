@@ -5,6 +5,9 @@
     @extend .customInputStyle
     width: 360px
 
+  textarea
+    +box-sizing(border-box)
+
 .head-search
   &.uploading
     @extend .opened
@@ -25,6 +28,10 @@
   .uploadForm
     margin-left: -100px
     width: 500px
+    padding: 15px
+
+    .holder
+      padding: 0
 
   .toggle-upload
     +border-radius(0 5px 5px 0)
