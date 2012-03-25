@@ -2,6 +2,8 @@ class UndiscoveredTracksController < ApplicationController
   respond_to :html, :only => :show
   respond_to :json
 
+  before_filter :require_superuser, only: :show
+
   skip_before_filter :require_user, :only => :download
 
   def create
