@@ -9,4 +9,5 @@
     .holder
       %input{:type => 'text', :name => 'albums', :placeholder => 'enter album name'}
   .right{:data => {:widget => 'complete-upload'}}
+    = render 'shared/social_splashing'
     %input{:class => 'submit splash', :type => 'submit'}
