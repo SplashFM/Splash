@@ -1,4 +1,5 @@
 class UndiscoveredTracksController < ApplicationController
+  respond_to :html, :only => :show
   respond_to :json
 
   skip_before_filter :require_user, :only => :download
@@ -35,6 +36,10 @@ class UndiscoveredTracksController < ApplicationController
     AdminMailer.delay.flag(@track, current_user)
 
     render :json => @track
+  end
+
+  def show
+    respond_with @track = UndiscoveredTrack.find(params[:id])
   end
 
   def update
