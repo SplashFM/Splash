@@ -44,6 +44,8 @@ class UndiscoveredTrack < Track
     has_attached_file :artwork, ARTWORK_OPTS
   end
 
+  has_many :splashes, :foreign_key => :track_id, :dependent => :destroy
+
   belongs_to :uploader, :class_name => 'User'
 
   validate :validate_local_data_type,    :if => :local_data?
