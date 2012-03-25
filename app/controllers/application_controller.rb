@@ -37,7 +37,9 @@ class ApplicationController < ActionController::Base
                    :parent_id => parent).tap { |splash|
 
       [:facebook, :twitter].each { |network|
-        if attrs[:share][network].present? &&
+        share = attrs[:share] || {}
+
+        if share[network].present? &&
            (n = current_user.social_connection(network))
 
           n.delay.splashed(splash, self)
