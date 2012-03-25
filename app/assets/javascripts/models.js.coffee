@@ -10,9 +10,7 @@ class window.UndiscoveredTrack extends Track
   urlRoot: '/undiscovered_tracks'
 
   flag: ->
-    $.ajax
-      type: 'post'
-      url: @urlRoot + "/" + @get('id') + '/flag'
+    $.ajax type: 'post', url: @urlRoot + "/" + @get('id') + '/flag'
 
 class window.TrackList extends Backbone.Collection
   model: Track
