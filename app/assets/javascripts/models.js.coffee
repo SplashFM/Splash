@@ -5,13 +5,14 @@ class window.Relationship extends Backbone.Model
   urlRoot: '/relationships'
 
 class window.Track extends Backbone.Model
-  flag: ->
-    $.ajax
-      type: 'post'
-      url: '/tracks/' + @get('id') + '/flag'
 
 class window.UndiscoveredTrack extends Track
   urlRoot: '/undiscovered_tracks'
+
+  flag: ->
+    $.ajax
+      type: 'post'
+      url: @urlRoot + "/" + @get('id') + '/flag'
 
 class window.TrackList extends Backbone.Collection
   model: Track

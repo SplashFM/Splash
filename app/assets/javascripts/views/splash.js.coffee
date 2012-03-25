@@ -86,7 +86,7 @@ class Splash extends Backbone.View
         addClass('unsplashable')
 
   flag: ->
-    track = new Track(@model.get('track'))
+    track = new UndiscoveredTrack(@model.get('track'))
 
     track.flag()
 

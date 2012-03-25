@@ -29,6 +29,14 @@ class UndiscoveredTracksController < ApplicationController
     redirect_to current_track.data.url
   end
 
+  def flag
+    @track = UndiscoveredTrack.find(params[:track_id])
+
+    AdminMailer.delay.flag(@track, current_user)
+
+    render :json => @track
+  end
+
   def update
     track = current_user.uploaded_tracks.find(params[:id])
 

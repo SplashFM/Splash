@@ -27,7 +27,6 @@ Scaphandrier::Application.routes.draw do
   end
   resources :suggested_splashers
   resources :tracks do
-    post 'flag'
     resources :splashes
 
     collection do
@@ -37,7 +36,8 @@ Scaphandrier::Application.routes.draw do
 
   resources :undiscovered_tracks do
     member do
-      get :download
+      get  :download
+      post :flag
     end
   end
   match 'undiscovered_tracks/:id/download' => 'undiscovered_tracks#download',

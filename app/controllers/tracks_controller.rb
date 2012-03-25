@@ -52,11 +52,4 @@ class TracksController < ApplicationController
 
     render :template => 'splashboards/index'
   end
-
-  def flag
-    @track = Track.find(params[:track_id])
-    AdminMailer.delay.flag(@track, current_user)
-
-    render :json => @track
-  end
 end
