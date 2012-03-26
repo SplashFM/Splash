@@ -1,12 +1,11 @@
 .uploadForm
   @extend .drop-down-panel
 
-  input:not([type = "submit"])
+  textarea, input[type = "file"], input[type = "text"]
     @extend .customInputStyle
-    width: 360px
 
-  textarea
     +box-sizing(border-box)
+    width: 100%
 
 .head-search
   &.uploading
