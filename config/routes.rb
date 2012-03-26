@@ -94,10 +94,10 @@ Scaphandrier::Application.routes.draw do
   match '/:id'       => 'users#show',
         :as          => 'user_slug',
         :constraints => {:id => USER_ID_CONSTRAINT}
-  match '/:id/*path' => 'users#show',
-        :constraints => {:id => USER_ID_CONSTRAINT}
   get ':id/followers' => 'relationships#followers', :as => 'followers'
   get ':id/following' => 'relationships#following', :as => 'following'
+  match '/:id/*path' => 'users#show',
+        :constraints => {:id => USER_ID_CONSTRAINT}
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
