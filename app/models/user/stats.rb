@@ -24,13 +24,20 @@ class User
         User.find_each(:batch_size => 100) {|u| u.recompute_top_following }
       end
 
-      def recompute_all_splashboards
-        User.find_each(:batch_size => 100) {|u|
+      def recompute_all_splashboards(users = [])
+        reset_splashed_tracks = lambda { |u|
           u.reset_splashed_track_weeks
           u.reset_splashed_track_weeks_hash!
         }
+        recompute_splashboard = lambda { |u| u.recompute_splashboard }
 
-        User.find_each(:batch_size => 100) {|u| u.recompute_splashboard }
+        if users.empty?
+          User.find_each :batch_size => 100, &reset_splashed_tracks
+          User.find_each :batch_size => 100, &recompute_splashboard
+        else
+         users.each &reset_splashed_tracks
+         users.each &recompute_splashboard
+        end
       end
 
       def recompute_influence
