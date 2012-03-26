@@ -114,7 +114,7 @@ class Splash extends Backbone.View
     json       = _.extend(s.toJSON(), ext)
 
     $(@el).html($.tmpl(@template, json))
-    SPLASH.Widgets.numFlipper($('.the_splash_count',@el))
+    @number = new FlipNumber(el: $('.the_splash_count',@el).get(0)).render()
 
     @resplash = new FullSplashAction
       el:     @$('[data-widget = "full-splash-action"]')
@@ -182,6 +182,12 @@ class Comments extends Backbone.View
 
     $(@el).append $.tmpl(@template, json)
 
+
+class FlipNumber extends Backbone.View
+  render: ->
+    SPLASH.Widgets.numFlipper(@$el)
+
+    this
 
 window.Feed.Splash = Splash
 
