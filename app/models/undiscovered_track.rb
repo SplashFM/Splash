@@ -44,6 +44,8 @@ class UndiscoveredTrack < Track
     has_attached_file :artwork, ARTWORK_OPTS
   end
 
+  before_destroy :prepare_clear_redis
+
   has_many :splashes, :foreign_key => :track_id, :dependent => :destroy
 
   belongs_to :uploader, :class_name => 'User'
@@ -59,6 +61,7 @@ class UndiscoveredTrack < Track
   after_create  :extract_metadata
   before_create :set_default_popularity_rank
   before_update :publish, :if => :local_data?
+  after_destroy  :clear_redis
 
   def artwork_url
     artwork.url

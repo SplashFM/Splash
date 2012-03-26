@@ -2,7 +2,7 @@ class UndiscoveredTracksController < ApplicationController
   respond_to :html, :only => :show
   respond_to :json
 
-  before_filter :require_superuser, only: :show
+  before_filter :require_superuser, only: %w(show destroy)
 
   skip_before_filter :require_user, :only => :download
 
@@ -23,9 +23,9 @@ class UndiscoveredTracksController < ApplicationController
   end
 
   def destroy
-    current_user.uploaded_tracks.find(params[:id]).destroy
+    UndiscoveredTrack.find(params[:id]).destroy if current_user.superuser?
 
-    render_upload_form :upload
+    render :text => 'Track deleted.'
   end
 
   def download

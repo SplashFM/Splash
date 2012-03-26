@@ -47,5 +47,18 @@ class Track
 
       self.class.update_splash_count_week(id, count)
     end
+
+    private
+
+    def clear_redis
+      Track.recompute_splash_counts
+      Track.recompute_splash_counts_time_bound
+
+      User.recompute_all_splashboards(@users_to_recompute)
+    end
+
+    def prepare_clear_redis
+      @users_to_recompute = User.find(splashes.value_of(:user_id))
+    end
   end
 end

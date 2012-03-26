@@ -1,1 +1,3 @@
 %h1= @track.title
+
+%p= link_to 'Delete track', undiscovered_track_path(@track), :method => :delete, :confirm => %Q{Really delete the track "#{@track.title}"?}
