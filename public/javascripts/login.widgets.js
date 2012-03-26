@@ -47,6 +47,8 @@ $(function() {
 
           break;
         case 'signup_code':
+          $('#flash-error').show()
+
           this.$('[name = "user[signup_code]"]').addClass('error');
         }
       }
