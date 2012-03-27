@@ -88,6 +88,7 @@ Scaphandrier::Application.routes.draw do
     end
   end
 
+  resources :users
 
   resources :relationships
   post '/relationships/:id' => 'relationships#create'
