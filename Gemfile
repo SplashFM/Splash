@@ -78,6 +78,8 @@ gem "haml_coffee_assets"
 gem "astrails-clicktale",
     :require => nil,
     :git => 'git://github.com/railsware/clicktale-client.git'
+gem 'ruby-gd', :git => 'git://github.com/Spakman/ruby-gd.git'
+gem 'quilt'
 
 group :assets do
   gem "sass-rails"

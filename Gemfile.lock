@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/Spakman/ruby-gd.git
+  revision: c0b03fc2ef80e8889530d5cd38908b29a258c840
+  specs:
+    ruby-gd (0.8.0)
+
+GIT
   remote: git://github.com/david/active_model_serializers.git
   revision: ce12aecac216aa3fe8b097b698f699faf61e81fa
   specs:
@@ -226,6 +232,7 @@ GEM
       parallel
     pg (0.11.0)
     polyglot (0.3.3)
+    quilt (0.0.5)
     rack (1.4.1)
     rack-cache (1.1)
       rack (>= 0.4)
@@ -391,6 +398,7 @@ DEPENDENCIES
   paperclip-meta
   parallel_tests
   pg
+  quilt
   rack-livereload
   rails (~> 3.2.0)
   redis
@@ -399,6 +407,7 @@ DEPENDENCIES
   rr (~> 1.0)
   rspec-instafail
   rspec-rails (>= 2.0.0)
+  ruby-gd!
   sanitize
   sass (>= 3.1.7)
   sass-rails
