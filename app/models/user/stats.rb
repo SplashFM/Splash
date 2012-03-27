@@ -132,8 +132,6 @@ class User
 
     influence = Redis::SortedSet.new("#{Rails.env}/user/sorted_influence")
 
-    puts top_following.key.inspect
-
     influence.interstore(top_following.key, sorted_following)
   end
 
