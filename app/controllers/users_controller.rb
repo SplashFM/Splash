@@ -64,6 +64,12 @@ class UsersController < ApplicationController
   end
 
   def update
+    unless params[:user]
+      params[:user] = params.slice(:top_splasher_weight)
+    end
+
+    params.delete(:top_splasher_weight) unless current_user.superuser?
+
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
 

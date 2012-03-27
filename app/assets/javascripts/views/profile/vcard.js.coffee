@@ -18,6 +18,9 @@ class Profile.Vcard extends Backbone.View
     if @editable
       new Profile.Vcard.Tagline el: @$('.tag-line.edit'), model: @user
 
+    if @app.user.get('superuser')
+      new Profile.Vcard.Admin(el: @$('.admin'), user: @user).render()
+
     SPLASH.Widgets.waterNums @$('.waterNum')
 
     this
@@ -35,3 +38,19 @@ class Profile.Vcard.Tagline extends Backbone.View
     @model.save tagline: tagline
 
     tagline
+
+
+class Profile.Vcard.Admin extends Backbone.View
+  initialize: ->
+    @user = @options.user
+
+  editTopSplasherWeight: (val) =>
+    @user.save(top_splasher_weight: val)
+
+    val
+
+  render: ->
+    @$('.top-splasher-edit-toggle').editable @editTopSplasherWeight,
+      placeholder: 'TS'
+
+    this
