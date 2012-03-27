@@ -13,7 +13,8 @@
         .waterNumHolder
           .waterNum= @user.splash_score
       .cl &nbsp;
-      %span.badge
+      - if @user.top_splasher_weight?
+        %span.badge
       - if @superuser
         .admin
           %a.top-splasher-edit-toggle{:href => '#'}= @user.top_splasher_weight
