@@ -8,9 +8,10 @@ User.seed(:email) do |user|
   end
   user.superuser = true
   user.confirmed_at = Time.now
+  user.name = 'Dev'
 end
 
-fpath       = File.join(Rails.root, %w(spec support files avatar.jpg))
+fpath       = File.join(Rails.root, %w(spec-old support files avatar.jpg))
 temp_avatar = Tempfile.new('avatar') and temp_avatar.write IO.read(fpath)
 
 
