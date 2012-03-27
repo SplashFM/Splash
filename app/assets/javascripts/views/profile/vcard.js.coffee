@@ -47,6 +47,8 @@ class Profile.Vcard.Admin extends Backbone.View
   editTopSplasherWeight: (val) =>
     @user.save(top_splasher_weight: val)
 
+    @$('.top-splasher-edit-toggle input').blur()
+
     val
 
   render: ->
