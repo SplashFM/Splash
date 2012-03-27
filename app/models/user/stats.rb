@@ -81,7 +81,8 @@ class User
         top_qry   = where('top_splasher_weight > 0')
         top_count = top_qry.count
         top_pages = (top_count / num_records.to_f).ceil
-        top       = top_qry.page(page).per(num_records)
+        top       = top_qry.page(page).per(num_records).
+          order('top_splasher_weight desc')
 
         # complement results with actual top splashers if needed
         if top_pages > 0 && top.size < num_records
