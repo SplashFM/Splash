@@ -77,7 +77,23 @@ class User
       end
 
       def top_splashers(page, num_records)
-        sorted_by_influence(page, num_records)
+        # find featured splashers
+        top_qry   = where('top_splasher_weight > 0')
+        top_count = top_qry.count
+        top_pages = (top_count / num_records.to_f).ceil
+        top       = top_qry.page(page).per(num_records)
+
+        # complement results with actual top splashers if needed
+        if top_pages > 0 && top.size < num_records
+          page = page - top_pages + 1
+        end
+
+        # don't allow users to appear more than once
+        inf  = sorted_by_influence(page, num_records)
+        excl = top_qry.value_of(:id)
+        hexc = Hash[*excl.zip(Array.new(excl.size, true)).flatten]
+
+        top + inf.reject { |i| hexc[i.id] }
       end
 
       def update_influences(ids)
