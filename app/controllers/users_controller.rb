@@ -67,10 +67,19 @@ class UsersController < ApplicationController
     params[:user].delete(:password) if params[:user][:password].blank?
     params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
 
-    @user = current_user
+    if current_user.superuser?
+      @user = User.find(params[:id])
+    else
+      @user = current_user
+    end
+
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        sign_in(@user, :bypass => true) if current_user.errors.empty?
+
+        if @user == current_user && @user.errors.empty?
+          sign_in(@user, :bypass => true)
+        end
+
         format.html { redirect_to home_path }
         format.json { render :json => @user.to_json(:methods => :avatar_geometry) }
         format.js { head :ok }
