@@ -6,6 +6,8 @@ class UndiscoveredTrack < Track
     to_sentence(:two_words_connector => ', ', :last_word_connector => ', ')
   INVALID_ATTACHMENT = "activerecord.errors.messages.invalid_attachment"
 
+  DEFAULT_ART_SIZE = 71
+
   PREFIX = Rails.env.development? || Rails.env.test? ? "#{Rails.root}/tmp" : ""
 
   ATTACHMENT_OPTS = {
@@ -15,7 +17,7 @@ class UndiscoveredTrack < Track
 
   ARTWORK_OPTS = {
     :default_style => :normal,
-    :styles        => {:normal => '100x100>'},
+    :styles        => {:normal => '#{DEFAULT_ART_SIZE}x#{DEFAULT_ART_SIZE}>'},
     :default_url   => DEFAULT_ARTWORK_URL,
     :hash_secret   => ":class/:attachment/:id",
     :path          => "#{PREFIX}/:class/:attachment/:id/:hash"
