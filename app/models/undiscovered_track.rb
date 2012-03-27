@@ -104,6 +104,22 @@ class UndiscoveredTrack < Track
 
   private
 
+  def create_identicon(title, artist)
+    t, a = title, artist
+    hash = Digest::MD5.hexdigest(t.to_s + a.to_s + Time.now.to_s)
+    idtc = Quilt::Identicon.new hash, size: DEFAULT_ART_SIZE * 2
+
+    tf = Paperclip::Tempfile.new([hash, 'png'])
+
+    begin
+      idtc.write tf
+
+      self.artwork = tf
+    ensure
+      tf.close true if tf
+    end
+  end
+
   def data_content_disposition(filename)
     {"Content-Disposition" => "attachment; filename=#{filename.inspect}"}
   end
@@ -112,19 +128,7 @@ class UndiscoveredTrack < Track
     if (artwork = local_song_file.artwork)
       self.artwork = artwork
     else
-      t, a = local_song_file.title, local_song_file.artist
-      hash = Digest::MD5.hexdigest(t.to_s + a.to_s + Time.now.to_s)
-      idtc = Quilt::Identicon.new hash, size: DEFAULT_ART_SIZE * 2
-
-      tf = Paperclip::Tempfile.new([hash, 'png'])
-
-      begin
-        idtc.write tf
-
-        self.artwork = tf
-      ensure
-        tf.close true if tf
-      end
+      create_identicon local_song_file.title, local_song_file.artist
     end
   end
 
