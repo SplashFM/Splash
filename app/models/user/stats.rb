@@ -167,7 +167,7 @@ class User
   end
 
   def splash_score
-    s = influence_score + 10
+    s = influence_score + 10 + top_splasher_weight.to_i
 
     s > MAX_SCORE ? MAX_SCORE : s
   end
