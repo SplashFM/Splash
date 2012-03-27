@@ -137,4 +137,11 @@ namespace :migrate do
       User.find_by_email(e).try :update_attribute, :superuser, true
     }
   end
+
+  task :create_identicons => :environment do
+    UndiscoveredTrack.find_each batch_size: 100 do |t|
+      t.send :create_identicon, t.title, t.performers.to_sentence unless t.artwork?
+      t.save
+    end
+  end
 end
