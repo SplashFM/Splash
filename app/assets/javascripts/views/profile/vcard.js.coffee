@@ -1,15 +1,19 @@
 class Profile.Vcard extends Backbone.View
   @get: (app, user) ->
-    new Profile.Vcard(user: user, editable: user.isEqual(app.user))
+    new Profile.Vcard(app: app, user: user, editable: user.isEqual(app.user))
 
   className: 'user-vcard'
 
   initialize: ->
+    @app      = @options.app
     @user     = @options.user
     @editable = @options.editable
 
   render: ->
-    @$el.html JST['profile/vcard'](user: @user.toJSON(), editable: @editable)
+    @$el.html JST['profile/vcard']
+      superuser: @app.user.get('superuser')
+      user:      @user.toJSON()
+      editable:  @editable
 
     if @editable
       new Profile.Vcard.Tagline el: @$('.tag-line.edit'), model: @user

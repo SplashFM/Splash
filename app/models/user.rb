@@ -227,23 +227,25 @@ class User < ActiveRecord::Base
     method_names = Array.wrap(opts[:methods]).map { |n| n if respond_to?(n.to_s) }.compact
     method_hash = method_names.map { |n| [n, send(n)] }
 
-    {:id               => id,
-     :name             => name,
-     :nickname         => nickname,
-     :url              => url,
-     :avatar_micro_url => avatar.url(:micro),
-     :avatar_thumb_url => avatar.url(:thumb),
-     :followers_count  => followers.count,
-     :followers        => followers.limit(10).map(&UserSerializers::Summary),
-     :following_count  => following.count,
-     :following        => following.limit(10).map(&UserSerializers::Summary),
-     :ripple_count     => ripple_count,
-     :splash_count     => splash_count,
-     :splash_score     => splash_score,
-     :slug             => slug,
-     :referral_url     => "#{AppConfig.preferred_host}/r/#{referral_code}",
-     :score            => splash_score,
-     :tagline          => tagline}.merge(Hash[method_hash]).tap { |h|
+    {:id                  => id,
+     :name                => name,
+     :nickname            => nickname,
+     :url                 => url,
+     :avatar_micro_url    => avatar.url(:micro),
+     :avatar_thumb_url    => avatar.url(:thumb),
+     :followers_count     => followers.count,
+     :followers           => followers.limit(10).map(&UserSerializers::Summary),
+     :following_count     => following.count,
+     :following           => following.limit(10).map(&UserSerializers::Summary),
+     :ripple_count        => ripple_count,
+     :splash_count        => splash_count,
+     :splash_score        => splash_score,
+     :slug                => slug,
+     :referral_url        => "#{AppConfig.preferred_host}/r/#{referral_code}",
+     :score               => splash_score,
+     :superuser           => superuser,
+     :top_splasher_weight => top_splasher_weight,
+     :tagline             => tagline}.merge(Hash[method_hash]).tap { |h|
 
      if respond_to?(:relationship) &&
         ! Array(opts[:except]).include?(:relationship)
