@@ -43,5 +43,6 @@ Scaphandrier::Application.configure do
 
   config.to_prepare do
     Social
+    Subscribable
   end
 end
