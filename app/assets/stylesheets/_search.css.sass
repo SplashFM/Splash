@@ -1,6 +1,6 @@
 .head-search
   +single-transition(width, 0.3s, ease-in-out)
-  width: 120px
+  width: 135px
   height: 30px
   background: #e0e0e0
   color: #999
@@ -72,12 +72,13 @@
     top: 7px
     left: 7px
   .field
+    +box-sizing(border-box)
     border: 0
     background: none
     height: 30px
     display: block
-    padding: 7px 32px 8px 6px
-    width: 82px
+    padding: 7px 0 8px 30px
+    width: 125px
   &.opened
     +single-transition(width, 0.3s, ease-in-out)
     background: #fff
