@@ -1,5 +1,5 @@
 Scaphandrier::Application.routes.draw do
-  USER_ID_CONSTRAINT = %r{\w[A-Za-z0-9_.-]*\w}
+  USER_ID_CONSTRAINT = %r{\w[A-Za-z0-9_.-]*}
 
   match '/invite_friends' => 'users#invite_friends'
 
@@ -76,19 +76,16 @@ Scaphandrier::Application.routes.draw do
   match '/profile' => 'users#show'
 
   resources :users, :constraints => {id: USER_ID_CONSTRAINT} do
-    get 'avatar'
-    get 'crop'
-
     member do
       get :invite
+      get :avatar
+      get :crop
     end
 
     collection do
       get :top
     end
   end
-
-  resources :users
 
   resources :relationships
   post '/relationships/:id' => 'relationships#create'
