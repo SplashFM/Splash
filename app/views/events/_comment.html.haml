@@ -1,9 +1,0 @@
-%script#tmpl-event-comment{:type => 'text/x-jquery-tmpl'}
-  %ul{:data => {:widget => 'social-comment'}}
-    %li
-      %img{:alt => "", :height => "27", :src => "/css/images/ico-new-comment.png", :width => "36"}/
-      %p
-        %a{:href => "${author.url}"} ${author.nickname}
-        commented on
-        %a{:href => "${splash.user.url}"} ${splash.user.nickname}’s
-        splash “${splash.track.title}”: {{html UserMentions.linkMentions(body)}}”
