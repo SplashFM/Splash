@@ -14,9 +14,6 @@ class Splash extends Backbone.View
 
     $(@el).hover(@onHover, @onHoverOut)
 
-    @siblings = new SplashList()
-    @siblings.bind 'reset', @renderThumbnails
-
     $('body').bind 'splash:resplash splash:quick', @splashed
 
   checkKeyDown: (e) ->
@@ -100,14 +97,6 @@ class Splash extends Backbone.View
                     addClass('report-song').
                     addClass('right'))
 
-  loadThumbnails: (onLoad) =>
-    @$('[data-widget = "thumbnails"]').addClass('loading')
-
-    @siblings.fetch
-      data:
-        splashed: @model.get('track').id
-        tree_with: @options.currentUserID
-
   render: =>
     s          = @model
     commentStr = I18n.t('comments', {count: s.get('comments_count')})
@@ -142,7 +131,10 @@ class Splash extends Backbone.View
         el: @$('.comment-text-area')
         parent: @el
 
-      @loadThumbnails()
+      new Splash.Lineage
+        el:              @$('[data-widget = "thumbnails"]').get(0)
+        model:           new Track(@model.get('track'))
+        userHighlightID: @options.currentUserID
 
     $(@el).find(".expand").each ->
       if $(this).hasClass('comment-text-area')
@@ -156,22 +148,6 @@ class Splash extends Backbone.View
 
   reset: =>
     @$('textarea').val ''
-
-  renderThumbnails: =>
-    ul   = $('<ul/>')
-    self = this
-    header = '<div class="header_label avan-demi">Splash Lineage:</div>'
-
-    @siblings.each (s) ->
-      li = $('<li/>').html($.tmpl(self.thumbTemplate, s.get('user')))
-
-      if s.get('user').id == self.options.currentUserID
-        li.addClass('highlight')
-
-      ul.append(li)
-
-    @$('[data-widget = "thumbnails"]').html(ul).removeClass('loading')
-    @$('[data-widget = "thumbnails"]').prepend(header)
 
 
 class Comments extends Backbone.View
@@ -230,12 +206,49 @@ class FlipNumber extends Backbone.View
 
     this
 
+class Splash.Lineage extends Backbone.View
+  initialize: ->
+    @userHighlightID = @options.userHighlightID
+    @siblings        = new SplashList()
+
+    @siblings.bind 'reset', @loaded
+    @siblings.bind 'reset', @render
+
+    @load()
+
+  load: ->
+    @loading()
+
+    @siblings.fetch data: {splashed: @model.id}
+
+  loaded: =>
+    @$el.removeClass 'loading'
+
+  loading: ->
+    @$el.addClass 'loading'
+
+  render: =>
+    ul   = $('<ul/>')
+    header = '<div class="header_label avan-demi">Splash Lineage:</div>'
+
+    @siblings.each (s) =>
+      li = $('<li/>').html($.tmpl(@template, s.get('user')))
+
+      if s.get('user').id == @userHighlightID
+        li.addClass('highlight')
+
+      ul.append(li)
+
+    @$el.html(ul).removeClass 'loading'
+    @$el.prepend header
+
+
 window.Feed.Splash = Splash
 
 $ ->
   Splash.mixin Purchase
 
-  Splash::template      = $('#tmpl-event-splash').template()
-  Splash::thumbTemplate = $('#tmpl-user-thumbnail').template()
+  Splash::template         = $('#tmpl-event-splash').template()
+  Splash.Lineage::template = $('#tmpl-user-thumbnail').template()
 
   Comments::template = $('#tmpl-event-splash-comment').template()
