@@ -69,10 +69,16 @@ class TopTrack extends Backbone.View
   events:
     'click [data-widget = "play"]': 'play'
 
-  render: ->
-    json = {track: @model.toJSON(), user: false}
+  initialize: ->
+    @expand = true
 
-    $($.tmpl(@template, json)).appendTo(@el)
+  expanded: ->
+    @render true
+
+  render: (expanded) ->
+    json = track: @model.toJSON(), user: false, expanded: expanded
+
+    @$el.html($($.tmpl(@template, json)))
 
     SPLASH.Widgets.numFlipper $('.the_splash_count', @el)
 
@@ -82,6 +88,11 @@ class TopTrack extends Backbone.View
 
     @$('[data-widget = "play"]').hover(@togglePlay, @togglePlay)
 
+    if expanded
+      new Feed.Splash.Lineage
+        el:              @$('[data-widget = "thumbnails"]').get(0)
+        model:           new Track(@model)
+
     this
 
   play: (e) ->
@@ -90,6 +101,8 @@ class TopTrack extends Backbone.View
     @$el.trigger 'play', track: @model.toJSON()
 
   togglePlay: => @$el.toggleClass 'playable'
+
+window.Feed.Splash.Expandable.mixInto(TopTrack)
 
 window.Home.TopTracks = TopTracks
 

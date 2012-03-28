@@ -51,13 +51,17 @@
           %a.avan-bold{:href => "${user.url}"} ${user.nickname}
         {{/if}}
         .cl &nbsp;
+        {{if user}}
         %span.comments-module-t
         .scroll-area
           %ul{:data => {:widget => 'comments'}}
+        {{/if}}
       / /aside
+      {{if user}}
       .write-comment
         %form{:action => "#", :method => "post", :data => {:widget => 'comment-box'}}
           %textarea{:type => "textarea", :placeholder => "Write a comment...", :class => 'expand comment-text-area', :data => {:widget => 'comment-text-area'}}
+      {{/if}}
     {{/if}}
     / /container
   / /row
