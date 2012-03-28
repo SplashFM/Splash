@@ -52,7 +52,7 @@ class Application extends Backbone.View
       new BaseApp.Notifications el: $('[data-widget = "notifications"]')
 
   _initializePlayer: ->
-    @player      = new Player(el: @el)
+    @player      = new Player
     @mediaCenter = new MediaCenter(el: @el, player: @player)
 
   _initializePlugins: ->
