@@ -11,7 +11,7 @@ class Player extends Backbone.View
   play: (track) ->
     media = {}
     media[track.preview_type] = track.preview_url
-    @el = $("#player-area").get(0)
+    @setElement $("#player-area").get(0)
     $(@el).html $.tmpl(@template, track)
     $("[data-widget = 'player']").jPlayer
       cssSelectorAncestor: "[data-widget = \"player-ui\"]"
@@ -30,7 +30,6 @@ class Player extends Backbone.View
       @enableSplashButton()
     else
       @disableSplashButton()
-    @delegateEvents @events
 
     fixBG @$("#player-container")
 
