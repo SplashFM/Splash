@@ -1,6 +1,5 @@
 class Splash extends Backbone.View
   events:
-    'click':                                        'toggleExpanded'
     'submit [data-widget = "comment-box"]':         'addComment'
     'keypress [data-widget = "comment-text-area"]': 'checkKeyDown'
     'click [data-widget = "play"]':                 'play'
@@ -39,6 +38,9 @@ class Splash extends Backbone.View
   enableExpansion: =>
     @expand = true
 
+  expanded: ->
+    @model.fetch()
+
   onCommentAdded: =>
     @reset()
 
@@ -52,24 +54,6 @@ class Splash extends Backbone.View
 
   onHoverOut: =>
     @$('[data-widget = "play"] span').hide()
-
-  toggleExpanded: (e) ->
-    if @options.disableToggling then return
-
-    if @expand and
-      (!e or
-        (($(e.target).closest('[data-widget = "expand"]').length > 0 or
-          $(e.target).closest('[data-widget = "comments-count"]').length > 0 or
-          $(e.target).closest('a').length == 0) and
-         $(e.target).closest('[data-widget = "more-info"]').length == 0))
-
-      if e then e.preventDefault()
-
-      if @$('[data-widget = "more-info"]').length == 0
-        @model.fetch()
-      else
-        $(@el).toggleClass('expanded')
-        @$('[data-widget = "more-info"]').toggle()
 
   play: (e) ->
     e.preventDefault()
@@ -242,6 +226,32 @@ class Splash.Lineage extends Backbone.View
     @$el.html(ul).removeClass 'loading'
     @$el.prepend header
 
+
+class Splash.Expandable
+  @mixInto: (target) ->
+    target::events ?= {}
+
+    _(target::events).extend(click: 'toggleExpanded')
+
+    _(target.prototype).extend toggleExpanded: (e) ->
+      if @options.disableToggling then return
+
+      if @expand and
+        (!e or
+          (($(e.target).closest('[data-widget = "expand"]').length > 0 or
+            $(e.target).closest('[data-widget = "comments-count"]').length > 0 or
+            $(e.target).closest('a').length == 0) and
+           $(e.target).closest('[data-widget = "more-info"]').length == 0))
+
+        if e then e.preventDefault()
+
+        if @$('[data-widget = "more-info"]').length == 0
+          @expanded()
+        else
+          $(@el).toggleClass('expanded')
+          @$('[data-widget = "more-info"]').toggle()
+
+Splash.Expandable.mixInto(Splash)
 
 window.Feed.Splash = Splash
 
