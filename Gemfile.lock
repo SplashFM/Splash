@@ -161,6 +161,7 @@ GEM
     hike (1.2.1)
     hipchat (0.4.0)
       httparty
+    hominid (3.0.4)
     hoptoad_notifier (2.4.11)
       activesupport
       builder
@@ -381,6 +382,7 @@ DEPENDENCIES
   haml_coffee_assets
   has_scope
   hipchat (= 0.4.0)
+  hominid
   hoptoad_notifier
   inherited_resources
   itunes-search-api

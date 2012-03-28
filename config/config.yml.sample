@@ -36,6 +36,9 @@ common: &common
   redis:
     host: localhost
     port: 6379
+  mailchimp:
+    token:
+    list_id:
 
 development:
   <<: *common
