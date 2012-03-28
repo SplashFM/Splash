@@ -34,11 +34,11 @@ class UsersController < ApplicationController
   end
 
   def avatar
-    render 'avatar', :layout => false
+    render 'avatar', layout: nil
   end
 
   def crop
-    respond_with(current_user)
+    respond_with current_user, layout: nil
   end
 
   def invite
