@@ -12,7 +12,7 @@ class Player extends Backbone.View
     media = {}
     media[track.preview_type] = track.preview_url
     @setElement $("#player-area").get(0)
-    $(@el).html $.tmpl(@template, track)
+    $(@el).html($.tmpl(@template, track)).show()
     $("[data-widget = 'player']").jPlayer
       cssSelectorAncestor: "[data-widget = \"player-ui\"]"
       swfPath: "/Jplayer.swf"
