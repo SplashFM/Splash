@@ -89,6 +89,8 @@ class TopTrack extends Backbone.View
     @$('[data-widget = "play"]').hover(@togglePlay, @togglePlay)
 
     if expanded
+      $(@el).addClass('expanded')
+
       new Feed.Splash.Lineage
         el:              @$('[data-widget = "thumbnails"]').get(0)
         model:           new Track(@model)
