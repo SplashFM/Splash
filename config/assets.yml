@@ -1,7 +1,7 @@
 embed_assets: on
 
 javascripts:
-  common2:
+  common3:
     - public/javascripts/jquery.TextAreaExpander.js
     - public/javascripts/jquery_ujs.js
     - public/javascripts/jquery-ui-1.8.16.custom.min.js
@@ -49,7 +49,7 @@ javascripts:
     - public/javascripts/client/**/*.js
 
 stylesheets:
-  common2:
+  common3:
     - public/stylesheets/vendor/yui-reset.css
     - public/stylesheets/vendor/yui-base.css
     - public/stylesheets/vendor/yui-fonts.css
