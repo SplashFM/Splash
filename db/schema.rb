@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120327102241) do
+ActiveRecord::Schema.define(:version => 20120329135206) do
 
   create_table "access_requests", :force => true do |t|
     t.string   "email"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20120327102241) do
   end
 
   add_index "splashes", ["parent_id"], :name => "index_splashes_on_parent_id"
+  add_index "splashes", ["user_id", "track_id"], :name => "index_splashes_on_user_id_and_track_id", :unique => true
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
