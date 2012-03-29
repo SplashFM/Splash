@@ -119,7 +119,17 @@ Widgets.AvatarUpload = {
               done:  function(e, data) {
                 $('#spinner').hide();
                 $('#user-avatar').attr('src', data.result.avatar_thumb_url).fadeIn();
-                $.fancybox.close();
+                $('.picture .fancybox').fancybox(
+                  _.extend(
+                    {},
+                    Scaphandrier.Fancybox.params.customizations, {
+                      onComplete: function() {
+                        $('#crop').show();
+                        $w("edit_avatar").hide();
+                        Widgets.AvatarCrop.init();
+                      }
+                    })
+                  ).click();
               },
 
               error: function(xhr, data) {
@@ -168,6 +178,8 @@ Widgets.AvatarCrop = {
       var d = new Date();
       $('#user-avatar').attr('src', user.avatar_thumb_url + d.getTime());
       $.fancybox.close();
+      $('.picture .fancybox').
+        fancybox(Scaphandrier.Fancybox.params.customizations);
     });
   }
 }
