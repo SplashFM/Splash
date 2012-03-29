@@ -51,6 +51,8 @@
           user: new User(#{user_json}),
           facebookAppID: "#{AppConfig.facebook['key']}"
         });
+
+        window.app.initializeRoutes();
       });
   %body
     = clicktale_top

@@ -18,7 +18,26 @@ class Application extends Backbone.View
     @_initializePlayer()
     @_initializeUpload()
     @_initializePlugins()
-    @_initializeRoutes()
+
+  initializeRoutes: ->
+    @routers = {}
+
+    @routers.profile     = new Profile.Router(app: this)
+    @routers.application = new Application.Router(app: this)
+    @routers.home        = new Home.Router(app: this)
+    @routers.follow      = new Follow.Router(app: this)
+    @routers.splash      = new SingleSplash.Router(app: this)
+
+    @routers.profile.bind 'all', (_, nickname) =>
+      if nickname == @user.get('nickname')
+        @_highlightPage 'profile'
+      else
+        @_clearHighlight()
+    @routers.home.bind    'all', => @_highlightPage 'home'
+    @routers.follow.bind  'all', => @_highlightPage 'follow'
+    @routers.splash.bind  'all', => @_clearHighlight()
+
+    Backbone.history.start({pushState: true})
 
   setContent: (content) -> @current.setContent content
 
@@ -58,26 +77,6 @@ class Application extends Backbone.View
   _initializePlugins: ->
     @$('.fancybox-large').fancybox Scaphandrier.Fancybox.Large.params.customizations
     @$('.fancybox').fancybox Scaphandrier.Fancybox.params.customizations
-
-  _initializeRoutes: ->
-    @routers = {}
-
-    @routers.profile     = new Profile.Router(app: this)
-    @routers.application = new Application.Router(app: this)
-    @routers.home        = new Home.Router(app: this)
-    @routers.follow      = new Follow.Router(app: this)
-    @routers.splash      = new SingleSplash.Router(app: this)
-
-    @routers.profile.bind 'all', (_, nickname) =>
-      if nickname == @user.get('nickname')
-        @_highlightPage 'profile'
-      else
-        @_clearHighlight()
-    @routers.home.bind    'all', => @_highlightPage 'home'
-    @routers.follow.bind  'all', => @_highlightPage 'follow'
-    @routers.splash.bind  'all', => @_clearHighlight()
-
-    Backbone.history.start({pushState: true})
 
   _initializeScroll: ->
     @scroll = new EndlessScroll
