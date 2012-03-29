@@ -40,9 +40,9 @@ class SocialConnection < ActiveRecord::Base
         map { |f| FbGraph::User.new(f[:identifier], f) }
     end
 
-    def splashed(splash, router)
+    def splashed(splash, url)
       @me.og_action! self.class.app.og_action(:splash),
-                     :song => router.splash_url(splash)
+                     :song => url
     end
 
     module FriendAttributes
@@ -65,11 +65,11 @@ class SocialConnection < ActiveRecord::Base
       "http://api.twitter.com/1/users/profile_image/#{@uid}.json?size=original"
     end
 
-    def splashed(splash, router)
+    def splashed(splash, url)
       @client.update 'I just splashed "' <<
                      splash.track.title + '" by ' <<
                      splash.track.performers.to_sentence << ': ' <<
-                     router.splash_url(splash)
+                     url
     end
 
     def friends(filter = nil, cache = Rails.cache)

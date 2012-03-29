@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
         if share[network].present? &&
            (n = current_user.social_connection(network))
 
-          n.delay.splashed(splash, self)
+          n.delay.splashed(splash, splash_url(splash))
         end
       }
     }
