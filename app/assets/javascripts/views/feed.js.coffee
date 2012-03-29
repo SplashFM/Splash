@@ -21,6 +21,7 @@ class Feed
   @eventFeed: (content, options) ->
     params =
       _({
+        app:        window.app,
         collection: new EventList,
         className:  'live-feed',
         newItem:    (i) ->
@@ -29,13 +30,12 @@ class Feed
     feed   = @feed content, params
 
     splashed        = _.bind(feed.splashed, feed)
-    content.events ?= {}
 
-    _.extend content.events,
+    _.extend params.app.events,
       'splash:splash':   splashed
       'upload:complete': splashed
 
-    content.delegateEvents()
+    params.app.delegateEvents()
 
     @playable content,
               feed,
@@ -101,8 +101,8 @@ class Feed
           $main.prepend @empty
     this
 
-  splashed: ->
-    @paginated.refetch()
+  splashed: (_, data) ->
+    @list.addItem data.splash, null, index: 0
 
   renderTop: ($top) ->
     if @updates then $top.append @updates.render().el

@@ -33,8 +33,8 @@ window.BaseApp.SplashAction = Backbone.View.extend({
     _.bindAll(this, 'broadcastSplash', 'splash');
   },
 
-  broadcastSplash: function() {
-    $(this.el).trigger('splash:splash', {track: this.model});
+  broadcastSplash: function(splash) {
+    $(this.el).trigger('splash:splash', {track: this.model, splash: splash});
   },
 });
 
@@ -59,11 +59,11 @@ window.FullSplashAction = BaseApp.SplashAction.extend({
     this.toggle.bind('toggle:hide', this.triggerClose, this);
   },
 
-  broadcastSplash: function() {
+  broadcastSplash: function(splash) {
     if (this.options.parent) {
-      $(this.el).trigger('splash:resplash', {track: this.model});
+      $(this.el).trigger('splash:resplash', {track: this.model, splash: splash});
     } else {
-      BaseApp.SplashAction.prototype.broadcastSplash.call(this);
+      BaseApp.SplashAction.prototype.broadcastSplash.call(this, splash);
     }
   },
 
@@ -94,11 +94,11 @@ window.FullSplashAction = BaseApp.SplashAction.extend({
     this.trigger('splash:open');
   },
 
-  finishSplash: function() {
+  finishSplash: function(splash) {
     this.toggle.toggle();
     this.toggle.disable();
     // FIXME: neither of these seem to actually trigger a rerender of the single view.
-    this.broadcastSplash();
+    this.broadcastSplash(splash);
     this.model.change();
   }
 });
