@@ -57,7 +57,7 @@
         %li.navigation-home
           %a{:href => 'home'}= t('simple_navigation.menus.home')
         %li.navigation-profile
-          %a{:href => "#{current_user.nickname}"}= current_user.nickname
+          %a{:href => "#{current_user.nickname}"}= nickname(15)
         %li.navigation-follow
           %a{:href => 'follow'}= t('simple_navigation.menus.friends')
   / /shell

@@ -86,6 +86,10 @@ module UsersHelper
     content_tag(:li, check + I18n.t("devise.registrations.edit.email_preferences.#{preference}"))
   end
 
+  def nickname(length)
+    truncate(current_user.nickname, length: length)
+  end
+
 private
   def profile_page?
     controller_path == 'users'
