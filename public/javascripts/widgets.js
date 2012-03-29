@@ -112,6 +112,10 @@ Widgets.Avatar = {
 Widgets.AvatarUpload = {
   init: function(){
     $('#fileupload').fileupload({
+              send: function() {
+                $('#fileupload form').replaceWith('<div class="loading" />');
+              },
+
               done:  function(e, data) {
                 $('#user-avatar').attr('src', data.result.avatar_thumb_url).fadeIn();
                 $.fancybox.close();
