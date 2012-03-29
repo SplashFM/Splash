@@ -178,7 +178,7 @@ window.TrackSearch.AllResults.Result = Backbone.View.extend({
   },
 
   play: function() {
-    $(this.el).trigger('play', {track: this.model.toJSON()});
+    $(this.el).trigger('play', {track: this.model.toJSON(), skip: true});
   },
 
   render: function() {

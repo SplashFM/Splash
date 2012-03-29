@@ -9,9 +9,10 @@ class Feed
     content.events ?= {}
 
     playing         = (e, data) ->
-      _.extend data,
-        index:      feed.list.indexOf(e.target)
-        collection: collection
+      unless data.skip
+        _.extend data,
+          index:      feed.list.indexOf(e.target)
+          collection: collection
 
     _.extend content.events, 'play': playing
 
