@@ -144,4 +144,22 @@ namespace :migrate do
       t.save
     end
   end
+
+  task :clear_duplicate_splashes => :environment do
+    Splash.
+      select('track_id, user_id, count(*) total').
+      group('track_id, user_id').
+      having('count(*) > 1').each { |s|
+
+      if s.track_id.nil? || s.user_id.nil?
+        puts "AAAAHHHH!"
+
+        next
+      end
+
+      first, *rest = Splash.where(track_id: s.track_id, user_id: s.user_id)
+
+      rest.each(&:destroy)
+    }
+  end
 end
