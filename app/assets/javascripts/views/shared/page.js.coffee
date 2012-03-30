@@ -35,6 +35,8 @@ class Page extends Backbone.View
 
     @$('#side-bar-wrap').prepend sidebar.render().el
 
+    sidebar.$('h2.actor_name').truncate()
+
   renderTop:     (content) ->
 
   runPlugins: ->
