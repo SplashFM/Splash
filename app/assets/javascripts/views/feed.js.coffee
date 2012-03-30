@@ -29,11 +29,14 @@ class Feed
         , refresh:  options.filters}).extend(options)
     feed   = @feed content, params
 
-    splashed        = _.bind(feed.splashed, feed)
-
+    # We should not be extending app events here
+    splashed = _.bind(feed.splashed, feed)
+    u        = params.app[params.app.events['upload:complete']]
     _.extend params.app.events,
       'splash:splash':   splashed
-      'upload:complete': splashed
+      'upload:complete': _.wrap(u, (f, rest...) ->
+        f.call(params.app)
+        splashed(rest...))
 
     params.app.delegateEvents()
 
@@ -103,6 +106,8 @@ class Feed
 
   splashed: (_, data) ->
     @list.addItem data.splash, null, index: 0
+
+    true
 
   renderTop: ($top) ->
     if @updates then $top.append @updates.render().el
