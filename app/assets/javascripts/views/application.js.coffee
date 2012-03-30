@@ -58,6 +58,8 @@ class Application extends Backbone.View
 
       @$el.append(@tutorial.shadeEl).append(@tutorial.el)
 
+    @trigger 'tutorial:show'
+
     @tutorial.show()
 
   _clearHighlight: ->
@@ -96,6 +98,8 @@ class Application extends Backbone.View
     Backbone.history.on 'route', => @search.hide()
     Backbone.history.on 'route', => @$('div.tooltip').remove()
     Backbone.history.on 'route', => $.fancybox.close()
+
+    @on 'tutorial:show', => $.fancybox.close()
 
   _initializeUpload: ->
     $w       = @$('[data-widget = "global-search"]')
