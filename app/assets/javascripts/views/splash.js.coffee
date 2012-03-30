@@ -3,7 +3,6 @@ class Splash extends Backbone.View
     'submit [data-widget = "comment-box"]':         'addComment'
     'keypress [data-widget = "comment-text-area"]': 'checkKeyDown'
     'click [data-widget = "play"]':                 'play'
-    'click [data-widget = "flag"]':                 'flag'
   tagName: 'li'
 
   initialize: ->
@@ -67,19 +66,6 @@ class Splash extends Backbone.View
         addClass('unsplashable')
 
       @number.incr()
-
-  flag: (e) ->
-    e.preventDefault()
-
-    track = new UndiscoveredTrack(@model.get('track'))
-
-    track.flag()
-
-    @$('[data-widget = "flag"]').
-      replaceWith($("<span/>").
-                    text("Thanks!").
-                    addClass('report-song').
-                    addClass('right'))
 
   render: =>
     s          = @model
@@ -252,6 +238,27 @@ class Splash.Expandable
           @$('[data-widget = "more-info"]').toggle()
 
 Splash.Expandable.mixInto(Splash)
+
+# this should be a real class
+class Splash.Reportable
+  @mixInto: (target, getTrack) ->
+    target::events ?= {}
+
+    _(target::events).extend 'click [data-widget = "flag"]': 'flag'
+
+    _(target.prototype).extend flag: (e) ->
+      e.preventDefault()
+
+      getTrack(this).flag()
+
+      @$('[data-widget = "flag"]').
+        replaceWith($("<span/>").
+                      text("Thanks!").
+                      addClass('report-song').
+                      addClass('right'))
+
+Splash.Reportable.mixInto Splash, (splash) ->
+  new UndiscoveredTrack(splash.model.get('track'))
 
 window.Feed.Splash = Splash
 
