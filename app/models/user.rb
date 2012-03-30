@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
 
   ACCESS_CODES_PATH = File.join(Rails.root, %w(config access_codes.yml))
 
-  NICKNAME_REGEXP = '\w[A-Za-z\d_.-]+\w'
+  NICKNAME_REGEXP = '\w[A-Za-z\d_.-]*\w'
 
   DEFAULT_AVATAR_URL = '/images/dummy_user_:style.png'
   AVATAR_WIDTH = 125
