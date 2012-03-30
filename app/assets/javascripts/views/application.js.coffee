@@ -95,6 +95,7 @@ class Application extends Backbone.View
   _initializeTransientManagement: ->
     Backbone.history.on 'route', => @search.hide()
     Backbone.history.on 'route', => @$('div.tooltip').remove()
+    Backbone.history.on 'route', => $.fancybox.close()
 
   _initializeUpload: ->
     $w       = @$('[data-widget = "global-search"]')
