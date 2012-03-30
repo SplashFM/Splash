@@ -40,6 +40,8 @@ class Application extends Backbone.View
 
     Backbone.history.start({pushState: true})
 
+    @_initializeTooltipManagement()
+
   removeUpload: ->
     @upload.remove()
 
@@ -89,6 +91,9 @@ class Application extends Backbone.View
     new BaseApp.GlobalSearch
     new BaseApp.UserSearch
     new BaseApp.TrackSearch
+
+  _initializeTooltipManagement: ->
+    Backbone.history.on 'route', => @$('div.tooltip').remove()
 
   _initializeUpload: ->
     $w       = @$('[data-widget = "global-search"]')
