@@ -41,6 +41,8 @@ class UndiscoveredTrack < Track
         merge(ATTACHMENT_OPTS).
         merge(:s3_headers => {"Content-Disposition" => "attachment"})
     has_attached_file :artwork, S3_OPTS.merge(ARTWORK_OPTS)
+
+    process_in_background :data
   else
     has_attached_file :data,    ATTACHMENT_OPTS
     has_attached_file :artwork, ARTWORK_OPTS
