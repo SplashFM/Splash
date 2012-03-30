@@ -1,7 +1,6 @@
 class Upload extends Backbone.View
   events:
     'click .toggle-upload': 'toggle',
-    'upload:complete': 'remove'
 
   initialize: ->
     @$input = @$('input.field')
@@ -78,16 +77,8 @@ class Upload.Metadata extends Backbone.View
   events: {submit: 'onSubmit'}
   tagName: 'form'
 
-  onComplete: =>
-    @$('[name = "title"]').val('')
-    @$('[name = "performers"]').val('')
-    @$('[name = "albums"]').val('')
-    @$('textarea').val('')
-
-    @$el.trigger('upload:complete')
-
-    @$('[data-widget = "metadata"]').hide()
-    @$('[data-widget = "complete-upload"]').hide()
+  onComplete: (splash) =>
+    @$el.trigger 'upload:complete', splash: splash
 
   onError: =>
     @$el.trigger('upload:error')

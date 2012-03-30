@@ -48,16 +48,16 @@ class UndiscoveredTracksController < ApplicationController
     track = current_user.uploaded_tracks.find(params[:id])
 
     if track.update_attributes(params.slice(:albums, :title, :performers))
-      splash_and_post params, track
-
-      respond_with track
+      respond_with(s = splash_and_post(params, track)) { |f|
+        f.json { render json: s }
+      }
     elsif track.taken?
       begin
         c = track.replace_with_canonical
 
-        splash_and_post params, c
-
-        respond_with_canonical c
+        respond_with(s = splash_and_post(params, c)) { |f|
+          f.json { render json: s }
+        }
       rescue ActiveRecord::RecordInvalid => e
         respond_with e.record, :status => :forbidden
       end

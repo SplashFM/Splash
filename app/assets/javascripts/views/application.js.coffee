@@ -5,6 +5,7 @@ class Application extends Backbone.View
     'click a':                           '_routeLink'
     'click [data-widget = "first-aid"]': 'showTutorial'
     'click .show-tutorial':              'showTutorial'
+    'upload:complete':                   'removeUpload'
 
   initialize: ->
     @user          = @options.user
@@ -38,6 +39,9 @@ class Application extends Backbone.View
     @routers.splash.bind  'all', => @_clearHighlight()
 
     Backbone.history.start({pushState: true})
+
+  removeUpload: ->
+    @upload.remove()
 
   setContent: (content) -> @current.setContent content
 
