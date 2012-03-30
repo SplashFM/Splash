@@ -105,6 +105,8 @@ class TopTrack extends Backbone.View
   togglePlay: => @$el.toggleClass 'playable'
 
 window.Feed.Splash.Expandable.mixInto(TopTrack)
+window.Feed.Splash.Reportable.mixInto TopTrack, (topTrack) ->
+  new UndiscoveredTrack(topTrack.model.toJSON())
 
 window.Home.TopTracks = TopTracks
 
