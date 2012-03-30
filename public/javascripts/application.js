@@ -125,9 +125,10 @@ SPLASH.Widgets.SettingsButton = function() {
 SPLASH.Widgets.ScrollBubble = function(selector,_toScroll) {
   var toScrollSelector  = _toScroll;
   var toScroll          = $(toScrollSelector);
-  $(selector).live('mousewheel',function(e){
-    var toMove = e.wheelDelta > 0 ? -10 : 10;
+  $(selector).live('mousewheel',function(_, _, _, deltaY){
+    var toMove = deltaY > 0 ? -10 : 10;
     if( toScroll.length == 0 ) { toScroll =  $(toScrollSelector) };
+
     toScroll.scrollTop(toScroll.scrollTop()+toMove);
   });
 }
@@ -154,6 +155,6 @@ jQuery(document).ready(function() {
   SPLASH.Widgets.sticky("#header .shell");
   SPLASH.Widgets.SetDrops();
   SPLASH.Widgets.pulsars();
-  SPLASH.Widgets.ScrollBubble('.followed-box','.following-container');
+  SPLASH.Widgets.ScrollBubble('.followed-box','.following-container .contents');
   SPLASH.Widgets.stepFontSize('.actor_name',62);
 });
