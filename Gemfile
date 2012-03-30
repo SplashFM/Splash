@@ -81,6 +81,7 @@ gem "astrails-clicktale",
 gem 'ruby-gd', :git => 'git://github.com/Spakman/ruby-gd.git'
 gem 'quilt'
 gem 'hominid'
+gem 'delayed_paperclip'
 
 group :assets do
   gem "sass-rails"
