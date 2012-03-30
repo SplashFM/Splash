@@ -15,7 +15,7 @@
 			opt2 = text.slice(0, end);
 		}
 
-		if ($workerEl.html(opt2 + token).width() < $workerEl.html(opt1 + token).width()) {
+		if ($workerEl.html(opt2 + token).width() <= $workerEl.html(opt1 + token).width()) {
 			return end;
 		}
 
