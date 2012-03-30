@@ -17,9 +17,9 @@ class Page extends Backbone.View
   render: ->
     @$el.attr 'class', @className
 
-    @renderTop     @content
-    @renderContent @content
     @renderSidebar @sidebar
+    @renderContent @content
+    @renderTop     @content
 
     @runPlugins()
 
