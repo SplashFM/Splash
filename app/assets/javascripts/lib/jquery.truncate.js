@@ -33,6 +33,8 @@
 			start = mid + 1;
 		}
 
+                if (start > end) return null;
+
 		return findTruncPoint(maxWidth, text, start, end, $workerEl, token, fromEnd);
 	}
 
