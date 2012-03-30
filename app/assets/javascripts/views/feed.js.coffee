@@ -26,7 +26,7 @@ class Feed
         className:  'live-feed',
         newItem:    (i) ->
           new Feed.Splash(model: i, currentUserID: window.app.user.id)
-        , refresh:    true}).extend(options)
+        , refresh:  options.filters}).extend(options)
     feed   = @feed content, params
 
     splashed        = _.bind(feed.splashed, feed)
@@ -81,7 +81,7 @@ class Feed
 
     @endless()
 
-    if options.refresh then @updateable()
+    if options.refresh then @updateable(options.refresh)
 
   endless: ->
     @spinner = new Feed.Spinner
@@ -119,10 +119,10 @@ class Feed
 
     if @updates then @updates.remove()
 
-  updateable: ->
+  updateable: (filters) ->
     @updates = new Feed.Updateable
       collection: @collection
-      filters:    @filters
+      filters:    filters
 
     @updates.start()
 

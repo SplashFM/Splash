@@ -43,12 +43,22 @@ class Profile.Content extends Page.Content
     @mention  = '@' + @user.get('nickname')
     @label    = if @section == 'mentions' then @mention else 'profile.my_splashes'
 
+    if @app.user.isEqual(@user)
+      refresh = false
+    else
+      refresh =
+        follower: if @section == 'mentions' then @user.id else ''
+        mentions: if @section == 'mentions' then 1 else ''
+        splashes: if @section == 'splashes' then 1 else ''
+        user:     @user.id
+
     @feed     = Feed.eventFeed this,
       filters:
         follower: if @section == 'mentions' then @user.id else ''
         mentions: if @section == 'mentions' then 1 else ''
         splashes: if @section == 'splashes' then 1 else ''
         user:     @user.id
+      refresh:    refresh
 
     @routes   = Profile.Router.routes
 

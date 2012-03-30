@@ -13,6 +13,10 @@ class LatestSplashes extends Page.Content
           follower: if @sample == 'following' then @app.user.id or 0 else ''
           splashes: 1
           user:     if @sample == 'following' then @app.user.id or 0 else ''
+        refresh:
+          follower: if @sample == 'following' then @app.user.id or 0 else ''
+          splashes: 1
+
     @routes = @app.routers.home.builder
 
   renderTop: ($top) ->
