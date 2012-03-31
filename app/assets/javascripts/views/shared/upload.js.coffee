@@ -222,8 +222,7 @@ class Upload.Feedback.Progress extends Backbone.View
 
   setUploadProgress: (percent) ->
     increment = Math.ceil(@$progress.width() * percent / 100)
-    adjust    = Math.pow(increment / 100, 2)
-    pos       = @progressBeginPos + increment + adjust
+    pos       = @progressBeginPos + increment
 
     @$progress.css('background-position', pos + 'px 0');
 
