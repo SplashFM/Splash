@@ -19,6 +19,7 @@ class UndiscoveredTrack < Track
     :default_style => :normal,
     :styles        => {:normal => '#{DEFAULT_ART_SIZE}x#{DEFAULT_ART_SIZE}>'},
     :default_url   => DEFAULT_ARTWORK_URL,
+    :hash_data     => ":class/:attachment/:id/:style/:filename",
     :hash_secret   => ":class/:attachment/:id",
     :path          => "#{PREFIX}/:class/:attachment/:id/:hash"
   }
