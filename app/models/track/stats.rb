@@ -6,6 +6,7 @@ class Track
       redis_base_key :track
       redis_counter :splash_count
       redis_counter :splash_count_week
+      handle_asynchronously :clear_redis
     end
 
     module ClassMethods
