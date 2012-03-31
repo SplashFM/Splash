@@ -42,7 +42,7 @@ class Paginate
       error:   => @trigger "paginate:error"
 
   hasNext: ->
-    not @lastLength? or @collection.length == (@lastLength + @elemsPerPage)
+    not @lastLength? or @collection.length > @lastLength
 
   loaded: ->
     @data.page = @data.page + 1
