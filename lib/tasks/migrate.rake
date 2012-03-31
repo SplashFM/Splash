@@ -162,4 +162,17 @@ namespace :migrate do
       rest.each(&:destroy)
     }
   end
+
+  task :reprocess_artworks => :environment do
+    UndiscoveredTrack.find_each batch_size: 100 do |t|
+      begin
+        t.artwork.options.hash_data = ":class/:attachment/:id/:style/:updated_at"
+        f = t.artwork.to_file(:original)
+        t.artwork.options.hash_data = ":class/:attachment/:id/:style/:filename"
+        t.update_attributes artwork: f unless t.local_data?
+      rescue => e
+        puts e.message
+      end
+    end
+  end
 end
