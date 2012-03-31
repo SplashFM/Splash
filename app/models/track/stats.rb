@@ -51,14 +51,18 @@ class Track
     private
 
     def clear_redis
-      Track.recompute_splash_counts
-      Track.recompute_splash_counts_time_bound
+      if @users_to_recompute
+        Track.recompute_splash_counts
+        Track.recompute_splash_counts_time_bound
 
-      User.recompute_all_splashboards(@users_to_recompute)
+        User.recompute_all_splashboards(@users_to_recompute)
+      end
     end
 
     def prepare_clear_redis
-      @users_to_recompute = User.find(splashes.value_of(:user_id))
+      sv = splashes.value_of(:user_id)
+
+      @users_to_recompute = User.find(sv) if sv.present?
     end
   end
 end
