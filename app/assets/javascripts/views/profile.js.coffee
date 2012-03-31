@@ -31,7 +31,7 @@ class Profile extends Page
         label: content.mention}]
       active:  content.label)
 
-    content.$top.find('.inner-nav-tabs li a').truncate()
+    content.$top.find('.inner-nav-tabs li a').smartTruncation()
 
 
 class Profile.Content extends Page.Content

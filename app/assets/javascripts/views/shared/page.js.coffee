@@ -40,7 +40,7 @@ class Page extends Backbone.View
 
     @$('#side-bar-wrap').prepend sidebar.render().el
 
-    sidebar.$('h2.actor_name').truncate()
+    sidebar.$('h2.actor_name').smartTruncation()
 
   renderTop:     (content) ->
 
