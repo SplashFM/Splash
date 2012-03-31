@@ -10,6 +10,9 @@ class Page extends Backbone.View
 
     @sidebar = new Sidebar(app: @app, user: @user, className: @sidebarClass)
 
+  placeContent: (content) ->
+    @$('#stream-wrap').html content.el
+
   remove: ->
     @content.remove()
     @sidebar.remove()
@@ -17,9 +20,11 @@ class Page extends Backbone.View
   render: ->
     @$el.attr 'class', @className
 
+    @placeContent @content
+
     @renderSidebar @sidebar
-    @renderContent @content
     @renderTop     @content
+    @renderContent @content
 
     @runPlugins()
 
@@ -28,7 +33,7 @@ class Page extends Backbone.View
   renderContent: (content) ->
     @$('#stream-wrap').attr 'class', @streamWrapClass
 
-    @$('#stream-wrap').html content.render().el
+    @content.render()
 
   renderSidebar: (sidebar) ->
     @$('#side-bar-wrap').attr 'class', @sidebarWrapClass
@@ -47,6 +52,8 @@ class Page extends Backbone.View
     if @content then @content.remove()
 
     @content = content
+
+    @placeContent @content
 
     @renderTop     @content
     @renderContent @content
