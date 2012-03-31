@@ -43,6 +43,7 @@ class UndiscoveredTrack < Track
     has_attached_file :artwork, S3_OPTS.merge(ARTWORK_OPTS)
 
     process_in_background :data
+    process_in_background :artwork
   else
     has_attached_file :data,    ATTACHMENT_OPTS
     has_attached_file :artwork, ARTWORK_OPTS
