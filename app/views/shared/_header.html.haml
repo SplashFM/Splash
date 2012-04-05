@@ -1,7 +1,7 @@
 %span#wrap-pattern
 #header
   .shell
-    %a{:href => home_url}
+    %a{:href => logged_in? ? 'home' : home_url}
       %img#logo-interior{:src => '/css/images/logo-interior.png'}
     - if logged_in?
       %a.nav-user-settings.right{:href => "#", :data => {:widget => 'lifesaver'}}
