@@ -78,7 +78,7 @@ class User
 
       def top_splashers(page, num_records)
         # find featured splashers
-        top_qry   = where('top_splasher_weight > 0')
+        top_qry   = featured
         top_count = top_qry.count
         top_pages = (top_count / num_records.to_f).ceil
         top       = top_qry.page(page).per(num_records).

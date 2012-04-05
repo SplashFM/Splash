@@ -113,6 +113,7 @@ class User < ActiveRecord::Base
     where('date(created_at) = ?', date)
   }
   scope :pending, where(:active => false)
+  scope :featured, where('top_splasher_weight > 0')
 
   def self.access_code
     allowed_access_codes.first
