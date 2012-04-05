@@ -10,7 +10,7 @@ class Router extends Backbone.Router
 
   routes:
     'featured':              'featured'
-    'follow':                'topSplashers'
+    'follow':                'featured'
     'friends':               'friends'
     'top/splashers/:sample': 'topSplashers'
 
