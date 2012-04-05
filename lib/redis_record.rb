@@ -60,6 +60,10 @@ module RedisRecord
         def #{name}_rank
           redis.zrevrank(key("sorted_#{name}"), id.to_s)
         end
+
+        def reset_sorted_#{name}
+          redis.zrem(key("sorted_#{name}"), id.to_s)
+        end
       RUBY
     end
 
@@ -115,6 +119,11 @@ module RedisRecord
         def reset_#{name}
           RedisRecord.redis.hdel(key(#{name.to_s.inspect}), id.to_s).to_i
         end
+
+        def delete_#{name}_instance
+          reset_#{name}
+          reset_sorted_#{name}
+        end
       RUBY
     end
 
@@ -141,6 +150,11 @@ module RedisRecord
       RUBY
 
       class_eval <<-RUBYI
+        def delete_#{name.to_s.singularize}(track_id)
+          k = key("#{name.to_s}/") + id.to_s
+          RedisRecord.redis.zrem(k, track_id)
+        end
+
         def record_#{name.to_s.singularize}(track_id)
           k = key("#{name.to_s}/") + id.to_s
           RedisRecord.redis.zadd(k, 1, track_id)

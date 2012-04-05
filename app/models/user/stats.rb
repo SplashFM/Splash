@@ -118,6 +118,11 @@ class User
     influence.interstore(top_following.key, sorted_following)
   end
 
+  def remove_track_from_splashboard(track_id)
+    delete_splashed_track      track_id
+    delete_splashed_track_week track_id
+  end
+
   def reset_splashed_tracks_hash!
     Splash.for_users(id).select(:track_id).map(&:track_id).each{|i|
       record_splashed_track(i)

@@ -52,18 +52,18 @@ class Track
     private
 
     def clear_redis
-      if @users_to_recompute
-        Track.recompute_splash_counts
-        Track.recompute_splash_counts_time_bound
+      if @users_to_recompute.present?
+        delete_splash_count_instance
+        delete_splash_count_week_instance
 
-        User.recompute_all_splashboards(@users_to_recompute)
+        @users_to_recompute.each { |u| u.remove_track_from_splashboard(id) }
       end
     end
 
     def prepare_clear_redis
       sv = splashes.value_of(:user_id)
 
-      @users_to_recompute = User.find(sv) if sv.present?
+      @users_to_recompute = sv.present? ? User.find(sv) : []
     end
   end
 end
