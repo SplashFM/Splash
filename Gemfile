@@ -65,7 +65,6 @@ gem "kaminari"
 gem "sanitize"
 gem "parallel_tests", :group => :development
 gem "acts-as-taggable-on", "~> 2.1.0"
-gem "silent-postgres"
 gem "has_scope"
 gem "aws-s3"
 gem "active_model_serializers", :git => 'git://github.com/david/active_model_serializers.git'
