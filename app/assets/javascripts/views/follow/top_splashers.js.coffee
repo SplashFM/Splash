@@ -50,6 +50,8 @@ class TopUser extends Backbone.View
 
     this
 
+Follow.TopSplashers.User = TopUser
+
 $ ->
   TopUser::template             = $('#tmpl-user').template()
   TopUser::templateRelationship = $('#tmpl-relationship-list').template()

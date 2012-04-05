@@ -48,6 +48,7 @@ Scaphandrier::Application.routes.draw do
   get 'top/*top' => 'home#index'
   get 'latest/*latest' => 'home#index'
   get 'follow' => 'home#index'
+  get 'featured' => 'home#index'
 
   match '' => 'home#index', :as =>'home'
   match 'dashboard' => 'home#index', :as => 'dashboard'

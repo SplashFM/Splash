@@ -4,6 +4,9 @@ class Follow extends Page
   renderTop: (content) ->
     content.$top.append JST['shared/tabbed_top'](
       links: [{
+        href:  Follow.Router.routes.featured()
+        label: 'follow.featured_splashers'
+      }, {
         href:  Follow.Router.routes.topSplashers()
         label: 'follow.top_splashers'
       }, {
