@@ -9,6 +9,7 @@ class User
       sorted_set :top_following
 
       redis_sorted_field :influence
+      redis_sorted_field :featured_influence
       redis_counter :ripple_count
       redis_counter :splash_count
       redis_hash :splashed_tracks
@@ -20,8 +21,12 @@ class User
         scoped.sort_by(&:splash_score).reverse
       end
 
+      def featured(page, num_records)
+        sorted_by_featured_influence(page, num_records)
+      end
+
       def recompute_top_following
-        User.find_each(:batch_size => 100) {|u| u.recompute_top_following }
+        User.find_each(:batch_size => 100) { |u| u.recompute_top_following }
       end
 
       def recompute_all_splashboards(users = [])
@@ -83,8 +88,11 @@ class User
       def update_influences(ids)
         scs    = splash_counts(ids) || []
         rcs    = ripple_counts(ids) || []
-        ids.zip(scs, rcs).each { |(id, s, r)|
+        ids    = values_of(:id, :top_splasher_weight)
+        ids.zip(scs, rcs).each { |((id, w), s, r)|
           update_sorted_influence(id, s.to_i + (r.to_i * 2))
+
+          update_sorted_featured_influence(id, s.to_i + (r.to_i * 2)) if w
         }
       end
     end

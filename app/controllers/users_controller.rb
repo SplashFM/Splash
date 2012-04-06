@@ -21,7 +21,7 @@ class UsersController < ApplicationController
           User.top_splashers(current_page, TOP_SPLASHERS_PER_PAGE)
         end
       elsif params[:featured].present?
-        User.featured
+        User.featured(current_page, TOP_SPLASHERS_PER_PAGE)
       else
         results = apply_scopes(User).page(current_page).per(PER_SEARCH)
 
