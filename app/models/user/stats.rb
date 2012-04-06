@@ -14,6 +14,9 @@ class User
       redis_counter :splash_count
       redis_hash :splashed_tracks
       redis_hash :splashed_track_weeks
+
+      before_update :check_featured
+      after_update  :commit_featured
     end
 
     module ClassMethods
@@ -203,5 +206,25 @@ class User
     cache = self.class.where(:id => ids).index_by(&:id)
 
     ids.map { |id| cache[id] }
+  end
+
+  private
+
+  def check_featured
+    if top_splasher_weight_changed?
+      @featured_op = top_splasher_weight? ? :add : :delete
+    end
+  end
+
+  def commit_featured
+    case @featured_op
+    when :add
+      self.class.update_influence id,
+                                  top_splasher_weight,
+                                  splash_count,
+                                  ripple_count
+    when :delete
+      reset_sorted_featured_influence
+    end
   end
 end
