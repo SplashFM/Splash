@@ -95,7 +95,7 @@ class User
       end
 
       def update_influences(ids)
-        ids    = ids.sort
+        ids    = ids.map(&:to_i).sort
         scs    = splash_counts(ids) || []
         rcs    = ripple_counts(ids) || []
         iws    = where(id: ids).order(:id).values_of(:id, :top_splasher_weight)
