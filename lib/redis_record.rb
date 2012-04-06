@@ -153,6 +153,9 @@ module RedisRecord
         def delete_#{name.to_s.singularize}(track_id)
           k = key("#{name.to_s}/") + id.to_s
           RedisRecord.redis.zrem(k, track_id)
+
+          j = key("summed_#{name.to_s}/") + id.to_s
+          RedisRecord.redis.zrem(j, track_id)
         end
 
         def record_#{name.to_s.singularize}(track_id)
