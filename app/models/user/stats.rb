@@ -85,14 +85,19 @@ class User
         sorted_by_influence(page, num_records)
       end
 
+      def update_influence(id, w, s, r)
+        update_sorted_influence(id, s.to_i + (r.to_i * 2))
+
+        update_sorted_featured_influence(id, s.to_i + (r.to_i * 2)) if w
+      end
+
       def update_influences(ids)
+        ids    = ids.sort
         scs    = splash_counts(ids) || []
         rcs    = ripple_counts(ids) || []
-        ids    = values_of(:id, :top_splasher_weight)
-        ids.zip(scs, rcs).each { |((id, w), s, r)|
-          update_sorted_influence(id, s.to_i + (r.to_i * 2))
-
-          update_sorted_featured_influence(id, s.to_i + (r.to_i * 2)) if w
+        iws    = where(id: ids).order(:id).values_of(:id, :top_splasher_weight)
+        iws.zip(scs, rcs).each { |((id, w), s, r)|
+          update_influence id, w, s, r
         }
       end
     end
