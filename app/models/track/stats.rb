@@ -55,14 +55,17 @@ class Track
         delete_splash_count_instance
         delete_splash_count_week_instance
 
-        @users_to_recompute.each { |u| u.remove_track_from_splashboard(id) }
+        @users_to_recompute.each { |u| u.remove_track_from_splashboard id  }
+        @users_to_recompute.each { |u|
+          u.followers.each { |f| f.remove_track_from_splashboard id }
+        }
       end
     end
 
     def prepare_clear_redis
       sv = splashes.value_of(:user_id)
 
-      @users_to_recompute = sv.present? ? User.find(sv) : []
+      @users_to_recompute = sv.present? ? User.includes(:followers).find(sv) : []
     end
   end
 end
