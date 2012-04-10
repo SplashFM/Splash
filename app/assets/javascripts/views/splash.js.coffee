@@ -222,13 +222,16 @@ class Splash.Expandable
     _(target.prototype).extend toggleExpanded: (e) ->
       if @options.disableToggling then return
 
-      if @expand and
-        (!e or
-          (($(e.target).closest('[data-widget = "expand"]').length > 0 or
-            $(e.target).closest('[data-widget = "comments-count"]').length > 0 or
-            $(e.target).closest('a').length == 0) and
-           $(e.target).closest('[data-widget = "more-info"]').length == 0))
+      if e
+        isCommentToggle =
+          $(e.target).closest('[data-widget = "comments-count"]').length > 0
+        isAction        = $(e.target).closest('a').length > 0
+        isForm          = $(e.target).closest('form').length > 0
+        isExpandedArea  =
+          $(e.target).closest('[data-widget = "more-info"]').length > 0
 
+      if @expand and
+          (!e or isCommentToggle or (!isAction and !isForm and !isExpandedArea))
         if e then e.preventDefault()
 
         if @$('[data-widget = "more-info"]').length == 0
