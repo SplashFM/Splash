@@ -314,7 +314,7 @@ class User < ActiveRecord::Base
     recompute_splashboard :add, ids
     recompute_top_following
 
-    ids.each { |id| suggested_users.delete id }
+    write_attribute :ignore_suggested_users, ignore_suggested_users | ids
     write_attribute :suggested_users, suggested_users
     delay.update_suggestions
 
