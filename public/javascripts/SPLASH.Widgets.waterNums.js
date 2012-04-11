@@ -1,16 +1,14 @@
 var SPLASH = SPLASH || {};
 SPLASH.Widgets = SPLASH.Widgets || {};
 
-SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
+SPLASH.Widgets.waterNums = function(theSelector, yOffset) {
   var selector      = $(theSelector);
   var sigFig        = 2;
-  var numOffset     = {y:80,x:-54};
+  var numOffset     = {y:80, x:-54};
   var maxWaterWidth = -286;
   var vOffset       = yOffset || 0;
 
-  (function init() {
-    construct();
-  }())
+  construct();
 
   function construct () {
     selector.each(function() {
@@ -19,6 +17,7 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
       var newContents = "";
       var firstNum    = false;
       var randX =  Math.floor(Math.random()*maxWaterWidth)+20;
+      var innerNum    = "<span class='inner_num'></span>";
       var numOffsetV;
 
       function shiftHover(offset) {
@@ -46,7 +45,6 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
         var sSub        = theString.charAt(i);
         firstNum        = firstNum || sSub != "0" ? true : false;
         var bgP         = "background-position:"+ numOffset.x * sSub +"px "+ -numOffset.y * numOffsetV +"px;";
-        var innerNum    = "<span class='inner_num'></span>";
         var style       = "style='"+ bgP +"'";
         newContents     += "<div class='numHolder nonBlank_"+ firstNum +" num_"+ sSub +" digit_"+ i +"'"+ style +">"+ innerNum +"</div>";
 
@@ -55,8 +53,8 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
         }
       }
 
-      newContents+="<div class='clear'></div><div class='the_water'></div><div class='water_bg_color'></div><div class='noise-overlay'></div>";
-      current.data({number:theString});
+      newContents += "<div class='clear'></div><div class='the_water'></div><div class='water_bg_color'></div><div class='noise-overlay'></div>";
+      current.data({number: theString});
       current.html(newContents);
       var water = $('.the_water', current);
       water.css({'background-position': randX + "px " +  getBackgroundPositionY(water)+ "px"});
@@ -73,27 +71,27 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
   function cleanText (text) {
     var localString = text.toString().replace(/\s/g,'');
 
-    for(var i = sigFig - localString.length; i > 0; --i) {
+    for (var i = sigFig - localString.length; i > 0; --i) {
       localString = "0" + localString.toString();
     }
     return localString;
   }
 
   function rollWater(current) {
-    var theWater  = $('.the_water',current);
+    var theWater  = $('.the_water', current);
     var speed     = 2;
     var direction = -1;
 
     function step() {
       var newPos  = getBackgroundPositionX(theWater) + speed * direction;
-      if(newPos < maxWaterWidth || newPos > 0) {
+      if (newPos < maxWaterWidth || newPos > 0) {
         direction *= -1;
         newPos = getBackgroundPositionX(theWater) + speed * direction;
       }
 
       var newBgPosition = newPos + "px " + getBackgroundPositionY(theWater) + "px";
-      theWater.css({'background-position':newBgPosition});
-      setTimeout(step,50);
+      theWater.css({'background-position': newBgPosition});
+      setTimeout(step, 50);
     }
     step();
   }
