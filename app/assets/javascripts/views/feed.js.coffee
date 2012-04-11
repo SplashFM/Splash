@@ -30,7 +30,11 @@ class Feed
     feed   = @feed content, params
 
     # We should not be extending app events here
-    splashed = _.bind(feed.splashed, feed)
+    if options.update? && ! options.update
+      splashed = ->
+    else
+      splashed = _.bind(feed.splashed, feed)
+
     u        = params.app[params.app.events['upload:complete']]
     _.extend params.app.events,
       'splash:splash':   splashed

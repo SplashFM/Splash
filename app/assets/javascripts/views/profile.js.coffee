@@ -59,6 +59,7 @@ class Profile.Content extends Page.Content
         splashes: if @section == 'splashes' then 1 else ''
         user:     @user.id
       refresh:    refresh
+      update:     @app.user.isEqual(@user)
 
     @routes   = Profile.Router.routes
 

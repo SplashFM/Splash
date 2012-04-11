@@ -85,6 +85,9 @@ class window.Splash extends Event
           .find('img')
           .attr('src', '/images/twitter-btn-gray.png')
 
+  user: ->
+    new User(@get('user'))
+
 class window.SplashList extends Backbone.Collection
   url: "/splashes"
 
