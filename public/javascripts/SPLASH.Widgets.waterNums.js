@@ -19,6 +19,7 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
       var newContents = "";
       var firstNum    = false;
       var randX =  Math.floor(Math.random()*maxWaterWidth)+20;
+      var numOffsetV;
 
       function shiftHover(offset) {
         current.find('.numHolder').each(function () {
@@ -33,9 +34,15 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
         shiftHover(-160);
       }
 
+      if (selector.hasClass('splash-score')) {
+        numOffsetV = 2;
+      } else if (selector.parents('.users.show').length) {
+        numOffsetV = 1;
+      } else {
+        numOffsetV = 0;
+      }
+
       for (var i = 0; i < sigFig; ++i) {
-        var numOffsetV  = selector.parents('.users.show').length ? 1 : 0;
-        numOffsetV      = selector.hasClass('splash-score') ? 2 : numOffsetV;
         var sSub        = theString.charAt(i);
         firstNum        = firstNum || sSub != "0" ? true : false;
         var bgP         = "background-position:"+ numOffset.x * sSub +"px "+ -numOffset.y * numOffsetV +"px;";
