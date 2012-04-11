@@ -454,8 +454,12 @@ class User < ActiveRecord::Base
     following_ids + ignore_suggested_users + [id]
   end
 
+  def featured_splashers_suggestions
+    User.featured(1, 10)
+  end
+
   def default_user_suggestions
-    facebook_suggestions | splash_suggestions
+    facebook_suggestions | featured_splashers_suggestions | splash_suggestions
   end
 
   def suggested_users
