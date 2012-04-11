@@ -149,7 +149,8 @@ $(function() {
     },
 
     onLoginFailed: function() {
-      this.$el.trigger('signin:unregistered', {email: this.emailField.val()});
-    }
+      this.$("#user_password").addClass('error');
+      this.$("#forgot_password").show();
+    },
   });
 });
