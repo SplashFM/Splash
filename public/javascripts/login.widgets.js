@@ -142,6 +142,7 @@ $(function() {
     },
 
     onLogin: function() {
+      this.$("#user_email").removeClass('error');
       this.$("#user_password").removeClass('error');
       this.$("#forgot_password").hide();
 
@@ -149,6 +150,7 @@ $(function() {
     },
 
     onLoginFailed: function() {
+      this.$("#user_email").addClass('error');
       this.$("#user_password").addClass('error');
       this.$("#forgot_password").show();
     },
