@@ -210,7 +210,8 @@ class Splash.Splashable
     target.prototype.initialize = _(init).wrap (f, rest...) ->
       f.apply(this, rest)
 
-      $('body').bind 'splash:resplash splash:quick', _(@splashed).bind(this)
+      $('body').bind 'splash:splash splash:resplash splash:quick',
+                     _(@splashed).bind(this)
 
     _(target.prototype).extend splashed: (_, data) ->
       if data.track.id == getTrack(this).id
