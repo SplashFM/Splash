@@ -83,14 +83,17 @@ SPLASH.Widgets.waterNums = function(theSelector, yOffset) {
     var direction = -1;
 
     function step() {
-      var newPos  = getBackgroundPositionX(theWater) + speed * direction;
+      var x = getBackgroundPositionX(theWater);
+      var newPos = x + speed * direction;
+
       if (-1*maxWaterWidth > newPos || newPos > 0) {
         direction *= -1;
-        newPos = getBackgroundPositionX(theWater) + speed * direction;
+        newPos = x + speed * direction;
       }
 
-      var newBgPosition = newPos + "px " + getBackgroundPositionY(theWater) + "px";
-      theWater.css({'background-position': newBgPosition});
+      var y = getBackgroundPositionY(theWater);
+      var newBgPosition = newPos + "px " + y + "px";
+      theWater.css('background-position', newBgPosition);
       setTimeout(step, 50);
     }
     step();
