@@ -1,20 +1,27 @@
 class Upload extends Backbone.View
   events:
     'click .toggle-upload': 'toggle',
+    'upload:start':         'uploading',
+    'upload:error':         'uploaded',
+    'upload:complete':      'uploaded'
 
   initialize: ->
-    @$input = @$('input.field')
+    @$input    = @$('input.field')
+    @$inputDup = @$input.clone()
 
-    @$el.clickout @remove
+    @$el.clickout => if not @isUploading then @remove()
 
   render: =>
     @rendered = true
 
+    @$input.parent().append(@$inputDup).position(@$input.position())
+    @$input.hide()
+
     @uploader = new Upload.Uploader()
-    @feedback = new Upload.Feedback(el: @el, $input: @$input)
+    @feedback = new Upload.Feedback(el: @el, $input: @$inputDup)
     @progress = @options.progress or
-      new Upload.Feedback.Progress(el: @el, $progress: @$input)
-    @status   = new Upload.Feedback.Status(el: @el, $status: @$input)
+      new Upload.Feedback.Progress(el: @el, $progress: @$inputDup)
+    @status   = new Upload.Feedback.Status(el: @el, $status: @$inputDup)
 
     @$('.wrap').append @uploader.render().el
 
@@ -22,12 +29,26 @@ class Upload extends Backbone.View
 
   remove: =>
     if @rendered
-      w.remove() for w in [@uploader, @feedback, @progress, @status]
+      w.remove() for w in [@uploader, @feedback, @progress, @status, @$inputDup]
+
+      @$input.show()
 
       @rendered = false
 
   toggle: ->
-    if @rendered then @remove() else @render()
+    if @rendered
+      @uploaded()
+      @remove()
+    else
+      @render()
+
+  uploading: =>
+    @isUploading = true
+
+  uploaded: =>
+    @isUploading = false
+
+    true
 
 
 class Upload.Uploader extends Backbone.View

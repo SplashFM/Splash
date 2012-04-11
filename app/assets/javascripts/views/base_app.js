@@ -215,11 +215,13 @@ window.BaseApp.GlobalSearch = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, 'collapse');
 
+    this.$input = $(this.$(':text').first());
+
     $(this.el).clickout(this.collapse);
   },
 
   collapse: function() {
-    this.$(':text').val('');
+    this.$input.val('');
 
     this.$el.removeClass('opened')
   },
