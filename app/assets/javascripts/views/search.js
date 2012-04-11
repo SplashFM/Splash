@@ -57,12 +57,16 @@ window.Search = Backbone.View.extend({
     this.searching = [];
 
     if (this.container.is(':visible')) {
-      this.$('.controls').hide();
-      this.$('[data-widget = "empty"]').hide();
-      this.animation.hide(this.container);
+      this.hideContainer();
     }
 
     this.$el.trigger('search:hide');
+  },
+
+  hideContainer: function() {
+    this.$('.controls').hide();
+    this.$('[data-widget = "empty"]').hide();
+    this.animation.hide(this.container);
   },
 
   isRelated: function() {
