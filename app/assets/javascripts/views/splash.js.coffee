@@ -12,8 +12,6 @@ class Splash extends Backbone.View
 
     $(@el).hover(@onHover, @onHoverOut)
 
-    $('body').bind 'splash:resplash splash:quick', @splashed
-
   checkKeyDown: (e) ->
     if e.keyCode == 13
       e.preventDefault()
@@ -58,14 +56,6 @@ class Splash extends Backbone.View
     e.preventDefault()
 
     $(@el).trigger('play', track: @model.get('track'))
-
-  splashed: (_, data) =>
-    if data.track.id == @model.get('track').id
-      @$('[data-widget = "splash"]').
-        removeClass('splashable').
-        addClass('unsplashable')
-
-      @number.incr()
 
   render: =>
     s          = @model
@@ -212,6 +202,25 @@ class Splash.Lineage extends Backbone.View
     @$el.html(ul).removeClass 'loading'
     @$el.prepend header
 
+
+class Splash.Splashable
+  @mixInto: (target, getTrack) ->
+    init = target.prototype.initialize
+
+    target.prototype.initialize = _(init).wrap (f, rest...) ->
+      f.apply(this, rest)
+
+      $('body').bind 'splash:resplash splash:quick', _(@splashed).bind(this)
+
+    _(target.prototype).extend splashed: (_, data) ->
+      if data.track.id == getTrack(this).id
+        @$('[data-widget = "splash"]').
+          removeClass('splashable').
+          addClass('unsplashable')
+
+        @number.incr()
+
+Splash.Splashable.mixInto Splash, (splash) -> splash.model.get('track')
 
 class Splash.Expandable
   @mixInto: (target) ->
