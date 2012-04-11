@@ -20,7 +20,7 @@ window.Search = Backbone.View.extend({
     this.menu            = this.$(this.menuContainer || this.container);
     this.searching       = [];
 
-    _.bindAll(this, 'hide', 'search', 'renderItem', 'renderControls',
+    _.bindAll(this, 'hide', 'hideContainer', 'search', 'renderItem', 'renderControls',
                     'resultsLoaded');
 
     this.$(':text').attr('autocomplete', 'off');
@@ -29,6 +29,7 @@ window.Search = Backbone.View.extend({
     this.collection.bind('reset', this.doneLoading, this);
 
     $(this.el).clickout(this.hide);
+    this.container.clickout(this.hideContainer);
 
     $(this.el).bind('splash:splash', this.hide);
   },
