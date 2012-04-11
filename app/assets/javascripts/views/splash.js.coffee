@@ -65,7 +65,7 @@ class Splash extends Backbone.View
     json       = _.extend(s.toJSON(), ext)
 
     $(@el).html($.tmpl(@template, json))
-    @number = new FlipNumber({
+    @number = new Splash.FlipNumber({
       el: $('.the_splash_count',@el).get(0),
       value: json.track.splash_count
     }).render()
@@ -124,7 +124,7 @@ class Comments extends Backbone.View
     $(@el).append $.tmpl(@template, json)
 
 
-class FlipNumber extends Backbone.View
+class Splash.FlipNumber extends Backbone.View
   initialize: ->
     @value = @options.value
 

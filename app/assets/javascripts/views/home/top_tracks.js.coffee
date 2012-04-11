@@ -80,7 +80,10 @@ class TopTrack extends Backbone.View
 
     @$el.html($($.tmpl(@template, json)))
 
-    SPLASH.Widgets.numFlipper $('.the_splash_count', @el)
+    @number = new Feed.Splash.FlipNumber({
+      el: $('.the_splash_count',@el).get(0),
+      value: @model.get('splash_count')
+    }).render()
 
     new FullSplashAction
       model: @model
