@@ -5,7 +5,7 @@ SPLASH.Widgets.waterNums = function(theSelector, yOffset) {
   var selector      = $(theSelector);
   var sigFig        = 2;
   var numOffset     = {y:80, x:-54};
-  var maxWaterWidth = -286;
+  var maxWaterWidth = 286;
   var vOffset       = yOffset || 0;
 
   construct();
@@ -16,7 +16,7 @@ SPLASH.Widgets.waterNums = function(theSelector, yOffset) {
       var theString   = cleanText(current.text());
       var newContents = "";
       var firstNum    = false;
-      var randX =  Math.floor(Math.random()*maxWaterWidth)+20;
+      var randX =  Math.floor(Math.random()*maxWaterWidth*-1)+20;
       var innerNum    = "<span class='inner_num'></span>";
       var numOffsetV;
 
@@ -84,7 +84,7 @@ SPLASH.Widgets.waterNums = function(theSelector, yOffset) {
 
     function step() {
       var newPos  = getBackgroundPositionX(theWater) + speed * direction;
-      if (newPos < maxWaterWidth || newPos > 0) {
+      if (-1*maxWaterWidth > newPos || newPos > 0) {
         direction *= -1;
         newPos = getBackgroundPositionX(theWater) + speed * direction;
       }
