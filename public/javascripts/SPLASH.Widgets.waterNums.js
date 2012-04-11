@@ -20,7 +20,20 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
       var firstNum    = false;
       var randX =  Math.floor(Math.random()*maxWaterWidth)+20;
 
-      for(var i = 0; i < sigFig; ++i) {
+      function shiftHover(offset) {
+        current.find('.numHolder').each(function () {
+          var newPos = getBackgroundPositionX($(this)) + "px " + offset + "px";
+          $(this).css({'background-position': newPos });
+        })
+      }
+      function shiftHoverIn() {
+        shiftHover(-240);
+      }
+      function shiftHoverOut() {
+        shiftHover(-160);
+      }
+
+      for (var i = 0; i < sigFig; ++i) {
         var numOffsetV  = selector.parents('.users.show').length ? 1 : 0;
         numOffsetV      = selector.hasClass('splash-score') ? 2 : numOffsetV;
         var sSub        = theString.charAt(i);
@@ -30,19 +43,9 @@ SPLASH.Widgets.waterNums = function(theSelector,yOffset) {
         var style       = "style='"+ bgP +"'";
         newContents     += "<div class='numHolder nonBlank_"+ firstNum +" num_"+ sSub +" digit_"+ i +"'"+ style +">"+ innerNum +"</div>";
 
-        if(numOffsetV==2) {
-          current.parents('li').hover(function(){
-            current.find('.numHolder').each(function(){
-              var newPos = getBackgroundPositionX($(this)) + "px " + -240 + "px";
-              $(this).css({'background-position': newPos });
-            })
-          }, function() {
-            current.find('.numHolder').each(function(){
-              var newPos = getBackgroundPositionX($(this)) + "px " + -160 + "px";
-              $(this).css({'background-position': newPos });
-            })
-          }
-        )};
+        if (numOffsetV == 2) {
+          current.parents('li').hover(shiftHoverIn, shiftHoverOut);
+        }
       }
 
       newContents+="<div class='clear'></div><div class='the_water'></div><div class='water_bg_color'></div><div class='noise-overlay'></div>";
