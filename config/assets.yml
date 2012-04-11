@@ -22,7 +22,7 @@ javascripts:
     - public/javascripts/jquery.autoSuggest.js
     - public/javascripts/jquery.jcarousel.js
     - public/javascripts/jquery.rangyinputs.js
-    - public/javascripts/jquery.mousewheel-3.0.4.pack.js
+    - public/javascripts/jquery.mousewheel.js
     - public/javascripts/jquery.jscrollpane.js
     - public/javascripts/jquery.ba-bbq.js
     - public/javascripts/jquery.endless-scroll.js
