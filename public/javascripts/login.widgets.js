@@ -47,7 +47,7 @@ $(function() {
 
           break;
         case 'signup_code':
-          $('#flash-error').show()
+          $('#flash-error').show().find('.beta').show()
 
           this.$('[name = "user[signup_code]"]').addClass('error');
         }
@@ -59,6 +59,8 @@ $(function() {
     },
 
     render: function() {
+      $('#flash-error, #flash-error > div').hide()
+
       var email      = this.options.email;
       var accessCode = this.options.accessCode;
 
@@ -117,6 +119,8 @@ $(function() {
     },
 
     render: function() {
+      $('#flash-error, #flash-error > div').hide()
+
       $(this.el).html($.tmpl(this.template));
 
       this.wrapper        = this.$('.main .wrap');
@@ -153,6 +157,8 @@ $(function() {
       this.$("#user_email").addClass('error');
       this.$("#user_password").addClass('error');
       this.$("#forgot_password").show();
+
+      $('#flash-error').show().find('.login').show()
     },
   });
 });
