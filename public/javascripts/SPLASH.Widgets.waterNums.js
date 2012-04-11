@@ -100,11 +100,17 @@ SPLASH.Widgets.waterNums = function(theSelector, yOffset) {
   }
 
   function getBackgroundPositionX(theElement) {
-    return parseInt(theElement.css("background-position").split(" ")[0], 10);
+    var bg = theElement[0].style.backgroundPosition;
+    var x = parseInt(bg.split(" ")[0], 10);
+    if (isNaN(x)) x = -20;
+    return x;
   }
 
   function getBackgroundPositionY(theElement) {
-    return parseInt(theElement.css("background-position").split(" ")[1], 10);
+    var bg = theElement[0].style.backgroundPosition;
+    var y = parseInt(bg.split(" ")[1], 10);
+    if (isNaN(y)) y = -400;
+    return y;
   }
 
   return {};
