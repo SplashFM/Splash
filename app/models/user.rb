@@ -312,6 +312,7 @@ class User < ActiveRecord::Base
     rs = ids.map { |id| relationships.create(followed_id: id) }
 
     recompute_splashboard :add, ids
+    recompute_top_following
 
     ids.each { |id| suggested_users.delete id }
     write_attribute :suggested_users, suggested_users
@@ -477,6 +478,7 @@ class User < ActiveRecord::Base
   def unfollow(followed_id)
     r = followed(followed_id).try(:destroy)
     recompute_splashboard(:subtract, followed_id)
+    recompute_top_following
     ignore_suggested(followed_id)
     r
   end
