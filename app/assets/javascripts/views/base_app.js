@@ -137,6 +137,10 @@ window.BaseApp.Notifications = Backbone.View.extend({
     }});
   },
 
+  getCount: function() {
+    this.collection.unreadCount({success: this.setCount});
+  },
+
   isActive: function() {
     return $(this.el).hasClass('active');
   },
@@ -148,7 +152,7 @@ window.BaseApp.Notifications = Backbone.View.extend({
   },
 
   reset: function() {
-    this.collection.unreadCount({success: this.setCount});
+    this.getCount();
 
     this.collection.each(this.renderNotification);
   },
