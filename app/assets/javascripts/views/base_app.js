@@ -124,7 +124,7 @@ window.BaseApp.Notifications = Backbone.View.extend({
   },
 
   initialize: function() {
-    _.bindAll(this, 'renderNotification', 'setCount', 'toggle');
+    _.bindAll(this, 'getCount', 'renderNotification', 'setCount', 'toggle');
 
     this.list       = this.$('[data-widget = "list-notifications"]');
 
@@ -135,6 +135,8 @@ window.BaseApp.Notifications = Backbone.View.extend({
     $(this.el).clickout(function(){ if($('.dropDown',_this.el).is(':visible')) {
       _this.toggle();
     }});
+
+    setInterval(this.getCount, 60000);
   },
 
   getCount: function() {
