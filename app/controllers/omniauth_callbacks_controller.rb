@@ -32,8 +32,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       sign_in_and_redirect user, :event => :authentication
     else
-      unauthenticated and return
-
       user = User.create_with_social_connection(ft)
 
       if user.persisted?
@@ -54,8 +52,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       sign_in_and_redirect user, :event => :authentication
     else
-      unauthenticated and return
-
       session['devise.provider_data'] = tt
 
       redirect_to new_sn_registration_path
@@ -111,11 +107,5 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
       CGI.parse(query)['code'].first if query && query['code']
     end
-  end
-
-  def unauthenticated
-    flash[:unauthenticated] = true
-
-    redirect_to new_user_session_path
   end
 end
