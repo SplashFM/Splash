@@ -1,22 +1,19 @@
 .empty-feed
-  %p
-    Here's where you'll see the songs that the people you follow have splashed.
+  %h2 Welcome to Splash.FM!
 
   %p
-    You can re-splash any of these songs by clicking the droplet, or search/upload
-    any song you want to Splash above.
+    Here's where you'll see the music being Splashed by the friends, artists,
+    blogs and other users you are following.
+
+  %p Just one slight problem... YOU'RE NOT FOLLOWING ANYONE!!!!
 
   %p
-    Check out
-    %a{:href => 'top/splashers/everyone'} Top Splashers
-    on the Follow tab to follow users with the most
-    influence and proven music taste.
+    Check out our
+    %a{:href => 'featured'} Featured Splashers
+    to get started. Once you've connected with the community,
+    %a{:href => 'friends'} invite some friends
+    and start splashing your own favorites!
 
   %p
-    Also
-    %a{:href => 'friends'} Invite
-    your friends so you can discover and splash with them.
-
-  %p
-    For more info on how exactly splash works, check out the
+    For more info on how Splash.FM works, check out the
     %a.show-tutorial{:href => '#'} tutorial.
