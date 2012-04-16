@@ -14,10 +14,11 @@ class UserMailer < ActionMailer::Base
   end
 
   def send_invitation(access_request)
-    @url  = new_user_registration_url(:code => access_request.code)
+    @url          = home_url
     @inviter_name = access_request.inviter.name
 
-    mail :to => access_request.email, :subject => 'You were invited to Splash.FM'
+    mail :to      => access_request.email,
+         :subject => "#{@inviter_name} invites you to Splash.FM"
   end
 
   def notification(notification)

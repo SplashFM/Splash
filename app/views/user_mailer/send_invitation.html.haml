@@ -1,8 +1,8 @@
 %p Hey!
 
-%p="Seems like you have good taste in music. #{@inviter_name} has sent you one of his four invites to the Splash.FM Private Beta. Use this link to Jump In:"
+%p= "Seems like you have good taste in music. #{@inviter_name} wants you to join Splash.FM so that you can discover and share music together."
 
-%p= link_to 'Splash.FM Invite', raw(@url)
+%p= link_to 'Jump In!', @url
 
 %p
   \-The Splash Team
