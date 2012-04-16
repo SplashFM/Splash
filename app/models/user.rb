@@ -454,7 +454,7 @@ class User < ActiveRecord::Base
   end
 
   def featured_splashers_suggestions
-    User.featured(1, 10)
+    User.featured(1, 10).map(&:id)
   end
 
   def default_user_suggestions
