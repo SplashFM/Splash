@@ -83,6 +83,7 @@ class Feed
     @className         = options.className
     @authErrorTemplate = options.authErrorTemplate or 'shared/login_required'
     @empty             = options.empty
+    @allLoaded         = options.allLoaded
 
     @$spinner = options.$spinner
 
@@ -95,6 +96,7 @@ class Feed
       collection: @paginated
       el:         @$spinner
       empty:      @empty
+      allLoaded:  @allLoaded
 
     @scroll  = new Feed.EndlessScroll(app: @app, collection: @paginated)
 
@@ -152,7 +154,8 @@ class Feed.EndlessScroll extends Backbone.View
 
 class Feed.Spinner extends Backbone.View
   initialize: ->
-    @empty = @options.empty
+    @empty     = @options.empty
+    @allLoaded = @options.allLoaded || I18n.t('events.all_loaded')
 
     @collection.bind 'fetch',          @start
     @collection.bind 'loaded',         @stop
@@ -170,7 +173,7 @@ class Feed.Spinner extends Backbone.View
     else if @collection.collection.isEmpty() && @empty
       @clear()
     else
-      @$el.html $('<p class="loaded"/>').text I18n.t('events.all_loaded')
+      @$el.html $('<p class="loaded"/>').text @allLoaded
 
 
 class Feed.Updateable extends Backbone.View
