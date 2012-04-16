@@ -46,10 +46,6 @@ $(function() {
           this.$('[name = "user[password_confirmation]"]').addClass('error');
 
           break;
-        case 'signup_code':
-          $('#flash-error').show().find('.beta').show()
-
-          this.$('[name = "user[signup_code]"]').addClass('error');
         }
       }
     },
