@@ -209,6 +209,11 @@
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
     min-height: 62px
 
+.login-box
+  font-weight: normal
+  color: #fff
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5)
+
 .user-vcard, .login-box
   background: #6384a4 url(/css/images/profile-vcard-bg.png) repeat-x 0 bottom
   .container
@@ -427,7 +432,7 @@
     margin: 0 auto
 
   p.other
-    margin: -20px 0 30px
+    margin: -20px 0 15px
     font-size: 10px
     text-align: right
     padding-right: 15px
@@ -436,6 +441,14 @@
       display: block
       text-align: right
       width: 239px
+
+  h3
+    @extend .avan-bold
+
+  p.why
+    @extend .avan-book
+    margin-bottom: 10px
+
 
 div.social-buttons
   @extend .widget
