@@ -125,6 +125,7 @@ namespace :tracks do
                 "(lower(title), lower(performers))", 'tracks'],
                ["index_tracks_on_popularity_rank", "(popularity_rank)", 'tracks'],
                ["index_tracks_on_external_id", "(external_id)", 'tracks'],
+               ["index_tracks_on_type", "(type)", 'tracks'],
                ["index_taggings_on_tag_id", "(tag_id)", 'taggings'],
                ["index_taggings_on_scopes", "(taggable_id, taggable_type, context)", 'taggings'],
                ["index_tags_on_name", "(name)", 'tags'],
