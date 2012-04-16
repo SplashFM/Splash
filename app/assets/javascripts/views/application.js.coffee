@@ -41,6 +41,7 @@ class Application extends Backbone.View
     Backbone.history.start({pushState: true})
 
     @_initializeTransientManagement()
+    @_initializeAnalytics()
 
   removeUpload: ->
     @upload.remove()
@@ -71,6 +72,22 @@ class Application extends Backbone.View
 
   _initializeAllResultsSearch: ->
     new Searchable(el: @el, $container: $(Page.Content::main)).render()
+
+  _initializeAnalytics: ->
+    Backbone.history.on 'route', ->
+      url = Backbone.history.getFragment()
+      _gaq.push ['_trackPageview', "/#{url}"]
+
+    $('body').bind 'splash:splash splash:quick splash:resplash', (_, data) ->
+      path = e.type.replace(':', '/')
+      _gaq.push ['_trackPageview', '/actions/splash']
+      _gaq.push ['_trackPageview', "/actions/#{path}"]
+
+    $('body').bind 'upload:complete', (_, data) ->
+      _gaq.push ['_trackPageview', '/actions/upload']
+
+    $('body').bind 'follow unfollow', (e) ->
+      _gaq.push ['_trackPageview', "/actions/#{e.type}"]
 
   _initializeFacebook: ->
     FB.init appId: @facebookAppID, xfbml: true, cookie: true
@@ -126,6 +143,5 @@ class EndlessScroll extends Backbone.View
     $(document).endlessScroll({callback: @triggerScroll});
 
   triggerScroll: => @trigger 'scroll'
-
 
 window.Application = Application
