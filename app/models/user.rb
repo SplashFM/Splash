@@ -315,7 +315,6 @@ class User < ActiveRecord::Base
     recompute_top_following
 
     write_attribute :ignore_suggested_users, ignore_suggested_users | ids
-    write_attribute :suggested_users, suggested_users
     delay.update_suggestions
 
     save!
