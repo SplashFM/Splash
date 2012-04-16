@@ -173,7 +173,7 @@ class Feed.Spinner extends Backbone.View
     else if @collection.collection.isEmpty() && @empty
       @clear()
     else
-      @$el.html $('<p class="loaded"/>').text @allLoaded
+      @$el.html $('<p class="loaded"/>').html @allLoaded
 
 
 class Feed.Updateable extends Backbone.View
