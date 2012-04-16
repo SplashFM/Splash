@@ -1,21 +1,29 @@
-.ribbon
-  +rotate(45deg)
-  +linear-gradient(color-stops(#44bfe7, #7ec7e0))
-  +box-shadow(0 0 7px #333)
+.ribbon-container
   position: absolute
-  top: 10px
-  right: -30px
-  background-color: #2d4c6a
+  top: 0
+  right: 0
   overflow: hidden
-  z-index: 100
+  height: 100px
+  width: 100px
 
-  span
-    +text-shadow(1px 1px #6384a4)
-    @extend .avan-demi
-    border: 1px solid #fff
-    color: #fff
-    display: block
-    margin: 0.05em 0
-    padding: 0.5em 3.5em
-    text-align: center
-    text-decoration: none
+  .ribbon
+    +rotate(45deg)
+    +linear-gradient(color-stops(#44bfe7, #7ec7e0))
+    +box-shadow(0 0 7px #333)
+    background-color: #2d4c6a
+    overflow: hidden
+    z-index: 100
+    position: absolute
+    top: 13px
+    right: -28px
+
+    span
+      +text-shadow(1px 1px #6384a4)
+      @extend .avan-demi
+      border: 1px solid #fff
+      color: #fff
+      display: block
+      margin: 0.05em 0
+      padding: 0.5em 3.5em
+      text-align: center
+      text-decoration: none
