@@ -1,0 +1,6 @@
+%h2 Daily Reports
+
+%dl
+  - @reports.each do |k, v|
+    %dt= k.to_s.humanize
+    %dd= v

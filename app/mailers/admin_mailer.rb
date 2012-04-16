@@ -3,6 +3,13 @@ class AdminMailer < ActionMailer::Base
 
   default :from => "\"Splash.FM (#{AppConfig.preferred_host})\" <notifications@splash.fm>"
 
+  def daily_reports(reports)
+    @reports = reports
+
+    mail to:      'admin@splash.fm',
+         subject: 'Daily stats'
+  end
+
   def flag(song, user)
     @user, @song = user, song
 
