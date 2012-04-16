@@ -132,7 +132,7 @@ class Application extends Backbone.View
        $t.attr('href') in ['#', ''] or
        $t.attr('href')[0] == '/' or
        $t.attr('href')[0] == '#' or
-       $t.attr('href').match /^http:/ then return
+       $t.attr('href').match /^(http|mailto):/ then return
 
     e.preventDefault();
 
