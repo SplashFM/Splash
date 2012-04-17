@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :name, :uid, :provider, :tagline, :avatar, :initial_provider,
-                  :nickname, :access_code, :email_preferences
+                  :nickname, :access_code, :email_preferences,
                   :top_splasher_weight
   attr_accessible :delete_avatar, :crop_x, :crop_y, :crop_w, :crop_h
 
