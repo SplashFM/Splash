@@ -2,7 +2,7 @@
   %h2 Welcome to Splash.FM!
 
   %p
-    Here's where you'll see the music being Splashed by the friends, artists,
+    Here's where you'll see the music being Splashed by friends, artists,
     blogs and other users you are following.
 
   %p Just one slight problem... YOU'RE NOT FOLLOWING ANYONE!!!!
@@ -10,8 +10,7 @@
   %p
     Check out our
     %a{:href => 'featured'} Featured Splashers
-    to get started. Once you've connected with the community,
-    %a{:href => 'friends'} invite some friends
+    to get started. Once you've connected with the community, invite some friends
     and start splashing your own favorites!
 
   %p
