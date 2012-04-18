@@ -24,7 +24,7 @@ gem "hipchat", '0.4.0'
 gem "hoptoad_notifier"
 gem "jammit", ">=0.5.0"
 gem "newrelic_rpm"
-gem "paperclip"
+gem "paperclip", "~> 2.7.0"
 gem "paperclip-meta"
 gem "seed-fu", ">=1.2.3"
 gem 'whenever', :require => false
@@ -66,7 +66,7 @@ gem "sanitize"
 gem "parallel_tests", :group => :development
 gem "acts-as-taggable-on", "~> 2.1.0"
 gem "has_scope"
-gem "aws-s3"
+gem "aws-sdk"
 gem "active_model_serializers", :git => 'git://github.com/david/active_model_serializers.git'
 gem "redis-store"
 gem "redis-objects", :require => 'redis/objects', :git => 'git://github.com/david/redis-objects.git'

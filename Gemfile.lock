@@ -65,10 +65,11 @@ GEM
     arel (3.0.2)
     attr_required (0.0.5)
     awesome_print (0.4.0)
-    aws-s3 (0.6.2)
-      builder
-      mime-types
-      xml-simple
+    aws-sdk (1.4.0)
+      httparty (~> 0.7)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     babilu (0.2.2)
       lucy
     bcrypt-ruby (3.0.1)
@@ -223,7 +224,7 @@ GEM
       omniauth-oauth (~> 1.0)
     open4 (1.0.1)
     orm_adapter (0.0.6)
-    paperclip (2.4.5)
+    paperclip (2.7.0)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
@@ -364,7 +365,7 @@ DEPENDENCIES
   acts-as-taggable-on (~> 2.1.0)
   astrails-clicktale!
   awesome_print
-  aws-s3
+  aws-sdk
   babilu
   bricks
   capybara (~> 1.0)
@@ -398,7 +399,7 @@ DEPENDENCIES
   omniauth (~> 1.0.0)
   omniauth-facebook
   omniauth-twitter
-  paperclip
+  paperclip (~> 2.7.0)
   paperclip-meta
   parallel_tests
   pg
