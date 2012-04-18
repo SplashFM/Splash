@@ -74,11 +74,20 @@ class UndiscoveredTrack < Track
     name and File.extname(name).split('.').last
   end
 
+  def download_url
+    if data?
+      fn = (title || '').gsub(/\W+/, ' ').squeeze(' ').strip + '.' + preview_type(data_file_name || '')
+      data.s3_object.url_for(:read,
+        :response_content_disposition => "attachment; filename=#{fn.inspect}").to_s
+    else
+      data.url
+    end
+  end
+
   def preview_url
     data.url
   end
 
-  alias_method :download_url, :preview_url
   alias_method :preview_url?, :preview_url
 
   def downloadable?

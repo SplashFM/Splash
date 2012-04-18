@@ -29,7 +29,7 @@ class UndiscoveredTracksController < ApplicationController
   end
 
   def download
-    redirect_to current_track.data.url
+    redirect_to current_track.download_url
   end
 
   def flag
