@@ -95,15 +95,15 @@ class UndiscoveredTrack < Track
                                  display_file_name(title, File.extname(f.path)))
   end
 
-  def local_song_file
-    @song_file ||= SongFile.new(local_data.to_file(:original).path)
-  end
-
   def replace_with_canonical
     destroy and return canonical_version
   end
 
   private
+
+  def local_song_file
+    @song_file ||= SongFile.new(local_data.to_file(:original).path)
+  end
 
   def create_identicon(title, artist)
     t, a = title, artist
