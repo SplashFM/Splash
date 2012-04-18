@@ -63,7 +63,6 @@ class UndiscoveredTrack < Track
   before_create :extract_artwork
   after_create  :extract_metadata
   before_create :set_default_popularity_rank
-  before_update :publish, :if => :local_data?
   after_destroy  :clear_redis
 
   def artwork_url
@@ -94,20 +93,13 @@ class UndiscoveredTrack < Track
     data.file?
   end
 
-  def publish
-    f = local_data.to_file(:original)
-
-    self.data       = f
-    self.local_data = nil
-
-  end
-
   def replace_with_canonical
     destroy and return canonical_version
   end
 
   private
 
+  # this method is only called from methods that execute on creation.
   def local_song_file
     @song_file ||= SongFile.new(local_data.to_file(:original).path)
   end
@@ -134,12 +126,18 @@ class UndiscoveredTrack < Track
     else
       create_identicon local_song_file.title, local_song_file.artist
     end
+
+    # this will trigger upload to S3
+    self.data = local_data.to_file(:original)
   end
 
   def extract_metadata
     self.title      = local_song_file.title
     self.albums     = local_song_file.album
     self.performers = local_song_file.artist
+
+    # FIXME: doesn't really do anything, because we're in after_create
+    self.local_data = nil
   end
 
   def set_default_popularity_rank
