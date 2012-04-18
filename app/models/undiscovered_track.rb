@@ -53,7 +53,7 @@ class UndiscoveredTrack < Track
 
   belongs_to :uploader, :class_name => 'User'
 
-  validate :validate_local_data_type,    :if => :local_data?
+  validate :validate_local_data_type,    :on => :create
   validate :validate_data_type,          :if => :data?
 
   validates_presence_of :title,          :on => :update
