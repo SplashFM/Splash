@@ -100,8 +100,6 @@ class UndiscoveredTrack < Track
     self.data       = f
     self.local_data = nil
 
-    set_data_content_disposition(data,
-                                 display_file_name(title, File.extname(f.path)))
   end
 
   def replace_with_canonical
@@ -130,10 +128,6 @@ class UndiscoveredTrack < Track
     end
   end
 
-  def data_content_disposition(filename)
-    {"Content-Disposition" => "attachment; filename=#{filename.inspect}"}
-  end
-
   def extract_artwork
     if (artwork = local_song_file.artwork)
       self.artwork = artwork
@@ -146,14 +140,6 @@ class UndiscoveredTrack < Track
     self.title      = local_song_file.title
     self.albums     = local_song_file.album
     self.performers = local_song_file.artist
-  end
-
-  def display_file_name(title, ext)
-    title.gsub(/\W+/, ' ').squeeze(' ').strip + '.' + ext.sub(/^\./, '')
-  end
-
-  def set_data_content_disposition(data, filename)
-    data.instance_variable_set :@s3_headers, data_content_disposition(filename)
   end
 
   def set_default_popularity_rank
