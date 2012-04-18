@@ -131,7 +131,7 @@ class Application extends Backbone.View
        not $t.attr('href') or
        $t.attr('href') in ['#', ''] or
        $t.attr('href')[0] in ['/', '#'] or
-       $t.attr('href').match /^(http|mailto):/ then return
+       $t.attr('href').match /^(https?|mailto):/ then return
 
     e.preventDefault();
 
