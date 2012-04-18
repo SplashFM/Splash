@@ -1,5 +1,8 @@
-node[:applications].each do |app, data|
-  sudo "monit -g dj_#{app} restart all"
+dj_instances = ['solo', 'app_master']
+if dj_instances.include?(node[:instance_role])
+  node[:applications].each do |app, data|
+    sudo "monit -g dj_#{app} restart all"
+  end
 end
 
 on_app_master do
