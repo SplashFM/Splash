@@ -49,7 +49,7 @@ $(function() {
         } else {
           this.nextAction = 'follow';
 
-          this.model.destroy();
+          this.model.destroy({wait: true});
           this.model.id = null; // clear id to force creation
         }
       }
