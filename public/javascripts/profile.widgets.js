@@ -38,6 +38,7 @@ $(function() {
 
     toggle: function(e) {
       e.preventDefault();
+      this.$('a').text(I18n.t('users.show.updating'))
 
       if (! this.running) {
         this.running = true;

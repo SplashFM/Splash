@@ -223,6 +223,7 @@ en:
     follows:
       view_more: "view more"
     show:
+      updating: Updating...
       follow: Follow
       follow_detail: "Follow this Splasher..."
       followers: Followers
