@@ -29,7 +29,12 @@ class Cursor
     @_track     = track
 
   next: (callback) ->
-    getNew @collection, @index + 1, callback
+    i = 0
+    while true
+      t = @collection.at(i)
+      break if !t || t.id == @_track.id
+      i++
+    getNew @collection, i + 1, callback
 
   track: (callback) ->
     t = @_track
