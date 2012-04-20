@@ -90,7 +90,8 @@ class Application extends Backbone.View
       _gaq.push ['_trackPageview', "/actions/#{e.type}"]
 
   _initializeFacebook: ->
-    FB.init appId: @facebookAppID, xfbml: true, cookie: true
+    if typeof FB != 'undefined'
+      FB.init appId: @facebookAppID, xfbml: true, cookie: true
 
   _initializeNotifications: ->
       new BaseApp.Notifications el: $('[data-widget = "notifications"]')

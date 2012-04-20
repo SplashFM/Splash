@@ -100,15 +100,16 @@ class UnregisteredFriendView.Invite extends Backbone.View
     new AccessRequest(user: @json()).save({}, success: @inviteCreated)
 
   inviteCreated: (data) =>
-    FB.ui({
-      to: data.get('social').uid
-      method: 'send'
-      display: 'iframe'
-      name: I18n.t('friends.invite.title')
-      description: I18n.t('friends.invite.description')
-      link: data.get('social').url
-      access_token: @options.social
-    }, @invited)
+    if typeof FB != 'undefined'
+      FB.ui({
+        to: data.get('social').uid
+        method: 'send'
+        display: 'iframe'
+        name: I18n.t('friends.invite.title')
+        description: I18n.t('friends.invite.description')
+        link: data.get('social').url
+        access_token: @options.social
+      }, @invited)
 
   invited: (response) =>
     if response
