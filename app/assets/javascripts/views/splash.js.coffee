@@ -130,8 +130,9 @@ class Splash.FlipNumber extends Backbone.View
 
   incr: ->
     pad  = ['0', '0', '0']
-    prev = pad.concat(@value.toString().split('')).slice(-3)
-    next = pad.concat((@value + 1).toString().split('')).slice(-3)
+    v = parseInt(@value, 10)
+    prev = pad.concat(v.toString().split('')).slice(-3)
+    next = pad.concat((v + 1).toString().split('')).slice(-3)
 
     $next = $('<div/>').text(next.join(''))
 
