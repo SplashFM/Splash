@@ -78,12 +78,12 @@ class Application extends Backbone.View
       url = Backbone.history.getFragment()
       _gaq.push ['_trackPageview', "/#{url}"]
 
-    $('body').bind 'splash:splash splash:quick splash:resplash', (_, data) ->
+    $('body').bind 'splash:splash splash:quick splash:resplash', (e, data) ->
       path = e.type.replace(':', '/')
       _gaq.push ['_trackPageview', '/actions/splash']
       _gaq.push ['_trackPageview', "/actions/#{path}"]
 
-    $('body').bind 'upload:complete', (_, data) ->
+    $('body').bind 'upload:complete', (e, data) ->
       _gaq.push ['_trackPageview', '/actions/upload']
 
     $('body').bind 'follow unfollow', (e) ->
