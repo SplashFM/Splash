@@ -1,3 +1,5 @@
+require 'new_relic/agent/method_tracer'
+
 class User
   module Stats
     extend ActiveSupport::Concern
@@ -43,8 +45,8 @@ class User
           User.find_each :batch_size => 100, &reset_splashed_tracks
           User.find_each :batch_size => 100, &recompute_splashboard
         else
-         users.each &reset_splashed_tracks
-         users.each &recompute_splashboard
+          users.each &reset_splashed_tracks
+          users.each &recompute_splashboard
         end
       end
 
@@ -207,6 +209,15 @@ class User
 
     ids.map { |id| cache[id] }
   end
+
+  include NewRelic::Agent::MethodTracer
+
+  add_method_tracer :recompute_top_following, 'Custom/recompute_top_following'
+  add_method_tracer :recompute_splashboard, 'Custom/recompute_splashboard'
+  add_method_tracer :remove_track_from_splashboard, 'Custom/remove_track_from_splashboard'
+  add_method_tracer :reset_splashed_tracks_hash!, 'Custom/reset_splashed_tracks_hash!'
+  add_method_tracer :reset_splashed_track_weeks_hash!, 'Custom/reset_splashed_track_weeks_hash!'
+  add_method_tracer :reset_top_tracks!, 'Custom/reset_top_tracks!'
 
   private
 
