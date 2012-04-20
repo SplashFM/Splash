@@ -121,7 +121,8 @@ class UndiscoveredTrack < Track
   end
 
   def extract_artwork
-    if (artwork = local_song_file.artwork)
+    artwork = local_song_file.artwork
+    if (artwork && artwork.content_type != 'application/octet-stream')
       self.artwork = artwork
     else
       create_identicon local_song_file.title, local_song_file.artist
