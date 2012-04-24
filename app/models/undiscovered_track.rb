@@ -53,7 +53,6 @@ class UndiscoveredTrack < Track
 
   belongs_to :uploader, :class_name => 'User'
 
-  validate :validate_local_data_type,    :on => :create
   validate :validate_data_type,          :if => :data?
 
   validates_presence_of :title,          :on => :update
@@ -147,10 +146,6 @@ class UndiscoveredTrack < Track
 
   def validate_data_type
     validate_type data_file_name
-  end
-
-  def validate_local_data_type
-    validate_type local_data_file_name
   end
 
   def validate_type(name)
