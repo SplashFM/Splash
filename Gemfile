@@ -30,7 +30,6 @@ gem "seed-fu", ">=1.2.3"
 gem 'whenever', :require => false
 #gem "will_paginate", ">=3.0.pre"
 gem "js-routes", :require => 'js_routes'
-gem "inherited_resources"
 gem 'omniauth', "~> 1.0.0"
 gem "friendly_id", "~> 4.0.0.beta8"
 gem 'fb_graph'
