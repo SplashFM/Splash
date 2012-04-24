@@ -61,12 +61,12 @@ en:
     top_splashers: "Top Splashers"
     friends:       Friends
   home:
-    latest_splashes: "Latest Splashes"
+    latest_splashes: "Latest"
     search:
       load_more: "Load More Results"
       search_for_song: "Search for a song to Splash"
       upload: Upload
-    top_splashes: "Popular Tracks"
+    top_splashes: "Popular"
   jeditable:
     labels:
       cancel: Cancel
