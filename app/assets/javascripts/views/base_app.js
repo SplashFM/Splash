@@ -176,6 +176,12 @@ window.BaseApp.Notifications = Backbone.View.extend({
     $(this.el).toggleClass('active');
 
     if (this.isActive()) {
+      if (this.$el.hasClass('new')) {
+        $('div.item', this.list).remove();
+
+        this.collection.fetch()
+      }
+
       this.collection.markRead();
 
       this.setCount(0);
