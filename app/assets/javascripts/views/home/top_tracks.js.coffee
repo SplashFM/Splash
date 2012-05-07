@@ -44,8 +44,8 @@ class TopTracks extends Page.Content
     Feed.playable this,
                   @feed,
                   Mapper(Paginate(new TrackList, 10, filters),
-                         (e) -> if e? then e.toJSON() else e),
-                  filters
+                         (e) -> if e? then e.toJSON() else e)
+
 
     @routes = @app.routers.home.builder
 

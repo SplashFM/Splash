@@ -5,24 +5,25 @@ class Feed
     else
       options
 
-  @playable: (content, feed, collection, filters) ->
+  @playable: (content, feed, collection) ->
     content.events ?= {}
 
     playing         = (e, data) ->
       unless data.skip
         _.extend data,
           index:      feed.list.indexOf(e.target)
-          collection: collection
+          collection: new collection.constructor(_(collection.models).clone())
 
     _.extend content.events, 'play': playing
 
     content.delegateEvents()
 
   @eventFeed: (content, options) ->
+    coll   = new EventList
     params =
       _({
         app:        window.app,
-        collection: new EventList,
+        collection: coll,
         className:  'live-feed',
         newItem:    (i) ->
           new Feed.Splash(model: i, currentUserID: window.app.user.id)
@@ -46,9 +47,8 @@ class Feed
 
     @playable content,
               feed,
-              Mapper(Paginate(new EventList, 10, params.filters),
-                              (e) -> if e? then e.get('track') else e),
-              params.filters
+              Mapper(Paginate(coll, 10, params.filters),
+                              (e) -> if e? then e.get('track') else e)
 
     feed
 
