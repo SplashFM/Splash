@@ -34,17 +34,20 @@ class TopTracks extends Page.Content
       top:       true
       following: if @sample == 'following' then 1 else ''
       week:      if @period == '7d' then 1 else ''
+    coll    = new TrackList
     @feed   = Feed.feed this,
       Feed.emptiable @sample,
-        collection: new TrackList
+        collection: coll
         className: 'splashboard-items live-feed'
         filters: filters
         newItem: (i) -> new TopTrack(model: i)
 
     Feed.playable this,
                   @feed,
-                  Mapper(Paginate(new TrackList, 10, filters),
-                         (e) -> if e? then e.toJSON() else e)
+                  coll,
+                  (current) ->
+                    Mapper(Paginate(current, 10, filters),
+                           (e) -> if e? then e.toJSON() else e)
 
 
     @routes = @app.routers.home.builder

@@ -5,14 +5,16 @@ class Feed
     else
       options
 
-  @playable: (content, feed, collection) ->
+  @playable: (content, feed, collection, buildColl) ->
     content.events ?= {}
 
     playing         = (e, data) ->
+      newColl = new collection.constructor(collection.toArray())
+
       unless data.skip
         _.extend data,
           index:      feed.list.indexOf(e.target)
-          collection: new collection.constructor(_(collection.models).clone())
+          collection: buildColl(newColl)
 
     _.extend content.events, 'play': playing
 
@@ -47,8 +49,10 @@ class Feed
 
     @playable content,
               feed,
-              Mapper(Paginate(coll, 10, params.filters),
-                              (e) -> if e? then e.get('track') else e)
+              coll,
+              (current) ->
+                Mapper(Paginate(current, 10, params.filters),
+                       (e) -> if e? then e.get('track') else e)
 
     feed
 
@@ -111,7 +115,7 @@ class Feed
     this
 
   splashed: (_, data) ->
-    @list.addItem data.splash, null, index: 0
+    @collection.add data.splash, at: 0
 
     true
 
