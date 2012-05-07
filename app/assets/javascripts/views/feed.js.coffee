@@ -116,6 +116,7 @@ class Feed
 
   splashed: (_, data) ->
     @collection.add data.splash, at: 0
+    @collection.remove @collection.at(@collection.length - 1)
 
     true
 

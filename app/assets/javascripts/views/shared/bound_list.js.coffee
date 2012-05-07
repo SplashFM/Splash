@@ -4,6 +4,7 @@ class BoundList extends Backbone.View
   initialize: ->
     @collection.bind 'reset', @reset
     @collection.bind 'add', @addItem
+    @collection.bind 'remove', @removeItem
 
   addItem: (item, _, details) =>
     index = details.index
@@ -19,6 +20,9 @@ class BoundList extends Backbone.View
 
   indexOf: (item) ->
     @$el.children().index(item)
+
+  removeItem: (_, _, details) =>
+    @$el.children().last().remove()
 
   render: ->
     @collection.each @appendItem
