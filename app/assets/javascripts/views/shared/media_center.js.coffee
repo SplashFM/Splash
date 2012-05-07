@@ -12,7 +12,7 @@ class MediaCenter extends Backbone.View
   playRequest: (_, data) ->
     @cursor =
       if data.index?
-        new Cursor(data.collection, data.track)
+        new Cursor(data.collection, data.index, data.track)
       else
         new Cursor.Null(data.track)
 
@@ -23,8 +23,9 @@ class MediaCenter extends Backbone.View
 
 
 class Cursor
-  constructor: (collection, track) ->
+  constructor: (collection, index, track) ->
     @collection = collection
+    @index      = index
     @_track     = track
 
   next: (callback) ->
@@ -36,15 +37,20 @@ class Cursor
     getNew @collection, i + 1, callback
 
   track: (callback) ->
-    if callback? then callback @_track
-    @_track
+    t = @_track
+
+    @_track = @collection.at @index, (track) =>
+      @_track = track
+
+      if callback? then callback track
+
+    @_track or t
 
   getNew = (collection, at, callback) ->
     collection.at at, (track) ->
       if track?
         if track.download_url?
-          @_track = track
-          callback new Cursor(collection, track)
+          callback new Cursor(collection, at)
         else
           getNew collection, at + 1, callback
 
