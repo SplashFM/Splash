@@ -5,7 +5,11 @@ class Paginate
   constructor: (collection, elemsPerPage, fetchData) ->
     @collection   = collection
     @elemsPerPage = elemsPerPage
-    @data         = _({}).extend(fetchData, page: 0)
+    @data         = _({}).extend fetchData,
+      page: if collection.length == 0
+              0
+            else
+              @pageFor(collection.length - 1)
 
     @collection.bind 'reset', => @data.page = 1
 
