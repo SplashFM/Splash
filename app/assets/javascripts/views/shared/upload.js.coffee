@@ -99,13 +99,21 @@ class Upload.Metadata extends Backbone.View
   tagName: 'form'
 
   onComplete: (splash) =>
+    @submitting = false
+
     @$el.trigger 'upload:complete', splash: splash
 
   onError: =>
+    @submitting = false
+
     @$el.trigger('upload:error')
 
   onSubmit: (e) =>
     e.preventDefault()
+
+    if @submitting then return;
+
+    @submitting = true;
 
     if @mode == 'edit'
       attrs =
