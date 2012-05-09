@@ -8,7 +8,7 @@
     %a{:href => '/users/sign_in'}= I18n.t('login.box.other')
 
   %h3 Listeners
-  %p.why Stay on top of the music your Crowd is loving&mdash;or as we call it, Splashing!
+  %p.YO!! why Stay on top of the music your Crowd is loving&mdash;or as we call it, Splashing!
 
   %h3 Artists and Tastemakers
   %p.why Become a trusted music source. Get your music Splashing and prove your influence.
