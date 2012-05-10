@@ -170,9 +170,6 @@ GEM
       crack (= 0.1.8)
     httpclient (2.2.4)
     i18n (0.6.0)
-    inherited_resources (1.3.0)
-      has_scope (~> 0.5.0)
-      responders (~> 0.6.0)
     itunes-search-api (0.1.0)
       httparty
     jammit (0.6.3)
@@ -272,7 +269,6 @@ GEM
     redis (2.2.2)
     redis-store (1.0.0.1)
       redis (~> 2.2.1)
-    responders (0.6.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rr (1.0.3)
@@ -384,7 +380,6 @@ DEPENDENCIES
   hipchat (= 0.4.0)
   hominid
   hoptoad_notifier
-  inherited_resources
   itunes-search-api
   jammit (>= 0.5.0)
   jquery-rails

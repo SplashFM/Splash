@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   USER_TAB               = 2
   SIDEBAR_THUMB_COUNT    = 10
 
-  inherit_resources
   respond_to :html, :json
 
   before_filter      :load_user, :only => [:show]

@@ -53,17 +53,15 @@ class UndiscoveredTrack < Track
 
   belongs_to :uploader, :class_name => 'User'
 
-  validate :validate_local_data_type,    :on => :create
   validate :validate_data_type,          :if => :data?
 
   validates_presence_of :title,          :on => :update
   validate :validate_performer_presence, :on => :update
   validate :validate_track_uniqueness,   :on => :update
 
-  before_create :extract_artwork
-  after_create  :extract_metadata
+  before_create :extract_artwork_and_metadata
   before_create :set_default_popularity_rank
-  after_destroy  :clear_redis
+  after_destroy :clear_redis
 
   def artwork_url
     artwork.url
@@ -120,7 +118,7 @@ class UndiscoveredTrack < Track
     end
   end
 
-  def extract_artwork
+  def extract_artwork_and_metadata
     artwork = local_song_file.artwork
     if (artwork && artwork.content_type != 'application/octet-stream')
       self.artwork = artwork
@@ -128,16 +126,12 @@ class UndiscoveredTrack < Track
       create_identicon local_song_file.title, local_song_file.artist
     end
 
-    # this will trigger upload to S3
-    self.data = local_data.to_file(:original)
-  end
-
-  def extract_metadata
     self.title      = local_song_file.title
     self.albums     = local_song_file.album
     self.performers = local_song_file.artist
 
-    # FIXME: doesn't really do anything, because we're in after_create
+    # this will trigger upload to S3
+    self.data = local_data.to_file(:original)
     self.local_data = nil
   end
 
@@ -147,10 +141,6 @@ class UndiscoveredTrack < Track
 
   def validate_data_type
     validate_type data_file_name
-  end
-
-  def validate_local_data_type
-    validate_type local_data_file_name
   end
 
   def validate_type(name)

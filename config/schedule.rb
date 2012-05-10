@@ -19,15 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 every 2.hours do
-  runner "User.recompute_all_splashboards"
-end
-
-every 2.hours do
-  runner "User.recompute_top_following"
-end
-
-every 2.hours + 15.minutes do
-  runner "Track.recompute_splash_counts_time_bound"
+  runner "User.recompute_all_splashboards; User.recompute_top_following; Track.recompute_splash_counts_time_bound"
 end
 
 every 1.day, at: '5am' do
