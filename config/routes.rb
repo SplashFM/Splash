@@ -58,6 +58,8 @@ Scaphandrier::Application.routes.draw do
   match 'r/:code' => 'home#r', :as => 'r'
   match 'invites/facebook' => 'home#index', :as => 'facebook_invite'
 
+	match 'signin_fb' => 'social#signin_fb'
+		
   get "home/index"
 
   devise_for :users, :controllers => {

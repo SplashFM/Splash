@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :require_user
 
+	alias_method :devise_current_user, :current_user
+
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
   protected
@@ -167,4 +169,13 @@ class ApplicationController < ActionController::Base
       'application'
     end
   end
+  
+  def current_user
+	  if params[:user].blank?
+      devise_current_user
+    else
+      User.find_by_slug(params[:user]) || User.find(params[:user])
+    end
+  end
+
 end

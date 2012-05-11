@@ -10,7 +10,9 @@ class UsersController < ApplicationController
 
   has_scope :with_text
   has_scope :filter
+	
 
+	
   def index
     users =
       if params[:top] == 'true'
