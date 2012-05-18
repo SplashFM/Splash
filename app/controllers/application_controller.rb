@@ -2,9 +2,11 @@ class ApplicationController < ActionController::Base
   layout :pick_default_layout
 
   protect_from_forgery
+  alias_method :devise_current_user, :current_user
+  
   before_filter :require_user
 
-	alias_method :devise_current_user, :current_user
+	
 
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
@@ -59,9 +61,12 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    unless signed_in?(:user) || params[:controller].include?('devise')
-      deny_access("Please login or create an account to access that feature.")
-    end
+  	# Skip user signed_in check for web services   
+  	unless params[:user_id].present?
+		  unless signed_in?(:user) || params[:controller].include?('devise') 
+		    deny_access("Please login or create an account to access that feature.")
+		  end
+		end  
   end
 
   def require_superuser
@@ -171,11 +176,10 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user
-	  if params[:user].blank?
+	  if params[:user_id].blank?
       devise_current_user
     else
-      User.find_by_slug(params[:user]) || User.find(params[:user])
+      User.find_by_slug(params[:user_id]) || User.find(params[:user_id])  
     end
   end
-
 end

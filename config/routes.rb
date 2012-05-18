@@ -59,6 +59,7 @@ Scaphandrier::Application.routes.draw do
   match 'invites/facebook' => 'home#index', :as => 'facebook_invite'
 
 	match 'signin_fb' => 'social#signin_fb'
+	match 'signin_twitter' => 'social#signin_twitter'
 		
   get "home/index"
 
