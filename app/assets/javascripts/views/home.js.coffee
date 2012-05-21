@@ -26,8 +26,11 @@ class Home extends Page
         sidebar.add new TemplateView
           template: JST['profile/points']
           args: @user.toJSON()
-
       sidebar.add new SuggestedSplashersView(followerID: @app.user.id)
+      sidebar.add new TemplateView
+        className: 'social-buttons'
+        template:  JST['home/social_buttons']
+
       sidebar.add new InviteUserView
 
 window.Home = Home
