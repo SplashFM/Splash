@@ -12,7 +12,7 @@ class MediaCenter extends Backbone.View
   playRequest: (_, data) ->
     @cursor =
       if data.index?
-        new Cursor(data.collection, data.track, data.index)
+        new Cursor(data.collection, data.track)
       else
         new Cursor.Null(data.track)
 
@@ -23,13 +23,12 @@ class MediaCenter extends Backbone.View
 
 
 class Cursor
-  constructor: (collection, track, index) ->
+  constructor: (collection, track) ->
     @collection = collection
     @_track     = track
-    @index 			= index
 
   next: (callback) ->
-    i = @index
+    i = 0
     while true
       t = @collection.at(i)
       break if !t || t.id == @_track.id
