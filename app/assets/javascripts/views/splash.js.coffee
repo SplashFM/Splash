@@ -55,7 +55,7 @@ class Splash extends Backbone.View
   play: (e) ->
     e.preventDefault()
 
-    $(@el).trigger('play', track: @model.get('track'))
+    $(@el).trigger('play', {track: @model.get('track'), track_list: @model.collection.models})
 
   render: =>
     s          = @model
