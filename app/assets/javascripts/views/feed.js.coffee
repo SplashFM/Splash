@@ -149,7 +149,12 @@ class Feed.EndlessScroll extends Backbone.View
     @wscroll.unbind 'scroll', @scroll
 
   scroll: =>
-    if @collection.hasNext() then @collection.fetchNext()
+    if @collection.hasNext()
+      last_item = @collection.collection.at(@collection.collection.length - 1)
+      last_id = if last_item then last_item.id else ''
+      _.extend @collection.data,
+      last_splash: last_id
+      @collection.fetchNext()
 
 
 class Feed.Spinner extends Backbone.View

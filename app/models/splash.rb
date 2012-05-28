@@ -21,6 +21,9 @@ class Splash < ActiveRecord::Base
   scope :for_users, lambda { |user_ids|
     user_ids.blank? ? scoped : where(:user_id => user_ids)
   }
+  scope :for_users_with_last_splash, lambda { |user_ids, splash_id|
+    user_ids.blank? ? where("id < :id", {:id => splash_id}) : where("user_id = :user_ids AND :id < id", {:user_ids => user_ids, :id => splash_id})
+  }
   scope :since, lambda { |time|
     time.blank? ? scoped : where(['created_at > ?', Time.parse(time).utc])
   }

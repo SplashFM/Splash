@@ -114,7 +114,7 @@ en:
     following: "is now following you"
     mention: "splashed a song at you"
   profile:
-    my_splashes: "My Splashes"
+    my_splashes: "Splashes"
   searches:
     empty: "No results found."
     page:
