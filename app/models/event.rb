@@ -39,38 +39,21 @@ class Event < ActiveRecord::Base
       count
     else
       q = ""
-      puts "======================="
-      puts "1 : " + q.to_s
 
       q << splashes.to_sql if include_splashes
-puts "======================="
-      puts "2 : " + q.to_s
       q << " UNION "       if include_mentions && ! q.blank?
-puts "======================="
-      puts "3 : " + q.to_s
       q << mentions.to_sql if include_mentions
-puts "======================="
-      puts "4 : " + q.to_s
       q << " UNION ALL "   if include_splashes && include_other
-      puts "======================="
-      puts "5 : " + q.to_s
       
       if include_other
         q << relationships.to_sql + " UNION ALL " + comments.to_sql
-puts "======================="
-      puts "6 : " + q.to_s
         comment_union = " UNION " << (user_ids.present? ? " ALL " : "")
         if main_user_id && splash_ids.present?
           q << comment_union << splash_comments.to_sql
         end
       end
       
-      q << " ORDER BY created_at DESC"
-      puts "======================="
-      puts "7 : " + q.to_s
       q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
-puts "======================="
-      puts "8 : " + q.to_s
 
       if include_other || include_splashes || include_mentions
         events = Event.find_by_sql(q);
