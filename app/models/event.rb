@@ -13,9 +13,10 @@ class Event < ActiveRecord::Base
     include_splashes = params[:splashes].present?
     include_mentions = params[:mentions].present? && main_user_id
     include_other    = params[:other].present?
+    last_splash_id	 = params[:last_splash].present?
 
-    splashes        = Splash.as_event.for_users(user_ids).since(last_update_at).
-      with_tags(tags)
+    last_splash_id ? splashes = Splash.as_event.for_users_with_last_splash(user_ids, params[:last_splash]).since(last_update_at).with_tags(tags) : splashes = Splash.as_event.for_users(user_ids).since(last_update_at).with_tags(tags)
+    
     relationships   = Relationship.as_event.for_users(user_ids).
       since(last_update_at)
     comments        = Comment.as_event.for_users(user_ids).since(last_update_at)
@@ -38,24 +39,38 @@ class Event < ActiveRecord::Base
       count
     else
       q = ""
+      puts "======================="
+      puts "1 : " + q.to_s
 
       q << splashes.to_sql if include_splashes
-
+puts "======================="
+      puts "2 : " + q.to_s
       q << " UNION "       if include_mentions && ! q.blank?
+puts "======================="
+      puts "3 : " + q.to_s
       q << mentions.to_sql if include_mentions
-
+puts "======================="
+      puts "4 : " + q.to_s
       q << " UNION ALL "   if include_splashes && include_other
+      puts "======================="
+      puts "5 : " + q.to_s
+      
       if include_other
         q << relationships.to_sql + " UNION ALL " + comments.to_sql
-
+puts "======================="
+      puts "6 : " + q.to_s
         comment_union = " UNION " << (user_ids.present? ? " ALL " : "")
         if main_user_id && splash_ids.present?
           q << comment_union << splash_comments.to_sql
         end
       end
-
+      
       q << " ORDER BY created_at DESC"
+      puts "======================="
+      puts "7 : " + q.to_s
       q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
+puts "======================="
+      puts "8 : " + q.to_s
 
       if include_other || include_splashes || include_mentions
         events = Event.find_by_sql(q);
