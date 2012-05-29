@@ -31,7 +31,7 @@ class Cursor
   next: (callback) ->
     i = @index
     while true
-      t = @collection[i].get('track')
+      t = @collection[i]
       break if !t || t.id == @_track.id
       i++
     getNew @collection, i + 1, callback
@@ -41,7 +41,7 @@ class Cursor
     @_track
 
   getNew = (collection, at, callback) ->
-    track = collection[at].get('track')
+    track = collection[at]
     if track?
       if track.download_url?
         @_track = track
