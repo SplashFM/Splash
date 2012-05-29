@@ -100,10 +100,18 @@ class TopTrack extends Backbone.View
 
     this
 
+  getTracks: (track_collection) =>
+    track_list = [] 
+    i = 0
+    while i < track_collection.length  
+      track_list.push (track_collection[i].toJSON())
+      i++
+    return track_list
+
   play: (e) ->
     e.preventDefault()
 
-    @$el.trigger 'play', track: @model.toJSON()
+    @$el.trigger 'play', track: @model.toJSON(), track_list: @getTracks(@model.collection.models)
 
   togglePlay: => @$el.toggleClass 'playable'
 
