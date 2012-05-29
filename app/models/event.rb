@@ -13,9 +13,9 @@ class Event < ActiveRecord::Base
     include_splashes = params[:splashes].present?
     include_mentions = params[:mentions].present? && main_user_id
     include_other    = params[:other].present?
-    last_splash_id	 = params[:last_splash].present?
-
-    last_splash_id ? splashes = Splash.as_event.for_users_with_last_splash(user_ids, params[:last_splash]).since(last_update_at).with_tags(tags) : splashes = Splash.as_event.for_users(user_ids).since(last_update_at).with_tags(tags)
+    last_splash_id	 = params[:last_splash]
+    
+    splashes = Splash.as_event.for_users(user_ids).from_last_splash(last_splash_id).since(last_update_at).with_tags(tags)
     
     relationships   = Relationship.as_event.for_users(user_ids).
       since(last_update_at)

@@ -20,5 +20,9 @@ class Follow extends Page
 
     sidebar.add new SuggestedSplashersView(followerID: @app.user.id)
     sidebar.add new InviteUserView
+    sidebar.add new TemplateView
+      className: 'social-buttons'
+      template:  JST['home/social_buttons']
+      args: @app.user.toJSON()
 
 window.Follow = Follow
