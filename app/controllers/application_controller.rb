@@ -61,10 +61,8 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-		if params[:format].present? && params[:format] == 'json'
-			# Skip user signed_in check for web services   
-			return		
-		else		
+		# Skip user signed_in check for web services   
+		unless params[:mobile_uid].present?		
 		  unless signed_in?(:user) || params[:controller].include?('devise') 
 		    deny_access("Please login or create an account to access that feature.")
 		  end
@@ -178,10 +176,10 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user
-	  if params[:user].blank?
+	  if params[:mobile_uid].blank?
       devise_current_user
     else
-      User.find_by_slug(params[:user]) || User.find(params[:user])  
+      User.find_by_slug(params[:mobile_uid]) || User.find(params[:mobile_uid])  
     end
   end
 end
