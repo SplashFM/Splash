@@ -53,6 +53,7 @@ class Event < ActiveRecord::Base
         end
       end
       
+      q << " ORDER BY created_at DESC"
       q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
 
       if include_other || include_splashes || include_mentions
