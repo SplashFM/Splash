@@ -1,4 +1,4 @@
-- if @id
+- if !@id
   != JST['home/facepile']()
 != JST['home/twitter_button']()
 != JST['home/facebook_like']()
