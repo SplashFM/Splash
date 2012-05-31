@@ -16,7 +16,12 @@ class RelationshipsController < ApplicationController
 
   def destroy
     r = current_user.relationships.find(params[:id])
-    respond_with current_user.unfollow(r.followed_id)
+    current_user.unfollow(r.followed_id)
+    if params[:mobile_uid].present?
+      render :json => current_user 
+    else 
+      respond_with current_user      
+    end  
   end
 
   private
