@@ -29,6 +29,10 @@ class UndiscoveredTracksController < ApplicationController
   end
 
   def download
+    if current_user and !Splash.for?(current_user, current_track)
+      Splash.create!(:track     => current_track,
+                     :user      => current_user)
+    end
     redirect_to current_track.download_url
   end
 
