@@ -45,6 +45,10 @@ module RedisRecord
         def increment_sorted_#{name}(id)
           RedisRecord.redis.zincrby key("sorted_#{name}"), 1, id.to_s
         end
+        
+        def decrement_sorted_#{name}(id)
+          RedisRecord.redis.zincrby key("sorted_#{name}"), -1, id.to_s
+        end
 
         def reset_sorted_#{name}
           RedisRecord.redis.del key("sorted_#{name}")
@@ -76,12 +80,24 @@ module RedisRecord
             increment_#{name}(id)
           }
         end
+        
+        def decrement_#{name.to_s.pluralize}(ids)
+          ids.each { |id|
+            decrement_#{name}(id)
+          }
+        end
 
         def increment_#{name}(id)
           RedisRecord.redis.hincrby key(#{name.to_s.inspect}), id.to_s, 1
 
           increment_sorted_#{name}(id)
         end
+				
+				def decrement_#{name}(id)
+          RedisRecord.redis.hincrby key(#{name.to_s.inspect}), id.to_s, -1
+
+          decrement_sorted_#{name}(id)
+        end        
 
         def reset_#{name}_counter
           RedisRecord.redis.del key(#{name.to_s.inspect})
@@ -110,6 +126,10 @@ module RedisRecord
       class_eval <<-RUBY
         def increment_#{name}
           self.class.increment_#{name.to_s.pluralize}([id])
+        end
+        
+        def decrement_#{name}
+          self.class.decrement_#{name.to_s.pluralize}([id])
         end
 
         def #{name}

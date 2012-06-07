@@ -40,7 +40,8 @@ window.BaseApp.SplashAction = Backbone.View.extend({
 
 window.FullSplashAction = BaseApp.SplashAction.extend({
   events: {
-    'submit form': 'splash'
+    'submit form': 'splash',
+    'click .unsplashable .unsplashIcon': 'unsplashSong',
   },
 
   initialize: function() {
@@ -65,6 +66,23 @@ window.FullSplashAction = BaseApp.SplashAction.extend({
     } else {
       BaseApp.SplashAction.prototype.broadcastSplash.call(this, splash);
     }
+  },
+  
+  unsplashSong: function(e) {
+    e.preventDefault();
+    
+    this.$('[data-widget = "toggle-splash"]').removeClass('unsplashIcon');
+    this.$('[data-widget = "toggle-splash"]').parent().parent().parent().removeClass('unsplashable').addClass('splashable');
+    this.$('[data-widget = "toggle-splash"]').parent().parent().parent().parent().hide();
+
+    $.ajax({
+      url: "/unsplash/"+this.model.get('id'),
+      success: function(data) {        
+      },
+      error: function(e) {      
+      }
+    });
+
   },
 
   splash: function(e) {

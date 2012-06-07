@@ -232,6 +232,8 @@ class Splash.Splashable
         @$('[data-widget = "splash"]').
           removeClass('splashable').
           addClass('unsplashable')
+        @$('[data-widget = "toggle-splash"]').
+          addClass('unsplashIcon')
 
         @number.incr()
 

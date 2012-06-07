@@ -38,7 +38,6 @@ textarea
   .splash-btn
     opacity: 0.5
     filter: alpha(opacity = 50)
-    cursor: default
 
 .cl
   display: block
@@ -790,8 +789,12 @@ a.nav-username:hover
     height: 100%
 
     &:hover .splashable
-      .splash-action span
+      .splash-action span.splash
         display: inline
+        
+    &:hover .unsplashable
+      .splash-action span.unsplash
+        display: inline    
 
   .art
     width: 71px
