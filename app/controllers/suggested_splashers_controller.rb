@@ -3,7 +3,7 @@ class SuggestedSplashersController < ApplicationController
 
   def index
   	suggested_splashers = current_user.recommended_users(100)
-		suggested_splashers = current_user.featured_splashers_suggestions unless suggested_splashers.size != 0 
+		suggested_splashers = User.featured(1, 10) unless suggested_splashers.present? 
     respond_with suggested_splashers
   end
 
