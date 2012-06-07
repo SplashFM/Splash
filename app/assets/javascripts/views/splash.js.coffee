@@ -82,7 +82,12 @@ class Splash extends Backbone.View
       el:     @$('[data-widget = "full-splash-action"]')
       model:  new Track(@model.get('track'))
       parent: @model
-
+    
+    @download = new Toggle
+      el:        @$('[data-widget = "no_download"]')
+      target:    this.$('form')
+      isEnabled: true
+     
     @resplash.bind 'splash:open', @disableExpansion
     @resplash.bind 'splash:close', @enableExpansion
 

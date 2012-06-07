@@ -89,6 +89,11 @@ class TopTrack extends Backbone.View
       model: @model
       el: @$('[data-widget = "full-splash-action"]').get(0),
 
+    @download = new Toggle
+      el:        @$('[data-widget = "no_download"]')
+      target:    this.$('form')
+      isEnabled: true
+
     @$('[data-widget = "play"]').hover(@togglePlay, @togglePlay)
 
     if expanded

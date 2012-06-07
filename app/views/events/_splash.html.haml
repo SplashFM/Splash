@@ -26,7 +26,11 @@
              :'data-widget' => 'purchase',
              :'data-skip-pjax' => true} Purchase track
           {{else}}
-          %a{:href => "/undiscovered_tracks/${track.id}/download", :'data-skip-pjax' => true} Download track
+          - if current_user
+            %a{:href => "/undiscovered_tracks/${track.id}/download", :'data-skip-pjax' => true} Download track
+          - else
+            %a{:href => "#", :'data-skip-pjax' => true, :data => {:widget => 'no_download'}} Download track
+
           {{/if}}
         {{if comment_count}}
         %li.comment-link
