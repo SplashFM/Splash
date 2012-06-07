@@ -8,7 +8,7 @@ class Page extends Backbone.View
     @content = @options.content
     @user    = @options.user or @app.user
 
-    @sidebar = new Sidebar(app: @app, user: @user, className: @sidebarClass)
+    @sidebar = new Sidebar(app: @app, user: @user, className: @sidebarClass, profile: @options.profile)
 
   placeContent: (content) ->
     @$('#stream-wrap').html content.el
