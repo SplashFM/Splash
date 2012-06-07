@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   respond_to :html, :json
 
   before_filter      :load_user, :only => [:show]
+  
+  skip_before_filter :require_user, :only => :show
 
   has_scope :with_text
   has_scope :filter

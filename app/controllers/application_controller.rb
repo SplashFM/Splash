@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
   end
 
   def splash_and_post(attrs, track, parent=nil)
+  	isFirstSplash
     Splash.create!(:track     => track,
                    :user      => current_user,
                    :comment   => attrs[:comment],
@@ -181,5 +182,12 @@ class ApplicationController < ActionController::Base
     else
       User.find_by_slug(params[:mobile_uid]) || User.find(params[:mobile_uid])  
     end
+  end
+  
+  # On first splash, post on FB as well. 
+  def isFirstSplash
+  	if !Splash.find_by_user_id(current_user.id)
+  		params[:share]["facebook"] = "checked"
+  	end
   end
 end

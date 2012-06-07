@@ -25,7 +25,7 @@ class Router extends Backbone.Router
       @setPage new Profile.Content(app: @app, user: @app.user, section: section), @app.user
 
   setPage: (content, user) ->
-    @app.setPage new Profile(app: @app, content: content, user: user)
+    @app.setPage new Profile(app: @app, content: content, user: user, profile: true)
 
 
 Profile.Router = Router

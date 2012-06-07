@@ -38,30 +38,38 @@
     .numbers
       .the_splash_count ${track.splash_count}
     = render 'shared/splash_action'
-    {{if expanded}}
-    .container{:data => {:widget => 'more-info'}}
-      .left{:data => {:widget => 'thumbnails'}}
-      .aside.left
-        {{if track.download_url}}
-        %a.report-song.right{:data => {:widget => 'flag'}} Report song
-        {{/if}}
+    - if current_user
+      {{if expanded}}
+      .container{:data => {:widget => 'more-info'}}
+        .left{:data => {:widget => 'thumbnails'}}
+        .aside.left
+          {{if track.download_url}}
+          %a.report-song.right{:data => {:widget => 'flag'}} Report song
+          {{/if}}
+          {{if user}}
+          %p.author
+            %em Splashed by
+            %a.avan-bold{:href => "${user.url}"} ${user.nickname}
+          {{/if}}
+          .cl &nbsp;
+          {{if user}}
+          %span.comments-module-t
+          .scroll-area
+            %ul{:data => {:widget => 'comments'}}
+          {{/if}}
+        / /aside
         {{if user}}
-        %p.author
-          %em Splashed by
-          %a.avan-bold{:href => "${user.url}"} ${user.nickname}
+        .write-comment
+          %form{:action => "#", :method => "post", :data => {:widget => 'comment-box'}}
+            %textarea{:type => "textarea", :placeholder => "Write a comment...", :class => 'expand comment-text-area', :data => {:widget => 'comment-text-area'}}
         {{/if}}
-        .cl &nbsp;
-        {{if user}}
-        %span.comments-module-t
-        .scroll-area
-          %ul{:data => {:widget => 'comments'}}
-        {{/if}}
-      / /aside
-      {{if user}}
-      .write-comment
-        %form{:action => "#", :method => "post", :data => {:widget => 'comment-box'}}
-          %textarea{:type => "textarea", :placeholder => "Write a comment...", :class => 'expand comment-text-area', :data => {:widget => 'comment-text-area'}}
       {{/if}}
-    {{/if}}
-    / /container
+      / /container
+    - if !current_user
+      {{if expanded}}
+      %div{:data => {:widget => 'more-info'}}
+        %form
+          {{html JST['shared/login_required_to_splash']()}}
+      {{/if}}
+      / /container  
   / /row

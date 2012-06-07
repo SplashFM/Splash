@@ -4,6 +4,7 @@ class Sidebar extends Backbone.View
   initialize: ->
     @app     = @options.app
     @user    = @options.user
+    @showProfile = @options.profile
 
     @widgets = []
 
@@ -11,21 +12,22 @@ class Sidebar extends Backbone.View
     @$el.append widget.render().el
 
   render: ->
-    if @app.user.isNew()
-      @add new TemplateView
-        className: 'login-box'
-        template:  JST['home/login_box']
-    else
+    if @showProfile || !@app.user.isNew()
       # taking implementation of waternums into account
       vcard = Profile.Vcard.get(@app, @user)
       @$el.append vcard.el
       vcard.render()
 
-      unless @app.user.isEqual(@user)
-        @add new RelationshipView
-          className: 'follow-container'
-          model:     new Relationship(@user.get('relationship'))
-          template:  $('#tmpl-profile-relationship').template()
+      if !@app.user.isNew()
+        unless @app.user.isEqual(@user)
+          @add new RelationshipView
+            className: 'follow-container'
+            model:     new Relationship(@user.get('relationship'))
+            template:  $('#tmpl-profile-relationship').template()
+    else
+      @add new TemplateView
+        className: 'login-box'
+        template:  JST['home/login_box']
 
     @$el.append '<div class="contact-sep-shadow"></div>'
 
