@@ -58,6 +58,7 @@ Scaphandrier::Application.routes.draw do
   match 'r/:code' => 'home#r', :as => 'r'
   match 'invites/facebook' => 'home#index', :as => 'facebook_invite'
 
+	match '/unsplash/:id' => 'splashes#unsplash', :as => 'unsplash'
 	match 'signin_fb' => 'social#signin_fb'
 	match 'signin_twitter' => 'social#signin_twitter'
 		
