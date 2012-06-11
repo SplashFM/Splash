@@ -146,7 +146,8 @@ class Splash.FlipNumber extends Backbone.View
     v = parseInt(@value, 10)
     prev = pad.concat(v.toString().split('')).slice(-3)
     next = pad.concat((v + 1).toString().split('')).slice(-3)
-
+    @value = @value + 1
+    
     $next = $('<div/>').text(next.join(''))
 
     SPLASH.Widgets.numFlipper($next)
@@ -173,6 +174,39 @@ class Splash.FlipNumber extends Backbone.View
 
         $n.animate {top: 0}, speed
         $p.animate {top: (- $p.height()) + 'px'}, speed
+        
+  decr: ->
+    pad  = ['0', '0', '0']
+    v = parseInt(@value, 10)
+    prev = pad.concat(v.toString().split('')).slice(-3)
+    next = pad.concat((v - 1).toString().split('')).slice(-3)
+    @value = @value - 1
+    $next = $('<div/>').text(next.join(''))
+
+    SPLASH.Widgets.numFlipper($next)
+
+    _(prev).chain().zip(next).each ([p, n], i) =>
+      if p != n
+        $o = @$(".digit_#{i}")
+        $p = $o.clone().css float: 'none', position: 'absolute', left: 0
+        $n = $next.find(".digit_#{i}").css
+          float: 'none'
+          position: 'absolute'
+          left: 0
+        $c = $("<div/>").width($o.width()).height($o.height()).css
+          overflow: 'hidden'
+          position: 'absolute'
+          float:    'left'
+          left:     $o.css('left')
+
+        $o.replaceWith $c.
+          append($p).
+          append($n.css(top: $p.position().top + $p.height()))
+
+        speed = 500
+
+        $n.animate {top: 0}, speed
+        $p.animate {top: (- $p.height()) + 'px'}, speed      
 
 
   render: ->
@@ -226,6 +260,9 @@ class Splash.Splashable
 
       $('body').bind 'splash:splash splash:resplash splash:quick',
                      _(@splashed).bind(this)
+      
+      $('body').bind 'splash:unsplash',
+                     _(@unsplashed).bind(this)               
 
     _(target.prototype).extend splashed: (_, data) ->
       if data.track.id == getTrack(this).id
@@ -236,6 +273,10 @@ class Splash.Splashable
           addClass('unsplashIcon')
 
         @number.incr()
+        
+    _(target.prototype).extend unsplashed: (_, data) ->
+      if data.track.id == getTrack(this).id
+        @number.decr()    
 
 Splash.Splashable.mixInto Splash, (splash) -> splash.model.get('track')
 

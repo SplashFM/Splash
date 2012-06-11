@@ -36,6 +36,10 @@ window.BaseApp.SplashAction = Backbone.View.extend({
   broadcastSplash: function(splash) {
     $(this.el).trigger('splash:splash', {track: this.model, splash: splash});
   },
+  
+  broadcastUnSplash: function(splash) {
+    $(this.el).trigger('splash:unsplash', {track: this.model});
+  },
 });
 
 window.FullSplashAction = BaseApp.SplashAction.extend({
@@ -73,7 +77,9 @@ window.FullSplashAction = BaseApp.SplashAction.extend({
     
     this.$('[data-widget = "toggle-splash"]').removeClass('unsplashIcon');
     this.$('[data-widget = "toggle-splash"]').parent().parent().parent().removeClass('unsplashable').addClass('splashable');
-    this.$('[data-widget = "toggle-splash"]').parent().parent().parent().parent().hide();
+    this.toggle.enable();
+    this.$('input[type = "submit"]').attr('disabled', false);
+    BaseApp.SplashAction.prototype.broadcastUnSplash.call(this);
 
     $.ajax({
       url: "/unsplash/"+this.model.get('id'),
@@ -400,6 +406,10 @@ window.Toggle = Backbone.View.extend({
 
   disable: function() {
     this.isEnabled = false;
+  },
+  
+  enable: function() {
+    this.isEnabled = true;
   },
 
   doToggle: function() {

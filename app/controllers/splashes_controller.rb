@@ -12,11 +12,13 @@ class SplashesController < ApplicationController
   end
   
   def unsplash
-  	current_user.remove_track_from_splashboard(params[:id])
+  	
   	splash = Splash.where(:track_id => params[:id], :user_id => current_user.id).first
   	Comment.delete_all(:splash_id => splash.id)
   	splash.track.decrement_splash_count
+  	splash.track.decrement_splash_count_week
   	splash.user.decrement_splash_count
+  	current_user.remove_track_from_splashboard(params[:id])
   	splash.delete
   	
   	respond_with splash
