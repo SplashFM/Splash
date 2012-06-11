@@ -17,7 +17,7 @@ class Profile extends Page
         template: JST['profile/points']
         args: @user.toJSON()
 
-    sidebar.add new Profile.Follows(user: @user, full: true)
+    sidebar.add new Profile.Follows(user: @user, full: true, isNew: @app.user.isNew())
 
   renderTop: (content) ->
     routes  = Profile.Router.routes
