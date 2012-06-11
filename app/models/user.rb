@@ -451,6 +451,11 @@ class User < ActiveRecord::Base
     following_ids + ignore_suggested_users + [id]
   end
 
+# Featured splashers those are not in ignored list
+  def featured_splashers
+    User.find (featured_splashers_suggestions - ignored_user_ids)
+  end
+  
   def featured_splashers_suggestions
     User.featured(1, 10).map(&:id)
   end
