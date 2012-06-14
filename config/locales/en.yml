@@ -199,10 +199,11 @@ en:
     cancel: "Cancel Upload"
     done: "Check file metadata"
     error: "Sorry dude... can't take that file."
-    exists: "Upload complete"
+    exists: "This track exists. You can Resplash it"
     metadata: "Saving metadata..."
     save: "Save and Splash"
     splash: Splash
+    resplash: Resplash
     start: "Uploading file..."
     upload: Upload
     waiting: "Choose a file to upload"

@@ -15,7 +15,7 @@ class UndiscoveredTracksController < ApplicationController
       if ! Splash.for?(current_user, canonical)
         respond_with_canonical canonical
       else
-        head :forbidden
+        head :im_used
       end
     else
       respond_with track

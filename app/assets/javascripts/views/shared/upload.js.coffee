@@ -76,6 +76,9 @@ class Upload.Uploader extends Backbone.View
         @metadata.setModel new UndiscoveredTrack(data.result), 'splash'
 
         @$el.trigger('upload:splash')
+      when 226 # :status => :im_used  
+        @$el.trigger('upload:error')
+        @$el.trigger('upload:alreadySplashed')       
 
   render: ->
     @$el.append($.tmpl(@template))
@@ -157,7 +160,7 @@ class Upload.Metadata extends Backbone.View
 
       @$('[data-widget = "metadata"]').show()
     else
-      button.val I18n.t('upload.splash')
+      button.val I18n.t('upload.resplash')
 
     @$('[data-widget = "complete-upload"]').show()
 
@@ -194,9 +197,13 @@ class Upload.Feedback.Status extends Backbone.View
     'upload:metadata': 'onMetadataSave',
     'upload:splash':   'onSplash',
     'upload:start':    'onStart',
+    'upload:alreadySplashed': 'onAlreadySplashed'  
 
   initialize: ->
     @$status = @options.$status
+
+  onAlreadySplashed: ->
+    @$status.val I18n.t('upload.already_splashed')
 
   onError: ->
     @$status.val I18n.t('upload.error')
