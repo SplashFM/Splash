@@ -2,6 +2,12 @@
   .invite-friends
     .head.avan-bold
       %p Invite Friends
+
+  .invite-friends
+    .head.avan-bold
+      %p= link_to "Invite Facebook Friends", friends_path 
+      
+      
   / /invite friends
   .send-invite
     = form_for(:user, :url    => access_requests_path,
