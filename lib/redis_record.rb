@@ -202,10 +202,15 @@ module RedisRecord
         end
 
         def replace_summed_#{name}(other_ids)
-          return if other_ids.empty?
           k = key("summed_#{name.to_s}/") + id.to_s
-          other_keys = other_ids.map {|i| key("#{name.to_s}/") + i.to_s}
-          RedisRecord.redis.zunionstore(k, other_keys)
+          if other_ids.empty?
+            other_ids << -1
+		        other_keys = other_ids.map {|i| key("#{name.to_s}/") + i.to_s}
+		        RedisRecord.redis.zunionstore(k, other_keys)
+		      else  
+		        other_keys = other_ids.map {|i| key("#{name.to_s}/") + i.to_s}
+		        RedisRecord.redis.zunionstore(k, other_keys)
+		      end  
         end
 
         def reset_#{name}

@@ -43,7 +43,7 @@ class TracksController < ApplicationController
     respond_with results.map { |t|
       t.active_model_serializer.new(t,
                                     current_user,
-                                    :scoped_score => following || week)
+                                    :scoped_score => true)
     }
   end
 

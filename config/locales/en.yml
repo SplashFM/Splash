@@ -161,6 +161,7 @@ en:
     period:
       alltime: All-time
       sevenday: "Last 7 Days"
+      oneday: "Last Day"
   tracks:
     actions:
       complete_upload: "Upload and Splash"

@@ -11,12 +11,12 @@ class PeriodToggle extends Backbone.View
   render: ->
     @$el.html JST['home/period_toggle']()
 
-    @$('input').attr('checked', @period == 'alltime')
+    @$('input').attr('checked', @period == '7d')
 
     this
 
   _periodToggled: (e) ->
-    period = if @period == '7d' then 'alltime' else '7d'
+    period = if @period == '7d' then '1d' else '7d'
     route  = @app.routers.home.builder.topTracks(period, @sample)
 
     Backbone.history.navigate route, trigger: true

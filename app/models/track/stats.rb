@@ -6,6 +6,7 @@ class Track
       redis_base_key :track
       redis_counter :splash_count
       redis_counter :splash_count_week
+      redis_counter :splash_count_day
     end
 
     module ClassMethods
@@ -19,7 +20,16 @@ class Track
           find_each(:batch_size => 100) { |t|
             t.recompute_splash_count_week(date)
         }
+        
+        reset_splash_count_days
+        
+        date = 1.days.ago
+        splashed.where('splashes.created_at > ?', date).
+          find_each(:batch_size => 100) { |t|
+            t.recompute_splash_count_day(date)
+        }
       end
+      
 
       def recompute_splash_counts
         Track.reset_splash_counts
@@ -33,7 +43,11 @@ class Track
 
           tracks.each { |t| t.scoped_splash_count = t.splash_count_week }
         else
-          sorted_by_splash_count(page, num_records)
+          tracks = sorted_by_splash_count_day(page, num_records)
+
+          tracks.each { |t| t.scoped_splash_count = t.splash_count_day }
+         
+         # sorted_by_splash_count(page, num_records)
         end
       end
     end
@@ -47,6 +61,12 @@ class Track
 
       self.class.update_splash_count_week(id, count)
     end
+    
+    def recompute_splash_count_day(date = 1.days.ago)
+      count = Splash.where('created_at > ?', date).for_tracks(self).count
+
+      self.class.update_splash_count_day(id, count)
+    end
 
     private
 
@@ -54,6 +74,7 @@ class Track
       if @users_to_recompute.present?
         delete_splash_count_instance
         delete_splash_count_week_instance
+        delete_splash_count_day_instance
 
         @users_to_recompute.each { |u| u.remove_track_from_splashboard id  }
         @users_to_recompute.each { |u|

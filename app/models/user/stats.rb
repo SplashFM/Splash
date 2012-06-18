@@ -16,6 +16,7 @@ class User
       redis_counter :splash_count
       redis_hash :splashed_tracks
       redis_hash :splashed_track_weeks
+      redis_hash :splashed_track_days
 
       before_update :check_featured
       after_update  :commit_featured
@@ -38,6 +39,9 @@ class User
         reset_splashed_tracks = lambda { |u|
           u.reset_splashed_track_weeks
           u.reset_splashed_track_weeks_hash!
+          u.reset_splashed_track_days
+          u.reset_splashed_track_days_hash!
+
         }
         recompute_splashboard = lambda { |u| u.recompute_splashboard }
 
@@ -75,10 +79,12 @@ class User
       def recompute_splashed_tracks
         reset_splashed_tracks
         reset_splashed_track_weeks
+        reset_splashed_track_days
 
         find_each(:batch_size => 100) { |u|
           u.reset_splashed_tracks_hash!
           u.reset_splashed_track_weeks_hash!
+          u.reset_splashed_track_days_hash!
         }
 
         find_each(:batch_size => 100) { |u|
@@ -139,6 +145,7 @@ class User
   def remove_track_from_splashboard(track_id)
     delete_splashed_track      track_id
     delete_splashed_track_week track_id
+    delete_splashed_track_day track_id
   end
 
   def reset_splashed_tracks_hash!
@@ -156,10 +163,21 @@ class User
       map(&:track_id).
       each {|i| record_splashed_track_week(i) }
   end
+  
+  def reset_splashed_track_days_hash!
+    # TODO: this is slow and ugly
+    Splash.
+      for_users(id).
+      where('created_at > ?', 1.days.ago).
+      select(:track_id).
+      map(&:track_id).
+      each {|i| record_splashed_track_day(i) }
+  end
 
   def reset_top_tracks!
     replace_summed_splashed_tracks(following_ids)
     replace_summed_splashed_track_weeks(following_ids)
+    replace_summed_splashed_track_days(following_ids)
   end
 
   def slow_ripple_count
@@ -182,9 +200,11 @@ class User
 
   def top_tracks(following, page=1, num_records=20)
     scores = if following
+#               summed_splashed_track_one_days(page, num_records)
                summed_splashed_track_weeks(page, num_records)
              else
-               summed_splashed_tracks(page, num_records)
+             #  summed_splashed_track_weeks(page, num_records)
+               summed_splashed_track_days(page, num_records)
              end
 
     if scores.present?
@@ -217,6 +237,7 @@ class User
   add_method_tracer :remove_track_from_splashboard, 'Custom/remove_track_from_splashboard'
   add_method_tracer :reset_splashed_tracks_hash!, 'Custom/reset_splashed_tracks_hash!'
   add_method_tracer :reset_splashed_track_weeks_hash!, 'Custom/reset_splashed_track_weeks_hash!'
+  add_method_tracer :reset_splashed_track_days_hash!, 'Custom/reset_splashed_track_days_hash!'
   add_method_tracer :reset_top_tracks!, 'Custom/reset_top_tracks!'
 
   private
