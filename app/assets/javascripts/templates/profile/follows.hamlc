@@ -24,15 +24,17 @@
         - for user in @user.followers
           != JST['shared/avatar'](user: user)
       .cl.line &nbsp;
-      %a.viewmore-btn.vspace.fancybox{:href => Routes.followers_path(id: @user.nickname)}
-        = I18n.t('users.follows.view_more')
+      - if !@isNew
+        %a.viewmore-btn.vspace.fancybox{:href => Routes.followers_path(id: @user.nickname)}
+          = I18n.t('users.follows.view_more')
 
     #following
       .avatars
         - for user in @user.following
           != JST['shared/avatar'](user: user)
       .cl.line &nbsp;
-      %a.viewmore-btn.vspace.fancybox{:href => Routes.following_path(id: @user.nickname)}
-        = I18n.t('users.follows.view_more')
+      - if !@isNew
+        %a.viewmore-btn.vspace.fancybox{:href => Routes.following_path(id: @user.nickname)}
+          = I18n.t('users.follows.view_more')
 
     .cl.border.vspace &nbsp;
