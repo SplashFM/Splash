@@ -38,10 +38,11 @@ class SplashesController < ApplicationController
   def show
     full = request.format =~ /html/ || params[:summary].blank?
 
-    @splash = SplashSerializer.new(Splash.find(params[:id]),
+    @splash = SplashSerializer.new(splash = Splash.find(params[:id]),
                                    current_user,
-                                   :full => full)
-
+                                   :full => full,
+                                   :creator => Splash.find_by_track_id(splash.track_id, :order => "created_at").user)
+ 
     respond_with @splash do |f|
       f.html { render :layout => 'home' }
       f.all  { render :layout => 'home' }

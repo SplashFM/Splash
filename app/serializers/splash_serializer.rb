@@ -24,6 +24,11 @@ class SplashSerializer < ActiveModel::Serializer
         h[:unsplashable] = splash.user_id == scope.try(:id)
         h[:expanded]     = true
       end
+      
+      if @options[:creator]
+        h[:creator]    = @options[:creator].nickname
+        h[:creator_url]= @options[:creator].url
+      end
     }
   end
 

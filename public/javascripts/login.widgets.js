@@ -34,20 +34,26 @@ $(function() {
 
     onErrors: function(_, xhr) {
       var errors = $.parseJSON(xhr.responseText).errors;
-
+      var err_msg = new Array();
+      this.$('.error').removeClass('error');
       for (var k in errors) {
         switch (k) {
         case 'email':
           this.$('[name = "user[email]"]').addClass('error');
-
+          err_msg.unshift('Email ' + errors[k].pop());
+          
           break;
         case 'password':
           this.$('[name = "user[password]"]').addClass('error');
           this.$('[name = "user[password_confirmation]"]').addClass('error');
-
+          err_msg.unshift('Password ' + errors[k].pop());
+          
           break;
         }
       }
+      
+      if (err_msg.length > 0)
+       $('#flash-error').show().find('.login').show().text(err_msg.pop());
     },
 
     onRegister: function() {
