@@ -132,7 +132,7 @@ class Track < ActiveRecord::Base
     if title.present? && performers.present?
       @canonical_version ||=
         Track.where(['lower(title) = ? AND lower(performers) = ?',
-                    title.downcase, performers_string.downcase]).first
+                    title.downcase, performers_string.downcase]).order("created_at").first
     else
       nil
     end
