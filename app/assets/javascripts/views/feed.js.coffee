@@ -106,8 +106,10 @@ class Feed
         if xhr.status == 401
           $main.prepend JST[@authErrorTemplate]()).
       done =>
-        if @empty && @collection.isEmpty()
+        if @empty && @collection.isEmpty() && @app.user.attributes.following.length == 0
           $main.prepend @empty
+        else if @empty && @collection.isEmpty()
+          $main.prepend $('<p class="noSplash">'+I18n.t('events.all_loaded')+'</p>')
     this
 
   splashed: (_, data) ->
