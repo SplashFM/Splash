@@ -114,8 +114,6 @@ class Track < ActiveRecord::Base
   def preview_url; end
 
   def taken?
-    logger.info ("=========> inside taken? cononical_version = #{canonical_version.inspect} \n =========> self = #{self.inspect}")
-    logger.info ("=====canonical_version != self ?===========> #{canonical_version != self} ")
     canonical_version.present? && canonical_version != self
   end
 
@@ -128,7 +126,6 @@ class Track < ActiveRecord::Base
   end
 
   def canonical_version
-    #.order("created_at")
     if title.present? && performers.present?
       @canonical_version ||=
         Track.where(['lower(title) = ? AND lower(performers) = ?',

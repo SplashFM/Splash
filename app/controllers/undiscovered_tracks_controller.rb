@@ -10,18 +10,14 @@ class UndiscoveredTracksController < ApplicationController
     track = current_user.uploaded_tracks.create(params.slice(:local_data))
 
     if track.taken?
-      logger.info("<======create after track is taken ===>")
       canonical = track.replace_with_canonical
 
       if ! Splash.for?(current_user, canonical)
-        logger.info("<======! Splash.for? ===> canonical = #{canonical.inspect}")
         respond_with_canonical canonical
       else
-        logger.info("<====== im_used ====>")
         head :im_used
       end
     else
-      logger.info("<====== track is not taken ===> #{track.inspect}")
       respond_with track
     end
   end
