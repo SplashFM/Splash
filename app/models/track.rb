@@ -114,8 +114,8 @@ class Track < ActiveRecord::Base
   def preview_url; end
 
   def taken?
-    puts "=========> inside taken? cononical_version = #{canonical_version.inspect} \n =========> self = #{self.inspect}"
-    puts "=====canonical_version != self ?===========> #{canonical_version != self} "
+    logger.info ("=========> inside taken? cononical_version = #{canonical_version.inspect} \n =========> self = #{self.inspect}")
+    logger.info ("=====canonical_version != self ?===========> #{canonical_version != self} ")
     canonical_version.present? && canonical_version != self
   end
 
