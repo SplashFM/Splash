@@ -60,7 +60,7 @@ class Track < ActiveRecord::Base
     tsq = Track.send(:sanitize_sql, ["plainto_tsquery('#{cfg}', ?)", query])
 
     # order of weights: D, C, B, A - meaning: (nothing), performers, title
-    weights = '{0.0, 0.1, 0.3, 1}'
+    weights = '{0.0, 0.1, 0.9, 1}'
 
     # 8 divides the rank by the number of unique words in document
     # 32 divides the rank by itself + 1
