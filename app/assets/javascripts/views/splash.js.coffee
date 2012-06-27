@@ -52,18 +52,21 @@ class Splash extends Backbone.View
   onHoverOut: =>
     @$('[data-widget = "play"] span').hide()
 	
-  getTracks: (splash_collection) =>
+  getTracks: =>
     track_list = [] 
-    i = 0
-    while i < splash_collection.length  
-      track_list.push (splash_collection[i].get('track'))
-      i++
+
+    if typeof @model.collection != 'undefined'
+      i = 0
+      while i < @model.collection.models.length  
+        track_list.push (@model.collection.models[i].get('track'))
+        i++
+    
     return track_list
 
   play: (e) ->
     e.preventDefault()
 
-    $(@el).trigger('play', {track: @model.get('track'), track_list: @getTracks(@model.collection.models)})
+    $(@el).trigger('play', {track: @model.get('track'), track_list: @getTracks()})
 
   render: =>
     s          = @model
