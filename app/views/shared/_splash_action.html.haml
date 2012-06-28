@@ -1,8 +1,10 @@
 %div{:data => {:widget => 'full-splash-action'}}
   .splash-action
     %a{:class => '{{if !track.splashable}}unsplashIcon icon splash-btn{{else}}icon splash-btn{{/if}}', :href => "#", :data => {:widget => 'toggle-splash'}}
+
     %span.splash Splash!
     %span.unsplash Oops!
+  
   - if current_user
     = render 'shared/splash_form'
   - else
