@@ -14,6 +14,8 @@ class SplashesController < ApplicationController
   def unsplash
   	
   	splash = Splash.where(:track_id => params[:id], :user_id => current_user.id).first
+  	comment_ids = Comment.where(:splash_id => splash.id).map(&:id)
+  	Notification.delete_all(:target_id => comment_ids)
   	Comment.delete_all(:splash_id => splash.id)
   	splash.track.decrement_splash_count
   	splash.track.decrement_splash_count_week
