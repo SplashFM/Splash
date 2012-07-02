@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       elsif params[:featured].present?
         User.featured(current_page, TOP_SPLASHERS_PER_PAGE)
       else
-        results = apply_scopes(User).page(current_page).per(PER_SEARCH)
+        results = apply_scopes(User).page(current_page).per(USER_TAB)
 
         if params[:following].present?
           results.followed_by(current_user)
