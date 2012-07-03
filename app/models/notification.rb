@@ -33,7 +33,8 @@ class Notification < ActiveRecord::Base
   def as_json(opts = {})
     {:title    => "#{notifier.name} #{action}",
      :type     => self.class.name.parameterize,
-     :notifier => notifier.as_json}
+     :notifier => notifier.as_json,
+     :created_at => self.created_at}
   end
 
   def unread?

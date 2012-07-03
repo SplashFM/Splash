@@ -11,7 +11,11 @@
         %a.avan-bold{:href => "${user.url}"} ${user.nickname}
         %span ${user.name}
       {{/if}}
+      {{if id}}
+      %a.songname.avan-demi{:href => "/splashes/${id}"} ${track.title}
+      {{else}}
       %p.songname.avan-demi ${track.title}
+      {{/if}}
       %p.songauthor ${track.performers}
       {{if comment}}
       .splash-comment
