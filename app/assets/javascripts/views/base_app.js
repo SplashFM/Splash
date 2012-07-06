@@ -144,7 +144,8 @@ window.BaseApp.QuickSplashAction = BaseApp.SplashAction.extend({
 window.BaseApp.Notifications = Backbone.View.extend({
   events: {
     'click [data-widget = "toggle-notifications"]': 'toggle',
-    'click div.item': 'toggle'
+    'click div.item': 'toggle',
+    'click a.view-all-notifications' : 'viewAllNotifications'
   },
 
   initialize: function() {
@@ -205,6 +206,12 @@ window.BaseApp.Notifications = Backbone.View.extend({
       this.setCount(0);
     }
   },
+  
+  viewAllNotifications: function(){
+   console.log('1. inside viewAllNotifications: trigger start') 
+   this.toggle();
+   $(this.el).trigger('notification:expand');
+  }
 });
 
 window.BaseApp.Notifications.Notification = Backbone.View.extend({

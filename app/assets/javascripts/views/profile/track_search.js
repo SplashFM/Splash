@@ -66,6 +66,7 @@ window.TrackSearch.AllResults = Backbone.View.extend({
   className: 'all-results',
   events: {
     'click [data-widget = "close"]': 'close',
+    'track:close':'close'
     'splash:splash': 'close',
     'search:loaded': 'resize',
   },

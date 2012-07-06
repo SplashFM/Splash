@@ -19,6 +19,7 @@ class Application extends Backbone.View
     @_initializePlayer()
     @_initializeUpload()
     @_initializePlugins()
+    @_initializeAllNotifications()
 
   initializeRoutes: ->
     @routers = {}
@@ -95,6 +96,9 @@ class Application extends Backbone.View
 
   _initializeNotifications: ->
       new BaseApp.Notifications el: $('[data-widget = "notifications"]')
+
+  _initializeAllNotifications: ->
+      new Notifiable(el: @el, $container: $(Page.Content::main)).render()
 
   _initializePlayer: ->
     @player      = new Player

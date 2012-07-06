@@ -21,9 +21,12 @@ class Searchable extends Backbone.View
   searchCollapsed: ->
 
   searchExpanded: (_, data) ->
+    #@$el.trigger('close:notification')
     @showAllResults(data.terms)
-
+    
   showAllResults: (searchTerms) ->
+    #@$('.events-wrap').find('.all-results').remove()
+    
     @$('.events-wrap').prepend(@allResults.el)
 
     @allResults.load(searchTerms)
