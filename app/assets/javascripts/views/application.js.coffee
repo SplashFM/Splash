@@ -10,7 +10,8 @@ class Application extends Backbone.View
   initialize: ->
     @user          = @options.user
     @facebookAppID = @options.facebookAppID
-
+    @eventAgg      = _.extend({}, Backbone.Events);
+    
     @_initializeFacebook()
     @_initializeSearch()
     @_initializeAllResultsSearch()
@@ -72,7 +73,7 @@ class Application extends Backbone.View
     @$("#navigation li.navigation-#{page}").addClass 'current-page'
 
   _initializeAllResultsSearch: ->
-    new Searchable(el: @el, $container: $(Page.Content::main)).render()
+    new Searchable(el: @el, $container: $(Page.Content::main),eventAgg: @eventAgg).render()
 
   _initializeAnalytics: ->
     Backbone.history.on 'route', ->
@@ -98,7 +99,7 @@ class Application extends Backbone.View
       new BaseApp.Notifications el: $('[data-widget = "notifications"]')
 
   _initializeAllNotifications: ->
-      new Notifiable(el: @el, $container: $(Page.Content::main)).render()
+      new Notifiable(el: @el, $container: $(Page.Content::main),eventAgg: @eventAgg).render()
 
   _initializePlayer: ->
     @player      = new Player

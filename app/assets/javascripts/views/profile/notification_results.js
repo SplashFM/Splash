@@ -1,10 +1,8 @@
 window.Notification.AllResults = Backbone.View.extend({
   className: 'all-results',
-  animation: new Animation('slide', {direction: 'up'}, 200),
   
   events: {
     'click [data-widget = "close"]': 'close',
-    'close:notification'           : 'close'
   },
 
   initialize: function(){
@@ -12,10 +10,11 @@ window.Notification.AllResults = Backbone.View.extend({
     
     this.animation = new Animation('slide', {direction: 'left'}, 500);
     
-  },
+    _.bindAll(this, "close");
+    this.options.eventAgg.bind("notification:close", this.close);
+ },
   
   close: function() {
-    alert('ok');
     $(this.el).trigger('notification:collapse');
 
     this.animation.hide(this.el, function() {
@@ -26,7 +25,6 @@ window.Notification.AllResults = Backbone.View.extend({
   },
 
   load: function() {
-    console.log('3. Notification.AllResults loaded')
     this.setHeader()
 
     $(this.el).css('height', '100%');
@@ -79,8 +77,7 @@ window.Notification.AllResults.Results = Backbone.View.extend({
   },
 
   load: function() {
-    //TODO: send page no. 
-    console.log('4. Notification.AllResults.Results loaded')
+    //TODO: send page no. for limited records 
     this.collection.fetch({data: {all: true}});
   },
 
@@ -111,6 +108,7 @@ window.Notification.AllResults.Results = Backbone.View.extend({
 
 window.Notification.AllResults.Result = Backbone.View.extend({
   tagName: 'tr',
+  className: 'rowItem',
   events: {'click': 'showTarget'},
 
   render: function() {

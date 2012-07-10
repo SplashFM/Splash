@@ -208,7 +208,6 @@ window.BaseApp.Notifications = Backbone.View.extend({
   },
   
   viewAllNotifications: function(){
-   console.log('1. inside viewAllNotifications: trigger start') 
    this.toggle();
    $(this.el).trigger('notification:expand');
   }

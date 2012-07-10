@@ -66,7 +66,6 @@ window.TrackSearch.AllResults = Backbone.View.extend({
   className: 'all-results',
   events: {
     'click [data-widget = "close"]': 'close',
-    'track:close':'close'
     'splash:splash': 'close',
     'search:loaded': 'resize',
   },
@@ -77,6 +76,10 @@ window.TrackSearch.AllResults = Backbone.View.extend({
     $(this.el).hide();
 
     this.animation = new Animation('slide', {direction: 'left'}, 500);
+
+    _.bindAll(this, "close");
+    this.options.eventAgg.bind("trackSearch:close", this.close);
+
   },
 
   close: function() {

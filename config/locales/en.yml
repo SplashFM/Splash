@@ -196,11 +196,11 @@ en:
       sub: "Here are a few things you should know before diving in"
       title: "Welcome to Splash.FM"
   upload:
-    already_splashed: "This track exists and you already splashed it."
+    already_splashed: "You already splashed this track."
     cancel: "Cancel Upload"
     done: "Check file metadata"
     error: "Sorry dude... can't take that file."
-    exists: "This track exists. You can Resplash it"
+    exists: "The track exists. You can Resplash it"
     metadata: "Saving metadata..."
     save: "Save and Splash"
     splash: Splash

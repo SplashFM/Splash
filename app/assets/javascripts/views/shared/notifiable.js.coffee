@@ -1,13 +1,14 @@
 class Notifiable extends Backbone.View
   events:
-    'notification:expand':   'notificationExpanded'
+    'notification:expand'  : 'notificationExpanded'
     'notification:collapse': 'notificationCollapsed'
-    'notification:loaded':   'checkSize'
+    'notification:loaded'  : 'checkSize'
 
   initialize: ->
-    console.log('0. initialize Notifiable')
     @$container = @options.$container
-    @allResults = new Notification.AllResults()
+    @eventAgg   = @options.eventAgg
+    @allResults = new Notification.AllResults(eventAgg: @eventAgg)
+    
 
   checkSize: ->
     offs = @allResults.$el.offset()
@@ -15,21 +16,18 @@ class Notifiable extends Backbone.View
 
     if @$el.height() < arh
       @$el.height(@$el.height() + arh - @$el.height())
-
+    
   render: ->
     @allResults.render()
 
   notificationCollapsed: ->
 
   notificationExpanded: ->
-    #@trigger('close:track')
+    @eventAgg.trigger('trackSearch:close')
     @showAllResults()
 
   showAllResults: () ->
-    console.log('2. In showAllResults(): notificationExpand triggered')
-    @$('.events-wrap').find('.all-results').remove()
     @$('.events-wrap').prepend(@allResults.el)
-    
     @allResults.load()
 
 window.Notifiable = Notifiable
