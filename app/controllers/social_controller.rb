@@ -27,12 +27,11 @@ class SocialController < ApplicationController
 	
 	
   def signin_twitter
-		if params[:token].present? and params[:uid].present? and params[:email].present?
+		if params[:token].present? and params[:uid].present? and params[:email].present? and params[:token_secret].present?
 			user = User.with_social_connection("twitter", params[:uid])
 			if user 
 				user.social_connection("twitter").
-					refresh params.slice(:token)
-					
+					refresh params.slice(:token, :token_secret) 
 				respond_with user
 			else
 				ft = social_token_twitter
@@ -88,8 +87,5 @@ private
 			end
 		end
 	end
-
- 
-
-
+	
 end
