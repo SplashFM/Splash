@@ -43,6 +43,8 @@ Scaphandrier::Application.routes.draw do
   match 'undiscovered_tracks/:id/download' => 'undiscovered_tracks#download',
         :as => :download_track
 
+  post 'splash_discovered_track' => 'tracks#splash_discovered_track'
+
   resource :visitor
 
   get 'top/*top' => 'home#index'

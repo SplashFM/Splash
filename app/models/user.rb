@@ -47,6 +47,10 @@ class User < ActiveRecord::Base
            :class_name  => 'UndiscoveredTrack',
            :foreign_key => 'uploader_id'
 
+  has_many :discovered_uploaded_tracks,
+           :class_name  => 'DiscoveredTrack',
+           :foreign_key => 'uploader_id'   
+
   has_many :comments, :foreign_key => :author_id
   has_many :social_connections,
            :after_add => [Suggestions.new, SocialAvatar.new]
