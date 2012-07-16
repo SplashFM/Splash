@@ -8,6 +8,7 @@ class Notification < ActiveRecord::Base
   end
 
   paginates_per 5
+  SHOW_ALL_LIMIT = 30
 
   belongs_to :notified, :class_name => 'User'
   belongs_to :notifier, :class_name => 'User'
@@ -15,6 +16,7 @@ class Notification < ActiveRecord::Base
 
   scope :unread, where(:read_at => nil)
   scope :by_recency, order('created_at desc')
+  scope :with_limit, limit(SHOW_ALL_LIMIT)
 
   after_create :email_notification, :if => :receiver_email_notification_enabled?
 

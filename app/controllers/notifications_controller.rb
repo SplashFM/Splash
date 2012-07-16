@@ -14,7 +14,7 @@ class NotificationsController < ApplicationController
       render :json => n.unread.count
     else
       if params[:all].present?
-        respond_with n.by_recency
+        respond_with n.by_recency.with_limit
       else
         respond_with n.by_recency.page(1)
       end
