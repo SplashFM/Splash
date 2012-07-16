@@ -5,3 +5,16 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+
+
+Notification.all.each do |n|  
+  if n.target_type == 'Comment'
+     puts n.id 
+     if n.target.nil?
+      puts "Deleting #{n.id}"
+      n.delete 
+     end 
+  end
+end
+
+
