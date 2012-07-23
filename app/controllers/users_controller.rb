@@ -92,11 +92,11 @@ class UsersController < ApplicationController
         end
 
         format.any(:json, :all) { render :json => @user.to_json(:methods => :avatar_geometry) }
-        format.html { redirect_to home_path }
+        #format.html { redirect_to home_path }
         format.js { head :ok }
       else
         format.any(:json, :all) { render :json => @user.errors.to_json, :status => :unprocessable_entity }
-        format.html { render :action => 'edit' }
+        #format.html { render :action => 'edit' }
         format.js { render :json => @user.errors.to_json, :status => 500 }
       end
     end
