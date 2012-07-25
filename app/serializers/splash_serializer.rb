@@ -29,6 +29,10 @@ class SplashSerializer < ActiveModel::Serializer
         h[:creator]    = @options[:creator].nickname
         h[:creator_url]= @options[:creator].url
       end
+      
+      if @options[:lineage]
+        h[:lineages] = Splash.find_all_by_track_id(splash.track_id, :order => "created_at").map{ |u| u.user }
+      end
     }
   end
 

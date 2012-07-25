@@ -20,4 +20,28 @@ class EventsController < ApplicationController
 
     respond_with :last_update_at => Event.timestamp, :results => events
   end
+  
+  
+  def complete_events
+    head :unauthorized and return if params[:follower].present? && ! current_user
+
+    events = Event.scope_by(params)
+
+    unless params[:count]
+      events.map! { |e|
+        if serializer = e.active_model_serializer
+          obj = serializer.new(e, current_user,
+                         :full => true,
+                         :lineage => true,
+                         )
+        else
+          e.as_json(:mention_type => 'mention')
+        end
+      }
+    end
+
+    respond_with :last_update_at => Event.timestamp, :results => events
+  end
+  
+  
 end
