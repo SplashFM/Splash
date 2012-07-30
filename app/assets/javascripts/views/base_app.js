@@ -245,7 +245,8 @@ window.BaseApp.GlobalSearch = Backbone.View.extend({
   el: '[data-widget = "global-search"]',
   events: {
     'focus .field': 'expand',
-    'search:hide': 'collapse'
+    'search:hide': 'collapse',
+    'submit'  : 'viewAll',
   },
 
   initialize: function() {
@@ -264,6 +265,11 @@ window.BaseApp.GlobalSearch = Backbone.View.extend({
 
   expand: function() {
     this.$el.addClass('opened')
+  },
+  
+  viewAll: function(){
+    term = $.trim(this.$(':text').val());
+    $(this.el).trigger('search:expand', {terms: term});
   },
 });
 
