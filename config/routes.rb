@@ -52,7 +52,6 @@ Scaphandrier::Application.routes.draw do
   get 'follow' => 'home#index'
   get 'featured' => 'home#index'
   
-  match 'all_events' => 'events#complete_events'
   match '' => 'home#index', :as =>'home'
   match 'dashboard' => 'home#index', :as => 'dashboard'
   match 'about' => 'home#about'

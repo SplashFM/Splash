@@ -39,10 +39,14 @@ class SplashesController < ApplicationController
 
   def show
     full = request.format =~ /html/ || params[:summary].blank?
-
+    
+    is_mobile = false
+    is_mobile = true if params[:mobile_uid].present? 
+    
     @splash = SplashSerializer.new(splash = Splash.find(params[:id]),
                                    current_user,
                                    :full => full,
+                                   :lineage => is_mobile,
                                    :creator => Splash.find_by_track_id(splash.track_id, :order => "created_at").user)
  
     respond_with @splash do |f|
