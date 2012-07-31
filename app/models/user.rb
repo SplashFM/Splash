@@ -124,19 +124,22 @@ class User < ActiveRecord::Base
     @codes ||= YAML.load_file(ACCESS_CODES_PATH)
   end
 
+  
   def self.create_with_social_connection(params)
     transaction {
       user_params = params.slice(:access_code, :email, :name, :nickname).
         merge!(:initial_provider => params[:provider])
       sc_params   = params.slice(:provider, :token, :uid)
-
-      user = create(user_params)
+      
+      user = User.find_by_email(params[:email])
+      unless user.present?
+        user = create(user_params) 
+      end
       user.social_connections.create!(sc_params) if user.persisted?
-
       user
     }
   end
-
+  
   def self.filter(nick_or_name)
     if nick_or_name.present?
       where('users.nickname ilike :nn or
