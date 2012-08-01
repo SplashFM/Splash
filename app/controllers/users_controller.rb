@@ -63,8 +63,12 @@ class UsersController < ApplicationController
         Relationship.relate_to_follower([@user], current_user).first
       end
 
-    respond_with with_relationship do |f|
-      f.html { render :layout => 'home' }
+    if params[:mobile_uid].present?
+      render :json => with_relationship
+    else
+      respond_with with_relationship do |f|
+        f.html { render :layout => 'home' }
+      end
     end
   end
 
