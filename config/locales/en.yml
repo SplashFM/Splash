@@ -198,7 +198,7 @@ en:
   upload:
     already_splashed: "You already splashed this track."
     cancel: "Cancel Upload"
-    done: "Check file metadata"
+    done: "Upload Complete"
     error: "Sorry dude... can't take that file."
     exists: "The track exists. You can Resplash it"
     metadata: "Saving metadata..."
