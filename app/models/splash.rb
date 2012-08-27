@@ -18,6 +18,9 @@ class Splash < ActiveRecord::Base
   scope :for_tracks, lambda { |track_ids|
     track_ids.blank? ? scoped : where(:track_id => track_ids)
   }
+  scope :for_splashes, lambda { |splash_ids|
+    splash_ids.blank? ? scoped : where(:parent_id => splash_ids)
+  }
   scope :for_users, lambda { |user_ids|
     user_ids.blank? ? scoped : where(:user_id => user_ids)
   }

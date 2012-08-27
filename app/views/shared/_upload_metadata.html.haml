@@ -8,6 +8,8 @@
       %input{:type => 'text', :name => 'performers', :placeholder => 'enter artists name'}
     .holder
       %input{:type => 'text', :name => 'albums', :placeholder => 'enter album name'}
-  .right.splash-controls{:data => {:widget => 'complete-upload'}}
-    = render 'shared/social_splashing'
-    %input{:class => 'submit splash', :type => 'submit'}
+  %div{:data => {:widget => 'complete-upload'}}
+    %p.notice Splash nicely! By uploading to Splash.FM, you represent that the content you upload complies with Splash.FM's Terms of Use.    
+    .right.splash-controls
+      = render 'shared/social_splashing'
+      %input{:class => 'submit splash', :type => 'submit'}

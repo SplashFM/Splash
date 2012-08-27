@@ -29,7 +29,7 @@ class SplashesController < ApplicationController
   def index
     if params[:splashed].present?
       respond_with Splash.
-        for_tracks(params[:splashed]).
+        for_splashes(params[:splashed]).
         by_date.
         with_users
     else
