@@ -31,7 +31,8 @@ class SplashSerializer < ActiveModel::Serializer
       end
       
       if @options[:lineage]
-        h[:lineages] = Splash.find_all_by_track_id(splash.track_id, :order => "created_at").map{ |u| u.user }
+        h[:lineages_count] = Splash.find_all_by_parent_id(splash.id).size
+        h[:lineages] = Splash.find_all_by_parent_id(splash.id, :order => "created_at", :limit => 8).map{ |u| u.user }
       end
     }
   end
