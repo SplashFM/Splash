@@ -7,7 +7,7 @@ class Router extends Backbone.Router
     '_=_': 'default'
 
   default: ->
-    builder = @app.routers.home.builder.topTracks()
+    builder = @app.routers.home.builder.latestSplashes()
 
     Backbone.history.navigate(builder, trigger: true)
 
