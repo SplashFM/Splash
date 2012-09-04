@@ -123,7 +123,6 @@ window.TrackSearch.AllResults = Backbone.View.extend({
 });
 
 window.TrackSearch.AllResults.Results = Backbone.View.extend({
-  tagName: 'table',
 
   initialize: function() {
     this.collection = new TrackList;
@@ -141,7 +140,7 @@ window.TrackSearch.AllResults.Results = Backbone.View.extend({
   },
 
   clear: function() {
-    this.$('tbody').empty();
+    this.$('ul#results').empty();
   },
 
   load: function(searchTerms) {
@@ -151,7 +150,7 @@ window.TrackSearch.AllResults.Results = Backbone.View.extend({
   render: function() {
     $(this.el).html($.tmpl(this.template));
 
-    var $tbody = this.$('tbody');
+    var $tbody = this.$('ul#results');
 
     this.collection.each(function(m) {
       var v = new TrackSearch.AllResults.Result({model: m});
@@ -175,7 +174,7 @@ window.TrackSearch.AllResults.Result = Backbone.View.extend({
   events: {
     'click': 'clicked',
   },
-  tagName: 'tr',
+  tagName: 'li',
 
   clicked: function(e) {
     if (! $(e.target).is('[data-widget = "toggle-splash"]')) this.play();
@@ -186,7 +185,7 @@ window.TrackSearch.AllResults.Result = Backbone.View.extend({
   },
 
   render: function() {
-    $(this.el).html($.tmpl(this.template, this.model.toJSON()));
+    $(this.el).html($.tmpl(this.template, {track: this.model.toJSON()}));
 
     this.splash = new FullSplashAction({
       model: this.model,
@@ -225,7 +224,7 @@ $(function() {
   TrackSearch.AllResults.Results.prototype.template =
     $('#tmpl-track-search-all-results-table').template();
   TrackSearch.AllResults.Result.prototype.template =
-    $('#tmpl-track-search-all-results-table-row').template();
+    $('#tmpl-event-splash').template();
   TrackSearch.AllResults.Result.prototype.templateSplash =
     $('#tmpl-all-results-splash').template();
 });
