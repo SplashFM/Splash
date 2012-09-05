@@ -47,7 +47,6 @@ class Upload extends Backbone.View
 
   uploaded: =>
     @isUploading = false
-
     true
 
 
@@ -70,16 +69,18 @@ class Upload.Uploader extends Backbone.View
     switch data.jqXHR.status
       when 201
         @metadata.setModel new UndiscoveredTrack(data.result), 'edit'
-
+        @hide()
         @$el.trigger('upload:done')
       when 200
         @metadata.setModel new UndiscoveredTrack(data.result), 'splash'
-
         @$el.trigger('upload:splash')
       when 226 # :status => :im_used  
         @$el.trigger('upload:error')
         @$el.trigger('upload:alreadySplashed')       
-
+  
+  hide: ->
+    @$('form#choose_file').hide()
+  
   render: ->
     @$el.append($.tmpl(@template))
 
