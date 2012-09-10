@@ -74,6 +74,7 @@ class Application extends Backbone.View
 
   _initializeAllResultsSearch: ->
     new Searchable(el: @el, $container: $(Page.Content::main),eventAgg: @eventAgg).render()
+    new UserSearchable(el: @el, $container: $(Page.Content::main),eventAgg: @eventAgg).render()
 
   _initializeAnalytics: ->
     Backbone.history.on 'route', ->

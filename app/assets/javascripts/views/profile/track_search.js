@@ -118,7 +118,7 @@ window.TrackSearch.AllResults = Backbone.View.extend({
   },
 
   setHeader: function(searchTerms) {
-    this.$('h2').text(I18n.t('all_results.header', {terms: searchTerms}));
+    this.$('h2').text(I18n.t('all_results.header_songs', {terms: searchTerms}));
   },
 });
 

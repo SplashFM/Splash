@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
   TOP_SPLASHERS_PER_PAGE = 10
   PER_SEARCH             = 3
+  ALL_SEARCH             = 11
   USER_TAB               = 2
   SIDEBAR_THUMB_COUNT    = 10
+  
 
   respond_to :html, :json
 
@@ -16,6 +18,7 @@ class UsersController < ApplicationController
 
 	
   def index
+    limit =  params[:short].present? ? USER_TAB : ALL_SEARCH 
     users =
       if params[:top] == 'true'
         if params[:following].present?
@@ -26,7 +29,7 @@ class UsersController < ApplicationController
       elsif params[:featured].present?
         User.featured(current_page, TOP_SPLASHERS_PER_PAGE)
       else
-        results = apply_scopes(User).page(current_page).per(USER_TAB)
+        results = apply_scopes(User).page(current_page).per(limit)
 
         if params[:following].present?
           results.followed_by(current_user)

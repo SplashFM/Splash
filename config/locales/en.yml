@@ -15,7 +15,8 @@ en:
   all_results:
     album: Album
     close: Close
-    header: "All songs for \"%{terms}\""
+    header_songs: "All songs for \"%{terms}\""
+    header_users: "All users for \"%{terms}\""
     performers: Artist
     rank: Rank
     title: Title

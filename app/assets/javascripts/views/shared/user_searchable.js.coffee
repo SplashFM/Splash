@@ -1,13 +1,13 @@
 class Searchable extends Backbone.View
   events:
-    'search:expand'   : 'searchExpanded'
-    'search:collapse' : 'searchCollapsed'
-    'search:loaded'   : 'checkSize'
+    'userSearch:expand'   : 'searchExpanded'
+    'userSearch:collapse' : 'searchCollapsed'
+    'userSearch:loaded'   : 'checkSize'
 
   initialize: ->
     @$container = @options.$container
     @eventAgg   = @options.eventAgg
-    @allResults = new TrackSearch.AllResults(eventAgg: @eventAgg)
+    @allResults = new User.AllResults(eventAgg: @eventAgg)
 
   checkSize: ->
     offs = @allResults.$el.offset()
@@ -23,12 +23,12 @@ class Searchable extends Backbone.View
 
   searchExpanded: (_, data) ->
     @eventAgg.trigger('notification:close')
-    @eventAgg.trigger('userSearch:close')
+    @eventAgg.trigger('trackSearch:close')
     @showAllResults(data.terms)
     
   showAllResults: (searchTerms) ->
     @$('.events-wrap').prepend(@allResults.el)
     @allResults.load(searchTerms)
-  
-  
-window.Searchable = Searchable
+    
+ 
+window.UserSearchable = Searchable

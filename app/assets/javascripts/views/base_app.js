@@ -278,7 +278,8 @@ window.BaseApp.UserSearch = Search.extend({
   el: '[data-widget = "global-search"]',
   cancelableSearch: true,
   menuContainer: '[data-widget = "users"] ul',
-
+  extraParams: {popular: true, short: true},
+  
   initialize: function(opts) {
     this.collection = new UserList;
 
@@ -308,6 +309,7 @@ window.BaseApp.TrackSearch = Search.extend({
 });
 
 ViewAllResults.addTo(BaseApp.TrackSearch)
+//ViewAllResults.addTo(BaseApp.UserSearch)
 
 window.UserMentions = Backbone.View.extend({
   initialize: function() {
