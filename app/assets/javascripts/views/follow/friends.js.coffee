@@ -63,11 +63,14 @@ class RegisteredFriendView extends FriendView
     this
 
   renderAction: ->
-    return new RelationshipView(
-      el: @$('.right .follow-links')
-      model:    new Relationship(@model.get('relationship'))
-      template: @templateRelationship
-    ).render()
+    r = @model.get('relationship')
+    
+    if r.follower_id != r.followed_id
+      return new RelationshipView(
+        el: @$('.right .follow-links')
+        model:    new Relationship(r)
+        template: @templateRelationship
+      ).render()
 
   renderLeft: ->
     score = @model.get('score')

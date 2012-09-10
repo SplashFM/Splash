@@ -116,13 +116,17 @@ window.User.AllResults.Result = Backbone.View.extend({
     outer = $('<div/>').addClass('outer').text(score)
     span  = $('<span/>').addClass('number avan-bold invite left');
     this.$('.splash-score').replaceWith(span.html(outer)); 
+    r =  this.model.get('relationship');
+
+    if (r.followed_id != r.follower_id){
     
-    new RelationshipView({
-      el: this.$('.right .follow-links'),
-      model:    new Relationship(this.model.get('relationship')),
-      template: $('#tmpl-relationship-list').template()
-    }).render()
+      new RelationshipView({
+        el: this.$('.right .follow-links'),
+        model:    new Relationship(),
+        template: $('#tmpl-relationship-list').template(r)
+      }).render()
     
+    }    
    
     return this;
   },
