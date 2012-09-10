@@ -24,6 +24,7 @@ class Notifiable extends Backbone.View
 
   notificationExpanded: ->
     @eventAgg.trigger('trackSearch:close')
+    @eventAgg.trigger('userSearch:close')
     @showAllResults()
 
   showAllResults: () ->
