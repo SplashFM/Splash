@@ -109,7 +109,7 @@ class Splash extends Backbone.View
 
       new Splash.Lineage
         el:              @$('[data-widget = "thumbnails"]').get(0)
-        model:           @model
+        model:           new Track(@model.get('track')) #@model
         userHighlightID: @options.currentUserID
 
     $(@el).find(".expand").each ->
