@@ -1,20 +1,20 @@
 %script#tmpl-home-track{:type => 'text/x-jquery-tmpl'}
-  %div{:class => '{{if splashable}}splashable{{else}}unsplashable{{/if}}', |
-       :data => {:track_id => '${id}', :widget => 'track-result'}}
+  %div{:class => '{{if track.splashable}}splashable{{else}}unsplashable{{/if}}', |
+       :data => {:track_id => '${track.id}', :widget => 'track-result'}}
     .holder
-      %a.art.left{:href => "${preview_url}", :data => {:widget => 'play'}}
-        %img{:alt => "", :height => "71", :src => "${artwork_url}", :width => "71"}/
+      %a.art.left{:href => "${track.preview_url}", :data => {:widget => 'play'}}
+        %img{:alt => "", :height => "71", :src => "${track.artwork_url}", :width => "71"}/
         %span
       .info.left
-        %a.songname.avan-demi{:href => "#"} ${title}
-        %span.songauthor ${performers}
+        %a.songname.avan-demi{:href => "#"} ${track.title}
+        %span.songauthor ${track.performers}
         %ul.meta
           %li.download
-            {{if purchase_url}}
-            %a{:href => "${purchase_url}", :target => '_blank', :'data-skip-pjax' => true} Purchase track
+            {{if track.purchase_url}}
+            %a{:href => "${track.purchase_url}", :target => '_blank', :'data-skip-pjax' => true} Purchase track
             {{else}}
             %a{:href => "/undiscovered_tracks/${id}/download", :'data-skip-pjax' => true} Download track
             {{/if}}
       .numbers
-        .the_splash_count ${splash_count}
-      //= render 'shared/splash_action'
+        .the_splash_count ${track.splash_count}
+      = render 'shared/splash_action'

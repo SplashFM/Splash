@@ -76,7 +76,13 @@ window.FullSplashAction = BaseApp.SplashAction.extend({
     e.preventDefault();
     
     this.$('[data-widget = "toggle-splash"]').removeClass('unsplashIcon');
-    this.$('[data-widget = "toggle-splash"]').parent().parent().parent().removeClass('unsplashable').addClass('splashable');
+    $m_class = this.$('[data-widget = "toggle-splash"]').parent().parent().parent();
+    
+    if ($m_class.attr('class') == 'unsplashable' )    
+      $m_class.removeClass('unsplashable').addClass('splashable');
+    else
+      $m_class.parent().removeClass('unsplashable').addClass('splashable');
+    
     this.toggle.enable();
     this.$('input[type = "submit"]').attr('disabled', false);
     BaseApp.SplashAction.prototype.broadcastUnSplash.call(this);

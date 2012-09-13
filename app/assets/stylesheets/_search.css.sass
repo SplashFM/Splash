@@ -264,9 +264,15 @@
       a.art
         span
           display: block !important
-      .splashable .splash-action
-        span
-          display: inline
+
+    &:hover .splashable
+      .splash-action span.splash
+        display: inline
+
+    &:hover .unsplashable
+      .splash-action span.unsplash
+        display: inline      
+      
   .art
     border: solid 1px #CCC
     img

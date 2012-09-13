@@ -49,7 +49,7 @@ TrackSearch.Track = Backbone.View.extend({
 
   render: function() {
     $(this.el).attr('data-track_id', this.model.get('id'));
-    $(this.el).html($.tmpl(this.template, this.model.toJSON()));
+    $(this.el).html($.tmpl(this.template, {track: this.model.toJSON()}));
 
     new FullSplashAction({
       model: this.model,
