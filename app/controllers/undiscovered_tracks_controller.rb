@@ -5,20 +5,27 @@ class UndiscoveredTracksController < ApplicationController
   before_filter :require_superuser, only: %w(show destroy)
 
   skip_before_filter :require_user, :only => :download
-
+  
+  require 'tempfile'
+  
   def create
-    track = current_user.uploaded_tracks.create(params.slice(:local_data))
-
-    if track.taken?
-      canonical = track.replace_with_canonical
-
-      if ! Splash.for?(current_user, canonical)
-        respond_with_canonical canonical
-      else
-        head :im_used
-      end
+    local = params.slice(:local_data)
+    uploadedSong = File.open local[:local_data].tempfile.path
+    if is_copyright(uploadedSong) 
+      render :json => {:error =>'not ok'}, :status => :non_authoritative_information  
     else
-      respond_with track
+      track = current_user.uploaded_tracks.create(params.slice(:local_data))
+      if track.taken?
+        canonical = track.replace_with_canonical
+
+        if ! Splash.for?(current_user, canonical)
+          respond_with_canonical canonical
+        else
+          head :im_used
+        end
+      else
+        respond_with track
+      end
     end
   end
 
@@ -27,6 +34,8 @@ class UndiscoveredTracksController < ApplicationController
 
     render :text => 'Track deleted.'
   end
+  
+
 
   def download
     if current_user and !Splash.for?(current_user, current_track)
@@ -81,4 +90,46 @@ class UndiscoveredTracksController < ApplicationController
       want.json { render :json => canonical }
     end
   end
+  
+  def is_copyright(track)
+    
+    request   = Tempfile.new('request.xml')
+    response  = Tempfile.new('response.xml')
+    url       = AppConfig.audiblemagic['proxy_url']
+    app       = AppConfig.audiblemagic['app_name']
+    client    = AppConfig.audiblemagic['app_owner']
+    dir       = AppConfig.audiblemagic['libs']
+    
+    
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A > #{request.path}"
+    
+      system footprint
+      data = request.read
+      
+      if data.present?
+        postxml = "#{dir}/postxml -i #{request.path} -o #{response.path} -s #{url}"
+        system postxml
+        data_response = response.read
+        response = Hash.from_xml data_response
+        if get_status(response) == '2005'
+          return false 
+        else
+         return true
+        end   
+      else
+        puts "Some thing went wrong"
+      end
+      
+      request.close
+      request.unlink
+      
+      response.close
+      response.unlink
+      
+  end
+  
+  def get_status response_xml      
+    response_xml["AMIdServerResponse"]["Details"]["IdResponseInfo"]["IdResponse"]["IdStatus"]
+  end
+  
 end

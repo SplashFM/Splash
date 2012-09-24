@@ -76,7 +76,12 @@ class Upload.Uploader extends Backbone.View
         @$el.trigger('upload:splash')
       when 226 # :status => :im_used  
         @$el.trigger('upload:error')
-        @$el.trigger('upload:alreadySplashed')       
+        @$el.trigger('upload:alreadySplashed')  
+      when 203
+        @hide()
+        @metadata.setError() 
+        @$el.trigger('upload:error')
+        @$el.trigger('upload:unauthorized')  
   
   hide: ->
     @$('form#choose_file').hide()
@@ -138,6 +143,7 @@ class Upload.Metadata extends Backbone.View
     @comment = new SplashComment(el: @$('textarea'))
 
     @$('[data-widget = "complete-upload"]').hide()
+    @$('[data-widget = "upload-error"]').hide()
 
     this
 
@@ -164,6 +170,10 @@ class Upload.Metadata extends Backbone.View
       button.val I18n.t('upload.resplash')
 
     @$('[data-widget = "complete-upload"]').show()
+  
+  setError: ->
+    @$('[data-widget = "upload-error"]').show()
+    @$("textarea.splash-comment-area").hide()
 
 
 class Upload.Feedback extends Backbone.View
@@ -198,11 +208,14 @@ class Upload.Feedback.Status extends Backbone.View
     'upload:metadata': 'onMetadataSave',
     'upload:splash':   'onSplash',
     'upload:start':    'onStart',
-    'upload:alreadySplashed': 'onAlreadySplashed'  
+    'upload:alreadySplashed': 'onAlreadySplashed'  ,
+    'upload:unauthorized': 'onCopyright'
 
   initialize: ->
     @$status = @options.$status
-
+  onCopyright: ->
+    @$status.val I18n.t('upload.copyright_material')
+  
   onAlreadySplashed: ->
     @$status.val I18n.t('upload.already_splashed')
 

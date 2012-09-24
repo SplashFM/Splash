@@ -197,6 +197,7 @@ en:
       sub: "Here are a few things you should know before diving in"
       title: "Welcome to Splash.FM"
   upload:
+    copyright_material: "WHISTLE!!!!!"
     already_splashed: "You already splashed this track."
     cancel: "Cancel Upload"
     done: "Upload Complete"

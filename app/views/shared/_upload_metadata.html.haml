@@ -8,8 +8,16 @@
       %input{:type => 'text', :name => 'performers', :placeholder => 'enter artists name'}
     .holder
       %input{:type => 'text', :name => 'albums', :placeholder => 'enter album name'}
+  
   %div{:data => {:widget => 'complete-upload'}}
     %p.notice Splash nicely! By uploading to Splash.FM, you represent that the content you upload complies with Splash.FM's Terms of Use.    
     .right.splash-controls
       = render 'shared/social_splashing'
       %input{:class => 'submit splash', :type => 'submit'}
+      
+  %div.upload-error{:data => {:widget => 'upload-error'}}
+    %p.notice-error Our lifegaurd has detected that this file may contain content that is copyrighted.
+    %br
+    %p.notice-error We're sorry, but you can't splash this in our pool... 
+    %br
+    %p.notice  If you are the original creator of the audio, or have contained all necessary licenses and permissions to upload and share this content, please get@splash.fm
