@@ -99,9 +99,10 @@ class UndiscoveredTracksController < ApplicationController
     app       = AppConfig.audiblemagic['app_name']
     client    = AppConfig.audiblemagic['app_owner']
     dir       = AppConfig.audiblemagic['libs']
+    offset    = 0
+    duration  = 55
     
-    
-    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A > #{request.path}"
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A -O #{offset} -D #{duration} > #{request.path}"
     
       system footprint
       data = request.read
