@@ -4,11 +4,12 @@ class Home extends Page
   renderTop: (content) ->
     content.$top.append JST['shared/tabbed_top'](
       links: [{
+        href:  @app.routers.home.builder.latestSplashes()
+        label: 'home.latest_splashes'
+        },{
         href:  @app.routers.home.builder.topTracks()
         label: 'home.top_splashes'
-      }, {
-        href:  @app.routers.home.builder.latestSplashes()
-        label: 'home.latest_splashes'}]
+      }]
       active: content.label)
 
   renderSidebar: (sidebar) ->
