@@ -11,7 +11,8 @@
         .time.total.jp-duration 2:10
         .jp-seek-bar
           .jp-play-bar
-      %a.splash-btn.left{:href => "#"}
+      %a.splash-btn.left{:href => "#",
+                         :onclick => "return false"}
       {{if purchase_url}}
       %a.download-track.left{:href => "${purchase_url}",
                              :data => {:widget => 'purchase'}}
