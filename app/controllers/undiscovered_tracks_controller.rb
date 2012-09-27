@@ -92,9 +92,8 @@ class UndiscoveredTracksController < ApplicationController
   end
   
   def is_copyright(track)
-    
-    request   = Tempfile.new('request.xml')
-    response  = Tempfile.new('response.xml')
+    request_file   = Tempfile.new('request.xml')
+    response_file  = Tempfile.new('response.xml')
     url       = AppConfig.audiblemagic['proxy_url']
     app       = AppConfig.audiblemagic['app_name']
     client    = AppConfig.audiblemagic['app_owner']
@@ -102,35 +101,41 @@ class UndiscoveredTracksController < ApplicationController
     offset    = 0
     duration  = 55
     
-    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A -O #{offset} -D #{duration} > #{request.path}"
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
     
       system footprint
-      data = request.read
-      
+      data = request_file.read
+           
       if data.present?
-        postxml = "#{dir}/postxml -i #{request.path} -o #{response.path} -s #{url}"
+        postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
         system postxml
-        data_response = response.read
+        data_response = response_file.read
+
+        delete_temp_files(request_file)
+        delete_temp_files(response_file)
+        
         response = Hash.from_xml data_response
-        if get_status(response) == '2005'
-          return false 
+
+        logger.info("=======Response==========#{response.inspect}================")
+        if get_status(response,'IdStatus') == '2005'
+          false 
+        elsif get_status(response,'IdStatus') == '2006'
+           get_status(response,'Action') == 'Allow' ? false : true
         else
-         return true
+          true
         end   
       else
         puts "Some thing went wrong"
       end
-      
-      request.close
-      request.unlink
-      
-      response.close
-      response.unlink
-      
   end
   
-  def get_status response_xml      
-    response_xml["AMIdServerResponse"]["Details"]["IdResponseInfo"]["IdResponse"]["IdStatus"]
+  def get_status response_xml, tag      
+    response_xml["AMIdServerResponse"]["Details"]["IdResponseInfo"]["IdResponse"][tag]
+  end
+  
+  def delete_temp_files (temp_file)
+    temp_file.close
+    temp_file.unlink
   end
   
 end
