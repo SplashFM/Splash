@@ -103,9 +103,9 @@ class UndiscoveredTracksController < ApplicationController
     
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
     logger.info("=======footprint==========#{footprint.inspect}================")
-      system footprint
+      logger.info (system footprint)
       data = request_file.read
-      logger.info("=======data==========#{data.inspect}================")
+      #logger.info("=======data==========#{data.inspect}================")
       if data.present?
         postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
         system postxml
