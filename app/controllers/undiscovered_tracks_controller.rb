@@ -105,7 +105,7 @@ class UndiscoveredTracksController < ApplicationController
     
       system footprint
       data = request_file.read
-           
+      logger.info("=======data==========#{data.inspect}================")
       if data.present?
         postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
         system postxml
