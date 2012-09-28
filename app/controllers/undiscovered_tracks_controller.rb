@@ -102,7 +102,7 @@ class UndiscoveredTracksController < ApplicationController
     duration  = 55
     
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
-    
+    logger.info("=======footprint==========#{footprint.inspect}================")
       system footprint
       data = request_file.read
       logger.info("=======data==========#{data.inspect}================")
