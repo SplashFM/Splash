@@ -11,6 +11,7 @@ class UndiscoveredTracksController < ApplicationController
   def create
     local = params.slice(:local_data)
     uploadedSong = File.open local[:local_data].tempfile.path
+    logger.info('<======uploadedSong temp file======uploadedSong.inspect===============>')
     if is_copyright(uploadedSong) 
       render :json => {:error =>'not ok'}, :status => :non_authoritative_information  
     else
@@ -100,34 +101,35 @@ class UndiscoveredTracksController < ApplicationController
     dir       = AppConfig.audiblemagic['libs']
     offset    = 0
     duration  = 55
+    logger.info('<======temp-track======track.inspect===============>')
     
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
     logger.info("=======footprint==========#{footprint.inspect}================")
-      logger.info (system 'ls')
-      data = request_file.read
-      #logger.info("=======data==========#{data.inspect}================")
-      if data.present?
-        postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
-        system postxml
-        data_response = response_file.read
+    logger.info (system footprint)
+    data = request_file.read
+    logger.info("=======data-present?==========#{data.present?}================")
+    if data.present?
+      postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
+      system postxml
+      data_response = response_file.read
 
-        delete_temp_files(request_file)
-        delete_temp_files(response_file)
-        
-        response = Hash.from_xml data_response
+      delete_temp_files(request_file)
+      delete_temp_files(response_file)
+      
+      response = Hash.from_xml data_response
 
-        logger.info("=======Response==========#{response.inspect}================")
-        if get_status(response,'IdStatus') == '2005'
-          false 
-        elsif get_status(response,'IdStatus') == '2006'
-           get_status(response,'Action') == 'Allow' ? false : true
-        else
-          true
-        end   
+      logger.info("=======Response==========#{response.inspect}================")
+      if get_status(response,'IdStatus') == '2005'
+        false 
+      elsif get_status(response,'IdStatus') == '2006'
+         get_status(response,'Action') == 'Allow' ? false : true
       else
-        puts "Some thing went wrong"
         true
-      end
+      end   
+    else
+      puts "Some thing went wrong"
+      false
+    end
   end
   
   def get_status response_xml, tag      
