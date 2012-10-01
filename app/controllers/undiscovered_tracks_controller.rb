@@ -108,9 +108,11 @@ class UndiscoveredTracksController < ApplicationController
     logger.info("<======temp-track======#{track.inspect}===============>")
     
     
-    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'deploy' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
     logger.info("=======footprint==========#{footprint.inspect}================")
-    logger.info (system footprint)
+    output = `#{footprint}`
+    logger.info (output)
+
     #logger.info (system 'echo "hello $LD_LIBRARY_PATH"' )
     logger.info ($?)
     
