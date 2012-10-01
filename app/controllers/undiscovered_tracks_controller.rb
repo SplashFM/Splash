@@ -16,8 +16,8 @@ class UndiscoveredTracksController < ApplicationController
     if status_copyright == true
       render :json => {:error =>'anauthorize'}, :status => :non_authoritative_information  
     elsif status_copyright == 'error'
-      puts "=======error with api ======"
-      #render :json => {:error =>'error_'}, :status => :non_authoritative_information
+      logger.info ("=====error with api=========")
+      render :json => {:error =>'error_api'}, :status => :unauthorized
     else
       track = current_user.uploaded_tracks.create(params.slice(:local_data))
       if track.taken?
@@ -109,7 +109,10 @@ class UndiscoveredTracksController < ApplicationController
     
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
     logger.info("=======footprint==========#{footprint.inspect}================")
-    logger.info (exec footprint)
+    logger.info (system footprint)
+    logger.info ($?)
+    #puts $?
+    
     data = request_file.read
     logger.info("=======data-present?==========#{data.present?}================")
     if data.present?
