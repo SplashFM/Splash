@@ -109,8 +109,9 @@ class UndiscoveredTracksController < ApplicationController
     
     puts = "<<----opi------->>"
     
-    footprint = 'ls'
-    #footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
+    #footprint = 'ls'
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
+    
     logger.info("=======footprint==========#{footprint.inspect}================")
     logger.info("==using batticks==")
     logger.info `#{footprint}`
@@ -118,8 +119,8 @@ class UndiscoveredTracksController < ApplicationController
     logger.info("==using %x [] ==")
     logger.info %x[ #{footprint} ]
 
-    logger.info("==using %x [... 2>&1] ==")
-    logger.info %x[ #{footprint} 2>&1]
+    #logger.info("==using %x [... 2>&1] ==")
+    #logger.info %x[ #{footprint} 2>&1]
     
     #logger.info ("=======output-======== #{output.inspect}")
 
