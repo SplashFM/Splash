@@ -11,9 +11,13 @@ class UndiscoveredTracksController < ApplicationController
   def create
     local = params.slice(:local_data)
     uploadedSong = File.open local[:local_data].tempfile.path
-    logger.info('<======uploadedSong temp file======uploadedSong.inspect===============>')
-    if is_copyright(uploadedSong) 
-      render :json => {:error =>'not ok'}, :status => :non_authoritative_information  
+    logger.info("<======uploadedSong temp file======#{uploadedSong.inspect}===============>")
+    status_copyright = is_copyright(uploadedSong)
+    if status_copyright == true
+      render :json => {:error =>'anauthorize'}, :status => :non_authoritative_information  
+    elsif status_copyright == 'error'
+      puts "=======error with api ======"
+      #render :json => {:error =>'error_'}, :status => :non_authoritative_information
     else
       track = current_user.uploaded_tracks.create(params.slice(:local_data))
       if track.taken?
@@ -101,11 +105,11 @@ class UndiscoveredTracksController < ApplicationController
     dir       = AppConfig.audiblemagic['libs']
     offset    = 0
     duration  = 55
-    logger.info('<======temp-track======track.inspect===============>')
+    logger.info("<======temp-track======#{track.inspect}===============>")
     
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
     logger.info("=======footprint==========#{footprint.inspect}================")
-    logger.info (system footprint)
+    logger.info (exec footprint)
     data = request_file.read
     logger.info("=======data-present?==========#{data.present?}================")
     if data.present?
@@ -128,7 +132,7 @@ class UndiscoveredTracksController < ApplicationController
       end   
     else
       puts "Some thing went wrong"
-      false
+      "error"
     end
   end
   
