@@ -109,9 +109,9 @@ class UndiscoveredTracksController < ApplicationController
     
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
     logger.info("=======footprint==========#{footprint.inspect}================")
-    logger.info (system footprint)
+    #logger.info (system footprint)
+    logger.info (system 'echo "hello $LD_LIBRARY_PATH"' )
     logger.info ($?)
-    #puts $?
     
     data = request_file.read
     logger.info("=======data-present?==========#{data.present?}================")
