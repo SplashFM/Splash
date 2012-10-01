@@ -102,15 +102,15 @@ class UndiscoveredTracksController < ApplicationController
     url       = AppConfig.audiblemagic['proxy_url']
     app       = AppConfig.audiblemagic['app_name']
     client    = AppConfig.audiblemagic['app_owner']
-    dir       = AppConfig.audiblemagic['libs']
+    dir       = '/usr/local/lib'    #AppConfig.audiblemagic['libs']
     offset    = 0
     duration  = 55
     logger.info("<======temp-track======#{track.inspect}===============>")
     
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
     logger.info("=======footprint==========#{footprint.inspect}================")
-    #logger.info (system footprint)
-    logger.info (system 'echo "hello $LD_LIBRARY_PATH"' )
+    logger.info (system footprint)
+    #logger.info (system 'echo "hello $LD_LIBRARY_PATH"' )
     logger.info ($?)
     
     data = request_file.read
