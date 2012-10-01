@@ -97,6 +97,7 @@ class UndiscoveredTracksController < ApplicationController
   end
   
   def is_copyright(track)
+    track = "/home/deploy/test.mp3"
     request_file   = Tempfile.new('request.xml')
     response_file  = Tempfile.new('response.xml')
     url       = AppConfig.audiblemagic['proxy_url']
@@ -110,7 +111,7 @@ class UndiscoveredTracksController < ApplicationController
     puts = "<<----opi------->>"
     
     #footprint = 'ls'
-    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123456789 -A  > #{request_file.path}"
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track} -e 0123 -A  > #{request_file.path}"
     
     logger.info("=======footprint==========#{footprint.inspect}================")
     logger.info("==using batticks==")
