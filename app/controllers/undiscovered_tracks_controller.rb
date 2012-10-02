@@ -7,6 +7,7 @@ class UndiscoveredTracksController < ApplicationController
   skip_before_filter :require_user, :only => :download
   
   require 'tempfile'
+  require 'open-uri'
   
   def create
     local = params.slice(:local_data)
@@ -97,7 +98,6 @@ class UndiscoveredTracksController < ApplicationController
   end
   
   def is_copyright(track)
-    track = "/home/deploy/test.mp3"
     request_file   = Tempfile.new('request.xml')
     response_file  = Tempfile.new('response.xml')
     url       = AppConfig.audiblemagic['proxy_url']
@@ -107,25 +107,41 @@ class UndiscoveredTracksController < ApplicationController
     offset    = 0
     duration  = 55
     logger.info("<======temp-track======#{track.inspect}===============>")
-    
+   
+    logger.info "==========Dir=========#{Dir.pwd}"
     puts = "<<----opi------->>"
     
     #footprint = 'ls'
-    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track} -e 0123 -A  > #{request_file.path}"
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123 -A  > #{request_file.path}"
     
     logger.info("=======footprint==========#{footprint.inspect}================")
     logger.info("==using batticks==")
     logger.info `#{footprint}`
     
-    logger.info("==using %x [] ==")
-    logger.info %x[ #{footprint} ]
+    #out = IO.popen(["#{footprint}", "/", :err=>[:child, :out]]) {|ls_io| ls_result = ls_io.read}
+    
+   # f = IO.popen("#{footprint}")
+   # a = f.readlines
+   # a.each_with_index do |f,i|
+   #   logger.info "1. "
+   #   logger.info a[i]
+   # end
+   # f.close
+   # logger.info (out.inspect)
+    #out.each do |f|
+    #  logger.info("===1")
+    #end
+    
+    #logger.info("==using %x [] ==")
+    #logger.info %x[ #{footprint} ]
 
     #logger.info("==using %x [... 2>&1] ==")
     #logger.info %x[ #{footprint} 2>&1]
     
-    #logger.info ("=======output-======== #{output.inspect}")
+    #logger.info ("=======output======== #{output.inspect}")
 
     #logger.info (system 'echo "hello $LD_LIBRARY_PATH"' )
+    
     logger.info ($?)
     
     data = request_file.read
