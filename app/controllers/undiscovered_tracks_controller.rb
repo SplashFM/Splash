@@ -7,7 +7,6 @@ class UndiscoveredTracksController < ApplicationController
   skip_before_filter :require_user, :only => :download
   
   require 'tempfile'
-  require 'open-uri'
   
   def create
     local = params.slice(:local_data)
@@ -114,12 +113,12 @@ class UndiscoveredTracksController < ApplicationController
     #footprint = 'ls'
     #footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123 -A  > #{request_file.path}"
     
-    footprint = "#{dir}/postxml -i ~/response.xml -o ~/postxml_response.xml -s #{url}"
-    
-    
-    logger.info("=======footprint==========#{footprint.inspect}================")
-    logger.info("==using batticks==")
-    logger.info `#{footprint}`
+    #footprint = "#{dir}/postxml -i ~/response.xml -o ~/postxml_response.xml -s #{url}"
+    #Rake::Task['audiblemagic:postxml'].invoke
+    system "rake audiblemagic:postxml"
+    #logger.info("=======footprint==========#{footprint.inspect}================")
+    #logger.info("==using batticks==")
+    #logger.info `#{footprint}`
     
   
     
