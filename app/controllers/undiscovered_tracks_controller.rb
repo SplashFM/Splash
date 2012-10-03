@@ -7,18 +7,14 @@ class UndiscoveredTracksController < ApplicationController
   skip_before_filter :require_user, :only => :download
   
   require 'tempfile'
-  require 'rake'
-  load File.join("#{Rails.root}", 'lib', 'tasks', 'am.rake')
   
   def create
     local = params.slice(:local_data)
     uploadedSong = File.open local[:local_data].tempfile.path
-    logger.info("<======uploadedSong temp file======#{uploadedSong.inspect}===============>")
     status_copyright = is_copyright(uploadedSong)
     if status_copyright == true
       render :json => {:error =>'anauthorize'}, :status => :non_authoritative_information  
     elsif status_copyright == 'error'
-      logger.info ("=====error with api=========")
       render :json => {:error =>'error_api'}, :status => :unauthorized
     else
       track = current_user.uploaded_tracks.create(params.slice(:local_data))
@@ -107,35 +103,14 @@ class UndiscoveredTracksController < ApplicationController
     dir       = AppConfig.audiblemagic['libs']
     offset    = 0
     duration  = 55
-    logger.info("<======temp-track======#{track.inspect}===============>")
-   
-    logger.info "==========Dir=========#{Dir.pwd}"
-    puts = "<<----opi------->>"
-    
-    #footprint = 'ls'
-    #footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123 -A  > #{request_file.path}"
-    
-    #footprint = "#{dir}/postxml -i ~/response.xml -o ~/postxml_response.xml -s #{url}"
-    
-    Rake::Task['audiblemagic:postxml'].invoke
-    
-    #system "rake audiblemagic:postxml"
-    
-    #call_rake 'audiblemagic:postxml'
-    
-    #logger.info("=======footprint==========#{footprint.inspect}================")
-    #logger.info("==using batticks==")
-    #logger.info `#{footprint}`
-    
-  
-    
-    logger.info ($?)
-    
+       
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123 -A  > #{request_file.path}"  
+    logger.info ("=====#{footprint}")
+    `#{footprint}`
     data = request_file.read
-    logger.info("=======data-present?==========#{data.present?}================")
     if data.present?
       postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
-      system postxml
+      `#{postxml}`
       data_response = response_file.read
 
       delete_temp_files(request_file)
@@ -143,7 +118,6 @@ class UndiscoveredTracksController < ApplicationController
       
       response = Hash.from_xml data_response
 
-      logger.info("=======Response==========#{response.inspect}================")
       if get_status(response,'IdStatus') == '2005'
         false 
       elsif get_status(response,'IdStatus') == '2006'
@@ -153,7 +127,7 @@ class UndiscoveredTracksController < ApplicationController
       end   
     else
       logger.info "Some thing went wrong"
-      "error"
+      false
     end
   end
   
