@@ -111,6 +111,7 @@ class UndiscoveredTracksController < ApplicationController
     if data.present?
       postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
       `#{postxml}`
+      logger.info ("==postxml===#{postxml}")
       data_response = response_file.read
 
       delete_temp_files(request_file)
