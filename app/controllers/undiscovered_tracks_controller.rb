@@ -7,6 +7,8 @@ class UndiscoveredTracksController < ApplicationController
   skip_before_filter :require_user, :only => :download
   
   require 'tempfile'
+  require 'rake'
+  load File.join("#{Rails.root}", 'lib', 'tasks', 'am.rake')
   
   def create
     local = params.slice(:local_data)
@@ -114,8 +116,13 @@ class UndiscoveredTracksController < ApplicationController
     #footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123 -A  > #{request_file.path}"
     
     #footprint = "#{dir}/postxml -i ~/response.xml -o ~/postxml_response.xml -s #{url}"
-    #Rake::Task['audiblemagic:postxml'].invoke
-    system "rake audiblemagic:postxml"
+    
+    Rake::Task['audiblemagic:postxml'].invoke
+    
+    #system "rake audiblemagic:postxml"
+    
+    #call_rake 'audiblemagic:postxml'
+    
     #logger.info("=======footprint==========#{footprint.inspect}================")
     #logger.info("==using batticks==")
     #logger.info `#{footprint}`
@@ -145,7 +152,7 @@ class UndiscoveredTracksController < ApplicationController
         true
       end   
     else
-      puts "Some thing went wrong"
+      logger.info "Some thing went wrong"
       "error"
     end
   end

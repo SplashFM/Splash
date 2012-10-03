@@ -7,7 +7,8 @@ namespace :audiblemagic do
   desc "post xml to api"
   task :postxml do
     puts "======= here in rake task"
-    cmd = "/usr/local/lib/linux_64bit/postxml -i ~/response.xml -o ~/postxml_response.xml -s http://amtest.sikeq1.net/amidservice.asvc"  
+    #cmd = "/usr/local/lib/linux_64bit/postxml -i ~/response.xml -o ~/postxml_response.xml -s http://amtest.sikeq1.net/amidservice.asvc"  
+    cmd = "~/Documents/postxml -i ~/response.xml -o ~/postxml_response.xml -s http://amtest.sikeq1.net/amidservice.asvc"  
     `#{cmd}`
   end
 end
