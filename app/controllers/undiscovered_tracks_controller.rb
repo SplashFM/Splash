@@ -7,6 +7,7 @@ class UndiscoveredTracksController < ApplicationController
   skip_before_filter :require_user, :only => :download
   
   require 'tempfile'
+  require 'open3'
   
   def create
     local = params.slice(:local_data)
@@ -106,9 +107,11 @@ class UndiscoveredTracksController < ApplicationController
      
     #footprint = "/usr/local/lib/linux_32bit/media2xml -c #{client} -a #{app} -u 'admin' -i test.mp3 -e 0123 -g /data/splash/userGuid -A  > request.xml"    
     
-    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -g /data/splash/userGuid -A  > #{request_file.path}"  
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -A  > #{request_file.path}"  
     logger.info ("=====#{footprint}")
-    `#{footprint}`
+    stdin, stdout, stderr = Open3.popen3("#{footprint}")  
+    logger.info stderr.readlines
+    
     logger.info $?
     
     data = request_file.read
