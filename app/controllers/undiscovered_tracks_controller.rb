@@ -105,7 +105,6 @@ class UndiscoveredTracksController < ApplicationController
     offset    = 0
     duration  = 55
      
-    #footprint = "/usr/local/lib/linux_32bit/media2xml -c #{client} -a #{app} -u 'admin' -i test.mp3 -e 0123 -g /data/splash/userGuid -A  > request.xml"    
     export_path = "export LD_LIBRARY_PATH=.:#{dir}:$LD_LIBRARY_PATH"
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -A  > #{request_file.path}"  
     logger.info ("=====#{export_path} ; #{footprint}")
@@ -117,7 +116,9 @@ class UndiscoveredTracksController < ApplicationController
     data = request_file.read
     if data.present?
       postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
-      `#{postxml}`
+      stdin, stdout, stderr = Open3.popen3("#{postxml}")  
+      logger.info stderr.readlines
+
       logger.info ("==postxml===#{postxml}")
       data_response = response_file.read
 
@@ -125,14 +126,19 @@ class UndiscoveredTracksController < ApplicationController
       delete_temp_files(response_file)
       
       response = Hash.from_xml data_response
-
-      if get_status(response,'IdStatus') == '2005'
-        false 
-      elsif get_status(response,'IdStatus') == '2006'
-         get_status(response,'Action') == 'Allow' ? false : true
+      logger.info ("=>Response = #{response}")
+      if response.present?
+        if get_status(response,'IdStatus') == '2005'
+          false 
+        elsif get_status(response,'IdStatus') == '2006'
+           get_status(response,'Action') == 'Allow' ? false : true
+        else
+          true
+        end   
       else
-        true
-      end   
+        logger.info "No response from a-magic"
+        false
+      end
     else
       logger.info "Some thing went wrong"
       false
@@ -140,7 +146,12 @@ class UndiscoveredTracksController < ApplicationController
   end
   
   def get_status response_xml, tag      
-    response_xml["AMIdServerResponse"]["Details"]["IdResponseInfo"]["IdResponse"][tag]
+    begin
+      response_xml["AMIdServerResponse"]["Details"]["IdResponseInfo"]["IdResponse"][tag] 
+    rescue
+      logger.info "Xml reading error"
+      ""
+    end
   end
   
   def delete_temp_files (temp_file)
