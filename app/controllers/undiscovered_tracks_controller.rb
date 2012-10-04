@@ -116,7 +116,7 @@ class UndiscoveredTracksController < ApplicationController
     data = request_file.read
     if data.present?
       postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
-      stdin, stdout, stderr = Open3.popen3("#{postxml}")  
+      stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{postxml}")  
       logger.info stderr.readlines
 
       logger.info ("==postxml===#{postxml}")
