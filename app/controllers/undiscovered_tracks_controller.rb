@@ -103,10 +103,13 @@ class UndiscoveredTracksController < ApplicationController
     dir       = AppConfig.audiblemagic['libs']
     offset    = 0
     duration  = 55
-       
-    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123 -A  > #{request_file.path}"  
+     
+    footprint = "./media2xml -c #{client} -a #{app} -u 'admin' -i test.mp3 -e 0123 -A  > request.xml"    
+    #footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123 -A  > #{request_file.path}"  
     logger.info ("=====#{footprint}")
     `#{footprint}`
+    logger.info $?
+    
     data = request_file.read
     if data.present?
       postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
