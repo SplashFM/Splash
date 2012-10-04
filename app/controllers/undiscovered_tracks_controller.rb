@@ -104,8 +104,9 @@ class UndiscoveredTracksController < ApplicationController
     offset    = 0
     duration  = 55
      
-    footprint = "/usr/local/lib/linux_32bit/media2xml -c #{client} -a #{app} -u 'admin' -i test.mp3 -e 0123 -g /data/splash/userGuid -A  > request.xml"    
-    #footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123 -A  > #{request_file.path}"  
+    #footprint = "/usr/local/lib/linux_32bit/media2xml -c #{client} -a #{app} -u 'admin' -i test.mp3 -e 0123 -g /data/splash/userGuid -A  > request.xml"    
+    
+    footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -g /data/splash/userGuid -A  > #{request_file.path}"  
     logger.info ("=====#{footprint}")
     `#{footprint}`
     logger.info $?
