@@ -106,10 +106,10 @@ class UndiscoveredTracksController < ApplicationController
     duration  = 55
      
     #footprint = "/usr/local/lib/linux_32bit/media2xml -c #{client} -a #{app} -u 'admin' -i test.mp3 -e 0123 -g /data/splash/userGuid -A  > request.xml"    
-    
+    export_path = "export LD_LIBRARY_PATH=.:#{dir}:$LD_LIBRARY_PATH"
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -A  > #{request_file.path}"  
-    logger.info ("=====#{footprint}")
-    stdin, stdout, stderr = Open3.popen3("#{footprint}")  
+    logger.info ("=====#{export_path} ; #{footprint}")
+    stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{footprint}")  
     logger.info stderr.readlines
     
     logger.info $?
