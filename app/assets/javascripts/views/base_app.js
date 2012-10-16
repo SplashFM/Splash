@@ -389,8 +389,10 @@ window.UserMentions = Backbone.View.extend({
   },
 });
 
+
 UserMentions.linkMentions = function(text) {
-  return text.replace(Constants.NICKNAME_REGEXP, ' <a href="$1">$1</a>');
+  mentions = text.replace(Constants.NICKNAME_REGEXP, ' <a href="$1">$1</a>');
+  return mentions.replace(Constants.HASHTAG_REGEXP, ' <a class="hash-tag" href="#">$1</a>');
 };
 
 window.List = Backbone.View.extend({
