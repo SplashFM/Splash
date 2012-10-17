@@ -317,11 +317,13 @@ window.BaseApp.TrackSearch = Search.extend({
 ViewAllResults.addTo(BaseApp.TrackSearch)
 //ViewAllResults.addTo(BaseApp.UserSearch)
 
+
 window.UserMentions = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this, 'find', 'isSearchable', 'onClose', 'onSelect');
-
+    
     this.showingMenu = false;
+    this._char       = '@'; 
 
     $(this.el).autocomplete({
       appendTo:  this.options.parent,
@@ -340,8 +342,22 @@ window.UserMentions = Backbone.View.extend({
   atMention: function(input) {
     var cursor = $(input).getSelection().start;
     var text   = $(input).val();
+    
+    isMentionStart = text.substr(0, cursor).match(/@\w$/) != null
+    if (isMentionStart) this._char = '@';
+    
+    return isMentionStart;
+    
+  },
+  
+  atHashTag: function(input) {
+    var cursor = $(input).getSelection().start;
+    var text   = $(input).val();
 
-    return text.substr(0, cursor).match(/@\w$/) != null;
+    isHashStart = text.substr(0, cursor).match(/#\w$/) != null
+    if (isHashStart) this._char = '#';
+        
+    return isHashStart;
   },
 
   commentWithMentions: function() {
@@ -350,23 +366,34 @@ window.UserMentions = Backbone.View.extend({
 
   find: function(req, resp) {
     var term    = req.term;
-    var at      = term.lastIndexOf('@');
-    var mention = term.substr(at + 1);
-
-    $.ajax({
-      url: Routes.users_path({filter: mention, following: 1}),
-      dataType: 'json',
-      success: function(data) {
-        resp($.map(data, function(e) {
-          return {value: e.nickname};
-        }));
-      }
-    });
+    var at      = term.lastIndexOf(this._char);
+    var query   = term.substr(at + 1);
+    
+    if (this._char == '@')
+      $.ajax({
+        url: Routes.users_path({filter: query, following: 1}),
+        dataType: 'json',
+        success: function(data) {
+          resp($.map(data, function(e) {
+            return {value: e.nickname};
+          }));
+        }
+      });
+    else 
+      $.ajax({
+        url: Routes.tags_path({q: query}),
+        dataType: 'json',
+        success: function(data) {
+          resp($.map(data, function(e) {
+            return {value: e.value};
+          }));
+        }
+      });
   },
 
   isSearchable: function(e) {
     return (this.showingMenu ||
-            (this.showingMenu = this.atMention(e.target)));
+           (this.showingMenu = this.atMention(e.target) || this.atHashTag(e.target)));
   },
 
   onClose: function() {
@@ -377,10 +404,10 @@ window.UserMentions = Backbone.View.extend({
     var l      = ui.item.label;
     var v      = ui.item.value;
     var text   = $(e.target).val();
-    var before = text.substr(0, text.lastIndexOf('@'));
-    var after  = text.substr(text.lastIndexOf('@'));
+    var before = text.substr(0, text.lastIndexOf(this._char));
+    var after  = text.substr(text.lastIndexOf(this._char));
 
-    $(e.target).val(before + '@' + l);
+    $(e.target).val(before + this._char + l);
 
     $(e.target).setSelection(0, $(e.target).val().length);
     $(e.target).collapseSelection(false);
@@ -388,7 +415,6 @@ window.UserMentions = Backbone.View.extend({
     return false;
   },
 });
-
 
 UserMentions.linkMentions = function(text) {
   mentions = text.replace(Constants.NICKNAME_REGEXP, ' <a href="$1">$1</a>');
