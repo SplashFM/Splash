@@ -12,6 +12,8 @@ class Home extends Page
       }]
       active: content.label)
 
+    content.$top.find('.inner-nav').append (new Profile.HashTagView).render().el
+
   renderSidebar: (sidebar) ->
     super
 

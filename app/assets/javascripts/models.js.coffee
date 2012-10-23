@@ -31,6 +31,14 @@ class window.SuggestedSplasher extends Backbone.Model
 class window.SuggestedSplashers extends Backbone.Collection
   model: SuggestedSplasher
   url: '/suggested_splashers'
+  
+class window.HashTag extends Backbone.Model
+  urlRoot: '/tags'
+
+class window.HashTags extends Backbone.Collection
+  model: HashTag
+  url: '/tags'
+  
 
 class window.Comment extends Backbone.Model
   url: "/comments"
