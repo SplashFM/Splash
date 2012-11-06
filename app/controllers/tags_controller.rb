@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  MAX_TAGS = 7
+  MAX_TAGS = 5
   SUGGEST_TAGS = 5
   def index
     # TODO: optimize
