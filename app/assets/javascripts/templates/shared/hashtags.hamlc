@@ -2,4 +2,4 @@
   %ul.nav-list
     - for t in @tags
       %li
-        %a{:href =>"hashtag/#{t}/#{@sample}"} = t
+        %a{:href =>"hashtag/#{t}/#{@sample}"}= t
