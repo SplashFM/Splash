@@ -47,7 +47,7 @@ class Event < ActiveRecord::Base
           FROM splashes INNER JOIN comments ON comments.splash_id = splashes.id
           INNER JOIN taggings ON taggings.taggable_id = comments.id AND taggings.context = 'tags'
           AND taggings.taggable_type = 'Comment'
-          INNER JOIN tags ON tags.id = taggings.tag_id AND taggings.tag_id = tags.id AND tags.name LIKE '#{tags.downcase}' "
+          INNER JOIN tags ON tags.id = taggings.tag_id AND taggings.tag_id = tags.id AND LOWER(tags.name) = LOWER('#{tags.downcase}') "
            
         q << " WHERE splashes.user_id IN #{users} " if user_ids.present?
       else
