@@ -8,7 +8,8 @@ class Router extends Backbone.Router
     'top/tracks/:period/:sample': 'topTracks'
     'latest/:sample':             'latestSplashes'
     'home':                       'latestSplashes'
-
+    'hashtag/:name/:sample':      'hashtags'
+    
   latestSplashes: (sample = @builder.defaultSample()) ->
     @setPage new Home.LatestSplashes
       app:    @app
@@ -25,6 +26,12 @@ class Router extends Backbone.Router
       @app.setContent content
     else
       @app.setPage new Home(content: content, app: @app)
+
+  hashtags: (name, sample = @builder.defaultSample()) ->
+    @setPage new Home.LatestSplashes
+      app:    @app
+      sample: sample
+      hashtag: name
 
 class Router.Builder
   constructor: (user) ->

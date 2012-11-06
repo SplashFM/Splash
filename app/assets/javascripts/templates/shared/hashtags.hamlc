@@ -1,0 +1,5 @@
+.hashtags
+  %ul.nav-list
+    - for t in @tags
+      %li
+        %a{:href =>"hashtag/#{t}/#{@sample}"} = t

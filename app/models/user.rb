@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   include Redis::Objects
   include User::Stats
 
+  acts_as_tagger
+  
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable, :omniauthable,

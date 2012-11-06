@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
   include Notification::Target
-
+  acts_as_taggable_on :tags
+  
   NUMBER_OF_COMMENTS_TO_SHOW = 2
 
   belongs_to :author, :class_name => 'User'
@@ -37,6 +38,11 @@ class Comment < ActiveRecord::Base
   def mentioned_users
     User.nicknamed(*body.scan(/@(#{User::NICKNAME_REGEXP})/))
   end
+  
+  def hashtags
+    hashtag_list =  *body.scan(/#(#{User::NICKNAME_REGEXP})/)
+  end
+  
 
   private
 

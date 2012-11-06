@@ -6,6 +6,7 @@ class LatestSplashes extends Page.Content
 
     @app    = @options.app
     @sample = @options.sample
+    @hashtag = @options.hashtag
     # force follower and user to be sent so we can get a 401 if that's the case
     @feed   = Feed.eventFeed this,
       Feed.emptiable @sample,
@@ -13,6 +14,7 @@ class LatestSplashes extends Page.Content
           follower: if @sample == 'following' then @app.user.id or 0 else ''
           splashes: 1
           user:     if @sample == 'following' then @app.user.id or 0 else ''
+          tags :     @hashtag 
         refresh:
           follower: if @sample == 'following' then @app.user.id or 0 else ''
           splashes: 1

@@ -11,8 +11,7 @@ class Home extends Page
         label: 'home.top_splashes'
       }]
       active: content.label)
-
-    content.$top.find('.inner-nav').append (new Profile.HashTagView).render().el
+    content.$top.find('.inner-nav').append (new Profile.HashTagView(content.sample)).render().el
 
   renderSidebar: (sidebar) ->
     super

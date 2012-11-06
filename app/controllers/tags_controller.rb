@@ -1,18 +1,21 @@
 class TagsController < ApplicationController
-  MAX_TAGS = 5
+  MAX_TAGS = 7
+  SUGGEST_TAGS = 5
   def index
     # TODO: optimize
-    
-    tags =
+    hashes  = 
       if params[:q].present?
-        ActsAsTaggableOn::Tag.named_like(params[:q]).limit(MAX_TAGS)
+        ActsAsTaggableOn::Tag.named_like(params[:q]).limit(SUGGEST_TAGS)
+                                     .sort_by(&:name).map { |t|
+                                       {:value => t.name}
+                                     }
       else
-        Comment.tag_counts_on(:tags).limit(MAX_TAGS).order('count desc')
+        tags = Comment.tag_counts_on(:tags).limit(MAX_TAGS).order('count desc')
+                                     .map { |t|
+                                       {:value => t.name}
+                                     }
       end  
-    hashes  = tags.sort_by(&:name).map { |t|
-      {:value => t.name}
-    }.first(MAX_TAGS)
-    
+
     render :json => hashes
   end
   
