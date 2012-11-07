@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  MAX_TAGS = 6
+  MAX_TAGS = 5
   SUGGEST_TAGS = 5
   def index
     # TODO: optimize
@@ -15,7 +15,7 @@ class TagsController < ApplicationController
               WHERE (taggings.taggable_type = 'Comment' AND taggings.context = 'tags')
                 AND (taggings.taggable_id IN(SELECT comments.id FROM comments ))
               GROUP BY taggings.tag_id HAVING COUNT(taggings.tag_id) > 0) AS taggings ON taggings.tag_id = tags.id
-              ORDER BY count desc LIMIT #{MAX_TAGS}"
+              ORDER BY count desc LIMIT #{MAX_TAGS} "
         
           ActsAsTaggableOn::Tag.find_by_sql(q)     
       end  
