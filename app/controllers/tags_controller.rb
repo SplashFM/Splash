@@ -7,7 +7,7 @@ class TagsController < ApplicationController
       if params[:q].present?
         ActsAsTaggableOn::Tag.named_like(params[:q]).limit(SUGGEST_TAGS).sort_by(&:name)
       else
-        #Comment.tag_counts_on(:tags).limit(MAX_TAGS).order('count desc') # query returning duplicate tags aswell
+        #Comment.tag_counts_on(:tags).limit(MAX_TAGS).order('count desc') # query returning duplicate tags 
         #ToDo: Clean query -> use distinct/pluck through ActiveRecord  
         q = " SELECT DISTINCT tags.name, taggings.tags_count AS count
               FROM tags JOIN (SELECT taggings.tag_id, COUNT(taggings.tag_id) AS tags_count
