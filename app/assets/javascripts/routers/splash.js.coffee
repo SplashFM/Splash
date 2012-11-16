@@ -7,7 +7,6 @@ class Router extends Backbone.Router
 
   routes:
     'splashes/:id': 'splash'
-
   splash: (id) ->
     splash  = new Splash(id: id)
     splash.fetch().then =>

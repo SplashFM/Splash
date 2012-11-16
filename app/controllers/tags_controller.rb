@@ -30,6 +30,7 @@ class TagsController < ApplicationController
           FROM taggings INNER JOIN comments ON comments.id = taggings.taggable_id
           WHERE (taggings.taggable_type = 'Comment' AND taggings.context = 'tags')
             AND (taggings.taggable_id IN " 
+            
     q << (user_ids.blank? ? " (SELECT comments.id FROM comments) ) " : 
                             " (SELECT comments.id FROM comments WHERE comments.splash_id IN #{splash_ids}) ) " ) 
          

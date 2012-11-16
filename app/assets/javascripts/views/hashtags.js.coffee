@@ -8,13 +8,14 @@ class HashTagView extends Backbone.View
              follower: if @options.sample == 'following' then @user.id or 0 else ''
              user: if @sample == 'following' then @user.id or 0 else ''
 
-    @collection = new HashTags()
+    @collection = new HashTags
     @collection.fetch params
           
     @collection.bind 'reset', this.render, this
-    
+     
   render:  ->         
     @$el.html JST['shared/hashtags']({tags: @tags_name(), sample: @sample})
+    hashtagSearch = new HashtagSearch {el: this.$('input.hashtag_field'), parent: this.el }
     this
   
   tags_name: ->

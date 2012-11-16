@@ -379,7 +379,7 @@ window.UserMentions = Backbone.View.extend({
           }));
         }
       });
-    else 
+    else if(this._char == '#')
       $.ajax({
         url: Routes.tags_path({q: query}),
         dataType: 'json',
@@ -483,6 +483,67 @@ window.Toggle = Backbone.View.extend({
       this.trigger('toggle:hide');
     }
   },
+});
+
+window.HashtagSearch = Backbone.View.extend ({
+  initialize: function() {
+    _.bindAll(this, 'find', 'isSearchable', 'onClose', 'onSelect');
+    $el =  $(this.options.el);
+    $parent = $(this.options.parent);
+    
+     $el.autocomplete({
+      //appendTo:  $parent,
+      autoFocus: true,
+      close:     this.onClose,
+      delay:     0,
+      search:    this.isSearchable,
+      focus:     function() { return false },
+      select:    this.onSelect,
+      source:    this.find,
+    }).keydown(function(e) {
+      if (e.which === $.ui.keyCode.TAB) e.preventDefault();
+    
+    })
+  /*   .data( "autocomplete" )._renderItem = function( ul, item ) {
+        url = "hashtag/"+item.label +"/everyone";
+        return $( "<li>" )
+          .data( "item.autocomplete", item )
+          .append( "<a href =" + url +  ">" + item.label + "</a>" )
+          .appendTo( ul );
+      };
+  */
+  },
+  
+  isSearchable: function(e){
+    return true;
+  },
+
+  onClose: function(){
+    console.log('onClose: ');   
+  },
+  
+  find: function(req, resp){
+    console.log('find: '+req.term)
+    $.ajax({
+      url: Routes.tags_path({q: req.term}),
+      dataType: 'json',
+      success: function(data) {
+        resp($.map(data, function(e) {
+          return {
+            value: e.value
+          };
+        }));
+      }
+    });
+  },
+  
+  onSelect: function(e, ui) {
+    var tag = ui.item.label;
+    url = "hashtag/"+tag+"/everyone";
+    Backbone.history.navigate(url,true);
+
+  },
+  
 });
 
 window.SplashComment = Backbone.View.extend({

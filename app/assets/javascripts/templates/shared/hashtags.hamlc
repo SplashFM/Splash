@@ -1,4 +1,10 @@
 .hashtags
+  %form.hashtag-search.right{:action => "#", |
+                          :method => "post", |
+                          :data   => {:widget => 'hashtag-search'}}
+    %input.hashtag_field{:type => "text", :placeholder => 'search for hashtag'}/
+    %input.search{:type => "submit", :value => "Search"}/
+
   %ul.nav-list
     - for t in @tags
       %li
