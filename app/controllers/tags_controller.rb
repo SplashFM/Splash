@@ -1,6 +1,7 @@
 class TagsController < ApplicationController
-  MAX_TAGS = 5
+  MAX_TAGS = 6
   SUGGEST_TAGS = 5
+  HASH_SIZE = 25
   def index
     # TODO: optimize
     hashes  = 
@@ -9,10 +10,26 @@ class TagsController < ApplicationController
       else
         scope_by(params)
       end  
-    #puts "hashes : #{hashes}"
+    hashes = check_hashSize hashes
+
     render :json => hashes.map { |t| {:value => t.name} }
+
   end
-  
+
+
+
+ private
+  # TODO: Use Jscroll, if tags length is greater 
+  def check_hashSize tags
+    len = 0
+    tags.collect{|t| len=len+ t.name.size}
+    if len <= HASH_SIZE 
+     return tags
+    else
+      puts tags.pop
+      check_hashSize tags 
+    end 
+  end
   
   def scope_by (params)
     #Comment.tag_counts_on(:tags).limit(MAX_TAGS).order('count desc') # query returning duplicate tags 

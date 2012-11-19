@@ -4,8 +4,8 @@
                           :data   => {:widget => 'hashtag-search'}}
     %input.hashtag_field{:type => "text", :placeholder => 'search for hashtag'}/
     %input.search{:type => "submit", :value => "Search"}/
-
-  %ul.nav-list
-    - for t in @tags
-      %li
-        %a{:href =>"hashtag/#{t}/#{@sample}"}= "#" + t
+  #hashtag_list
+    %ul.nav-list
+      - for t in @tags
+        %li
+          %a{:href =>"hashtag/#{t}/#{@sample}"}= "#" + t
