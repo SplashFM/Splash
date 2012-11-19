@@ -26,7 +26,6 @@ class TagsController < ApplicationController
     if len <= HASH_SIZE 
      return tags
     else
-      puts tags.pop
       check_hashSize tags 
     end 
   end
