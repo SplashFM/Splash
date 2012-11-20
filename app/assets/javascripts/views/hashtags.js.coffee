@@ -18,6 +18,8 @@ class HashTagView extends Backbone.View
           
     @$el.html JST['shared/hashtags']({tags: @tags_name(), sample: @sample})
    
+   # @$el.html $.tmpl(@template, {tags: @tags_name(), sample: @sample})
+   
    # TODO: USE JSCROLL in better way,  
    # $('#hashtag_list').jScrollPane()
    # $('.jspVerticalBar').css({ 'display': 'none' })
@@ -33,3 +35,7 @@ class HashTagView extends Backbone.View
     @list  
 
 window.Profile.HashTagView = HashTagView
+
+#$ ->
+#  HashTagView::template = $('#tmpl-hashtag-list').template();
+

@@ -2,8 +2,10 @@ class Upload extends Backbone.View
   events:
     'click .toggle-upload': 'toggle',
     'upload:start':         'uploading',
-    'upload:error':         'uploaded',
-    'upload:complete':      'uploaded'
+    'upload:error'   :         'uploaded',
+    'upload:alreadySplashed' : 'uploaded'
+    'upload:unauthorized'    : 'uploaded'
+    'upload:complete'        : 'uploaded'
 
   initialize: ->
     @$input    = @$('input.field')
@@ -75,12 +77,12 @@ class Upload.Uploader extends Backbone.View
         @metadata.setModel new UndiscoveredTrack(data.result), 'splash'
         @$el.trigger('upload:splash')
       when 226 # :status => :im_used  
-        @$el.trigger('upload:error')
+        #@$el.trigger('upload:error')
         @$el.trigger('upload:alreadySplashed')  
       when 203
         @hide()
         @metadata.setError() 
-        @$el.trigger('upload:error')
+        #@$el.trigger('upload:error')
         @$el.trigger('upload:unauthorized')  
   
   hide: ->
@@ -179,6 +181,8 @@ class Upload.Metadata extends Backbone.View
 class Upload.Feedback extends Backbone.View
   events:
     'upload:error': 'onError'
+    'upload:alreadySplashed' : 'onError'
+    'upload:unauthorized'    : 'onError'
     'upload:start': 'onStart'
 
   initialize: ->
