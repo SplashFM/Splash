@@ -133,11 +133,11 @@ class Feed
     if @updates then @updates.remove()
 
   updateable: (filters) ->
-    @updates = new Feed.Updateable
-      collection: @collection
-      filters:    filters
+   # @updates = new Feed.Updateable
+   #   collection: @collection
+   #   filters:    filters
 
-    @updates.start()
+   # @updates.start()
 
 
 class Feed.EndlessScroll extends Backbone.View
