@@ -70,7 +70,8 @@ class Event < ActiveRecord::Base
      
       
       q << " ORDER BY created_at DESC"
-      q << " LIMIT #{PER_PAGE} OFFSET #{(page - 1) * PER_PAGE}"
+      q << " LIMIT #{PER_PAGE} "
+      #q << " OFFSET #{(page - 1) * PER_PAGE}" #<- Bug: last_splash_id already get next splashes
 
       if include_other || include_splashes || include_mentions
         events = Event.find_by_sql(q);
