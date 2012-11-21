@@ -3,8 +3,8 @@ class Upload extends Backbone.View
     'click .toggle-upload': 'toggle',
     'upload:start':         'uploading',
     'upload:error'   :         'uploaded',
-    'upload:alreadySplashed' : 'uploaded'
-    'upload:unauthorized'    : 'uploaded'
+    'upload:alreadySplashed' : 'uploaded',
+    'upload:unauthorized'    : 'uploaded',
     'upload:complete'        : 'uploaded'
 
   initialize: ->
@@ -212,7 +212,7 @@ class Upload.Feedback.Status extends Backbone.View
     'upload:metadata': 'onMetadataSave',
     'upload:splash':   'onSplash',
     'upload:start':    'onStart',
-    'upload:alreadySplashed': 'onAlreadySplashed'  ,
+    'upload:alreadySplashed': 'onAlreadySplashed',
     'upload:unauthorized': 'onCopyright'
 
   initialize: ->
