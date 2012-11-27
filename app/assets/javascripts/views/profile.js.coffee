@@ -32,6 +32,7 @@ class Profile extends Page
       active:  content.label)
 
     content.$top.find('.inner-nav-tabs li a').smartTruncation()
+    content.$top.find('.inner-nav').append (new Profile.HashTagView({user: @app.user, sample: 'profile'})).render().el
 
 
 class Profile.Content extends Page.Content
@@ -40,6 +41,7 @@ class Profile.Content extends Page.Content
 
     @section  = @options.section
     @user     = @options.user
+    @hashtag  = @options.hashtag || ''
     @mention  = '@' + @user.get('nickname')
     @label    = if @section == 'mentions' then @mention else 'profile.my_splashes'
 
@@ -51,13 +53,15 @@ class Profile.Content extends Page.Content
         mentions: if @section == 'mentions' then 1 else ''
         splashes: if @section == 'splashes' then 1 else ''
         user:     @user.id
-
+        tags:  @hashtag if @hashtag != ''
     @feed     = Feed.eventFeed this,
       filters:
         follower: if @section == 'mentions' then @user.id else ''
         mentions: if @section == 'mentions' then 1 else ''
         splashes: if @section == 'splashes' then 1 else ''
         user:     @user.id
+        tags:  @hashtag if @hashtag != ''
+
       refresh:    refresh
       update:     @app.user.isEqual(@user)
 

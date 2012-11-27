@@ -7,14 +7,16 @@ class Router extends Backbone.Router
   routes:
     'top/tracks/:period/:sample': 'topTracks'
     'latest/:sample':             'latestSplashes'
+    'latest/:sample/:hashtag':    'latestSplashes'
     'home':                       'latestSplashes'
     'hashtag/:name/:sample':      'hashtags'
     
-  latestSplashes: (sample = @builder.defaultSample()) ->
+  latestSplashes: (sample = @builder.defaultSample(), hashtag = '') ->
     @setPage new Home.LatestSplashes
       app:    @app
       sample: sample
-
+      hashtag: hashtag if hashtag != ''
+  
   topTracks: (period = '7d', sample = 'everyone') ->
     @setPage new Home.TopTracks
       app:    @app

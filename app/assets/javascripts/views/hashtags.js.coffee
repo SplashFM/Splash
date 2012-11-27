@@ -4,9 +4,10 @@ class HashTagView extends Backbone.View
   initialize: ->
     @user = @options.user
     @sample = @options.sample
+    @section = @options.section || ''
     params = data: 
              follower: if @options.sample == 'following' then @user.id or 0 else ''
-             user: if @sample == 'following' then @user.id or 0 else ''
+             user: if (@sample == 'following' or @sample == 'profile')  then @user.id or 0 else ''
 
     @collection = new HashTags
     @collection.fetch params
@@ -14,17 +15,16 @@ class HashTagView extends Backbone.View
     @collection.bind 'reset', this.render, this
      
   render:  -> 
-  #TODO: Use template in app/views to better load
-          
-    @$el.html JST['shared/hashtags']({tags: @tags_name(), sample: @sample})
-   
-   # @$el.html $.tmpl(@template, {tags: @tags_name(), sample: @sample})
-   
-   # TODO: USE JSCROLL in better way,  
-   # $('#hashtag_list').jScrollPane()
-   # $('.jspVerticalBar').css({ 'display': 'none' })
-    
-    hashtagSearch = new HashtagSearch {el: this.$('input.hashtag_field'), parent: this.el }
+    #TODO: Use template in app/views to better load
+    console.log(@sample + " :sample")
+    @$el.html JST['shared/hashtags']({tags: @tags_name(), sample: @sample, user: @user, section: @section })
+    # @$el.html $.tmpl(@template, {tags: @tags_name(), sample: @sample})
+
+    # TODO: USE JSCROLL in better way,  
+    # $('#hashtag_list').jScrollPane()
+    # $('.jspVerticalBar').css({ 'display': 'none' })
+
+    hashtagSearch = new HashtagSearch {el: this.$('input.hashtag_field'), parent: this.el, user: @user, sample: @sample }
 
     this
   

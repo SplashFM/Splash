@@ -8,4 +8,8 @@
     %ul.nav-list
       - for t in @tags
         %li
-          %a{:href =>"hashtag/#{t}/#{@sample}"}= "#" + t
+          - if @sample == 'profile'
+            %a{:href => "#{@user.get('nickname')}/splashes/#{t}"} = "#" + t
+          - else
+            %a{:href =>"latest/#{@sample}/#{t}"}= "#" + t
+

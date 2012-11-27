@@ -38,10 +38,11 @@ class TagsController < ApplicationController
     main_user_id     = params[:user]
     user_ids         = User.following_ids(params[:follower])
     user_ids << main_user_id unless main_user_id.blank?
+    if user_ids.present?
+      splash_ids = Splash.as_event.for_users(user_ids).map(&:target_id)
+      splash_ids = "(" << splash_ids * ',' << ")"
+    end
     
-    splash_ids = Splash.as_event.for_users(user_ids).map(&:target_id)
-    splash_ids = "(" << splash_ids * ',' << ")"
-
     q = " SELECT DISTINCT tags.name, taggings.tags_count AS count
           FROM tags JOIN (SELECT taggings.tag_id, COUNT(taggings.tag_id) AS tags_count
           FROM taggings INNER JOIN comments ON comments.id = taggings.taggable_id

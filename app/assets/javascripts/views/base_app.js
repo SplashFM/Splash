@@ -490,7 +490,8 @@ window.HashtagSearch = Backbone.View.extend ({
     _.bindAll(this, 'find', 'isSearchable', 'onClose', 'onSelect');
     $el =  $(this.options.el);
     $parent = $(this.options.parent);
-    
+    sample = this.options.sample
+    nickname = (this.options.user).get('nickname')
      $el.autocomplete({
       //appendTo:  $parent,
       autoFocus: true,
@@ -539,7 +540,11 @@ window.HashtagSearch = Backbone.View.extend ({
   
   onSelect: function(e, ui) {
     var tag = ui.item.label;
-    url = "hashtag/"+tag+"/everyone";
+    if (sample === 'profile')
+      url = nickname+'/splashes/'+tag;
+    else
+      url = '/latest/everyone/'+tag;
+
     Backbone.history.navigate(url,true);
 
   },
