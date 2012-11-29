@@ -9,7 +9,7 @@
       - for t in @tags
         %li
           - if @sample == 'profile'
-            %a{:href => "#{@user.get('nickname')}/splashes/#{t}"} = "#" + t
+            %a{:href => "#{@user.get('nickname')}/splashes/#{t}"}= "#" + t
           - else
             %a{:href =>"latest/#{@sample}/#{t}"}= "#" + t
 

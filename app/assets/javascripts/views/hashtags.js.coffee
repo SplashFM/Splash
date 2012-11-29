@@ -5,6 +5,7 @@ class HashTagView extends Backbone.View
     @user = @options.user
     @sample = @options.sample
     @section = @options.section || ''
+    @MAX_TAGS = 25
     params = data: 
              follower: if @options.sample == 'following' then @user.id or 0 else ''
              user: if (@sample == 'following' or @sample == 'profile')  then @user.id or 0 else ''
@@ -17,20 +18,24 @@ class HashTagView extends Backbone.View
   render:  -> 
     #TODO: Use template in app/views to better load
     # @$el.html $.tmpl(@template, {tags: @tags_name(), sample: @sample})
-
-    @$el.html JST['shared/hashtags']({tags: @tags_name(), sample: @sample, user: @user, section: @section })
-
-    $('#hashtag-ul').jcarousel();
+    tags = @tags_name()
+    @$el.html JST['shared/hashtags']({tags: tags.list, sample: @sample, user: @user, section: @section })
+    
+    if tags.size > @MAX_TAGS
+      $('#hashtag-ul').jcarousel();
     
     hashtagSearch = new HashtagSearch {el: this.$('input.hashtag_field'), parent: this.el, user: @user, sample: @sample }
     
     this
   
   tags_name: ->
+    @len = 0
     @list = []
     for t in @collection.models
-      @list.push t.toJSON().value.toUpperCase()
-    @list  
+      val = t.toJSON().value
+      @len = @len + val.length
+      @list.push val.toUpperCase()
+    {list: @list, size: @len}  
 
 window.Profile.HashTagView = HashTagView
 
