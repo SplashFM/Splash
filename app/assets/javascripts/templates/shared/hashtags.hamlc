@@ -5,7 +5,7 @@
     %input.hashtag_field{:type => "text", :placeholder => 'search for hashtag'}/
     %input.search{:type => "submit", :value => "Search"}/
   #hashtag_list
-    %ul.nav-list
+    %ul#hashtag-ul.nav-list.jcarousel-skin-tango
       - for t in @tags
         %li
           - if @sample == 'profile'

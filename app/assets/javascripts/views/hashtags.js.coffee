@@ -16,16 +16,14 @@ class HashTagView extends Backbone.View
      
   render:  -> 
     #TODO: Use template in app/views to better load
-    console.log(@sample + " :sample")
-    @$el.html JST['shared/hashtags']({tags: @tags_name(), sample: @sample, user: @user, section: @section })
     # @$el.html $.tmpl(@template, {tags: @tags_name(), sample: @sample})
 
-    # TODO: USE JSCROLL in better way,  
-    # $('#hashtag_list').jScrollPane()
-    # $('.jspVerticalBar').css({ 'display': 'none' })
+    @$el.html JST['shared/hashtags']({tags: @tags_name(), sample: @sample, user: @user, section: @section })
 
+    $('#hashtag-ul').jcarousel();
+    
     hashtagSearch = new HashtagSearch {el: this.$('input.hashtag_field'), parent: this.el, user: @user, sample: @sample }
-
+    
     this
   
   tags_name: ->

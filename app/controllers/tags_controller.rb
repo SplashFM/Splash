@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
-  MAX_TAGS = 6
+  MAX_TAGS = 15
   SUGGEST_TAGS = 5
-  HASH_SIZE = 25
+  HASH_SIZE = 100
   def index
     # TODO: optimize
     hashes  = 
@@ -10,7 +10,7 @@ class TagsController < ApplicationController
       else
         scope_by(params)
       end  
-    hashes = check_hashSize hashes
+    #hashes = check_hashSize hashes
 
     render :json => hashes.map { |t| {:value => t.name} }
 
