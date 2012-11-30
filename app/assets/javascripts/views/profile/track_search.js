@@ -172,7 +172,7 @@ window.TrackSearch.AllResults.Results = Backbone.View.extend({
 
 window.TrackSearch.AllResults.Result = Backbone.View.extend({
   events: {
-    'click': 'clicked',
+    'click [data-widget = "play"]': 'play'
   },
   tagName: 'li',
 
@@ -180,8 +180,11 @@ window.TrackSearch.AllResults.Result = Backbone.View.extend({
     if (! $(e.target).is('[data-widget = "toggle-splash"]')) this.play();
   },
 
-  play: function() {
-    $(this.el).trigger('play', {track: this.model.toJSON(), skip: true});
+  play: function(e) {
+   // $(this.el).trigger('play', {track: this.model.toJSON(), skip: true});
+      e.preventDefault();
+
+    $(this.el).trigger('play', {track: this.model.toJSON()});
   },
 
   render: function() {
