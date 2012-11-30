@@ -16,24 +16,15 @@ class HashTagView extends Backbone.View
     @collection.bind 'reset', this.render, this
      
   render:  -> 
-    #TODO: Use template in app/views to better load
-    # @$el.html $.tmpl(@template, {tags: @tags_name(), sample: @sample})
     tags = @tags_name()
     @$el.html JST['shared/hashtags']({tags: tags.list, sample: @sample, user: @user, section: @section })
     
     if tags.size > @MAX_LEN
-      $("#hashtag-ul").jcarousel
-        initCallback:  @hidePrevBtn
-        itemFirstOutCallback:
-          onAfterAnimation: @showPrevBtn
+      $("#hashtag-ul").jcarousel()
+      
     hashtagSearch = new HashtagSearch {el: this.$('input.hashtag_field'), parent: this.el, user: @user, sample: @sample }
     
     this
-  hidePrevBtn: ->
-    $(".jcarousel-prev-horizontal").hide()
-  
-  showPrevBtn: ->
-    $(".jcarousel-prev-horizontal").show()
       
   tags_name: ->
     @len = 0
@@ -45,7 +36,4 @@ class HashTagView extends Backbone.View
     {list: @list, size: @len}  
 
 window.Profile.HashTagView = HashTagView
-
-#$ ->
-#  HashTagView::template = $('#tmpl-hashtag-list').template();
 
