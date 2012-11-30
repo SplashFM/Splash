@@ -5,7 +5,7 @@ class HashTagView extends Backbone.View
     @user = @options.user
     @sample = @options.sample
     @section = @options.section || ''
-    @MAX_TAGS = 25
+    @MAX_LEN = 25
     params = data: 
              follower: if @options.sample == 'following' then @user.id or 0 else ''
              user: if (@sample == 'following' or @sample == 'profile')  then @user.id or 0 else ''
@@ -21,13 +21,20 @@ class HashTagView extends Backbone.View
     tags = @tags_name()
     @$el.html JST['shared/hashtags']({tags: tags.list, sample: @sample, user: @user, section: @section })
     
-    if tags.size > @MAX_TAGS
-      $('#hashtag-ul').jcarousel();
-    
+    if tags.size > @MAX_LEN
+      $("#hashtag-ul").jcarousel
+        initCallback:  @hidePrevBtn
+        itemFirstOutCallback:
+          onAfterAnimation: @showPrevBtn
     hashtagSearch = new HashtagSearch {el: this.$('input.hashtag_field'), parent: this.el, user: @user, sample: @sample }
     
     this
+  hidePrevBtn: ->
+    $(".jcarousel-prev-horizontal").hide()
   
+  showPrevBtn: ->
+    $(".jcarousel-prev-horizontal").show()
+      
   tags_name: ->
     @len = 0
     @list = []

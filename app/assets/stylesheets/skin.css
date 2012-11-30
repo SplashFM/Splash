@@ -185,3 +185,8 @@
     cursor: default;
     background-position: 0 -96px;
 }
+
+.jcarousel-prev-disabled, .jcarousel-next-disabled
+{
+    visibility:hidden;
+}
