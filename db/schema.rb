@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -15,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
   create_table "access_requests", :force => true do |t|
     t.string   "email"
     t.boolean  "granted"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "referral_code"
     t.string   "code"
     t.integer  "user_id"
@@ -35,24 +36,24 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
     t.string   "artwork_url"
     t.integer  "external_id"
     t.string   "source"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "artists", :force => true do |t|
     t.string   "name",        :limit => 1000
     t.integer  "external_id"
     t.string   "source"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "comments", :force => true do |t|
     t.integer  "author_id"
     t.integer  "splash_id"
     t.text     "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.boolean  "splash_comment"
   end
 
@@ -68,8 +69,8 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
     t.datetime "locked_at"
     t.datetime "failed_at"
     t.string   "locked_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
@@ -78,17 +79,17 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
     t.string   "name",        :limit => 1000
     t.integer  "external_id"
     t.string   "source"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   create_table "notifications", :force => true do |t|
     t.integer  "notified_id"
     t.string   "title"
     t.datetime "read_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "notifier_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "type"
     t.integer  "target_id"
     t.string   "target_type"
@@ -97,8 +98,8 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
     t.integer  "followed_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "relationships", ["followed_id"], :name => "index_relationships_on_followed_id"
@@ -111,8 +112,8 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
     t.string   "uid"
     t.string   "token"
     t.string   "token_secret"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "social_connections", ["uid"], :name => "index_social_connections_on_uid", :unique => true
@@ -121,8 +122,8 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
   create_table "splashes", :force => true do |t|
     t.integer  "track_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "parent_id"
     t.string   "splash_list"
     t.string   "user_list"
@@ -159,8 +160,8 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
 
   create_table "tracks", :force => true do |t|
     t.string   "title",                   :limit => 1000
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "data_file_name"
     t.string   "data_content_type"
     t.integer  "data_file_size"
@@ -186,7 +187,7 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => ""
+    t.string   "email",                                 :default => "",     :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "",     :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
@@ -199,8 +200,8 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
     t.boolean  "superuser",                             :default => false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
@@ -210,7 +211,6 @@ ActiveRecord::Schema.define(:version => 20120416150105) do
     t.string   "name"
     t.string   "initial_provider"
     t.string   "tagline",                :limit => 60
-    t.date     "birthday"
     t.text     "ignore_suggested_users"
     t.text     "suggested_users"
     t.string   "nickname"

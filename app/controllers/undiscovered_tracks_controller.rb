@@ -104,11 +104,11 @@ class UndiscoveredTracksController < ApplicationController
     dir       = AppConfig.audiblemagic['libs']
     offset    = 0
     duration  = 55
-     
+     puts "--------------------- Before export ---------------- "
     export_path = "export LD_LIBRARY_PATH=.:#{dir}:$LD_LIBRARY_PATH"
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -A  > #{request_file.path}"  
     stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{footprint}")  
-    
+         puts "--------------------- After export ---------------- "
     
     data = request_file.read
     if data.present?
