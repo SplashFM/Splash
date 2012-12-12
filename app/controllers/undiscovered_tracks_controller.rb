@@ -23,12 +23,12 @@ class UndiscoveredTracksController < ApplicationController
         canonical = track.replace_with_canonical
 
         if ! Splash.for?(current_user, canonical)
-render :json => {:error =>'error_api'}, :status => :unauthorized #          respond_with_canonical canonical
+          respond_with_canonical canonical
         else
-          render :json => {:error =>'error_api'}, :status => :unauthorized #head :im_used
+          head :im_used
         end
       else
-        render :json => {:error =>'error_api'}, :status => :unauthorized #respond_with track
+        respond_with track
       end
     end
   end
