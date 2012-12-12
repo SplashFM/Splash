@@ -61,13 +61,21 @@ class Upload.Uploader extends Backbone.View
       percent: parseInt(data.loaded / data.total * 100)
     })
 
-  onError: =>
+  onError: (_, data) =>
+    console.log("Failed -----------------")
+    console.log(data.jqXHR.status)
+    console.log(data.errorThrown)
+    console.log(data.textStatus)
     @$el.trigger 'upload:error'
 
   onStart: =>
     @$el.trigger 'upload:start'
 
   onUpload: (_, data) =>
+    console.log("Success -----------------")
+    console.log(data.jqXHR.status)
+    console.log(data.errorThrown)
+    console.log(data.textStatus)
     switch data.jqXHR.status
       when 201
         @metadata.setModel new UndiscoveredTrack(data.result), 'edit'

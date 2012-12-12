@@ -23,12 +23,12 @@ class UndiscoveredTracksController < ApplicationController
         canonical = track.replace_with_canonical
 
         if ! Splash.for?(current_user, canonical)
-          respond_with_canonical canonical
+render :json => {:error =>'error_api'}, :status => :unauthorized #          respond_with_canonical canonical
         else
-          head :im_used
+          render :json => {:error =>'error_api'}, :status => :unauthorized #head :im_used
         end
       else
-        respond_with track
+        render :json => {:error =>'error_api'}, :status => :unauthorized #respond_with track
       end
     end
   end
@@ -104,11 +104,11 @@ class UndiscoveredTracksController < ApplicationController
     dir       = AppConfig.audiblemagic['libs']
     offset    = 0
     duration  = 55
-     puts "--------------------- Before export ---------------- "
+
     export_path = "export LD_LIBRARY_PATH=.:#{dir}:$LD_LIBRARY_PATH"
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -A  > #{request_file.path}"  
     stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{footprint}")  
-         puts "--------------------- After export ---------------- "
+
     
     data = request_file.read
     if data.present?
