@@ -12,12 +12,12 @@ class UndiscoveredTracksController < ApplicationController
   def create
     local = params.slice(:local_data)
     uploadedSong = File.open local[:local_data].tempfile.path
-    status_copyright = is_copyright(uploadedSong)
-    if status_copyright == true
-      render :json => {:error =>'anauthorize'}, :status => :non_authoritative_information  
-    elsif status_copyright == 'error'
-      render :json => {:error =>'error_api'}, :status => :unauthorized
-    else
+   # status_copyright = is_copyright(uploadedSong)
+   # if status_copyright == true
+   #   render :json => {:error =>'anauthorize'}, :status => :non_authoritative_information  
+   # elsif status_copyright == 'error'
+   #   render :json => {:error =>'error_api'}, :status => :unauthorized
+   # else
       track = current_user.uploaded_tracks.create(params.slice(:local_data))
       if track.taken?
         canonical = track.replace_with_canonical
@@ -30,7 +30,7 @@ class UndiscoveredTracksController < ApplicationController
       else
         respond_with track
       end
-    end
+    #end
   end
 
   def destroy
