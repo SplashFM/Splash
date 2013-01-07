@@ -163,6 +163,7 @@
             // Callback for upload progress events:
             progress: function (e, data) {
                 if (data.context) {
+                		console.log("In Progress -----------------");
                     data.context.find('.ui-progressbar').progressbar(
                         'value',
                         parseInt(data.loaded / data.total * 100, 10)
@@ -171,6 +172,7 @@
             },
             // Callback for global upload progress events:
             progressall: function (e, data) {
+                console.log("In Progress all -----------------");
                 $(this).find('.fileupload-progressbar').progressbar(
                     'value',
                     parseInt(data.loaded / data.total * 100, 10)
@@ -178,6 +180,7 @@
             },
             // Callback for uploads start, equivalent to the global ajaxStart event:
             start: function () {
+            		console.log("In Start -----------------");
                 $(this).find('.fileupload-progressbar')
                     .progressbar('value', 0).fadeIn();
             },
