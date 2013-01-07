@@ -12,12 +12,12 @@ class UndiscoveredTracksController < ApplicationController
   def create
     local = params.slice(:local_data)
     uploadedSong = File.open local[:local_data].tempfile.path
-   # status_copyright = is_copyright(uploadedSong)
-   # if status_copyright == true
-   #   render :json => {:error =>'anauthorize'}, :status => :non_authoritative_information  
-   # elsif status_copyright == 'error'
-   #   render :json => {:error =>'error_api'}, :status => :unauthorized
-   # else
+    status_copyright = is_copyright(uploadedSong)
+    if status_copyright == true
+      render :json => {:error =>'anauthorize'}, :status => :non_authoritative_information  
+    elsif status_copyright == 'error'
+      render :json => {:error =>'error_api'}, :status => :unauthorized
+    else
       track = current_user.uploaded_tracks.create(params.slice(:local_data))
       if track.taken?
         canonical = track.replace_with_canonical
@@ -30,7 +30,7 @@ class UndiscoveredTracksController < ApplicationController
       else
         respond_with track
       end
-    #end
+    end
   end
 
   def destroy
@@ -108,12 +108,17 @@ class UndiscoveredTracksController < ApplicationController
     export_path = "export LD_LIBRARY_PATH=.:#{dir}:$LD_LIBRARY_PATH"
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -A  > #{request_file.path}"  
     stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{footprint}")  
-
+		stdin.close
+		stdout.close
+		stderr.close
     
     data = request_file.read
     if data.present?
       postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
       stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{postxml}")  
+      stdin.close
+			stdout.close
+			stderr.close
       data_response = response_file.read
 
       delete_temp_files(request_file)
