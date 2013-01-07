@@ -107,45 +107,35 @@ class UndiscoveredTracksController < ApplicationController
 
     export_path = "export LD_LIBRARY_PATH=.:#{dir}:$LD_LIBRARY_PATH"
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -A  > #{request_file.path}"  
-    #stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{footprint}")  
-		
-		Open3.popen3("#{export_path} ; #{footprint}")  {|stdin, stdout, wait_thr|
-			pid = wait_thr.pid # pid of the started process
-			
-    	data = request_file.read
-    	if data.present?
-      	postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
-      	#stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{postxml}")  
-      	Open3.popen3("#{export_path} ; #{postxml}")  {|stdin, stdout, wait_thr|
-      		pidd = wait_thr.pid # pid of the started process
-      	
-		    	data_response = response_file.read
+    stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{footprint}")  
 
-		    	delete_temp_files(request_file)
-		    	delete_temp_files(response_file)
-		    
-		    	response = Hash.from_xml data_response
-				  if response.present?
-				    if get_status(response,'IdStatus') == '2005'
-				      false 
-				    elsif get_status(response,'IdStatus') == '2006'
-				       get_status(response,'Action') == 'Allow' ? false : true
-				    else
-				      true
-				    end   
-				  else
-				    logger.info "No response from a-magic"
-				    false
-				  end
-				#  exit_statuss = wait_thr.value # Process::Status object returned.
-				}
-		  else
-		    logger.info "Some thing went wrong"
-		    false
-		  end
-		  
-		  #exit_status = wait_thr.value # Process::Status object returned.
-		}
+    
+    data = request_file.read
+    if data.present?
+      postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
+      stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{postxml}")  
+      data_response = response_file.read
+
+      delete_temp_files(request_file)
+      delete_temp_files(response_file)
+      
+      response = Hash.from_xml data_response
+      if response.present?
+        if get_status(response,'IdStatus') == '2005'
+          false 
+        elsif get_status(response,'IdStatus') == '2006'
+           get_status(response,'Action') == 'Allow' ? false : true
+        else
+          true
+        end   
+      else
+        logger.info "No response from a-magic"
+        false
+      end
+    else
+      logger.info "Some thing went wrong"
+      false
+    end
   end
   
   def get_status response_xml, tag      
