@@ -57,6 +57,8 @@ class Upload.Uploader extends Backbone.View
   tagName: 'div'
 
   onProgress: (_, data) =>
+  	console.log("In progress ... -----------------");
+  	console.log(data.loaded + "   " + data.total);
     @$el.trigger('upload:progress', {
       percent: parseInt(data.loaded / data.total * 100)
     })
@@ -69,6 +71,7 @@ class Upload.Uploader extends Backbone.View
     @$el.trigger 'upload:error'
 
   onStart: =>
+    console.log("In Start ... -----------------");
     @$el.trigger 'upload:start'
 
   onUpload: (_, data) =>
