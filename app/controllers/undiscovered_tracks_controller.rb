@@ -107,19 +107,30 @@ class UndiscoveredTracksController < ApplicationController
 
     export_path = "export LD_LIBRARY_PATH=.:#{dir}:$LD_LIBRARY_PATH"
     footprint = "#{dir}/media2xml -c #{client} -a #{app} -u 'admin' -i #{track.path} -e 0123  -A  > #{request_file.path}"  
-    stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{footprint}")  
-
+    puts "============================"
+    puts export_path
+    puts footprint
+  #  stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{footprint}")  
+		`#{export_path} ; #{footprint}`
     
     data = request_file.read
+    puts "000000000000000000000000000"
+    puts data
     if data.present?
       postxml = "#{dir}/postxml -i #{request_file.path} -o #{response_file.path} -s #{url}"
-      stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{postxml}")  
+      puts "+++++++++++++++++++++++++++++"
+      puts postxml
+      #stdin, stdout, stderr = Open3.popen3("#{export_path} ; #{postxml}")  
+      `#{export_path} ; #{postxml}`
       data_response = response_file.read
 
       delete_temp_files(request_file)
       delete_temp_files(response_file)
       
       response = Hash.from_xml data_response
+      puts "Response .................."
+      puts response.to_json
+      puts get_status(response,'IdStatus')
       if response.present?
         if get_status(response,'IdStatus') == '2005'
           false 
